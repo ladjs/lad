@@ -1,0 +1,44 @@
+{
+    "name": "expressling"
+  , "description": "Expressling "
+  , "version": "0.0.1"
+  , "author": "Nick Baugh <niftylettuce@gmail.com>"
+  , "keywords": [
+        "expressling"
+      , "express"
+      , "html5"
+      , "boilerplate"
+      , "mongo"
+      , "mongodb"
+      , "mongoose"
+      , "orm"
+      , "jade"
+      , "stylus"
+      , "nib"
+    ]
+  , "dependencies": {
+        "express"          : ">= 2.4.6"
+      , "stylus"           : ">= 0.0.1"
+      , "nib"              : ">= 0.2.0"
+      , "jade"             : ">= 0.0.1"
+      , "colors"           : ">= 0.5.0"
+      , "mime"             : ">= 1.2.2"
+      , "mongoose"         : ">= 2.2.0"
+      , "express-csrf"     : ">= 0.3.3"
+      , "gzippo"           : ">= 0.0.4"
+      , "commander"        : ">= 0.1.0"
+      , "express-messages" : ">= 0.0.2"
+      , "underscore"       : ">= 1.1.7"
+      , "express-form"     : ">= 0.6.1"
+      , "mongoose-types"   : ">= 1.0.3"
+      , "bcrypt"           : ">= 0.4.0"
+      , "connect-mongo"    : ">= 0.1.5"
+    }
+  , "main": "./server.js"
+  , "bin": { "expressling": "./bin/expressling" }
+  , "engines": { "node": ">= 0.4.0" }
+  , "repository": {
+        "type": "git"
+      , "url": "git://github.com/niftylettuce/expressling.git"
+    }
+}

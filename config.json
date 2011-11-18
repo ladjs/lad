@@ -1,0 +1,26 @@
+{
+  "development": {
+    "port": 8080,
+    "db": {
+      "host": "localhost",
+      "database": "expressling_development",
+      "port": 27017
+    }
+  },
+  "staging": {
+    "port": 8081,
+    "db": {
+      "host": "localhost",
+      "database": "expressling_staging",
+      "port": 27017
+    }
+  },
+  "production": {
+    "port": 80,
+    "db": {
+      "host": "localhost",
+      "database": "expressling_production",
+      "port": 27017
+    }
+  }
+}

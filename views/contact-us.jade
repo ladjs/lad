@@ -1,0 +1,33 @@
+h1 Contact Us
+!= messages()
+- if ('undefined' === typeof form)
+  - var form = {}
+  - form.name = '' 
+  - form.address = '' 
+  - form.city_state_zip = ''
+  - form.email = ''
+  - form.daytime_phone = ''
+  - form.comments = ''
+p Complete the form below to contact us:
+form(action='/contact-us', method='POST')
+  input(type='hidden', name='csrf', value=csrf)
+  #name
+    label(for='name') Name
+    input(type='text', name='name', value=form.name, required, autofocus)
+  #address
+    label(for='address') Address
+    input(type='text', name='address', value=form.address)
+  #city-state-zip
+    label(for='city_state_zip') City, State, ZIP
+    input(type='text', name='city_state_zip', value=form.city_state_zip)
+  #email
+    label(for='email') Email
+    input(type='email', name='email', value=form.email, required)
+  #daytime-phone
+    label(for='daytime_phone') Daytime Phone #
+    input(type='tel', name='daytime_phone', value=form.daytime_phone, required)
+  #comments
+    label(for='comments') Comments
+    textarea(name='comments') #{form.comments}
+  #submit
+    input(type='submit', value='Submit')

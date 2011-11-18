@@ -1,0 +1,128 @@
+
+//- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+!!! 5
+//-  H5BP implementation inspired by <https://gist.github.com/888338/>.
+//if lt IE 7
+  <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
+//if IE 7
+  <html class="no-js lt-ie9 lt-ie8" lang="en">
+//if IE 8
+  <html class="no-js lt-ie9" lang="en">
+//[if gt IE 8]><!
+html(class='no-js', lang='en')
+  //<![endif]
+
+  //- Consider adding a manifest.appcache: h5bp.com/d/Offline
+  head
+    meta(charset='utf-8')
+    - if ('undefined' !== typeof title)
+      title #{title} - Expressling
+    - else
+      title Expressling
+    //- More info: h5bp.com/b/378
+    //- Meta Keywords
+    - if ('undefined' !== typeof keywords)
+      meta(name="keywords", content=keywords)
+    - else if ('undefined' !== typeof meta && 'undefined' !== typeof meta.keywords)
+      meta(name="keywords", content=meta.keywords)
+    - else
+      meta(name="keywords", content="")
+    //- Meta Description
+    - if ('undefined' !== typeof description)
+      meta(name="description", content=meta.description)
+    - else if ('undefined' !== typeof meta && 'undefined' !== typeof meta.description)
+      meta(name="description", content=meta.description)
+    - else
+      meta(name="description", content="")
+    meta(name="author", content="Expressling <http://expressling.com/>")
+    //- Mobile viewport optimized: j.mp/bplateviewport
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    //- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons
+    - var access = access(['Super Admin', 'Admin'])
+    - timestamp = new Date().getTime();
+    - if (cacheBusting)
+      link(rel='stylesheet', href='/stylesheets/style.css?v=#{timestamp}')
+    - else
+      link(rel='stylesheet', href='/stylesheets/style.css')
+    //- More ideas for your <head> here: h5bp.com/d/head-Tips
+    //-.
+      All JavaScript at the bottom, except this Modernizr build incl. Respond.js
+      Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects;
+      for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/
+    script(src='/js/libs/modernizr-2.0.6.min.js')
+  body
+    //- [express-messages](https://github.com/visionmedia/express-messages/)
+    #no-js
+      | Please
+      a(href='http://enable-javascript.com/', target="_blank") enable JavaScript
+      |  to view this website.
+    header
+      h1 Expressling
+    nav
+      ul
+        li: a(href='/') Home
+        - if (access)
+            li: a(href='/admin') Admin
+        - if (loggedIn)
+          li: a(href='/my-account') My Account
+          li: a(href='/logout') Logout
+        - else
+          li: a(href='/login') Login
+    != messages()
+    div(role='main')
+      != body
+    footer
+      p Built with <a href="http://expressling.com/">Expressling</a>.
+    //- JavaScript at the bottom for fast page loading
+    //- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js')
+    script.
+      window.jQuery || document.write('<script src="/js/libs/jquery-1.7.0.min.js"><\\/script>')
+    //- scripts concatenated and minified via build script
+    //-  **TODO:** we should use uglifyjs or something on script.js
+    //    to generate it dynamically on server start or a change in a *.js file
+    - if (cacheBusting)
+      script(defer, src='/js/plugins.js?v=#{timestamp}')
+      script(defer, src='/js/script.js?v=#{timestamp}')
+    - else
+      script(defer, src='/js/plugins.js')
+      script(defer, src='/js/script.js')
+
+    //-.
+      Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+      mathiasbynens.be/notes/async-analytics-snippet
+    script.
+      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+
+    //- IE7.js <http://code.google.com/p/ie7-js/>
+    //-  Download the script then remove "//- " from the following 8 lines:
+    //- //if lt IE 7
+    //-   script.
+    //-     $(function() {
+    //-       Modernizr.load([{
+    //-         load: '/js/libs/IE7.js',
+    //-         complete: function() { $("#ajax-loader").fadeOut(); }
+    //-       }]);
+    //-     });
+
+    //- (AND/OR...)
+
+    //- IE6 Update <http://ie6update.com/>
+    //-  Inform user to upgrade their browser, you can turn this off if wanted.
+    //if lt IE 8
+      script.
+        var IE6UPDATE_OPTIONS = { icons_path: "ie6update/images/" };
+        $(function() { Modernizr.load([{load:'/ie6update/ie6update.js'}]); });
+
+    //- (AND/OR...)
+
+    //- Prompt IE6 users to install Chrome Frame, remove this you support IE6...
+    //-  <http://chromium.org/developers/how-tos/chrome-frame-getting-started>
+    //-  If you want to use, then remove "//- " from the following 4 lines:
+    //- //if lt IE 7
+    //- script(defer, src='//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js')
+    //- script(defer).
+    //-   window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})

@@ -1,0 +1,23 @@
+h1 Pages
+a(href='/pages/new').button Create Page
+- if ('undefined' !== typeof pages)
+  #pages-index
+    h3.border Pages
+    .fields.border
+      .col.first Title
+      .col Handle
+      .col Keywords
+      .col Description
+      .col.last Actions
+    - each page in pages
+      .row.border
+        .col.first #{page.title}
+        .col #{page.handle}
+        .col #{page.meta.keywords}
+        .col #{page.meta.description}
+        .col.last
+          a(href='/pages/edit/#{page.handle}').button Edit
+          a(href='/page/#{page.handle}').button View
+          form(action='/pages/delete/#{page.handle}', method='POST').delete
+            input(type="hidden",name="csrf", value=csrf)
+            button(type='submit') Delete

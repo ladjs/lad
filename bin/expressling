@@ -1,0 +1,124 @@
+#!/usr/bin/env node
+
+// Create a new expressling project
+
+// Inspired by Rick Waldron and Michael Cetrulo's build script for H5BP
+// https://github.com/h5bp/html5-boilerplate/blob/master/build/createproject.sh
+
+// Based off of TJ Holowaychuk's Express script
+// https://github.com/visionmedia/express/blob/master/bin/express
+
+var exec = require('child_process').exec,
+    program = require('commander'),
+    fs = require('fs');
+
+program.parse(process.argv);
+
+var path = program.args.shift() || '.';
+
+/**
+ * Check if the given directory `path` is empty.
+ *
+ * @param {String} path
+ * @param {Function} fn
+ */
+
+function emptyDirectory(path, fn) {
+  fs.readdir(path, function(err, files){
+    if (err && 'ENOENT' !== err.code) throw err;
+    fn(!files || !files.length);
+  });
+}
+
+/**
+ * echo str > path.
+ *
+ * @param {String} path
+ * @param {String} str
+ */
+
+function write(path, str) {
+  fs.writeFile(path, str);
+  console.log('   \x1b[36mcreate\x1b[0m : ' + path);
+}
+
+/**
+ * Copy
+ * @param {String} src
+ * @param {String} dest
+ */
+
+function cp(src, dest) {
+  exec('cp -R ' + __dirname + '/../' + src + ' ' + dest, function(err) {
+    if(err) throw err;
+    console.log('   \x1b[36mcreate\x1b[0m : ' + dest);
+  });
+}
+
+/**
+ * Mkdir -p.
+ *
+ * @param {String} path
+ * @param {Function} fn
+ */
+
+function mkdir(path, fn) {
+  exec('mkdir -p ' + path, function(err){
+    if (err) throw err;
+    console.log('   \x1b[36mcreate\x1b[0m : ' + path);
+    fn && fn();
+  });
+}
+
+/**
+ * Exit with the given `str`.
+ *
+ * @param {String} str
+ */
+
+function abort(str) {
+  console.error(str);
+  process.exit(1);
+}
+
+/**
+ * Create application at the given directory `path`.
+ *
+ * @param {String} path
+ */
+function createApplicationAt(path) {
+  mkdir(path, function(){
+    mkdir(path);
+    cp('docs', path + '/docs');
+    cp('jshint', path + '/jshint');
+    cp('lib', path + '/lib');
+    cp('public', path + '/public');
+    cp('routes', path + '/routes');
+    cp('schemas', path + '/schemas');
+    cp('views', path + '/views');
+    cp('config.json', path + '/config.json');
+    cp('package.json', path + '/package.json');
+    cp('Readme.md', path + '/Readme.md');
+    cp('server.js', path + '/server.js');
+    cp('settings.js', path + '/settings.js');
+    cp('.gitignore', path + '/.gitignore');
+  });
+}
+
+// Generate application
+(function createApplication(path) {
+  emptyDirectory(path, function(empty){
+    if (empty) {
+      createApplicationAt(path);
+    } else {
+      program.confirm('destination is not empty, continue? ', function(ok){
+        if (ok) {
+          process.stdin.destroy();
+          createApplicationAt(path);
+        } else {
+          abort('aborting');
+        }
+      });
+    }
+  });
+})(path);

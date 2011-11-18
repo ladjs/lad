@@ -1,0 +1,36 @@
+h1 Register
+- if ('undefined' === typeof email)
+  - email = ""
+- if ('undefined' === typeof name)
+  - name = {}
+  - name.first = ""
+  - name.last = ""
+- else
+  - if ('undefined' === typeof name.first)
+    - name.first = ""
+  - if ('undefined' === typeof name.last)
+    - name.last = ""
+- if ('undefined' === typeof company)
+  - company = ""
+form(action='/register', method='POST')
+  input(type='hidden', name='csrf', value=csrf)
+  #email
+    label(for='email') Email
+    input(type='email', name='email', value=email, required='required', autofocus)
+  #password
+    label(for='password') Password
+    input(type='password', name='password', required='required')
+  #password_confirmation
+    label(for='password_confirmation') Confirm Password
+    input(type='password', name='password_confirmation', required='required')
+  #first-name
+    label(for='name.first') First Name
+    input(type='text', name='name[first]', value=name.first, required='required')
+  #last-name
+    label(for='name.last') Last Name
+    input(type='text', name='name[last]', value=name.last, required='required')
+  #company
+    label(for='company') Company
+    input(type='text', name='company', value=company, required='required')
+  #submit
+    input(type='submit', value='Register')
