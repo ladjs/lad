@@ -1,0 +1,25 @@
+{
+"name" : "gzippo",
+"version" : "0.0.5",
+"author" : "Tom Gallacher",
+"description" : "Gzip middleware for Connect using Compress for better performace.",
+"homepage" : "http://www.tomg.co/gzippo",
+"repository":
+  {
+		"type": "git",
+		"url": "git://github.com/tomgallacher/gzippo.git"
+  },
+"engines" : { "node" : "*" },
+"main" : "./index.js",
+"dependencies" :
+	{
+		"mime" : ">=1.2.2"
+	},
+"devDependencies":
+	{
+		"expresso": ">=0.8.1",
+		"should": ">=0.2.1",
+		"connect": ">=1.6.0",
+		"express": ">=2.4.3"
+	}
+}

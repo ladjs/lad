@@ -1,3 +1,32 @@
+# Upgrade notes for node 0.6+
+
+**The current version of `expressling` in npm is for 0.4.x, not 0.6+**
+
+`connect-mongo` and `gzippo` need to be manually copied over from `/tmp_npm` to
+`/node_modules`.  Until the npm owners push 0.6+ compatible versions of their
+packages, we have to manually remove them from `package.json` and install them.
+The reason why `gzippo` is not working is because `compress` is not compatible
+with 0.6+, and `compress` is a dependency of `gzippo`.  In `node` 0.6+ there is
+a zlib api which the author of `gzippo` is planning to use.
+
+See <https://github.com/tomgallacher/gzippo/issues/13/> for more info.
+
+If you are using 0.6+ you will need to follow these instructions:
+
+    git clone git://github.com/niftylettuce/expressling.git
+    cd expressling && mkdir node_modules
+    cp tmp_npm/connect-mongo node_modules/connect-mongo
+    cd connect-mongo && npm install -d && cd ../
+    cp tmp_npm/gzippo node_modules/gzippo
+    cd node_modules/gzippo/compress && npm install -d
+    node-waf configure && node-waf build
+    cd ../ && npm install -d
+    node server.js
+
+If you follow these steps, then ignore the quick start for now until `gzippo`
+and  `connect-mongo` get updated on npm by their owners.  Then we will publish
+an updated version of `expressling` to npm and you can be 0.6+ happy!
+
 
 # Expressling
 
@@ -67,7 +96,6 @@ Expressling was inspired by several [node.js](http://nodejs.org) projects.
 
 ## List of community TODO's
 
-* Implement block scripts with Jade using extends
 * Better implementation of password/salt authentication
  or **implement [mongoose-auth](https://github.com/bnoguchi/mongoose-auth)**
 * Forever and Upstart documentation

@@ -33,6 +33,7 @@
       , "mongoose-types"   : ">= 1.0.3"
       , "bcrypt"           : ">= 0.4.0"
       , "connect-mongo"    : ">= 0.1.5"
+      , "nodemailer"       : ">= 0.2.3"
     }
   , "main": "./server.js"
   , "bin": { "expressling": "./bin/expressling" }
