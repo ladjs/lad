@@ -70,7 +70,12 @@ html(class='no-js', lang='en')
           li: a(href='/login') Login
     != messages()
     div(role='main')
-      != body
+
+      //- Dynamically load the body content with support for { layout: false }
+      //-  (e.g. index's route and view this through use of extends/inheritance)
+      block body
+        !=body
+
     footer
       p Built with <a href="http://expressling.com/">Expressling</a>.
     //- JavaScript at the bottom for fast page loading
@@ -87,6 +92,10 @@ html(class='no-js', lang='en')
     - else
       script(defer, src='/js/plugins.js')
       script(defer, src='/js/script.js')
+
+    //- Dynamically load your scripts here
+    //-  (e.g. index's route and view this through use of extends/inheritance)
+    block scripts
 
     //-.
       Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.

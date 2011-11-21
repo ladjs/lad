@@ -3,6 +3,7 @@
 
 module.exports = function(app, db) {
   app.get('/', function(req, res) {
-    res.render('index');
+    // Layout set to false since we use extends and block overrides in the view
+    res.render('index', { layout: false });
   });
 };
