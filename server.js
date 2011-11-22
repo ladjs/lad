@@ -31,7 +31,7 @@ var express = require('express')
     // * <http://wiki.commonjs.org/wiki/Packages/1.0>
     //
     // **TODO:** Upgrade to 0.6.x which supports using require('config.json')
-  , config = JSON.parse(fs.readFileSync(__dirname + '/config.json', 'utf8'))
+  , config = require('./config.json')
 
     // ## Settings
   , settings = require('./settings')
@@ -69,12 +69,12 @@ settings.bootErrorConfig(app);
 
 // # Start server
 app.listen(port);
-var appPort = app.address().port + '', // stringify that int!
-    appEnv = app.settings.env.toUpperCase();
+var appPort = port + '', // stringify that int!
+    appEnv = env.toUpperCase();
 
 // # Colorful status
-sys.puts(''
-  + 'EXPRESSLING SERVER LISTENING ON PORT '.rainbow
+console.log(''
+  + '  EXPRESSLING SERVER LISTENING ON PORT '.rainbow
   + " ".white.inverse
   + appPort.white.inverse
   + " ".white.inverse
