@@ -7,6 +7,8 @@ Thanks to @wavded (`connect-mongo`) and @tomgallacher (`gzippo`).
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 
+Chat with us in IRC on freenode #expressling.
+
 Expressling currently includes:
 
 - [HTML5 Boilerplate](http://h5bp.com/)
