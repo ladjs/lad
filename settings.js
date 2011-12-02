@@ -10,7 +10,6 @@ var express  = require('express')
   , fs       = require('fs')
   , colors   = require('colors')
   , mime     = require('mime')
-  , sys      = require('sys')
   , gzippo   = require('gzippo')
 
   // # Good and bad
@@ -26,8 +25,7 @@ var express  = require('express')
   //   accordingly to the [npm](http://npmjs.org) packages used.
   //   <http://wiki.commonjs.org/wiki/Packages/1.0>
   //
-  // **TODO:** Upgrade to 0.6.x which supports using require('config.json')
-  , config = JSON.parse(fs.readFileSync(__dirname + '/config.json', 'utf8'))
+  // , config = require('./config.json')
 
   // ## Mongo Session Store
   , MongoStore = require('connect-mongo')
@@ -72,7 +70,7 @@ var express  = require('express')
       if (css.set) {
         css.count++;
         var cssString = css.string();
-        sys.puts(cssString);
+        console.log(cssString);
       }
       return stylus(str)
         .set('filename', path)
@@ -249,40 +247,23 @@ exports.bootApplication = function(app, db) {
     },
     access: function (req, res) {
       return function(groupName) {
-        if(this.loggedIn) {
-          if(typeof groupName === "undefined") {
-            return false;
-          } else {
-            if(this.loggedIn && this.user !== "undefined") {
-              if(typeof this.user._group === "undefined") {
-                return false;
-              } else {
-                if(typeof this.user._group.name !== "undefined") {
-                  if(groupName instanceof Array) {
-                    var _ = require('underscore');
-                    if(_.indexOf(groupName, this.user._group.name) !== -1) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  } else {
-                    if((groupName === this.user.group_name) || (groupName === "Super Admin")) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  }
-                } else {
-                  return false;
-                }
-              }
-            } else {
-              return false;
+        console.log(groupName);
+        if(this.loggedIn
+          && typeof groupName !== "undefined"
+          && typeof this.user !== "undefined"
+          && typeof this.user._group !== "undefined"
+          && typeof this.user._group.name !== "undefined") {
+          if(groupName instanceof Array) {
+            var _ = require('underscore');
+            if(_.indexOf(groupName, this.user._group.name) !== -1) {
+              return true;
             }
+          } else if ((groupName === this.user._group.name)
+            || (groupName === "Super Admin")) {
+            return true;
           }
-        } else {
-          return false;
         }
+        return false;
       };
     },
     // Generate token using
@@ -332,9 +313,10 @@ exports.bootErrorConfig = function(app) {
 
 // ## Load Routes
 exports.bootRoutes = function(app, db) {
-  var dir = __dirname + '/routes';
+  var path = require('path');
+  var dir = path.join(__dirname, '/routes');
   fs.readdirSync(dir).forEach(function(file) {
-    var path = dir + '/' + file;
-    require(dir + '/' + file)(app, db);
+    var files = path.join(dir, file);
+    require(files)(app, db);
   });
 };

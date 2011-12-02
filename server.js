@@ -22,7 +22,6 @@ var express = require('express')
 
     // ## Common
   , fs  = require('fs')
-  , sys = require('sys')
 
     // ## Config
     // Based on your project's needs, you should configure `package.json`

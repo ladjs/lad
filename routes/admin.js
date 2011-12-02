@@ -1,12 +1,15 @@
 
 // # Admin
 
+/*
 var form     = require('express-form')
   , filter   = form.filter
   , field    = form.field
   , validate = form.validate
-  , _        = require('underscore')
-  , admins   = ['Super Admin', 'Admin'];
+  , _        = require('underscore');
+*/
+
+  var admins   = ['Super Admin', 'Admin'];
 
 module.exports = function(app, db) {
   // ## Check Access
