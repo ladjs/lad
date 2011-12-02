@@ -1,28 +1,9 @@
-# Upgrade notes for node 0.6+
-### (ignore this section and jump to [quick-start](#quick-start) if you're not using node 0.6+)
-
-**The current version of `expressling` in npm is for 0.4.x, not 0.6+**
-
-Per this [pull request](https://github.com/kcbanner/connect-mongo/pull/18)
-we are waiting on the author to push an updated package of `connect-mongo` to npm.
-
-Special thanks to @tomgallacher for getting `gzippo` working with node's new compress module!
-
-If you are using 0.6+ you will need to follow these instructions:
-
-    git clone git://github.com/niftylettuce/expressling.git
-    cd expressling
-    cp -r tmp_node_modules/ node_modules/
-    cd node_modules/connect-mongo && npm install -d
-    cd ../ && npm install -d
-    node server.js
-
-If you follow these steps, then ignore the quick start until `connect-mongo`
-gets updated on npm by their owners.  Then we will publish n updated version of
-`expressling` to npm and we will all be 0.6+ ready!
-
 
 # Expressling
+
+Expressling is now `node` v0.6.3+ compatible!
+
+Thanks to @wavded (`connect-mongo`) and @tomgallacher (`gzippo`).
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 
@@ -36,7 +17,7 @@ Expressling currently includes:
 
 ## Requirements
 
-  * [node](https://github.com/joyent/node)
+  * [node](https://github.com/joyent/node) **>= v0.6.3**
   * [npm](https://github.com/isaacs/npm)
 
 ## <a href="#quick-start" name="quick-start">Quick start</a>
