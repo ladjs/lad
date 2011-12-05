@@ -170,6 +170,7 @@ exports.bootApplication = function(app, db) {
     app.use(express.favicon(__dirname + '/public/favicon.ico'));
     app.use(logout);
     app.use(loggedIn);
+    app.use(app.router);
   });
 
   // ### Development Settings
