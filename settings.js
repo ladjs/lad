@@ -313,10 +313,46 @@ exports.bootErrorConfig = function(app) {
 
 // ## Load Routes
 exports.bootRoutes = function(app, db) {
-  var path = require('path');
-  var dir = path.join(__dirname, '/routes');
-  fs.readdirSync(dir).forEach(function(file) {
-    var files = path.join(dir, file);
-    require(files)(app, db);
+  var walk    = require('walk')
+    , path    = require('path')
+    , files   = []
+    , dir     = path.join(__dirname, 'routes')
+    , walker  = walk.walk(dir, { followLinks: false });
+
+  walker.on('file', function(root, stat, next) {
+    files.push(root + '/' + stat.name);
+    next();
+  });
+
+  walker.on('end', function() {
+    files.forEach(function(file) {
+      require(file)(app, db);
+    });
+    // Always keep this route last
+    exports.bootExtras(app);
+  });
+};
+
+// ## Extras
+exports.bootExtras = function(app) {
+  app.get('*', function(req, res, next) {
+    var url = req.url
+      , ua = req.headers['user-agent'];
+    // ## Block access to hidden files and directories that begin with a period
+    if (url.match(/(^|\/)\./)) {
+      res.end("Not allowed");
+    }
+    // ## Better website experience for IE users
+    //  Force the latest IE version, in cases when it may fall back to IE7 mode
+    if(ua && ua.indexOf('MSIE') && /htm?l/.test(ua)) {
+      res.setHeader('X-UA-Compatible', 'IE=Edge,chrome=1');
+    }
+    // ## CORS
+    //  <http://github.com/rails/rails/commit/123eb25#commitcomment-118920>
+    //  Use ChromeFrame if it's installed, for a better experience with IE folks
+    //  Control cross domain using CORS http://enable-cors.org
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
   });
 };

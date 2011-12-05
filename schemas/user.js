@@ -4,10 +4,6 @@
 var bcrypt = require('bcrypt')
   , authenticate;
 
-function toLower(v) {
-  return v.toLowerCase();c
-}
-
 module.exports = function(db) {
   var Email = db.SchemaTypes.Email
     , Group = require('../schemas/group')(db)
@@ -18,7 +14,7 @@ module.exports = function(db) {
           type: Email,
           unique: true,
           required: true,
-          set: toLower
+          lowercase: true
         },
         name: {
           first: {
@@ -57,7 +53,7 @@ module.exports = function(db) {
     var salt = this.salt = bcrypt.gen_salt_sync(10);
     this.hash = bcrypt.encrypt_sync(password, salt);
   });
-  
+
   User.pre('save', function(next) {
     this.updated = Date.now();
     next();
@@ -112,11 +108,11 @@ exports.register = function(params, callback) {
 };
 
 exports.groupCount = function(spec, cb) {
-  this.count(spec, function(err, count) { 
-    if (err) console.log(err); 
+  this.count(spec, function(err, count) {
+    if (err) console.log(err);
     n = count;
-    cb(err, n); 
-  }); 
+    cb(err, n);
+  });
 };
 
 exports.access = function(db) {

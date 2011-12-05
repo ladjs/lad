@@ -35,6 +35,7 @@
       , "nodemailer"       : ">= 0.2.3"
       , "gzippo"           : ">= 0.1.0"
       , "connect-mongo"    : "https://github.com/wavded/connect-mongo/tarball/master"
+      , "walk"             : ">= 2.0.2"
     }
   , "main": "./server.js"
   , "bin": { "expressling": "./bin/expressling" }
