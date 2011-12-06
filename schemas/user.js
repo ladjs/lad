@@ -110,7 +110,7 @@ exports.register = function(params, callback) {
 exports.groupCount = function(spec, cb) {
   this.count(spec, function(err, count) {
     if (err) console.log(err);
-    n = count;
+    var n = count;
     cb(err, n);
   });
 };
@@ -142,34 +142,24 @@ exports.access = function(db) {
                   return res.redirect('/');
                 }
                 if(user) {
-                  var groupPermissions = function() {
-                    req.flash('error', 'Your group does not have permissions for this request');
-                    res.redirect('/');
-                  }
-                  if(typeof user._group === "undefined") {
-                    groupPermissions();
-                  } else {
-                    if(typeof user._group.name !== "undefined") {
-                      if(groupName instanceof Array) {
-                        var _ = require('underscore');
-                        if(_.indexOf(groupName, user._group.name) !== -1) {
-                          next();
-                        } else {
-                          groupPermissions();
-                        }
-                      } else {
-                        if((groupName === user.group_name) || (groupName === "Super Admin")) {
-                          next();
-                        } else {
-                          groupPermissions();
-                        }
+                  if(typeof user._group !== 'undefined' && typeof user._group.name !== 'undefined') {
+                    if(groupName instanceof Array) {
+                      var _ = require('underscore');
+                      if(_.indexOf(groupName, user._group.name) !== -1) {
+                        next();
+                        return;
                       }
                     } else {
-                      groupPermissions();
+                      if((groupName === user._group.name) || (groupName === "Super Admin")) {
+                        next();
+                        return;
+                      }
                     }
                   }
+                  req.flash('error', 'Your group does not have permissions for this request');
+                  res.redirect('/');
                 } else {
-                  req.flash('error', 'Your account no longer exists');
+                  req.flash('error', 'Your account is not currently accessible');
                   res.redirect('/logout');
                 }
               });
