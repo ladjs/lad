@@ -29,10 +29,15 @@ Expressling currently includes:
       npm install -d
       node server.js
 
+The default super admins's credentials are:
+
+* **Email**: admin@expressling.com
+* **Password**: admin
+
 The default user's credentials are:
 
-* **Email**: hello@expressling.com
-* **Password**: expressling
+* **Email**: user@expressling.com
+* **Password**: user
 
 If you encounter errors please tweet [@expressling][1] and post an [issue][2].
 [1]: https://twitter.com/#!/niftylettuce

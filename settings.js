@@ -25,7 +25,7 @@ var express  = require('express')
   //   accordingly to the [npm](http://npmjs.org) packages used.
   //   <http://wiki.commonjs.org/wiki/Packages/1.0>
   //
-  // , config = require('./config.json')
+  // , config = require('./config')
 
   // ## Mongo Session Store
   , MongoStore = require('connect-mongo')
@@ -115,18 +115,19 @@ function loggedIn(req, res, next) {
   next();
 }
 
-// Create a "Super Admin" user/group if one does not already exist
+// Create a "super_admin" user and group if one does not already exist
 function createSuperAdmin(db) {
   var Group = require('./schemas/group')(db)
     , User = require('./schemas/user')(db)
     , superGroup = {
-        name: "Super Admin"
+        _id: "super_admin"
       }
     , superUser = {
-          email: "hello@expressling.com"
-        , name: { first: "Bro", last: "Grammer" }
-        , company: "Brogrammers"
-        , password: "expressling"
+          email: "admin@expressling.com"
+        , name: { first: "SuperAdmin", last: "McLovin" }
+        , company: "Brogrammers LLC."
+        , password: "admin"
+        , _group: superGroup._id
       };
   Group.count(superGroup, function(err, count) {
     if(err) console.log(err);
@@ -134,10 +135,40 @@ function createSuperAdmin(db) {
       Group.create(superGroup, function(err, group) {
         if(err) console.log(err);
         if(group) {
-          superUser._group = group._id;
           User.register(superUser, function(err, user) {
             if(err) console.log(bad + err);
-            if(user) console.log(good + "Super Admin user/group created");
+            if(user) console.log(good + "'super_admin' user/group created");
+          });
+        }
+      });
+    }
+  });
+}
+
+// Create a "user" user and group if one does not already exist
+function createUser(app, db) {
+  var Group = require('./schemas/group')(db)
+    , User = require('./schemas/user')(db)
+    , userGroup = {
+        _id: "user"
+      }
+    , defaultUser = {
+          email: "user@expressling.com"
+        , name: { first: "User", last: "McLovin" }
+        , company: "Users Rock Inc.'"
+        , password: "user"
+        , _group: userGroup._id
+      };
+  Group.count(userGroup, function(err, count) {
+    if(err) console.log(err);
+    if(count === 0) {
+      Group.create(userGroup, function(err, group) {
+        if(err) console.log(err);
+        if(group) {
+          User.register(defaultUser, function(err, user) {
+            if(err) console.log(bad + err);
+            if(user) console.log(good + "'user' user/group created");
+            return group;
           });
         }
       });
@@ -149,11 +180,14 @@ function createSuperAdmin(db) {
 exports.bootApplication = function(app, db) {
 
   // ### Create Super Admin
-  // **TODO**: Move this elsewhere so it doesn't run every time...
   createSuperAdmin(db);
+
+  // Create User Group
+  createUser(app, db);
 
   // ### Default Settings
   app.configure(function() {
+    // Views
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.bodyParser());
@@ -167,9 +201,12 @@ exports.bootApplication = function(app, db) {
     }));
     // Check for csrf using express-csrf module
     app.use(csrf.check());
+    // Favicon
     app.use(express.favicon(__dirname + '/public/favicon.ico'));
+    // Extra Route Middleware
     app.use(logout);
     app.use(loggedIn);
+    // Routing (keep this last)
     app.use(app.router);
   });
 
@@ -248,19 +285,16 @@ exports.bootApplication = function(app, db) {
     },
     access: function (req, res) {
       return function(groupName) {
-        console.log(groupName);
         if(this.loggedIn
           && typeof groupName !== "undefined"
           && typeof this.user !== "undefined"
-          && typeof this.user._group !== "undefined"
-          && typeof this.user._group.name !== "undefined") {
+          && typeof this.user._group !== "undefined") {
           if(groupName instanceof Array) {
             var _ = require('underscore');
-            if(_.indexOf(groupName, this.user._group.name) !== -1) {
+            if(_.indexOf(groupName, this.user._group._id) !== -1) {
               return true;
             }
-          } else if ((groupName === this.user._group.name)
-            || (groupName === "Super Admin")) {
+          } else if ((groupName === this.user._group._id) || (groupName === "super_admin")) {
             return true;
           }
         }
@@ -339,16 +373,16 @@ exports.bootExtras = function(app) {
   app.get('*', function(req, res, next) {
     var url = req.url
       , ua = req.headers['user-agent'];
-    // ## Block access to hidden files and directories that begin with a period
+    // ### Block access to hidden files and directories that begin with a period
     if (url.match(/(^|\/)\./)) {
       res.end("Not allowed");
     }
-    // ## Better website experience for IE users
+    // ### Better website experience for IE users
     //  Force the latest IE version, in cases when it may fall back to IE7 mode
     if(ua && ua.indexOf('MSIE') && /htm?l/.test(ua)) {
       res.setHeader('X-UA-Compatible', 'IE=Edge,chrome=1');
     }
-    // ## CORS
+    // ### CORS
     //  <http://github.com/rails/rails/commit/123eb25#commitcomment-118920>
     //  Use ChromeFrame if it's installed, for a better experience with IE folks
     //  Control cross domain using CORS http://enable-cors.org

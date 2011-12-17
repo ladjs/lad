@@ -28,7 +28,9 @@ module.exports = function(db) {
         },
         company: String,
         _group: {
-          type: db.Schema.ObjectId,
+          default: "user",
+          required: true,
+          type: String,
           ref: 'Group'
         },
         created: {
@@ -142,15 +144,15 @@ exports.access = function(db) {
                   return res.redirect('/');
                 }
                 if(user) {
-                  if(typeof user._group !== 'undefined' && typeof user._group.name !== 'undefined') {
+                  if(typeof user._group !== 'undefined' && typeof user._group.id !== 'undefined') {
                     if(groupName instanceof Array) {
                       var _ = require('underscore');
-                      if(_.indexOf(groupName, user._group.name) !== -1) {
+                      if(_.indexOf(groupName, user._group.id) !== -1) {
                         next();
                         return;
                       }
                     } else {
-                      if((groupName === user._group.name) || (groupName === "Super Admin")) {
+                      if((groupName === user._group.id) || (groupName === "super_admin")) {
                         next();
                         return;
                       }

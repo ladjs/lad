@@ -6,7 +6,7 @@ var form     = require('express-form')
   , field    = form.field
   , validate = form.validate
   , _        = require('underscore')
-  , admins = ['Super Admin', 'Admin'];
+  , admins = ['super_admin', 'admin'];
 
 // Check for handle param
 function checkHandle(req, res, next) {
@@ -91,33 +91,27 @@ module.exports = function(app, db) {
         }
       }
     , show: function(req, res, next) {
-        // Check for id
-        if(!req.param('handle')) {
-          req.flash('error', 'Invalid page handle');
-          res.redirect('/');
-        } else {
-          // Load the specific page
-          Pages.findOne({ handle: req.param('handle') }, function(err, page) {
-            if (err) {
-              // err, null
-              // Redirect to index of pages
-              req.flash('error', 'No page found with that handle');
-              res.redirect('/');
-            } else if (page) {
-              // null, page
-              // Render view to show the page
-              res.render('pages/show', {
-                  title: page.title
-                , meta: page.meta
-                , page: page
-              });
-            } else {
-              // null, null
-              req.flash('error', 'An unknown error occured, try again');
-              res.redirect('/');
-            }
-          });
-        }
+        // Load the specific page
+        Pages.findOne({ handle: req.param('handle') }, function(err, page) {
+          if (err) {
+            // err, null
+            // Redirect to index of pages
+            req.flash('error', 'No page found with that handle');
+            res.redirect('/');
+          } else if (page) {
+            // null, page
+            // Render view to show the page
+            res.render('pages/show', {
+                title: page.title
+              , meta: page.meta
+              , page: page
+            });
+          } else {
+            // null, null
+            req.flash('error', 'An unknown error occured, try again');
+            res.redirect('/');
+          }
+        });
       }
     , edit: function(req, res, next) {
         // Load the specific page

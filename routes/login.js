@@ -41,6 +41,7 @@ module.exports = function(app, db) {
             .populate('_group')
             .run(function (err, user) {
               if(err) {
+                console.log(err);
                 req.flash('error', err);
                 return res.redirect('/');
               }
@@ -51,17 +52,20 @@ module.exports = function(app, db) {
                   delete req.session.redirectTo;
                   res.redirect(redirectTo);
                 } else {
+                  res.redirect('/');
+                  /*
                   if(typeof user._group === "undefined") {
-                    res.redirect('/my-account');
+                    res.redirect('/');
                   } else {
-                    if(typeof user._group.name !== "undefined"
-                      && ((user._group.name === "Super Admin")
-                      || (user._group.name === "Admin"))) {
+                    if(typeof user._group.id !== "undefined"
+                      && ((user._group.id === "super_admin")
+                      || (user._group.id === "admin"))) {
                       res.redirect('/admin');
                     } else {
                       res.redirect('/my-account');
                     }
                   }
+                  */
                 }
               } else {
                 req.flash('error', 'Your account no longer exists');

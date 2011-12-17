@@ -9,7 +9,7 @@ var form     = require('express-form')
   , _        = require('underscore');
 */
 
-  var admins   = ['Super Admin', 'Admin'];
+  var admins   = ['super_admin', 'admin'];
 
 module.exports = function(app, db) {
   // ## Check Access

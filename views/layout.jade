@@ -38,7 +38,7 @@ html(class='no-js', lang='en')
     //- Mobile viewport optimized: j.mp/bplateviewport
     meta(name='viewport', content='width=device-width,initial-scale=1')
     //- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons
-    - var access = access(['Super Admin', 'Admin'])
+    - var access = access(['super_admin', 'admin'])
     - timestamp = new Date().getTime();
     - if (cacheBusting)
       link(rel='stylesheet', href='/stylesheets/style.css?v=#{timestamp}')
