@@ -13,7 +13,7 @@ var form     = require('express-form')
 
 module.exports = function(app, db) {
   // ## Check Access
-  var access = require('../schemas/user')(db).access;
+  var access = require('../schemas/users')(db).access;
   // ## Routes
   var routes = {
     index: function(req, res, next) {

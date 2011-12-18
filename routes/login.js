@@ -8,7 +8,8 @@ var form     = require('express-form')
 
 module.exports = function(app, db) {
 
-  var access = require('../schemas/user')(db).access;
+  var Users = require('../schemas/users')(db)
+    , access = Users.access;
 
   app.get('/login', access(), function(req, res) {
     res.render('login', {
@@ -22,21 +23,20 @@ module.exports = function(app, db) {
     , filter("password").trim()
     , validate("password").required()
   ), function(req, res) {
-    var User = require('../schemas/user')(db);
     if(!req.form.isValid) {
       res.render('login', {
           title: "Login"
         , email: req.form.email
       });
     } else {
-      User.authenticate(req.form.email, req.form.password, function(err, user) {
+      Users.authenticate(req.form.email, req.form.password, function(err, user) {
         if(err) {
           req.flash('error', err);
           res.redirect('/login');
         }
         if(user) {
           req.session.auth = user;
-          User
+          Users
             .findById(req.session.auth._id)
             .populate('_group')
             .run(function (err, user) {

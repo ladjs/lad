@@ -21,12 +21,12 @@ function redirectToMyAccount(req, res) {
 
 module.exports = function(app, db) {
 
-  var access = require('../schemas/user')(db).access;
+  var access = require('../schemas/users')(db).access;
 
   // ## My Account
   app.get('/my-account', access(), function(req, res) {
-    var User = require('../schemas/user')(db);
-    User
+    var Users = require('../schemas/users')(db);
+    Users
       .findById(req.session.auth._id)
       .run(function (err, user) {
         if(err) {
@@ -78,8 +78,8 @@ module.exports = function(app, db) {
           delete req.form.password_confirmation;
         }
         // Save the user's changes and redirect to My Account
-        var User = require('../schemas/user')(db);
-        User.findById(req.session.auth._id, function(err, user) {
+        var Users = require('../schemas/users')(db);
+        Users.findById(req.session.auth._id, function(err, user) {
           if(err) {
             req.flash('error', 'An error occured, please try again');
             redirectToMyAccount(req, res);

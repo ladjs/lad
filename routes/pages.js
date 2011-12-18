@@ -20,7 +20,7 @@ function checkHandle(req, res, next) {
 
 module.exports = function(app, db) {
   // ## Check Access
-  var access = require('../schemas/user')(db).access;
+  var access = require('../schemas/users')(db).access;
   // ## Pages
   var Pages = require('../schemas/pages')(db);
   // ## Routes

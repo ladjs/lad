@@ -49,8 +49,8 @@ module.exports = function(app, db) {
         var newPassword = req.form.password;
         delete req.form.password;
         delete req.form.password_confirmation;
-        var User = require('../schemas/user')(db);
-        User.findOne(req.form, function(err, user) {
+        var Users = require('../schemas/users')(db);
+        Users.findOne(req.form, function(err, user) {
           if(user) {
             // TODO: we currently can't do this because mongoose doesn't support
             //  https://github.com/LearnBoost/mongoose/issues/519

@@ -30,8 +30,8 @@ module.exports = function(app, db) {
       } else {
         // Check if account exists and dispatch /account-recovery/:hash link
         //  This hash link will allow user to change their password
-        var User = require('../schemas/user')(db);
-        User.findOne(req.form, function(err, user) {
+        var Users = require('../schemas/users')(db);
+        Users.findOne(req.form, function(err, user) {
           if(err) {
             req.flash('error', 'An error occured, please try again');
             res.redirect('/forgot-password');

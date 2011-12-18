@@ -117,8 +117,8 @@ function loggedIn(req, res, next) {
 
 // Create a "super_admin" user and group if one does not already exist
 function createSuperAdmin(db) {
-  var Group = require('./schemas/group')(db)
-    , User = require('./schemas/user')(db)
+  var Groups = require('./schemas/groups')(db)
+    , Users = require('./schemas/users')(db)
     , superGroup = {
         _id: "super_admin"
       }
@@ -129,13 +129,13 @@ function createSuperAdmin(db) {
         , password: "admin"
         , _group: superGroup._id
       };
-  Group.count(superGroup, function(err, count) {
+  Groups.count(superGroup, function(err, count) {
     if(err) console.log(err);
     if(count === 0) {
-      Group.create(superGroup, function(err, group) {
+      Groups.create(superGroup, function(err, group) {
         if(err) console.log(err);
         if(group) {
-          User.register(superUser, function(err, user) {
+          Users.register(superUser, function(err, user) {
             if(err) console.log(bad + err);
             if(user) console.log(good + "'super_admin' user/group created");
           });
@@ -147,25 +147,25 @@ function createSuperAdmin(db) {
 
 // Create a "user" user and group if one does not already exist
 function createUser(app, db) {
-  var Group = require('./schemas/group')(db)
-    , User = require('./schemas/user')(db)
+  var Groups = require('./schemas/groups')(db)
+    , Users = require('./schemas/users')(db)
     , userGroup = {
         _id: "user"
       }
     , defaultUser = {
           email: "user@expressling.com"
         , name: { first: "User", last: "McLovin" }
-        , company: "Users Rock Inc.'"
+        , company: "Users Rock Inc."
         , password: "user"
         , _group: userGroup._id
       };
-  Group.count(userGroup, function(err, count) {
+  Groups.count(userGroup, function(err, count) {
     if(err) console.log(err);
     if(count === 0) {
-      Group.create(userGroup, function(err, group) {
+      Groups.create(userGroup, function(err, group) {
         if(err) console.log(err);
         if(group) {
-          User.register(defaultUser, function(err, user) {
+          Users.register(defaultUser, function(err, user) {
             if(err) console.log(bad + err);
             if(user) console.log(good + "'user' user/group created");
             return group;

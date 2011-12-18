@@ -54,9 +54,9 @@ module.exports = function(app, db) {
         redirectToRegistration(req, res);
       } else {
         // Register the user and redirect to login
-        var User = require('../schemas/user')(db);
+        var Users = require('../schemas/users')(db);
         delete req.form.password_confirmation;
-        User.register(req.form, function(err, user) {
+        Users.register(req.form, function(err, user) {
           if(err) {
             if(/duplicate key/.test(err)) {
               req.flash('error', 'An account is already registered for ' + req.form.email);
@@ -67,7 +67,7 @@ module.exports = function(app, db) {
             }
           }
           if(user) {
-            User.authenticate(req.form.email, req.form.password, function(err, user) {
+            Users.authenticate(req.form.email, req.form.password, function(err, user) {
               if(err) {
                 req.flash('error', err);
                 res.redirect('/login');
