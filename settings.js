@@ -187,7 +187,7 @@ exports.bootApplication = function(app, db) {
 
   // ### Default Settings
   app.configure(function() {
-    // Views
+    app.set('public', __dirname + '/public');
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.bodyParser());
@@ -277,9 +277,7 @@ exports.bootApplication = function(app, db) {
         return false;
       }
     },
-    cacheBusting: function() {
-      return cacheBusting;
-    },
+    cacheBuster: require('express-cachebuster'),
     user: function (req, res) {
       return req.session.auth;
     },

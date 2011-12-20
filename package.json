@@ -36,6 +36,7 @@
       , "gzippo"           : ">= 0.1.0"
       , "connect-mongo"    : ">= 0.1.5"
       , "walk"             : ">= 2.0.2"
+      , "express-cachebuster": ">= 0.0.2"
     }
   , "main": "./server.js"
   , "bin": { "expressling": "./bin/expressling" }

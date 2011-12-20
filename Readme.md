@@ -22,6 +22,11 @@ Expressling currently includes:
   * [node](https://github.com/joyent/node) **>= v0.6.3**
   * [npm](https://github.com/isaacs/npm)
 
+## Stay updated
+
+Before you run `expressling` from command-line, we suggest that you
+`npm update expressling` to ensure you are using the latest stable version.
+
 ## <a href="#quick-start" name="quick-start">Quick start</a>
 
       npm install -g expressling

@@ -39,11 +39,7 @@ html(class='no-js', lang='en')
     meta(name='viewport', content='width=device-width,initial-scale=1')
     //- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons
     - var access = access(['super_admin', 'admin'])
-    - timestamp = new Date().getTime();
-    - if (cacheBusting)
-      link(rel='stylesheet', href='/stylesheets/style.css?v=#{timestamp}')
-    - else
-      link(rel='stylesheet', href='/stylesheets/style.css')
+    != cacheBuster(['/stylesheets/style.css'])
     //- More ideas for your <head> here: h5bp.com/d/head-Tips
     //-.
       All JavaScript at the bottom, except this Modernizr build incl. Respond.js
@@ -83,16 +79,8 @@ html(class='no-js', lang='en')
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js')
     script.
       window.jQuery || document.write('<script src="/js/libs/jquery-1.7.0.min.js"><\\/script>')
-    //- scripts concatenated and minified via build script
-    //-  **TODO:** we should use uglifyjs or something on script.js
-    //    to generate it dynamically on server start or a change in a *.js file
-    - if (cacheBusting)
-      script(defer, src='/js/plugins.js?v=#{timestamp}')
-      script(defer, src='/js/script.js?v=#{timestamp}')
-    - else
-      script(defer, src='/js/plugins.js')
-      script(defer, src='/js/script.js')
-
+    //- scripts concatenated and minified via express-cachebuster and TODO: express-
+    //#{cacheBuster(['/js/plugins.js', '/js/script.js'])}
     //- Dynamically load your scripts here
     //-  (e.g. index's route and view this through use of extends/inheritance)
     block scripts
