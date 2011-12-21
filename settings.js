@@ -11,6 +11,10 @@ var express  = require('express')
   , colors   = require('colors')
   , mime     = require('mime')
   , gzippo   = require('gzippo')
+  , path     = require('path')
+
+  // Public Directory
+  , publicDir = path.join(__dirname, 'public')
 
   // # Good and bad
   // **TODO:** this should be added to Marak's `colors`
@@ -56,12 +60,6 @@ var express  = require('express')
           + ' ' + this.count + ' times so far' + '\n';
       }
     }
-
-  // ## Set cache busting for development purposes as a view middleware helper
-  // This gets turned off in production mode, see below
-  //
-  //  (e.g. `views/layout.jade` uses this for appending .css/.js w/?v=timestamp)
-  , cacheBusting = true
 
   // ## Stylus Compiler
   , compress = false // this is set to true in prod
@@ -187,7 +185,7 @@ exports.bootApplication = function(app, db) {
 
   // ### Default Settings
   app.configure(function() {
-    app.set('public', __dirname + '/public');
+    app.set('public', publicDir);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.bodyParser());
@@ -220,11 +218,11 @@ exports.bootApplication = function(app, db) {
   app.configure('development', function() {
     app.use(stylus.middleware({
       src: __dirname + '/views',
-      dest: __dirname + '/public',
+      dest: publicDir,
       debug: css.debug,
       compile: compiler
     }));
-    app.use(express.static(__dirname + '/public', { maxAge: cacheAge }));
+    app.use(express.static(publicDir, { maxAge: cacheAge }));
     app.set('showStackError', true);
     if(logs.set) app.use(express.logger(logs.string));
   });
@@ -238,17 +236,16 @@ exports.bootApplication = function(app, db) {
   // `$ NODE_ENV=production node server.js`
   // Then point your browser to <http://localhost/>.
   app.configure('production', function() {
-    cacheBusting = false;
     compress = true;
     linenos = false;
     app.use(stylus.middleware({
       src: __dirname + '/views',
-      dest: __dirname + '/public',
+      dest: publicDir,
       debug: css.debug,
       compile: compiler
     }));
     // Enable gzip compression is for production mode only
-    app.use(gzippo.staticGzip(__dirname + '/public', { maxAge: cacheAge }));
+    app.use(gzippo.staticGzip(publicDir, { maxAge: cacheAge }));
     // Disable stack error output
     app.set('showStackError', false);
     // Enable view caching
@@ -277,7 +274,6 @@ exports.bootApplication = function(app, db) {
         return false;
       }
     },
-    cacheBuster: require('express-cachebuster'),
     user: function (req, res) {
       return req.session.auth;
     },
