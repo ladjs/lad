@@ -1,9 +1,7 @@
 
 # Expressling
 
-Expressling is now `node` v0.6.3+ compatible!
-
-Thanks to @wavded (`connect-mongo`) and @tomgallacher (`gzippo`).
+Latest release: `v0.0.9` featuring `express-cachebuster`.
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 
@@ -11,6 +9,7 @@ Chat with us in IRC on freenode #expressling.
 
 Expressling currently includes:
 
+- [express-cachebuster](https://github.com/niftylettuce/express-cachebuster/) **NEW**
 - [HTML5 Boilerplate](http://h5bp.com/)
 - [MongoDB](http://www.mongodb.org/)
 - [Mongoose](http://mongoosejs.com/)
@@ -91,6 +90,10 @@ Expressling was inspired by several [node.js](http://nodejs.org) projects.
     - How-to for deploying with nodejitsu
     - How-to for using MongoHQ in production deployments
 * Integrate SSL support
+
+# Contributors
+
+Butu - <butu25@gmail.com> - [@butu5](https://github.com/butu5)
 
 # License
 

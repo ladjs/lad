@@ -39,7 +39,7 @@ html(class='no-js', lang='en')
     meta(name='viewport', content='width=device-width,initial-scale=1')
     //- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons
     - var access = access(['super_admin', 'admin'])
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    != cacheBuster('/stylesheets/style.css')
     //- More ideas for your <head> here: h5bp.com/d/head-Tips
     //-.
       All JavaScript at the bottom, except this Modernizr build incl. Respond.js

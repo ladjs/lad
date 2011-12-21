@@ -19,5 +19,5 @@ a(href='/pages/new').button Create Page
           a(href='/pages/edit/#{page.handle}').button Edit
           a(href='/page/#{page.handle}').button View
           form(action='/pages/delete/#{page.handle}', method='POST').delete
-            input(type="hidden",name="csrf", value=csrf)
+            input(type="hidden",name="_csrf", value=csrf)
             button(type='submit') Delete

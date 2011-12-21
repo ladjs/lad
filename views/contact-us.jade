@@ -2,15 +2,15 @@ h1 Contact Us
 != messages()
 - if ('undefined' === typeof form)
   - var form = {}
-  - form.name = '' 
-  - form.address = '' 
+  - form.name = ''
+  - form.address = ''
   - form.city_state_zip = ''
   - form.email = ''
   - form.daytime_phone = ''
   - form.comments = ''
 p Complete the form below to contact us:
 form(action='/contact-us', method='POST')
-  input(type='hidden', name='csrf', value=csrf)
+  input(type='hidden', name='_csrf', value=csrf)
   #name
     label(for='name') Name
     input(type='text', name='name', value=form.name, required, autofocus)

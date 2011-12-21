@@ -34,9 +34,6 @@ var express  = require('express')
   // ## Mongo Session Store
   , MongoStore = require('connect-mongo')
 
-  // ## Cross Site Request Forgery
-  , csrf     = require('express-csrf')
-
   // ## Stylesheets
   , stylus   = require('stylus')
   , nib      = require('nib')
@@ -197,8 +194,8 @@ exports.bootApplication = function(app, db) {
       , maxAge: cacheAge
       , store: new MongoStore(mongoStoreConnectionArgs(db))
     }));
-    // Check for csrf using express-csrf module
-    app.use(csrf.check());
+    // Check for csrf using Connect's csrf module
+    app.use(express.csrf());
     // Favicon
     app.use(express.favicon(__dirname + '/public/favicon.ico'));
     // Extra Route Middleware
@@ -274,6 +271,7 @@ exports.bootApplication = function(app, db) {
         return false;
       }
     },
+    cacheBuster: require('express-cachebuster'),
     user: function (req, res) {
       return req.session.auth;
     },
@@ -295,11 +293,12 @@ exports.bootApplication = function(app, db) {
         return false;
       };
     },
-    // Generate token using
-    //  [express-csrf](https://github.com/hanssonlarsson/express-csrf/)
+    // Generate token using Connect's csrf module
     //  and in your Jade view use the following:
-    //  `input(type="hidden",name="csrf", value=csrf)`
-    csrf: csrf.token
+    //  `input(type="hidden",name="_csrf", value=csrf)`
+    csrf: function(req, res) {
+      return req.session._csrf;
+    }
   });
 };
 

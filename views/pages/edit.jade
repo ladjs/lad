@@ -1,6 +1,6 @@
 h1 Edit Page
 form(action='/pages/update/#{form.handle}', method='POST')
-  input(type="hidden",name="csrf", value=csrf)
+  input(type="hidden",name="_csrf", value=csrf)
   #title
     label(for="title") Page Title
     input(type='text', name="title", value=form.title, required, autofocus)
