@@ -35,6 +35,8 @@ var express  = require('express')
   // ## Mongo Session Store
   , MongoStore = require('connect-mongo')
 
+  // **TODO:** Move these credentials to `./config.json`
+
   // ## Default Admin
   , superGroup = {
       _id: "super_admin"
@@ -182,7 +184,7 @@ exports.bootApplication = function(app, db) {
   // ### Create Super Admin
   createSuperAdmin(db);
 
-  // Create User Group
+  // ### Create User Group
   createUser(app, db);
 
   // ### Default Settings
