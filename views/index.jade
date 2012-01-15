@@ -5,4 +5,4 @@ block body
   p Welcome to Expressling!
 
 block scripts
-  script(src='/js/mylibs/index.js')
+  != cacheBuster('/js/mylibs/index.js')

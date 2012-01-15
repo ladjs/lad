@@ -1,3 +1,6 @@
-h1 Admin
-!= partial('admin/_menu')
-p Hello #{user.name.first}, please select a menu item to manage.
+extends ../layout
+
+block body
+  h1 Admin
+  != partial('admin/_menu')
+  p Hello #{user.name.first}, please select a menu item to manage.
