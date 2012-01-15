@@ -90,7 +90,6 @@ function createApplicationAt(path) {
   mkdir(path, function(){
     mkdir(path);
     cp('docs', path + '/docs');
-    cp('jshint', path + '/jshint');
     cp('lib', path + '/lib');
     cp('public', path + '/public');
     cp('routes', path + '/routes');
