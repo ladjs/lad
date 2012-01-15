@@ -35,6 +35,27 @@ var express  = require('express')
   // ## Mongo Session Store
   , MongoStore = require('connect-mongo')
 
+  // ## Default Admin
+  , superGroup = {
+      _id: "super_admin"
+    }
+  , superUser = {
+        email: "admin@expressling.com"
+      , name: { first: "SuperAdmin", last: "McLovin" }
+      , company: "Brogrammers LLC."
+      , password: "admin"
+      , _group: superGroup._id
+    }
+
+  // ## Default User
+  , defaultUser = {
+        email: "user@expressling.com"
+      , name: { first: "User", last: "McLovin" }
+      , company: "Users Rock Inc."
+      , password: "user"
+      , _group: userGroup._id
+    }
+
   // ## Stylesheets
   , stylus   = require('stylus')
   , nib      = require('nib')
@@ -114,17 +135,7 @@ function loggedIn(req, res, next) {
 // Create a "super_admin" user and group if one does not already exist
 function createSuperAdmin(db) {
   var Groups = db.model('Groups')
-    , Users = db.model('Users')
-    , superGroup = {
-        _id: "super_admin"
-      }
-    , superUser = {
-          email: "admin@expressling.com"
-        , name: { first: "SuperAdmin", last: "McLovin" }
-        , company: "Brogrammers LLC."
-        , password: "admin"
-        , _group: superGroup._id
-      };
+    , Users = db.model('Users');
   Groups.count(superGroup, function(err, count) {
     if(err) console.log(err);
     if(count === 0) {
@@ -147,13 +158,6 @@ function createUser(app, db) {
     , Users = db.model('Users')
     , userGroup = {
         _id: "user"
-      }
-    , defaultUser = {
-          email: "user@expressling.com"
-        , name: { first: "User", last: "McLovin" }
-        , company: "Users Rock Inc."
-        , password: "user"
-        , _group: userGroup._id
       };
   Groups.count(userGroup, function(err, count) {
     if(err) console.log(err);
