@@ -1,28 +1,37 @@
-h1 Create Page
-a(href='/pages').button Cancel
-!= messages()
-- if ('undefined' === typeof form)
-  - var form = {}
-  - form.title = ''
-  - form.handle = ''
-  - form.meta = { keywords: '', description: '' }
-  - form.content = ''
-form(action='/pages', method='POST')
-  input(type="hidden",name="_csrf", value=csrf)
-  #title
-    label(for="title") Page Title
-    input(type='text', name="title", value=form.title, required, autofocus)
-  #handle
-    label(for="handle") SEO Handle
-    input(type='text', name="handle", value=form.handle, required)
-  #keywords
-    label(for='meta.keywords') Meta Keywords
-    input(type='text', name='meta[keywords]', value=form.meta.keywords)
-  #description
-    label(for='meta.description') Meta Description
-    input(type='text', name='meta[description]', value=form.meta.description)
-  #content
-    label(for='content') Page Content
-    textarea(name='content') #{form.content}
-  #submit
-    input(type='submit') Submit
+extends ../layout
+
+block styles
+  != cacheBuster('/stylesheets/jquery.wysiwyg.css')
+
+block body
+  h1 Create Page
+  a(href='/pages').button Cancel
+  != messages()
+  - if ('undefined' === typeof form)
+    - var form = {}
+    - form.title = ''
+    - form.handle = ''
+    - form.meta = { keywords: '', description: '' }
+    - form.content = ''
+  form(action='/pages', method='POST')
+    input(type="hidden",name="_csrf", value=csrf)
+    #title
+      label(for="title") Page Title
+      input(type='text', name="title", value=form.title, required, autofocus)
+    #handle
+      label(for="handle") SEO Handle
+      input(type='text', name="handle", value=form.handle, required)
+    #keywords
+      label(for='meta.keywords') Meta Keywords
+      input(type='text', name='meta[keywords]', value=form.meta.keywords)
+    #description
+      label(for='meta.description') Meta Description
+      input(type='text', name='meta[description]', value=form.meta.description)
+    #content
+      label(for='content') Page Content
+      textarea(name='content')#wysiwyg #{form.content}
+    #submit
+      input(type='submit') Submit
+
+block scripts
+  != cacheBuster(['/js/libs/jquery.wysiwyg.js', '/js/mylibs/wysiwyg.js'])

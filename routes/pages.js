@@ -55,7 +55,7 @@ module.exports = function(app, db) {
       }
     , new: function(req, res, next) {
         // Render the view with form to create a new page
-        res.render('pages/new', { title: 'Create Page' });
+        res.render('pages/new', { title: 'Create Page', layout: false });
       }
     , create: function(req, res, next) {
         // Check that form is valid
@@ -63,6 +63,7 @@ module.exports = function(app, db) {
           res.render('pages/new', {
               title: 'Create Page'
             , form: req.form
+            , layout: false
           });
         } else {
           // Create the new page
@@ -77,6 +78,7 @@ module.exports = function(app, db) {
               res.render('pages/new', {
                   title: 'Create Page'
                 , form: req.form
+                , layout: false
               });
             } else if (page) {
               // null, page
@@ -126,6 +128,7 @@ module.exports = function(app, db) {
             res.render('pages/edit', {
                 title: 'Edit Page'
               , form: page
+              , layout: false
             });
           } else {
             // null, null
