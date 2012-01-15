@@ -50,6 +50,9 @@ var express  = require('express')
     }
 
   // ## Default User
+  , userGroup = {
+      _id: "user"
+    }
   , defaultUser = {
         email: "user@expressling.com"
       , name: { first: "User", last: "McLovin" }
@@ -157,10 +160,7 @@ function createSuperAdmin(db) {
 // Create a "user" user and group if one does not already exist
 function createUser(app, db) {
   var Groups = db.model('Groups')
-    , Users = db.model('Users')
-    , userGroup = {
-        _id: "user"
-      };
+    , Users = db.model('Users');
   Groups.count(userGroup, function(err, count) {
     if(err) console.log(err);
     if(count === 0) {
