@@ -54,7 +54,7 @@ module.exports = function(app, db) {
         redirectToRegistration(req, res);
       } else {
         // Register the user and redirect to login
-        var Users = require('../schemas/users')(db);
+        var Users = db.model('Users');
         delete req.form.password_confirmation;
         Users.register(req.form, function(err, user) {
           if(err) {

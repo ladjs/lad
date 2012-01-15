@@ -19,10 +19,10 @@ function checkHandle(req, res, next) {
 }
 
 module.exports = function(app, db) {
-  // ## Check Access
-  var access = require('../schemas/users')(db).access;
-  // ## Pages
-  var Pages = require('../schemas/pages')(db);
+  // ## Schemas
+  var Users = db.model('Users')
+    , Pages = db.model('Pages')
+    , access = Users.access;
   // ## Routes
   var routes = {
       index: function(req, res, next) {

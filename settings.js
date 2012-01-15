@@ -12,11 +12,12 @@ var express  = require('express')
   , mime     = require('mime')
   , gzippo   = require('gzippo')
   , path     = require('path')
+  , walk     = require('walk')
 
-  // Public Directory
+  // ## Public Directory
   , publicDir = path.join(__dirname, 'public')
 
-  // # Good and bad
+  // ## Good and bad
   // **TODO:** this should be added to Marak's `colors`
   //  (e.g. 'mystring'.bad -- which would prepend the red ✗)
   //
@@ -112,8 +113,8 @@ function loggedIn(req, res, next) {
 
 // Create a "super_admin" user and group if one does not already exist
 function createSuperAdmin(db) {
-  var Groups = require('./schemas/groups')(db)
-    , Users = require('./schemas/users')(db)
+  var Groups = db.model('Groups')
+    , Users = db.model('Users')
     , superGroup = {
         _id: "super_admin"
       }
@@ -142,8 +143,8 @@ function createSuperAdmin(db) {
 
 // Create a "user" user and group if one does not already exist
 function createUser(app, db) {
-  var Groups = require('./schemas/groups')(db)
-    , Users = require('./schemas/users')(db)
+  var Groups = db.model('Groups')
+    , Users = db.model('Users')
     , userGroup = {
         _id: "user"
       }
@@ -182,6 +183,7 @@ exports.bootApplication = function(app, db) {
 
   // ### Default Settings
   app.configure(function() {
+    app.set('root', __dirname);
     app.set('public', publicDir);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
@@ -197,7 +199,7 @@ exports.bootApplication = function(app, db) {
     // Check for csrf using Connect's csrf module
     app.use(express.csrf());
     // Favicon
-    app.use(express.favicon(__dirname + '/public/favicon.ico'));
+    app.use(express.favicon(path.join(publicDir, 'favicon.ico')));
     // Extra Route Middleware
     app.use(logout);
     app.use(loggedIn);
@@ -251,6 +253,9 @@ exports.bootApplication = function(app, db) {
 
   // ### Dynamic View Helpers
   app.dynamicHelpers({
+    env: function() {
+      return app.set('env');
+    },
     request: function(req) {
       return req;
     },
@@ -300,6 +305,8 @@ exports.bootApplication = function(app, db) {
       return req.session._csrf;
     }
   });
+  exports.bootRoutes(app, db);
+  exports.bootErrorConfig(app);
 };
 
 // ## Error Configuration
@@ -339,24 +346,31 @@ exports.bootErrorConfig = function(app) {
 
 };
 
-// ## Load Routes
-exports.bootRoutes = function(app, db) {
-  var walk    = require('walk')
-    , path    = require('path')
-    , files   = []
-    , dir     = path.join(__dirname, 'routes')
-    , walker  = walk.walk(dir, { followLinks: false });
-
+// ## Load Schemas
+exports.bootSchemas = function(app, db) {
+  var dir    = path.join(__dirname, 'schemas')
+    , walker = walk.walk(dir, { followLinks: false });
   walker.on('file', function(root, stat, next) {
-    files.push(root + '/' + stat.name);
+    // Allows us to have JSON files with default schema data in same folder
+    if(path.extname(stat.name) === '.js') {
+      require(path.join(root, stat.name))(db);
+    }
     next();
   });
-
   walker.on('end', function() {
-    files.forEach(function(file) {
-      require(file)(app, db);
-    });
-    // Always keep this route last
+    exports.bootApplication(app, db);
+  });
+};
+
+// ## Load Routes
+exports.bootRoutes = function(app, db) {
+  var dir     = path.join(__dirname, 'routes')
+    , walker  = walk.walk(dir, { followLinks: false });
+  walker.on('file', function(root, stat, next) {
+    require(path.join(root, stat.name))(app, db);
+    next();
+  });
+  walker.on('end', function() {
     exports.bootExtras(app);
   });
 };

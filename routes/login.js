@@ -8,7 +8,7 @@ var form     = require('express-form')
 
 module.exports = function(app, db) {
 
-  var Users = require('../schemas/users')(db)
+  var Users = db.model('Users')
     , access = Users.access;
 
   app.get('/login', access(), function(req, res) {

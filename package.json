@@ -1,7 +1,7 @@
 {
     "name": "expressling"
   , "description": "Expressling "
-  , "version": "0.0.9"
+  , "version": "0.1.0"
   , "author": "Nick Baugh <niftylettuce@gmail.com>"
   , "contributors": [
       { "name": "Butu", "email": "butu25@gmail.com" }
@@ -39,6 +39,7 @@
       , "connect-mongo"       : ">= 0.1.5"
       , "walk"                : ">= 2.0.2"
       , "express-cachebuster" : ">= 0.0.4"
+      , "growl"               : ">= 1.4.1"
     }
   , "main": "./server.js"
   , "bin": { "expressling": "./bin/expressling" }

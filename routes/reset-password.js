@@ -49,7 +49,7 @@ module.exports = function(app, db) {
         var newPassword = req.form.password;
         delete req.form.password;
         delete req.form.password_confirmation;
-        var Users = require('../schemas/users')(db);
+        var Users = db.model('Users');
         Users.findOne(req.form, function(err, user) {
           if(user) {
             // TODO: we currently can't do this because mongoose doesn't support

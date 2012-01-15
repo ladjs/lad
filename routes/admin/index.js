@@ -1,27 +1,30 @@
 
-// # Admin
+// # Admin - Index
 
-/*
 var form     = require('express-form')
   , filter   = form.filter
   , field    = form.field
   , validate = form.validate
-  , _        = require('underscore');
-*/
-
-  var admins   = ['super_admin', 'admin'];
+  , _        = require('underscore')
+  , admins   = ['super_admin', 'admin'];
 
 module.exports = function(app, db) {
-  // ## Check Access
-  var access = require('../schemas/users')(db).access;
+
+  // ## Schemas
+  var Users = db.model('Users')
+    , access = Users.access(admins);
+
   // ## Routes
   var routes = {
     index: function(req, res, next) {
       res.render('admin', {
-        title: 'Admin'
+          title: 'Admin'
+        , layout: false
       });
     }
   };
+
   // ## Index
-  app.get('/admin', access(admins), routes.index);
+  app.get('/admin', access, routes.index);
+
 };

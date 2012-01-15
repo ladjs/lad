@@ -6,7 +6,6 @@ var bcrypt = require('bcrypt')
 
 module.exports = function(db) {
   var Email = db.SchemaTypes.Email
-    , Groups = require('../schemas/groups')(db)
     , Users = new db.Schema({
         salt: String,
         hash: String,
@@ -134,7 +133,7 @@ exports.access = function(db) {
           if(typeof groupName === "undefined") {
             next();
           } else {
-            var Users = require('../schemas/users')(db);
+            var Users = db.model('Users');
             Users
               .findById(req.session.auth._id)
               .populate('_group')
@@ -144,7 +143,7 @@ exports.access = function(db) {
                   return res.redirect('/');
                 }
                 if(user) {
-                  if(typeof user._group !== 'undefined' && typeof user._group.id !== 'undefined') {
+                  if(typeof user._group !== 'undefined' && typeof user._group._id !== 'undefined') {
                     if(groupName instanceof Array) {
                       var _ = require('underscore');
                       if(_.indexOf(groupName, user._group.id) !== -1) {

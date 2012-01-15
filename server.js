@@ -61,9 +61,7 @@ var express = require('express')
 mongooseTypes.loadTypes(mongoose, 'email');
 
 // # Load settings
-settings.bootApplication(app, db);
-settings.bootRoutes(app, db);
-settings.bootErrorConfig(app);
+settings.bootSchemas(app, db);
 
 // # Start server
 app.listen(port);

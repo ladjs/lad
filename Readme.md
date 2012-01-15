@@ -1,7 +1,7 @@
 
 # Expressling
 
-Latest release: `v0.0.9` featuring `express-cachebuster`.
+Latest release: `v0.1.0`.
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 
@@ -9,12 +9,12 @@ Chat with us in IRC on freenode #expressling.
 
 Expressling currently includes:
 
-- [express-cachebuster](https://github.com/niftylettuce/express-cachebuster/) **NEW**
 - [HTML5 Boilerplate](http://h5bp.com/)
 - [MongoDB](http://www.mongodb.org/)
 - [Mongoose](http://mongoosejs.com/)
 - [Jade](http://jade-lang.com/)
 - [Stylus](http://learnboost.github.com/stylus/)
+- [express-cachebuster](https://github.com/niftylettuce/express-cachebuster/)
 
 ## Requirements
 
@@ -43,9 +43,22 @@ The default user's credentials are:
 * **Email**: user@expressling.com
 * **Password**: user
 
-If you encounter errors please tweet [@expressling][1] and post an [issue][2].
+
+## Configuration
+
+Expressling is made to be customized for your needs.
+
+Change dependencies in `package.json`, or your MongoDB credentials in `config.json`.
+
+Also, we have built-in pretty-logging for building our assets (e.g. Stylus) and logging HTTP requests.  You can turn these on or off via boolean values in `settings.js`.
+
+
+## Troubleshooting
+
+If you encounter errors please tweet [@niftylettuce][1] and post an [issue][2].
 [1]: https://twitter.com/#!/niftylettuce
 [2]: https://github.com/niftylettuce/expressling/issues/new
+
 
 ## About the project
 
@@ -72,7 +85,7 @@ If you clone this repo to contribute, you need to `chmod +x ./bin/expressling`.
 
 * Maintainer: [@niftylettuce](https://twitter.com/#!/niftylettuce)
 * Contributors:
-    - Your name could go here (and in `package.json`)!
+    - Butu [@butu5](https://github.com/butu5)
 * Twitter: [@expressling](https://twitter.com/#!/expressling)
 * Website: <http://expressling.com/>
 * Source: <https://github.com/niftylettuce/expressling/>
@@ -91,9 +104,6 @@ Expressling was inspired by several [node.js](http://nodejs.org) projects.
     - How-to for using MongoHQ in production deployments
 * Integrate SSL support
 
-# Contributors
-
-Butu - <butu25@gmail.com> - [@butu5](https://github.com/butu5)
 
 # License
 
