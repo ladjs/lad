@@ -92,6 +92,7 @@ function createApplicationAt(path) {
     cp('docs', path + '/docs');
     cp('lib', path + '/lib');
     cp('public', path + '/public');
+    exec('mv ' + path + '/public/stylesheets/.npmignore ' + path + '/public/stylesheets/.gitignore');
     cp('routes', path + '/routes');
     cp('schemas', path + '/schemas');
     cp('views', path + '/views');
