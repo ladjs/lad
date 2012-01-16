@@ -92,7 +92,6 @@ function createApplicationAt(path) {
     cp('docs', path + '/docs');
     cp('lib', path + '/lib');
     cp('public', path + '/public');
-    cp('public/stylesheets/.npmignore', path + '/public/stylesheets/.npmignore');
     cp('routes', path + '/routes');
     cp('schemas', path + '/schemas');
     cp('views', path + '/views');
@@ -101,7 +100,6 @@ function createApplicationAt(path) {
     cp('Readme.md', path + '/Readme.md');
     cp('server.js', path + '/server.js');
     cp('settings.js', path + '/settings.js');
-    cp('.npmignore', path + '/.gitignore');
   });
 }
 
