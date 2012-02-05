@@ -311,8 +311,8 @@ exports.bootApplication = function(app, db) {
       return req.session._csrf;
     }
   });
+  exports.bootExtras(app);
   exports.bootRoutes(app, db);
-  exports.bootErrorConfig(app);
 };
 
 // ## Error Configuration
@@ -377,7 +377,7 @@ exports.bootRoutes = function(app, db) {
     next();
   });
   walker.on('end', function() {
-    exports.bootExtras(app);
+    exports.bootErrorConfig(app);
   });
 };
 
@@ -392,7 +392,7 @@ exports.bootExtras = function(app) {
     }
     // ### Better website experience for IE users
     //  Force the latest IE version, in cases when it may fall back to IE7 mode
-    if(ua && ua.indexOf('MSIE') && /htm?l/.test(ua)) {
+    if(ua && ua.indexOf('MSIE') && /html?/.test(ua)) {
       res.setHeader('X-UA-Compatible', 'IE=Edge,chrome=1');
     }
     // ### CORS
@@ -401,6 +401,12 @@ exports.bootExtras = function(app) {
     //  Control cross domain using CORS http://enable-cors.org
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+    // ### Suppress or force the "www." at the beginning of URLs
+    if (/^www\./.test(url)) {
+      res.statusCode = 302;
+      res.setHeader('Location', url.replace(/^www\./, ''));
+      res.send();
+    }
     next();
   });
 };
