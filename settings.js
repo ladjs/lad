@@ -386,9 +386,10 @@ exports.bootExtras = function(app) {
   app.get('*', function(req, res, next) {
     var url = req.url
       , ua = req.headers['user-agent'];
+    console.log(req.route);
     // ### Block access to hidden files and directories that begin with a period
     if (url.match(/(^|\/)\./)) {
-      res.end("Not allowed");
+      return res.end("Not allowed");
     }
     // ### Better website experience for IE users
     //  Force the latest IE version, in cases when it may fall back to IE7 mode
@@ -405,7 +406,7 @@ exports.bootExtras = function(app) {
     if (/^www\./.test(url)) {
       res.statusCode = 302;
       res.setHeader('Location', url.replace(/^www\./, ''));
-      res.send();
+      return res.end();
     }
     next();
   });

@@ -52,12 +52,8 @@ module.exports = function(app, db) {
         var Users = db.model('Users');
         Users.findOne(req.form, function(err, user) {
           if(user) {
-            // TODO: we currently can't do this because mongoose doesn't support
-            //  https://github.com/LearnBoost/mongoose/issues/519
-            // delete user.random_string;
-            // user.markModified('random_string');
-            // Temporary fix is to set it as an empty string
-            user.random_string = '';
+            delete user.random_string;
+            user.markModified('random_string');
             user.password = newPassword;
             user.save(function(err, user) {
               if(user) {
