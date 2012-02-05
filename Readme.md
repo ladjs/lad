@@ -1,7 +1,7 @@
 
 # Expressling
 
-Latest release: `v0.1.0`, featuring better usage of db, views, and WYSIWYG editor.
+Latest release: `v0.1.1`, featuring major bug fix.
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 

@@ -1,7 +1,7 @@
 {
     "name": "expressling"
   , "description": "Expressling "
-  , "version": "0.1.0"
+  , "version": "0.1.1"
   , "author": "Nick Baugh <niftylettuce@gmail.com>"
   , "contributors": [
       { "name": "Butu", "email": "butu25@gmail.com" }
