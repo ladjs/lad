@@ -386,7 +386,6 @@ exports.bootExtras = function(app) {
   app.get('*', function(req, res, next) {
     var url = req.url
       , ua = req.headers['user-agent'];
-    console.log(req.route);
     // ### Block access to hidden files and directories that begin with a period
     if (url.match(/(^|\/)\./)) {
       return res.end("Not allowed");
