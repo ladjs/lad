@@ -5,6 +5,49 @@
       "host": "localhost",
       "database": "expressling_development",
       "port": 27017
+    },
+    "secret": "***** CHANGE ME - DEVELOPMENT SECRET *****",
+    "cache_age": 86400000,
+    "show_stack_error": true,
+    "logs": {
+      "set": true
+    },
+    "css": {
+      "count": 0,
+      "debug": false,
+      "set": true
+    },
+    "stylus": {
+      "compress": false,
+      "warn": false,
+      "force": false,
+      "linenos": true
+    },
+    "super_group": {
+      "_id": "super_admin"
+    },
+    "super_user": {
+      "email": "admin@expressling.com",
+      "name": {
+        "first": "Super",
+        "last": "Admin"
+      },
+      "company": "Expressling",
+      "password": "admin",
+      "_group": "super_admin"
+    },
+    "user_group": {
+      "_id": "user"
+    },
+    "default_user": {
+      "email": "user@expressling.com",
+      "name": {
+        "first": "Default",
+        "last": "User"
+      },
+      "company": "Expressling",
+      "password": "user",
+      "_group": "user"
     }
   },
   "staging": {
@@ -21,6 +64,49 @@
       "host": "localhost",
       "database": "expressling_production",
       "port": 27017
+    },
+    "secret": "***** CHANGE ME - PRODUCTION SECRET *****",
+    "cache_age": 86400000,
+    "show_stack_error": false,
+    "logs": {
+      "set": false
+    },
+    "css": {
+      "count": 0,
+      "debug": false,
+      "set": false
+    },
+    "stylus": {
+      "compress": true,
+      "warn": false,
+      "force": false,
+      "linenos": false
+    },
+    "super_group": {
+      "_id": "super_admin"
+    },
+    "super_user": {
+      "email": "admin@expressling.com",
+      "name": {
+        "first": "Super",
+        "last": "Admin"
+      },
+      "company": "Expressling",
+      "password": "admin",
+      "_group": "super_admin"
+    },
+    "user_group": {
+      "_id": "user"
+    },
+    "default_user": {
+      "email": "user@expressling.com",
+      "name": {
+        "first": "Default",
+        "last": "User"
+      },
+      "company": "Expressling",
+      "password": "user",
+      "_group": "user"
     }
   }
 }

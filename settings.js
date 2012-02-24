@@ -3,12 +3,10 @@
 
   // ## Express
 var express  = require('express')
-  , port     = 3000
-  , cacheAge = 24 * 60 * 60 * 1000
 
   // ## Common
-  , fs       = require('fs')
   , colors   = require('colors')
+  , fs       = require('fs')
   , mime     = require('mime')
   , gzippo   = require('gzippo')
   , path     = require('path')
@@ -17,93 +15,72 @@ var express  = require('express')
   // ## Public Directory
   , publicDir = path.join(__dirname, 'public')
 
-  // ## Good and bad
-  // **TODO:** this should be added to Marak's `colors`
-  //  (e.g. 'mystring'.bad -- which would prepend the red ✗)
+  // ## Good/Bad Logging
+  //
+  //  **TODO:** this should be added to Marak's `colors`
+  //   (e.g. 'mystring'.bad -- which would prepend the red ✗)
   //
   //  Don't use error/success since that _could_ conflict with callbacks.
+  //
   , good = "  ✔ ".green
   , bad = "  ✗ ".red
 
   // ## Config
+  //
   //  Based on your project's needs, you should configure `package.json`
   //   accordingly to the [npm](http://npmjs.org) packages used.
   //   <http://wiki.commonjs.org/wiki/Packages/1.0>
   //
-  // , config = require('./config')
+  , config = require('./config')
+  , env    = process.env.NODE_ENV || 'development'
 
   // ## Mongo Session Store
   , MongoStore = require('connect-mongo')
 
-  // **TODO:** Move these credentials to `./config.json`
+  // ## Stylus
+  , stylus = require('stylus')
 
-  // ## Default Admin
-  , superGroup = {
-      _id: "super_admin"
-    }
-  , superUser = {
-        email: "admin@expressling.com"
-      , name: { first: "SuperAdmin", last: "McLovin" }
-      , company: "Brogrammers LLC."
-      , password: "admin"
-      , _group: superGroup._id
-    }
-
-  // ## Default User
-  , userGroup = {
-      _id: "user"
-    }
-  , defaultUser = {
-        email: "user@expressling.com"
-      , name: { first: "User", last: "McLovin" }
-      , company: "Users Rock Inc."
-      , password: "user"
-      , _group: userGroup._id
-    }
-
-  // ## Stylesheets
-  , stylus   = require('stylus')
-  , nib      = require('nib')
+  // ## Nib
+  , nib = require('nib')
 
   // ## Logs
-  , logs = {
-      set: true,
-      string: '\\n  ' + ':date'.bold.underline + '\\n\\n' + '  IP: '.cyan.bold
-        + ' ' + ':remote-addr'.white + '\\n' + '  Method: '.red.bold
-        + ':method'.white + '\\n' + '  URL: '.blue.bold + ':url'.white
-        + '\\n' + '  Status: '.yellow.bold + ':status'.white + '\\n'
-        + '  User Agent: '.magenta.bold + ':user-agent'.white
-    }
-  , css = {
-      count: 0,
-      debug: false,
-      set: true,
-      string: function() {
-        return ''
-          + '\n' + good + ' Stylus has detected changes and compiled new assets'
-          + ' ' + this.count + ' times so far' + '\n';
-      }
-    }
+  , logs = config[env].logs
+  , css = config[env].css
 
-  // ## Stylus Compiler
-  , compress = false // this is set to true in prod
-  , linenos = true // this is set to false in prod
-  , compiler = function(str, path) {
-      if (css.set) {
-        css.count++;
-        var cssString = css.string();
-        console.log(cssString);
-      }
-      return stylus(str)
-        .set('filename', path)
-        .set('compress', compress)
-        .set('warn', false)
-        .set('force', false)
-        .set('firebug', false)
-        .set('linenos', linenos)
-        .use(nib());
-    };
+  // ## Stylus Configuration
+  , stylusConfig = config[env].stylus;
 
+// ## Express Logging
+logs.string = ''
+  + '\\n  ' + ':date'.bold.underline + '\\n\\n' + '  IP: '.cyan.bold
+  + ' ' + ':remote-addr'.white + '\\n' + '  Method: '.red.bold
+  + ':method'.white + '\\n' + '  URL: '.blue.bold + ':url'.white
+  + '\\n' + '  Status: '.yellow.bold + ':status'.white + '\\n'
+  + '  User Agent: '.magenta.bold + ':user-agent'.white;
+
+// ## Stylus Logging
+css.string = function() {
+  return ''
+    + '\n' + good + ' Stylus has detected changes and compiled new assets'
+    + ' ' + this.count + ' times so far' + '\n';
+};
+
+// ## Stylus Compiler
+// <https://github.com/LearnBoost/stylus/blob/master/lib/middleware.js#L25-75>
+var compiler = function(str, path) {
+  if (css.set) {
+    css.count++;
+    var cssString = css.string();
+    console.log(cssString);
+  }
+  return stylus(str)
+    .set('filename', path)
+    .set('compress', stylusConfig.compress)
+    .set('warn', stylusConfig.warn)
+    .set('force', stylusConfig.force)
+    .set('linenos', stylusConfig.linenos)
+    .use(nib());
+};
 
 // ## Helper functions
 
@@ -141,13 +118,13 @@ function loggedIn(req, res, next) {
 function createSuperAdmin(db) {
   var Groups = db.model('Groups')
     , Users = db.model('Users');
-  Groups.count(superGroup, function(err, count) {
+  Groups.count(config[env].super_group, function(err, count) {
     if(err) console.log(err);
     if(count === 0) {
-      Groups.create(superGroup, function(err, group) {
+      Groups.create(config[env].super_group, function(err, group) {
         if(err) console.log(err);
         if(group) {
-          Users.register(superUser, function(err, user) {
+          Users.register(config[env].super_user, function(err, user) {
             if(err) console.log(bad + err);
             if(user) console.log(good + "'super_admin' user/group created");
           });
@@ -161,13 +138,13 @@ function createSuperAdmin(db) {
 function createUser(app, db) {
   var Groups = db.model('Groups')
     , Users = db.model('Users');
-  Groups.count(userGroup, function(err, count) {
+  Groups.count(config[env].user_group, function(err, count) {
     if(err) console.log(err);
     if(count === 0) {
-      Groups.create(userGroup, function(err, group) {
+      Groups.create(config[env].user_group, function(err, group) {
         if(err) console.log(err);
         if(group) {
-          Users.register(defaultUser, function(err, user) {
+          Users.register(config[env].default_user, function(err, user) {
             if(err) console.log(bad + err);
             if(user) console.log(good + "'user' user/group created");
             return group;
@@ -196,10 +173,12 @@ exports.bootApplication = function(app, db) {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
+    app.set('showStackError', config[env].show_stack_error);
+    if (logs.set) app.use(express.logger(logs.string));
     // Load Mongo session store
     app.use(express.session({
-        secret: "##### CHANGE THIS SECRET TO SOMETHING PRIVATE AND HASHED #####"
-      , maxAge: cacheAge
+        secret: config[env].secret
+      , maxAge: config[env].cache_age
       , store: new MongoStore(mongoStoreConnectionArgs(db))
     }));
     // Check for csrf using Connect's csrf module
@@ -227,9 +206,7 @@ exports.bootApplication = function(app, db) {
       debug: css.debug,
       compile: compiler
     }));
-    app.use(express.static(publicDir, { maxAge: cacheAge }));
-    app.set('showStackError', true);
-    if(logs.set) app.use(express.logger(logs.string));
+    app.use(express.static(publicDir, { maxAge: config[env].cache_age }));
   });
 
   // ### Staging Settings
@@ -241,8 +218,6 @@ exports.bootApplication = function(app, db) {
   // `$ NODE_ENV=production node server.js`
   // Then point your browser to <http://localhost/>.
   app.configure('production', function() {
-    compress = true;
-    linenos = false;
     app.use(stylus.middleware({
       src: __dirname + '/views',
       dest: publicDir,
@@ -250,9 +225,7 @@ exports.bootApplication = function(app, db) {
       compile: compiler
     }));
     // Enable gzip compression is for production mode only
-    app.use(gzippo.staticGzip(publicDir, { maxAge: cacheAge }));
-    // Disable stack error output
-    app.set('showStackError', false);
+    app.use(gzippo.staticGzip(publicDir, { maxAge: config[env].cache_age }));
     // Enable view caching
     app.enable('view cache');
   });

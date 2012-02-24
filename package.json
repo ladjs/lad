@@ -40,6 +40,7 @@
       , "walk"                : ">= 2.0.2"
       , "express-cachebuster" : ">= 0.0.4"
       , "growl"               : ">= 1.4.1"
+      , "mongoose-troop"      : ">= 0.0.6"
     }
   , "main": "./server.js"
   , "bin": { "expressling": "./bin/expressling" }
