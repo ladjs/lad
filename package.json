@@ -1,7 +1,7 @@
 {
     "name": "expressling"
   , "description": "Expressling "
-  , "version": "0.1.1"
+  , "version": "0.1.2"
   , "author": "Nick Baugh <niftylettuce@gmail.com>"
   , "contributors": [
       { "name": "Butu", "email": "butu25@gmail.com" }
@@ -36,7 +36,7 @@
       , "bcrypt"              : ">= 0.4.0"
       , "nodemailer"          : ">= 0.2.3"
       , "gzippo"              : ">= 0.1.0"
-      , "connect-mongo"       : ">= 0.1.5"
+      , "connect-mongo"       : "https://github.com/niftylettuce/connect-mongo/tarball/master"
       , "walk"                : ">= 2.0.2"
       , "express-cachebuster" : ">= 0.0.4"
       , "growl"               : ">= 1.4.1"

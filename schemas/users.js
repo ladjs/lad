@@ -2,19 +2,18 @@
 // # Users
 
 var bcrypt = require('bcrypt')
-  , authenticate;
+  , troop  = require('mongoose-troop');
 
 module.exports = function(db) {
   var Email = db.SchemaTypes.Email
     , Users = new db.Schema({
-        salt: String,
-        hash: String,
         email: {
           type: Email,
           unique: true,
           required: true,
           lowercase: true
         },
+        hash: String,
         name: {
           first: {
             type: String,
@@ -32,14 +31,6 @@ module.exports = function(db) {
           type: String,
           ref: 'Groups'
         },
-        created: {
-          type: Date,
-          default: Date.now
-        },
-        updated: {
-          type: Date,
-          default: Date.now
-        },
         random_string: String
       });
 
@@ -47,65 +38,13 @@ module.exports = function(db) {
     return this.name.first + ' ' + this.name.last;
   });
 
-  Users.virtual('password').get(function () {
-    return this._password;
-  }).set(function(password) {
-    this._password = password;
-    var salt = this.salt = bcrypt.gen_salt_sync(10);
-    this.hash = bcrypt.encrypt_sync(password, salt);
-  });
+  Users.plugin(troop.timestamp);
+  troop.basicAuth(Users, { loginPath: 'email' });
 
-  Users.pre('save', function(next) {
-    this.updated = Date.now();
-    next();
-  });
-
-  Users.method('authenticate', function(password, callback) {
-    bcrypt.compare(password, this.hash, callback);
-  });
-
-  Users.static('authenticate', exports.authenticate);
-  Users.static('register', exports.register);
   Users.static('access', exports.access(db));
   Users.static('groupCount', exports.groupCount);
+
   return db.model('Users', Users);
-};
-
-exports.authenticate = function(login, password, callback) {
-  var query = {};
-  query.email = login;
-  this
-    .findOne(query)
-    .populate('_group')
-    .run(function(err, user) {
-      if (err) return callback(err);
-      if (!user) return callback('User with login ' + login + ' does not exist');
-      user.authenticate(password, function (err, didSucceed) {
-        if (err) {
-          callback(err, null);
-        } else {
-          if (didSucceed) {
-            return callback(null, user);
-          } else {
-            return callback('Password was entered incorrectly', null);
-          }
-        }
-      });
-    });
-};
-
-exports.register = function(params, callback) {
-  this.create(params, function(err, user) {
-    if (err) {
-      return callback(err);
-    }
-    if (!user) {
-      return callback('An error occured during registration', null);
-    } else {
-      return callback(null, user);
-    }
-    return callback(null, null);
-  });
 };
 
 exports.groupCount = function(spec, cb) {
