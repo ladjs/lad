@@ -39,8 +39,9 @@ module.exports = function(db) {
   });
 
   Users.plugin(troop.timestamp);
-  troop.basicAuth(Users, { loginPath: 'email' });
-
+  Users.plugin(troop.basicAuth, {
+    loginPath: 'email'
+  });
   Users.static('access', exports.access(db));
   Users.static('groupCount', exports.groupCount);
 

@@ -1,7 +1,7 @@
 
 # Expressling
 
-Latest release: `v0.1.2`, featuring `mongoose-troop`.
+Latest release: `v0.1.3`, with bug fixes for `mongoose-troop` integration in previous version.
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 

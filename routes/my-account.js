@@ -65,18 +65,20 @@ module.exports = function(app, db) {
       if(!req.form.isValid) {
         redirectToMyAccount(req, res);
       } else {
+        var changed = false;
+        var newPassword = '';
         // Check if user wants to change password
         if(req.form.password !== "" && req.form.password_confirmation !== "") {
           if(req.form.password !== req.form.password_confirmation) {
             req.flash('error', 'Password confirmation does not match entered password, try again');
             redirectToMyAccount(req, res);
           } else {
-            delete req.form.password_confirmation;
+            changed = true;
+            newPassword = req.form.password;
           }
-        } else {
-          delete req.form.password;
-          delete req.form.password_confirmation;
         }
+        delete req.form.password;
+        delete req.form.password_confirmation;
         // Save the user's changes and redirect to My Account
         Users.findById(req.session.auth._id, function(err, user) {
           if(err) {
@@ -85,7 +87,6 @@ module.exports = function(app, db) {
           }
           if(user) {
             // Iterate through object properties
-            var changed = false;
             for(var attr in req.form) {
               if(user[attr] !== req.form[attr]) {
                 if(attr !== "name") {
@@ -115,9 +116,17 @@ module.exports = function(app, db) {
                     redirectToMyAccount(req, res);
                   }
                 }
+                req.flash('success', 'Changes to your account information have been saved');
                 if(user) {
-                  req.flash('success', 'Changes to your account information have been saved');
-                  res.redirect('/my-account');
+                  if (newPassword !== '') {
+                    user.setPassword(newPassword, function(err) {
+                      if (err) throw err;
+                      req.flash('success', 'New password set successfully');
+                      return res.redirect('/my-account');
+                    });
+                  } else {
+                    return res.redirect('/my-account');
+                  }
                 }
               });
             } else {
