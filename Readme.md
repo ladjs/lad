@@ -1,7 +1,7 @@
 
 # Expressling
 
-Latest release: `v0.1.4`, fully updated to latest HTML5 Boilerplate with better Stylus and Jade integration.
+Latest release: `v0.1.5`, fully updated to latest HTML5 Boilerplate with better Stylus and Jade integration.
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 
