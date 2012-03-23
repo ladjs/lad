@@ -1,6 +1,6 @@
 
 //     Expressling
-//     Copyright (c) 2011 Nick Baugh (niftylettuce@gmail.com)
+//     Copyright (c) 2012 Nick Baugh (niftylettuce@gmail.com)
 //     MIT Licensed
 
 // Open source [node.js][1] + [express][2] application framework.

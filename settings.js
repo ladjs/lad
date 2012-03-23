@@ -2,15 +2,18 @@
 // # Settings
 
   // ## Express
-var express  = require('express')
+var express = require('express')
+
+  // ## HTML5 Boilerplate
+  , h5bp = require('h5bp')
 
   // ## Common
-  , colors   = require('colors')
-  , fs       = require('fs')
-  , mime     = require('mime')
-  , gzippo   = require('gzippo')
-  , path     = require('path')
-  , walk     = require('walk')
+  , colors = require('colors')
+  , fs     = require('fs')
+  , mime   = require('mime')
+  , gzippo = require('gzippo')
+  , path   = require('path')
+  , walk   = require('walk')
 
   // ## Public Directory
   , publicDir = path.join(__dirname, 'public')
@@ -23,7 +26,7 @@ var express  = require('express')
   //  Don't use error/success since that _could_ conflict with callbacks.
   //
   , good = "  ✔ ".green
-  , bad = "  ✗ ".red
+  , bad  = "  ✗ ".red
 
   // ## Config
   //
@@ -45,7 +48,7 @@ var express  = require('express')
 
   // ## Logs
   , logs = config[env].logs
-  , css = config[env].css
+  , css  = config[env].css
 
   // ## Stylus Configuration
   , stylusConfig = config[env].stylus;
@@ -356,30 +359,11 @@ exports.bootRoutes = function(app, db) {
 
 // ## Extras
 exports.bootExtras = function(app) {
-  app.get('*', function(req, res, next) {
-    var url = req.url
-      , ua = req.headers['user-agent'];
-    // ### Block access to hidden files and directories that begin with a period
-    if (url.match(/(^|\/)\./)) {
-      return res.end("Not allowed");
-    }
-    // ### Better website experience for IE users
-    //  Force the latest IE version, in cases when it may fall back to IE7 mode
-    if(ua && ua.indexOf('MSIE') && /html?/.test(ua)) {
-      res.setHeader('X-UA-Compatible', 'IE=Edge,chrome=1');
-    }
-    // ### CORS
-    //  <http://github.com/rails/rails/commit/123eb25#commitcomment-118920>
-    //  Use ChromeFrame if it's installed, for a better experience with IE folks
-    //  Control cross domain using CORS http://enable-cors.org
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
-    // ### Suppress or force the "www." at the beginning of URLs
-    if (/^www\./.test(url)) {
-      res.statusCode = 302;
-      res.setHeader('Location', url.replace(/^www\./, ''));
-      return res.end();
-    }
-    next();
-  });
+  app.use(h5bp.ieEdgeChromeFrameHeader());
+  app.use(h5bp.protectDotfiles());
+  app.use(h5bp.blockBackupFiles());
+  app.use(h5bp.removePoweredBy());
+  app.use(h5bp.crossDomainRules());
+  app.use(h5bp.suppressWww(true));
+  app.use(h5bp.removeEtag());
 };

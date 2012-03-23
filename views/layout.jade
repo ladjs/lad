@@ -1,4 +1,6 @@
 
+//- # Layout
+
 //- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
 !!! 5
 //-  H5BP implementation inspired by <https://gist.github.com/888338/>.
@@ -39,14 +41,14 @@ html(class='no-js', lang='en')
     meta(name='viewport', content='width=device-width,initial-scale=1')
     //- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons
     - var access = access(['super_admin', 'admin'])
-    != cacheBuster('/stylesheets/style.css')
     block styles
+      != cacheBuster('/stylesheets/style.css')
     //- More ideas for your <head> here: h5bp.com/d/head-Tips
     //-.
       All JavaScript at the bottom, except this Modernizr build incl. Respond.js
       Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects;
       for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/
-    script(src='/js/libs/modernizr-2.0.6.min.js')
+    script(src='/js/libs/modernizr-2.5.3.min.js')
   body
     //- [express-messages](https://github.com/visionmedia/express-messages/)
     #no-js
@@ -77,9 +79,9 @@ html(class='no-js', lang='en')
       p Built with <a href="http://expressling.com/">Expressling</a>.
     //- JavaScript at the bottom for fast page loading
     //- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline
-    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script.
-      window.jQuery || document.write('<script src="/js/libs/jquery-1.7.0.min.js"><\\/script>')
+      window.jQuery || document.write('<script src="/js/libs/jquery-1.7.1.min.js"><\\/script>')
     //- scripts concatenated and minified via express-cachebuster and TODO: express-
     //#{cacheBuster(['/js/plugins.js', '/js/script.js'])}
     //- Dynamically load your scripts here

@@ -1,7 +1,7 @@
 
 # Expressling
 
-Latest release: `v0.1.3`, with bug fixes for `mongoose-troop` integration in previous version.
+Latest release: `v0.1.4`, fully updated to latest HTML5 Boilerplate with better Stylus and Jade integration.
 
 Open source [node.js](http://nodejs.org) + [express](http://expressjs.com/) application framework.
 
@@ -91,19 +91,6 @@ If you clone this repo to contribute, you need to `chmod +x ./bin/expressling`.
 * Source: <https://github.com/niftylettuce/expressling/>
 
 Expressling was inspired by several [node.js](http://nodejs.org) projects.
-
-
-## List of community TODO's
-
-* Better implementation of password/salt authentication
- or **implement [mongoose-auth](https://github.com/bnoguchi/mongoose-auth)**
-* Forever and Upstart documentation
-* Support for CoffeeScript, SASS, Less, and other template/stylesheet engines
-* Start a Wiki
-    - How-to for deploying with nodejitsu
-    - How-to for using MongoHQ in production deployments
-* Integrate SSL support
-
 
 # License
 
