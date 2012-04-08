@@ -1,0 +1,18 @@
+div.navbar.navbar-fixed-top
+  div.navbar-inner
+    div.container
+      a(data-toggle='collapse',data-target='.nav-collapse').btn.btn-navbar
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a(href='#').brand Expressling
+      div.nav-collapse
+        ul.nav
+          li: a(href='/') Home
+            - if (access)
+              li: a(href='/admin') Admin
+            - if (loggedIn)
+              li: a(href='/my-account') My Account
+              li: a(href='/logout') Logout
+            - else
+              li: a(href='/login') Login

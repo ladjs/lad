@@ -1,0 +1,58 @@
+//- # Layout
+
+
+!!! 5
+//-  H5BP implementation inspired by <https://gist.github.com/888338/>.
+//if lt IE 7
+  <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
+//if IE 7
+  <html class="no-js lt-ie9 lt-ie8" lang="en">
+//if IE 8
+  <html class="no-js lt-ie9" lang="en">
+//[if gt IE 8]><!
+html(class='no-js', lang='en')
+  //<![endif]
+  //- Consider adding a manifest.appcache: h5bp.com/d/Offline
+  head
+    meta(charset='utf-8')
+    - if ('undefined' !== typeof title)
+      title #{title} - Expressling
+    - else
+      title Expressling
+    //- More info: h5bp.com/b/378
+    //- Meta Keywords
+    - if ('undefined' !== typeof keywords)
+      meta(name="keywords", content=keywords)
+    - else if ('undefined' !== typeof meta && 'undefined' !== typeof meta.keywords)
+      meta(name="keywords", content=meta.keywords)
+    - else
+      meta(name="keywords", content="")
+    //- Meta Description
+    - if ('undefined' !== typeof description)
+      meta(name="description", content=meta.description)
+    - else if ('undefined' !== typeof meta && 'undefined' !== typeof meta.description)
+      meta(name="description", content=meta.description)
+    - else
+      meta(name="description", content="")
+    meta(name="author", content="Expressling <http://expressling.com/>")
+    //- Mobile viewport optimized: j.mp/bplateviewport
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    //- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons
+    - var access = access(['super_admin', 'admin'])
+
+    block styles
+      != cacheBuster('/stylesheets/bootstrap.css')
+      != cacheBuster('/stylesheets/bootstrap-responsive.css')
+      link(rel='stylesheet', href='/stylesheets/nifty.css')
+
+      // Navigation Partial
+      != partial('partials/nav')
+
+
+
+      //- Dynamically load the body content with support for { layout: false }
+      //-  (e.g. index's route and view this through use of extends/inheritance)
+      block body
+        !=body
+
+    != partial('partials/footer')

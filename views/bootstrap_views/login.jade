@@ -1,0 +1,21 @@
+block body
+  div.container
+    div.hero-unit
+      h1 Forgot The ole Password eh?
+      p Fill in the blanks and we'll get you hooked up!
+
+    div.row-fluid
+        - if ('undefined' === typeof email)
+          - email = ""
+        form(action='/login', method='POST')
+          input.span6(type='hidden', name='_csrf', value=csrf)
+          #email
+            label(for='email') Email
+            input.span6(type='email', name='email', value=email, required, autofocus)
+          #password
+            label(for='password') Password
+            input.span6(type='password', name='password', required)
+          #submit
+            button.btn.btn-primary(type='submit') Login
+        p: a(href="/forgot-password") Forgot your password?
+        p: a(href="/register") Not yet registered?

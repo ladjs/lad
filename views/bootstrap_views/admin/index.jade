@@ -1,0 +1,11 @@
+extends ../layout
+
+block body
+  block body
+    div.container
+      div.hero-unit
+        h1 Admin Panel
+        p Hello #{user.name.first}, please select a menu item to manage.
+
+      div.row-fluid
+        != partial('admin/_menu')

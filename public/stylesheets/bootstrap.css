@@ -1,0 +1,5332 @@
+
+/* line undefined : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap.styl */
+/*
+ * Bootstrap v2.0.1
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap.styl */
+/*
+ * Ported to Stylus from Less (Twitter Bootstrap)
+ * by @flowonyx
+ *
+ * Any changes are released to the Public Domain.
+ *
+ */
+
+/* line 199 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/less-compat.styl */
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/variables.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/index.styl */
+
+/* line 398 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/vendor.styl */
+
+/* line 398 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/config.styl */
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/text/index.styl */
+
+/* line 2 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/text/aliases.styl */
+
+/* line 2 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/text/ellipsis.styl */
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/text/hide-text.styl */
+
+/* line 3 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/reset.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/positions.styl */
+
+/* line 2 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+
+/* line 24 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/overflow.styl */
+
+/* line 2 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/text/ellipsis.styl */
+
+/* line 2 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/iconic.styl */
+
+/* line 149 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/gradients.styl */
+
+/* line 149 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/config.styl */
+
+/* line 2 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/box.styl */
+
+/* line 2 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/color-image.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 25 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+audio:not([controls]) {
+  display: none;
+}
+
+/* line 32 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 38 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* line 42 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+a:hover,
+a:active {
+  outline: 0;
+}
+
+/* line 49 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+/* line 55 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+sup {
+  top: -0.5em;
+}
+
+/* line 58 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 65 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
+/* line 76 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle;
+}
+
+/* line 81 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+button,
+input {
+  *overflow: visible;
+  line-height: normal;
+}
+
+/* line 85 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* line 89 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+/* line 93 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 97 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* line 100 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/reset.styl */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/scaffolding.styl */
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/scaffolding.styl */
+.clearfix {
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.clearfix:after {
+  clear: both;
+}
+
+/* line 14 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/scaffolding.styl */
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  color: #333;
+  background-color: #fff;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/scaffolding.styl */
+a {
+  color: #08c;
+  text-decoration: none;
+}
+
+/* line 31 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/scaffolding.styl */
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+
+/* line 124 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/grid.styl */
+
+/* line 124 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row {
+  margin-left: -20px;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.row:before,
+.row:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.row:after {
+  clear: both;
+}
+
+/* line 128 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+[class*="span"] {
+  float: left;
+  margin-left: 20px;
+}
+
+/* line 131 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span1 {
+  width: 60px;
+}
+
+/* line 133 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span2 {
+  width: 140px;
+}
+
+/* line 135 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span3 {
+  width: 220px;
+}
+
+/* line 137 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span4 {
+  width: 300px;
+}
+
+/* line 139 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span5 {
+  width: 380px;
+}
+
+/* line 141 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span6 {
+  width: 460px;
+}
+
+/* line 143 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span7 {
+  width: 540px;
+}
+
+/* line 145 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span8 {
+  width: 620px;
+}
+
+/* line 147 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span9 {
+  width: 700px;
+}
+
+/* line 149 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span10 {
+  width: 780px;
+}
+
+/* line 151 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span11 {
+  width: 860px;
+}
+
+/* line 153 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.span12,
+.container {
+  width: 940px;
+}
+
+/* line 156 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset1 {
+  margin-left: 100px;
+}
+
+/* line 158 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset2 {
+  margin-left: 180px;
+}
+
+/* line 160 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset3 {
+  margin-left: 260px;
+}
+
+/* line 162 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset4 {
+  margin-left: 340px;
+}
+
+/* line 164 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset5 {
+  margin-left: 420px;
+}
+
+/* line 166 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset6 {
+  margin-left: 500px;
+}
+
+/* line 168 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset7 {
+  margin-left: 580px;
+}
+
+/* line 170 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset8 {
+  margin-left: 660px;
+}
+
+/* line 172 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset9 {
+  margin-left: 740px;
+}
+
+/* line 174 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset10 {
+  margin-left: 820px;
+}
+
+/* line 176 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.offset11 {
+  margin-left: 900px;
+}
+
+/* line 193 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid {
+  width: 100%;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.row-fluid:before,
+.row-fluid:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.row-fluid:after {
+  clear: both;
+}
+
+/* line 197 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid > [class*="span"] {
+  float: left;
+  margin-left: 2.127659574%;
+}
+
+/* line 199 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid > [class*="span"]:first-child {
+  margin-left: 0;
+}
+
+/* line 203 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span1 {
+  width: 6.382978723%;
+}
+
+/* line 205 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span2 {
+  width: 14.89361702%;
+}
+
+/* line 207 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span3 {
+  width: 23.404255317%;
+}
+
+/* line 209 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span4 {
+  width: 31.914893614%;
+}
+
+/* line 211 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span5 {
+  width: 40.425531911%;
+}
+
+/* line 213 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span6 {
+  width: 48.93617020799999%;
+}
+
+/* line 215 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span7 {
+  width: 57.446808505%;
+}
+
+/* line 217 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span8 {
+  width: 65.95744680199999%;
+}
+
+/* line 219 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span9 {
+  width: 74.468085099%;
+}
+
+/* line 221 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span10 {
+  width: 82.97872339599999%;
+}
+
+/* line 223 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span11 {
+  width: 91.489361693%;
+}
+
+/* line 225 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.row-fluid .span12 {
+  width: 99.99999998999999%;
+}
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/layouts.styl */
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/layouts.styl */
+.container {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.container:before,
+.container:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.container:after {
+  clear: both;
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/layouts.styl */
+.container-fluid {
+  padding-left: 20px;
+  padding-right: 20px;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.container-fluid:before,
+.container-fluid:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.container-fluid:after {
+  clear: both;
+}
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+p {
+  margin: 0 0 9px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+p small {
+  font-size: 11px;
+  color: #999;
+}
+
+/* line 17 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+.lead {
+  margin-bottom: 18px;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 27px;
+}
+
+/* line 26 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+  text-rendering: optimizelegibility;
+}
+
+/* line 31 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+  font-weight: normal;
+  color: #999;
+}
+
+/* line 35 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h1 {
+  font-size: 30px;
+  line-height: 36px;
+}
+
+/* line 38 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h1 small {
+  font-size: 18px;
+}
+
+/* line 41 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h2 {
+  font-size: 24px;
+  line-height: 36px;
+}
+
+/* line 44 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h2 small {
+  font-size: 18px;
+}
+
+/* line 47 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h3 {
+  line-height: 27px;
+  font-size: 18px;
+}
+
+/* line 50 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h3 small {
+  font-size: 14px;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h4,
+h5,
+h6 {
+  line-height: 18px;
+}
+
+/* line 56 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h4 {
+  font-size: 14px;
+}
+
+/* line 58 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h4 small {
+  font-size: 12px;
+}
+
+/* line 61 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h5 {
+  font-size: 12px;
+}
+
+/* line 64 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+h6 {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+}
+
+/* line 70 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+.page-header {
+  padding-bottom: 17px;
+  margin: 18px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* line 75 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+.page-header h1 {
+  line-height: 1;
+}
+
+/* line 82 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+ul,
+ol {
+  padding: 0;
+  margin: 0 0 9px 25px;
+}
+
+/* line 86 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-bottom: 0;
+}
+
+/* line 89 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+ul {
+  list-style: disc;
+}
+
+/* line 92 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+ol {
+  list-style: decimal;
+}
+
+/* line 95 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+li {
+  line-height: 18px;
+}
+
+/* line 98 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+ul.unstyled,
+ol.unstyled {
+  margin-left: 0;
+  list-style: none;
+}
+
+/* line 103 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+dl {
+  margin-bottom: 18px;
+}
+
+/* line 106 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+dt,
+dd {
+  line-height: 18px;
+}
+
+/* line 109 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+dt {
+  font-weight: bold;
+}
+
+/* line 112 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+dd {
+  margin-left: 9px;
+}
+
+/* line 119 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+hr {
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #fff;
+}
+
+/* line 126 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+strong {
+  font-weight: bold;
+}
+
+/* line 129 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+em {
+  font-style: italic;
+}
+
+/* line 132 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+.muted {
+  color: #999;
+}
+
+/* line 136 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+abbr {
+  font-size: 90%;
+  text-transform: uppercase;
+  border-bottom: 1px dotted #ddd;
+  cursor: help;
+}
+
+/* line 143 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+blockquote {
+  padding: 0 0 0 15px;
+  margin: 0 0 18px;
+  border-left: 5px solid #eee;
+}
+
+/* line 147 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+blockquote p {
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22.5px;
+}
+
+/* line 151 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+blockquote small {
+  display: block;
+  line-height: 18px;
+  color: #999;
+}
+
+/* line 155 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+blockquote small:before {
+  content: '\2014 \00A0';
+}
+
+/* line 159 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+blockquote.pull-right {
+  float: right;
+  padding-left: 0;
+  padding-right: 15px;
+  border-left: 0;
+  border-right: 5px solid #eee;
+}
+
+/* line 165 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+blockquote.pull-right p,
+blockquote.pull-right small {
+  text-align: right;
+}
+
+/* line 169 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+
+/* line 173 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+address {
+  display: block;
+  margin-bottom: 18px;
+  line-height: 18px;
+  font-style: normal;
+}
+
+/* line 180 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+small {
+  font-size: 100%;
+}
+
+/* line 183 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/type.styl */
+cite {
+  font-style: normal;
+}
+
+/* line 6 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/code.styl */
+
+/* line 6 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/code.styl */
+code,
+pre {
+  padding: 0 3px 2px;
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  font-size: 12px;
+  color: #333;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 14 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/code.styl */
+code {
+  padding: 3px 4px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+
+/* line 21 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/code.styl */
+pre {
+  display: block;
+  padding: 8.5px;
+  margin: 0 0 9px;
+  font-size: 12px;
+  line-height: 18px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,0.15);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+/* line 37 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/code.styl */
+pre.prettyprint {
+  margin-bottom: 18px;
+}
+
+/* line 42 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/code.styl */
+pre code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+}
+
+/* line 49 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/code.styl */
+.pre-scrollable {
+  max-height: 340px;
+overflow-y
+scroll
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+form {
+  margin: 0 0 18px;
+}
+
+/* line 12 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+/* line 18 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 27px;
+  font-size: 19.5px;
+  line-height: 36px;
+  color: #333;
+  border: 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* line 30 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+legend small {
+  font-size: 13.5px;
+  color: #999;
+}
+
+/* line 35 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+label,
+input,
+button,
+select,
+textarea {
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+}
+
+/* line 38 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input,
+button,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* line 42 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* line 48 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input,
+textarea,
+select,
+.uneditable-input {
+  display: inline-block;
+  width: 210px;
+  height: 18px;
+  padding: 4px;
+  margin-bottom: 9px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #555;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 60 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.uneditable-textarea {
+  width: auto;
+  height: auto;
+}
+
+/* line 65 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+label input,
+label textarea,
+label select {
+  display: block;
+}
+
+/* line 69 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="image"],
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 3px 0;
+  *margin-top: 0;
+/* IE7 */
+  line-height: normal;
+  cursor: pointer;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: 0 \9;
+/* IE9 and down */
+}
+
+/* line 80 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="image"] {
+  border: 0;
+}
+
+/* line 84 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="file"] {
+  width: auto;
+  padding: initial;
+  line-height: initial;
+  border: initial;
+  background-color: #fff;
+  background-color: initial;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 94 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  width: auto;
+  height: auto;
+}
+
+/* line 99 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+select,
+input[type="file"] {
+  height: 28px;
+/* In IE7, the height of the select element cannot be changed by height, only font-size */
+  *margin-top: 4px;
+/* For IE7, add top margin to align select with labels */
+  line-height: 28px;
+}
+
+/* line 104 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="file"] {
+  line-height: 18px \9;
+}
+
+/* line 108 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+select {
+  width: 220px;
+  background-color: #fff;
+}
+
+/* line 113 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+select[multiple],
+select[size] {
+  height: auto;
+}
+
+/* line 117 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="image"] {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 121 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+textarea {
+  height: auto;
+}
+
+/* line 125 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="hidden"] {
+  display: none;
+}
+
+/* line 132 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.radio,
+.checkbox {
+  padding-left: 18px;
+}
+
+/* line 135 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.radio input[type="radio"],
+.checkbox input[type="checkbox"] {
+  float: left;
+  margin-left: -18px;
+}
+
+/* line 140 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.controls > .radio:first-child,
+.controls > .checkbox:first-child {
+  padding-top: 5px;
+}
+
+/* line 145 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.radio.inline,
+.checkbox.inline {
+  display: inline-block;
+  padding-top: 5px;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+/* line 151 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.radio.inline + .radio.inline,
+.checkbox.inline + .checkbox.inline {
+  margin-left: 10px;
+}
+
+/* line 158 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input,
+textarea {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.07);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.07);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.07);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+/* line 163 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input:focus,
+textarea:focus {
+  border-color: rgba(82,168,236,0.80);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.07), 0 0 8px rgba(82,168,236,0.60);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.07), 0 0 8px rgba(82,168,236,0.60);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.07), 0 0 8px rgba(82,168,236,0.60);
+  outline: 0;
+  outline: thin dotted \9;
+/* IE6-9 */
+}
+
+/* line 170 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus,
+select:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* line 178 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-mini {
+  width: 60px;
+}
+
+/* line 180 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-small {
+  width: 90px;
+}
+
+/* line 182 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-medium {
+  width: 150px;
+}
+
+/* line 184 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-large {
+  width: 210px;
+}
+
+/* line 186 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-xlarge {
+  width: 270px;
+}
+
+/* line 188 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-xxlarge {
+  width: 530px;
+}
+
+/* line 192 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[class*="span"],
+select[class*="span"],
+textarea[class*="span"],
+.uneditable-input {
+  float: none;
+  margin-left: 0;
+}
+
+/* line 234 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+
+/* line 235 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span1,
+textarea.span1,
+.uneditable-input.span1 {
+  width: 50px;
+}
+
+/* line 237 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span2,
+textarea.span2,
+.uneditable-input.span2 {
+  width: 130px;
+}
+
+/* line 239 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span3,
+textarea.span3,
+.uneditable-input.span3 {
+  width: 210px;
+}
+
+/* line 241 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span4,
+textarea.span4,
+.uneditable-input.span4 {
+  width: 290px;
+}
+
+/* line 243 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span5,
+textarea.span5,
+.uneditable-input.span5 {
+  width: 370px;
+}
+
+/* line 245 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span6,
+textarea.span6,
+.uneditable-input.span6 {
+  width: 450px;
+}
+
+/* line 247 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span7,
+textarea.span7,
+.uneditable-input.span7 {
+  width: 530px;
+}
+
+/* line 249 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span8,
+textarea.span8,
+.uneditable-input.span8 {
+  width: 610px;
+}
+
+/* line 251 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span9,
+textarea.span9,
+.uneditable-input.span9 {
+  width: 690px;
+}
+
+/* line 253 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span10,
+textarea.span10,
+.uneditable-input.span10 {
+  width: 770px;
+}
+
+/* line 255 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span11,
+textarea.span11,
+.uneditable-input.span11 {
+  width: 850px;
+}
+
+/* line 257 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+input.span12,
+textarea.span12,
+.uneditable-input.span12 {
+  width: 930px;
+}
+
+/* line 205 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  background-color: #f5f5f5;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* line 215 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 280 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.warning > label,
+.control-group.warning .help-block,
+.control-group.warning .help-inline {
+  color: #c09853;
+}
+
+/* line 284 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.warning input,
+.control-group.warning select,
+.control-group.warning textarea {
+  color: #c09853;
+  border-color: #c09853;
+}
+
+/* line 287 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.warning input:focus,
+.control-group.warning select:focus,
+.control-group.warning textarea:focus {
+  border-color: #a47e3c;
+  -webkit-box-shadow: 0 0 6px #dbc59e;
+  -moz-box-shadow: 0 0 6px #dbc59e;
+  box-shadow: 0 0 6px #dbc59e;
+}
+
+/* line 292 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.warning .input-prepend .add-on,
+.control-group.warning .input-append .add-on {
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #c09853;
+}
+
+/* line 219 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 280 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.error > label,
+.control-group.error .help-block,
+.control-group.error .help-inline {
+  color: #b94a48;
+}
+
+/* line 284 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.error input,
+.control-group.error select,
+.control-group.error textarea {
+  color: #b94a48;
+  border-color: #b94a48;
+}
+
+/* line 287 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.error input:focus,
+.control-group.error select:focus,
+.control-group.error textarea:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: 0 0 6px #d59392;
+  -moz-box-shadow: 0 0 6px #d59392;
+  box-shadow: 0 0 6px #d59392;
+}
+
+/* line 292 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.error .input-prepend .add-on,
+.control-group.error .input-append .add-on {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #b94a48;
+}
+
+/* line 223 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 280 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.success > label,
+.control-group.success .help-block,
+.control-group.success .help-inline {
+  color: #468847;
+}
+
+/* line 284 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.success input,
+.control-group.success select,
+.control-group.success textarea {
+  color: #468847;
+  border-color: #468847;
+}
+
+/* line 287 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.success input:focus,
+.control-group.success select:focus,
+.control-group.success textarea:focus {
+  border-color: #356635;
+  -webkit-box-shadow: 0 0 6px #7aba7b;
+  -moz-box-shadow: 0 0 6px #7aba7b;
+  box-shadow: 0 0 6px #7aba7b;
+}
+
+/* line 292 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.control-group.success .input-prepend .add-on,
+.control-group.success .input-append .add-on {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #468847;
+}
+
+/* line 228 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input:focus:required:invalid,
+textarea:focus:required:invalid,
+select:focus:required:invalid {
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+
+/* line 231 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+input:focus:required:invalid:focus,
+textarea:focus:required:invalid:focus,
+select:focus:required:invalid:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
+
+/* line 238 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-actions {
+  padding: 17px 20px 18px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+}
+
+/* line 246 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.uneditable-input {
+  display: block;
+  background-color: #fff;
+  border-color: #eee;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+  cursor: not-allowed;
+}
+
+/* line 55 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+:-moz-placeholder {
+  color: #999;
+}
+
+/* line 57 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+::-webkit-input-placeholder {
+  color: #999;
+}
+
+/* line 259 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 0;
+  color: #999;
+}
+
+/* line 265 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.help-inline {
+  display: inline-block;
+  *display: inline;
+/* IE7 inline-block hack */
+  *zoom: 1;
+  margin-bottom: 9px;
+  vertical-align: middle;
+  padding-left: 5px;
+}
+
+/* line 276 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-prepend,
+.input-append {
+  margin-bottom: 5px;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.input-prepend:before,
+.input-append:before,
+.input-prepend:after,
+.input-append:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.input-prepend:after,
+.input-append:after {
+  clear: both;
+}
+
+/* line 279 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-prepend input,
+.input-append input,
+.input-prepend .uneditable-input,
+.input-append .uneditable-input {
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+
+/* line 281 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-prepend input:focus,
+.input-append input:focus,
+.input-prepend .uneditable-input:focus,
+.input-append .uneditable-input:focus {
+  position: relative;
+  z-index: 2;
+}
+
+/* line 285 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-prepend .uneditable-input,
+.input-append .uneditable-input {
+  border-left-color: #ccc;
+}
+
+/* line 288 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-prepend .add-on,
+.input-append .add-on {
+  float: left;
+  display: block;
+  width: auto;
+  min-width: 16px;
+  height: 18px;
+  margin-right: -1px;
+  padding: 4px 5px;
+  font-weight: normal;
+  line-height: 18px;
+  color: #999;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+
+/* line 305 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-prepend .active,
+.input-append .active {
+  background-color: #a9dba9;
+  border-color: #46a546;
+}
+
+/* line 309 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 310 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-prepend .add-on {
+  *margin-top: 1px;
+/* IE6-7 */
+}
+
+/* line 313 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 314 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-append input,
+.input-append .uneditable-input {
+  float: left;
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+
+/* line 318 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-append .uneditable-input {
+  border-left-color: #eee;
+  border-right-color: #ccc;
+}
+
+/* line 322 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-append .add-on {
+  margin-right: 0;
+  margin-left: -1px;
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+
+/* line 327 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-append input:first-child {
+  *margin-left: -160px;
+}
+
+/* line 332 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.input-append input:first-child+.add-on {
+  *margin-left: -21px;
+}
+
+/* line 338 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.search-query {
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-bottom: 0;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+}
+
+/* line 350 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 351 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-search input,
+.form-inline input,
+.form-horizontal input,
+.form-search textarea,
+.form-inline textarea,
+.form-horizontal textarea,
+.form-search select,
+.form-inline select,
+.form-horizontal select,
+.form-search .help-inline,
+.form-inline .help-inline,
+.form-horizontal .help-inline,
+.form-search .uneditable-input,
+.form-inline .uneditable-input,
+.form-horizontal .uneditable-input {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+/* line 354 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-search .hide,
+.form-inline .hide,
+.form-horizontal .hide {
+  display: none;
+}
+
+/* line 357 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-search label,
+.form-inline label,
+.form-search .input-append,
+.form-inline .input-append,
+.form-search .input-prepend,
+.form-inline .input-prepend {
+  display: inline-block;
+}
+
+/* line 361 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-search .input-append .add-on,
+.form-inline .input-prepend .add-on,
+.form-search .input-append .add-on,
+.form-inline .input-prepend .add-on {
+  vertical-align: middle;
+}
+
+/* line 365 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-search .radio,
+.form-inline .radio,
+.form-search .checkbox,
+.form-inline .checkbox {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+/* line 370 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.control-group {
+  margin-bottom: 9px;
+}
+
+/* line 374 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+legend + .control-group {
+  margin-top: 18px;
+  -webkit-margin-top-collapse: separate;
+}
+
+/* line 381 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+
+/* line 383 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-horizontal .control-group {
+  margin-bottom: 18px;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.form-horizontal .control-group:before,
+.form-horizontal .control-group:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.form-horizontal .control-group:after {
+  clear: both;
+}
+
+/* line 388 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-horizontal .control-label {
+  float: left;
+  width: 140px;
+  padding-top: 5px;
+  text-align: right;
+}
+
+/* line 395 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-horizontal .controls {
+  margin-left: 160px;
+}
+
+/* line 399 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/forms.styl */
+.form-horizontal .form-actions {
+  padding-left: 160px;
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table {
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 17 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+/* line 21 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table th,
+.table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+/* line 28 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table th {
+  font-weight: bold;
+}
+
+/* line 31 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 32 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table thead th {
+  vertical-align: bottom;
+}
+
+/* line 36 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table thead:first-child tr th,
+.table thead:first-child tr td {
+  border-top: 0;
+}
+
+/* line 40 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table tbody + tbody {
+  border-top: 2px solid #ddd;
+}
+
+/* line 46 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 47 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-condensed th,
+.table-condensed td {
+  padding: 4px 5px;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-bordered {
+  border: 1px solid #ddd;
+  border-collapse: separate;
+  *border-collapse: collapsed;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 58 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-bordered th + th,
+.table-bordered td + td,
+.table-bordered th + td,
+.table-bordered td + th {
+  border-left: 1px solid #ddd;
+}
+
+/* line 62 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-bordered thead:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+
+/* line 66 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-bordered thead:first-child tr:first-child th:first-child,
+.table-bordered tbody:first-child tr:first-child td:first-child {
+  -webkit-border-radius: 4px 0 0 0;
+  -moz-border-radius: 4px 0 0 0;
+  border-radius: 4px 0 0 0;
+}
+
+/* line 69 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-bordered thead:first-child tr:first-child th:last-child,
+.table-bordered tbody:first-child tr:first-child td:last-child {
+  -webkit-border-radius: 0 4px 0 0;
+  -moz-border-radius: 0 4px 0 0;
+  border-radius: 0 4px 0 0;
+}
+
+/* line 73 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-bordered thead:last-child tr:last-child th:first-child,
+.table-bordered tbody:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+}
+
+/* line 76 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-bordered thead:last-child tr:last-child th:last-child,
+.table-bordered tbody:last-child tr:last-child td:last-child {
+  -webkit-border-radius: 0 0 4px 0;
+  -moz-border-radius: 0 0 4px 0;
+  border-radius: 0 0 4px 0;
+}
+
+/* line 83 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 84 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 85 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table-striped tbody tr:nth-child(odd) td,
+.table-striped tbody tr:nth-child(odd) th {
+  background-color: #f9f9f9;
+}
+
+/* line 91 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 92 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 93 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+.table tbody tr:hover td,
+.table tbody tr:hover th {
+  background-color: #f5f5f5;
+}
+
+/* line 105 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+
+/* line 106 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span1 {
+  float: none;
+  width: 44px;
+  margin-left: 0;
+}
+
+/* line 108 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span2 {
+  float: none;
+  width: 124px;
+  margin-left: 0;
+}
+
+/* line 110 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span3 {
+  float: none;
+  width: 204px;
+  margin-left: 0;
+}
+
+/* line 112 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span4 {
+  float: none;
+  width: 284px;
+  margin-left: 0;
+}
+
+/* line 114 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span5 {
+  float: none;
+  width: 364px;
+  margin-left: 0;
+}
+
+/* line 116 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span6 {
+  float: none;
+  width: 444px;
+  margin-left: 0;
+}
+
+/* line 118 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span7 {
+  float: none;
+  width: 524px;
+  margin-left: 0;
+}
+
+/* line 120 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span8 {
+  float: none;
+  width: 604px;
+  margin-left: 0;
+}
+
+/* line 122 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span9 {
+  float: none;
+  width: 684px;
+  margin-left: 0;
+}
+
+/* line 124 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span10 {
+  float: none;
+  width: 764px;
+  margin-left: 0;
+}
+
+/* line 126 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span11 {
+  float: none;
+  width: 844px;
+  margin-left: 0;
+}
+
+/* line 128 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tables.styl */
+table .span12 {
+  float: none;
+  width: 924px;
+  margin-left: 0;
+}
+
+/* line 15 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+
+/* line 15 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  *margin-right: 0.3em;
+}
+
+/* line 40 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+[class^="icon-"]:last-child,
+[class*=" icon-"]:last-child {
+  *margin-left: 0;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-white {
+  background-image: url("../img/glyphicons-halflings-white.png");
+}
+
+/* line 31 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-glass {
+  background-position: 0 0;
+}
+
+/* line 33 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-music {
+  background-position: -24px 0;
+}
+
+/* line 35 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-search {
+  background-position: -48px 0;
+}
+
+/* line 37 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-envelope {
+  background-position: -72px 0;
+}
+
+/* line 39 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-heart {
+  background-position: -96px 0;
+}
+
+/* line 41 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-star {
+  background-position: -120px 0;
+}
+
+/* line 43 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-star-empty {
+  background-position: -144px 0;
+}
+
+/* line 45 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-user {
+  background-position: -168px 0;
+}
+
+/* line 47 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-film {
+  background-position: -192px 0;
+}
+
+/* line 49 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-th-large {
+  background-position: -216px 0;
+}
+
+/* line 51 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-th {
+  background-position: -240px 0;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-th-list {
+  background-position: -264px 0;
+}
+
+/* line 55 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-ok {
+  background-position: -288px 0;
+}
+
+/* line 57 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-remove {
+  background-position: -312px 0;
+}
+
+/* line 59 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-zoom-in {
+  background-position: -336px 0;
+}
+
+/* line 61 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-zoom-out {
+  background-position: -360px 0;
+}
+
+/* line 63 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-off {
+  background-position: -384px 0;
+}
+
+/* line 65 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-signal {
+  background-position: -408px 0;
+}
+
+/* line 67 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-cog {
+  background-position: -432px 0;
+}
+
+/* line 69 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-trash {
+  background-position: -456px 0;
+}
+
+/* line 72 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-home {
+  background-position: 0 -24px;
+}
+
+/* line 74 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-file {
+  background-position: -24px -24px;
+}
+
+/* line 76 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-time {
+  background-position: -48px -24px;
+}
+
+/* line 78 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-road {
+  background-position: -72px -24px;
+}
+
+/* line 80 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-download-alt {
+  background-position: -96px -24px;
+}
+
+/* line 82 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-download {
+  background-position: -120px -24px;
+}
+
+/* line 84 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-upload {
+  background-position: -144px -24px;
+}
+
+/* line 86 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-inbox {
+  background-position: -168px -24px;
+}
+
+/* line 88 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-play-circle {
+  background-position: -192px -24px;
+}
+
+/* line 90 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-repeat {
+  background-position: -216px -24px;
+}
+
+/* line 92 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-refresh {
+  background-position: -240px -24px;
+}
+
+/* line 94 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-list-alt {
+  background-position: -264px -24px;
+}
+
+/* line 96 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-lock {
+  background-position: -287px -24px;
+}
+
+/* line 98 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-flag {
+  background-position: -312px -24px;
+}
+
+/* line 100 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-headphones {
+  background-position: -336px -24px;
+}
+
+/* line 102 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-volume-off {
+  background-position: -360px -24px;
+}
+
+/* line 104 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-volume-down {
+  background-position: -384px -24px;
+}
+
+/* line 106 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-volume-up {
+  background-position: -408px -24px;
+}
+
+/* line 108 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-qrcode {
+  background-position: -432px -24px;
+}
+
+/* line 110 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-barcode {
+  background-position: -456px -24px;
+}
+
+/* line 113 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-tag {
+  background-position: 0 -48px;
+}
+
+/* line 115 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-tags {
+  background-position: -25px -48px;
+}
+
+/* line 117 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-book {
+  background-position: -48px -48px;
+}
+
+/* line 119 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-bookmark {
+  background-position: -72px -48px;
+}
+
+/* line 121 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-print {
+  background-position: -96px -48px;
+}
+
+/* line 123 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-camera {
+  background-position: -120px -48px;
+}
+
+/* line 125 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-font {
+  background-position: -144px -48px;
+}
+
+/* line 127 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-bold {
+  background-position: -167px -48px;
+}
+
+/* line 129 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-italic {
+  background-position: -192px -48px;
+}
+
+/* line 131 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-text-height {
+  background-position: -216px -48px;
+}
+
+/* line 133 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-text-width {
+  background-position: -240px -48px;
+}
+
+/* line 135 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-align-left {
+  background-position: -264px -48px;
+}
+
+/* line 137 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-align-center {
+  background-position: -288px -48px;
+}
+
+/* line 139 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-align-right {
+  background-position: -312px -48px;
+}
+
+/* line 141 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-align-justify {
+  background-position: -336px -48px;
+}
+
+/* line 143 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-list {
+  background-position: -360px -48px;
+}
+
+/* line 145 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-indent-left {
+  background-position: -384px -48px;
+}
+
+/* line 147 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-indent-right {
+  background-position: -408px -48px;
+}
+
+/* line 149 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-facetime-video {
+  background-position: -432px -48px;
+}
+
+/* line 151 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-picture {
+  background-position: -456px -48px;
+}
+
+/* line 154 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-pencil {
+  background-position: 0 -72px;
+}
+
+/* line 156 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-map-marker {
+  background-position: -24px -72px;
+}
+
+/* line 158 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-adjust {
+  background-position: -48px -72px;
+}
+
+/* line 160 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-tint {
+  background-position: -72px -72px;
+}
+
+/* line 162 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-edit {
+  background-position: -96px -72px;
+}
+
+/* line 164 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-share {
+  background-position: -120px -72px;
+}
+
+/* line 166 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-check {
+  background-position: -144px -72px;
+}
+
+/* line 168 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-move {
+  background-position: -168px -72px;
+}
+
+/* line 170 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-step-backward {
+  background-position: -192px -72px;
+}
+
+/* line 172 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-fast-backward {
+  background-position: -216px -72px;
+}
+
+/* line 174 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-backward {
+  background-position: -240px -72px;
+}
+
+/* line 176 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-play {
+  background-position: -264px -72px;
+}
+
+/* line 178 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-pause {
+  background-position: -288px -72px;
+}
+
+/* line 180 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-stop {
+  background-position: -312px -72px;
+}
+
+/* line 182 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-forward {
+  background-position: -336px -72px;
+}
+
+/* line 184 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-fast-forward {
+  background-position: -360px -72px;
+}
+
+/* line 186 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-step-forward {
+  background-position: -384px -72px;
+}
+
+/* line 188 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-eject {
+  background-position: -408px -72px;
+}
+
+/* line 190 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-chevron-left {
+  background-position: -432px -72px;
+}
+
+/* line 192 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-chevron-right {
+  background-position: -456px -72px;
+}
+
+/* line 195 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-plus-sign {
+  background-position: 0 -96px;
+}
+
+/* line 197 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-minus-sign {
+  background-position: -24px -96px;
+}
+
+/* line 199 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-remove-sign {
+  background-position: -48px -96px;
+}
+
+/* line 201 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-ok-sign {
+  background-position: -72px -96px;
+}
+
+/* line 203 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-question-sign {
+  background-position: -96px -96px;
+}
+
+/* line 205 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-info-sign {
+  background-position: -120px -96px;
+}
+
+/* line 207 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-screenshot {
+  background-position: -144px -96px;
+}
+
+/* line 209 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-remove-circle {
+  background-position: -168px -96px;
+}
+
+/* line 211 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-ok-circle {
+  background-position: -192px -96px;
+}
+
+/* line 213 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-ban-circle {
+  background-position: -216px -96px;
+}
+
+/* line 215 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-arrow-left {
+  background-position: -240px -96px;
+}
+
+/* line 217 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-arrow-right {
+  background-position: -264px -96px;
+}
+
+/* line 219 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-arrow-up {
+  background-position: -289px -96px;
+}
+
+/* line 221 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-arrow-down {
+  background-position: -312px -96px;
+}
+
+/* line 223 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-share-alt {
+  background-position: -336px -96px;
+}
+
+/* line 225 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-resize-full {
+  background-position: -360px -96px;
+}
+
+/* line 227 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-resize-small {
+  background-position: -384px -96px;
+}
+
+/* line 229 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-plus {
+  background-position: -408px -96px;
+}
+
+/* line 231 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-minus {
+  background-position: -433px -96px;
+}
+
+/* line 233 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-asterisk {
+  background-position: -456px -96px;
+}
+
+/* line 236 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-exclamation-sign {
+  background-position: 0 -120px;
+}
+
+/* line 238 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-gift {
+  background-position: -24px -120px;
+}
+
+/* line 240 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-leaf {
+  background-position: -48px -120px;
+}
+
+/* line 242 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-fire {
+  background-position: -72px -120px;
+}
+
+/* line 244 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-eye-open {
+  background-position: -96px -120px;
+}
+
+/* line 246 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-eye-close {
+  background-position: -120px -120px;
+}
+
+/* line 248 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-warning-sign {
+  background-position: -144px -120px;
+}
+
+/* line 250 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-plane {
+  background-position: -168px -120px;
+}
+
+/* line 252 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-calendar {
+  background-position: -192px -120px;
+}
+
+/* line 254 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-random {
+  background-position: -216px -120px;
+}
+
+/* line 256 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-comment {
+  background-position: -240px -120px;
+}
+
+/* line 258 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-magnet {
+  background-position: -264px -120px;
+}
+
+/* line 260 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-chevron-up {
+  background-position: -288px -120px;
+}
+
+/* line 262 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-chevron-down {
+  background-position: -313px -119px;
+}
+
+/* line 264 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-retweet {
+  background-position: -336px -120px;
+}
+
+/* line 266 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-shopping-cart {
+  background-position: -360px -120px;
+}
+
+/* line 268 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-folder-close {
+  background-position: -384px -120px;
+}
+
+/* line 270 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-folder-open {
+  background-position: -408px -120px;
+}
+
+/* line 272 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-resize-vertical {
+  background-position: -432px -119px;
+}
+
+/* line 274 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/sprites.styl */
+.icon-resize-horizontal {
+  background-position: -456px -118px;
+}
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown {
+  position: relative;
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown-toggle {
+  *margin-bottom: -3px;
+}
+
+/* line 12 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+  outline: 0;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  text-indent: -99999px;
+  *text-indent: 0;
+  vertical-align: top;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+  opacity: 0.3;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  content: "\2193";
+}
+
+/* line 31 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown .caret {
+  margin-top: 8px;
+  margin-left: 2px;
+}
+
+/* line 35 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown:hover .caret,
+.open.dropdown .caret {
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+
+/* line 39 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  _width: 160px;
+  padding: 4px 0;
+  margin: 0;
+  list-style: none;
+  background-color: #fff;
+  border-color: #ccc;
+  border-color: rgba(0,0,0,0.20);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.20);
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,0.20);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.20);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+}
+
+/* line 63 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown-menu.bottom-up {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 2px;
+}
+
+/* line 69 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown-menu .divider {
+  height: 1px;
+  margin: 5px 1px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  border-bottom: 1px solid #fff;
+  *width: 100%;
+  *margin: -5px 0 5px;
+}
+
+/* line 84 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown-menu a {
+  display: block;
+  padding: 3px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: 18px;
+  color: #555;
+  white-space: nowrap;
+}
+
+/* line 94 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown-menu li > a:hover,
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #08c;
+}
+
+/* line 101 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown.open {
+  *z-index: 1000;
+}
+
+/* line 105 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown.open .dropdown-toggle {
+  color: #fff;
+  background: #ccc;
+  background: rgba(0,0,0,0.30);
+}
+
+/* line 110 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+/* line 114 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/dropdowns.styl */
+.typeahead {
+  margin-top: 2px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/wells.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/wells.styl */
+.well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #eee;
+  border: 1px solid rgba(0,0,0,0.05);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/wells.styl */
+.well blockquote {
+  border-color: #ddd;
+  border-color: rgba(0,0,0,0.15);
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/component-animations.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/component-animations.styl */
+.fade {
+  -webkit-transition: opacity 0.15s linear;
+  -moz-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+
+/* line 7 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/component-animations.styl */
+.fade.in {
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/component-animations.styl */
+.collapse {
+  -webkit-transition: height 0.35s ease;
+  -moz-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
+  transition: height 0.35s ease;
+  position: relative;
+  overflow: hidden;
+  height: 0;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/component-animations.styl */
+.collapse.in {
+  height: auto;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/close.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/close.styl */
+.close {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.2;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+}
+
+/* line 12 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/close.styl */
+.close:hover {
+  color: #000;
+  text-decoration: none;
+  opacity: 0.4;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  cursor: pointer;
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn {
+  display: inline-block;
+  padding: 4px 10px 4px;
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: #333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  vertical-align: middle;
+  background-color: #f5f5f5;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #e6e6e6));
+  background-image: -webkit-linear-gradient(top, #fff 0%, #e6e6e6 100%);
+  background-image: -moz-linear-gradient(top, #fff 0%, #e6e6e6 100%);
+  background-image: -o-linear-gradient(top, #fff 0%, #e6e6e6 100%);
+  background-image: -ms-linear-gradient(top, #fff 0%, #e6e6e6 100%);
+  background-image: linear-gradient(top, #fff 0%, #e6e6e6 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#e6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #ccc;
+  border-bottom-color: #bbb;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 1px 2px rgba(0,0,0,0.05);
+  cursor: pointer;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  *margin-left: 0.3em;
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn:hover,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  background-color: #e6e6e6;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn:active,
+.btn.active {
+  background-color: #ccc \9;
+}
+
+/* line 36 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn:first-child {
+  *margin-left: 0;
+}
+
+/* line 33 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn:hover {
+  color: #333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+
+/* line 45 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* line 50 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn.active,
+.btn:active {
+  background-image: none;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.05);
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  outline: 0;
+}
+
+/* line 60 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn.disabled,
+.btn[disabled] {
+  cursor: default;
+  background-image: none;
+  background-color: #e6e6e6;
+  opacity: 0.65;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 73 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-large {
+  padding: 9px 14px;
+  font-size: 15px;
+  line-height: normal;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 79 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-large [class^="icon-"] {
+  margin-top: 1px;
+}
+
+/* line 83 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-small {
+  padding: 5px 9px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+/* line 88 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-small [class^="icon-"] {
+  margin-top: -1px;
+}
+
+/* line 92 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-mini {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+/* line 103 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-primary,
+.btn-primary:hover,
+.btn-warning,
+.btn-warning:hover,
+.btn-danger,
+.btn-danger:hover,
+.btn-success,
+.btn-success:hover,
+.btn-info,
+.btn-info:hover,
+.btn-inverse,
+.btn-inverse:hover {
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  color: #fff;
+}
+
+/* line 108 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-primary.active,
+.btn-warning.active,
+.btn-danger.active,
+.btn-success.active,
+.btn-info.active,
+.btn-inverse.active {
+  color: rgba(255,255,255,0.75);
+}
+
+/* line 114 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-primary {
+  background-color: #006dcc;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #08c), color-stop(1, #04c));
+  background-image: -webkit-linear-gradient(top, #08c 0%, #04c 100%);
+  background-image: -moz-linear-gradient(top, #08c 0%, #04c 100%);
+  background-image: -o-linear-gradient(top, #08c 0%, #04c 100%);
+  background-image: -ms-linear-gradient(top, #08c 0%, #04c 100%);
+  background-image: linear-gradient(top, #08c 0%, #04c 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#08c', endColorstr='#04c', GradientType=0);
+  border-color: #04c #04c #002a80;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  background-color: #04c;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #039 \9;
+}
+
+/* line 118 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-warning {
+  background-color: #faa732;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fbb450), color-stop(1, #f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  background-image: -moz-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  background-image: -o-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  background-image: -ms-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  background-image: linear-gradient(top, #fbb450 0%, #f89406 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbb450', endColorstr='#f89406', GradientType=0);
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-warning:hover,
+.btn-warning:active,
+.btn-warning.active,
+.btn-warning.disabled,
+.btn-warning[disabled] {
+  background-color: #f89406;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-warning:active,
+.btn-warning.active {
+  background-color: #c67605 \9;
+}
+
+/* line 122 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-danger {
+  background-color: #da4f49;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ee5f5b), color-stop(1, #bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b 0%, #bd362f 100%);
+  background-image: -moz-linear-gradient(top, #ee5f5b 0%, #bd362f 100%);
+  background-image: -o-linear-gradient(top, #ee5f5b 0%, #bd362f 100%);
+  background-image: -ms-linear-gradient(top, #ee5f5b 0%, #bd362f 100%);
+  background-image: linear-gradient(top, #ee5f5b 0%, #bd362f 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5f5b', endColorstr='#bd362f', GradientType=0);
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger.active,
+.btn-danger.disabled,
+.btn-danger[disabled] {
+  background-color: #bd362f;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-danger:active,
+.btn-danger.active {
+  background-color: #942a25 \9;
+}
+
+/* line 126 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-success {
+  background-color: #5bb75b;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #62c462), color-stop(1, #51a351));
+  background-image: -webkit-linear-gradient(top, #62c462 0%, #51a351 100%);
+  background-image: -moz-linear-gradient(top, #62c462 0%, #51a351 100%);
+  background-image: -o-linear-gradient(top, #62c462 0%, #51a351 100%);
+  background-image: -ms-linear-gradient(top, #62c462 0%, #51a351 100%);
+  background-image: linear-gradient(top, #62c462 0%, #51a351 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#51a351', GradientType=0);
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+  background-color: #51a351;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-success:active,
+.btn-success.active {
+  background-color: #408140 \9;
+}
+
+/* line 130 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-info {
+  background-color: #49afcd;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #5bc0de), color-stop(1, #2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de 0%, #2f96b4 100%);
+  background-image: -moz-linear-gradient(top, #5bc0de 0%, #2f96b4 100%);
+  background-image: -o-linear-gradient(top, #5bc0de 0%, #2f96b4 100%);
+  background-image: -ms-linear-gradient(top, #5bc0de 0%, #2f96b4 100%);
+  background-image: linear-gradient(top, #5bc0de 0%, #2f96b4 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5bc0de', endColorstr='#2f96b4', GradientType=0);
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-info:hover,
+.btn-info:active,
+.btn-info.active,
+.btn-info.disabled,
+.btn-info[disabled] {
+  background-color: #2f96b4;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-info:active,
+.btn-info.active {
+  background-color: #24748c \9;
+}
+
+/* line 134 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+.btn-inverse {
+  background-color: #393939;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #454545), color-stop(1, #262626));
+  background-image: -webkit-linear-gradient(top, #454545 0%, #262626 100%);
+  background-image: -moz-linear-gradient(top, #454545 0%, #262626 100%);
+  background-image: -o-linear-gradient(top, #454545 0%, #262626 100%);
+  background-image: -ms-linear-gradient(top, #454545 0%, #262626 100%);
+  background-image: linear-gradient(top, #454545 0%, #262626 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#454545', endColorstr='#262626', GradientType=0);
+  border-color: #262626 #262626 #000;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-inverse:hover,
+.btn-inverse:active,
+.btn-inverse.active,
+.btn-inverse.disabled,
+.btn-inverse[disabled] {
+  background-color: #262626;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-inverse:active,
+.btn-inverse.active {
+  background-color: #0d0d0d \9;
+}
+
+/* line 141 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+button.btn,
+input[type="submit"].btn {
+  *padding-top: 2px;
+  *padding-bottom: 2px;
+}
+
+/* line 144 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+button.btn::-moz-focus-inner,
+input[type="submit"].btn::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* line 152 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+button.btn.large,
+input[type="submit"].btn.large {
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+
+/* line 156 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/buttons.styl */
+button.btn.small,
+input[type="submit"].btn.small {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+
+/* line 6 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+
+/* line 6 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group {
+  position: relative;
+  zoom: 1;
+  *margin-left: 0.3em;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.btn-group:before,
+.btn-group:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.btn-group:after {
+  clear: both;
+}
+
+/* line 36 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-group:first-child {
+  *margin-left: 0;
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group + .btn-group {
+  margin-left: 5px;
+}
+
+/* line 18 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-toolbar {
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+
+/* line 21 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-toolbar .btn-group {
+  display: inline-block;
+  *display: inline;
+/* IE7 inline-block hack */
+  *zoom: 1;
+}
+
+/* line 28 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .btn {
+  position: relative;
+  float: left;
+  margin-left: -1px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 35 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .btn:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* line 44 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .btn:last-child,
+.btn-group .dropdown-toggle {
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .btn.large:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+/* line 62 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .btn.large:last-child,
+.btn-group .large.dropdown-toggle {
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* line 72 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .btn:hover,
+.btn-group .btn:focus,
+.btn-group .btn:active,
+.btn-group .btn.active {
+  z-index: 2;
+}
+
+/* line 77 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+
+/* line 87 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group .dropdown-toggle {
+  padding-left: 8px;
+  padding-right: 8px;
+  -webkit-box-shadow: inset 1px 0 0 rgba(255,255,255,0.13), inset 0 1px 0 rgba(255,255,255,0.20), 0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 1px 0 0 rgba(255,255,255,0.13), inset 0 1px 0 rgba(255,255,255,0.20), 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 1px 0 0 rgba(255,255,255,0.13), inset 0 1px 0 rgba(255,255,255,0.20), 0 1px 2px rgba(0,0,0,0.05);
+  *padding-top: 5px;
+  *padding-bottom: 5px;
+}
+
+/* line 96 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group.open {
+  *z-index: 1000;
+}
+
+/* line 102 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group.open .dropdown-menu {
+  display: block;
+  margin-top: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 108 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-group.open .dropdown-toggle {
+  background-image: none;
+  -webkit-box-shadow: inset 0 1px 6px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 0 1px 6px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 6px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* line 116 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn .caret {
+  margin-top: 7px;
+  margin-left: 0;
+}
+
+/* line 120 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn:hover .caret,
+.open.btn-group .caret {
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+
+/* line 126 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+
+/* line 128 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-primary .caret,
+.btn-danger .caret,
+.btn-info .caret,
+.btn-success .caret,
+.btn-inverse .caret {
+  border-top-color: #fff;
+  opacity: 0.75;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+}
+
+/* line 135 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/button-groups.styl */
+.btn-small .caret {
+  margin-top: 4px;
+}
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.50);
+  background-color: #fcf8e3;
+  border: 1px solid #fbefd5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert,
+.alert-heading {
+  color: #c09853;
+}
+
+/* line 18 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: 18px;
+}
+
+/* line 28 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+/* line 32 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-success,
+.alert-success .alert-heading {
+  color: #468847;
+}
+
+/* line 35 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-danger,
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+/* line 39 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-danger,
+.alert-error,
+.alert-danger .alert-heading,
+.alert-error .alert-heading {
+  color: #b94a48;
+}
+
+/* line 42 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+/* line 46 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-info,
+.alert-info .alert-heading {
+  color: #3a87ad;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* line 57 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-block > p,
+.alert-block > ul {
+  margin-bottom: 0;
+}
+
+/* line 60 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/alerts.styl */
+.alert-block p + p {
+  margin-top: 5px;
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav {
+  margin-left: 0;
+  margin-bottom: 18px;
+  list-style: none;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav > li > a {
+  display: block;
+}
+
+/* line 19 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav > li > a:hover {
+  text-decoration: none;
+  background-color: #eee;
+}
+
+/* line 24 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav .nav-header {
+  display: block;
+  padding: 3px 15px;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #999;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.50);
+  text-transform: uppercase;
+}
+
+/* line 36 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav li + .nav-header {
+  margin-top: 9px;
+}
+
+/* line 43 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-list {
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-bottom: 0;
+}
+
+/* line 48 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-list > li > a,
+.nav-list .nav-header {
+  margin-left: -15px;
+  margin-right: -15px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.50);
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-list > li > a {
+  padding: 3px 15px;
+}
+
+/* line 56 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-list .active > a,
+.nav-list .active > a:hover {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.20);
+  background-color: #08c;
+}
+
+/* line 62 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-list [class^="icon-"] {
+  margin-right: 2px;
+}
+
+/* line 72 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs,
+.nav-pills {
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.nav-tabs:before,
+.nav-pills:before,
+.nav-tabs:after,
+.nav-pills:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.nav-tabs:after,
+.nav-pills:after {
+  clear: both;
+}
+
+/* line 75 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs > li,
+.nav-pills > li {
+  float: left;
+}
+
+/* line 78 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs > li > a,
+.nav-pills > li > a {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+}
+
+/* line 89 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+/* line 94 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs > li {
+  margin-bottom: -1px;
+}
+
+/* line 99 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs > li > a {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+
+/* line 104 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs > li > a:hover {
+  border-color: #eee #eee #ddd;
+}
+
+/* line 109 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover {
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  cursor: default;
+}
+
+/* line 121 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-pills > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 130 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-pills .active > a,
+.nav-pills .active > a:hover {
+  color: #fff;
+  background-color: #08c;
+}
+
+/* line 141 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-stacked > li {
+  float: none;
+}
+
+/* line 144 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-stacked > li > a {
+  margin-right: 0;
+}
+
+/* line 149 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs.nav-stacked {
+  border-bottom: 0;
+}
+
+/* line 152 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs.nav-stacked > li > a {
+  border: 1px solid #ddd;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 156 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs.nav-stacked > li:first-child > a {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+
+/* line 159 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs.nav-stacked > li:last-child > a {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+/* line 162 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs.nav-stacked > li > a:hover {
+  border-color: #ddd;
+  z-index: 2;
+}
+
+/* line 168 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-pills.nav-stacked > li > a {
+  margin-bottom: 3px;
+}
+
+/* line 171 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-pills.nav-stacked > li:last-child > a {
+  margin-bottom: 1px;
+}
+
+/* line 181 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs .dropdown-menu,
+.nav-pills .dropdown-menu {
+  margin-top: 1px;
+  border-width: 1px;
+}
+
+/* line 185 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-pills .dropdown-menu {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 192 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs .dropdown-toggle .caret,
+.nav-pills .dropdown-toggle .caret {
+  border-top-color: #08c;
+  margin-top: 6px;
+}
+
+/* line 196 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs .dropdown-toggle:hover .caret,
+.nav-pills .dropdown-toggle:hover .caret {
+  border-top-color: #005580;
+}
+
+/* line 202 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs .active .dropdown-toggle .caret,
+.nav-pills .active .dropdown-toggle .caret {
+  border-top-color: #333;
+}
+
+/* line 208 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav > .dropdown.active > a:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+/* line 215 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav-tabs .open .dropdown-toggle,
+.nav-pills .open .dropdown-toggle,
+.nav > .open.active > a:hover {
+  color: #fff;
+  background-color: #999;
+  border-color: #999;
+}
+
+/* line 220 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.nav .open .caret,
+.nav .open.active .caret,
+.nav .open a:hover .caret {
+  border-top-color: #fff;
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+
+/* line 226 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-stacked .open > a:hover {
+  border-color: #999;
+}
+
+/* line 240 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabbable {
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.tabbable:before,
+.tabbable:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.tabbable:after {
+  clear: both;
+}
+
+/* line 243 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tab-content {
+  overflow: hidden;
+}
+
+/* line 247 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-below .nav-tabs,
+.tabs-right .nav-tabs,
+.tabs-left .nav-tabs {
+  border-bottom: 0;
+}
+
+/* line 252 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+  display: none;
+}
+
+/* line 255 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tab-content > .active,
+.pill-content > .active {
+  display: block;
+}
+
+/* line 263 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-below .nav-tabs {
+  border-top: 1px solid #ddd;
+}
+
+/* line 266 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-below .nav-tabs > li {
+  margin-top: -1px;
+  margin-bottom: 0;
+}
+
+/* line 270 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-below .nav-tabs > li > a {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+/* line 272 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-below .nav-tabs > li > a:hover {
+  border-bottom-color: transparent;
+  border-top-color: #ddd;
+}
+
+/* line 277 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-below .nav-tabs .active > a,
+.tabs-below .nav-tabs .active > a:hover {
+  border-color: transparent #ddd #ddd #ddd;
+}
+
+/* line 285 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-left .nav-tabs > li,
+.tabs-right .nav-tabs > li {
+  float: none;
+}
+
+/* line 288 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-left .nav-tabs > li > a,
+.tabs-right .nav-tabs > li > a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+
+/* line 295 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-left .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+
+/* line 300 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-left .nav-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+/* line 304 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-left .nav-tabs > li > a:hover {
+  border-color: #eee #ddd #eee #eee;
+}
+
+/* line 307 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-left .nav-tabs .active > a,
+.tabs-left .nav-tabs .active > a:hover {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: #fff;
+}
+
+/* line 313 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-right .nav-tabs {
+  float: right;
+  margin-left: 19px;
+  border-left: 1px solid #ddd;
+}
+
+/* line 318 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-right .nav-tabs > li > a {
+  margin-left: -1px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+/* line 322 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-right .nav-tabs > li > a:hover {
+  border-color: #eee #eee #eee #ddd;
+}
+
+/* line 325 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navs.styl */
+.tabs-right .nav-tabs .active > a,
+.tabs-right .nav-tabs .active > a:hover {
+  border-color: #ddd #ddd #ddd transparent;
+  *border-left-color: #fff;
+}
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar {
+  overflow: visible;
+  margin-bottom: 18px;
+}
+
+/* line 14 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-inner {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #2c2c2c;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #333), color-stop(1, #222));
+  background-image: -webkit-linear-gradient(top, #333 0%, #222 100%);
+  background-image: -moz-linear-gradient(top, #333 0%, #222 100%);
+  background-image: -o-linear-gradient(top, #333 0%, #222 100%);
+  background-image: -ms-linear-gradient(top, #333 0%, #222 100%);
+  background-image: linear-gradient(top, #333 0%, #222 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333', endColorstr='#222', GradientType=0);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.10);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.10);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.10);
+}
+
+/* line 24 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.btn-navbar {
+  display: none;
+  float: right;
+  padding: 7px 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #2c2c2c;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #333), color-stop(1, #222));
+  background-image: -webkit-linear-gradient(top, #333 0%, #222 100%);
+  background-image: -moz-linear-gradient(top, #333 0%, #222 100%);
+  background-image: -o-linear-gradient(top, #333 0%, #222 100%);
+  background-image: -ms-linear-gradient(top, #333 0%, #222 100%);
+  background-image: linear-gradient(top, #333 0%, #222 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333', endColorstr='#222', GradientType=0);
+  border-color: #222 #222 #000;
+  border-color: rgba(0,0,0,0.10) rgba(0,0,0,0.10) rgba(0,0,0,0.00);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 1px 0 rgba(255,255,255,0.07);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 1px 0 rgba(255,255,255,0.07);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 1px 0 rgba(255,255,255,0.07);
+}
+
+/* line 394 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-navbar:hover,
+.btn-navbar:active,
+.btn-navbar.active,
+.btn-navbar.disabled,
+.btn-navbar[disabled] {
+  background-color: #222;
+}
+
+/* line 397 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.btn-navbar:active,
+.btn-navbar.active {
+  background-color: #090909 \9;
+}
+
+/* line 34 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.btn-navbar .icon-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #f5f5f5;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+}
+
+/* line 42 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.btn-navbar .icon-bar + .icon-bar {
+  margin-top: 3px;
+}
+
+/* line 46 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.nav-collapse.collapse {
+  height: auto;
+}
+
+/* line 52 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+
+/* line 54 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .brand:hover {
+  text-decoration: none;
+}
+
+/* line 58 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .brand {
+  float: left;
+  display: block;
+  padding: 8px 20px 12px;
+  margin-left: -20px;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 1;
+  color: #fff;
+}
+
+/* line 69 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .navbar-text {
+  margin-bottom: 0;
+  line-height: 40px;
+  color: #999;
+}
+
+/* line 73 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .navbar-text a:hover {
+  color: #fff;
+  background-color: transparent;
+}
+
+/* line 79 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .btn,
+.navbar .btn-group {
+  margin-top: 5px;
+}
+
+/* line 82 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .btn-group .btn {
+  margin-top: 0;
+}
+
+/* line 88 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-form {
+  margin-bottom: 0;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.navbar-form:before,
+.navbar-form:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.navbar-form:after {
+  clear: both;
+}
+
+/* line 91 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-form input,
+.navbar-form select {
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+/* line 96 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-form .radio,
+.navbar-form .checkbox {
+  margin-top: 5px;
+}
+
+/* line 99 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-form input[type="image"],
+.navbar-form input[type="checkbox"],
+.navbar-form input[type="radio"] {
+  margin-top: 3px;
+}
+
+/* line 102 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-form .input-append,
+.navbar-form .input-prepend {
+  margin-top: 6px;
+  white-space: nowrap;
+}
+
+/* line 105 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-form .input-append input,
+.navbar-form .input-prepend input {
+  margin-top: 0;
+}
+
+/* line 109 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-search {
+  position: relative;
+  float: left;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+/* line 114 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-search .search-query {
+  padding: 4px 9px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1;
+  color: #fff;
+  color: rgba(255,255,255,0.75);
+  background: #666;
+  background: rgba(255,255,255,0.30);
+  border: 1px solid #111;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.10), 0 1px 0px rgba(255,255,255,0.15);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.10), 0 1px 0px rgba(255,255,255,0.15);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.10), 0 1px 0px rgba(255,255,255,0.15);
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+/* line 55 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.navbar-search .search-query :-moz-placeholder {
+  color: #eee;
+}
+
+/* line 57 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+.navbar-search .search-query ::-webkit-input-placeholder {
+  color: #eee;
+}
+
+/* line 130 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-search .search-query:hover {
+  color: #fff;
+  background-color: #999;
+  background-color: rgba(255,255,255,0.50);
+}
+
+/* line 136 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-search .search-query:focus,
+.navbar-search .search-query.focused {
+  padding: 5px 10px;
+  color: #333;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #fff;
+  border: 0;
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0 0 3px rgba(0,0,0,0.15);
+  box-shadow: 0 0 3px rgba(0,0,0,0.15);
+  outline: 0;
+}
+
+/* line 152 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+/* line 159 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar-fixed-top .navbar-inner {
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 169 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav {
+  position: relative;
+  left: 0;
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+/* line 176 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav.pull-right {
+  float: right;
+}
+
+/* line 179 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav > li {
+  display: block;
+  float: left;
+}
+
+/* line 185 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav > li > a {
+  float: none;
+  padding: 10px 10px 11px;
+  line-height: 19px;
+  color: #999;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+}
+
+/* line 194 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav > li > a:hover {
+  background-color: transparent;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 201 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #222;
+}
+
+/* line 208 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .divider-vertical {
+  height: 40px;
+  width: 1px;
+  margin: 0 9px;
+  overflow: hidden;
+  background-color: #222;
+  border-right: 1px solid #333;
+}
+
+/* line 218 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav.pull-right {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+/* line 229 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .dropdown-menu {
+  margin-top: 1px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 232 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .dropdown-menu:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-bottom-color: rgba(0,0,0,0.20);
+  position: absolute;
+  top: -7px;
+  left: 9px;
+}
+
+/* line 243 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .dropdown-menu:after {
+  content: '';
+  display: inline-block;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #fff;
+  position: absolute;
+  top: -6px;
+  left: 10px;
+}
+
+/* line 256 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav .dropdown-toggle .caret,
+.navbar .nav .open.dropdown .caret {
+  border-top-color: #fff;
+}
+
+/* line 259 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav .active .caret {
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+
+/* line 264 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav .open > .dropdown-toggle,
+.navbar .nav .active > .dropdown-toggle,
+.navbar .nav .open.active > .dropdown-toggle {
+  background-color: transparent;
+}
+
+/* line 269 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav .active > .dropdown-toggle:hover {
+  color: #fff;
+}
+
+/* line 274 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav.pull-right .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+/* line 277 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav.pull-right .dropdown-menu:before {
+  left: auto;
+  right: 12px;
+}
+
+/* line 281 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/navbar.styl */
+.navbar .nav.pull-right .dropdown-menu:after {
+  left: auto;
+  right: 13px;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/breadcrumbs.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/breadcrumbs.styl */
+.breadcrumb {
+  padding: 7px 14px;
+  margin: 0 0 18px;
+  background-color: #fbfbfb;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #f5f5f5));
+  background-image: -webkit-linear-gradient(top, #fff 0%, #f5f5f5 100%);
+  background-image: -moz-linear-gradient(top, #fff 0%, #f5f5f5 100%);
+  background-image: -o-linear-gradient(top, #fff 0%, #f5f5f5 100%);
+  background-image: -ms-linear-gradient(top, #fff 0%, #f5f5f5 100%);
+  background-image: linear-gradient(top, #fff 0%, #f5f5f5 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#f5f5f5', GradientType=0);
+  border: 1px solid #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 #fff;
+  -moz-box-shadow: inset 0 1px 0 #fff;
+  box-shadow: inset 0 1px 0 #fff;
+}
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/breadcrumbs.styl */
+.breadcrumb li {
+  display: inline-block;
+  text-shadow: 0 1px 0 #fff;
+}
+
+/* line 15 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/breadcrumbs.styl */
+.breadcrumb .divider {
+  padding: 0 5px;
+  color: #999;
+}
+
+/* line 19 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/breadcrumbs.styl */
+.breadcrumb .active a {
+  color: #333;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination {
+  height: 36px;
+  margin: 18px 0;
+}
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination ul {
+  display: inline-block;
+  *display: inline;
+/* IE7 inline-block hack */
+  *zoom: 1;
+  margin-left: 0;
+  margin-bottom: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination li {
+  display: inline;
+}
+
+/* line 19 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination a {
+  float: left;
+  padding: 0 14px;
+  line-height: 34px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-left-width: 0;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination a:hover,
+.pagination .active a {
+  background-color: #f5f5f5;
+}
+
+/* line 30 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination .active a {
+  color: #999;
+  cursor: default;
+}
+
+/* line 34 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination .disabled a,
+.pagination .disabled a:hover {
+  color: #999;
+  background-color: transparent;
+  cursor: default;
+}
+
+/* line 39 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination li:first-child a {
+  border-left-width: 1px;
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+
+/* line 43 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination li:last-child a {
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+
+/* line 48 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination-centered {
+  text-align: center;
+}
+
+/* line 51 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pagination.styl */
+.pagination-right {
+  text-align: right;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pager.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pager.styl */
+.pager {
+  margin-left: 0;
+  margin-bottom: 18px;
+  list-style: none;
+  text-align: center;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.pager:before,
+.pager:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.pager:after {
+  clear: both;
+}
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pager.styl */
+.pager li {
+  display: inline;
+}
+
+/* line 14 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pager.styl */
+.pager a {
+  display: inline-block;
+  padding: 5px 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+/* line 21 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pager.styl */
+.pager a:hover {
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+
+/* line 25 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pager.styl */
+.pager .next a {
+  float: right;
+}
+
+/* line 28 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/pager.styl */
+.pager .previous a {
+  float: left;
+}
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+
+/* line 6 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-open .dropdown-menu {
+  z-index: 2050;
+}
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-open .dropdown.open {
+  *z-index: 2050;
+}
+
+/* line 10 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-open .popover {
+  z-index: 2060;
+}
+
+/* line 12 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-open .tooltip {
+  z-index: 2070;
+}
+
+/* line 17 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+
+/* line 26 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-backdrop.fade {
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+
+/* line 29 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  opacity: 0.8;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+}
+
+/* line 33 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  max-height: 500px;
+  overflow: auto;
+  width: 560px;
+  margin: -250px 0 0 -280px;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0,0,0,0.30);
+  *border: 1px solid #999;
+/* IE6-7 */
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.30);
+  -moz-box-shadow: 0 3px 7px rgba(0,0,0,0.30);
+  box-shadow: 0 3px 7px rgba(0,0,0,0.30);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+/* line 49 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal.fade.in {
+  top: 50%;
+}
+
+/* line 56 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-header {
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+/* line 60 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-header .close {
+  margin-top: 2px;
+}
+
+/* line 64 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-body {
+  padding: 15px;
+}
+
+/* line 68 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-body .modal-form {
+  margin-bottom: 0;
+}
+
+/* line 72 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-footer {
+  padding: 14px 15px 15px;
+  margin-bottom: 0;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: inset 0 1px 0 #fff;
+  -moz-box-shadow: inset 0 1px 0 #fff;
+  box-shadow: inset 0 1px 0 #fff;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.modal-footer:before,
+.modal-footer:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.modal-footer:after {
+  clear: both;
+}
+
+/* line 80 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/modals.styl */
+.modal-footer .btn {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip {
+  position: absolute;
+  z-index: 1020;
+  display: block;
+  visibility: visible;
+  padding: 5px;
+  font-size: 11px;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+
+/* line 12 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.in {
+  opacity: 0.8;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+}
+
+/* line 14 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.top {
+  margin-top: -2px;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.right {
+  margin-left: 2px;
+}
+
+/* line 18 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.bottom {
+  margin-top: 2px;
+}
+
+/* line 20 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.left {
+  margin-left: -2px;
+}
+
+/* line 22 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000;
+}
+
+/* line 24 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.left .tooltip-arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #000;
+}
+
+/* line 26 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.bottom .tooltip-arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #000;
+}
+
+/* line 28 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip.right .tooltip-arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #000;
+}
+
+/* line 31 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  background-color: #000;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 40 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/tooltip.styl */
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1010;
+  display: none;
+  padding: 5px;
+}
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.top {
+  margin-top: -5px;
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.right {
+  margin-left: 5px;
+}
+
+/* line 15 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.bottom {
+  margin-top: 5px;
+}
+
+/* line 17 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.left {
+  margin-left: -5px;
+}
+
+/* line 19 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.top .arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000;
+}
+
+/* line 21 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.right .arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #000;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.bottom .arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #000;
+}
+
+/* line 25 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover.left .arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #000;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover .arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* line 32 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover-inner {
+  padding: 3px;
+  width: 280px;
+  overflow: hidden;
+  background: #000;
+  background: rgba(0,0,0,0.80);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.30);
+  -moz-box-shadow: 0 3px 7px rgba(0,0,0,0.30);
+  box-shadow: 0 3px 7px rgba(0,0,0,0.30);
+}
+
+/* line 41 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover-title {
+  padding: 9px 15px;
+  line-height: 1;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+
+/* line 48 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover-content {
+  padding: 14px;
+  background-color: #fff;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/popovers.styl */
+.popover-content p,
+.popover-content ul,
+.popover-content ol {
+  margin-bottom: 0;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/thumbnails.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/thumbnails.styl */
+.thumbnails {
+  margin-left: -20px;
+  list-style: none;
+  zoom: 1;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.thumbnails:before,
+.thumbnails:after {
+  content: "";
+  display: table;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/node_modules/nib/lib/nib/clearfix.styl */
+.thumbnails:after {
+  clear: both;
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/thumbnails.styl */
+.thumbnails > li {
+  float: left;
+  margin: 0 0 18px 20px;
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/thumbnails.styl */
+.thumbnail {
+  display: block;
+  padding: 4px;
+  line-height: 1;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.07);
+  -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.07);
+}
+
+/* line 22 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/thumbnails.styl */
+a.thumbnail:hover {
+  border-color: #08c;
+  -webkit-box-shadow: 0 1px 4px rgba(0,105,214,0.25);
+  -moz-box-shadow: 0 1px 4px rgba(0,105,214,0.25);
+  box-shadow: 0 1px 4px rgba(0,105,214,0.25);
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/thumbnails.styl */
+.thumbnail > img {
+  display: block;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 33 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/thumbnails.styl */
+.thumbnail .caption {
+  padding: 9px;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label {
+  padding: 2px 4px 3px;
+  font-size: 11.049999999999999px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  background-color: #999;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 14 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 19 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-important {
+  background-color: #b94a48;
+}
+
+/* line 21 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-important:hover {
+  background-color: #953b39;
+}
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-warning {
+  background-color: #f89406;
+}
+
+/* line 25 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-warning:hover {
+  background-color: #c67605;
+}
+
+/* line 27 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-success {
+  background-color: #468847;
+}
+
+/* line 29 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-success:hover {
+  background-color: #356635;
+}
+
+/* line 31 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-info {
+  background-color: #3a87ad;
+}
+
+/* line 33 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-info:hover {
+  background-color: #2d6987;
+}
+
+/* line 35 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-inverse {
+  background-color: #333;
+}
+
+/* line 37 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/labels.styl */
+.label-inverse:hover {
+  background-color: #1a1a1a;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge {
+  padding: 1px 9px 2px;
+  font-size: 11.049999999999999px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #fff;
+  background-color: #999;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+/* line 14 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge:hover {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* line 20 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-error {
+  background-color: #b94a48;
+}
+
+/* line 22 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-error:hover {
+  background-color: #953b39;
+}
+
+/* line 24 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-warning {
+  background-color: #f89406;
+}
+
+/* line 26 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-warning:hover {
+  background-color: #c67605;
+}
+
+/* line 28 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-success {
+  background-color: #468847;
+}
+
+/* line 30 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-success:hover {
+  background-color: #356635;
+}
+
+/* line 32 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-info {
+  background-color: #3a87ad;
+}
+
+/* line 34 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-info:hover {
+  background-color: #2d6987;
+}
+
+/* line 36 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-inverse {
+  background-color: #333;
+}
+
+/* line 38 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/badges.styl */
+.badge-inverse:hover {
+  background-color: #1a1a1a;
+}
+
+/* line undefined : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+
+/* line 22 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress {
+  overflow: hidden;
+  height: 18px;
+  margin-bottom: 18px;
+  background-color: #f7f7f7;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f5f5f5), color-stop(1, #f9f9f9));
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
+  background-image: -moz-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
+  background-image: -o-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
+  background-image: -ms-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
+  background-image: linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#f9f9f9', GradientType=0);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.10);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.10);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.10);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 32 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress .bar {
+  width: 0%;
+  height: 18px;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  background-color: #0e90d2;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #149bdf), color-stop(1, #0480be));
+  background-image: -webkit-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  background-image: -moz-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  background-image: -o-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  background-image: -ms-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  background-image: linear-gradient(top, #149bdf 0%, #0480be 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#149bdf', endColorstr='#0480be', GradientType=0);
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  -moz-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: width 0.6s ease;
+  -moz-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
+  transition: width 0.6s ease;
+}
+
+/* line 46 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress-striped .bar {
+  background-color: #62c462;
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.25, rgba(255,255,255,0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.15)), color-stop(0.75, rgba(255,255,255,0.15)), color-stop(0.75, transparent), color-stop(1, transparent));
+  background-image: -webkit-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -moz-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -o-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -ms-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  -webkit-background-size: 40px 40px;
+  -moz-background-size: 40px 40px;
+  -o-background-size: 40px 40px;
+  background-size: 40px 40px;
+}
+
+/* line 52 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress.active .bar {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -moz-animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite;
+}
+
+/* line 62 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress-danger .bar {
+  background-color: #dd514c;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ee5f5b), color-stop(1, #c43c35));
+  background-image: -webkit-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  background-image: -moz-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  background-image: -o-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  background-image: -ms-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  background-image: linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5f5b', endColorstr='#c43c35', GradientType=0);
+}
+
+/* line 65 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress-danger.progress-striped .bar {
+  background-color: #ee5f5b;
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.25, rgba(255,255,255,0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.15)), color-stop(0.75, rgba(255,255,255,0.15)), color-stop(0.75, transparent), color-stop(1, transparent));
+  background-image: -webkit-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -moz-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -o-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -ms-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+}
+
+/* line 70 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress-success .bar {
+  background-color: #5eb95e;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #62c462), color-stop(1, #57a957));
+  background-image: -webkit-linear-gradient(top, #62c462 0%, #57a957 100%);
+  background-image: -moz-linear-gradient(top, #62c462 0%, #57a957 100%);
+  background-image: -o-linear-gradient(top, #62c462 0%, #57a957 100%);
+  background-image: -ms-linear-gradient(top, #62c462 0%, #57a957 100%);
+  background-image: linear-gradient(top, #62c462 0%, #57a957 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#57a957', GradientType=0);
+}
+
+/* line 73 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress-success.progress-striped .bar {
+  background-color: #62c462;
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.25, rgba(255,255,255,0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.15)), color-stop(0.75, rgba(255,255,255,0.15)), color-stop(0.75, transparent), color-stop(1, transparent));
+  background-image: -webkit-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -moz-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -o-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -ms-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+}
+
+/* line 78 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress-info .bar {
+  background-color: #4bb1cf;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #5bc0de), color-stop(1, #339bb9));
+  background-image: -webkit-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  background-image: -moz-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  background-image: -o-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  background-image: -ms-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  background-image: linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5bc0de', endColorstr='#339bb9', GradientType=0);
+}
+
+/* line 81 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+.progress-info.progress-striped .bar {
+  background-color: #5bc0de;
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.25, rgba(255,255,255,0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.15)), color-stop(0.75, rgba(255,255,255,0.15)), color-stop(0.75, transparent), color-stop(1, transparent));
+  background-image: -webkit-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -moz-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -o-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: -ms-linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+  background-image: linear-gradient(top left, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent 100%);
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+@-moz-keyframes progress-bar-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+@-webkit-keyframes progress-bar-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+@-o-keyframes progress-bar-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+@-ms-keyframes progress-bar-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/progress-bars.styl */
+@keyframes progress-bar-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+/* line 6 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/accordion.styl */
+
+/* line 6 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/accordion.styl */
+.accordion {
+  margin-bottom: 18px;
+}
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/accordion.styl */
+.accordion-group {
+  margin-bottom: 2px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/accordion.styl */
+.accordion-heading {
+  border-bottom: 0;
+}
+
+/* line 19 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/accordion.styl */
+.accordion-heading .accordion-toggle {
+  display: block;
+  padding: 8px 15px;
+}
+
+/* line 25 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/accordion.styl */
+.accordion-inner {
+  padding: 9px 15px;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel {
+  position: relative;
+  margin-bottom: 18px;
+  line-height: 1;
+}
+
+/* line 10 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel-inner {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+
+/* line 18 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .item {
+  display: none;
+  position: relative;
+  -webkit-transition: 0.6s ease-in-out left;
+  -moz-transition: 0.6s ease-in-out left;
+  -o-transition: 0.6s ease-in-out left;
+  transition: 0.6s ease-in-out left;
+}
+
+/* line 25 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .item > img {
+  display: block;
+  line-height: 1;
+}
+
+/* line 30 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .active,
+.carousel .next,
+.carousel .prev {
+  display: block;
+}
+
+/* line 33 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .active {
+  left: 0;
+}
+
+/* line 37 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .next,
+.carousel .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+/* line 43 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .next {
+  left: 100%;
+}
+
+/* line 46 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .prev {
+  left: -100%;
+}
+
+/* line 49 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .next.left,
+.carousel .prev.right {
+  left: 0;
+}
+
+/* line 53 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .active.left {
+  left: -100%;
+}
+
+/* line 56 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel .active.right {
+  left: 100%;
+}
+
+/* line 64 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel-control {
+  position: absolute;
+  top: 40%;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  font-size: 60px;
+  font-weight: 100;
+  line-height: 30px;
+  color: #fff;
+  text-align: center;
+  background: #222;
+  border: 3px solid #fff;
+  -webkit-border-radius: 23px;
+  -moz-border-radius: 23px;
+  border-radius: 23px;
+  opacity: 0.5;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+}
+
+/* line 89 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel-control.right {
+  left: auto;
+  right: 15px;
+}
+
+/* line 95 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel-control:hover {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+}
+
+/* line 105 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 15px 5px;
+  background: #333;
+  background: rgba(0,0,0,0.75);
+}
+
+/* line 114 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/carousel.styl */
+.carousel-caption h4,
+.carousel-caption p {
+  color: #fff;
+}
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/hero-unit.styl */
+
+/* line 4 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/hero-unit.styl */
+.hero-unit {
+  padding: 60px;
+  margin-bottom: 30px;
+  background-color: #f5f5f5;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/hero-unit.styl */
+.hero-unit h1 {
+  margin-bottom: 0;
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+/* line 15 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/hero-unit.styl */
+.hero-unit p {
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 27px;
+}
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/utilities.styl */
+
+/* line 5 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/utilities.styl */
+.pull-right {
+  float: right;
+}
+
+/* line 8 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/utilities.styl */
+.pull-left {
+  float: left;
+}
+
+/* line 13 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/utilities.styl */
+.hide {
+  display: none;
+}
+
+/* line 16 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/utilities.styl */
+.show {
+  display: block;
+}
+
+/* line 21 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/utilities.styl */
+.invisible {
+  visibility: hidden;
+}

@@ -1,0 +1,32 @@
+block body
+  div.container
+    div.hero-unit
+      h1 Say Something Interesting!
+      p The word is mightier than the sword!
+
+    div.row-fluid
+        - if ('undefined' !== typeof pages)
+          #pages-index
+            h3 Pages
+            table.table.table-bordered
+              thead
+                th Title
+                th Handle
+                th Keywords
+                th Description
+                th Actions
+              tbody
+                - each page in pages
+                  tr
+                    td #{page.title}
+                    td #{page.handle}
+                    td #{page.meta.keywords}
+                    td #{page.meta.description}
+                    td
+                      div.btn-group
+                        a.btn(href='/pages/edit/#{page.handle}') Edit
+                        a.btn(href='/page/#{page.handle}').button View
+                        form(action='/pages/delete/#{page.handle}', method='POST').delete
+                          input(type="hidden",name="_csrf", value=csrf)
+                          button.btn.btn-danger(type='submit') Delete
+            a.btn.btn-info(href='/pages/new') Create Page

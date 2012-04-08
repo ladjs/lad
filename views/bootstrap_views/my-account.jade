@@ -1,0 +1,46 @@
+block body
+  div.container
+    div.hero-unit
+      h1 Hello there!
+      p Welcome Expressling #{user.name.first}, to make changes to your account complete the form below:
+
+    div.row-fluid
+        #account-information
+          h2 Your Information
+          - if ('undefined' === typeof email)
+            - email = ""
+          - if ('undefined' === typeof name)
+            - name = {}
+            - name.first = ""
+            - name.last = ""
+          - else
+            - if ('undefined' === typeof name.first)
+              - name.first = ""
+            - if ('undefined' === typeof name.last)
+              - name.last = ""
+          - if ('undefined' === typeof company)
+            - company = ""
+          form(action='/my-account', method='POST')
+            input(type='hidden', name='_csrf', value=csrf)
+            #email
+              label(for='email') Email
+              input.span6(type='email', name='email', value=email, required='required', autofocus)
+            #password
+              label(for='password')
+                | Password
+                span leave blank if no change needed
+              input.span6(type='password', name='password', value="")
+            #password_confirmation
+              label(for='password_confirmation') Confirm Password
+              input.span6(type='password', name='password_confirmation', value="")
+            #first-name
+              label(for='name.first') First Name
+              input.span6(type='text', name='name[first]', value=name.first, required='required')
+            #last-name
+              label(for='name.last') Last Name
+              input.span6(type='text', name='name[last]', value=name.last, required='required')
+            #company
+              label(for='company') Company
+              input.span6(type='text', name='company', value=company, required='required')
+            #submit
+              button.btn.btn-primary(type='submit') Save Changes

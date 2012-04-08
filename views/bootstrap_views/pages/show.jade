@@ -1,0 +1,11 @@
+
+- var access = access('super_admin')
+- if (access)
+  a.btn.btn-primary(href='/pages/edit/#{page.handle}') Edit Page
+  div.container
+        div.hero-unit
+          h1 Say Something Interesting!
+          p The word is mightier than the sword!
+
+        div.row-fluid
+          != page.content
