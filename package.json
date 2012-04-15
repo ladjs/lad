@@ -18,7 +18,7 @@
       , "niftylettuce"
     ]
   , "dependencies": {
-        "express"             : ">= 2.4.6"
+        "express"             : ">= 2.4.6 < 3.x.x"
       , "stylus"              : ">= 0.0.1"
       , "nib"                 : ">= 0.2.0"
       , "jade"                : ">= 0.0.1"
