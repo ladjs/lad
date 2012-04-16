@@ -1,0 +1,47 @@
+extends ../layout
+
+block append styles
+  != cacheBuster('/stylesheets/bootstrap.css')
+  != cacheBuster('/stylesheets/bootstrap-responsive.css')
+  != cacheBuster('/stylesheets/bootstrap-wysihtml5.css')
+  link(rel='stylesheet', href='/stylesheets/nifty.css')
+
+block body
+  div.container
+      div.hero-unit
+        h1 Say Something Interesting!
+        p The word is mightier than the sword!
+
+      div.row-fluid
+          != messages()
+          - if ('undefined' === typeof form)
+            - var form = {}
+            - form.title = ''
+            - form.handle = ''
+            - form.meta = { keywords: '', description: '' }
+            - form.content = ''
+          form(action='/pages', method='POST')
+            input(type="hidden",name="_csrf", value=csrf)
+            #title
+              label(for="title") Page Title
+              input.span6(type='text', name="title", value=form.title, required, autofocus)
+            #handle
+              label(for="handle") SEO Handle
+              input.span6(type='text', name="handle", value=form.handle, required)
+            #keywords
+              label(for='meta.keywords') Meta Keywords
+              input.span6(type='text', name='meta[keywords]', value=form.meta.keywords)
+            #description
+              label(for='meta.description') Meta Description
+              input.span6(type='text', name='meta[description]', value=form.meta.description)
+            #content
+              label(for='content') Page Content
+              textarea.span9(name='content', style="width: 810px; height: 200px")#mytext #{form.content}
+            #submit
+              button.btn.btn-primary(type='submit') Submit
+              a.btn.btn-danger(href='/pages') Cancel
+
+        block scripts
+          != cacheBuster(['/js/libs/wysihtml5-0.3.0_rc2.js','/js/libs/jquery-1.7.1.min.js','/js/libs/bootstrap.js', '/js/libs/bootstrap-wysihtml5.js'])
+          script
+            $('#mytext').wysihtml5();

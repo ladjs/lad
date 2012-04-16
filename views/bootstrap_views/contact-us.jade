@@ -1,0 +1,40 @@
+block body
+  div.container
+    div.hero-unit
+      h1 Contact Us
+      p Let us know who you are and send a note, we'll respond in kind!
+
+    div.row-fluid
+        != messages()
+        - if ('undefined' === typeof form)
+          - var form = {}
+          - form.name = ''
+          - form.address = ''
+          - form.city_state_zip = ''
+          - form.email = ''
+          - form.daytime_phone = ''
+          - form.comments = ''
+          form(action='/contact-us', method='POST')
+            input(type='hidden', name='_csrf', value=csrf)
+            #name
+              label(for='name') Name
+              input.span6(type='text', name='name', value=form.name, required, autofocus)
+            #address
+              label(for='address') Address
+              input.span6(type='text', name='address', value=form.address)
+            #city-state-zip
+              label(for='city_state_zip') City, State, ZIP
+              input.span6(type='text', name='city_state_zip', value=form.city_state_zip)
+            #email
+              label(for='email') Email
+              input.span6(type='email', name='email', value=form.email, required)
+            #daytime-phone
+              label(for='daytime_phone') Daytime Phone #
+              input.span6(type='tel', name='daytime_phone', value=form.daytime_phone, required)
+            #comments
+              label(for='comments') Comments
+              textarea.span6(name='comments') #{form.comments}
+            div#submit
+              button.btn.btn-primary(type='submit') Submit
+
+

@@ -1,0 +1,894 @@
+
+/* line 23 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+/*
+ * Bootstrap Responsive v2.0.1
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+/* line 11 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/variables.styl */
+
+/* line 9 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+
+/* line 30 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+/* line 40 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+@media (max-width: 480px) {
+
+/* line 43 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .nav-collapse {
+    -webkit-transform:     transform: translate(0, 0, 0);;
+  }
+
+/* line 48 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .page-header h1 small {
+    display: block;
+    line-height: 18px;
+  }
+
+/* line 54 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  input[class*="span"],
+  select[class*="span"],
+  textarea[class*="span"],
+  .uneditable-input {
+    display: block;
+    width: 100%;
+    min-height: 28px;
+/* Make inputs at least the height of their button counterpart */
+/* Makes inputs behave like true block-level elements */
+    -webkit-box-sizing: border-box;
+/* Older Webkit */
+    -moz-box-sizing: border-box;
+/* Older FF */
+    -ms-box-sizing: border-box;
+/* IE8 */
+    box-sizing: border-box;
+/* CSS3 spec*/
+  }
+
+/* line 65 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .input-prepend input[class*="span"],
+  .input-append input[class*="span"] {
+    width: auto;
+  }
+
+/* line 70 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  input[type="checkbox"],
+  input[type="radio"] {
+    border: 1px solid #ccc;
+  }
+
+/* line 75 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .form-horizontal .control-group > label {
+    float: none;
+    width: auto;
+    padding-top: 0;
+    text-align: left;
+  }
+
+/* line 82 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .form-horizontal .controls {
+    margin-left: 0;
+  }
+
+/* line 86 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .form-horizontal .control-list {
+    padding-top: 0;
+  }
+
+/* line 90 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .form-horizontal .form-actions {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+/* line 96 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .modal {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    margin: 0;
+  }
+
+/* line 103 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .modal.fade.in {
+    top: auto;
+  }
+
+/* line 106 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .modal-header .close {
+    padding: 10px;
+    margin: -10px;
+  }
+
+/* line 112 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .carousel-caption {
+    position: static;
+  }
+}
+
+/* line 122 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+@media (max-width: 768px) {
+
+/* line 126 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .container {
+    width: auto;
+    padding: 0 20px;
+  }
+
+/* line 131 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .row-fluid {
+    width: 100%;
+  }
+
+/* line 135 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .row {
+    margin-left: 0;
+  }
+
+/* line 139 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .row > [class*="span"],
+  .row-fluid > [class*="span"] {
+    float: none;
+    display: block;
+    width: auto;
+    margin: 0;
+  }
+}
+
+/* line 152 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+@media (min-width: 768px) and (max-width: 979px) {
+
+/* line 124 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row {
+    margin-left: -20px;
+  }
+
+/* line 128 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  [class*="span"] {
+    float: left;
+    margin-left: 20px;
+  }
+
+/* line 131 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span1 {
+    width: 42px;
+  }
+
+/* line 133 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span2 {
+    width: 104px;
+  }
+
+/* line 135 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span3 {
+    width: 166px;
+  }
+
+/* line 137 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span4 {
+    width: 228px;
+  }
+
+/* line 139 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span5 {
+    width: 290px;
+  }
+
+/* line 141 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span6 {
+    width: 352px;
+  }
+
+/* line 143 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span7 {
+    width: 414px;
+  }
+
+/* line 145 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span8 {
+    width: 476px;
+  }
+
+/* line 147 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span9 {
+    width: 538px;
+  }
+
+/* line 149 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span10 {
+    width: 600px;
+  }
+
+/* line 151 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span11 {
+    width: 662px;
+  }
+
+/* line 153 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span12,
+  .container {
+    width: 724px;
+  }
+
+/* line 156 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset1 {
+    margin-left: 82px;
+  }
+
+/* line 158 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset2 {
+    margin-left: 144px;
+  }
+
+/* line 160 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset3 {
+    margin-left: 206px;
+  }
+
+/* line 162 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset4 {
+    margin-left: 268px;
+  }
+
+/* line 164 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset5 {
+    margin-left: 330px;
+  }
+
+/* line 166 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset6 {
+    margin-left: 392px;
+  }
+
+/* line 168 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset7 {
+    margin-left: 454px;
+  }
+
+/* line 170 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset8 {
+    margin-left: 516px;
+  }
+
+/* line 172 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset9 {
+    margin-left: 578px;
+  }
+
+/* line 174 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset10 {
+    margin-left: 640px;
+  }
+
+/* line 176 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset11 {
+    margin-left: 702px;
+  }
+
+/* line 193 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid {
+    width: 100%;
+  }
+
+/* line 197 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid > [class*="span"] {
+    float: left;
+    margin-left: 2.762430939%;
+  }
+
+/* line 199 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid > [class*="span"]:first-child {
+    margin-left: 0;
+  }
+
+/* line 203 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span1 {
+    width: 5.801104972%;
+  }
+
+/* line 205 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span2 {
+    width: 14.364640883%;
+  }
+
+/* line 207 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span3 {
+    width: 22.928176794%;
+  }
+
+/* line 209 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span4 {
+    width: 31.491712705%;
+  }
+
+/* line 211 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span5 {
+    width: 40.055248616%;
+  }
+
+/* line 213 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span6 {
+    width: 48.618784527%;
+  }
+
+/* line 215 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span7 {
+    width: 57.182320438000005%;
+  }
+
+/* line 217 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span8 {
+    width: 65.74585634900001%;
+  }
+
+/* line 219 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span9 {
+    width: 74.30939226%;
+  }
+
+/* line 221 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span10 {
+    width: 82.87292817100001%;
+  }
+
+/* line 223 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span11 {
+    width: 91.436464082%;
+  }
+
+/* line 225 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span12 {
+    width: 99.999999993%;
+  }
+
+/* line 234 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+
+/* line 235 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span1,
+  textarea.span1,
+  .uneditable-input.span1 {
+    width: 32px;
+  }
+
+/* line 237 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span2,
+  textarea.span2,
+  .uneditable-input.span2 {
+    width: 94px;
+  }
+
+/* line 239 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span3,
+  textarea.span3,
+  .uneditable-input.span3 {
+    width: 156px;
+  }
+
+/* line 241 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span4,
+  textarea.span4,
+  .uneditable-input.span4 {
+    width: 218px;
+  }
+
+/* line 243 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span5,
+  textarea.span5,
+  .uneditable-input.span5 {
+    width: 280px;
+  }
+
+/* line 245 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span6,
+  textarea.span6,
+  .uneditable-input.span6 {
+    width: 342px;
+  }
+
+/* line 247 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span7,
+  textarea.span7,
+  .uneditable-input.span7 {
+    width: 404px;
+  }
+
+/* line 249 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span8,
+  textarea.span8,
+  .uneditable-input.span8 {
+    width: 466px;
+  }
+
+/* line 251 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span9,
+  textarea.span9,
+  .uneditable-input.span9 {
+    width: 528px;
+  }
+
+/* line 253 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span10,
+  textarea.span10,
+  .uneditable-input.span10 {
+    width: 590px;
+  }
+
+/* line 255 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span11,
+  textarea.span11,
+  .uneditable-input.span11 {
+    width: 652px;
+  }
+
+/* line 257 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span12,
+  textarea.span12,
+  .uneditable-input.span12 {
+    width: 714px;
+  }
+}
+
+/* line 168 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+@media (max-width: 979px) {
+
+/* line 173 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  body {
+    padding-top: 0;
+  }
+
+/* line 177 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar-fixed-top {
+    position: static;
+    margin-bottom: 18px;
+  }
+
+/* line 181 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar-fixed-top .navbar-inner {
+    padding: 5px;
+  }
+
+/* line 184 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .container {
+    width: auto;
+    padding: 0;
+  }
+
+/* line 189 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .brand {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0 0 0 -5px;
+  }
+
+/* line 195 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav-collapse {
+    clear: left;
+  }
+
+/* line 199 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav {
+    float: none;
+    margin: 0 0 9px;
+  }
+
+/* line 203 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav > li {
+    float: none;
+  }
+
+/* line 206 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav > li > a {
+    margin-bottom: 2px;
+  }
+
+/* line 209 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav > .divider-vertical {
+    display: none;
+  }
+
+/* line 212 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav .nav-header {
+    color: #999;
+    text-shadow: none;
+  }
+
+/* line 217 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav > li > a,
+  .navbar .dropdown-menu a {
+    padding: 6px 15px;
+    font-weight: bold;
+    color: #999;
+  }
+
+/* line 223 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .dropdown-menu li + li a {
+    margin-bottom: 2px;
+  }
+
+/* line 226 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav > li > a:hover,
+  .navbar .dropdown-menu a:hover {
+    background-color: #222;
+  }
+
+/* line 230 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .dropdown-menu {
+    position: static;
+    top: auto;
+    left: auto;
+    float: none;
+    display: block;
+    max-width: none;
+    margin: 0 15px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
+
+/* line 244 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .dropdown-menu:before,
+  .navbar .dropdown-menu:after {
+    display: none;
+  }
+
+/* line 247 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .dropdown-menu .divider {
+    display: none;
+  }
+
+/* line 251 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar-form,
+  .navbar-search {
+    float: none;
+    padding: 9px 15px;
+    margin: 9px 0;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+  }
+
+/* line 261 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar .nav.pull-right {
+    float: none;
+    margin-left: 0;
+  }
+
+/* line 266 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .navbar-static .navbar-inner {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+/* line 271 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .btn-navbar {
+    display: block;
+  }
+
+/* line 276 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .nav-collapse {
+    overflow: hidden;
+    height: 0;
+  }
+}
+
+/* line 287 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+@media (min-width: 980px) {
+
+/* line 288 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .nav-collapse.collapse {
+    height: auto !important;
+  }
+}
+
+/* line 298 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+@media (min-width: 1200px) {
+
+/* line 124 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row {
+    margin-left: -30px;
+  }
+
+/* line 128 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  [class*="span"] {
+    float: left;
+    margin-left: 30px;
+  }
+
+/* line 131 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span1 {
+    width: 70px;
+  }
+
+/* line 133 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span2 {
+    width: 170px;
+  }
+
+/* line 135 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span3 {
+    width: 270px;
+  }
+
+/* line 137 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span4 {
+    width: 370px;
+  }
+
+/* line 139 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span5 {
+    width: 470px;
+  }
+
+/* line 141 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span6 {
+    width: 570px;
+  }
+
+/* line 143 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span7 {
+    width: 670px;
+  }
+
+/* line 145 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span8 {
+    width: 770px;
+  }
+
+/* line 147 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span9 {
+    width: 870px;
+  }
+
+/* line 149 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span10 {
+    width: 970px;
+  }
+
+/* line 151 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span11 {
+    width: 1070px;
+  }
+
+/* line 153 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .span12,
+  .container {
+    width: 1170px;
+  }
+
+/* line 156 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset1 {
+    margin-left: 130px;
+  }
+
+/* line 158 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset2 {
+    margin-left: 230px;
+  }
+
+/* line 160 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset3 {
+    margin-left: 330px;
+  }
+
+/* line 162 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset4 {
+    margin-left: 430px;
+  }
+
+/* line 164 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset5 {
+    margin-left: 530px;
+  }
+
+/* line 166 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset6 {
+    margin-left: 630px;
+  }
+
+/* line 168 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset7 {
+    margin-left: 730px;
+  }
+
+/* line 170 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset8 {
+    margin-left: 830px;
+  }
+
+/* line 172 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset9 {
+    margin-left: 930px;
+  }
+
+/* line 174 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset10 {
+    margin-left: 1030px;
+  }
+
+/* line 176 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .offset11 {
+    margin-left: 1130px;
+  }
+
+/* line 193 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid {
+    width: 100%;
+  }
+
+/* line 197 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid > [class*="span"] {
+    float: left;
+    margin-left: 2.564102564%;
+  }
+
+/* line 199 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid > [class*="span"]:first-child {
+    margin-left: 0;
+  }
+
+/* line 203 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span1 {
+    width: 5.982905983%;
+  }
+
+/* line 205 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span2 {
+    width: 14.529914530000001%;
+  }
+
+/* line 207 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span3 {
+    width: 23.076923077%;
+  }
+
+/* line 209 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span4 {
+    width: 31.623931624%;
+  }
+
+/* line 211 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span5 {
+    width: 40.170940171000005%;
+  }
+
+/* line 213 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span6 {
+    width: 48.717948718%;
+  }
+
+/* line 215 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span7 {
+    width: 57.264957265%;
+  }
+
+/* line 217 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span8 {
+    width: 65.81196581200001%;
+  }
+
+/* line 219 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span9 {
+    width: 74.358974359%;
+  }
+
+/* line 221 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span10 {
+    width: 82.905982906%;
+  }
+
+/* line 223 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span11 {
+    width: 91.45299145300001%;
+  }
+
+/* line 225 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  .row-fluid .span12 {
+    width: 100%;
+  }
+
+/* line 234 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+
+/* line 235 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span1,
+  textarea.span1,
+  .uneditable-input.span1 {
+    width: 60px;
+  }
+
+/* line 237 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span2,
+  textarea.span2,
+  .uneditable-input.span2 {
+    width: 160px;
+  }
+
+/* line 239 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span3,
+  textarea.span3,
+  .uneditable-input.span3 {
+    width: 260px;
+  }
+
+/* line 241 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span4,
+  textarea.span4,
+  .uneditable-input.span4 {
+    width: 360px;
+  }
+
+/* line 243 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span5,
+  textarea.span5,
+  .uneditable-input.span5 {
+    width: 460px;
+  }
+
+/* line 245 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span6,
+  textarea.span6,
+  .uneditable-input.span6 {
+    width: 560px;
+  }
+
+/* line 247 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span7,
+  textarea.span7,
+  .uneditable-input.span7 {
+    width: 660px;
+  }
+
+/* line 249 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span8,
+  textarea.span8,
+  .uneditable-input.span8 {
+    width: 760px;
+  }
+
+/* line 251 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span9,
+  textarea.span9,
+  .uneditable-input.span9 {
+    width: 860px;
+  }
+
+/* line 253 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span10,
+  textarea.span10,
+  .uneditable-input.span10 {
+    width: 960px;
+  }
+
+/* line 255 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span11,
+  textarea.span11,
+  .uneditable-input.span11 {
+    width: 1060px;
+  }
+
+/* line 257 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/mixins.styl */
+  input.span12,
+  textarea.span12,
+  .uneditable-input.span12 {
+    width: 1160px;
+  }
+
+/* line 310 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .thumbnails {
+    margin-left: -30px;
+  }
+
+/* line 313 : /Users/michaelmartinez/Sites/nodewebtests/niftyapp/views/stylesheets/bootstrap-responsive.styl */
+  .thumbnails > li {
+    margin-left: 30px;
+  }
+}

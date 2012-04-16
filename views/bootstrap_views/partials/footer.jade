@@ -1,0 +1,54 @@
+hr
+footer
+  h4 Built with <a href="http://expressling.com/">Expressling</a>.
+    //- JavaScript at the bottom for fast page loading
+    //- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script.
+      window.jQuery || document.write('<script src="/js/libs/jquery-1.7.1.min.js"><\\/script>')
+
+    script(src='/js/libs/bootstrap.js')
+    //- scripts concatenated and minified via express-cachebuster and TODO: express-
+    //#{cacheBuster(['/js/plugins.js', '/js/script.js'])}
+    //- Dynamically load your scripts here
+    //-  (e.g. index's route and view this through use of extends/inheritance)
+    block scripts
+
+    //-.
+      Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+      mathiasbynens.be/notes/async-analytics-snippet
+    script.
+      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+
+    //- IE7.js <http://code.google.com/p/ie7-js/>
+    //-  Download the script then remove "//- " from the following 8 lines:
+    //- //if lt IE 7
+    //-   script.
+    //-     $(function() {
+    //-       Modernizr.load([{
+    //-         load: '/js/libs/IE7.js',
+    //-         complete: function() { $("#ajax-loader").fadeOut(); }
+    //-       }]);
+    //-     });
+
+    //- (AND/OR...)
+
+    //- IE6 Update <http://ie6update.com/>
+    //-  Inform user to upgrade their browser, you can turn this off if wanted.
+    //if lt IE 8
+      script.
+        var IE6UPDATE_OPTIONS = { icons_path: "ie6update/images/" };
+        $(function() { Modernizr.load([{load:'/ie6update/ie6update.js'}]); });
+
+    //- (AND/OR...)
+
+    //- Prompt IE6 users to install Chrome Frame, remove this you support IE6...
+    //-  <http://chromium.org/developers/how-tos/chrome-frame-getting-started>
+    //-  If you want to use, then remove "//- " from the following 4 lines:
+    //- //if lt IE 7
+    //- script(defer, src='//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js')
+    //- script(defer).
+    //-   window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})

@@ -52,6 +52,26 @@ Change dependencies in `package.json`, or your MongoDB credentials in `config.js
 
 Also, we have built-in pretty-logging for building our assets (e.g. Stylus) and logging HTTP requests.  You can turn these on or off via boolean values in `settings.js`.
 
+## DB Configuration with MongoHQ
+
+First sign up at [MongoHQ](https://mongohq.com/). 
+
+- Once registered...
+- Create and name a new database (Free for 16mb and less)
+- Add a user and assign a password to the new database
+- MongoHQ will then take you to a page with the same basic URI you see below
+- Pay attention to `<servername>`, `<port>`, `<user>`, `<pass>` and `<db_name>`
+- Finally, mimick the code below replaceing the '< >' with your info 
+
+Change these few lines in `server.js`.
+
+      , db = mongoose.connect('mongodb://<user>:<pass>@<servername>.mongohq.com:<port>/<db_name>');
+		//    config[env].db.host,
+		//    config[env].db.database,
+		//    config[env].db.port
+		//  );
+
+
 
 ## Troubleshooting
 
