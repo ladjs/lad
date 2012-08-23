@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/niftylettuce/expressling.png)](http://travis-ci.org/niftylettuce/expressling)
 
 # Expressling
 
