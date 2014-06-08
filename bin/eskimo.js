@@ -100,7 +100,7 @@ function create(dirname) {
 
   log(
     'creating igloo: %s',
-    path.relative(path.join(__dirname, '..'), dirname)
+    path.resolve(path.join(__dirname, '..'), dirname)
   )
 
   async.each([
@@ -158,7 +158,7 @@ function create(dirname) {
       )
       log(chalk.green.underline('do this:'))
       log(
-        chalk.gray(util.format('cd %s', path.relative(path.join(__dirname, '..'), dirname))),
+        chalk.gray(util.format('cd %s', path.resolve(path.join(__dirname, '..'), dirname))),
         chalk.gray('&&'),
         chalk.gray('npm install'),
         chalk.gray('&&'),
