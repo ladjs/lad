@@ -26,7 +26,20 @@ exports = module.exports = function(User) {
   }
 
   function _new(req, res, next) {
-    res.render('users/new')
+    var msg = 'Send a POST request to /users'
+    res.format({
+      text: function() {
+        res.send(msg)
+      },
+      html: function() {
+        res.render('users/new')
+      },
+      json: function() {
+        res.json({
+          message: msg
+        })
+      }
+    })
   }
 
   function create(req, res, next) {

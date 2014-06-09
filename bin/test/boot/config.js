@@ -51,12 +51,6 @@ exports = module.exports = function() {
         }
       },
       cookieParser: 'igloo-change-me',
-      csrf: {
-        cookie: {
-          signed: true,
-          maxAge: maxAge
-        }
-      },
       mongo: {
         host: 'localhost',
         port: 27017,

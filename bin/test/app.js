@@ -1,19 +1,19 @@
 
-// # app
+// # eskimo boilerplate
 
 var path = require('path')
 var IoC = require('electrolyte')
 var bootable = require('bootable')
 var express = require('express')
 
-// dependency injection
+// set up dependency injection loaders
 
-IoC.loader(IoC.node(path.join(__dirname, 'boot')))
+IoC.loader('boot', IoC.node(path.join(__dirname, 'boot')))
 IoC.loader('igloo', require('igloo'))
 IoC.loader('controllers', IoC.node(path.join(__dirname, 'app', 'controllers')))
 IoC.loader('models', IoC.node(path.join(__dirname, 'app', 'models')))
 
-// phases
+// build app
 
 var app = bootable(express())
 app.phase(IoC.create('igloo/update-notifier'))
@@ -22,7 +22,7 @@ app.phase(bootable.di.routes())
 app.phase(IoC.create('igloo/error-handler'))
 app.phase(IoC.create('igloo/server'))
 
-// boot
+// boot app
 
 var logger = IoC.create('igloo/logger')
 var settings = IoC.create('igloo/settings')

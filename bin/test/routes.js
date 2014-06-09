@@ -1,7 +1,7 @@
 
 // app - routes
 
-exports = module.exports = function(IoC, errorHandler) {
+exports = module.exports = function(IoC) {
 
   var app = this
 
@@ -9,8 +9,6 @@ exports = module.exports = function(IoC, errorHandler) {
 
   app.resource('users', IoC.create('controllers/users'))
 
-  app.use(errorHandler)
-
 }
 
-exports['@require'] = [ '$container', 'igloo/error-handler' ]
+exports['@require'] = [ '$container' ]

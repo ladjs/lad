@@ -106,6 +106,7 @@ function create(dirname) {
   async.each([
     '._gitignore',
     '.jshintrc',
+    'routes.js',
     'app.js',
     'boot',
     'etc',

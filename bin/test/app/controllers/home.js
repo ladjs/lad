@@ -1,7 +1,7 @@
 
 // # app - controllers - home
 
-exports = module.exports = function() {
+exports = module.exports = function(db) {
 
   function home(req, res, next) {
     res.send(200)
@@ -12,3 +12,4 @@ exports = module.exports = function() {
 }
 
 exports['@singleton'] = true
+exports['@require'] = [ 'igloo/db' ]
