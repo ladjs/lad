@@ -39,7 +39,7 @@
     "express-resource": "git://github.com/niftylettuce/express-resource",
     "express-session": "^1.2.1",
     "helmet": "^0.2.4",
-    "igloo": "0.0.8-patch",
+    "igloo": "0.0.4-patch",
     "jade": "^1.3.1",
     "jade-amd": "^0.2.2",
     "less-middleware": "^1.0.3",
