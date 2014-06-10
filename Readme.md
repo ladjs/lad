@@ -1,5 +1,7 @@
 
-# Eskimo [![NPM version](https://badge.fury.io/js/eskimo.png)](http://badge.fury.io/js/eskimo)
+# Eskimo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url] [![NPM downloads][npm-downloads]][npm-url]
+
+[![NPM](https://nodei.co/npm/eskimo.png?downloads=true)](https://nodei.co/npm/eskimo/)
 
 ![Eskimo](/eskimo.png?raw=true)
 
@@ -55,10 +57,19 @@ sudo NODE_ENV=production node app
 * [Snow Shoes](http://thenounproject.com/term/snow-shoes/2678/) by Marc Serre from The Noun Project
 * [ESKIMO IGLOO](http://www.colourlovers.com/palette/1933518/ESKIMO_IGLOO) (color palette)
 
+[npm-url]: https://npmjs.org/package/eskimo
+[npm-image]: http://img.shields.io/npm/v/eskimo.svg?style=flat
+[npm-downloads]: http://img.shields.io/npm/dm/eskimo.svg?style=flat
+
+[travis-url]: http://travis-ci.org/niftylettuce/eskimo
+[travis-image]: http://img.shields.io/travis/niftylettuce/eskimo.svg?style=flat
+
+[depstat-url]: https://gemnasium.com/niftylettuce/eskimo
+[depstat-image]: http://img.shields.io/gemnasium/niftylettuce/eskimo.svg?style=flat
 
 ## License
 
-The MIT License
+[The MIT License](http://en.wikipedia.org/wiki/MIT_License)
 
 Copyright (c) 2014- Nick Baugh niftylettuce@gmail.com (http://niftylettuce.com/)
 

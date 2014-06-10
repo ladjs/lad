@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - "0.11"
+  - "0.10"
+
+before_install:
+  - npm install chai
+  - npm install gulp
+  - npm install gulp-exit
+  - npm install gulp-jshint
+  - npm install gulp-mocha
+  - npm install jshint-stylish
+  - npm install mocha
+  - npm install sinon
+  - npm install sinon-chai
+  - npm install supertest
+
+script:
+  - gulp test

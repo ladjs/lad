@@ -6,6 +6,10 @@
   "bin": {
     "eskimo": "./bin/eskimo.js"
   },
+  "scripts": {
+    "prepublish": "npm prune",
+    "test": "gulp test"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/niftylettuce/igloo.git"
@@ -53,5 +57,17 @@
     "update-notifier": "git://github.com/niftylettuce/update-notifier",
     "validator": "^3.13.0",
     "winston-request-logger": "^1.0.5"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "gulp": "^3.7.0",
+    "gulp-exit": "0.0.2",
+    "gulp-jshint": "^1.6.2",
+    "gulp-mocha": "^0.4.1",
+    "jshint-stylish": "^0.2.0",
+    "mocha": "^1.20.1",
+    "sinon": "^1.10.2",
+    "sinon-chai": "^2.5.0",
+    "supertest": "^0.13.0"
   }
 }
