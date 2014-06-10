@@ -28,7 +28,7 @@
     "chalk": "^0.4.0",
     "commander": "^2.2.0",
     "compression": "^1.0.6",
-    "connect": "^2.19.3",
+    "connect": "^2.19.5",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.1.0",
     "csurf": "^1.2.1",

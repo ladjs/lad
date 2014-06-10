@@ -1,8 +1,6 @@
 
 # Eskimo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url] [![NPM downloads][npm-downloads]][npm-url]
 
-[![NPM](https://nodei.co/npm/eskimo.png?downloads=true)](https://nodei.co/npm/eskimo/)
-
 ![Eskimo](/eskimo.png?raw=true)
 
 Eskimo lets you create and build an [`igloo`](https://github.com/niftylettuce/igloo).
@@ -46,6 +44,13 @@ DEBUG=* node app
 sudo NODE_ENV=production node app
 ```
 
+
+## Tests
+
+```bash
+npm install -d
+npm test
+```
 
 ## Contributors
 
