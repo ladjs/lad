@@ -1,20 +1,21 @@
 language: node_js
-
 node_js:
-  - "0.11"
-  - "0.10"
-
+- '0.11'
+- '0.10'
 before_install:
-  - npm install chai
-  - npm install gulp
-  - npm install gulp-exit
-  - npm install gulp-jshint
-  - npm install gulp-mocha
-  - npm install jshint-stylish
-  - npm install mocha
-  - npm install sinon
-  - npm install sinon-chai
-  - npm install supertest
-
+- npm install chai
+- npm install gulp
+- npm install gulp-exit
+- npm install gulp-jshint
+- npm install gulp-mocha
+- npm install jshint-stylish
+- npm install mocha
+- npm install sinon
+- npm install sinon-chai
+- npm install supertest
 script:
-  - gulp test
+- gulp test
+notifications:
+  hipchat:
+    rooms:
+      secure: SipvTAaiyl3GVrL0Nd+GF72CQfGQWmouGRTCCxaR/4Lro0MEraRkS3L5qFruxg70ATWlZA0VFXBrgmIQhlj1F5RKn/BOZmGRM2ybvaLvUc6Ao3VNPq8slaZNCDQnyL0CrpvYpNGIZwrs9ICy31M+c4ypw4UzkmJ4jHkqmddCCKw=
