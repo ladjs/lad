@@ -8,7 +8,7 @@
   },
   "scripts": {
     "prepublish": "npm prune",
-    "test": "gulp test"
+    "test": "NODE_ENV=test gulp test"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,6 @@
     "compression": "^1.0.6",
     "connect": "^2.19.5",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.1.0",
     "csurf": "^1.2.1",
     "electrolyte": "0.0.3",
     "errorhandler": "^1.0.1",
@@ -60,6 +59,7 @@
   },
   "devDependencies": {
     "chai": "^1.9.1",
+    "cookie": "^0.1.2",
     "gulp": "^3.7.0",
     "gulp-exit": "0.0.2",
     "gulp-jshint": "^1.6.2",

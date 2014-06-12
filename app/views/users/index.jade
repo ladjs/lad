@@ -1,0 +1,12 @@
+
+//- # users - index
+
+extends ../layout
+
+block content
+
+  h1 Users
+
+  ol
+    each user in users
+      li: a(href='/users/' + user.id)= user.email

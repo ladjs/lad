@@ -1,0 +1,10 @@
+
+//- # users - show
+
+extends ../layout
+
+block content
+
+  h1 User - #{user.email}
+
+  a(href='/users/' + user.id + '/edit') Edit User

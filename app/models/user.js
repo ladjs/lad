@@ -1,33 +1,32 @@
 
-// # models - user
+// # user
 
 var jsonSelect = require('mongoose-json-select')
 var passportLocalMongoose = require('passport-local-mongoose')
+var validator = require('validator')
 
 exports = module.exports = function(db, iglooMongoosePlugin) {
 
-  var Email = db.SchemaTypes.Email
-
   var User = new db.Schema({
     email: {
-      type: Email,
+      type: String,
       required: true,
-      unique: true
+      unique: true,
+      validate: validator.isEmail
     }
   })
 
   // virtuals
 
-  User.virtual('type').get(function() {
-    return 'User'
+  User.virtual('object').get(function() {
+    return 'user'
   })
 
   // plugins
 
   User.plugin(passportLocalMongoose, {
     usernameField: 'email',
-    usernameLowerCase: true,
-    userExistsError: 'User already exists with email %s'
+    usernameLowerCase: true
   })
 
   User.plugin(jsonSelect, '-_group -salt -hash')

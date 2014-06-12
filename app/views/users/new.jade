@@ -1,0 +1,13 @@
+
+//- # users - new
+
+extends ../layout
+
+block content
+
+  h1 Create New User
+
+  form(action='/users', method='POST')
+    input(type='hidden', name='_csrf', value=csrf)
+    input(type='email', name='email', placeholder='email address', required)
+    button(type='submit') Create New User

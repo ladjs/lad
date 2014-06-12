@@ -1,5 +1,5 @@
 
-// # etc - init - views
+// # views
 
 var lessMiddleware = require('less-middleware')
 var jadeAmd = require('jade-amd')
@@ -41,6 +41,19 @@ exports = module.exports = function(IoC, settings) {
     // TODO: use my gulp jade/requirejs task
 
   }
+
+  // add dynamic helpers for views
+  app.use(function(req, res, next) {
+    res.locals.messages = {
+      success: req.flash('success'),
+      error: req.flash('error'),
+      info: req.flash('info'),
+      warning: req.flash('warning')
+    }
+    if (settings.csrf.enabled)
+      res.locals.csrf = req.csrfToken()
+    next()
+  })
 
 }
 

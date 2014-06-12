@@ -6,7 +6,7 @@ var path = require('path')
 var pkg = require(path.join(__dirname, '..', 'package'))
 var assetsDir = path.join(__dirname, '..', 'assets')
 var publicDir = path.join(assetsDir, 'public')
-var viewsDir = path.join(__dirname, '..', 'views')
+var viewsDir = path.join(__dirname, '..', 'app', 'views')
 var maxAge = 24 * 60 * 60 * 1000
 
 exports = module.exports = function() {
@@ -52,9 +52,11 @@ exports = module.exports = function() {
       },
       cookieParser: 'igloo-change-me',
       csrf: {
-        cookie: {
-          signed: true,
-          maxAge: maxAge
+        enabled: true,
+        options: {
+          cookie: {
+            maxAge: maxAge
+          }
         }
       },
       mongo: {
@@ -92,6 +94,22 @@ exports = module.exports = function() {
           path: '/js/tmpl/',
           options: {}
         }
+      }
+    },
+
+    test: {
+      csrf: {
+        enabled: false
+      },
+      server: {
+        env: 'test',
+        port: 5000
+      },
+      mongo: {
+        db: 'igloo-test'
+      },
+      redis: {
+        prefix: 'igloo-test'
       }
     },
 

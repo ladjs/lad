@@ -1,0 +1,13 @@
+
+//- # users - edit
+
+extends ../layout
+
+block content
+
+  h1 Edit User - #{user.email}
+
+  form(action='/users/' + user.id + '?_method=PUT', method='POST')
+    input(type='hidden', name='_csrf', value=csrf)
+    input(type='email', name='email', placeholder='email address', value=user.email, required)
+    button(type='submit') Update User

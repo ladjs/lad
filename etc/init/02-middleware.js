@@ -1,5 +1,5 @@
 
-// # etc - init - middlware
+// # middleware
 
 var winstonRequestLogger = require('winston-request-logger')
 var methodOverride = require('method-override')
@@ -22,7 +22,7 @@ exports = module.exports = function(IoC, logger, settings) {
   app.use(bodyParser())
 
   // support _method (PUT in forms etc)
-  app.use(methodOverride())
+  app.use(methodOverride('_method'))
 
 }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// # bin
+// # eskimo
 
 var _ = require('underscore')
 var async = require('async')

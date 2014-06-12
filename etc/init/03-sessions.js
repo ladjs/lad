@@ -1,13 +1,17 @@
 
-// # etc - init - sessions
+// # sessions
 
 var flash = require('connect-flash')
 var passport = require('passport')
 var session = require('express-session')
+var cookieParser = require('cookie-parser')
 
 exports = module.exports = function(IoC, settings, sessions, User) {
 
   var app = this
+
+  // pass a secret to cookieParser() for signed cookies
+  app.use(cookieParser(settings.cookieParser))
 
   // add req.session cookie support
   settings.session.store = sessions
@@ -17,24 +21,13 @@ exports = module.exports = function(IoC, settings, sessions, User) {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  // add flash message support
+  app.use(flash())
+
   // add passport strategies
   passport.use(User.createStrategy())
   passport.serializeUser(User.serializeUser())
   passport.deserializeUser(User.deserializeUser())
-
-  // add flash message support
-  app.use(flash())
-
-  // add dynamic helpers for views
-  app.use(function(req, res, next) {
-    res.locals.messages = {
-      success: req.flash('success'),
-      error: req.flash('error'),
-      info: req.flash('info'),
-      warning: req.flash('warning')
-    }
-    next()
-  })
 
 }
 

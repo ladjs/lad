@@ -1,5 +1,5 @@
 
-// # etc - init - settings
+// # settings
 
 exports = module.exports = function(IoC, settings) {
 
