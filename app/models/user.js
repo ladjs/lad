@@ -4,6 +4,7 @@
 var jsonSelect = require('mongoose-json-select')
 var passportLocalMongoose = require('passport-local-mongoose')
 var validator = require('validator')
+var mongoosePaginate = require('mongoose-paginate')
 
 exports = module.exports = function(db, iglooMongoosePlugin) {
 
@@ -30,6 +31,8 @@ exports = module.exports = function(db, iglooMongoosePlugin) {
   })
 
   User.plugin(jsonSelect, '-_group -salt -hash')
+
+  User.plugin(mongoosePaginate)
 
   // keep last
   User.plugin(iglooMongoosePlugin)

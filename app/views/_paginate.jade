@@ -1,0 +1,18 @@
+
+//- _paginate.jade
+
+//- This examples makes use of Bootstrap 3.x pagination classes
+
+if (paginate.hasPreviousPages || paginate.hasNextPages(pageCount, users.length, itemCount))
+  .navigation.well-sm#pagination
+    ul.pager
+      if previous
+        li.previous
+          a(href=paginate.href(true)).prev
+            i.fa.fa-arrow-circle-left
+            |  Previous
+      if next
+        li.next
+          a(href=paginate.href()).next
+            | Next&nbsp;
+            i.fa.fa-arrow-circle-right

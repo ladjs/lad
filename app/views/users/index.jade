@@ -10,3 +10,5 @@ block content
   ol
     each user in users
       li: a(href='/users/' + user.id)= user.email
+
+  include ../_paginate

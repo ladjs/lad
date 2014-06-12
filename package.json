@@ -2,7 +2,7 @@
   "name": "eskimo",
   "version": "0.0.9-rc.2",
   "description": "Eskimo lets you create and build an igloo",
-  "main": "./index.js",
+  "main": "./app.js",
   "bin": {
     "eskimo": "./bin/eskimo.js"
   },
@@ -35,6 +35,7 @@
     "electrolyte": "0.0.3",
     "errorhandler": "^1.0.1",
     "express": "^4.4.1",
+    "express-paginate": "0.0.1",
     "express-resource": "git://github.com/niftylettuce/express-resource",
     "express-session": "^1.2.1",
     "helmet": "^0.2.4",
@@ -47,6 +48,7 @@
     "mkdirp": "^0.5.0",
     "mongoose": "^3.8.12",
     "mongoose-json-select": "^0.2.1",
+    "mongoose-paginate": "git://github.com/niftylettuce/mongoose-paginate",
     "ncp": "^0.5.1",
     "passport": "^0.2.0",
     "passport-local-mongoose": "^0.3.0",

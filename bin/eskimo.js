@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
+//     eskimo
+//     Copyright (c) 2014- Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)
+//     MIT Licensed
+
+// Eskimo lets you create and build an igloo
+
+// * Author: [@niftylettuce](https://twitter.com/#!/niftylettuce)
+// * Source: <https://github.com/niftylettuce/eskimo>
+
 // # eskimo
 
 var _ = require('underscore')

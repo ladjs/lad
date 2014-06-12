@@ -3,20 +3,28 @@
 
 var validator = require('validator')
 var _ = require('underscore')
+var paginate = require('express-paginate')
 
 exports = module.exports = function(User) {
 
   function index(req, res, next) {
-    User.find({}, function(err, users) {
+    User.paginate({}, req.query.page, req.query.limit, function(err, pageCount, users, itemCount) {
       if (err) return next(err)
       res.format({
         html: function() {
           res.render('users', {
-            users: users
+            users: users,
+            pageCount: pageCount,
+            itemCount: itemCount
           })
         },
         json: function() {
-          res.json(users)
+          // inspired by Stripe's API response for list objects
+          res.json({
+            object: 'list',
+            has_more: paginate.hasNextPages(req)(pageCount, users.length),
+            data: users
+          })
         }
       })
     })
