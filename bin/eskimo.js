@@ -127,7 +127,7 @@ function create(dirname) {
   )
 
   async.each([
-    '._gitignore',
+    'gitignore',
     '.jshintrc',
     'routes.js',
     'app.js',
@@ -201,7 +201,7 @@ function create(dirname) {
 function copy(dirname) {
   return function(name, callback) {
     var from = path.join(__dirname, '..', name)
-    var to = path.resolve(__dirname, dirname, name === '._gitignore' ? '.gitignore' : name)
+    var to = path.resolve(__dirname, dirname, name === 'gitignore' ? '.gitignore' : name)
     log('from: %s', from)
     log('to: %s', to)
     fs.stat(from, function(err, stats) {
