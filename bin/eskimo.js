@@ -123,7 +123,7 @@ function create(dirname) {
 
   log(
     'creating igloo: %s',
-    path.resolve(path.join(__dirname, '..'), dirname)
+    path.resolve(dirname)
   )
 
   async.each([
@@ -140,7 +140,7 @@ function create(dirname) {
     if (err) return log(err)
 
     // package.json
-    var to = path.resolve(__dirname, dirname, 'package.json')
+    var to = path.resolve(path.join(dirname, 'package.json'))
 
     pkg = _.omit(pkg, [
       'description',
@@ -178,11 +178,11 @@ function create(dirname) {
       )
       log(
         'created igloo: %s',
-        path.resolve(__dirname, dirname)
+        path.resolve(dirname)
       )
       log(chalk.green.underline('do this:'))
       log(
-        chalk.gray(util.format('cd %s', path.resolve(path.join(__dirname, '..'), dirname))),
+        chalk.gray(util.format('cd %s', path.resolve(dirname))),
         chalk.gray('&&'),
         chalk.gray('npm install'),
         chalk.gray('&&'),
@@ -201,7 +201,7 @@ function create(dirname) {
 function copy(dirname) {
   return function(name, callback) {
     var from = path.join(__dirname, '..', name)
-    var to = path.resolve(__dirname, dirname, name === 'gitignore' ? '.gitignore' : name)
+    var to = path.resolve(path.join(dirname, name === 'gitignore' ? '.gitignore' : name))
     log('from: %s', from)
     log('to: %s', to)
     fs.stat(from, function(err, stats) {
