@@ -17,7 +17,7 @@ before_install:
 - npm install sinon-chai
 - npm install supertest
 script:
-- gulp test
+- NODE_ENV=test gulp test
 notifications:
   hipchat:
     rooms:
