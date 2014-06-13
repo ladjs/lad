@@ -1,0 +1,16 @@
+
+//- # <%= _.dasherize(name).split('-').join(' ') %> - index
+
+extends ../layout
+
+block content
+
+  h1 <%= _.humanize(_.pluralize(_.classify(name))) %>
+
+  p: a(href='/<%= _.pluralize(_.dasherize(name)) %>/new') Create New <%= _.humanize(_.classify(name)) %>
+
+  ol
+    each <%= _.camelize(name) %> in <%= _.camelize(_.pluralize(name)) %>
+      li: a(href='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id)= <%= _.camelize(name) %>.name
+
+  include ../_paginate

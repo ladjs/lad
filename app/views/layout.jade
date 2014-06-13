@@ -28,6 +28,17 @@ html.no-js
       = ' to improve your experience.'
     != "<!--<![endif]-->"
 
+    //- TODO: Improve this into an include or something, it's sloppy
+    block messages
+      if messages
+        each arr, msgType in messages
+          if arr.length > 0
+            each message in arr
+              if msgType === 'error'
+                - msgType = 'danger'
+              .alert.alert-dismissable(class='alert-' + msgType)
+                button(type='button', data-dismiss='alert', aria-hidden='true').close: i.fa.fa-times-circle
+                != typeof message === "object" ? JSON.stringify(message) : message
     block content
     block scripts
       script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js")

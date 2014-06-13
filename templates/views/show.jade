@@ -1,0 +1,10 @@
+
+//- # <%= _.dasherize(name).split('-').join(' ') %> - show
+
+extends ../layout
+
+block content
+
+  h1 <%= _.humanize(_.classify(name)) %> - #{<%= _.camelize(name) %>.name}
+
+  a(href='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id + '/edit') Edit <%= _.humanize(_.classify(name)) %>

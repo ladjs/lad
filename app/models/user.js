@@ -5,10 +5,11 @@ var jsonSelect = require('mongoose-json-select')
 var passportLocalMongoose = require('passport-local-mongoose')
 var validator = require('validator')
 var mongoosePaginate = require('mongoose-paginate')
+var mongoose = require('mongoose')
 
 exports = module.exports = function(db, iglooMongoosePlugin) {
 
-  var User = new db.Schema({
+  var User = new mongoose.Schema({
     email: {
       type: String,
       required: true,

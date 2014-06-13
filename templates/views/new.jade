@@ -1,0 +1,13 @@
+
+//- # <%= _.dasherize(name).split('-').join(' ') %> - new
+
+extends ../layout
+
+block content
+
+  h1 Create New <%= _.humanize(_.classify(name)) %>
+
+  form(action='/<%= _.pluralize(_.dasherize(name)) %>', method='POST')
+    input(type='hidden', name='_csrf', value=csrf)
+    input(type='name', name='name', placeholder='name', required)
+    button(type='submit') Create New <%= _.humanize(_.classify(name)) %>

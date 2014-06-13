@@ -12,6 +12,13 @@
 // # eskimo
 
 var _ = require('underscore')
+var _str = require('underscore.string')
+_.mixin(_str.exports())
+
+var pluralize = require('pluralize')
+_.pluralize = pluralize.plural
+_.singularize = pluralize.singular
+
 var async = require('async')
 var fs = require('fs')
 var ncp = require('ncp')
@@ -28,6 +35,8 @@ var Mixpanel = require('mixpanel')
 var os = require('os')
 
 var mixpanel = new Mixpanel.init('c09d7ee8744570287e5818650b9d657f')
+
+var templates = path.join(__dirname, '..', 'templates')
 
 var context = {
   type: os.type(),
@@ -64,17 +73,22 @@ program
 
 program
   .command('model <name>')
-  .description('create a new model')
+  .description('create a new model (singular)')
   .action(model)
 
 program
   .command('view <name>')
-  .description('create a new view')
+  .description('create a new view (singular)')
   .action(view)
 program
   .command('controller <name>')
-  .description('create a new controller')
+  .description('create a new controller (singular)')
   .action(controller)
+
+program
+  .command('mvc <name>')
+  .description('create a new model, view, and controller (singular)')
+  .action(mvc)
 
 program.parse(process.argv)
 
@@ -204,23 +218,15 @@ function copy(dirname) {
   }
 }
 
-/*
-function build(file) {
-
-  var app = path.resolve(__dirname, file)
-
-  if (program.tracking)
-    track('build', {
-      file: file
-    })
-
-  require(app)
-
-}
-*/
-
 function model(name) {
-  log('coming soon')
+
+  name = _.singularize(name.toLowerCase())
+
+  createTemplatedFile('models', name, function(err, fileName) {
+    if (err) return log(err)
+    log('Created model: %s', fileName)
+  })
+
   if (program.tracking)
     track('model', {
       name: name
@@ -228,7 +234,34 @@ function model(name) {
 }
 
 function view(name) {
-  log('coming soon')
+
+  name = _.singularize(name.toLowerCase())
+
+  var viewDir = path.resolve(path.join('app', 'views', _.pluralize(_.dasherize(name))))
+
+  mkdirp(viewDir, function(err) {
+    if (err) return log(err)
+    async.each([
+      'edit',
+      'index',
+      'new',
+      'show'
+    ], function(file, callback) {
+      var template = path.join(__dirname, '..', 'templates', 'views', file + '.jade')
+      fs.readFile(template, 'utf8', function(err, data) {
+        if (err) return callback(err)
+        data = _.template(data, {
+          name: name
+        })
+        var fileName = path.join(viewDir, file + '.jade')
+        fs.writeFile(fileName, data, callback)
+      })
+    }, function(err) {
+      if (err) return log(err)
+      log('Created views: %s', viewDir)
+    })
+  })
+
   if (program.tracking)
     track('view', {
       name: name
@@ -236,11 +269,51 @@ function view(name) {
 }
 
 function controller(name) {
-  log('coming soon')
+
+  name = _.singularize(name.toLowerCase())
+
+  createTemplatedFile('controllers', name, function(err, fileName) {
+    if (err) return log(err)
+    log('Created controller: %s', fileName)
+    log('Add the following to ./routes.js (above static server):')
+    log()
+    log("app.resource('%s', IoC.create('controllers/%s'), {", _.pluralize(_.dasherize(name)), _.pluralize(_.dasherize(name)))
+    log("  id: '%s'", _.underscored(name))
+    log("})")
+    log()
+  })
   if (program.tracking)
     track('controller', {
       name: name
     })
+}
+
+function mvc(name) {
+  model(name)
+  view(name)
+  controller(name)
+  if (program.tracking)
+    track('mvc', {
+      name: name
+    })
+}
+
+function createTemplatedFile(template, name, callback) {
+  fs.readFile(path.join(templates, template + '.js'), 'utf8', function(err, data) {
+    if (err) return callback(err)
+    data = _.template(data, {
+      name: name
+    })
+    var fileName = ''
+    if (template === 'controllers')
+      fileName = path.resolve(path.join('app', template, _.dasherize(_.pluralize(name)) + '.js'))
+    else
+      fileName = path.resolve(path.join('app', template, _.dasherize(name) + '.js'))
+    fs.writeFile(fileName, data, function(err) {
+      if (err) return callback(err)
+      callback(null, fileName)
+    })
+  })
 }
 
 function log() {
