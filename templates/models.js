@@ -5,7 +5,7 @@ var jsonSelect = require('mongoose-json-select')
 var mongoosePaginate = require('mongoose-paginate')
 var mongoose = require('mongoose')
 
-exports = module.exports = function(db, iglooMongoosePlugin) {
+exports = module.exports = function(mongo, iglooMongoosePlugin) {
 
   var <%= _.classify(name) %> = new mongoose.Schema({
     name: {
@@ -26,8 +26,8 @@ exports = module.exports = function(db, iglooMongoosePlugin) {
   // keep last
   <%= _.classify(name) %>.plugin(iglooMongoosePlugin)
 
-  return db.model('<%= _.classify(name) %>', <%= _.classify(name) %>)
+  return mongo.model('<%= _.classify(name) %>', <%= _.classify(name) %>)
 }
 
 exports['@singleton'] = true
-exports['@require'] = [ 'igloo/db', 'igloo/mongoose-plugin' ]
+exports['@require'] = [ 'igloo/mongo', 'igloo/mongoose-plugin' ]

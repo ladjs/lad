@@ -7,7 +7,7 @@ var validator = require('validator')
 var mongoosePaginate = require('mongoose-paginate')
 var mongoose = require('mongoose')
 
-exports = module.exports = function(db, iglooMongoosePlugin) {
+exports = module.exports = function(mongo, iglooMongoosePlugin) {
 
   var User = new mongoose.Schema({
     email: {
@@ -38,8 +38,8 @@ exports = module.exports = function(db, iglooMongoosePlugin) {
   // keep last
   User.plugin(iglooMongoosePlugin)
 
-  return db.model('User', User)
+  return mongo.model('User', User)
 }
 
 exports['@singleton'] = true
-exports['@require'] = [ 'igloo/db', 'igloo/mongoose-plugin' ]
+exports['@require'] = [ 'igloo/mongo', 'igloo/mongoose-plugin' ]

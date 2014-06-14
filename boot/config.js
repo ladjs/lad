@@ -67,6 +67,9 @@ exports = module.exports = function() {
         // log message was received/saved
         safe: false
       },
+      knex: {
+        client: 'mysql'
+      },
       redis: {
         host: 'localhost',
         port: 6379,
@@ -121,6 +124,15 @@ exports = module.exports = function() {
       mongo: {
         db: 'igloo-development',
       },
+      knex: {
+        debug: true,
+        connection: {
+          host: '127.0.0.1',
+          user: 'root',
+          password: '',
+          database: 'igloo_development'
+        }
+      },
       redis: {
         prefix: 'igloo-development'
       }
@@ -138,6 +150,14 @@ exports = module.exports = function() {
       },
       mongo: {
         db: 'igloo-production',
+      },
+      knex: {
+        connection: {
+          host: '127.0.0.1',
+          user: 'root',
+          password: '',
+          database: 'igloo_production'
+        }
       },
       redis: {
         prefix: 'igloo-production'
