@@ -15,7 +15,6 @@ exports = module.exports = function() {
 
     defaults: {
       pkg: pkg,
-      mongooseVersioning: true,
       showStack: true,
       // directories
       assetsDir: assetsDir,
