@@ -109,7 +109,7 @@ exports = module.exports = function() {
         port: 5000
       },
       mongo: {
-        db: 'igloo-test'
+        dbname: 'igloo-test'
       },
       redis: {
         prefix: 'igloo-test'
@@ -122,7 +122,7 @@ exports = module.exports = function() {
         port: 3000,
       },
       mongo: {
-        db: 'igloo-development',
+        dbname: 'igloo-development',
       },
       knex: {
         debug: true,
@@ -149,7 +149,7 @@ exports = module.exports = function() {
         cluster: true
       },
       mongo: {
-        db: 'igloo-production',
+        dbname: 'igloo-production',
       },
       knex: {
         connection: {
