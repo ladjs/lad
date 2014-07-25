@@ -24,6 +24,16 @@ exports = module.exports = function() {
         dir: viewsDir,
         engine: 'jade'
       },
+      hipchat: {
+        level: 'error',
+        silent: false,
+        token: '',
+        notify: false,
+        color: 'yellow',
+        room: '',
+        from: '',
+        messageFormat: 'text'
+      },
       session: {
         secret: 'igloo-change-me',
         key: 'igloo',
@@ -84,6 +94,7 @@ exports = module.exports = function() {
         requests: true,
         mongo: false,
         file: false,
+        hipchat: false
       },
       less: {
         path: publicDir,
