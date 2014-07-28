@@ -3,11 +3,10 @@
 
 var jsonSelect = require('mongoose-json-select')
 var mongoosePaginate = require('mongoose-paginate')
-var mongoose = require('mongoose')
 
 exports = module.exports = function(mongo, iglooMongoosePlugin) {
 
-  var <%= _.classify(name) %> = new mongoose.Schema({
+  var <%= _.classify(name) %> = new mongo.Schema({
     name: {
       type: String,
       required: true
