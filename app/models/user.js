@@ -6,9 +6,9 @@ var passportLocalMongoose = require('passport-local-mongoose')
 var validator = require('validator')
 var mongoosePaginate = require('mongoose-paginate')
 
-exports = module.exports = function(mongo, iglooMongoosePlugin) {
+exports = module.exports = function(mongoose, iglooMongoosePlugin) {
 
-  var User = new mongo.Schema({
+  var User = new mongoose.Schema({
     email: {
       type: String,
       required: true,
@@ -37,7 +37,7 @@ exports = module.exports = function(mongo, iglooMongoosePlugin) {
   // keep last
   User.plugin(iglooMongoosePlugin)
 
-  return mongo.model('User', User)
+  return mongoose.model('User', User)
 }
 
 exports['@singleton'] = true
