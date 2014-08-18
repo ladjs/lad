@@ -20,6 +20,7 @@ describe('server', function() {
       .end(done)
   })
 
+  /*
   it('should return 200 if user created', function(done) {
     request(app)
       .post('/users')
@@ -59,5 +60,6 @@ describe('server', function() {
       .accept('application/json')
       .expect(200, done)
   })
+  */
 
 })

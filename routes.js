@@ -11,9 +11,11 @@ exports = module.exports = function(IoC, settings) {
   app.get('/', IoC.create('controllers/home'))
 
   // users
+  /*
   app.resource('users', IoC.create('controllers/users'), {
     id: 'user'
   })
+  */
 
   // static server
   app.use(serveStatic(settings.publicDir, settings.staticServer))
