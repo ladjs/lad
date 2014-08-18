@@ -7,6 +7,8 @@ Eskimo lets you create and build an [`igloo`](https://github.com/niftylettuce/ig
 
 **tldr;** `eskimo` is the CLI tool that is used to build projects with `igloo`, and `igloo` contains a set of common components used with `electrolyte` (dependency injection).
 
+**Have some feedback or need to ask a question?** Join the public HipChat room at <http://www.hipchat.com/gpGoLR9pM>.
+
 
 ## Dependencies
 
