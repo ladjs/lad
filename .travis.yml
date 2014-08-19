@@ -5,16 +5,7 @@ services:
 - redis-server
 - mongodb
 before_install:
-- npm install chai
-- npm install gulp
-- npm install gulp-exit
-- npm install gulp-jshint
-- npm install gulp-mocha
-- npm install jshint-stylish
-- npm install mocha
-- npm install sinon
-- npm install sinon-chai
-- npm install supertest
+- npm install -d
 script:
 - NODE_ENV=test gulp test
 notifications:

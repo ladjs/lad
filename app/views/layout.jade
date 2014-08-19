@@ -11,10 +11,12 @@ html.no-js
       meta(name='description', content='')
       meta(name='viewport', content='width=device-width, initial-scale=1')
     block stylesheets
-      link(rel='stylesheet', href='/css/bootstrap.min.css')
-      link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
-      link(rel='stylesheet', href='/css/style.css')
-    script(src='/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')
+      <!-- build:css /css/app.css -->
+      link(rel='stylesheet', href='/css/bootstrap.css')
+      <!-- endbuild -->
+    <!-- build:js /js/modernizr.js -->
+    script(src='/bower/modernizr/modernizr.js')
+    <!-- endbuild -->
   body
 
     //- Browse Happy
@@ -41,11 +43,11 @@ html.no-js
                 != typeof message === "object" ? JSON.stringify(message) : message
     block content
     block scripts
-      script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js")
-      script.
-        window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\\/script>')
-      script(src="/js/vendor/bootstrap.min.js")
-      script(src="/js/vendor/bootbox.min.js")
-      script(src="/js/plugins.js")
-      script(src="/js/main.js")
-      script(src='/js/vendor/ga.js')
+      <!-- build:js /js/app.js -->
+      script(src='/bower/jquery/dist/jquery.js')
+      script(src='/bower/bootstrap/dist/js/bootstrap.js')
+      script(src='/bower/bootbox/bootbox.js')
+      script(src='/js/plugins.js')
+      script(src='/js/main.js')
+      script(src='/js/ga.js')
+      <!-- endbuild -->

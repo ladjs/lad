@@ -101,3 +101,10 @@ dwsync.xml
 # ------------------------------------------------------------------------------
 # Add your custom excludes below
 # ------------------------------------------------------------------------------
+assets/bower/
+assets/dist/
+bower_components/
+assets/public/css/*.css
+assets/public/bower/
+.bower-cache/
+.bower-registry/

@@ -64,14 +64,30 @@
   "devDependencies": {
     "chai": "^1.9.1",
     "cookie": "^0.1.2",
+    "del": "^0.1.2",
     "gulp": "^3.7.0",
+    "gulp-bower": "0.0.6",
+    "gulp-csso": "^0.2.9",
     "gulp-exit": "0.0.2",
+    "gulp-filter": "^1.0.0",
+    "gulp-imagemin": "^1.0.0",
+    "gulp-jade-usemin": "git://github.com/niftylettuce/gulp-jade-usemin",
     "gulp-jshint": "^1.6.2",
+    "gulp-less": "^1.3.5",
+    "gulp-minify-html": "^0.1.4",
     "gulp-mocha": "^0.4.1",
+    "gulp-rev": "^1.0.0",
+    "gulp-rev-all": "^0.6.2",
+    "gulp-rev-css-url": "0.0.7",
+    "gulp-sourcemaps": "^1.1.1",
+    "gulp-uglify": "^0.3.1",
+    "imagemin-pngcrush": "^0.1.0",
     "jshint-stylish": "^0.2.0",
     "mocha": "^1.20.1",
+    "run-sequence": "^0.3.6",
     "sinon": "^1.10.2",
     "sinon-chai": "^2.5.0",
-    "supertest": "^0.13.0"
+    "supertest": "^0.13.0",
+    "through2": "^0.6.1"
   }
 }

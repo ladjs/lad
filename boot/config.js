@@ -118,11 +118,8 @@ exports = module.exports = function() {
         env: 'test',
         port: 5000
       },
-      mongo: {
-        dbname: 'igloo-test'
-      },
       redis: {
-        prefix: 'igloo-test'
+        prefix: 'igloo_test'
       }
     },
 
@@ -149,6 +146,10 @@ exports = module.exports = function() {
     },
 
     production: {
+      views: {
+        dir: path.join(assetsDir, 'dist'),
+      },
+      publicDir: path.join(assetsDir, 'dist'),
       showStack: false,
       updateNotifier: {
         enabled: false,
@@ -170,15 +171,17 @@ exports = module.exports = function() {
         }
       },
       redis: {
-        prefix: 'igloo-production'
+        prefix: 'igloo_production'
       },
       output: {
         colorize: false
       },
       logger: {
         'console': true,
-        requests: false,
-        mongo: true,
+        requests: true,
+        mongo: false,
+        file: false
+        /*
         // <https://github.com/flatiron/winston#file-transport>
         file: {
           filename: '/var/log/igloo.log',
@@ -186,6 +189,7 @@ exports = module.exports = function() {
           // TODO: maxFiles
           timestamp: true
         }
+        */
       }
     }
 

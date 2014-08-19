@@ -134,7 +134,9 @@ function create(dirname) {
     'boot',
     'etc',
     'app',
-    'assets'
+    'assets',
+    'gulpfile.js',
+    'bower.json'
   ], copy(dirname), function(err) {
 
     if (err) return log(err)
