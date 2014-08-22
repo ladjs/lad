@@ -39,7 +39,9 @@ exports = module.exports = function() {
         key: 'igloo',
         cookie: {
           maxAge: maxAge
-        }
+        },
+        resave: true,
+        saveUninitialized: true
       },
       trustProxy: true,
       updateNotifier: {
@@ -85,7 +87,7 @@ exports = module.exports = function() {
         maxAge: maxAge
       },
       output: {
-        handleExceptions: true,
+        handleExceptions: false,
         colorize: true,
         prettyPrint: false
       },

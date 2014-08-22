@@ -9,7 +9,7 @@ exports = module.exports = function() {
         res.render('home')
       },
       json: function() {
-        res.send(200)
+        res.status(200).end()
       }
     })
   }

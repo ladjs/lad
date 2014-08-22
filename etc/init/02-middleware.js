@@ -20,7 +20,13 @@ exports = module.exports = function(IoC, logger, settings) {
   app = expressResource(app)
 
   // parse request bodies
-  app.use(bodyParser())
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }))
+
+  // support _method (PUT in forms etc)
+  app.use(methodOverride('_method'))
 
   // support _method (PUT in forms etc)
   app.use(methodOverride('_method'))

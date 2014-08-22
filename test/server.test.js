@@ -10,10 +10,12 @@ var expect = chai.expect
 chai.should()
 chai.use(sinonChai)
 
+request = request(app)
+
 describe('server', function() {
 
   it('should return 200 if home page loads', function(done) {
-    request(app)
+    request
       .get('/')
       .accept('application/json')
       .expect(200)
@@ -22,7 +24,7 @@ describe('server', function() {
 
   /*
   it('should return 200 if user created', function(done) {
-    request(app)
+    request
       .post('/users')
       .accept('application/json')
       .send({
@@ -34,7 +36,7 @@ describe('server', function() {
 
   it('should return 200 if user updated', function(done) {
     var email = util.format('niftylettuce+%s@gmail.com', new Date().getTime())
-    request(app)
+    request
       .post('/users')
       .accept('application/json')
       .send({
@@ -43,7 +45,7 @@ describe('server', function() {
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err)
-        request(app)
+        request
           .put(util.format('/users/%s', res.body.id))
           .accept('application/json')
           .send({
@@ -55,7 +57,7 @@ describe('server', function() {
   })
 
   it('should return 200 if user index loads', function(done) {
-    request(app)
+    request
       .get('/users')
       .accept('application/json')
       .expect(200, done)

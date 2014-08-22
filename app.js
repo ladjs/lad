@@ -16,7 +16,11 @@ IoC.loader('models', IoC.node(path.join(__dirname, 'app', 'models')))
 // phases
 
 var app = bootable(express())
-app.phase(IoC.create('igloo/update-notifier'))
+
+// removing this since it seems we still get errors
+// <https://github.com/yeoman/update-notifier/issues/25#issuecomment-52824043>
+//app.phase(IoC.create('igloo/update-notifier'))
+
 app.phase(bootable.di.initializers())
 app.phase(bootable.di.routes())
 app.phase(IoC.create('igloo/error-handler'))

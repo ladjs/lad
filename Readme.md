@@ -44,6 +44,12 @@ DEBUG=* node app
 sudo NODE_ENV=production node app
 ```
 
+There is also a cluster app built in for zero-downtime when receiving a SIGUSR2 code:
+
+```bash
+sudo NODE_ENV=production node cluster
+```
+
 
 ## Tests
 
