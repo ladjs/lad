@@ -205,7 +205,8 @@ function create(dirname) {
           'test',
           'assets',
           'gulpfile.js',
-          'bower.json'
+          'bower.json',
+          'cluster.js'
         ], copy(dirname), callback)
 
       }
