@@ -8,8 +8,7 @@
   },
   "scripts": {
     "prepublish": "npm prune",
-    "test": "NODE_ENV=test ./node_modules/.bin/gulp test",
-    "postinstall": "./node_modules/.bin/gulp postinstall"
+    "test": "NODE_ENV=test ./node_modules/.bin/gulp test"
   },
   "repository": {
     "type": "git",

@@ -183,6 +183,11 @@ function create(dirname) {
         // private
         pkg.private = true
 
+        // scripts
+        pkg.scripts = _.defaults(pkg.scripts, {
+          'postinstall': './node_modules/.bin/gulp postinstall'
+        })
+
         fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2), callback)
 
       },
