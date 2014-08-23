@@ -1,7 +1,7 @@
 {
   "name": "eskimo",
-  "version": "0.0.9-rc.19",
-  "description": "Eskimo lets you create and build an igloo",
+  "version": "0.0.9-rc.20",
+  "description": "Eskimo is the only boilerplate for Node.js developers who want a proven, quick, and easy way to build rapid MVP's in 0-60 days. Sponsored by Clevertech <http://clevertech.biz>.",
   "main": "./app.js",
   "bin": {
     "eskimo": "./bin/eskimo.js"
