@@ -15,7 +15,7 @@ exports = module.exports = function(IoC, settings) {
     app.enable('trust proxy')
 
   // use helmet for security
-  app.use(helmet.defaults())
+  app.use(helmet())
 
   // ignore GET /favicon.ico
   app.use(serveFavicon(path.join(settings.publicDir, 'favicon.ico')))

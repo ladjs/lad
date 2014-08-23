@@ -17,7 +17,7 @@
   "dependencies": {
     "bootstrap": "~3.2.0",
     "font-awesome": "~4.1.0",
-    "jquery": "~1.11.1",
+    "jquery": "~2.1.1",
     "modernizr": "~2.8.3",
     "bootbox": "~4.3.0"
   }
