@@ -5,9 +5,11 @@
 
 Eskimo lets you create and build an [`igloo`](https://github.com/niftylettuce/igloo).
 
+The project is sponsored by [Clevertech](http://clevertech.biz).
+
 **tldr;** `eskimo` is the CLI tool that is used to build projects with `igloo`, and `igloo` contains a set of common components used with `electrolyte` (dependency injection).
 
-**Have some feedback or need to ask a question?** Join the public HipChat room at <http://www.hipchat.com/gpGoLR9pM>.
+**Need help?** <http://www.hipchat.com/gpGoLR9pM>
 
 
 ## Dependencies
@@ -26,28 +28,15 @@ npm install -g eskimo
 
 ## Usage
 
+> Refer to the "<path>/Readme.md" file generated from `eskimo create <path>` for further instructions.
+
 ```bash
 eskimo --help
 eskimo create <path>
 eskimo model <name>
 eskimo view <name>
 eskimo controller <name>
-```
-
-Then spin up your app in either development or production mode:
-
-```bash
-DEBUG=* node app
-```
-
-```bash
-sudo NODE_ENV=production node app
-```
-
-There is also a cluster app built in for zero-downtime when receiving a SIGUSR2 code:
-
-```bash
-sudo NODE_ENV=production node cluster
+eskimo mvc <name>
 ```
 
 
@@ -57,6 +46,7 @@ sudo NODE_ENV=production node cluster
 npm install -d
 npm test
 ```
+
 
 ## Contributors
 

@@ -1,6 +1,6 @@
 {
   "name": "eskimo",
-  "version": "0.0.9-rc.15",
+  "version": "0.0.9-rc.16",
   "description": "Eskimo lets you create and build an igloo",
   "main": "./app.js",
   "bin": {
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "prepublish": "npm prune",
-    "test": "NODE_ENV=test gulp test"
+    "test": "NODE_ENV=test ./node_modules/.bin/gulp test",
+    "postinstall": "./node_modules/.bin/gulp postinstall"
   },
   "repository": {
     "type": "git",

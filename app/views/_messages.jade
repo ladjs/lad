@@ -1,0 +1,9 @@
+if messages
+  each arr, msgType in messages
+    if arr.length > 0
+      each message in arr
+        if msgType === 'error'
+          - msgType = 'danger'
+        .alert.alert-dismissable(class='alert-' + msgType)
+          button(type='button', data-dismiss='alert', aria-hidden='true').close: i.fa.fa-times-circle
+          != typeof message === "object" ? JSON.stringify(message) : message

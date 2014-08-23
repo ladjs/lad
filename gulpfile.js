@@ -50,12 +50,25 @@ var tests = 'test/**/*.test.js'
 var scripts = [
   './app/**/*.js',
   './assets/public/**/*.js',
+  '!./assets/public/bower/**/*.js',
   './bin/eskimo.js',
   './boot/**/*.js',
   './etc/**/*.js'
 ]
 
-gulp.task('test', [ 'jshint', 'mocha' ])
+gulp.task('postinstall', function(callback) {
+  runSequence(
+    'bower',
+    'test'
+  , callback)
+})
+
+gulp.task('test', function(callback) {
+  runSequence(
+    'jshint',
+    'mocha'
+  , callback)
+})
 
 gulp.task('mocha', function() {
   return gulp

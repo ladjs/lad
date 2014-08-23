@@ -121,82 +121,101 @@ if (program.updateNotifier) {
 
 function create(dirname) {
 
-  log(
-    'creating igloo: %s',
-    path.resolve(dirname)
-  )
+  mkdirp(path.resolve(dirname), function(err) {
 
-  async.each([
-    'gitignore',
-    '.jshintrc',
-    'routes.js',
-    'app.js',
-    'boot',
-    'etc',
-    'app',
-    'assets',
-    'gulpfile.js',
-    'bower.json'
-  ], copy(dirname), function(err) {
+    if (err) throw err
 
-    if (err) return log(err)
+    log('creating igloo: %s', path.resolve(dirname))
 
-    // package.json
-    var to = path.resolve(path.join(dirname, 'package.json'))
+    async.parallel({
 
-    pkg = _.omit(pkg, [
-      'description',
-      'bin',
-      'repository',
-      'author',
-      'bugs',
-      'license',
-      'homepage'
-    ])
+      'Readme.md': function(callback) {
 
-    pkg.dependencies = _.omit(pkg.dependencies, [
-      'commander',
-      'async',
-      'ncp',
-      'mkdirp',
-      'update-notifier',
-      'mixpanel'
-    ])
+        var readmePath = path.resolve(path.join(dirname, 'Readme.md'))
 
-    // name
-    pkg.name = path.basename(dirname).toLowerCase().replace(/\W/g, '-')
-    // version
-    pkg.version = '0.0.1'
-    // main
-    pkg.main = './app.js'
-    // private
-    pkg.private = true
+        fs.readFile(path.join(templates, 'Readme.md'), 'utf8', function(err, data) {
 
-    fs.writeFile(to, JSON.stringify(pkg, null, 2), function(err) {
-      if (err) return log(err)
-      log(
-        'created package.json: %s',
-        to
-      )
-      log(
-        'created igloo: %s',
-        path.resolve(dirname)
-      )
-      log(chalk.green.underline('do this:'))
-      log(
-        chalk.gray(util.format('cd %s', path.resolve(dirname))),
-        chalk.gray('&&'),
-        chalk.gray('npm install'),
-        chalk.gray('&&'),
-        chalk.gray('node app')
-      )
+          if (err) return callback(err)
+
+          data = _.template(data, {
+            name: path.basename(dirname)
+          })
+
+          fs.writeFile(readmePath, data, callback)
+
+        })
+
+
+      },
+
+      'package.json': function(callback) {
+
+        var pkgPath = path.resolve(path.join(dirname, 'package.json'))
+
+        pkg = _.omit(pkg, [
+          'description',
+          'bin',
+          'repository',
+          'author',
+          'bugs',
+          'license',
+          'homepage'
+        ])
+
+        pkg.dependencies = _.omit(pkg.dependencies, [
+          'commander',
+          'async',
+          'ncp',
+          'mkdirp',
+          'update-notifier',
+          'mixpanel'
+        ])
+
+        // name
+        pkg.name = path.basename(dirname).toLowerCase().replace(/\W/g, '-')
+
+        // version
+        pkg.version = '0.0.1'
+
+        // main
+        pkg.main = './app.js'
+
+        // private
+        pkg.private = true
+
+        fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2), callback)
+
+      },
+
+      files: function(callback) {
+
+        async.each([
+          'gitignore',
+          '.jshintrc',
+          'routes.js',
+          'app.js',
+          'boot',
+          'etc',
+          'app',
+          'test',
+          'assets',
+          'gulpfile.js',
+          'bower.json'
+        ], copy(dirname), callback)
+
+      }
+
+    }, function(err) {
+      if (err) throw err
+      log('successfully created igloo: %s', path.resolve(dirname))
+      process.exit(0)
     })
 
   })
 
   if (program.tracking)
     track('create', {
-      path: path
+      path: dirname
     })
 }
 
@@ -204,8 +223,8 @@ function copy(dirname) {
   return function(name, callback) {
     var from = path.join(__dirname, '..', name)
     var to = path.resolve(path.join(dirname, name === 'gitignore' ? '.gitignore' : name))
-    log('from: %s', from)
-    log('to: %s', to)
+    //log('from: %s', from)
+    //log('to: %s', to)
     fs.stat(from, function(err, stats) {
       if (err) return callback(err)
       // if it's not a folder than just copy the file
