@@ -9,14 +9,13 @@ The project is sponsored by [Clevertech](http://clevertech.biz).
 
 **tldr;** `eskimo` is the CLI tool that is used to build projects with `igloo`, and `igloo` contains a set of common components used with `electrolyte` (dependency injection).
 
-**Need help?** <http://www.hipchat.com/gpGoLR9pM>
+**Need help or want a free sticker?** <http://www.hipchat.com/gpGoLR9pM>
 
 
 ## Dependencies
 
 * [Node](http://nodejs.org)
 * [Redis](http://redis.io/)
-* [MongoDB](http://www.mongodb.org/)
 
 
 ## Install
@@ -28,7 +27,7 @@ npm install -g eskimo
 
 ## Usage
 
-> Refer to the "<path>/Readme.md" file generated from `eskimo create <path>` for further instructions.
+> Refer to the "\<path\>/Readme.md" file generated from `eskimo create <path>` for further instructions.
 
 ```bash
 eskimo --help
