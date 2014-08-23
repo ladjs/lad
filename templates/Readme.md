@@ -2,7 +2,7 @@
 # <%= _.titleize(name) %>
 
 
-> The author of [Eskimo](http://eskimo.io) highly recommends reading [ZAG by Marty Neumeier]() and adding an onliness statement here.  After completed, you can delete this blockquote from the Markdown file.
+> The author of [Eskimo](http://eskimo.io) highly recommends reading [ZAG by Marty Neumeier](http://www.amazon.com/gp/product/0321426770/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321426770&linkCode=as2&tag=aell-20&linkId=FI4ECXZL77D4PKRB) and adding an onliness statement here.  After completed, you can delete this blockquote from the Markdown file.
 
 > "What's the one thing that makes your brand both different and compelling?  What makes you the 'only'?  Complete a simple onliness statement.  Add detail by answering what, how, who, where, when, and why." &ndash; Marty Neumeier
 
