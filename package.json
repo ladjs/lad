@@ -1,6 +1,6 @@
 {
   "name": "eskimo",
-  "version": "0.0.9-rc.17",
+  "version": "0.0.9-rc.18",
   "description": "Eskimo lets you create and build an igloo",
   "main": "./app.js",
   "bin": {
