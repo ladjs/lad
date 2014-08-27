@@ -202,6 +202,7 @@ function create(dirname) {
           'boot',
           'etc',
           'app',
+          'node_modules',
           'test',
           'assets',
           'gulpfile.js',
