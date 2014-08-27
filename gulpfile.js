@@ -59,6 +59,7 @@ var scripts = [
 gulp.task('postinstall', function(callback) {
   runSequence(
     'bower',
+    'less',
     'test'
   , callback)
 })
