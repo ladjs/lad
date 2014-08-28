@@ -1,11 +1,22 @@
 {
   "name": "eskimo",
-  "version": "0.1.1",
+  "version": "0.1.2-rc.1",
   "description": "Eskimo is the only boilerplate for Node.js developers who want a proven, quick, and easy way to build rapid MVP's in 0-60 days. Sponsored by Clevertech <http://clevertech.biz>.",
   "main": "./app.js",
   "bin": {
     "eskimo": "./bin/eskimo.js"
   },
+  "author": "Nick Baugh <niftylettuce@gmail.com>",
+  "contributors": [
+    {
+      "name": "Nick Baugh",
+      "email": "niftylettuce@gmail.com"
+    },
+    {
+      "name": "Adnan Ibrišimbegović",
+      "email": "adibih@gmail.com"
+    }
+  ],
   "scripts": {
     "prepublish": "npm prune",
     "test": "NODE_ENV=test ./node_modules/.bin/gulp test"
@@ -14,7 +25,6 @@
     "type": "git",
     "url": "git://github.com/niftylettuce/igloo.git"
   },
-  "author": "Nick Baugh <niftylettuce@gmail.com>",
   "bugs": {
     "url": "https://github.com/niftylettuce/igloo/issues"
   },
@@ -39,7 +49,7 @@
     "express-resource": "git://github.com/niftylettuce/express-resource",
     "express-session": "^1.2.1",
     "helmet": "^0.4.0",
-    "igloo": "0.0.4-rc.10",
+    "igloo": "0.0.4-rc.11",
     "jade": "^1.3.1",
     "jade-amd": "^0.2.2",
     "less-middleware": "^1.0.3",

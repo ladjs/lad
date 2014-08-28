@@ -158,7 +158,7 @@ exports = module.exports = function() {
       },
       server: {
         env: 'production',
-        port: 80,
+        port: 3080,
         cluster: true
       },
       mongo: {
