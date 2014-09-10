@@ -12,6 +12,11 @@
 > Eskimo helps you to rapidly build [Node](http://nodejs.org) powered API's, online stores, and apps in general (known as "[igloos](http://igloojs.com/)").  Requires [Node](http://nodejs.org) >= 0.10.x, [Redis](http://redis.io) for sessions, and your choice of either [Knex](http://knexjs.org)/[Bookshelf](http://bookshelfjs.org) (SQL) or [Mongoose](http://mongoosejs.com) (MongoDB) for data.
 
 
+## Sponsor
+
+[![Clevertech](http://eskimo.io/img/clevertech.png)](http://clevertech.biz)
+
+
 ## Install
 
 ```bash
@@ -24,11 +29,6 @@ npm install -g eskimo
 > TODO: Basic screencast here
 
 
-## Sponsor
-
-[![Clevertech](http://eskimo.io/img/clevertech.png)](http://clevertech.biz)
-
-
 ## Commands
 
 Bundled with the CLI are simple commands and options.
@@ -36,17 +36,17 @@ Bundled with the CLI are simple commands and options.
 ```bash
 eskimo --help
 Usage: eskimo [options] [command]
- 
+
 Commands:
- 
+
   create <dirname>       create a new igloo
   model <name>           create a new model
   view <name>            create a new view
   controller <name>      create a new controller
   mvc <name>             create a new model, view, and controller
- 
+
 Options:
- 
+
   -h, --help                output usage information
   -V, --version             output the version number
   -N, --no-update-notifier  disable update notifier
@@ -67,7 +67,7 @@ Once you've created an igloo, see the generated Readme.md file.
 * [Facebook &amp; Google Log In][facebook-and-google-log-in]
 * [Webhook Deploys][webhook-deploys]
 * [CDN-hosted Assets][cdn-hosted-assets]
- 
+
 [launching-soon-page]: examples/launching-soon-page
 [stripe-powered-store]: examples/stripe-powered-store
 [restful-api]: examples/restful-api
