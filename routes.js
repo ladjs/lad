@@ -12,9 +12,16 @@ exports = module.exports = function(IoC, settings) {
 
   // users
   /*
-  app.resource('users', IoC.create('controllers/users'), {
-    id: 'user'
-  })
+  var users = IoC.create('controllers/users')
+  var usersRouter = express.Router()
+  usersRouter.get('/', users.index)
+  usersRouter.get('/new', users.new)
+  usersRouter.post('/', users.create)
+  usersRouter.get('/:id', users.show)
+  usersRouter.get('/:id/edit', users.edit)
+  usersRouter.put('/:id', users.update)
+  usersRouter.delete('/:id', users.destroy)
+  app.use('/users', usersRouter)
   */
 
   // static server

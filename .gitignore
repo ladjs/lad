@@ -108,3 +108,6 @@ assets/public/css/*.css
 assets/public/bower/
 .bower-cache/
 .bower-registry/
+coverage/
+boot/local.js
+

@@ -4,7 +4,8 @@
 //     Copyright (c) 2014- Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)
 //     MIT Licensed
 
-// Eskimo lets you create and build an igloo
+// Eskimo helps you to rapidly build Node powered API's,
+// online stores, and apps in general (known as "igloos").
 
 // * Author: [@niftylettuce](https://twitter.com/#!/niftylettuce)
 // * Source: <https://github.com/niftylettuce/eskimo>
@@ -19,6 +20,7 @@ var pluralize = require('pluralize')
 _.pluralize = pluralize.plural
 _.singularize = pluralize.singular
 
+var multiline = require('multiline')
 var async = require('async')
 var fs = require('fs')
 var ncp = require('ncp')
@@ -163,12 +165,13 @@ function create(dirname) {
         ])
 
         pkg.dependencies = _.omit(pkg.dependencies, [
-          'commander',
           'async',
-          'ncp',
+          'commander',
+          'mixpanel',
           'mkdirp',
-          'update-notifier',
-          'mixpanel'
+          'multiline',
+          'ncp',
+          'update-notifier'
         ])
 
         // name
@@ -300,20 +303,57 @@ function controller(name) {
 
   name = _.singularize(name.toLowerCase())
 
+  var pluralCamelized = _.pluralize(_.camelize(name))
+  var pluralDasherized = _.pluralize(_.dasherize(name))
+
   createTemplatedFile('controllers', name, function(err, fileName) {
     if (err) return log(err)
-    log('Created controller: %s', fileName)
+    log('Created controller: %s', name)
     log('Add the following to ./routes.js (above static server):')
-    log()
-    log("app.resource('%s', IoC.create('controllers/%s'), {", _.pluralize(_.dasherize(name)), _.pluralize(_.dasherize(name)))
-    log("  id: '%s'", _.underscored(name))
-    log("})")
-    log()
+    console.log()
+    console.log(
+      util.format(
+        multiline.stripIndent(function(){/*
+          var %s = IoC.create('controllers/%s')
+          var %sRouter = express.Router()
+          %sRouter.get('/', %s.index)
+          %sRouter.get('/new', %s.new)
+          %sRouter.post('/', %s.create)
+          %sRouter.get('/:id', %s.show)
+          %sRouter.get('/:id/edit', %s.edit)
+          %sRouter.put('/:id', %s.update)
+          %sRouter.delete('/:id', %s.destroy)
+          app.use('/%s', %sRouter)
+        */}),
+        pluralCamelized,
+        pluralDasherized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralCamelized,
+        pluralDasherized,
+        pluralCamelized
+      )
+    )
+    console.log()
   })
+
   if (program.tracking)
     track('controller', {
       name: name
     })
+
 }
 
 function mvc(name) {

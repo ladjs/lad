@@ -4,7 +4,6 @@
 var winstonRequestLogger = require('winston-request-logger')
 var methodOverride = require('method-override')
 var bodyParser = require('body-parser')
-var expressResource = require('express-resource')
 var paginate = require('express-paginate')
 
 exports = module.exports = function(IoC, logger, settings) {
@@ -16,17 +15,11 @@ exports = module.exports = function(IoC, logger, settings) {
   if (settings.logger.requests)
     app.use(winstonRequestLogger.create(logger))
 
-  // integrate express-resource
-  app = expressResource(app)
-
   // parse request bodies
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({
     extended: true
   }))
-
-  // support _method (PUT in forms etc)
-  app.use(methodOverride('_method'))
 
   // support _method (PUT in forms etc)
   app.use(methodOverride('_method'))

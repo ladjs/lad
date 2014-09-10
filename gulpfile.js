@@ -3,7 +3,6 @@
 
 var gulp = require('gulp')
 var csso = require('gulp-csso')
-var mocha = require('gulp-mocha')
 var jshint = require('gulp-jshint')
 var stylish = require('jshint-stylish')
 var exit = require('gulp-exit')
@@ -43,9 +42,6 @@ IoC.loader('igloo', require('igloo'))
 var logger = IoC.create('igloo/logger')
 var settings = IoC.create('igloo/settings')
 
-// load tests
-var tests = 'test/**/*.test.js'
-
 // load scripts to lint
 var scripts = [
   './app/**/*.js',
@@ -60,33 +56,8 @@ gulp.task('postinstall', function(callback) {
   runSequence(
     'bower',
     'less',
-    'test'
+    'jshint'
   , callback)
-})
-
-gulp.task('test', function(callback) {
-  runSequence(
-    'jshint',
-    'mocha'
-  , callback)
-})
-
-gulp.task('mocha', function() {
-  return gulp
-    .src(tests)
-    .pipe(
-      mocha(
-        {
-          reporter: 'dot',
-          ui: 'bdd',
-          growl: true,
-          timeout: 2000,
-          useColors: true,
-          useInlineDiffs: true
-        }
-      )
-    )
-    .pipe(exit())
 })
 
 gulp.task('jshint', function() {

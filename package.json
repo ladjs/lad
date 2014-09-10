@@ -1,7 +1,7 @@
 {
   "name": "eskimo",
   "version": "0.1.2-rc.1",
-  "description": "Eskimo is the only boilerplate for Node.js developers who want a proven, quick, and easy way to build rapid MVP's in 0-60 days. Sponsored by Clevertech <http://clevertech.biz>.",
+  "description": "Eskimo helps you to rapidly build Node powered API's, online stores, and apps in general (known as \"igloos\").",
   "main": "./app.js",
   "bin": {
     "eskimo": "./bin/eskimo.js"
@@ -19,7 +19,9 @@
   ],
   "scripts": {
     "prepublish": "npm prune",
-    "test": "NODE_ENV=test ./node_modules/.bin/gulp test"
+    "test": "mocha --reporter spec --bail --check-leaks --require test/support/should test/",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks --require test/support/should  test/",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks --require test/support/should test/"
   },
   "repository": {
     "type": "git",
@@ -46,7 +48,6 @@
     "errorhandler": "^1.0.1",
     "express": "^4.4.1",
     "express-paginate": "0.0.2",
-    "express-resource": "git://github.com/niftylettuce/express-resource",
     "express-session": "^1.2.1",
     "helmet": "^0.4.0",
     "igloo": "0.0.4-rc.11",
@@ -56,12 +57,9 @@
     "method-override": "^2.0.1",
     "mixpanel": "0.0.20",
     "mkdirp": "^0.5.0",
-    "mongoose": "^3.8.12",
-    "mongoose-json-select": "^0.2.1",
-    "mongoose-paginate": "git://github.com/niftylettuce/mongoose-paginate",
+    "multiline": "^1.0.0",
     "ncp": "^0.6.0",
     "passport": "^0.2.0",
-    "passport-local-mongoose": "^0.3.0",
     "pluralize": "^1.0.0",
     "recluster": "^0.3.7",
     "serve-favicon": "^2.0.0",
@@ -93,8 +91,9 @@
     "gulp-sourcemaps": "^1.1.1",
     "gulp-uglify": "^0.3.1",
     "imagemin-pngcrush": "^0.1.0",
+    "istanbul": "^0.3.2",
     "jshint-stylish": "^0.2.0",
-    "mocha": "^1.20.1",
+    "mocha": "^1.21.4",
     "run-sequence": "^0.3.6",
     "sinon": "^1.10.2",
     "sinon-chai": "^2.5.0",
