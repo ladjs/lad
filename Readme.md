@@ -12,6 +12,19 @@
 > Eskimo helps you to rapidly build [Node](http://nodejs.org) powered API's, online stores, and apps in general (known as "[igloos](http://igloojs.com/)").  Requires [Node](http://nodejs.org) >= 0.10.x, [Redis](http://redis.io) for sessions, and your choice of either [Knex](http://knexjs.org)/[Bookshelf](http://bookshelfjs.org) (SQL) or [Mongoose](http://mongoosejs.com) (MongoDB) for data.
 
 
+## Index
+
+* [Sponsor](#sponsor)
+* [Install](#install)
+* [Screencast](#screencast)
+* [Commands](#commands)
+* [Examples](#examples)
+* [Tests](#tests)
+* [Conventions](#conventions)
+* [Contributors](#contributors)
+* [Credits](#credits)
+* [License](#license)
+
 ## Sponsor
 
 [![Clevertech](http://eskimo.io/img/clevertech.png)](http://clevertech.biz)
@@ -86,6 +99,11 @@ npm test
 ```
 
 
+## Conventions
+
+See [nifty-conventions][nifty-conventions] for code guidelines, general project requirements, and git workflow.
+
+
 ## Contributors
 
 * Nick Baugh <niftylettuce@gmail.com>
@@ -103,15 +121,13 @@ npm test
 [MIT](LICENSE)
 
 
+[nifty-conventions]: https://github.com/niftylettuce/nifty-conventions
 [npm-image]: http://img.shields.io/npm/v/eskimo.svg?style=flat
 [npm-url]: https://npmjs.org/package/eskimo
 [npm-downloads]: http://img.shields.io/npm/dm/eskimo.svg?style=flat
-
 [travis-url]: http://travis-ci.org/niftylettuce/eskimo
 [travis-image]: http://img.shields.io/travis/niftylettuce/eskimo.svg?style=flat
-
 [depstat-url]: https://gemnasium.com/niftylettuce/eskimo
 [depstat-image]: http://img.shields.io/gemnasium/niftylettuce/eskimo.svg?style=flat
-
 [coveralls-image]: https://img.shields.io/coveralls/niftylettuce/eskimo.svg?style=flat
 [coveralls-url]: https://coveralls.io/r/niftylettuce/eskimo?branch=master
