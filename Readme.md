@@ -19,6 +19,7 @@
 * [Screencast](#screencast)
 * [Commands](#commands)
 * [Examples](#examples)
+* [Free Stickers](#free-stickers)
 * [Tests](#tests)
 * [Conventions](#conventions)
 * [Contributors](#contributors)
@@ -91,6 +92,11 @@ Once you've created an igloo, see the generated Readme.md file.
 [cdn-hosted-assets]: examples/cdn-hosted-assets
 
 
+## Free Stickers
+
+Want a free Eskimo snow shoes sticker?  Just submit [this form][google-form].
+
+
 ## Tests
 
 ```bash
@@ -121,6 +127,7 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 [MIT](LICENSE)
 
 
+[google-form]: http://goo.gl/vx1VRp
 [nifty-conventions]: https://github.com/niftylettuce/nifty-conventions
 [npm-image]: http://img.shields.io/npm/v/eskimo.svg?style=flat
 [npm-url]: https://npmjs.org/package/eskimo
