@@ -132,6 +132,7 @@ exports = module.exports = function() {
       },
       mongo: {
         dbname: 'igloo-development',
+        db: 'igloo-development' // keep for winston logger
       },
       knex: {
         debug: true,
@@ -163,6 +164,7 @@ exports = module.exports = function() {
       },
       mongo: {
         dbname: 'igloo-production',
+        db: 'igloo-production' // keep for winston logger
       },
       knex: {
         connection: {
