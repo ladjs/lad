@@ -110,4 +110,4 @@ assets/public/bower/
 .bower-registry/
 coverage/
 boot/local.js
-
+.vagrant/

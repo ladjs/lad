@@ -210,7 +210,9 @@ function create(dirname) {
           'assets',
           'gulpfile.js',
           'bower.json',
-          'cluster.js'
+          'cluster.js',
+          'bootstrap.sh',
+          'Vagrantfile'
         ], copy(dirname), callback)
 
       }
