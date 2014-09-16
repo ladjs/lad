@@ -3,10 +3,10 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Dependency Status][depstat-image]][depstat-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 [![MIT License][license-image]][license-url]
+[![Gitter][gitter-image]][gitter-url]
 
 ![Eskimo](eskimo.png?raw=true)
 
@@ -137,7 +137,7 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 [npm-downloads]: http://img.shields.io/npm/dm/eskimo.svg?style=flat
 [travis-url]: http://travis-ci.org/niftylettuce/eskimo
 [travis-image]: http://img.shields.io/travis/niftylettuce/eskimo.svg?style=flat
-[depstat-url]: https://gemnasium.com/niftylettuce/eskimo
-[depstat-image]: http://img.shields.io/gemnasium/niftylettuce/eskimo.svg?style=flat
 [coveralls-image]: https://img.shields.io/coveralls/niftylettuce/eskimo.svg?style=flat
 [coveralls-url]: https://coveralls.io/r/niftylettuce/eskimo?branch=master
+[gitter-url]: https://gitter.im/niftylettuce/eskimo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
