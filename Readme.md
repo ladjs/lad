@@ -139,5 +139,5 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 [travis-image]: http://img.shields.io/travis/niftylettuce/eskimo.svg?style=flat
 [coveralls-image]: https://img.shields.io/coveralls/niftylettuce/eskimo.svg?style=flat
 [coveralls-url]: https://coveralls.io/r/niftylettuce/eskimo?branch=master
-[gitter-url]: https://gitter.im/niftylettuce/eskimo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
-[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+[gitter-url]: https://gitter.im/niftylettuce/eskimo
+[gitter-image]: http://img.shields.io/badge/chat-online-brightgreen.svg?style=flat
