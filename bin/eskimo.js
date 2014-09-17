@@ -139,7 +139,7 @@ function create(dirname) {
 
           if (err) return callback(err)
 
-          data = _.template(data, {
+          data = _.template(data)({
             name: path.basename(dirname)
           })
 
@@ -283,7 +283,7 @@ function view(name) {
       var template = path.join(__dirname, '..', 'templates', 'views', file + '.jade')
       fs.readFile(template, 'utf8', function(err, data) {
         if (err) return callback(err)
-        data = _.template(data, {
+        data = _.template(data)({
           name: name
         })
         var fileName = path.join(viewDir, file + '.jade')
@@ -371,7 +371,7 @@ function mvc(name) {
 function createTemplatedFile(template, name, callback) {
   fs.readFile(path.join(templates, template + '.js'), 'utf8', function(err, data) {
     if (err) return callback(err)
-    data = _.template(data, {
+    data = _.template(data)({
       name: name
     })
     var fileName = ''
