@@ -1,18 +1,19 @@
 language: node_js
 node_js:
 - '0.10'
-- '0.11'
 services:
 - redis-server
-script: "npm run-script test-travis"
-after_script: "npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
+script: npm run-script test-travis
+after_script: npm install coveralls@2 && cat ./coverage/lcov.info | coveralls
 notifications:
   hipchat:
     rooms:
       secure: SipvTAaiyl3GVrL0Nd+GF72CQfGQWmouGRTCCxaR/4Lro0MEraRkS3L5qFruxg70ATWlZA0VFXBrgmIQhlj1F5RKn/BOZmGRM2ybvaLvUc6Ao3VNPq8slaZNCDQnyL0CrpvYpNGIZwrs9ICy31M+c4ypw4UzkmJ4jHkqmddCCKw=
   webhooks:
     urls:
-      - https://webhooks.gitter.im/e/1ec0425ade4a88523e25
-    on_success: change  # options: [always|never|change] default: always
-    on_failure: always  # options: [always|never|change] default: always
-    on_start: false     # default: false
+    - https://webhooks.gitter.im/e/1ec0425ade4a88523e25
+    on_success: change
+    on_failure: always
+    on_start: false
+  slack:
+    secure: Xhg3H6y+KbKMUKQscQDb7beD6RZGyvBN1ql42rpaC4oxVN6cV+WG/tfw5Jf/kCOBM+spCvWxjBMctu4HMbBLEp1eJyY+rXPqU1zRW5NrWPdN4N8BqO8WJj5y2dxNYuv1Bjab1RqoRtt801QVJAMDop0KtvL16nI2fRBtQ2hPTU8=
