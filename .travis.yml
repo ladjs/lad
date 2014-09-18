@@ -20,3 +20,7 @@ notifications:
     on_start: false
   slack:
     secure: Xhg3H6y+KbKMUKQscQDb7beD6RZGyvBN1ql42rpaC4oxVN6cV+WG/tfw5Jf/kCOBM+spCvWxjBMctu4HMbBLEp1eJyY+rXPqU1zRW5NrWPdN4N8BqO8WJj5y2dxNYuv1Bjab1RqoRtt801QVJAMDop0KtvL16nI2fRBtQ2hPTU8=
+addons:
+  code_climate:
+    repo_token:
+      secure: LjrrBy0lOoselMzjtiOz38zv0pNx99gsEC+Yb6uB8wVFenLD/egtj6FFlgXTmb2muz+EqDORt+6iwNlgGlA/6sSGdPYF8VBzNJHn9kXgf04B3AB4lT8vhmyedVQx3DdQMwG2ZRSYU2nFyZCJr7+2GhmYGLZfiy7suywEicoXTco=
