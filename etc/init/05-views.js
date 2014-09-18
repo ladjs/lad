@@ -15,7 +15,7 @@ exports = module.exports = function(IoC, settings) {
   // set the default view engine
   app.set('view engine', settings.views.engine)
 
-  if (settings.env === 'development') {
+  if (settings.server.env === 'development') {
 
     // make view engine output pretty
     app.locals.pretty = true
@@ -28,7 +28,7 @@ exports = module.exports = function(IoC, settings) {
 
   }
 
-  if (settings.env === 'production') {
+  if (settings.server.env === 'production') {
 
     // enable view caching
     app.enable('view cache')
