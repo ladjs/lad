@@ -187,9 +187,9 @@ function create(dirname) {
         pkg.private = true
 
         // scripts
-        pkg.scripts = _.defaults(pkg.scripts, {
-          'postinstall': 'gulp postinstall'
-        })
+        pkg.scripts = _.omit(pkg.scripts, [
+          'preinstall'
+        ])
 
         fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2), callback)
 

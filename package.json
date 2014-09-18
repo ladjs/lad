@@ -22,7 +22,6 @@
     }
   ],
   "scripts": {
-    "prepublish": "npm prune",
     "preinstall": "npm install -d",
     "postinstall": "gulp postinstall",
     "test": "mocha --reporter spec --bail --check-leaks --require test/support/should test/",
