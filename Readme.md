@@ -5,6 +5,7 @@
 [![Build Status][travis-image]][travis-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
+[![Static Analysis][codeclimate-image]][codeclimate-url]
 [![MIT License][license-image]][license-url]
 [![Gitter][gitter-image]][gitter-url]
 
@@ -129,6 +130,8 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 [MIT][license-url]
 
 
+[codeclimate-image]: http://img.shields.io/codeclimate/github/niftylettuce/eskimo.svg?style=flat
+[codeclimate-url]: https://codeclimate.com/github/niftylettuce/eskimo
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
 [google-form]: http://goo.gl/vx1VRp
