@@ -4,7 +4,10 @@ node_js:
 services:
 - redis-server
 script: npm run-script test-travis
-after_script: npm install coveralls@2 && cat ./coverage/lcov.info | coveralls
+after_script:
+- npm install coveralls@2
+- cat ./coverage/lcov.info | coveralls
+- cat ./coverage/lcov.info | coveclimate
 notifications:
   hipchat:
     rooms:
