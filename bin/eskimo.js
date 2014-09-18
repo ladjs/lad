@@ -186,11 +186,6 @@ function create(dirname) {
         // private
         pkg.private = true
 
-        // scripts
-        pkg.scripts = _.omit(pkg.scripts, [
-          'preinstall'
-        ])
-
         fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2), callback)
 
       },
