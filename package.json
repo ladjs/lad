@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "prepublish": "npm prune",
+    "postinstall": "gulp postinstall",
     "test": "mocha --reporter spec --bail --check-leaks --require test/support/should test/",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks --require test/support/should  test/",
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks --require test/support/should test/"
