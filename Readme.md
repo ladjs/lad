@@ -115,6 +115,7 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 
 * Nick Baugh <niftylettuce@gmail.com>
 * Adnan Ibrišimbegović <adibih@gmail.com>
+* Bruno Bernardino <me@brunobernardino.com>
 
 
 ## Credits
