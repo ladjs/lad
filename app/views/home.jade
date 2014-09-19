@@ -11,3 +11,12 @@ block content
         p
           a(href='http://eskimo.io', target='_blank') Eskimo
           |  helps you to rapidly build Node.js powered API's, online stores, and apps in general.
+        ul.list-inline
+          li: a(href='/users').btn.btn-primary.btn-lg Users
+          li: a(href='/users/new').btn.btn-primary.btn-lg Create User
+          if req.isAuthenticated()
+            li: a(href='/my-account').btn.btn-primary.btn-lg My Account
+            li: a(href='/logout').btn.btn-primary.btn-lg Log Out
+          else
+            li: a(href='/signup').btn.btn-primary.btn-lg Sign Up
+            li: a(href='/login').btn.btn-primary.btn-lg Log In

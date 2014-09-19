@@ -1,25 +1,34 @@
 
-//- # users - new
+//- # sign up
 
-extends ../layout
+extends layout
 
 block content
   .container
     .row
       .col-md-4.col-md-offset-4
-        h1 Create New User
-        form(action='/users', method='POST')
+        h1 Sign up
+        form(action='/signup', method='POST', autocomplete='off')
           input(type='hidden', name='_csrf', value=csrf)
           .form-group
             label.control-label Email
             input(type='email', name='email', placeholder='email address', required).form-control
           .form-group
-            label.control-label First Name
+            label.control-label First name
             input(type='text', name='name', placeholder='first name', required).form-control
           .form-group
-            label.control-label Last Name
+            label.control-label Last name
             input(type='text', name='surname', placeholder='last name', required).form-control
           .form-group
             label.control-label Password
             input(type='password', name='password', required).form-control
-          button(type='submit').btn.btn-lg.btn-primary.btn-block Create New User
+          button(type='submit').btn.btn-lg.btn-primary.btn-block Sign up
+        hr
+        p
+          ul.list-inline.text-center
+            li
+              small
+                a(href='/forgot') Forget password?
+            li
+              small
+                a(href='/login'): strong Already have an account?

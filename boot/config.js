@@ -3,10 +3,16 @@
 
 var path = require('path')
 
-var pkg = require(path.join(__dirname, '..', 'package'))
-var assetsDir = path.join(__dirname, '..', 'assets')
+var parentDir = path.join(__dirname, '..')
+var appDir = path.join(parentDir, 'app')
+
+var pkg = require(path.join(parentDir, 'package'))
+
+var assetsDir = path.join(parentDir,'assets')
 var publicDir = path.join(assetsDir, 'public')
-var viewsDir = path.join(__dirname, '..', 'app', 'views')
+var templatesDir = path.join(assetsDir, 'emails')
+var viewsDir = path.join(appDir, 'views')
+
 var maxAge = 24 * 60 * 60 * 1000
 
 exports = module.exports = function() {
@@ -16,13 +22,32 @@ exports = module.exports = function() {
     defaults: {
       pkg: pkg,
       showStack: true,
-      // directories
       assetsDir: assetsDir,
       publicDir: publicDir,
-      // views
       views: {
         dir: viewsDir,
         engine: 'jade'
+      },
+      password: {
+        minStrength: 0,
+        limitAttempts: false
+      },
+      email: {
+        templates: {
+          dir: templatesDir,
+          options: {
+          }
+        },
+        // <https://github.com/andris9/Nodemailer>
+        transport: {
+          service: 'gmail',
+          auth: {
+            user: 'hi@eskimo.io',
+            pass: 'abc123'
+          }
+        },
+        headers: {
+        }
       },
       hipchat: {
         level: 'error',
@@ -96,7 +121,8 @@ exports = module.exports = function() {
         requests: true,
         mongo: false,
         file: false,
-        hipchat: false
+        hipchat: false,
+        slack: false
       },
       less: {
         path: publicDir,
@@ -113,6 +139,7 @@ exports = module.exports = function() {
     },
 
     test: {
+      url: 'http://localhost:5000',
       csrf: {
         enabled: false
       },
@@ -122,10 +149,15 @@ exports = module.exports = function() {
       },
       redis: {
         prefix: 'igloo_test'
+      },
+      logger: {
+        'console': false,
+        requests: false
       }
     },
 
     development: {
+      url: 'http://localhost:3000',
       server: {
         env: 'development',
         port: 3000,
@@ -149,6 +181,11 @@ exports = module.exports = function() {
     },
 
     production: {
+      url: 'http://localhost:3080',
+      password: {
+        minStrength: 1,
+        limitAttempts: true
+      },
       views: {
         dir: path.join(assetsDir, 'dist'),
       },

@@ -2,8 +2,11 @@
 // # users
 
 var validator = require('validator')
-var _ = require('underscore')
 var paginate = require('express-paginate')
+
+var _ = require('underscore')
+var _str = require('underscore.string')
+_.mixin(_str.exports())
 
 exports = module.exports = function(User) {
 
@@ -35,29 +38,61 @@ exports = module.exports = function(User) {
   }
 
   function create(req, res, next) {
-    if (!validator.isEmail(req.body.email) || !_.isString(req.body.email))
+
+    // email
+    if (_.isBlank(req.body.email))
       return next({
-        param: 'email',
-        message: 'Invalid email address'
+        message: 'Email was blank',
+        param: 'email'
       })
-    User.create({
-      email: req.body.email
-    }, function(err, user) {
+
+    // name
+    if (_.isBlank(req.body.name))
+      return next({
+        message: 'First name was blank',
+        param: 'name'
+      })
+
+    // surname
+    if (_.isBlank(req.body.surname))
+      return next({
+        message: 'Last name was blank',
+        param: 'surname'
+      })
+
+    // password validation
+    User.validatePassword(req.body.password, function(errorMessage) {
+
+      if (errorMessage) return next({
+        message: errorMessage,
+        param: 'password'
+      })
+
+      User.register({
+        email: req.body.email,
+        name: req.body.name,
+        surname: req.body.surname
+      }, req.body.password, registerUser)
+
+    })
+
+    function registerUser(err, user) {
       if (err) return next(err)
       res.format({
         html: function() {
-          req.flash('success', 'Successfully created user')
+          req.flash('success', 'Successfully created user with email %s', user.email)
           res.redirect('/users')
         },
         json: function() {
           res.json(user)
         }
       })
-    })
+    }
+
   }
 
   function show(req, res, next) {
-    User.findById(req.params.user, function(err, user) {
+    User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
       if (!user) return next(new Error('User does not exist'))
       res.render('users/show', {
@@ -67,7 +102,7 @@ exports = module.exports = function(User) {
   }
 
   function edit(req, res, next) {
-    User.findById(req.params.user, function(err, user) {
+    User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
       if (!user) return next(new Error('User does not exist'))
       res.render('users/edit', {
@@ -77,32 +112,73 @@ exports = module.exports = function(User) {
   }
 
   function update(req, res, next) {
-    User.findById(req.params.user, function(err, user) {
+    User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
       if (!user) return next(new Error('User does not exist'))
-      if (!validator.isEmail(req.body.email) || !_.isString(req.body.email))
+
+      // email
+      if (_.isBlank(req.body.email))
         return next({
-          param: 'email',
-          message: 'Invalid email address'
+          message: 'Email was blank',
+          param: 'email'
         })
+
+      // name
+      if (_.isBlank(req.body.name))
+        return next({
+          message: 'First name was blank',
+          param: 'name'
+        })
+
+      // surname
+      if (_.isBlank(req.body.surname))
+        return next({
+          message: 'Last name was blank',
+          param: 'surname'
+        })
+
       user.email = req.body.email
-      user.save(function(err, user) {
+      user.name = req.body.name
+      user.surname = req.body.surname
+
+      // if the user didn't enter password
+      // then we don't need to change it
+      if (_.isBlank(req.body.password))
+        return user.save(saveUser)
+
+      User.validatePassword(req.body.password, function(errorMessage) {
+
+        if (errorMessage)
+          return next({
+            message: errorMessage,
+            param: 'password'
+          })
+
+        user.setPassword(req.body.password, function(err, user) {
+          if (err) return next(err)
+          user.save(saveUser)
+        })
+
+      })
+
+      function saveUser(err, user) {
         if (err) return next(err)
         res.format({
           html: function() {
-            req.flash('success', 'Successfully updated user')
+            req.flash('success', 'Successfully updated user with email %s', user.email)
             res.redirect('/users/' + user.id)
           },
           json: function() {
             res.json(user)
           }
         })
-      })
+      }
+
     })
   }
 
   function destroy(req, res, next) {
-    User.findById(req.params.user, function(err, user) {
+    User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
       if (!user) return next(new Error('User does not exist'))
       user.remove(function(err) {

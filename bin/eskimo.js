@@ -131,6 +131,47 @@ function create(dirname) {
 
     async.parallel({
 
+      'local.js': function(callback) {
+
+        mkdirp(path.resolve(dirname, 'boot'), function(err) {
+
+          if (err) return callback(err)
+
+          var localConfigPath = path.resolve(path.join(dirname, 'boot', 'local.js'))
+
+          var data = multiline.stripIndent(function(){/*
+
+            // # local config (make sure it is ignored by git)
+            //
+            // This configuration file is specific to each developer's environment,
+            // and will merge on top of all other settings from ./config.js
+            // (but only will merge in development environment)
+            //
+
+            exports = module.exports = function() {
+              return {
+                email: {
+                  // <https://github.com/andris9/Nodemailer>
+                  transport: {
+                    service: 'gmail',
+                    auth: {
+                      user: 'user@gmail.com',
+                      pass: 'abc123'
+                    }
+                  }
+                }
+              }
+            }
+
+            exports['@singleton'] = true
+          */})
+
+          fs.writeFile(localConfigPath, data, callback)
+
+        })
+
+      },
+
       'Readme.md': function(callback) {
 
         var readmePath = path.resolve(path.join(dirname, 'Readme.md'))
@@ -305,7 +346,7 @@ function controller(name) {
 
   createTemplatedFile('controllers', name, function(err, fileName) {
     if (err) return log(err)
-    log('Created controller: %s', name)
+    log('Created controller: %s', fileName)
     log('Add the following to ./routes.js (above static server):')
     console.log()
     console.log(

@@ -1,0 +1,12 @@
+
+//- # my account
+
+extends layout
+
+block content
+  .container
+    .row
+      .col-md-4.col-md-offset-4
+        h1 My Account
+        h3 Email: #{req.user.email}
+        h3 Name: #{req.user.full_name}

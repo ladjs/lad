@@ -4,7 +4,8 @@
 extends ../layout
 
 block content
-
-  h1 User - #{user.email}
-
-  a(href='/users/' + user.id + '/edit') Edit User
+  .container
+    .row
+      .col-md-4.col-md-offset-4
+        h1 User - #{user.full_email}
+        a(href='/users/' + user.id + '/edit') Edit User

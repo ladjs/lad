@@ -6,7 +6,7 @@ var passport = require('passport')
 var session = require('express-session')
 var cookieParser = require('cookie-parser')
 
-exports = module.exports = function(IoC, settings, sessions) {
+exports = module.exports = function(IoC, settings, sessions, User) {
 
   var app = this
 
@@ -25,12 +25,10 @@ exports = module.exports = function(IoC, settings, sessions) {
   app.use(flash())
 
   // add passport strategies
-  /*
   passport.use(User.createStrategy())
   passport.serializeUser(User.serializeUser())
   passport.deserializeUser(User.deserializeUser())
-  */
 
 }
 
-exports['@require'] = [ '$container', 'igloo/settings', 'igloo/sessions' ]
+exports['@require'] = [ '$container', 'igloo/settings', 'igloo/sessions', 'models/user' ]

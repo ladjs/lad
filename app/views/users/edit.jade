@@ -4,10 +4,22 @@
 extends ../layout
 
 block content
-
-  h1 Edit User - #{user.email}
-
-  form(action='/users/' + user.id + '?_method=PUT', method='POST')
-    input(type='hidden', name='_csrf', value=csrf)
-    input(type='email', name='email', placeholder='email address', value=user.email, required)
-    button(type='submit') Update User
+  .container
+    .row
+      .col-md-4.col-md-offset-4
+        h1 Edit User - #{user.email}
+        form(action='/users/' + user.id + '?_method=PUT', method='POST')
+          input(type='hidden', name='_csrf', value=csrf)
+          .form-group
+            label.control-label Email
+            input(type='email', name='email', placeholder='email address', value=user.email, required).form-control
+          .form-group
+            label.control-label First Name
+            input(type='text', name='name', placeholder='first name', value=user.name, required).form-control
+          .form-group
+            label.control-label Last Name
+            input(type='text', name='surname', placeholder='last name', value=user.surname, required).form-control
+          .form-group
+            label.control-label Password (leave blank unless change is needed)
+            input(type='password', name='password').form-control
+          button(type='submit').btn.btn-lg.btn-primary.btn-block Update User

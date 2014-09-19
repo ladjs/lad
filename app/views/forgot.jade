@@ -1,0 +1,19 @@
+
+//- # forgot
+
+extends layout
+
+block content
+  .container
+    .row
+      .col-md-4.col-md-offset-4
+        h1 Reset password
+        form(action='/forgot', method='post')
+          input(type='hidden', name='_csrf', value=csrf)
+          .form-group
+            label.control-label Email
+            input(type='email', name='email', placeholder='email address', autocomplete='off', required).form-control
+          button(type='submit').btn.btn-lg.btn-primary.btn-block Continue
+          hr
+          p.text-center.text-muted
+            small We'll send you an email with password reset instructions.
