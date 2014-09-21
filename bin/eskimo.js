@@ -357,10 +357,10 @@ function controller(name) {
           %sRouter.get('/', %s.index)
           %sRouter.get('/new', %s.new)
           %sRouter.post('/', %s.create)
-          %sRouter.get('/:%s', %s.show)
-          %sRouter.get('/:%s/edit', %s.edit)
-          %sRouter.put('/:%s', %s.update)
-          %sRouter.delete('/:%s', %s.destroy)
+          %sRouter.get('/:id', %s.show)
+          %sRouter.get('/:id/edit', %s.edit)
+          %sRouter.put('/:id', %s.update)
+          %sRouter.delete('/:id', %s.destroy)
           app.use('/%s', %sRouter)
         */}),
         pluralCamelized,
@@ -373,16 +373,12 @@ function controller(name) {
         pluralCamelized,
         pluralCamelized,
         pluralCamelized,
-        name,
         pluralCamelized,
         pluralCamelized,
-        name,
         pluralCamelized,
         pluralCamelized,
-        name,
         pluralCamelized,
         pluralCamelized,
-        name,
         pluralCamelized,
         pluralDasherized,
         pluralCamelized
