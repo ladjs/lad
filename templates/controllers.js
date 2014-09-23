@@ -59,7 +59,7 @@ exports = module.exports = function(<%= _.classify(name) %>) {
   }
 
   function show(req, res, next) {
-    <%= _.classify(name) %>.findById(req.params.<%= _.underscored(name) %>, function(err, <%= _.camelize(name) %>) {
+    <%= _.classify(name) %>.findById(req.params.id, function(err, <%= _.camelize(name) %>) {
       if (err) return next(err)
       if (!<%= _.camelize(name) %>) return next(new Error('<%= _.humanize(name) %> does not exist'))
       res.render('<%= _.pluralize(_.dasherize(name)) %>/show', {
@@ -69,7 +69,7 @@ exports = module.exports = function(<%= _.classify(name) %>) {
   }
 
   function edit(req, res, next) {
-    <%= _.classify(name) %>.findById(req.params.<%= _.underscored(name) %>, function(err, <%= _.camelize(name) %>) {
+    <%= _.classify(name) %>.findById(req.params.id, function(err, <%= _.camelize(name) %>) {
       if (err) return next(err)
       if (!<%= _.camelize(name) %>) return next(new Error('<%= _.humanize(name) %> does not exist'))
       res.render('<%= _.pluralize(_.dasherize(name)) %>/edit', {
@@ -79,7 +79,7 @@ exports = module.exports = function(<%= _.classify(name) %>) {
   }
 
   function update(req, res, next) {
-    <%= _.classify(name) %>.findById(req.params.<%= _.underscored(name) %>, function(err, <%= _.camelize(name) %>) {
+    <%= _.classify(name) %>.findById(req.params.id, function(err, <%= _.camelize(name) %>) {
       if (err) return next(err)
       if (!<%= _.camelize(name) %>) return next(new Error('<%= _.humanize(name) %> does not exist'))
       if (!_.isString(req.body.name) || _.isBlank(req.body.name))
@@ -104,7 +104,7 @@ exports = module.exports = function(<%= _.classify(name) %>) {
   }
 
   function destroy(req, res, next) {
-    <%= _.classify(name) %>.findById(req.params.<%= _.underscored(name) %>, function(err, <%= _.camelize(name) %>) {
+    <%= _.classify(name) %>.findById(req.params.id, function(err, <%= _.camelize(name) %>) {
       if (err) return next(err)
       if (!<%= _.camelize(name) %>) return next(new Error('<%= _.humanize(name) %> does not exist'))
       <%= _.camelize(name) %>.remove(function(err) {
