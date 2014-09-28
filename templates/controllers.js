@@ -126,14 +126,50 @@ exports = module.exports = function(<%= _.classify(name) %>) {
     })
   }
 
-  return {
-    index: index,
-    'new': _new,
-    create: create,
-    show: show,
-    edit: edit,
-    update: update,
-    destroy: destroy
+  // Define routes for this controller
+  return function (app, middleware) {
+    var express = require('express')
+    var <%= _.camelize(_.pluralize(name)) %>Router = express.Router()
+
+    <%= _.camelize(_.pluralize(name)) %>Router.get(
+      '/',
+      index
+    )
+
+    <%= _.camelize(_.pluralize(name)) %>Router.get(
+      '/new',
+      _new
+    )
+
+    <%= _.camelize(_.pluralize(name)) %>Router.post(
+      '/',
+      create
+    )
+
+    <%= _.camelize(_.pluralize(name)) %>Router.get(
+      '/:id',
+      show
+    )
+
+    <%= _.camelize(_.pluralize(name)) %>Router.get(
+      '/:id/edit',
+      edit
+    )
+
+    <%= _.camelize(_.pluralize(name)) %>Router.put(
+      '/:id',
+      update
+    )
+
+    <%= _.camelize(_.pluralize(name)) %>Router.delete(
+      '/:id',
+      destroy
+    )
+
+    app.use(
+      '/<%= _.camelize(_.pluralize(name)) %>',
+      <%= _.camelize(_.pluralize(name)) %>Router
+    )
   }
 
 }
