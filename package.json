@@ -26,6 +26,7 @@
     }
   ],
   "scripts": {
+    "start": "node ./app.js",
     "prepublish": "npm prune",
     "test": "NODE_ENV=test mocha --reporter spec --bail --check-leaks --require test/support/should test/",
     "test-cov": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks --require test/support/should  test/",
