@@ -14,6 +14,9 @@ request = request(app)
 
 describe('server', function() {
 
+  // We need the added timeout because for some tests we're creating to test deletion/update
+  this.timeout(3000)
+
   it('should return 200 if home page loads', function(done) {
     request
       .get('/')

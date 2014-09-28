@@ -11,6 +11,11 @@ var passport = require('passport')
 exports = module.exports = function(IoC, settings) {
 
   var app = this
+  var middleware = {}
+
+  // middleware helpers
+  middleware.ensureLoggedIn = ensureLoggedIn
+  middleware.ensureLoggedOut = ensureLoggedOut
 
   // home
   app.get(
@@ -21,14 +26,14 @@ exports = module.exports = function(IoC, settings) {
   // log in
   app.get(
     '/login',
-    ensureLoggedOut(),
+    middleware.ensureLoggedOut,
     function(req, res) {
       res.render('login', { title: 'Log In' })
     }
   )
   app.post(
     '/login',
-    ensureLoggedOut(),
+    middleware.ensureLoggedOut,
     passport.authenticate('local', {
       successReturnToOrRedirect: '/',
       failureFlash: true,
@@ -39,7 +44,7 @@ exports = module.exports = function(IoC, settings) {
   // logout
   app.get(
     '/logout',
-    ensureLoggedIn(),
+    middleware.ensureLoggedIn,
     function(req, res) {
       req.logout()
       req.flash('success', 'You have successfully logged out')
@@ -48,12 +53,12 @@ exports = module.exports = function(IoC, settings) {
   )
 
   // sign up
-  app.get('/signup', ensureLoggedOut(), function(req, res) {
+  app.get('/signup', middleware.ensureLoggedOut, function(req, res) {
     res.render('signup', { title: 'Sign Up' })
   })
   app.post(
     '/signup',
-    ensureLoggedOut(),
+    middleware.ensureLoggedOut,
     IoC.create('controllers/signup'),
     passport.authenticate('local', {
       successReturnToOrRedirect: '/',
@@ -66,7 +71,7 @@ exports = module.exports = function(IoC, settings) {
   // forgot password
   app.get(
     '/forgot',
-    ensureLoggedOut(),
+    middleware.ensureLoggedOut,
     function(req, res) {
       res.render('forgot', {
         title: 'Forgot Password'
@@ -75,7 +80,7 @@ exports = module.exports = function(IoC, settings) {
   )
   app.post(
     '/forgot',
-    ensureLoggedOut(),
+    middleware.ensureLoggedOut,
     IoC.create('controllers/forgot')
   )
 
@@ -83,19 +88,19 @@ exports = module.exports = function(IoC, settings) {
   var reset = IoC.create('controllers/reset')
   app.get(
     '/reset/:reset_token',
-    ensureLoggedOut(),
+    middleware.ensureLoggedOut,
     reset.get
   )
   app.post(
     '/reset/:reset_token',
-    ensureLoggedOut(),
+    middleware.ensureLoggedOut,
     reset.post
   )
 
   // my account
   app.get(
     '/my-account',
-    ensureLoggedIn(),
+    middleware.ensureLoggedIn,
     function(req, res) {
       res.render('my-account', {
         title: 'My Account'
@@ -103,17 +108,8 @@ exports = module.exports = function(IoC, settings) {
     }
   )
 
-  // users
-  var users = IoC.create('controllers/users')
-  var usersRouter = express.Router()
-  usersRouter.get('/', users.index)
-  usersRouter.get('/new', users.new)
-  usersRouter.post('/', users.create)
-  usersRouter.get('/:id', users.show)
-  usersRouter.get('/:id/edit', users.edit)
-  usersRouter.put('/:id', users.update)
-  usersRouter.delete('/:id', users.destroy)
-  app.use('/users', usersRouter)
+  // users controller + users routes
+  IoC.create('controllers/users')(app, middleware)
 
   // static server
   app.use(serveStatic(settings.publicDir, settings.staticServer))

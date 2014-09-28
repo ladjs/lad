@@ -31,6 +31,7 @@ var chalk = require('chalk')
 var program = require('commander')
 var path = require('path')
 var pkg = require(path.join(__dirname, '..', 'package.json'))
+var bower = require(path.join(__dirname, '..', 'bower.json'))
 var updateNotifier = require('update-notifier')
 var util = require('util')
 var Mixpanel = require('mixpanel')
@@ -202,7 +203,8 @@ function create(dirname) {
           'author',
           'bugs',
           'license',
-          'homepage'
+          'homepage',
+          'contributors'
         ])
 
         pkg.dependencies = _.omit(pkg.dependencies, [
@@ -229,6 +231,29 @@ function create(dirname) {
 
       },
 
+      'bower.json': function(callback) {
+
+        var bowerPath = path.resolve(path.join(dirname, 'bower.json'))
+
+        bower = _.omit(bower, [
+          'authors',
+          'license',
+          'homepage'
+        ])
+
+        // name
+        bower.name = path.basename(dirname).toLowerCase().replace(/\W/g, '-')
+
+        // version
+        bower.version = '0.0.1'
+
+        // private
+        bower.private = true
+
+        fs.writeFile(bowerPath, JSON.stringify(bower, null, 2), callback)
+
+      },
+
       files: function(callback) {
 
         async.each([
@@ -243,7 +268,6 @@ function create(dirname) {
           'test',
           'assets',
           'gulpfile.js',
-          'bower.json',
           'cluster.js',
           'bootstrap.sh',
           'Vagrantfile'
@@ -350,35 +374,11 @@ function controller(name) {
     console.log(
       util.format(
         multiline.stripIndent(function(){/*
-          var %s = IoC.create('controllers/%s')
-          var %sRouter = express.Router()
-          %sRouter.get('/', %s.index)
-          %sRouter.get('/new', %s.new)
-          %sRouter.post('/', %s.create)
-          %sRouter.get('/:id', %s.show)
-          %sRouter.get('/:id/edit', %s.edit)
-          %sRouter.put('/:id', %s.update)
-          %sRouter.delete('/:id', %s.destroy)
-          app.use('/%s', %sRouter)
+          // %s controller + %s routes
+          IoC.create('controllers/%s')(app, middleware)
         */}),
         pluralCamelized,
-        pluralDasherized,
         pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralDasherized,
         pluralCamelized
       )
     )
