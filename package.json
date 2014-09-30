@@ -74,7 +74,7 @@
     "ncp": "^0.6.0",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "git://github.com/niftylettuce/passport-local-mongoose",
+    "passport-local-mongoose": "^1.0.0",
     "pluralize": "^1.0.0",
     "randomstring-extended": "^1.0.0",
     "recluster": "^0.3.7",
