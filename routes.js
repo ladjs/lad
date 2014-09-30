@@ -7,6 +7,11 @@ var serveStatic = require('serve-static')
 exports = module.exports = function(IoC, settings) {
 
   var app = this
+  var middleware = {}
+
+  // middleware helpers
+  middleware.ensureLoggedIn = ensureLoggedIn
+  middleware.ensureLoggedOut = ensureLoggedOut
 
   // home
   app.phase(bootable.di.routes('./routes/home.js'))

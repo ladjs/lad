@@ -206,14 +206,50 @@ exports = module.exports = function(User) {
     })
   }
 
-  return {
-    index: index,
-    'new': _new,
-    create: create,
-    show: show,
-    edit: edit,
-    update: update,
-    destroy: destroy
+  // Define routes for this controller
+  return function (app, middleware) {
+    var express = require('express')
+    var usersRouter = express.Router()
+
+    usersRouter.get(
+      '/',
+      index
+    )
+
+    usersRouter.get(
+      '/new',
+      _new
+    )
+
+    usersRouter.post(
+      '/',
+      create
+    )
+
+    usersRouter.get(
+      '/:id',
+      show
+    )
+
+    usersRouter.get(
+      '/:id/edit',
+      edit
+    )
+
+    usersRouter.put(
+      '/:id',
+      update
+    )
+
+    usersRouter.delete(
+      '/:id',
+      destroy
+    )
+
+    app.use(
+      '/users',
+      usersRouter
+    )
   }
 
 }
