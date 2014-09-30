@@ -208,7 +208,6 @@ function create(dirname) {
         ])
 
         pkg.dependencies = _.omit(pkg.dependencies, [
-          'async',
           'commander',
           'mixpanel',
           'multiline',
@@ -261,6 +260,7 @@ function create(dirname) {
           '.jshintrc',
           'routes.js',
           'app.js',
+          'routes',
           'boot',
           'etc',
           'app',
@@ -366,29 +366,47 @@ function controller(name) {
   var pluralCamelized = _.pluralize(_.camelize(name))
   var pluralDasherized = _.pluralize(_.dasherize(name))
 
-  createTemplatedFile('controllers', name, function(err, fileName) {
-    if (err) return log(err)
-    log('Created controller: %s', fileName)
-    log('Add the following to ./routes.js (above static server):')
-    console.log()
-    console.log(
-      util.format(
-        multiline.stripIndent(function(){/*
-          // %s controller + %s routes
-          IoC.create('controllers/%s')(app, middleware)
-        */}),
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized
-      )
-    )
-    console.log()
+  async.series([
+    function createRoutesFile(callback) {
+      createTemplatedFile('routes', name, function(err, fileName) {
+        if (err) return log(err)
+        log('Created routes: %s', fileName)
+        callback()
+      })
+    },
+    function createTestsFile(callback) {
+      createTemplatedFile('tests', name, function(err, fileName) {
+        if (err) return log(err)
+        log('Created tests: %s', fileName)
+        callback()
+      })
+    },
+    function createControllerFile(callback) {
+      createTemplatedFile('controllers', name, function(err, fileName) {
+        if (err) return log(err)
+        log('Created controller: %s', fileName)
+        log('Add the following to ./routes.js (above static server):')
+        console.log()
+        console.log(
+          util.format(
+            multiline.stripIndent(function(){/*
+              // %s
+              app.phase(bootable.di.routes('./routes/%s.js'))
+            */}),
+            pluralCamelized,
+            pluralDasherized
+          )
+        )
+        console.log()
+        callback()
+      })
+    }
+  ], function( err ) {
+    if (program.tracking)
+      track('controller', {
+        name: name
+      })
   })
-
-  if (program.tracking)
-    track('controller', {
-      name: name
-    })
 
 }
 
@@ -411,6 +429,10 @@ function createTemplatedFile(template, name, callback) {
     var fileName = ''
     if (template === 'controllers')
       fileName = path.resolve(path.join('app', template, _.dasherize(_.pluralize(name)) + '.js'))
+    else if (template === 'tests')
+      fileName = path.resolve(path.join('test', '99-' + _.dasherize(_.pluralize(name)) + '.test.js'))
+    else if (template === 'routes')
+      fileName = path.resolve(path.join(template, _.dasherize(_.pluralize(name)) + '.js'))
     else
       fileName = path.resolve(path.join('app', template, _.dasherize(name) + '.js'))
     fs.writeFile(fileName, data, function(err) {

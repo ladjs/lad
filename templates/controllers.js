@@ -62,8 +62,15 @@ exports = module.exports = function(<%= _.classify(name) %>) {
     <%= _.classify(name) %>.findById(req.params.id, function(err, <%= _.camelize(name) %>) {
       if (err) return next(err)
       if (!<%= _.camelize(name) %>) return next(new Error('<%= _.humanize(name) %> does not exist'))
-      res.render('<%= _.pluralize(_.dasherize(name)) %>/show', {
-        <%= _.camelize(name) %>: <%= _.camelize(name) %>
+      res.format({
+        html: function() {
+          res.render('<%= _.pluralize(_.dasherize(name)) %>/show', {
+            <%= _.camelize(name) %>: <%= _.camelize(name) %>
+          })
+        },
+        json: function() {
+          res.json(<%= _.camelize(name) %>)
+        }
       })
     })
   }
@@ -126,50 +133,14 @@ exports = module.exports = function(<%= _.classify(name) %>) {
     })
   }
 
-  // Define routes for this controller
-  return function (app, middleware) {
-    var express = require('express')
-    var <%= _.camelize(_.pluralize(name)) %>Router = express.Router()
-
-    <%= _.camelize(_.pluralize(name)) %>Router.get(
-      '/',
-      index
-    )
-
-    <%= _.camelize(_.pluralize(name)) %>Router.get(
-      '/new',
-      _new
-    )
-
-    <%= _.camelize(_.pluralize(name)) %>Router.post(
-      '/',
-      create
-    )
-
-    <%= _.camelize(_.pluralize(name)) %>Router.get(
-      '/:id',
-      show
-    )
-
-    <%= _.camelize(_.pluralize(name)) %>Router.get(
-      '/:id/edit',
-      edit
-    )
-
-    <%= _.camelize(_.pluralize(name)) %>Router.put(
-      '/:id',
-      update
-    )
-
-    <%= _.camelize(_.pluralize(name)) %>Router.delete(
-      '/:id',
-      destroy
-    )
-
-    app.use(
-      '/<%= _.camelize(_.pluralize(name)) %>',
-      <%= _.camelize(_.pluralize(name)) %>Router
-    )
+  return {
+    index: index,
+    'new': _new,
+    create: create,
+    show: show,
+    edit: edit,
+    update: update,
+    destroy: destroy
   }
 
 }
