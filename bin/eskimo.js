@@ -209,9 +209,7 @@ function create(dirname) {
           'async',
           'commander',
           'mixpanel',
-          'mkdirp',
           'multiline',
-          'ncp',
           'update-notifier'
         ])
 
