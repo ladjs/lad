@@ -62,8 +62,15 @@ exports = module.exports = function(<%= _.classify(name) %>) {
     <%= _.classify(name) %>.findById(req.params.id, function(err, <%= _.camelize(name) %>) {
       if (err) return next(err)
       if (!<%= _.camelize(name) %>) return next(new Error('<%= _.humanize(name) %> does not exist'))
-      res.render('<%= _.pluralize(_.dasherize(name)) %>/show', {
-        <%= _.camelize(name) %>: <%= _.camelize(name) %>
+      res.format({
+        html: function() {
+          res.render('<%= _.pluralize(_.dasherize(name)) %>/show', {
+            <%= _.camelize(name) %>: <%= _.camelize(name) %>
+          })
+        },
+        json: function() {
+          res.json(<%= _.camelize(name) %>)
+        }
       })
     })
   }

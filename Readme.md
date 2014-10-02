@@ -114,10 +114,11 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 
 ## Contributors
 
-* Nick Baugh <niftylettuce@gmail.com>
-* Adnan Ibrišimbegović <adibih@gmail.com>
-* Bruno Bernardino <me@brunobernardino.com>
-* Yanick Landry <yanick.landry@gmail.com>
+* [Nick Baugh](https://github.com/niftylettuce)
+* [Adnan Ibrišimbegović](https://github.com/adnan-i)
+* [Bruno Bernardino](https://github.com/BrunoBernardino)
+* [Yanick Landry](https://github.com/yanicklandry)
+* [Alberto Gimeno](https://github.com/gimenete)
 
 
 ## Credits

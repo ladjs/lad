@@ -31,6 +31,7 @@ var chalk = require('chalk')
 var program = require('commander')
 var path = require('path')
 var pkg = require(path.join(__dirname, '..', 'package.json'))
+var bower = require(path.join(__dirname, '..', 'bower.json'))
 var updateNotifier = require('update-notifier')
 var util = require('util')
 var Mixpanel = require('mixpanel')
@@ -202,11 +203,11 @@ function create(dirname) {
           'author',
           'bugs',
           'license',
-          'homepage'
+          'homepage',
+          'contributors'
         ])
 
         pkg.dependencies = _.omit(pkg.dependencies, [
-          'async',
           'commander',
           'mixpanel',
           'multiline',
@@ -229,6 +230,29 @@ function create(dirname) {
 
       },
 
+      'bower.json': function(callback) {
+
+        var bowerPath = path.resolve(path.join(dirname, 'bower.json'))
+
+        bower = _.omit(bower, [
+          'authors',
+          'license',
+          'homepage'
+        ])
+
+        // name
+        bower.name = path.basename(dirname).toLowerCase().replace(/\W/g, '-')
+
+        // version
+        bower.version = '0.0.1'
+
+        // private
+        bower.private = true
+
+        fs.writeFile(bowerPath, JSON.stringify(bower, null, 2), callback)
+
+      },
+
       files: function(callback) {
 
         async.each([
@@ -236,6 +260,7 @@ function create(dirname) {
           '.jshintrc',
           'routes.js',
           'app.js',
+          'routes',
           'boot',
           'etc',
           'app',
@@ -243,7 +268,6 @@ function create(dirname) {
           'test',
           'assets',
           'gulpfile.js',
-          'bower.json',
           'cluster.js',
           'bootstrap.sh',
           'Vagrantfile'
@@ -342,53 +366,47 @@ function controller(name) {
   var pluralCamelized = _.pluralize(_.camelize(name))
   var pluralDasherized = _.pluralize(_.dasherize(name))
 
-  createTemplatedFile('controllers', name, function(err, fileName) {
-    if (err) return log(err)
-    log('Created controller: %s', fileName)
-    log('Add the following to ./routes.js (above static server):')
-    console.log()
-    console.log(
-      util.format(
-        multiline.stripIndent(function(){/*
-          var %s = IoC.create('controllers/%s')
-          var %sRouter = express.Router()
-          %sRouter.get('/', %s.index)
-          %sRouter.get('/new', %s.new)
-          %sRouter.post('/', %s.create)
-          %sRouter.get('/:id', %s.show)
-          %sRouter.get('/:id/edit', %s.edit)
-          %sRouter.put('/:id', %s.update)
-          %sRouter.delete('/:id', %s.destroy)
-          app.use('/%s', %sRouter)
-        */}),
-        pluralCamelized,
-        pluralDasherized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralCamelized,
-        pluralDasherized,
-        pluralCamelized
-      )
-    )
-    console.log()
+  async.series([
+    function createRoutesFile(callback) {
+      createTemplatedFile('routes', name, function(err, fileName) {
+        if (err) return log(err)
+        log('Created routes: %s', fileName)
+        callback()
+      })
+    },
+    function createTestsFile(callback) {
+      createTemplatedFile('tests', name, function(err, fileName) {
+        if (err) return log(err)
+        log('Created tests: %s', fileName)
+        callback()
+      })
+    },
+    function createControllerFile(callback) {
+      createTemplatedFile('controllers', name, function(err, fileName) {
+        if (err) return log(err)
+        log('Created controller: %s', fileName)
+        log('Add the following to ./routes.js (above static server):')
+        console.log()
+        console.log(
+          util.format(
+            multiline.stripIndent(function(){/*
+              // %s
+              app.phase(bootable.di.routes('./routes/%s.js'))
+            */}),
+            pluralCamelized,
+            pluralDasherized
+          )
+        )
+        console.log()
+        callback()
+      })
+    }
+  ], function( err ) {
+    if (program.tracking)
+      track('controller', {
+        name: name
+      })
   })
-
-  if (program.tracking)
-    track('controller', {
-      name: name
-    })
 
 }
 
@@ -411,6 +429,10 @@ function createTemplatedFile(template, name, callback) {
     var fileName = ''
     if (template === 'controllers')
       fileName = path.resolve(path.join('app', template, _.dasherize(_.pluralize(name)) + '.js'))
+    else if (template === 'tests')
+      fileName = path.resolve(path.join('test', '99-' + _.dasherize(_.pluralize(name)) + '.test.js'))
+    else if (template === 'routes')
+      fileName = path.resolve(path.join(template, _.dasherize(_.pluralize(name)) + '.js'))
     else
       fileName = path.resolve(path.join('app', template, _.dasherize(name) + '.js'))
     fs.writeFile(fileName, data, function(err) {

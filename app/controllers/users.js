@@ -95,8 +95,15 @@ exports = module.exports = function(User) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
       if (!user) return next(new Error('User does not exist'))
-      res.render('users/show', {
-        user: user
+      res.format({
+        html: function() {
+          res.render('users/show', {
+            user: user
+          })
+        },
+        json: function() {
+          res.json(user)
+        }
       })
     })
   }
@@ -207,7 +214,7 @@ exports = module.exports = function(User) {
     edit: edit,
     update: update,
     destroy: destroy
-  }
+   }
 
 }
 
