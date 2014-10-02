@@ -6,6 +6,10 @@ var IoC = require('electrolyte')
 var bootable = require('bootable')
 var express = require('express')
 
+// change the working directory to the root directory
+
+process.chdir(__dirname)
+
 // dependency injection
 
 IoC.loader(IoC.node(path.join(__dirname, 'boot')))
