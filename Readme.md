@@ -71,6 +71,21 @@ Options:
 
 Once you've created an igloo, see the generated Readme.md file.
 
+Usage samples:
+
+```bash
+# To create a new igloo in `./awesome`:
+eskimo create awesome
+
+# To create a new model, views, and controller (with routes and tests) for "tags", in `./app/views/tags/*.jade`, `./app/models/tag.js`, `./app/controllers/tags.js`, `./app/routes/tags.js`, and `./test/99-tags.test.js`:
+eskimo mvc tag
+# Note: You could write "tags" as well (no quotes necessary if there are no spaces)
+
+# To create a new controller (with routes and tests) in `./app/controllers/user-settings.js`, `./app/routes/user-settings.js`, and `./test/99-user-settings.test.js`
+eskimo controller 'user settings'
+# Note: You could write "user-settings" as well (no quotes necessary if there are no spaces)
+```
+
 > [**Please read Igloo's documentation for more information.**](http://igloojs.com)
 
 ## Examples

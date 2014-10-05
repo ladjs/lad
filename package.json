@@ -91,6 +91,7 @@
   },
   "devDependencies": {
     "chai": "^1.9.1",
+    "cheerio": "^0.17.0",
     "cookie": "^0.1.2",
     "del": "^0.1.2",
     "gulp": "^3.7.0",
@@ -109,7 +110,7 @@
     "gulp-rev-css-url": "0.0.7",
     "gulp-sourcemaps": "^1.1.1",
     "gulp-uglify": "^0.3.1",
-    "imagemin-pngcrush": "^0.1.0",
+    "imagemin-pngcrush": "^1.0.0",
     "istanbul": "^0.3.2",
     "jshint-stylish": "^0.2.0",
     "mocha": "^1.21.4",

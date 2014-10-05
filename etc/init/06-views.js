@@ -45,6 +45,8 @@ exports = module.exports = function(IoC, settings) {
 
   // add dynamic helpers for views
   app.use(function(req, res, next) {
+    var isXHR = req.xhr
+
     res.locals.req = req
     res.locals.messages = {
       success: req.flash('success'),
@@ -53,8 +55,10 @@ exports = module.exports = function(IoC, settings) {
       warning: req.flash('warning')
     }
     res.locals.moment = moment
-    if (settings.csrf.enabled)
+    if (settings.csrf.enabled && !isXHR)
       res.locals.csrf = req.csrfToken()
+    else
+      res.locals.csrf = ''
     next()
   })
 
