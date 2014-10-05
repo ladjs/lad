@@ -108,6 +108,7 @@ assets/public/css/*.css
 assets/public/bower/
 .bower-cache/
 .bower-registry/
+.bower-tmp/
 coverage/
 boot/local.js
 .vagrant/

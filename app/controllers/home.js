@@ -6,16 +6,16 @@ exports = module.exports = function() {
   function home(req, res, next) {
     res.format({
       html: function() {
-        res.render('home')
+        res.render('home');
       },
       json: function() {
-        res.status(200).end()
+        res.status(200).end();
       }
-    })
+    });
   }
 
-  return home
+  return home;
 
-}
+};
 
-exports['@singleton'] = true
+exports['@singleton'] = true;

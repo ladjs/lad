@@ -1,38 +1,38 @@
 
 // # gulpfile
 
-var gulp = require('gulp')
-var csso = require('gulp-csso')
-var jshint = require('gulp-jshint')
-var stylish = require('jshint-stylish')
-var exit = require('gulp-exit')
-var bower = require('gulp-bower')
-var less = require('gulp-less')
-var uglify = require('gulp-uglify')
-var sourcemaps = require('gulp-sourcemaps')
-var path = require('path')
-var imagemin = require('gulp-imagemin')
-var pngcrush = require('imagemin-pngcrush')
-var del = require('del')
-var runSequence = require('run-sequence')
-var usemin = require('gulp-jade-usemin')
+var gulp = require('gulp');
+var csso = require('gulp-csso');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+var exit = require('gulp-exit');
+var bower = require('gulp-bower');
+var less = require('gulp-less');
 var uglify = require('gulp-uglify');
-var minifyHtml = require('gulp-minify-html')
+var sourcemaps = require('gulp-sourcemaps');
+var path = require('path');
+var imagemin = require('gulp-imagemin');
+var pngcrush = require('imagemin-pngcrush');
+var del = require('del');
+var runSequence = require('run-sequence');
+var usemin = require('gulp-jade-usemin');
+var uglify = require('gulp-uglify');
+var minifyHtml = require('gulp-minify-html');
 var rev = require('gulp-rev');
-var revall = require('gulp-rev-all')
-var through = require('through2')
-var override = require('gulp-rev-css-url')
-var filter = require('gulp-filter')
-var livereload = require('tiny-lr')()
-//var bowerJSON = require('./bower.json')
-//var googlecdn = require('gulp-google-cdn')
+var revall = require('gulp-rev-all');
+var through = require('through2');
+var override = require('gulp-rev-css-url');
+var filter = require('gulp-filter');
+var livereload = require('tiny-lr')();
+//var bowerJSON = require('./bower.json');
+//var googlecdn = require('gulp-google-cdn');
 
 // load dependencies
-var IoC = require('electrolyte')
-IoC.loader(IoC.node(path.join(__dirname, 'boot')))
-IoC.loader('igloo', require('igloo'))
-var logger = IoC.create('igloo/logger')
-var settings = IoC.create('igloo/settings')
+var IoC = require('electrolyte');
+IoC.loader(IoC.node(path.join(__dirname, 'boot')));
+IoC.loader('igloo', require('igloo'));
+var logger = IoC.create('igloo/logger');
+var settings = IoC.create('igloo/settings');
 
 // load scripts to lint
 var scripts = [
@@ -41,23 +41,25 @@ var scripts = [
   '!./assets/public/bower/**/*.js',
   './bin/eskimo.js',
   './boot/**/*.js',
-  './etc/**/*.js'
-]
+  './etc/**/*.js',
+  './test/**/.js',
+  './*.js'
+];
 
 gulp.task('postinstall', function(callback) {
   runSequence(
     'bower',
     'less',
     'jshint'
-  , callback)
-})
+  , callback);
+});
 
 gulp.task('jshint', function() {
   return gulp
     .src(scripts)
     .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-})
+    .pipe(jshint.reporter(stylish));
+});
 
 gulp.task('less', function() {
   return gulp
@@ -67,43 +69,44 @@ gulp.task('less', function() {
     ])
     .pipe(less().on('error', logger.error))
     .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest('./assets/public/css'))
-})
+    .pipe(gulp.dest('./assets/public/css'));
+});
 
 // Helper to have gulp tasks notify livereload
 function notifyLiveReload(event) {
-  if (!event || !event.path) 
-    return false
+  if (!event || !event.path) {
+    return false;
+  }
 
-  var fileName = path.relative(__dirname, event.path)
+  var fileName = path.relative(__dirname, event.path);
 
   livereload.changed({
     body: {
       files: [fileName]
     }
-  })
+  });
 }
 
 gulp.task('watch', [ 'watch-noreload' ], function() {
-  livereload.listen(settings.liveReload.port)
+  livereload.listen(settings.liveReload.port);
   
-  gulp.watch('./assets/dist/**', notifyLiveReload)
-})
+  gulp.watch('./assets/dist/**', notifyLiveReload);
+});
 
 gulp.task('watch-noreload', function() {
-  gulp.watch('./assets/public/bower/**/*', [ 'bower' ])
-  gulp.watch('./assets/public/css/**/*.less', [ 'less', 'usemin-css' ])
-  gulp.watch('./assets/public/img/**/*', [ 'imagemin' ])
-  gulp.watch('./assets/public/js/**/*.js', [ 'usemin-js' ])
-  gulp.watch('./app/views/**/*.jade', [ 'usemin-jade' ])
-})
+  gulp.watch('./assets/public/bower/**/*', [ 'bower' ]);
+  gulp.watch('./assets/public/css/**/*.less', [ 'less', 'usemin-css' ]);
+  gulp.watch('./assets/public/img/**/*', [ 'imagemin' ]);
+  gulp.watch('./assets/public/js/**/*.js', [ 'usemin-js' ]);
+  gulp.watch('./app/views/**/*.jade', [ 'usemin-jade' ]);
+});
 
 gulp.task('bower', function() {
   return bower({
     force: true,
     directory: './assets/public/bower'
-  }).pipe(gulp.dest('./assets/dist/bower'))
-})
+  }).pipe(gulp.dest('./assets/dist/bower'));
+});
 
 gulp.task('clean', function() {
   return del([
@@ -111,8 +114,8 @@ gulp.task('clean', function() {
     './bower_components'
   ], {
     force: true
-  })
-})
+  });
+});
 
 gulp.task('imagemin', function () {
   return gulp
@@ -125,8 +128,8 @@ gulp.task('imagemin', function () {
       svgoPlugins: [ { removeViewBox: false } ],
       use: [ pngcrush() ]
     }))
-    .pipe(gulp.dest('./assets/dist/img/'))
-})
+    .pipe(gulp.dest('./assets/dist/img/'));
+});
 
 gulp.task('copy', function() {
   return gulp.src([
@@ -136,8 +139,8 @@ gulp.task('copy', function() {
       './assets/public/crossdomain.xml',
       './assets/public/apple-touch-icon-precomposed.png',
     ])
-    .pipe(gulp.dest('./assets/dist/'))
-})
+    .pipe(gulp.dest('./assets/dist/'));
+});
 
 gulp.task('usemin-js', function() {
   return gulp
@@ -154,20 +157,20 @@ gulp.task('usemin-js', function() {
     }))
     */
     .pipe(through.obj(function(file, enc, cb) {
-      file.path = file.revOrigPath
-      cb(null, file)
+      file.path = file.revOrigPath;
+      cb(null, file);
     }))
-    .pipe(gulp.dest('./assets/dist/js'))
-})
+    .pipe(gulp.dest('./assets/dist/js'));
+});
 
 gulp.task('usemin-css', function() {
   // create an accurate version of css with
   // images that have rev md5 hashes
   // and css that has updated image/font paths
   
-  var imageFilter = filter('**/*.{jpg,jpeg,gif,png}')
-  var fontFilter = filter('**/*.{eot,svg,ttf,woff}')
-  var cssFilter = filter('**/*.css')
+  var imageFilter = filter('**/*.{jpg,jpeg,gif,png}');
+  var fontFilter = filter('**/*.{eot,svg,ttf,woff}');
+  var cssFilter = filter('**/*.css');
   
   return gulp
     .src([
@@ -197,12 +200,12 @@ gulp.task('usemin-css', function() {
     .pipe(fontFilter.restore())
     .pipe(cssFilter)
     .pipe(through.obj(function(file, enc, cb) {
-      file.path = file.revOrigPath
-      cb(null, file)
+      file.path = file.revOrigPath;
+      cb(null, file);
     }))
     .pipe(gulp.dest('./assets/dist/css'))
-    .pipe(cssFilter.restore())
-})
+    .pipe(cssFilter.restore());
+});
 
 gulp.task('usemin-jade', function() {
   // create a dir full of jade, css, js files
@@ -222,8 +225,8 @@ gulp.task('usemin-jade', function() {
       cdn: require('cdnjs-cdn-data')
     }))
     */
-    .pipe(gulp.dest('./assets/dist'))
-})
+    .pipe(gulp.dest('./assets/dist'));
+});
 
 gulp.task('build', function(callback) {
   runSequence(
@@ -235,7 +238,7 @@ gulp.task('build', function(callback) {
     'usemin-css',
     'usemin-js',
     'usemin-jade'
-  , callback)
-})
+  , callback);
+});
 
-gulp.task('default', [ 'build' ])
+gulp.task('default', [ 'build' ]);

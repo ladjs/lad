@@ -23,7 +23,7 @@ exports = module.exports = function() {
         }
       }
     }
-  }
-}
+  };
+};
 
-exports['@singleton'] = true
+exports['@singleton'] = true;

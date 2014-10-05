@@ -2,7 +2,7 @@
 // app - routes - my-account
 
 exports = module.exports = function(IoC, policies) {
-  var app = this
+  var app = this;
 
   // my account
   app.get(
@@ -11,11 +11,11 @@ exports = module.exports = function(IoC, policies) {
     function(req, res) {
       res.render('my-account', {
         title: 'My Account'
-      })
+      });
     }
-  )
+  );
 
-}
+};
 
 exports['@require'] = [ '$container', 'policies' ];
 exports['@singleton'] = true;
