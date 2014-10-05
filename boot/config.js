@@ -21,6 +21,7 @@ exports = module.exports = function() {
 
     defaults: {
       pkg: pkg,
+      cache: false,
       showStack: true,
       assetsDir: assetsDir,
       publicDir: publicDir,
@@ -140,9 +141,6 @@ exports = module.exports = function() {
 
     test: {
       url: 'http://localhost:5000',
-      csrf: {
-        enabled: false
-      },
       server: {
         env: 'test',
         port: 5000
@@ -157,6 +155,7 @@ exports = module.exports = function() {
     },
 
     development: {
+      cache: true,
       url: 'http://localhost:3000',
       server: {
         env: 'development',
@@ -181,6 +180,7 @@ exports = module.exports = function() {
     },
 
     production: {
+      cache: true,
       url: 'http://localhost:3080',
       password: {
         minStrength: 1,

@@ -48,6 +48,9 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
   it('POST /<%= _.camelize(_.pluralize(name)) %> - should return 200 if <%= _.camelize(name) %> was created', function(done) {
     request
       .post('/<%= _.camelize(_.pluralize(name)) %>')
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         name: 'Nifty',
@@ -94,6 +97,9 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
   it('PUT /<%= _.camelize(_.pluralize(name)) %>/:id - should return 200 if <%= _.pluralize(_.dasherize(name)) %> was updated', function(done) {
     request
       .put(util.format('/<%= _.camelize(_.pluralize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         name: 'NiftyWhoa'
@@ -117,6 +123,9 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
   it('DELETE /<%= _.camelize(_.pluralize(name)) %>/:id - should return 200 if <%= _.pluralize(_.dasherize(name)) %> was deleted', function(done) {
     request
       .del(util.format('/<%= _.camelize(_.pluralize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .expect(200)
       .end(function(err, res) {

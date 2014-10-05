@@ -51,6 +51,9 @@ describe('/users', function() {
 
     request
       .post('/users')
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         email: util.format('niftylettuce+%s@gmail.com', new Date().getTime()),
@@ -106,6 +109,9 @@ describe('/users', function() {
   it('PUT /users/:id - should return 200 if user was updated', function(done) {
     request
       .put(util.format('/users/%s', context.userIdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         name: 'NiftyWhoa',
@@ -135,6 +141,9 @@ describe('/users', function() {
   it('DELETE /users/:id - should return 200 if user was deleted', function(done) {
     request
       .del(util.format('/users/%s', context.userIdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .expect(200)
       .end(function(err, res) {

@@ -21,9 +21,18 @@ exports = module.exports = function(IoC, settings) {
   app.use(serveFavicon(path.join(settings.publicDir, 'favicon.ico')))
 
   // cross site request forgery prevention (csrf)
-  // note: you'd probably want to turn this off for API's
-  if (settings.csrf.enabled)
-    app.use(csrf(settings.csrf.options))
+  // note: disabled automatically for XHR (AJAX) requests
+  if (settings.csrf.enabled) {
+    app.use(function(req, res, next) {
+      var isXHR = req.xhr
+
+      if (!isXHR) {
+        csrf(settings.csrf.options)(req, res, next)
+      } else {
+        next()
+      }
+    })
+  }
 
 }
 
