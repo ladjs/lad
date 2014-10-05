@@ -16,19 +16,18 @@ block content
             th Updated At
             th Actions
           tbody
-            tr
-              each user in users
-                tr
-                  td= user.full_name
-                  td: a(href='mailto:' + user.email)= user.email
-                  td= moment(user.created_at).format('MM/DD/YY')
-                  td= moment(user.updated_at).format('MM/DD/YY')
-                  td
-                    ul.list-inline
-                      li: a(href='/users/' + user.id).btn.btn-sm.btn-info View
-                      li: a(href='/users/' + user.id + '/edit').btn.btn-sm.btn-warning Edit
-                      li
-                        form(action='/users/' + user.id + '?_method=DELETE', method='POST').form-inline
-                          input(type='hidden', name='_csrf', value=csrf)
-                          button(type='submit').btn.btn-sm.btn-danger Remove
+            each user in users
+              tr
+                td= user.full_name
+                td: a(href='mailto:' + user.email)= user.email
+                td= moment(user.created_at).format('MM/DD/YY')
+                td= moment(user.updated_at).format('MM/DD/YY')
+                td
+                  ul.list-inline
+                    li: a(href='/users/' + user.id).btn.btn-sm.btn-info View
+                    li: a(href='/users/' + user.id + '/edit').btn.btn-sm.btn-warning Edit
+                    li
+                      form(action='/users/' + user.id + '?_method=DELETE', method='POST').form-inline
+                        input(type='hidden', name='_csrf', value=csrf)
+                        button(type='submit').btn.btn-sm.btn-danger Remove
         include ../_paginate
