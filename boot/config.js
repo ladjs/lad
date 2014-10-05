@@ -1,19 +1,19 @@
 
 // # config
 
-var path = require('path')
+var path = require('path');
 
-var parentDir = path.join(__dirname, '..')
-var appDir = path.join(parentDir, 'app')
+var parentDir = path.join(__dirname, '..');
+var appDir = path.join(parentDir, 'app');
 
-var pkg = require(path.join(parentDir, 'package'))
+var pkg = require(path.join(parentDir, 'package'));
 
-var assetsDir = path.join(parentDir,'assets')
-var publicDir = path.join(assetsDir, 'public')
-var templatesDir = path.join(assetsDir, 'emails')
-var viewsDir = path.join(appDir, 'views')
+var assetsDir = path.join(parentDir,'assets');
+var publicDir = path.join(assetsDir, 'public');
+var templatesDir = path.join(assetsDir, 'emails');
+var viewsDir = path.join(appDir, 'views');
 
-var maxAge = 24 * 60 * 60 * 1000
+var maxAge = 24 * 60 * 60 * 1000;
 
 exports = module.exports = function() {
 
@@ -237,8 +237,8 @@ exports = module.exports = function() {
       }
     }
 
-  }
+  };
 
-}
+};
 
-exports['@singleton'] = true
+exports['@singleton'] = true;
