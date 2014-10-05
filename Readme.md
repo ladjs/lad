@@ -86,7 +86,7 @@ eskimo controller 'user settings'
 # Note: You could write "user-settings" as well (no quotes necessary if there are no spaces)
 ```
 
-> [**Please read Igloo's documentation for more information.**](http://igloojs.com)
+> [**Please read Igloo's documentation for more information.**](http://igloojs.com) or your created igloo's `Readme.md`.
 
 ## Examples
 

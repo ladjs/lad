@@ -11,27 +11,19 @@ var less = require('gulp-less')
 var uglify = require('gulp-uglify')
 var sourcemaps = require('gulp-sourcemaps')
 var path = require('path')
-//var watch = require('gulp-watch')
 var imagemin = require('gulp-imagemin')
 var pngcrush = require('imagemin-pngcrush')
 var del = require('del')
 var runSequence = require('run-sequence')
-var usemin = require('gulp-jade-usemin');
+var usemin = require('gulp-jade-usemin')
 var uglify = require('gulp-uglify');
-var minifyHtml = require('gulp-minify-html');
+var minifyHtml = require('gulp-minify-html')
 var rev = require('gulp-rev');
 var revall = require('gulp-rev-all')
 var through = require('through2')
 var override = require('gulp-rev-css-url')
 var filter = require('gulp-filter')
-var imageFilter = filter('**/*.{jpg,jpeg,gif,png}')
-var fontFilter = filter('**/*.{eot,svg,ttf,woff}')
-var cssAndJsFilter = filter([
-  '**/*.css',
-  '**/*.js'
-])
-var cssFilter = filter('**/*.css')
-var jsFilter = filter('**/*.js')
+var livereload = require('tiny-lr')()
 //var bowerJSON = require('./bower.json')
 //var googlecdn = require('gulp-google-cdn')
 
@@ -70,26 +62,40 @@ gulp.task('jshint', function() {
 gulp.task('less', function() {
   return gulp
     .src([
-      './assets/public/css/bootstrap.less'
+      './assets/public/css/bootstrap.less',
+      './assets/public/css/style.less'
     ])
     .pipe(less().on('error', logger.error))
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest('./assets/public/css'))
 })
 
-gulp.task('watch', function() {
-  return gulp
-    .watch('./assets/public/css/**/*.less', [ 'less' ])
-  /*
-  return watch({
-    glob: '/path/to/some/less/files/*.less'
-  }, function(files) {
-    return files
-      .pipe(less().on('error', logger.error))
-      .pipe(sourcemaps.write('./maps'))
-      .pipe(gulp.dest('assets/public/css'))
+// Helper to have gulp tasks notify livereload
+function notifyLiveReload(event) {
+  if (!event || !event.path) 
+    return false
+
+  var fileName = path.relative(__dirname, event.path)
+
+  livereload.changed({
+    body: {
+      files: [fileName]
+    }
   })
-  */
+}
+
+gulp.task('watch', [ 'watch-noreload' ], function() {
+  livereload.listen(settings.liveReload.port)
+  
+  gulp.watch('./assets/dist/**', notifyLiveReload)
+})
+
+gulp.task('watch-noreload', function() {
+  gulp.watch('./assets/public/bower/**/*', [ 'bower' ])
+  gulp.watch('./assets/public/css/**/*.less', [ 'less', 'usemin-css' ])
+  gulp.watch('./assets/public/img/**/*', [ 'imagemin' ])
+  gulp.watch('./assets/public/js/**/*.js', [ 'usemin-js' ])
+  gulp.watch('./app/views/**/*.jade', [ 'usemin-jade' ])
 })
 
 gulp.task('bower', function() {
@@ -111,6 +117,9 @@ gulp.task('clean', function() {
 gulp.task('imagemin', function () {
   return gulp
     .src('./assets/public/img/**/*')
+    .pipe(revall({
+      //prefix: 'http://cdn.cloudfront.net/'
+    }))
     .pipe(imagemin({
       progressive: true,
       svgoPlugins: [ { removeViewBox: false } ],
@@ -130,16 +139,40 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('./assets/dist/'))
 })
 
-gulp.task('usemin-css', function() {
+gulp.task('usemin-js', function() {
+  return gulp
+    .src([
+      'assets/public/js/**/*.js'
+    ])
+    .pipe(revall({
+      //prefix: 'http://cdn.cloudfront.net/'
+    }))
+    /*
+    .pipe(googlecdn(bowerJSON, {
+      componentsPath: 'bower',
+      cdn: require('cdnjs-cdn-data')
+    }))
+    */
+    .pipe(through.obj(function(file, enc, cb) {
+      file.path = file.revOrigPath
+      cb(null, file)
+    }))
+    .pipe(gulp.dest('./assets/dist/js'))
+})
 
+gulp.task('usemin-css', function() {
   // create an accurate version of css with
   // images that have rev md5 hashes
   // and css that has updated image/font paths
+  
+  var imageFilter = filter('**/*.{jpg,jpeg,gif,png}')
+  var fontFilter = filter('**/*.{eot,svg,ttf,woff}')
+  var cssFilter = filter('**/*.css')
+  
   return gulp
     .src([
       'assets/public/img/**/*.{jpg,jpeg,gif,png}',
       'assets/public/fonts/**/*.{eot,svg,ttf,woff}',
-      'assets/public/js/**/*.js',
       'assets/public/css/**/*.css'
     ])
     .pipe(revall({
@@ -162,22 +195,16 @@ gulp.task('usemin-css', function() {
     .pipe(fontFilter)
     .pipe(gulp.dest('./assets/dist/fonts'))
     .pipe(fontFilter.restore())
-    //.pipe(override()) // no need to do this since we use relative paths
-    .pipe(cssAndJsFilter)
+    .pipe(cssFilter)
     .pipe(through.obj(function(file, enc, cb) {
       file.path = file.revOrigPath
       cb(null, file)
     }))
-    .pipe(cssAndJsFilter.restore())
-    .pipe(cssFilter)
     .pipe(gulp.dest('./assets/dist/css'))
     .pipe(cssFilter.restore())
-    .pipe(jsFilter)
-    .pipe(gulp.dest('./assets/dist/js'))
 })
 
 gulp.task('usemin-jade', function() {
-
   // create a dir full of jade, css, js files
   // that will be used in production in place
   // of the current app/views folder
@@ -185,8 +212,8 @@ gulp.task('usemin-jade', function() {
     .src('./app/views/**/*.jade')
     .pipe(usemin({
       assetsDir: path.join(settings.assetsDir, 'dist'),
-      css: [csso(), 'concat', rev() ],
-      html: [minifyHtml({empty: true}), 'concat', rev() ],
+      css: [ csso(), 'concat', rev() ],
+      html: [ minifyHtml({empty: true}), 'concat', rev() ],
       js: [ uglify(), 'concat', rev() ]
     }))
     /*
@@ -196,9 +223,7 @@ gulp.task('usemin-jade', function() {
     }))
     */
     .pipe(gulp.dest('./assets/dist'))
-
 })
-
 
 gulp.task('build', function(callback) {
   runSequence(
@@ -208,6 +233,9 @@ gulp.task('build', function(callback) {
     'copy',
     'imagemin',
     'usemin-css',
+    'usemin-js',
     'usemin-jade'
   , callback)
 })
+
+gulp.task('default', [ 'build' ])
