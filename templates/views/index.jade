@@ -5,12 +5,29 @@ extends ../layout
 
 block content
 
-  h1 <%= _.humanize(_.pluralize(_.classify(name))) %>
-
-  p: a(href='/<%= _.pluralize(_.dasherize(name)) %>/new') Create New <%= _.humanize(_.classify(name)) %>
-
-  ol
-    each <%= _.camelize(name) %> in <%= _.camelize(_.pluralize(name)) %>
-      li: a(href='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id)= <%= _.camelize(name) %>.name
-
-  include ../_paginate
+  .container
+    .row
+      .col-md-8.col-md-offset-2
+        h1 <%= _.pluralize(_.humanize(_.classify(name))) %> (#{<%= _.camelize(_.pluralize(name)) %>.length})
+        p: a(href='/<%= _.pluralize(_.dasherize(name)) %>/new') Create New <%= _.humanize(_.classify(name)) %>
+        table.table.table-bordered.table-hover.table-striped
+          thead
+            th Name
+            th Created At
+            th Updated At
+            th Actions
+          tbody
+            each <%= _.camelize(name) %> in <%= _.camelize(_.pluralize(name)) %>
+              tr
+                td= <%= _.camelize(name) %>.name
+                td= moment(<%= _.camelize(name) %>.created_at).format('MM/DD/YY')
+                td= moment(<%= _.camelize(name) %>.updated_at).format('MM/DD/YY')
+                td
+                  ul.list-inline
+                    li: a(href='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id).btn.btn-sm.btn-info View
+                    li: a(href='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id + '/edit').btn.btn-sm.btn-warning Edit
+                    li
+                      form(action='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id + '?_method=DELETE', method='POST').form-inline
+                        input(type='hidden', name='_csrf', value=csrf)
+                        button(type='submit').btn.btn-sm.btn-danger Remove
+        include ../_paginate

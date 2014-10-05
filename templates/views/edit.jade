@@ -5,9 +5,15 @@ extends ../layout
 
 block content
 
-  h1 Edit <%= _.humanize(_.classify(name)) %> - #{<%= _.camelize(name) %>.name}
+  .container
+    .row
+      .col-md-4.col-md-offset-4
+        h1 Edit <%= _.humanize(_.classify(name)) %> - #{<%= _.camelize(name) %>.name}
 
-  form(action='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id + '?_method=PUT', method='POST')
-    input(type='hidden', name='_csrf', value=csrf)
-    input(type='name', name='name', placeholder='name', value=<%= _.camelize(name) %>.name, required)
-    button(type='submit') Update <%= _.humanize(_.classify(name)) %>
+        form(action='/<%= _.pluralize(_.dasherize(name)) %>/' + <%= _.camelize(name) %>.id + '?_method=PUT', method='POST')
+          input(type='hidden', name='_csrf', value=csrf)
+          .form-group
+            label.control-label Name
+            input(type='text', name='name', placeholder='Name', value=<%= _.camelize(name) %>.name, required).form-control
+
+          button(type='submit').btn.btn-lg.btn-primary.btn-block Update <%= _.humanize(_.classify(name)) %>

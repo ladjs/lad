@@ -1,4 +1,5 @@
-// # tests - <%= _.dasherize(name).split('-').join(' ') %>
+
+// # tests - <%= _.pluralize(_.dasherize(name)).split('-').join(' ') %>
 
 var util = require('util')
 var request = require('supertest')
@@ -10,6 +11,7 @@ var expect = chai.expect
 var utils = require('./utils')
 var async = require('async')
 var IoC = require('electrolyte')
+var cheerio = require('cheerio')
 
 chai.should()
 chai.use(sinonChai)
@@ -45,9 +47,12 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
     utils.cleanDatabase(done)
   })
 
-  it('POST /<%= _.camelize(_.pluralize(name)) %> - should return 200 if <%= _.camelize(name) %> was created', function(done) {
+  it('POST /<%= _.pluralize(_.dasherize(name)) %> - should return 200 if <%= _.camelize(name) %> was created', function(done) {
     request
-      .post('/<%= _.camelize(_.pluralize(name)) %>')
+      .post('/<%= _.pluralize(_.dasherize(name)) %>')
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         name: 'Nifty',
@@ -71,9 +76,9 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
       })
   })
 
-  it('GET /<%= _.camelize(_.pluralize(name)) %>/:id — should return 200 if <%= _.pluralize(_.dasherize(name)) %> was retrieved', function(done) {
+  it('GET /<%= _.pluralize(_.dasherize(name)) %>/:id — should return 200 if <%= _.pluralize(_.dasherize(name)).split('-').join(' ') %> was retrieved', function(done) {
     request
-      .get(util.format('/<%= _.camelize(_.pluralize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
+      .get(util.format('/<%= _.pluralize(_.dasherize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
       .accept('application/json')
       .expect(200)
       .end(function(err, res) {
@@ -91,9 +96,12 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
       })
   })
 
-  it('PUT /<%= _.camelize(_.pluralize(name)) %>/:id - should return 200 if <%= _.pluralize(_.dasherize(name)) %> was updated', function(done) {
+  it('PUT /<%= _.pluralize(_.dasherize(name)) %>/:id - should return 200 if <%= _.pluralize(_.dasherize(name)).split('-').join(' ') %> was updated', function(done) {
     request
-      .put(util.format('/<%= _.camelize(_.pluralize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
+      .put(util.format('/<%= _.pluralize(_.dasherize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         name: 'NiftyWhoa'
@@ -114,9 +122,12 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
       })
   })
 
-  it('DELETE /<%= _.camelize(_.pluralize(name)) %>/:id - should return 200 if <%= _.pluralize(_.dasherize(name)) %> was deleted', function(done) {
+  it('DELETE /<%= _.pluralize(_.dasherize(name)) %>/:id - should return 200 if <%= _.pluralize(_.dasherize(name)).split('-').join(' ') %> was deleted', function(done) {
     request
-      .del(util.format('/<%= _.camelize(_.pluralize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
+      .del(util.format('/<%= _.pluralize(_.dasherize(name)) %>/%s', context.<%= _.camelize(_.pluralize(name)) %>IdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .expect(200)
       .end(function(err, res) {
@@ -135,11 +146,33 @@ describe('/<%= _.pluralize(_.dasherize(name)) %>', function() {
       })
   })
 
-  it('GET /<%= _.camelize(_.pluralize(name)) %> - should return 200 if <%= _.pluralize(_.dasherize(name)) %> index loads', function(done) {
+  it('GET /<%= _.pluralize(_.dasherize(name)) %> - should return 200 if <%= _.pluralize(_.dasherize(name)).split('-').join(' ') %> index loads (JSON)', function(done) {
     request
-      .get('/<%= _.camelize(_.pluralize(name)) %>')
+      .get('/<%= _.pluralize(_.dasherize(name)) %>')
       .accept('application/json')
       .expect(200, done)
   })
+  
+  it('GET /<%= _.pluralize(_.dasherize(name)) %> - should return 200 if <%= _.pluralize(_.dasherize(name)).split('-').join(' ') %> index loads and shows 3 rows (HTML)', function(done) {
+    request
+      .get('/<%= _.pluralize(_.dasherize(name)) %>')
+      .accept('text/html')
+      .expect(200)
+      .end(function(err, res) {
+        // Test the attributes exist
+        expect(res.text).to.exist
+
+        var $ = cheerio.load(res.text)
+        var $<%= _.camelize(name) %>List = $('table')
+        var $<%= _.camelize(name) %>Rows = $<%= _.camelize(name) %>List.find('tr')
+
+        // Test the values make sense
+        $<%= _.camelize(name) %>List.should.have.length.of(1)
+        $<%= _.camelize(name) %>Rows.should.have.length.of.at.least(3)
+
+        done()
+      })
+  })
+
 
 })

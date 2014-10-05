@@ -6,7 +6,7 @@ var express = require('express')
 exports = module.exports = function(IoC) {
   var app = this
   var router = express.Router()
-  var controller = IoC.create('controllers/<%= _.camelize(_.pluralize(name)) %>')
+  var controller = IoC.create('controllers/<%= _.pluralize(_.dasherize(name)) %>')
 
   router.get(
     '/',
@@ -44,7 +44,7 @@ exports = module.exports = function(IoC) {
   )
 
   app.use(
-    '/<%= _.camelize(_.pluralize(name)) %>',
+    '/<%= _.pluralize(_.dasherize(name)) %>',
     router
   )
 

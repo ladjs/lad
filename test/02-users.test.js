@@ -1,3 +1,6 @@
+
+// # tests - users
+
 var util = require('util')
 var request = require('supertest')
 var app = require('../app')
@@ -8,6 +11,7 @@ var expect = chai.expect
 var utils = require('./utils')
 var async = require('async')
 var IoC = require('electrolyte')
+var cheerio = require('cheerio')
 
 chai.should()
 chai.use(sinonChai)
@@ -51,6 +55,9 @@ describe('/users', function() {
 
     request
       .post('/users')
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         email: util.format('niftylettuce+%s@gmail.com', new Date().getTime()),
@@ -106,6 +113,9 @@ describe('/users', function() {
   it('PUT /users/:id - should return 200 if user was updated', function(done) {
     request
       .put(util.format('/users/%s', context.userIdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .send({
         name: 'NiftyWhoa',
@@ -135,6 +145,9 @@ describe('/users', function() {
   it('DELETE /users/:id - should return 200 if user was deleted', function(done) {
     request
       .del(util.format('/users/%s', context.userIdCreatedWithRequest))
+      .set({
+        'X-Requested-With': 'XMLHttpRequest'// We need to set this so CSRF is ignored when enabled
+      })
       .accept('application/json')
       .expect(200)
       .end(function(err, res) {
@@ -153,11 +166,32 @@ describe('/users', function() {
       })
   })
 
-  it('GET /users - should return 200 if user index loads', function(done) {
+  it('GET /users - should return 200 if user index loads (JSON)', function(done) {
     request
       .get('/users')
       .accept('application/json')
       .expect(200, done)
+  })
+  
+  it('GET /users - should return 200 if user index loads and shows 3 rows (HTML)', function(done) {
+    request
+      .get('/users')
+      .accept('text/html')
+      .expect(200)
+      .end(function(err, res) {
+        // Test the attributes exist
+        expect(res.text).to.exist
+
+        var $ = cheerio.load(res.text)
+        var $userList = $('table')
+        var $userRows = $userList.find('tr')
+
+        // Test the values make sense
+        $userList.should.have.length.of(1)
+        $userRows.should.have.length.of.at.least(3)
+
+        done()
+      })
   })
 
 })
