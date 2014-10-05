@@ -5,10 +5,28 @@ var winstonRequestLogger = require('winston-request-logger')
 var methodOverride = require('method-override')
 var bodyParser = require('body-parser')
 var paginate = require('express-paginate')
+var responseTime = require('response-time')
 
 exports = module.exports = function(IoC, logger, settings) {
 
   var app = this
+
+  // adds X-Response-Time header
+  app.use(responseTime({
+    digits: 5
+  }))
+
+  // prepare req.log for error handler
+  app.use(function(req, res, next) {
+    req.log = {
+      response_time: new Date().getTime(),
+      path: req.path,
+      query: req.query,
+      body: req.body,
+      params: req.params
+    }
+    next()
+  })
 
   // winston request logger before everything else
   // but only if it was enabled in settings

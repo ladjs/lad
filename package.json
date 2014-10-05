@@ -79,6 +79,7 @@
     "pluralize": "^1.0.0",
     "randomstring-extended": "^1.0.0",
     "recluster": "^0.3.7",
+    "response-time": "^2.2.0",
     "serve-favicon": "^2.0.0",
     "serve-static": "^1.2.1",
     "strength": "^0.1.4",
