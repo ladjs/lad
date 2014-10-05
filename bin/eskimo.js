@@ -393,7 +393,7 @@ function controller(name) {
               // %s
               app.phase(bootable.di.routes('./routes/%s.js'))
             */}),
-            pluralCamelized,
+            pluralDasherized,
             pluralDasherized
           )
         )
