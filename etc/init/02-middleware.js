@@ -43,8 +43,8 @@ exports = module.exports = function(IoC, logger, settings) {
 
   // support _method (PUT in forms etc)
   app.use(methodOverride('_method'));
-  
-  // suport liveReload
+
+  // support live reload
   if (settings.server.env === 'development') {
     app.use(require('connect-livereload')(settings.liveReload));
     logger.info('livereload server started at port ' + settings.liveReload.port);
