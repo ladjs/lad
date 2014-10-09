@@ -9,7 +9,7 @@ exports = module.exports = function(IoC, policies) {
   // log in
   app.get(
     '/login',
-    policies.ensureLoggedOut,
+    policies.ensureLoggedOut(),
     function(req, res) {
       res.render('login', { title: 'Log In' });
     }
@@ -17,7 +17,7 @@ exports = module.exports = function(IoC, policies) {
 
   app.post(
     '/login',
-    policies.ensureLoggedOut,
+    policies.ensureLoggedOut(),
     passport.authenticate('local', {
       successReturnToOrRedirect: '/',
       failureFlash: true,
@@ -28,7 +28,7 @@ exports = module.exports = function(IoC, policies) {
   // logout
   app.get(
     '/logout',
-    policies.ensureLoggedIn,
+    policies.ensureLoggedIn(),
     function(req, res) {
       req.logout();
       req.flash('success', 'You have successfully logged out');
@@ -37,13 +37,13 @@ exports = module.exports = function(IoC, policies) {
   );
 
   // sign up
-  app.get('/signup', policies.ensureLoggedOut, function(req, res) {
+  app.get('/signup', policies.ensureLoggedOut(), function(req, res) {
     res.render('signup', { title: 'Sign Up' });
   });
 
   app.post(
     '/signup',
-    policies.ensureLoggedOut,
+    policies.ensureLoggedOut(),
     IoC.create('controllers/signup'),
     passport.authenticate('local', {
       successReturnToOrRedirect: '/',
@@ -56,7 +56,7 @@ exports = module.exports = function(IoC, policies) {
   // forgot password
   app.get(
     '/forgot',
-    policies.ensureLoggedOut,
+    policies.ensureLoggedOut(),
     function(req, res) {
       res.render('forgot', {
         title: 'Forgot Password'
@@ -66,7 +66,7 @@ exports = module.exports = function(IoC, policies) {
 
   app.post(
     '/forgot',
-    policies.ensureLoggedOut,
+    policies.ensureLoggedOut(),
     IoC.create('controllers/forgot')
   );
 
@@ -75,17 +75,17 @@ exports = module.exports = function(IoC, policies) {
 
   app.get(
     '/reset/:reset_token',
-    policies.ensureLoggedOut,
+    policies.ensureLoggedOut(),
     reset.get
   );
 
   app.post(
     '/reset/:reset_token',
-    policies.ensureLoggedOut,
+    policies.ensureLoggedOut(),
     reset.post
   );
 
-}
+};
 
 exports['@require'] = [ '$container', 'policies' ];
 exports['@singleton'] = true;

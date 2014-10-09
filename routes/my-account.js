@@ -7,7 +7,7 @@ exports = module.exports = function(IoC, policies) {
   // my account
   app.get(
     '/my-account',
-    policies.ensureLoggedIn,
+    policies.ensureLoggedIn(),
     function(req, res) {
       res.render('my-account', {
         title: 'My Account'
