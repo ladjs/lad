@@ -20,8 +20,17 @@ exports = module.exports = function(IoC, settings) {
   // users
   app.phase(bootable.di.routes('./routes/users.js'));
 
-  // static server
-  app.use(serveStatic(settings.publicDir, settings.staticServer));
+  // keep these last
+  app.phase(function() {
+
+    // static server
+    app.use(serveStatic(settings.publicDir, settings.staticServer));
+
+    // error handler
+    var errorHandler = IoC.create('igloo/error-handler');
+    app.use(errorHandler);
+
+  });
 
 };
 

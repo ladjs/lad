@@ -18,7 +18,7 @@ exports = module.exports = function(settings, mongoose, iglooMongoosePlugin) {
   var nameType = {
     type: String,
     required: true,
-    validate: function(val) { return !_.isBlank(val); },
+    validate: [ function(val) { return !_.isBlank(val); }, '{path} was blank' ],
     trim: true
   };
 
@@ -27,7 +27,7 @@ exports = module.exports = function(settings, mongoose, iglooMongoosePlugin) {
       type: String,
       required: true,
       unique: true,
-      validate: validator.isEmail,
+      validate: [ validator.isEmail, 'Email is not a valid address' ],
       trim: true
     },
     name: nameType,

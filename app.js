@@ -27,7 +27,6 @@ var app = bootable(express());
 
 app.phase(bootable.di.initializers());
 app.phase(bootable.di.routes());
-app.phase(IoC.create('igloo/error-handler'));
 app.phase(IoC.create('igloo/server'));
 
 // boot

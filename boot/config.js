@@ -48,6 +48,7 @@ exports = module.exports = function() {
           }
         },
         headers: {
+          from: 'hi@eskimo.io'
         }
       },
       hipchat: {
