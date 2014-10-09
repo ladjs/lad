@@ -64,7 +64,6 @@ gulp.task('jshint', function() {
 gulp.task('less', function() {
   return gulp
     .src([
-      './assets/public/css/bootstrap.less',
       './assets/public/css/style.less'
     ])
     .pipe(less().on('error', logger.error))
@@ -89,7 +88,7 @@ function notifyLiveReload(event) {
 
 gulp.task('watch', [ 'watch-noreload' ], function() {
   livereload.listen(settings.liveReload.port);
-  
+
   gulp.watch('./assets/dist/**', notifyLiveReload);
 });
 
@@ -167,11 +166,11 @@ gulp.task('usemin-css', function() {
   // create an accurate version of css with
   // images that have rev md5 hashes
   // and css that has updated image/font paths
-  
+
   var imageFilter = filter('**/*.{jpg,jpeg,gif,png}');
   var fontFilter = filter('**/*.{eot,svg,ttf,woff}');
   var cssFilter = filter('**/*.css');
-  
+
   return gulp
     .src([
       'assets/public/img/**/*.{jpg,jpeg,gif,png}',
