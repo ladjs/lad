@@ -5,6 +5,8 @@
     "it",
     "console",
     "describe",
+    "after",
+    "before",
     "beforeEach",
     "waits",
     "waitsFor",
@@ -46,5 +48,7 @@
   "sub": true,
   "strict": false,
   "white": false,
-  "asi": false
+  "asi": false,
+
+  "expr": true
 }

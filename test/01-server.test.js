@@ -1,18 +1,18 @@
 
 // # tests - server
 
-var util = require('util')
-var request = require('supertest')
-var app = require('../app')
-var chai = require('chai')
-var sinon = require('sinon')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+var util = require('util');
+var request = require('supertest');
+var app = require('../app');
+var chai = require('chai');
+var sinon = require('sinon');
+var sinonChai = require('sinon-chai');
+var expect = chai.expect;
 
-chai.should()
-chai.use(sinonChai)
+chai.should();
+chai.use(sinonChai);
 
-request = request(app)
+request = request(app);
 
 describe('server', function() {
 
@@ -21,7 +21,7 @@ describe('server', function() {
       .get('/')
       .accept('application/json')
       .expect(200)
-      .end(done)
-  })
+      .end(done);
+  });
 
-})
+});

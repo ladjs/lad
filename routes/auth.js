@@ -1,9 +1,10 @@
 
-// app - routes - auth
+// # routes - auth
 
 var passport = require('passport');
 
-exports = module.exports = function(IoC, policies) {
+exports = module.exports = function(IoC, policies, settings) {
+
   var app = this;
 
   // log in
@@ -44,13 +45,7 @@ exports = module.exports = function(IoC, policies) {
   app.post(
     '/signup',
     policies.ensureLoggedOut(),
-    IoC.create('controllers/signup'),
-    passport.authenticate('local', {
-      successReturnToOrRedirect: '/',
-      successFlash: true,
-      failureFlash: true,
-      failureRedirect: true
-    })
+    IoC.create('controllers/signup')
   );
 
   // forgot password
@@ -85,7 +80,55 @@ exports = module.exports = function(IoC, policies) {
     reset.post
   );
 
+  // ## Google Authentication
+  if (settings.google.enabled) {
+
+    app.get(
+      '/auth/google',
+      policies.ensureLoggedOut(),
+      passport.authenticate('google', {
+        scope: settings.google.scope
+      })
+    );
+
+    app.get(
+      '/auth/google/callback',
+      policies.ensureLoggedOut(),
+      passport.authenticate('google', {
+        successFlash: true,
+        successReturnToOrRedirect: '/',
+        failureFlash: true,
+        failureRedirect: '/login'
+      })
+    );
+
+  }
+
+  // ## Facebook Authentication
+  if (settings.facebook.enabled) {
+
+    app.get(
+      '/auth/facebook',
+      policies.ensureLoggedOut(),
+      passport.authenticate('facebook', {
+        scope: settings.facebook.scope
+      })
+    );
+
+    app.get(
+      '/auth/facebook/callback',
+      policies.ensureLoggedOut(),
+      passport.authenticate('facebook', {
+        successFlash: true,
+        successReturnToOrRedirect: '/',
+        failureFlash: true,
+        failureRedirect: '/login'
+      })
+    );
+
+  }
+
 };
 
-exports['@require'] = [ '$container', 'policies' ];
+exports['@require'] = [ '$container', 'policies', 'igloo/settings' ];
 exports['@singleton'] = true;

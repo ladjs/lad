@@ -1,5 +1,5 @@
 
-// app - routes - my-account
+// # routes - my account
 
 exports = module.exports = function(IoC, policies) {
   var app = this;

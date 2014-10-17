@@ -23,16 +23,20 @@ exports = module.exports = function(IoC, settings) {
 
   // cross site request forgery prevention (csrf)
   // note: disabled automatically for XHR (AJAX) requests
+  // and requests with `/api` prefixed route path
   if (settings.csrf.enabled) {
-    app.use(function(req, res, next) {
-      var isXHR = req.xhr;
 
-      if (!isXHR) {
+    app.use(function(req, res, next) {
+
+      if (!req.xhr && req.path.indexOf('/api') !== 0) {
         csrf(settings.csrf.options)(req, res, next);
-      } else {
-        next();
+        return;
       }
+
+      next();
+
     });
+
   }
 
 };

@@ -38,4 +38,6 @@ html.no-js
       script(src='/bower/bootbox/bootbox.js')
       script(src='/js/plugins.js')
       script(src='/js/main.js')
+      if settings.facebook.enabled
+        script(src='/js/fb-appended-hash-bug-fix.js')
       <!-- endbuild -->

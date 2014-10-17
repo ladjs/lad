@@ -20,6 +20,21 @@ exports = module.exports = function() {
   return {
 
     defaults: {
+      facebook: {
+        enabled: false,
+        appID: '',
+        appSecret: '',
+        scope: [ 'email' ]
+      },
+      google: {
+        enabled: false,
+        scope: [
+          'https://www.googleapis.com/auth/userinfo.profile',
+          'https://www.googleapis.com/auth/userinfo.email'
+        ],
+        clientID: '',
+        clientSecret: ''
+      },
       pkg: pkg,
       cache: false,
       showStack: true,

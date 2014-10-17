@@ -19,7 +19,7 @@ exports = module.exports = function(mongoose, iglooMongoosePlugin) {
   });
 
   // plugins
-  <%= _.classify(name) %>.plugin(jsonSelect, '-_group -salt -hash');
+  //<%= _.classify(name) %>.plugin(jsonSelect, '-_group -salt -hash');
   <%= _.classify(name) %>.plugin(mongoosePaginate);
 
   // keep last

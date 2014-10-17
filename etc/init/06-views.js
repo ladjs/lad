@@ -47,6 +47,7 @@ exports = module.exports = function(IoC, settings) {
   app.use(function(req, res, next) {
     var isXHR = req.xhr;
 
+    res.locals.settings = settings;
     res.locals.req = req;
     res.locals.messages = {
       success: req.flash('success'),
@@ -57,13 +58,14 @@ exports = module.exports = function(IoC, settings) {
 
     res.locals.moment = moment;
 
-    if (settings.csrf.enabled && !isXHR) {
+    if (settings.csrf.enabled && (!isXHR && req.path.indexOf('/api') !== 0)) {
       res.locals.csrf = req.csrfToken();
     } else {
       res.locals.csrf = '';
     }
 
     next();
+
   });
 
 };

@@ -7,7 +7,17 @@ block content
   .container
     .row
       .col-md-4.col-md-offset-4
-        h1 Log in
+        if settings.facebook.enabled
+          a(href='/auth/facebook').btn.btn-lg.btn-primary.btn-block
+            i.fa.fa-facebook-square
+            |  Log in with Facebook
+          hr
+        if settings.google.enabled
+          a(href='/auth/google').btn.btn-lg.btn-primary.btn-block
+            i.fa.fa-google-plus
+            |  Log in with Google
+          hr
+        h1.text-center Log in
         form(action='/login', method='POST')
           input(type='hidden', name='_csrf', value=csrf)
           .form-group

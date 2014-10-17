@@ -1,6 +1,8 @@
 
 // # signup
 
+var passport = require('passport');
+var util = require('util');
 var _ = require('underscore');
 var _str = require('underscore.string');
 _.mixin(_str.exports());
@@ -8,33 +10,9 @@ _.mixin(_str.exports());
 var validator = require('validator');
 var randomstring = require('randomstring-extended');
 
-exports = module.exports = function(settings, logger, email, User) {
+exports = module.exports = function(settings, User) {
 
   function create(req, res, next) {
-
-    // email
-    if (_.isBlank(req.body.email)) {
-      return next({
-        message: 'Email was blank',
-        param: 'email'
-      });
-    }
-
-    // name
-    if (_.isBlank(req.body.name)) {
-      return next({
-        message: 'First name was blank',
-        param: 'name'
-      });
-    }
-
-    // surname
-    if (_.isBlank(req.body.surname)) {
-      return next({
-        message: 'Last name was blank',
-        param: 'surname'
-      });
-    }
 
     // password validation
     User.validatePassword(req.body.password, function(errorMessage) {
@@ -60,23 +38,20 @@ exports = module.exports = function(settings, logger, email, User) {
         return next(err);
       }
 
+      if (!user) {
+        return next(new Error('An error has occured while registering, please try later'));
+      }
+
       req.flash('success', 'Successfully signed up, check your inbox soon for a welcome email');
-      next();
 
-      // Send welcome email here
-      email('welcome', {
-        user: user,
-        url: settings.url
-      }, {
-        to: user.full_email,
-        subject: 'Eskimo - Welcome to Eskimo'
-      }, function(err, responseStatus) {
-        if (err) {
-          return logger.error(err);
-        }
+      passport.authenticate('local', {
+        successReturnToOrRedirect: '/',
+        successFlash: true,
+        failureFlash: true,
+        failureRedirect: true
+      })(req, res, next);
 
-        logger.info('Sent welcome email to %s', user.email);
-      });
+      user.sendWelcomeEmail();
 
     }
 
@@ -88,4 +63,4 @@ exports = module.exports = function(settings, logger, email, User) {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = [ 'igloo/settings', 'igloo/logger', 'igloo/email', 'models/user' ];
+exports['@require'] = [ 'igloo/settings', 'models/user' ];

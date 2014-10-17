@@ -12,8 +12,9 @@ var strength = require('strength');
 var passportLocalMongoose = require('passport-local-mongoose');
 var validator = require('validator');
 var mongoosePaginate = require('mongoose-paginate');
+var randomstring = require('randomstring-extended');
 
-exports = module.exports = function(settings, mongoose, iglooMongoosePlugin) {
+exports = module.exports = function(settings, mongoose, iglooMongoosePlugin, email, logger) {
 
   var nameType = {
     type: String,
@@ -33,7 +34,24 @@ exports = module.exports = function(settings, mongoose, iglooMongoosePlugin) {
     name: nameType,
     surname: nameType,
     reset_token: String,
-    reset_at: Date
+    reset_at: Date,
+    api_token: String,
+    facebook_id: String,
+    facebook_access_token: String,
+    facebook_refresh_token: String,
+    google_id: String,
+    google_access_token: String,
+    google_refresh_token: String
+  });
+
+  // pre save
+  User.pre('save', function(next) {
+    var user = this;
+    // set an API token for the user
+    if (!user.api_token) {
+      user.api_token = randomstring.token(32);
+    }
+    next();
   });
 
   // virtuals
@@ -51,6 +69,29 @@ exports = module.exports = function(settings, mongoose, iglooMongoosePlugin) {
     var user = this;
     return util.format('%s %s <%s>', user.name, user.surname, user.email);
   });
+
+  // methods
+  User.methods.sendWelcomeEmail = function sendWelcomeEmail(callback) {
+
+    var user = this;
+
+    email('welcome', {
+      user: user,
+      url: settings.url
+    }, {
+      to: user.full_email,
+      subject: util.format('Eskimo - Welcome %s!', user.name)
+    }, function(err, responseStatus) {
+      if (_.isFunction(callback)) {
+        return callback(err, responseStatus);
+      }
+      if (err) {
+        return logger.error(err);
+      }
+      logger.info('Sent welcome email to %s', user.email);
+    });
+
+  };
 
   // statics
   User.static('validatePassword', function(password, callback) {
@@ -100,4 +141,4 @@ exports = module.exports = function(settings, mongoose, iglooMongoosePlugin) {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = [ 'igloo/settings', 'igloo/mongo', 'igloo/mongoose-plugin' ];
+exports['@require'] = [ 'igloo/settings', 'igloo/mongo', 'igloo/mongoose-plugin', 'igloo/email', 'igloo/logger' ];

@@ -20,6 +20,9 @@ exports = module.exports = function(IoC, settings) {
   // users
   app.phase(bootable.di.routes('./routes/users.js'));
 
+  // api
+  app.phase(bootable.di.routes('./routes/api.js'));
+
   // keep these last
   app.phase(function() {
 
