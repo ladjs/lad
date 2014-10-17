@@ -42,14 +42,26 @@ exports = module.exports = function(settings, User) {
         return next(new Error('An error has occured while registering, please try later'));
       }
 
-      req.flash('success', 'Successfully signed up, check your inbox soon for a welcome email');
+      res.format({
 
-      passport.authenticate('local', {
-        successReturnToOrRedirect: '/',
-        successFlash: true,
-        failureFlash: true,
-        failureRedirect: true
-      })(req, res, next);
+        html: function() {
+
+          req.flash('success', 'Successfully signed up, check your inbox soon for a welcome email');
+
+          passport.authenticate('local', {
+            successReturnToOrRedirect: '/',
+            successFlash: true,
+            failureFlash: true,
+            failureRedirect: true
+          })(req, res, next);
+
+        },
+
+        json: function() {
+          res.json(user);
+        }
+
+      });
 
       user.sendWelcomeEmail();
 

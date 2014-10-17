@@ -10,6 +10,7 @@ exports = module.exports = function(IoC, policies) {
 
   var api = IoC.create('controllers/api');
   var users = IoC.create('controllers/users');
+  var signup = IoC.create('controllers/signup');
   var router = express.Router();
 
   // always return JSON with our API
@@ -19,6 +20,12 @@ exports = module.exports = function(IoC, policies) {
     req.headers.accept = 'application/json';
     next();
   });
+
+  router.post(
+    '/auth/signup',
+    policies.ensureLoggedOut(),
+    signup
+  );
 
   router.post(
     '/auth/email',
