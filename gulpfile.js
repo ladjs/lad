@@ -199,9 +199,10 @@ gulp.task('usemin-css', function() {
     .pipe(imageFilter)
     .pipe(imagemin({
       progressive: true,
-      svgoPlugins: [ { removeViewBox: false } ],
-      use: [ pngcrush() ]
+      svgoPlugins: [ { removeViewBox: false } ]
+      //use: [ pngcrush() ]
     }))
+    .pipe(pngcrush())
     .pipe(gulp.dest('./assets/dist/img'))
     .pipe(imageFilter.restore())
     .pipe(fontFilter)
