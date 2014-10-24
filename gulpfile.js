@@ -134,8 +134,9 @@ gulp.task('imagemin', function () {
     .pipe(imagemin({
       progressive: true,
       svgoPlugins: [ { removeViewBox: false } ],
-      use: [ pngcrush() ]
+      //use: [ pngcrush() ]
     }))
+    .pipe(pngcrush())
     .pipe(gulp.dest('./assets/dist/img/'));
 });
 
