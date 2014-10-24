@@ -130,7 +130,7 @@ exports = module.exports = function(settings, mongoose, iglooMongoosePlugin, ema
     limitAttempts: settings.password.limitAttempts
   });
 
-  User.plugin(jsonSelect, '-_group -salt -hash');
+  User.plugin(jsonSelect, '-salt -hash -reset_token -reset_at');
 
   User.plugin(mongoosePaginate);
 
