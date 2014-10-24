@@ -49,9 +49,11 @@ var scripts = [
 gulp.task('postinstall', function(callback) {
   runSequence(
     'bower',
+    'font-awesome',
     'less',
-    'jshint'
-  , callback);
+    'jshint',
+    callback
+  );
 });
 
 gulp.task('jshint', function() {
@@ -107,10 +109,17 @@ gulp.task('bower', function() {
   }).pipe(gulp.dest('./assets/dist/bower'));
 });
 
+gulp.task('font-awesome', function() {
+  return gulp
+    .src('./assets/public/bower/font-awesome/fonts/**/*')
+    .pipe(gulp.dest('./assets/public/fonts/font-awesome'));
+});
+
 gulp.task('clean', function() {
   return del([
     './assets/dist',
-    './bower_components'
+    './bower_components',
+    './assets/public/fonts/font-awesome'
   ], {
     force: true
   });
@@ -230,14 +239,14 @@ gulp.task('usemin-jade', function() {
 gulp.task('build', function(callback) {
   runSequence(
     'clean',
-    'bower',
-    'less',
+    'postinstall',
     'copy',
     'imagemin',
     'usemin-css',
     'usemin-js',
-    'usemin-jade'
-  , callback);
+    'usemin-jade',
+    callback
+  );
 });
 
 gulp.task('default', [ 'build' ]);
