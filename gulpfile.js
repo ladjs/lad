@@ -133,7 +133,7 @@ gulp.task('imagemin', function () {
     }))
     .pipe(imagemin({
       progressive: true,
-      svgoPlugins: [ { removeViewBox: false } ],
+      svgoPlugins: [ { removeViewBox: false } ]
       //use: [ pngcrush() ]
     }))
     .pipe(pngcrush())
