@@ -4,6 +4,7 @@
 var express = require('express');
 
 exports = module.exports = function(IoC) {
+
   var app = this;
   var router = express.Router();
   var controller = IoC.create('controllers/<%= _.pluralize(_.dasherize(name)) %>');
