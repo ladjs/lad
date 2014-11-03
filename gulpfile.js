@@ -75,12 +75,9 @@ gulp.task('less', function() {
 
 // Helper to have gulp tasks notify livereload
 function notifyLiveReload(event) {
-  if (!event || !event.path) {
+  if (!event || !event.path)
     return false;
-  }
-
-  var fileName = path.relative(__dirname, event.path);
-
+  var fileName = path.relative(settings.publicDir, event.path);
   livereload.changed({
     body: {
       files: [fileName]
@@ -90,16 +87,15 @@ function notifyLiveReload(event) {
 
 gulp.task('watch', [ 'watch-noreload' ], function() {
   livereload.listen(settings.liveReload.port);
-
-  gulp.watch('./assets/dist/**', notifyLiveReload);
+  gulp.watch([
+    './assets/public/**/*',
+    '!./assets/public/**/*.less'
+  ], notifyLiveReload);
 });
 
 gulp.task('watch-noreload', function() {
   gulp.watch('./assets/public/bower/**/*', [ 'bower' ]);
-  gulp.watch('./assets/public/css/**/*.less', [ 'less', 'usemin-css' ]);
-  gulp.watch('./assets/public/img/**/*', [ 'imagemin' ]);
-  gulp.watch('./assets/public/js/**/*.js', [ 'usemin-js' ]);
-  gulp.watch('./app/views/**/*.jade', [ 'usemin-jade' ]);
+  gulp.watch('./assets/public/css/**/*.less', [ 'less' ]);
 });
 
 gulp.task('bower', function() {
