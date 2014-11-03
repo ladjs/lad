@@ -10,10 +10,10 @@ html.no-js
       meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
       meta(name='description', content='This rapid MVP was built with Eskimo.')
       meta(name='viewport', content='width=device-width, initial-scale=1')
+    <!-- build:css /css/app.css -->
     block stylesheets
-      <!-- build:css /css/app.css -->
       link(rel='stylesheet', href='/css/style.css')
-      <!-- endbuild -->
+    <!-- endbuild -->
     <!-- build:js /js/modernizr.js -->
     script(src='/bower/modernizr/modernizr.js')
     <!-- endbuild -->
@@ -31,8 +31,8 @@ html.no-js
     block messages
       include _messages.jade
     block content
+    <!-- build:js /js/app.js -->
     block scripts
-      <!-- build:js /js/app.js -->
       script(src='/bower/jquery/dist/jquery.js')
       script(src='/bower/bootstrap/dist/js/bootstrap.js')
       script(src='/bower/bootbox/bootbox.js')
@@ -40,4 +40,4 @@ html.no-js
       script(src='/js/main.js')
       if settings.facebook.enabled
         script(src='/js/fb-appended-hash-bug-fix.js')
-      <!-- endbuild -->
+    <!-- endbuild -->
