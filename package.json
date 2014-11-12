@@ -60,7 +60,7 @@
     "electrolyte": "0.0.3",
     "errorhandler": "^1.0.1",
     "express": "^4.4.1",
-    "express-paginate": "0.0.2",
+    "express-paginate": "^0.0.4",
     "express-session": "^1.2.1",
     "helmet": "^0.4.0",
     "igloo": "0.0.5",
