@@ -8,6 +8,10 @@ exports = module.exports = function(IoC, settings) {
 
   var app = this;
 
+  // static server (always keep this first)
+  // <http://goo.gl/j2BEl5>
+  app.use(serveStatic(settings.publicDir, settings.staticServer));
+
   // home
   app.phase(bootable.di.routes('./routes/home.js'));
 
@@ -23,16 +27,10 @@ exports = module.exports = function(IoC, settings) {
   // api
   app.phase(bootable.di.routes('./routes/api.js'));
 
-  // keep these last
+  // error handler (always keep this last)
   app.phase(function() {
-
-    // static server
-    app.use(serveStatic(settings.publicDir, settings.staticServer));
-
-    // error handler
     var errorHandler = IoC.create('igloo/error-handler');
     app.use(errorHandler);
-
   });
 
 };
