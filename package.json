@@ -1,6 +1,6 @@
 {
   "name": "eskimo",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "description": "Eskimo helps you to rapidly build Node powered API's, online stores, and apps in general (known as \"igloos\").",
   "main": "./app.js",
   "bin": {
