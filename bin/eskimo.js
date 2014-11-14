@@ -414,7 +414,7 @@ function controller(name) {
         }
 
         log('Created controller: %s', fileName);
-        log('Add the following to ./routes.js (above static server):');
+        log('Add the following to ./routes.js (above error handler):');
 
         console.log();
         console.log(
