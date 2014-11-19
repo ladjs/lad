@@ -14,14 +14,10 @@ exports = module.exports = function(IoC, settings) {
   } else {
     // Enable cache if NOT an XHR (AJAX) request
     app.use(function(req, res, next) {
-      var isXHR = req.xhr;
-
-      if (!isXHR) {
-        res.setHeader('Cache-Control', 'public');
-        res.setHeader('Pragma', '');
-        res.setHeader('Expires', settings.staticServer.maxAge);
-      }
-
+      if (req.xhr) return next();
+      res.setHeader('Cache-Control', 'public');
+      res.setHeader('Pragma', '');
+      res.setHeader('Expires', settings.staticServer.maxAge);
       next();
     });
   }

@@ -1,12 +1,10 @@
 
 // # security
 
-var path = require('path');
-var serveFavicon = require('serve-favicon');
 var helmet = require('helmet');
 var csrf = require('csurf');
 
-exports = module.exports = function(IoC, settings) {
+exports = module.exports = function(IoC, settings, policies) {
 
   var app = this;
 
@@ -18,27 +16,16 @@ exports = module.exports = function(IoC, settings) {
   // use helmet for security
   app.use(helmet());
 
-  // ignore GET /favicon.ico
-  app.use(serveFavicon(path.join(settings.publicDir, 'favicon.ico')));
-
   // cross site request forgery prevention (csrf)
   // note: disabled automatically for XHR (AJAX) requests
   // and requests with `/api` prefixed route path
   if (settings.csrf.enabled) {
-
-    app.use(function(req, res, next) {
-
-      if (!req.xhr && req.path.indexOf('/api') !== 0) {
-        csrf(settings.csrf.options)(req, res, next);
-        return;
-      }
-
-      next();
-
+    app.all(policies.notApiRouteRegexp, function(req, res, next) {
+      if (req.xhr) return next();
+      csrf(settings.csrf.options)(req, res, next);
     });
-
   }
 
 };
 
-exports['@require'] = [ '$container', 'igloo/settings' ];
+exports['@require'] = [ '$container', 'igloo/settings', 'policies' ];

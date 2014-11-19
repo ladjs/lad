@@ -1,15 +1,53 @@
 
 // # middleware
 
+var lessMiddleware = require('less-middleware');
+var serveFavicon = require('serve-favicon');
+var path = require('path');
+var jadeAmd = require('jade-amd');
+var serveStatic = require('serve-static');
 var winstonRequestLogger = require('winston-request-logger');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var paginate = require('express-paginate');
 var responseTime = require('response-time');
+var auth = require('basic-auth');
+var _ = require('underscore');
 
-exports = module.exports = function(IoC, logger, settings) {
+exports = module.exports = function(IoC, logger, settings, policies) {
 
   var app = this;
+
+  // ignore GET /favicon.ico
+  app.use(serveFavicon(path.join(settings.publicDir, 'favicon.ico')));
+
+  if (settings.server.env === 'development') {
+
+    // less middleware
+    app.use(lessMiddleware(settings.less.path, settings.less.options));
+
+    // jade-amd templates
+    app.use(settings.jade.amd.path, jadeAmd.jadeAmdMiddleware(settings.jade.amd.options));
+
+  }
+
+  // static server (always keep this first)
+  // <http://goo.gl/j2BEl5>
+  app.use(serveStatic(settings.publicDir, settings.staticServer));
+
+  // add global policy for non api prefixed endpoints
+  if (settings.basicAuth.enabled)
+    app.all(policies.notApiRouteRegexp, function(req, res, next) {
+      var creds = auth(req);
+      if (!creds || creds.name !== settings.basicAuth.name || creds.pass !== settings.basicAuth.pass) {
+        res
+          .header('WWW-Authenticate', 'Basic realm="Development Environment"')
+          .status(401)
+          .end();
+        return;
+      }
+      next();
+    });
 
   // adds X-Response-Time header
   app.use(responseTime({
@@ -25,7 +63,6 @@ exports = module.exports = function(IoC, logger, settings) {
       body: req.body,
       params: req.params
     };
-
     next();
   });
 
@@ -36,23 +73,18 @@ exports = module.exports = function(IoC, logger, settings) {
   }
 
   // parse request bodies
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-
   // support _method (PUT in forms etc)
-  app.use(methodOverride('_method'));
-
-  // support live reload
-  if (settings.server.env === 'development') {
-    app.use(require('connect-livereload')(settings.liveReload));
-    logger.info('livereload server started at port ' + settings.liveReload.port);
-  }
+  app.use(
+    bodyParser.json(),
+    bodyParser.urlencoded({
+      extended: true
+    }),
+    methodOverride('_method')
+  );
 
   // pagination
   app.use(paginate.middleware(10, 50));
 
 };
 
-exports['@require'] = [ '$container', 'igloo/logger', 'igloo/settings' ];
+exports['@require'] = [ '$container', 'igloo/logger', 'igloo/settings', 'policies' ];

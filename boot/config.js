@@ -20,6 +20,11 @@ exports = module.exports = function() {
   return {
 
     defaults: {
+      basicAuth: {
+        enabled: false,
+        name: 'admin',
+        pass: 'password'
+      },
       facebook: {
         enabled: false,
         appID: '',

@@ -6,6 +6,7 @@ var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var randomstring = require('randomstring-extended');
+var connectLiveReload = require('connect-livereload');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -13,23 +14,29 @@ var FacebookTokenStrategy = require('passport-facebook-token').Strategy;
 var validator = require('validator');
 var _ = require('underscore');
 
-exports = module.exports = function(IoC, settings, sessions, User) {
+exports = module.exports = function(IoC, settings, sessions, User, policies) {
 
   var app = this;
 
   // pass a secret to cookieParser() for signed cookies
-  app.use(cookieParser(settings.cookieParser));
+  app.all(policies.notApiRouteRegexp, cookieParser(settings.cookieParser));
 
   // add req.session cookie support
   settings.session.store = sessions;
-  app.use(session(settings.session));
+  app.all(policies.notApiRouteRegexp, session(settings.session));
+
+  // support live reload
+  // (note this must come after sessions)
+  // <http://stackoverflow.com/a/26740588>
+  if (settings.server.env === 'development')
+    app.all(policies.notApiRouteRegexp, connectLiveReload(settings.liveReload));
 
   // add support for authentication
-  app.use(passport.initialize());
-  app.use(passport.session());
+  app.all(policies.notApiRouteRegexp, passport.initialize());
+  app.all(policies.notApiRouteRegexp, passport.session());
 
   // add flash message support
-  app.use(flash());
+  app.all(policies.notApiRouteRegexp, flash());
 
   // add passport strategies
   passport.use(User.createStrategy());
@@ -147,4 +154,4 @@ exports = module.exports = function(IoC, settings, sessions, User) {
 
 };
 
-exports['@require'] = [ '$container', 'igloo/settings', 'igloo/sessions', 'models/user' ];
+exports['@require'] = [ '$container', 'igloo/settings', 'igloo/sessions', 'models/user', 'policies' ];

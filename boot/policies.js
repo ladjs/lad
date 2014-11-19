@@ -44,7 +44,8 @@ exports = module.exports = function(IoC, User) {
   var policies = {
     ensureLoggedIn: ensureLoggedIn,
     ensureLoggedOut: ensureLoggedOut,
-    ensureApiToken: ensureApiToken
+    ensureApiToken: ensureApiToken,
+    notApiRouteRegexp: /^(?!\/api\/).*$/
   };
 
   return policies;
