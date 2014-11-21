@@ -32,7 +32,7 @@ exports = module.exports = function(IoC, settings, sessions, User, policies) {
     app.all(policies.notApiRouteRegexp, connectLiveReload(settings.liveReload));
 
   // add support for authentication
-  app.all(policies.notApiRouteRegexp, passport.initialize());
+  app.use(passport.initialize());
   app.all(policies.notApiRouteRegexp, passport.session());
 
   // add flash message support
