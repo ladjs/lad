@@ -34,13 +34,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/niftylettuce/igloo.git"
+    "url": "git://github.com/niftylettuce/eskimo.git"
   },
   "bugs": {
-    "url": "https://github.com/niftylettuce/igloo/issues"
+    "url": "https://github.com/niftylettuce/eskimo/issues"
   },
   "license": "MIT",
-  "homepage": "https://github.com/niftylettuce/igloo",
+  "homepage": "https://github.com/niftylettuce/eskimo",
   "dependencies": {
     "async": "^0.9.0",
     "basic-auth": "^1.0.0",
