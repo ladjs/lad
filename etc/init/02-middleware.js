@@ -4,7 +4,6 @@
 var lessMiddleware = require('less-middleware');
 var serveFavicon = require('serve-favicon');
 var path = require('path');
-var jadeAmd = require('jade-amd');
 var serveStatic = require('serve-static');
 var winstonRequestLogger = require('winston-request-logger');
 var methodOverride = require('method-override');
@@ -13,6 +12,7 @@ var paginate = require('express-paginate');
 var responseTime = require('response-time');
 var auth = require('basic-auth');
 var _ = require('underscore');
+var expressJade = require('express-jade');
 
 exports = module.exports = function(IoC, logger, settings, policies) {
 
@@ -26,8 +26,9 @@ exports = module.exports = function(IoC, logger, settings, policies) {
     // less middleware
     app.use(lessMiddleware(settings.less.path, settings.less.options));
 
-    // jade-amd templates
-    app.use(settings.jade.amd.path, jadeAmd.jadeAmdMiddleware(settings.jade.amd.options));
+    // express-jade templates (client side templates)
+    // TODO: create a gulp/grunt task for compiling jade templates
+    app.get('/js/templates/*', expressJade(settings.views.dir));
 
   }
 

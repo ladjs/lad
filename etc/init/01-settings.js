@@ -34,9 +34,6 @@ exports = module.exports = function(IoC, settings) {
     // this overwrites res.write and res.end functions
     app.use(compress());
 
-    // jade-amd templates
-    // TODO: use my gulp jade/requirejs task
-
   }
 
   if (settings.server.ssl.enabled) {
