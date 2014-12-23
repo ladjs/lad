@@ -121,6 +121,40 @@ npm install -d
 npm test
 ```
 
+##Assets
+Assets refer to static files (scripts, stylesheets and other assets) placed in [assets/public](https://github.com/niftylettuce/eskimo/tree/master/assets/public). To build a production version of your app:
+```bash
+gulp build
+```
+Note: This will minify all assets and create a /dist folder optimized and ready for deployment.
+
+List of tasks executed during `gulp build`:
+* Automatic LESS processing
+* Automatic install of Bower packages
+* Autmotic images minification
+* Automatic `usemin` implementation (concat, rev, ...)
+
+Bellow is an example of a JADE file using `usemin` blocks:
+```
+//- #layout
+...
+//- build:js /js/app.js
+block scripts
+    script(src='/bower/jquery/dist/jquery.js')
+    script(src='/bower/bootstrap/dist/js/bootstrap.js')
+    script(src='/bower/bootbox/bootbox.js')
+    script(src='/js/plugins.js')
+    script(src='/js/main.js')
+    if settings.facebook.enabled
+        script(src='/js/fb-appended-hash-bug-fix.js')
+//- endbuild
+```
+After, running `gulp build` the file will be optimized:
+```
+//- #layout
+...
+script(src='/js/app-316568f4.js')
+```
 
 ## Conventions
 
