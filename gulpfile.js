@@ -24,6 +24,7 @@ var through = require('through2');
 var override = require('gulp-rev-css-url');
 var filter = require('gulp-filter');
 var livereload = require('tiny-lr')();
+var nodemon = require('gulp-nodemon');
 //var bowerJSON = require('./bower.json');
 //var googlecdn = require('gulp-google-cdn');
 
@@ -85,7 +86,15 @@ function notifyLiveReload(event) {
   });
 }
 
-gulp.task('watch', [ 'watch-noreload' ], function() {
+gulp.task('watch', [ 'watch-noapp' ], function() {
+  nodemon({
+    script: 'app.js',
+    ext: 'js',
+    ignore: ['Readme.md', 'node_modules/', './assets/']
+  });
+});
+
+gulp.task('watch-noapp', [ 'watch-noreload' ], function() {
   livereload.listen(settings.liveReload.port);
   gulp.watch([
     './assets/public/**/*',
