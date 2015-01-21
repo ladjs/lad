@@ -98,7 +98,8 @@ gulp.task('watch-noapp', [ 'watch-noreload' ], function() {
   livereload.listen(settings.liveReload.port);
   gulp.watch([
     './assets/public/**/*',
-    '!./assets/public/**/*.less'
+    '!./assets/public/**/*.less',
+    './app/views/**/*.jade'
   ], notifyLiveReload);
 });
 
