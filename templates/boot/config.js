@@ -148,6 +148,7 @@ exports = module.exports = function() {
         slack: false
       },
       less: {
+        enabled: true,
         path: publicDir,
         options: {
           force: true,
