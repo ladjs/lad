@@ -25,6 +25,7 @@ var override = require('gulp-rev-css-url');
 var filter = require('gulp-filter');
 var livereload = require('tiny-lr')();
 var nodemon = require('gulp-nodemon');
+var autoprefixer = require('gulp-autoprefixer');
 //var bowerJSON = require('./bower.json');
 //var googlecdn = require('gulp-google-cdn');
 
@@ -64,12 +65,19 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter(stylish));
 });
 
+
 gulp.task('less', function() {
   return gulp
     .src([
       './assets/public/css/style.less'
     ])
-    .pipe(less().on('error', logger.error))
+    .pipe(sourcemaps.init())
+      .pipe(less().on('error', logger.error))
+      .pipe(autoprefixer({
+        // browsers: ['last 2 versions'],
+        cascade: true,
+        remove: true
+      }))
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest('./assets/public/css'));
 });
