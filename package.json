@@ -48,6 +48,7 @@
     "bootable": "^0.2.3",
     "bootable-environment": "^0.2.0",
     "chalk": "^0.5.1",
+    "chance": "^0.7.3",
     "commander": "^2.2.0",
     "compression": "^1.0.6",
     "connect": "^3.1.1",

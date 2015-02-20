@@ -2,6 +2,7 @@
 // # config
 
 var path = require('path');
+var autoprefixer = require('autoprefixer-core');
 
 var parentDir = path.join(__dirname, '..');
 var appDir = path.join(parentDir, 'app');
@@ -17,7 +18,7 @@ var maxAge = 24 * 60 * 60 * 1000;
 
 exports = module.exports = function() {
 
-  return {
+  var config = {
 
     defaults: {
       basicAuth: {
@@ -82,8 +83,8 @@ exports = module.exports = function() {
         messageFormat: 'text'
       },
       session: {
-        secret: 'igloo-change-me',
-        key: 'igloo',
+        secret: '<%= chance.string({length: 130}) %>',
+        key: '<%= _.slugify(name) %>',
         cookie: {
           maxAge: maxAge
         },
@@ -108,7 +109,7 @@ exports = module.exports = function() {
           options: {}
         }
       },
-      cookieParser: 'igloo-change-me',
+      cookieParser: '<%= chance.string({length: 130}) %>',
       csrf: {
         enabled: true,
         options: {
@@ -149,7 +150,12 @@ exports = module.exports = function() {
       less: {
         path: publicDir,
         options: {
-          force: true
+          force: true,
+          postprocess: {
+            css: function(css, req) {
+              return autoprefixer.process(css).css;
+            }
+          }
         }
       },
       jade: {
@@ -169,8 +175,12 @@ exports = module.exports = function() {
         env: 'test',
         port: 5000
       },
+      mongo: {
+        dbname: '<%= _.slugify(name) %>_test',
+        db: '<%= _.slugify(name) %>_test' // keep for winston logger
+      },
       redis: {
-        prefix: 'igloo_test'
+        prefix: '<%= _.slugify(name) %>_test',
       },
       logger: {
         'console': false,
@@ -180,14 +190,14 @@ exports = module.exports = function() {
 
     development: {
       cache: true,
-      url: 'http://localhost:3000',
+      url: 'http://<%= _.slugify(name) %>-dev.clevertech.biz',
       server: {
         env: 'development',
         port: 3000,
       },
       mongo: {
-        dbname: 'igloo-development',
-        db: 'igloo-development' // keep for winston logger
+        dbname: '<%= _.slugify(name) %>_development',
+        db: '<%= _.slugify(name) %>_development' // keep for winston logger
       },
       knex: {
         debug: true,
@@ -195,17 +205,76 @@ exports = module.exports = function() {
           host: '127.0.0.1',
           user: 'root',
           password: '',
-          database: 'igloo_development'
+          database: '<%= _.slugify(name) %>_development'
         }
       },
       redis: {
-        prefix: 'igloo-development'
+        prefix: '<%= _.slugify(name) %>_development'
+      }
+    },
+
+    staging: {
+      cache: true,
+      url: 'http://<%= _.slugify(name) %>-stag.clevertech.biz',
+      password: {
+        minStrength: 1,
+        limitAttempts: true
+      },
+      views: {
+        dir: path.join(assetsDir, 'dist'),
+      },
+      publicDir: path.join(assetsDir, 'dist'),
+      showStack: false,
+      updateNotifier: {
+        enabled: false,
+      },
+      server: {
+        env: 'staging',
+        port: 3080,
+        cluster: true
+      },
+      mongo: {
+        dbname: '<%= _.slugify(name) %>_staging',
+        db: '<%= _.slugify(name) %>_staging' // keep for winston logger
+      },
+      knex: {
+        connection: {
+          host: '127.0.0.1',
+          user: 'root',
+          password: '',
+          database: '<%= _.slugify(name) %>_staging'
+        }
+      },
+      redis: {
+        prefix: '<%= _.slugify(name) %>_staging'
+      },
+      output: {
+        colorize: false
+      },
+      logger: {
+        'console': true,
+        requests: true,
+        mongo: false,
+        file: false
+        /*
+        // <https://github.com/flatiron/winston#file-transport>
+        file: {
+          filename: '/var/log/igloo.log',
+          // TODO: maxsize
+          // TODO: maxFiles
+          timestamp: true
+        }
+        */
+      },
+      s3: {
+        bucket: 'requidity-stag'
       }
     },
 
     production: {
       cache: true,
-      url: 'http://localhost:3080',
+      // FIXME
+      url: 'http://<%= _.slugify(name) %>-prod.clevertech.biz',
       password: {
         minStrength: 1,
         limitAttempts: true
@@ -224,19 +293,19 @@ exports = module.exports = function() {
         cluster: true
       },
       mongo: {
-        dbname: 'igloo-production',
-        db: 'igloo-production' // keep for winston logger
+        dbname: '<%= _.slugify(name) %>_production',
+        db: '<%= _.slugify(name) %>_production' // keep for winston logger
       },
       knex: {
         connection: {
           host: '127.0.0.1',
           user: 'root',
           password: '',
-          database: 'igloo_production'
+          database: '<%= _.slugify(name) %>_production'
         }
       },
       redis: {
-        prefix: 'igloo_production'
+        prefix: '<%= _.slugify(name) %>_production'
       },
       output: {
         colorize: false
@@ -259,6 +328,8 @@ exports = module.exports = function() {
     }
 
   };
+
+  return config;
 
 };
 
