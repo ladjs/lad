@@ -193,7 +193,6 @@ function create(dirname) {
             chance: new Chance()
           });
 
-          fs.writeFile(readmePath, data, callback);
           fs.writeFile(configPath, data, callback);
 
         });
