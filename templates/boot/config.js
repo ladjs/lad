@@ -164,9 +164,6 @@ exports = module.exports = function() {
           path: '/js/tmpl/',
           options: {}
         }
-      },
-      liveReload: {
-        port: 35729
       }
     },
 

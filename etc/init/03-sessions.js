@@ -28,7 +28,7 @@ exports = module.exports = function(IoC, settings, sessions, User, policies) {
   // support live reload
   // (note this must come after sessions)
   // <http://stackoverflow.com/a/26740588>
-  if (settings.server.env === 'development')
+  if (settings.server.env === 'development' && settings.liveReload)
     app.all(policies.notApiRouteRegexp, connectLiveReload(settings.liveReload));
 
   // add support for authentication
