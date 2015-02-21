@@ -23,8 +23,10 @@ exports = module.exports = function(IoC, logger, settings, policies) {
 
   if (settings.server.env === 'development') {
 
-    // less middleware
-    app.use(lessMiddleware(settings.less.path, settings.less.options));
+    if (settings.less.enabled) {
+      // less middleware
+      app.use(lessMiddleware(settings.less.path, settings.less.options));
+    }
 
     // jade-amd templates
     app.use(settings.jade.amd.path, jadeAmd.jadeAmdMiddleware(settings.jade.amd.options));

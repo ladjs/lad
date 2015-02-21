@@ -22,6 +22,12 @@ exports = module.exports = function() {
           pass: 'abc123'
         }
       }
+    },
+    // less: {
+    //   enabled: false // disable less middleware, if you use gulp watch
+    // },
+    liveReload: {
+      port: 35729
     }
   };
 };
