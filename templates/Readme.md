@@ -41,6 +41,10 @@ gulp postinstall
 Configuration (e.g. database and logging setting per environment) is stored in `boot/config.js`.
 
 
+## Documentation
+
+[The wiki](https://github.com/niftylettuce/eskimo/wiki) is the main source for additional documentation.
+
 ## Usage
 
 ### Development

@@ -39,6 +39,10 @@
 npm install -g eskimo
 ```
 
+## Documentation
+
+[The wiki](https://github.com/niftylettuce/eskimo/wiki) is the main source for additional documentation.
+
 
 ## Screencast
 
