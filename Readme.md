@@ -120,6 +120,40 @@ Want a free Eskimo snow shoes sticker?  Just submit [this form][google-form].
 
 ## Tests
 
+To run tests you'll need to have configuration set up. Config lives under `/boot/config.js` (as stated before). To quickly and dirty set your configuration you can run something like:
+
+```javascript
+var _ = require('underscore');
+var _str = require('underscore.string');
+_.mixin(_str.exports());
+var path = require('path');
+var fs = require('fs');
+var templates = path.join(__dirname, 'templates');
+var Chance = require('chance');
+
+var dirname = './';
+
+var configPath = path.resolve(path.join(dirname, 'boot', 'config.js'));
+
+
+fs.readFile(path.join(templates, 'boot', 'config.js'), 'utf8', function(err, data) {
+
+  if (err) {
+    console.error(err);
+  }
+
+  data = _.template(data)({
+    name: path.basename(dirname),
+    chance: new Chance()
+  });
+
+  fs.writeFile(configPath, data);
+
+});
+```
+
+Running that in the root of the project will generate a base config.js which you can then tune.
+
 ```bash
 npm install -d
 npm test
