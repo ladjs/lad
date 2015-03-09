@@ -16,6 +16,7 @@ IoC.loader(IoC.node(path.join(__dirname, 'boot')));
 IoC.loader('igloo', require('igloo'));
 IoC.loader('controllers', IoC.node(path.join(__dirname, 'app', 'controllers')));
 IoC.loader('models', IoC.node(path.join(__dirname, 'app', 'models')));
+IoC.loader('utils', IoC.node(path.join(__dirname, 'app', 'utils')));
 
 // phases
 

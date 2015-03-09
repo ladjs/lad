@@ -1,27 +1,38 @@
 
 // # caching
-
+var _ = require('underscore');
+var _str = require('underscore.string');
 var path = require('path');
 var helmet = require('helmet');
 
-exports = module.exports = function(IoC, settings) {
+_.mixin(_str.exports());
+
+exports = module.exports = function(IoC, settings, logger, cachingUtils) {
 
   var app = this;
 
   // Disable cache if settings say so
   if (!settings.cache) {
     app.use(helmet.nocache());
+    logger.info('HTTP caching is disabled');
   } else {
-    // Enable cache if NOT an XHR (AJAX) request
+    logger.info('HTTP caching is enabled');
+
     app.use(function(req, res, next) {
       if (req.xhr) return next();
-      res.setHeader('Cache-Control', 'public');
-      res.setHeader('Pragma', '');
-      res.setHeader('Expires', settings.staticServer.maxAge);
+
+      // Enable cache if NOT an XHR (AJAX) request
+      var headers = cachingUtils.getCachingHeadersFromSettings(settings);
+      if(headers.length > 0){
+        _.each(headers, function(header){
+          res.setHeader(header['key'], header['value']);
+        });
+      }
+
       next();
     });
   }
 
 };
 
-exports['@require'] = [ '$container', 'igloo/settings' ];
+exports['@require'] = [ '$container', 'igloo/settings', 'igloo/logger', 'utils/caching'];

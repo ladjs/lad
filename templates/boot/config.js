@@ -14,7 +14,7 @@ var publicDir = path.join(assetsDir, 'public');
 var templatesDir = path.join(assetsDir, 'emails');
 var viewsDir = path.join(appDir, 'views');
 
-var maxAge = 24 * 60 * 60 * 1000;
+var maxAge = 365 * 24 * 60 * 60;  // One year in seconds
 
 exports = module.exports = function() {
 
@@ -99,6 +99,7 @@ exports = module.exports = function() {
         updateCheckTimeout: 1000 * 20
       },
       staticServer: {
+        cacheControlPrivilege: 'public',
         maxAge: maxAge
       },
       server: {
@@ -181,7 +182,7 @@ exports = module.exports = function() {
         prefix: '<%= _.slugify(name) %>_test',
       },
       logger: {
-        'console': false,
+        'console': true,
         requests: false
       }
     },
