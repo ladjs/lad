@@ -40,7 +40,7 @@ describe('caching-utils', function(){
       var settings = {
         staticServer: {
           skipCacheControl: true,
-          maxAge: 1
+          maxAgeInMilliseconds: 1000
         }
       };
 
@@ -56,7 +56,7 @@ describe('caching-utils', function(){
 
         var settings = {
           staticServer: {
-            maxAge: 1000
+            maxAgeInMilliseconds: 1000 * 1000
           }
         };
 
@@ -75,7 +75,7 @@ describe('caching-utils', function(){
 
         var settings = {
           staticServer: {
-            maxAge: 1000,
+            maxAgeInMilliseconds: 1000 * 1000,
             cacheControlPrivilege: 'public'
           }
         };
@@ -94,7 +94,7 @@ describe('caching-utils', function(){
 
         var settings = {
           staticServer: {
-            maxAge: 1000,
+            maxAgeInMilliseconds: 1000 * 1000,
             cacheControlPrivilege: 'private'
           }
         };
@@ -108,6 +108,46 @@ describe('caching-utils', function(){
         expect(header).have.keys(['key', 'value']);
         expect(header['key']).equal('Cache-Control');
         expect(header['value']).equal('private, max-age=1000');
+      });
+    });
+
+    describe('old legacy settings with maxAge', function(){
+      it('should fall back to that setting if maxAgeInMilliseconds is not present', function(){
+        var settings = {
+          staticServer: {
+            maxAge: 1000 * 1000,
+            cacheControlPrivilege: 'private'
+          }
+        };
+
+        var cacheHeaders = cachingUtils.getCachingHeadersFromSettings(settings);
+
+        expect(cacheHeaders).not.be.empty;
+        expect(cacheHeaders.length).to.equal(2);
+        var header = cacheHeaders[1];
+
+        expect(header).have.keys(['key', 'value']);
+        expect(header['key']).equal('Cache-Control');
+        expect(header['value']).equal('private, max-age=1000');
+      });
+      it('should prevail maxAgeInMilliseconds is both are present', function(){
+        var settings = {
+          staticServer: {
+            maxAge: 1000 * 1000,
+            maxAgeInMilliseconds: 9000 * 1000,
+            cacheControlPrivilege: 'private'
+          }
+        };
+
+        var cacheHeaders = cachingUtils.getCachingHeadersFromSettings(settings);
+
+        expect(cacheHeaders).not.be.empty;
+        expect(cacheHeaders.length).to.equal(2);
+        var header = cacheHeaders[1];
+
+        expect(header).have.keys(['key', 'value']);
+        expect(header['key']).equal('Cache-Control');
+        expect(header['value']).equal('private, max-age=9000');
       });
     });
 

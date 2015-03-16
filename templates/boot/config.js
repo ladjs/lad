@@ -14,7 +14,7 @@ var publicDir = path.join(assetsDir, 'public');
 var templatesDir = path.join(assetsDir, 'emails');
 var viewsDir = path.join(appDir, 'views');
 
-var maxAge = 365 * 24 * 60 * 60;  // One year in seconds
+var maxAgeInMilliseconds = 365 * 24 * 60 * 60 * 1000;  // One year in milliseconds
 
 exports = module.exports = function() {
 
@@ -86,7 +86,7 @@ exports = module.exports = function() {
         secret: '<%= chance.string({length: 130}) %>',
         key: '<%= _.slugify(name) %>',
         cookie: {
-          maxAge: maxAge
+          maxAgeInMilliseconds: maxAgeInMilliseconds
         },
         resave: true,
         saveUninitialized: true
@@ -100,7 +100,7 @@ exports = module.exports = function() {
       },
       staticServer: {
         cacheControlPrivilege: 'public',
-        maxAge: maxAge
+        maxAgeInMilliseconds: maxAgeInMilliseconds
       },
       server: {
         host: 'localhost',
@@ -115,7 +115,7 @@ exports = module.exports = function() {
         enabled: true,
         options: {
           cookie: {
-            maxAge: maxAge
+            maxAgeInMilliseconds: maxAgeInMilliseconds
           }
         }
       },
@@ -133,7 +133,7 @@ exports = module.exports = function() {
       redis: {
         host: 'localhost',
         port: 6379,
-        maxAge: maxAge
+        maxAgeInMilliseconds: maxAgeInMilliseconds
       },
       output: {
         handleExceptions: false,

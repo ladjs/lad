@@ -9,27 +9,32 @@ _.mixin(_str.exports());
 
 exports = module.exports = function(IoC) {
   return {
-    getCachingHeadersFromSettings: function(settings){
-      var maxAge = parseInt(settings.staticServer.maxAge);
-      var headers = [];
+    getCachingHeadersFromSettings: function(settings) {
+      var maxAgeInMilliseconds = (
+        parseInt(settings.staticServer.maxAgeInMilliseconds, 10) ||
+        parseInt(settings.staticServer.maxAge, 10)
+      );
+      var maxAgeInSeconds = parseInt(maxAgeInMilliseconds / 1000, 10);
 
-      if(maxAge){
+      if(!maxAgeInMilliseconds) {
+        return [];
+      }
+
+      var headers = [{
+        'key': 'Expires',
+        'value': new Date(Date.now() + maxAgeInMilliseconds).toUTCString()
+      }];
+
+      if(!settings.staticServer.skipCacheControl) {
+        var cacheControl = _.sprintf(
+          "%s, max-age=%s",
+          settings.staticServer.cacheControlPrivilege || 'public',
+          maxAgeInSeconds
+        );
         headers.push({
-          'key': 'Expires',
-          'value': new Date(Date.now() + (maxAge * 1000)).toUTCString()
+          'key': 'Cache-Control',
+          'value': cacheControl
         });
-
-        if(!settings.staticServer.skipCacheControl){
-          var cacheControl = _.sprintf(
-            "%s, max-age=%s",
-            settings.staticServer.cacheControlPrivilege || 'public',
-            settings.staticServer.maxAge
-          );
-          headers.push({
-            'key': 'Cache-Control',
-            'value': cacheControl
-          });
-        }
       }
       return headers;
     }
