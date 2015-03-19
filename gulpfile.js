@@ -16,7 +16,6 @@ var pngcrush = require('imagemin-pngcrush');
 var del = require('del');
 var runSequence = require('run-sequence');
 var usemin = require('gulp-jade-usemin');
-var uglify = require('gulp-uglify');
 var minifyHtml = require('gulp-minify-html');
 var rev = require('gulp-rev');
 var revall = require('gulp-rev-all');
