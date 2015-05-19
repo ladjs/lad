@@ -19,6 +19,7 @@
     "font-awesome": "~4.1.0",
     "jquery": "~2.1.1",
     "modernizr": "~2.8.3",
-    "bootbox": "~4.3.0"
+    "bootbox": "~4.3.0",
+    "jade": "~1.8.0"
   }
 }

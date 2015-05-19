@@ -2,14 +2,17 @@
 // # views
 
 var moment = require('moment');
+var expose = require('express-expose');
 
 exports = module.exports = function(IoC, settings) {
 
   var app = this;
 
+  // express-expose
+  app = expose(app);
+
   // add dynamic helpers for views
   app.use(function(req, res, next) {
-    var isXHR = req.xhr;
 
     res.locals.settings = settings;
     res.locals.req = req;
@@ -22,11 +25,8 @@ exports = module.exports = function(IoC, settings) {
 
     res.locals.moment = moment;
 
-    if (settings.csrf.enabled && (!isXHR && req.path.indexOf('/api') !== 0)) {
+    if (settings.csrf.enabled)
       res.locals.csrf = req.csrfToken();
-    } else {
-      res.locals.csrf = '';
-    }
 
     next();
 

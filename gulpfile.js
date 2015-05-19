@@ -102,7 +102,7 @@ gulp.task('bower', function() {
   return bower({
     force: true,
     directory: './assets/public/bower'
-  }).pipe(gulp.dest('./assets/dist/bower'));
+  }).pipe(gulp.dest('./dist/assets/bower'));
 });
 
 gulp.task('font-awesome', function() {
@@ -113,7 +113,7 @@ gulp.task('font-awesome', function() {
 
 gulp.task('clean', function() {
   return del([
-    './assets/dist',
+    './dist',
     './bower_components',
     './assets/public/fonts/font-awesome'
   ], {
@@ -133,7 +133,7 @@ gulp.task('imagemin', function () {
       //use: [ pngcrush() ]
     }))
     .pipe(pngcrush())
-    .pipe(gulp.dest('./assets/dist/img/'));
+    .pipe(gulp.dest('./dist/assets/img/'));
 });
 
 gulp.task('copy', function() {
@@ -144,7 +144,7 @@ gulp.task('copy', function() {
       './assets/public/crossdomain.xml',
       './assets/public/apple-touch-icon-precomposed.png',
     ])
-    .pipe(gulp.dest('./assets/dist/'));
+    .pipe(gulp.dest('./dist/assets/'));
 });
 
 gulp.task('usemin-js', function() {
@@ -165,7 +165,7 @@ gulp.task('usemin-js', function() {
       file.path = file.revOrigPath;
       cb(null, file);
     }))
-    .pipe(gulp.dest('./assets/dist/js'));
+    .pipe(gulp.dest('./dist/assets/js'));
 });
 
 gulp.task('usemin-css', function() {
@@ -199,17 +199,17 @@ gulp.task('usemin-css', function() {
       //use: [ pngcrush() ]
     }))
     .pipe(pngcrush())
-    .pipe(gulp.dest('./assets/dist/img'))
+    .pipe(gulp.dest('./dist/assets/img'))
     .pipe(imageFilter.restore())
     .pipe(fontFilter)
-    .pipe(gulp.dest('./assets/dist/fonts'))
+    .pipe(gulp.dest('./dist/assets/fonts'))
     .pipe(fontFilter.restore())
     .pipe(cssFilter)
     .pipe(through.obj(function(file, enc, cb) {
       file.path = file.revOrigPath;
       cb(null, file);
     }))
-    .pipe(gulp.dest('./assets/dist/css'))
+    .pipe(gulp.dest('./dist/assets/css'))
     .pipe(cssFilter.restore());
 });
 
@@ -220,7 +220,7 @@ gulp.task('usemin-jade', function() {
   return gulp
     .src('./app/views/**/*.jade')
     .pipe(usemin({
-      assetsDir: path.join(settings.assetsDir, 'dist'),
+      assetsDir: path.join(settings.distDir, 'assets'),
       css: [ csso(), 'concat', rev() ],
       html: [ minifyHtml({empty: true}), 'concat', rev() ],
       js: [ uglify(), 'concat', rev() ]
@@ -231,7 +231,13 @@ gulp.task('usemin-jade', function() {
       cdn: require('cdnjs-cdn-data')
     }))
     */
-    .pipe(gulp.dest('./assets/dist'));
+    // this extra pipe will take all our jade files and move them to the dist/views dir
+    .pipe(through.obj(function(file, enc, cb) {
+      if (path.extname(file.path) === '.jade')
+        file.path = '../views/' + file.path;
+      cb(null, file);
+    }))
+    .pipe(gulp.dest('./dist/assets'));
 });
 
 gulp.task('build', function(callback) {

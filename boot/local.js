@@ -22,6 +22,9 @@ exports = module.exports = function() {
           pass: 'abc123'
         }
       }
+    },
+    liveReload: {
+      enabled: true
     }
   };
 };

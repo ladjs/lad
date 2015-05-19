@@ -17,8 +17,7 @@ exports = module.exports = function(IoC, settings, policies) {
   app.use(helmet());
 
   // cross site request forgery prevention (csrf)
-  // note: disabled automatically for XHR (AJAX) requests
-  // and requests with `/api` prefixed route path
+  // (disabled for /api endpoints)
   if (settings.csrf.enabled) {
     app.all(policies.notApiRouteRegexp, function(req, res, next) {
       if (req.xhr) return next();

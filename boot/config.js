@@ -8,7 +8,8 @@ var appDir = path.join(parentDir, 'app');
 
 var pkg = require(path.join(parentDir, 'package'));
 
-var assetsDir = path.join(parentDir,'assets');
+var assetsDir = path.join(parentDir, 'assets');
+var distDir = path.join(parentDir, 'dist');
 var publicDir = path.join(assetsDir, 'public');
 var templatesDir = path.join(assetsDir, 'emails');
 var viewsDir = path.join(appDir, 'views');
@@ -44,6 +45,7 @@ exports = module.exports = function() {
       cache: false,
       showStack: true,
       assetsDir: assetsDir,
+      distDir: distDir,
       publicDir: publicDir,
       views: {
         dir: viewsDir,
@@ -159,6 +161,7 @@ exports = module.exports = function() {
         }
       },
       liveReload: {
+        enabled: false,
         port: 35729
       }
     },
@@ -211,9 +214,9 @@ exports = module.exports = function() {
         limitAttempts: true
       },
       views: {
-        dir: path.join(assetsDir, 'dist'),
+        dir: path.join(distDir, 'views'),
       },
-      publicDir: path.join(assetsDir, 'dist'),
+      publicDir: path.join(distDir, 'assets'),
       showStack: false,
       updateNotifier: {
         enabled: false,

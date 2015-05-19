@@ -27,7 +27,6 @@ exports = module.exports = function(IoC, logger, settings, policies) {
     app.use(lessMiddleware(settings.less.path, settings.less.options));
 
     // express-jade templates (client side templates)
-    // TODO: create a gulp/grunt task for compiling jade templates
     app.get('/js/templates/*', expressJade(settings.views.dir));
 
   }

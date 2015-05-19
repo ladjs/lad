@@ -28,8 +28,8 @@ exports = module.exports = function(IoC, settings, sessions, User, policies) {
   // support live reload
   // (note this must come after sessions)
   // <http://stackoverflow.com/a/26740588>
-  if (settings.server.env === 'development')
-    app.all(policies.notApiRouteRegexp, connectLiveReload(settings.liveReload));
+  if (settings.liveReload.enabled)
+    app.all(policies.notApiRouteRegexp, connectLiveReload(settings.liveReload.options));
 
   // add support for authentication
   app.use(passport.initialize());
