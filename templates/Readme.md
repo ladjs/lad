@@ -38,8 +38,12 @@ gulp postinstall
 
 ## Configuration
 
-Configuration (e.g. database and logging setting per environment) is stored in "boot/config.js".
+Configuration (e.g. database and logging setting per environment) is stored in `boot/config.js`.
 
+
+## Documentation
+
+[The wiki](https://github.com/niftylettuce/eskimo/wiki) is the main source for additional documentation.
 
 ## Usage
 
@@ -72,8 +76,11 @@ gulp jshint
 # Runs 'clean', 'bower', 'less', 'copy', 'imagemin', 'usemin-css', 'usemin-js', and 'usemin-jade'
 gulp build
 
-# Runs 'watch-noreload', and starts a livereload server to automatically refresh your browser when changes are done
+# Runs 'watch-noapp', running the app with nodemon and livereload
 gulp watch
+
+# Runs 'watch-noreload', and starts a livereload server to automatically refresh your browser when changes are done
+gulp watch-noapp
 
 # Watches changes to public assets (images, fonts, less/css, js, and jade files) and runs appropriate tasks ('imagemin', 'less'/'usemin-css', 'usemin-js', 'usemin-jade') to parse them
 gulp watch-noreload

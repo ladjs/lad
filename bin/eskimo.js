@@ -20,6 +20,8 @@ var pluralize = require('pluralize');
 _.pluralize = pluralize.plural;
 _.singularize = pluralize.singular;
 
+var Chance = require('chance');
+
 var multiline = require('multiline');
 var async = require('async');
 var fs = require('fs');
@@ -157,7 +159,6 @@ function create(dirname) {
       },
 
       'Readme.md': function createReadmeFile(callback) {
-
         var readmePath = path.resolve(path.join(dirname, 'Readme.md'));
 
         fs.readFile(path.join(templates, 'Readme.md'), 'utf8', function(err, data) {
@@ -174,6 +175,27 @@ function create(dirname) {
 
         });
 
+      },
+
+
+      'config.js': function createConfigFile(callback) {
+
+        var configPath = path.resolve(path.join(dirname, 'boot', 'config.js'));
+
+        fs.readFile(path.join(templates, 'boot', 'config.js'), 'utf8', function(err, data) {
+
+          if (err) {
+            return callback(err);
+          }
+
+          data = _.template(data)({
+            name: path.basename(dirname),
+            chance: new Chance()
+          });
+
+          fs.writeFile(configPath, data, callback);
+
+        });
 
       },
 

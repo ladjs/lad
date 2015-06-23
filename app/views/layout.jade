@@ -11,13 +11,19 @@ html.no-js
       meta(name='description', content='This rapid MVP was built with Eskimo.')
       meta(name='viewport', content='width=device-width, initial-scale=1')
       meta(name='_csrf', value=csrf)
-    <!-- build:css /css/app.css -->
+      if settings.server.env !== 'production'
+        meta(name='robots' content='noindex')
+        meta(name='googlebot' content='noindex')
+
+    //- build:css /css/app.css
     block stylesheets
       link(rel='stylesheet', href='/css/style.css')
-    <!-- endbuild -->
-    <!-- build:js /js/modernizr.js -->
+    //- endbuild
+
+    //- build:js /js/modernizr.js
     script(src='/bower/modernizr/modernizr.js')
-    <!-- endbuild -->
+    //- endbuild
+
   body
     //- Browse Happy
     //- <http://browsehappy.com/>
@@ -32,7 +38,7 @@ html.no-js
     block messages
       include _messages.jade
     block content
-    <!-- build:js /js/app.js -->
+    //- build:js /js/app.js
     block scripts
       script(src='/bower/jquery/dist/jquery.js')
       script(src='/bower/bootstrap/dist/js/bootstrap.js')
@@ -44,4 +50,4 @@ html.no-js
       script(src='/js/main.js')
       if settings.facebook.enabled
         script(src='/js/fb-appended-hash-bug-fix.js')
-    <!-- endbuild -->
+    //- endbuild

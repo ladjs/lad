@@ -2,14 +2,10 @@
 // # views
 
 var moment = require('moment');
-var expose = require('express-expose');
 
 exports = module.exports = function(IoC, settings) {
 
   var app = this;
-
-  // express-expose
-  app = expose(app);
 
   // add dynamic helpers for views
   app.use(function(req, res, next) {

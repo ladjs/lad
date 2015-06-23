@@ -24,7 +24,8 @@ exports = module.exports = function() {
       }
     },
     liveReload: {
-      enabled: true
+      enabled: true,
+      port: 35729
     }
   };
 };

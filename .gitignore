@@ -103,11 +103,14 @@ dwsync.xml
 # ------------------------------------------------------------------------------
 assets/bower/
 assets/dist/
-bower_components/
 assets/public/css/*.css
+assets/public/css/maps/
 assets/public/bower/
+assets/public/fonts/font-awesome/
+bower_components/
 .bower-cache/
 .bower-registry/
 .bower-tmp/
 coverage/
 .vagrant/
+boot/config.js

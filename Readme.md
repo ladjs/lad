@@ -2,6 +2,7 @@
 # Eskimo
 
 [![NPM version][npm-image]][npm-url]
+[![Circle CI][circleci-image]][circleci-url]
 [![Build Status][travis-image]][travis-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
@@ -38,6 +39,10 @@
 ```bash
 npm install -g eskimo
 ```
+
+## Documentation
+
+[The wiki](https://github.com/niftylettuce/eskimo/wiki) is the main source for additional documentation.
 
 
 ## Screencast
@@ -88,6 +93,7 @@ eskimo controller 'user settings'
 
 > [**Please read Igloo's documentation for more information.**](http://igloojs.com) or your created igloo's `Readme.md`.
 
+
 ## Examples
 
 * [Launching Soon Page][launching-soon-page]
@@ -116,9 +122,67 @@ Want a free Eskimo snow shoes sticker?  Just submit [this form][google-form].
 
 ## Tests
 
+To run tests you'll need to have configuration set up. Config lives under `/boot/config.js` (as stated before).
+
+We've provided a base config template, which you will need to copy it to your local folder in order to run tests.
+
+```bash
+cp ./templates/boot/config.js ./boot/config.js
+```
+
 ```bash
 npm install -d
 npm test
+```
+
+
+## Assets
+
+Assets refer to static files (scripts, stylesheets and other assets) placed in [assets/public](https://github.com/niftylettuce/eskimo/tree/master/assets/public). To build a production version of your app:
+
+```bash
+gulp build
+```
+
+Note: This will minify all assets and create a `./assets/dist` folder optimized and ready for deployment.
+
+List of tasks executed during `gulp build`:
+* Automatic LESS processing
+* Automatic install of Bower packages
+* Automatic images minification
+* Automatic `usemin` implementation (concat, rev, ...)
+
+Below is an example of a Jade file using `usemin` blocks:
+
+```jade
+
+//- # layout
+
+//- ...
+
+//- build:js /js/app.js
+block scripts
+  script(src='/bower/jquery/dist/jquery.js')
+  script(src='/bower/bootstrap/dist/js/bootstrap.js')
+  script(src='/bower/bootbox/bootbox.js')
+  script(src='/js/plugins.js')
+  script(src='/js/main.js')
+  if settings.facebook.enabled
+    script(src='/js/fb-appended-hash-bug-fix.js')
+//- endbuild
+
+```
+
+After running `gulp build`, the file will be optimized:
+
+```jade
+
+//- # layout
+
+//- ...
+
+script(src='/js/app-316568f4.js')
+
 ```
 
 
@@ -162,3 +226,5 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 [coveralls-url]: https://coveralls.io/r/niftylettuce/eskimo?branch=master
 [gitter-url]: https://gitter.im/niftylettuce/eskimo
 [gitter-image]: http://img.shields.io/badge/chat-online-brightgreen.svg?style=flat
+[circleci-image]: https://circleci.com/gh/niftylettuce/eskimo/tree/master.svg?style=svg&circle-token=20c14ca45ebf4bc8b61b70ac2c8734cd34c965bf
+[circleci-url]: https://circleci.com/gh/niftylettuce/eskimo/tree/master

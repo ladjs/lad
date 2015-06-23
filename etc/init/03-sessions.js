@@ -36,6 +36,8 @@ exports = module.exports = function(IoC, settings, sessions, User, policies) {
   app.all(policies.notApiRouteRegexp, passport.session());
 
   // add flash message support
+  app.use(session(settings.session));
+  app.use(flash());
   app.all(policies.notApiRouteRegexp, flash());
 
   // add passport strategies

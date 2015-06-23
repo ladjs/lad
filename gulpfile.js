@@ -12,7 +12,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var path = require('path');
 var imagemin = require('gulp-imagemin');
-var pngcrush = require('imagemin-pngcrush');
+var pngquant = require('imagemin-pngquant');
 var del = require('del');
 var runSequence = require('run-sequence');
 var usemin = require('gulp-jade-usemin');
@@ -68,7 +68,9 @@ gulp.task('less', function() {
     .src([
       './assets/public/css/style.less'
     ])
-    .pipe(less().on('error', logger.error))
+    .pipe(less().on('error', function(err) {
+      logger.error(err);
+    }))
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest('./assets/public/css'));
 });
@@ -100,9 +102,8 @@ gulp.task('watch-noreload', function() {
 
 gulp.task('bower', function() {
   return bower({
-    force: true,
     directory: './assets/public/bower'
-  }).pipe(gulp.dest('./dist/assets/bower'));
+  }).pipe(gulp.dest('./assets/dist/bower'));
 });
 
 gulp.task('font-awesome', function() {
@@ -113,7 +114,7 @@ gulp.task('font-awesome', function() {
 
 gulp.task('clean', function() {
   return del([
-    './dist',
+    './assets/dist',
     './bower_components',
     './assets/public/fonts/font-awesome'
   ], {
@@ -129,11 +130,10 @@ gulp.task('imagemin', function () {
     }))
     .pipe(imagemin({
       progressive: true,
-      svgoPlugins: [ { removeViewBox: false } ]
-      //use: [ pngcrush() ]
+      svgoPlugins: [ { removeViewBox: false } ],
+      use: [ pngquant() ]
     }))
-    .pipe(pngcrush())
-    .pipe(gulp.dest('./dist/assets/img/'));
+    .pipe(gulp.dest('./assets/dist/img/'));
 });
 
 gulp.task('copy', function() {
@@ -142,9 +142,15 @@ gulp.task('copy', function() {
       './assets/public/favicon.png',
       './assets/public/robots.txt',
       './assets/public/crossdomain.xml',
-      './assets/public/apple-touch-icon-precomposed.png',
+      './assets/public/apple-touch-icon-precomposed.png'
     ])
-    .pipe(gulp.dest('./dist/assets/'));
+    .pipe(gulp.dest('./assets/dist/'));
+});
+
+gulp.task('copy-images', function() {
+  return gulp
+    .src('./assets/public/img/**/*')
+    .pipe(gulp.dest('./assets/dist/img/'));
 });
 
 gulp.task('usemin-js', function() {
@@ -165,7 +171,7 @@ gulp.task('usemin-js', function() {
       file.path = file.revOrigPath;
       cb(null, file);
     }))
-    .pipe(gulp.dest('./dist/assets/js'));
+    .pipe(gulp.dest('./assets/dist/js'));
 });
 
 gulp.task('usemin-css', function() {
@@ -195,21 +201,20 @@ gulp.task('usemin-css', function() {
     .pipe(imageFilter)
     .pipe(imagemin({
       progressive: true,
-      svgoPlugins: [ { removeViewBox: false } ]
-      //use: [ pngcrush() ]
+      svgoPlugins: [ { removeViewBox: false } ],
+      use: [ pngquant() ]
     }))
-    .pipe(pngcrush())
-    .pipe(gulp.dest('./dist/assets/img'))
+    .pipe(gulp.dest('./assets/dist/img'))
     .pipe(imageFilter.restore())
     .pipe(fontFilter)
-    .pipe(gulp.dest('./dist/assets/fonts'))
+    .pipe(gulp.dest('./assets/dist/fonts'))
     .pipe(fontFilter.restore())
     .pipe(cssFilter)
     .pipe(through.obj(function(file, enc, cb) {
       file.path = file.revOrigPath;
       cb(null, file);
     }))
-    .pipe(gulp.dest('./dist/assets/css'))
+    .pipe(gulp.dest('./assets/dist/css'))
     .pipe(cssFilter.restore());
 });
 
@@ -220,7 +225,7 @@ gulp.task('usemin-jade', function() {
   return gulp
     .src('./app/views/**/*.jade')
     .pipe(usemin({
-      assetsDir: path.join(settings.distDir, 'assets'),
+      assetsDir: path.join(settings.assetsDir, 'dist'),
       css: [ csso(), 'concat', rev() ],
       html: [ minifyHtml({empty: true}), 'concat', rev() ],
       js: [ uglify(), 'concat', rev() ]
@@ -231,13 +236,7 @@ gulp.task('usemin-jade', function() {
       cdn: require('cdnjs-cdn-data')
     }))
     */
-    // this extra pipe will take all our jade files and move them to the dist/views dir
-    .pipe(through.obj(function(file, enc, cb) {
-      if (path.extname(file.path) === '.jade')
-        file.path = '../views/' + file.path;
-      cb(null, file);
-    }))
-    .pipe(gulp.dest('./dist/assets'));
+    .pipe(gulp.dest('./assets/dist'));
 });
 
 gulp.task('build', function(callback) {
@@ -245,6 +244,7 @@ gulp.task('build', function(callback) {
     'clean',
     'postinstall',
     'copy',
+    'copy-images',
     'imagemin',
     'usemin-css',
     'usemin-js',

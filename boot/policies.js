@@ -14,7 +14,6 @@ exports = module.exports = function(IoC, User) {
   // since there are issues with `passport-http` right now
   // this is implemented as a temporary solution
   function ensureApiToken(req, res, next) {
-
     var creds = auth(req);
 
     if (!creds || !_.isString(creds.name)) {

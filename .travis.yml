@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-- '0.10'
+- '0.12.x'
+- 'iojs-v2.0.1'
 services:
 - redis-server
 - mongodb

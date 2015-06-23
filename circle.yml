@@ -1,0 +1,37 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
+machine:
+  timezone: America/New_York
+  node:
+    version:
+      - 0.12.x
+      - iojs-v2.0.1
+  services:
+    - mongodb
+    - redis
+  environment:
+    CODECLIMATE_REPO_TOKEN: "2f8c29bc50a4e4c238ad3c49dbc8285df5602fa7e8b883ae0be0aaa37b86fdb0"
+    COVERALLS_REPO_TOKEN: "4LsUA7Ai211Oy80wuU3wsO0MNZbsofAhL"
+dependencies:
+  cache_directories:
+    - "node_modules"
+    - "~/.npm/_git-remotes/"
+  override:
+    - "npm prune && npm install -d"
+test:
+  override:
+    - "npm run-script test-circleci"
+  post:
+    - "npm install -g coveralls && cat ./coverage/lcov.info | coveralls"
+    - "npm install -g codeclimate-test-reporter && cat ./coverage/lcov.info | codeclimate"
+#deployment:
+#  staging:
+#    branch: development
+#    commands:
+#      - "git push -f circleci@heroku.com:${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master"
+#  production:
+#    branch: master
+#    commands:
+#      - ./deploy_prod.sh
