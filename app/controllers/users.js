@@ -11,7 +11,7 @@ _.mixin(_str.exports());
 exports = module.exports = function(User) {
 
   function index(req, res, next) {
-    User.paginate({}, req.query.page, req.query.limit, function(err, pageCount, users, itemCount) {
+    User.paginate({}, {page: req.query.page, limit:req.query.limit}, function(err, users, pageCount, itemCount) {
       if (err) {
         return next(err);
       }
