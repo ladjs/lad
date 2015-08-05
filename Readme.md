@@ -2,13 +2,11 @@
 # Eskimo
 
 [![NPM version][npm-image]][npm-url]
-[![Circle CI][circleci-image]][circleci-url]
-[![Build Status][travis-image]][travis-url]
 [![NPM downloads][npm-downloads]][npm-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
+[![Circle CI][circleci-image]][circleci-url]
 [![Static Analysis][codeclimate-image]][codeclimate-url]
 [![MIT License][license-image]][license-url]
-[![Gitter][gitter-image]][gitter-url]
+[![Slack][slack-image]][slack-url]
 
 ![Eskimo](eskimo.png?raw=true)
 
@@ -224,7 +222,7 @@ See [nifty-conventions][nifty-conventions] for code guidelines, general project 
 [travis-image]: http://img.shields.io/travis/niftylettuce/eskimo.svg?style=flat
 [coveralls-image]: https://img.shields.io/coveralls/niftylettuce/eskimo.svg?style=flat
 [coveralls-url]: https://coveralls.io/r/niftylettuce/eskimo?branch=master
-[gitter-url]: https://gitter.im/niftylettuce/eskimo
-[gitter-image]: http://img.shields.io/badge/chat-online-brightgreen.svg?style=flat
+[slack-url]: http://slack.eskimo.io/
+[slack-image]: http://slack.eskimo.io/badge.svg
 [circleci-image]: https://circleci.com/gh/niftylettuce/eskimo/tree/master.svg?style=svg&circle-token=20c14ca45ebf4bc8b61b70ac2c8734cd34c965bf
 [circleci-url]: https://circleci.com/gh/niftylettuce/eskimo/tree/master

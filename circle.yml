@@ -6,8 +6,7 @@ machine:
   timezone: America/New_York
   node:
     version:
-      - 0.12.x
-      - iojs-v2.0.1
+      - "0.12"
   services:
     - mongodb
     - redis
