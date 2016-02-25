@@ -10,7 +10,7 @@ var paginate = require('express-paginate');
 exports = module.exports = function(<%= _.classify(name) %>) {
 
   function index(req, res, next) {
-    <%= _.classify(name) %>.paginate({}, {page: req.query.page, limit:req.query.limit}, function(err, pageCount, <%= _.camelize(_.pluralize(name)) %>, itemCount) {
+    <%= _.classify(name) %>.paginate({}, {page: req.query.page, limit:req.query.limit}, function(err, <%= _.camelize(_.pluralize(name)) %>, pageCount, itemCount) {
       if (err) {
         return next(err);
       }
