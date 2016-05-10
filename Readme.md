@@ -15,7 +15,7 @@
 
 > **Tip:** While reading, you can click the Glazed logo in section headers to jump back to this index.
 
-## [![glazed-logo-xs]](#index) [Index](#index)
+## [![glazed-logo-xs]](#-index) [Index](#-index)
 * [What is Glazed?](#-what-is-glazed)
   - [Thoughts](#thoughts)
   - [Showcase](#showcase)
@@ -55,7 +55,7 @@
 * [Licensing](#-licensing)
 
 
-## [![glazed-logo-xs]](#index) [What is Glazed?](#-what-is-glazed)
+## [![glazed-logo-xs]](#-index) [What is Glazed?](#-what-is-glazed)
 
 Glazed is an application ~~framework~~ boilerplate for rapid iteration of a minimal viable product.
 
@@ -320,7 +320,7 @@ Glazed uses the following helper libraries:
 * [validator][validator] - string validation and sanitization
 
 
-## [![glazed-logo-xs]](#index) [Why should I use it?](#-why-should-i-use-it)
+## [![glazed-logo-xs]](#-index) [Why should I use it?](#-why-should-i-use-it)
 
 ### Best Practices
 
@@ -473,7 +473,7 @@ Other than that, you just need to increase your server storage/bandwidth/memory/
 Check out the [deployment](#deployment) section below for how a production environment and deployment process should be configured.
 
 
-## [![glazed-logo-xs]](#index) [How do I use it?](#how-do-i-use-it)
+## [![glazed-logo-xs]](#-index) [How do I use it?](#how-do-i-use-it)
 
 ### Requirements
 
@@ -716,7 +716,7 @@ Here is a brief list of recommended tools used to ship rapidly developed MVP's:
 * Instead of using `npm install --save <name>` to install packages, use [pnpm][pnpm] to install them faster; `pnpm install --save <name>`.
 
 
-## [![glazed-logo-xs]](#index) [Is there a book on Glazed?](#-is-there-a-book-on-glazed)
+## [![glazed-logo-xs]](#-index) [Is there a book on Glazed?](#-is-there-a-book-on-glazed)
 
 **Yes, there is a book (coming soon) called <u>Rapid MVP's</u>**.  It comes with Markdown, HTML, and PDF versions, and also accompanying **<u>source code</u> AND <u>screencasts</u>**!  The author [@niftylettuce][nifty-twitter] is self-publishing, and goes in-depth to show you how to build rapid MVP's.  The book will include a "How It's Made" for at least two of his new (and hopefully profitable) side-projects.
 
@@ -724,14 +724,14 @@ It is **available for <u>early bird</u> pre-order** right now at <https://rapidm
 
 > **Get a <u>FREE GLAZED STICKER</u> mailed to you: <https://rapidmvp.com>** (no pre-order required)
 
-## [![glazed-logo-xs]](#index) [Can I get help?](#-can-i-get-help)
+## [![glazed-logo-xs]](#-index) [Can I get help?](#-can-i-get-help)
 
 <a href="http://slack.glazed.io"><img alt="Join us in Slack" src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-slack-image.png" width="310" height="264.5" style="width:310px; height:264.5px;" /></a>
 
 [Join us in Slack][slack-url].  Still need help?  [File an issue](/issues).
 
 
-## [![glazed-logo-xs]](#index) [How do I get updates?](#-how-do-i-get-updates)
+## [![glazed-logo-xs]](#-index) [How do I get updates?](#-how-do-i-get-updates)
 
 We provide updates to this repository and a detailed changelog, which you can then add/merge into your project.  You will need to "star" and "watch" this repository to stay active.  We don't have an automated update system or a Google Group (and do not plan to).  It is your duty as a Rapid MVP developer to stay updated.  **<u>Lastly, it's a necessity</u>** that you [join us on Slack][slack-url] to stay in the loop!
 
@@ -741,19 +741,19 @@ You can also follow us on Twitter here:
 * <https://twitter.com/niftylettuce>
 
 
-## [![glazed-logo-xs]](#index) [Who built it?](#-who-built-it)
+## [![glazed-logo-xs]](#-index) [Who built it?](#-who-built-it)
 
 Glazed `v1.0.0` was released in May 2016 by [@niftylettuce][nifty-twitter].
 
 It is a modernized derivative of his project "Eskimo" (a derivative of "Expressling").
 
 
-## [![glazed-logo-xs]](#index) [Can we hire @glazed?](#-can-we-hire-glazed)
+## [![glazed-logo-xs]](#-index) [Can we hire @glazed?](#-can-we-hire-glazed)
 
 Of course!  Please email Niftylettuce LLC at <niftylettuce@gmail.com> to get in touch with a developer team fit for your project.
 Even if we can't find someone for you, we'd love to help put you in the right direction.  We recommend to [join us in Slack][slack-url] first!
 
-## [![glazed-logo-xs]](#index) [License](#-license)
+## [![glazed-logo-xs]](#-index) [License](#-license)
 
 * Glazed is [MIT][license-url] licensed
 * Doughnut by Andrey Vasiliev from the [Noun Project][noun-project]
