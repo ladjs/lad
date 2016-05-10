@@ -1,0 +1,17 @@
+
+# osx
+.DS_Store
+
+# project
+node_modules/
+logs
+*.log
+npm-debug.log*
+*.env
+*.idea
+*.awspublish*
+
+# build
+lib/
+build/
+coverage/

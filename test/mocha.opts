@@ -1,0 +1,8 @@
+--timeout 10000
+--recursive
+--debug
+--reporter spec
+--bail
+--ui bdd
+--require test/support/
+test/**/*.test.js

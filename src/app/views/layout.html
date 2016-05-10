@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+  <head>
+
+    {% block head %}
+
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>{{title}}</title>
+      <meta name="description" content="{{desc}}">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- TODO: add opengraph tags to your structured data pages -->
+
+      <!-- generated with https://realfavicongenerator.net -->
+      <link rel="apple-touch-icon" sizes="57x57" href="{{ manifest('img/apple-touch-icon-57x57.png') }}">
+      <link rel="apple-touch-icon" sizes="60x60" href="{{ manifest('img/apple-touch-icon-60x60.png') }}">
+      <link rel="apple-touch-icon" sizes="72x72" href="{{ manifest('img/apple-touch-icon-72x72.png') }}">
+      <link rel="apple-touch-icon" sizes="76x76" href="{{ manifest('img/apple-touch-icon-76x76.png') }}">
+      <link rel="apple-touch-icon" sizes="114x114" href="{{ manifest('img/apple-touch-icon-114x114.png') }}">
+      <link rel="apple-touch-icon" sizes="120x120" href="{{ manifest('img/apple-touch-icon-120x120.png') }}">
+      <link rel="apple-touch-icon" sizes="144x144" href="{{ manifest('img/apple-touch-icon-144x144.png') }}">
+      <link rel="apple-touch-icon" sizes="152x152" href="{{ manifest('img/apple-touch-icon-152x152.png') }}">
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ manifest('img/apple-touch-icon-180x180.png') }}">
+      <link rel="icon" type="image/png" href="{{ manifest('img/favicon-32x32.png') }}" sizes="32x32">
+      <link rel="icon" type="image/png" href="{{ manifest('img/android-chrome-192x192.png') }}" sizes="192x192">
+      <link rel="icon" type="image/png" href="{{ manifest('img/favicon-96x96.png') }}" sizes="96x96">
+      <link rel="icon" type="image/png" href="{{ manifest('img/favicon-16x16.png') }}" sizes="16x16">
+      <link rel="manifest" href="{{ manifest('manifest.json') }}">
+      <link rel="mask-icon" href="{{ manifest('img/safari-pinned-tab.svg') }}" color="#3ba956">
+      <meta name="apple-mobile-web-app-title" content="{{config.appName }}">
+      <meta name="application-name" content="{{ config.appName }}">
+      <meta name="msapplication-TileColor" content="{{ config.appColor }}">
+      <meta name="msapplication-TileImage" content="{{ manifest('img/mstile-144x144.png') }}">
+      <meta name="theme-color" content="{{ config.appColor }}">
+      <link rel="stylesheet" href="{{ manifest('css/app.css') }}">
+    {% endblock %}
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    {# navigation #}
+    {% block navigation %}
+      {% include "_nav.html" %}
+    {% endblock %}
+
+    {# body #}
+    {% block body %}
+      {% include "home.html" %}
+    {% endblock %}
+
+    {# footer #}
+    {% block footer %}
+      {% include "_footer.html" %}
+    {% endblock %}
+
+    {# sweetalert flash messaging #}
+    <script>
+      window._messages = {{ flash() | json | safe }};
+    </script>
+    <script async src="{{ manifest('js/flash.js') }}"></script>
+
+    {# core client-side dependencies #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdn.rawgit.com/HubSpot/tether/master/dist/js/tether.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+
+    {# custom scripts get loaded here #}
+    {% block scripts %}
+    {% endblock %}
+
+    {# google web fonts #}
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [
+          'Open+Sans:400,600,700'
+        ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+
+    {# google analytics #}
+    {% if config.env == 'production' %}
+      <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='https://www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','{{ config.ga }}','auto');ga('send','pageview');
+      </script>
+    {% endif %}
+
+  </body>
+</html>

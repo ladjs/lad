@@ -1,0 +1,11 @@
+{
+  "extends": "@earnest/eslint-config-es7",
+  "rules": {
+    "babel/object-curly-spacing": 0,
+    "babel/array-bracket-spacing": 0,
+    "array-bracket-spacing": 0,
+    "curly": 0,
+    "padded-blocks": 0,
+    "no-console": 0
+  }
+}

@@ -1,0 +1,22 @@
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>
+        {% if moment().format('HH') >= 12 and moment().format('HH') <= 17 %}
+          Good afternoon,
+        {% elif moment().format('HH') >= 17 %}
+          Good evening,
+        {% else %}
+          Good morning,
+        {% endif %}
+        <span> {{user.given_name}}!</span>
+      </h1>
+      <p>This is your account page.</p>
+    </div>
+  </div>
+
+{% endblock %}

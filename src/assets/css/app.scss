@@ -1,0 +1,31 @@
+
+// override bootstrap variables
+@import "_variables";
+
+// bootstrap
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+// sweetalert
+@import "../../../node_modules/sweetalert/dist/sweetalert";
+
+// sticky footer
+$footer-height: 60px;
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: $footer-height;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  // set the fixed height of the footer here
+  height: $footer-height;
+  // vertically center the text there
+  line-height: $footer-height;
+  background-color: #f5f5f5;
+}
+
+// TODO: add custom css here
