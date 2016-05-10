@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Glazed by glazedio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Glazed</h1>
+      <h2 class="project-tagline">🍩 Glazed is an opinionated yet simple framework</h2>
+      <a href="https://github.com/glazedio/glazed" class="btn">View on GitHub</a>
+      <a href="https://github.com/glazedio/glazed/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/glazedio/glazed/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p><a href="http://glazed.io"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo.svg" alt="Glazed Logo"></a></p>
+
+<h1>
+<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="http://glazed.io"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-description.svg" alt="Glazed is a highly opinionated, yet simple Node + Koa MVC app framework for rapidly building MVP's."></a>
+</h1>
+
+<p><a href="http://slack.glazed.io"><img src="http://slack.glazed.io/badge.svg" alt="Slack Status"></a>
+<a href="LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="MIT License"></a>
+<a href="https://nodejs.org/api/documentation.html#documentation_stability_index"><img src="https://img.shields.io/badge/stability-stable-green.svg" alt="Stability"></a>
+<a href="https://semaphoreci.com/niftylettuce/glazed"><img src="https://semaphoreci.com/api/v1/niftylettuce/glazed/branches/master/shields_badge.svg" alt="Build Status"></a>
+<a href="https://codecov.io/github/glazedio/glazed"><img src="https://img.shields.io/codecov/c/github/glazedio/glazed/master.svg" alt="Test Coverage"></a>
+<a href="https://github.com/meetearnest/eslint-config-earnest-es7"><img src="https://img.shields.io/badge/code%20style-standard%2Bes7-brightgreen.svg" alt="Standard JS Style"></a></p>
+
+<blockquote>
+<p><strong>tldr;</strong> Freshly baked <a href="https://nodejs.org">Node</a> + <a href="https://github.com/koajs/koa/tree/v2.x">Koa</a>, <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a> app <del>framework</del> boilerplate for <a href="https://github.com/niftylettuce/rapid-mvp-standards">rapidly building MVP's</a></p>
+</blockquote>
+
+<p><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-dependencies.svg" alt="Glazed Dependencies"></p>
+
+<blockquote>
+<p><strong>Tip:</strong> While reading, you can click the Glazed logo in section headers to jump back to this index.</p>
+</blockquote>
+
+<h2>
+<a id="-index" class="anchor" href="#-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#index">Index</a>
+</h2>
+
+<ul>
+<li>
+<a href="#-what-is-glazed">What is Glazed?</a>
+
+<ul>
+<li><a href="#thoughts">Thoughts</a></li>
+<li><a href="#showcase">Showcase</a></li>
+<li><a href="#app-structure">App Structure</a></li>
+<li><a href="#back-end-with-koa-async--await">Back-end with Koa + Async/Await</a></li>
+<li><a href="#front-end-with-jquery--bootstrap">Front-end with jQuery + Bootstrap</a></li>
+<li><a href="#job-scheduler">Job Scheduler</a></li>
+<li><a href="#database--orm">Database &amp; ORM</a></li>
+<li><a href="#sessions--auth">Sessions &amp; Auth</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#helpers">Helpers</a></li>
+</ul>
+</li>
+<li>
+<a href="#-why-should-i-use-it">Why should I use it?</a>
+
+<ul>
+<li><a href="#best-practices">Best Practices</a></li>
+<li><a href="#latest-standards">Latest Standards</a></li>
+<li><a href="#livereload-built-in">LiveReload Built-in</a></li>
+<li><a href="#production-ready">Production Ready</a></li>
+<li><a href="#cross-browser-compatibility">Cross-browser Compatibility</a></li>
+<li><a href="#built-in-user-group-permissioning">Built-in User Group Permissioning</a></li>
+<li><a href="#search-engine-indexing">Search Engine Indexing</a></li>
+<li><a href="#l18n-localization">l18n Localization</a></li>
+<li><a href="#performance">Performance</a></li>
+</ul>
+</li>
+<li>
+<a href="#-how-do-i-use-it">How do I use it?</a>
+
+<ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li>
+<a href="#configuration">Configuration</a>
+
+<ul>
+<li><a href="#how-does-configuration-work">How does configuration work?</a></li>
+<li><a href="#how-do-i-configure-my-app-to-boot">How do I configure my app to boot?</a></li>
+</ul>
+</li>
+<li><a href="#development">Development</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#advice">Advice</a></li>
+<li><a href="#tools">Tools</a></li>
+</ul>
+</li>
+<li><a href="#-is-there-a-book-on-glazed">Is there a book on Glazed?</a></li>
+<li><a href="#-can-i-get-help">Can I get help?</a></li>
+<li><a href="#-how-do-i-get-updates">How do I get updates?</a></li>
+<li><a href="#-who-built-it">Who built it?</a></li>
+<li><a href="#-can-we-hire-glazed">Can we hire @glazed?</a></li>
+<li><a href="#-licensing">Licensing</a></li>
+</ul>
+
+<h2>
+<a id="-what-is-glazed" class="anchor" href="#-what-is-glazed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-what-is-glazed">What is Glazed?</a>
+</h2>
+
+<p>Glazed is an application <del>framework</del> boilerplate for rapid iteration of a minimal viable product.</p>
+
+<h3>
+<a id="thoughts" class="anchor" href="#thoughts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Thoughts</h3>
+
+<p>Glazed was designed to prove the viability of an idea as quick as possible,
+with sheer simplicity, and extremely ambitious quality level.  It uses the <a href="#latest-standards">latest standards</a>,
+<a href="#best-practices">best practices</a>, and is <a href="#production-ready">production ready</a>.</p>
+
+<p>For example, Glazed can be used to release prototypes of the following in less than 30 days:</p>
+
+<ul>
+<li>Functional web app for ordering food online</li>
+<li>RESTful API for a React Native iOS/Android app for online food delivery</li>
+</ul>
+
+<p>Glazed is more of a "boilerplate" than a "framework".  It's often called a framework
+because of keyword search popularity and the confusion between the two words.
+It has a very minimal codebase, which was written with ES6/ES7 (yes, it uses
+the new <a href="https://tc39.github.io/ecmascript-asyncawait/">Async/Await</a> syntax!) – and it was structured
+according to some loose thoughts on an MVC approach.</p>
+
+<p><img src="https://d2jyi1ndcvo0nf.cloudfront.net/spa-image.svg" alt="SPA Framework"></p>
+
+<p><strong>Glazed does not use single page app</strong> ("SPA") client-side library, and does not use any special
+client-side framework by default (other than jQuery; though it can easily be changed to a SPA).
+The reason it does not use a SPA library, such as <a href="https://github.com/facebook/react">React</a> or <a href="https://github.com/angular/angular">Angular</a>,
+is because most (probably?) of software as a service start-ups (and API's in general) don't need something this fancy to start (API's don't even need a SPA).
+Using SPA frameworks <em>will</em> and <em>have</em> made proving the viability of an idea take even longer than it already should.
+Instead, <strong>Glazed uses the extremely powerful and fast rendering template language called <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a></strong>.
+In order to render it with Koa, we use <a href="https://github.com/hanai/koa-nunjucks-promise">koa-nunjucks-promise</a>.</p>
+
+<p><a href="http://avc.com/2011/09/minimum-viable-personality/"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/avc-eat-this-chicken.jpg" alt="Fake Grimlock"></a></p>
+
+<p>Before diving into the structure and how it works, it is important to share
+that Glazed is <em>highly opinionated</em> and <strong>may not be for you</strong>.  If you are not
+comfortable or do not agree with the ideas shared in these articles, then perhaps
+you should not read any further into Glazed, and close this browser tab.</p>
+
+<ol>
+<li>
+<a href="https://github.com/niftylettuce/rapid-mvp-standards">Rapid MVP Standards</a> by <a href="https://twitter.com/niftylettuce">@niftylettuce</a>
+</li>
+<li>
+<a href="http://www.catonmat.net/blog/frameworks-dont-make-sense/">Frameworks don't make much sense</a> by <a href="https://twitter.com/paulg">@pkrumins</a>
+</li>
+<li>
+<a href="http://paulgraham.com/ds.html">Do Things that Don't Scale</a> by <a href="https://twitter.com/pkrumins">@paulg</a>
+</li>
+</ol>
+
+<h3>
+<a id="showcase" class="anchor" href="#showcase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Showcase</h3>
+
+<blockquote>
+<p>Did you ship a project with Glazed?  <a href="/issues">File an issue</a> and we'll include it!.</p>
+</blockquote>
+
+<p>To get you excited about using Glazed, here are projects built with it in less than a week each:</p>
+
+<ul>
+<li>
+<a href="https://standardsignature.com/">Standard Signature</a> - Custom Business Email Signatures for Gmail</li>
+<li>
+<a href="https://getprove.com">Prove</a> - Simple Phone Verification Service</li>
+<li>
+<a href="https://wakeup.io">Wakeup.io</a> - Wake-up Call Service</li>
+</ul>
+
+<p>Its parent framework "Eskimo" was used to ship <a href="http://niftylettuce.com/posts/eskimo-rapid-mvp-node-boilerplate/">some very cool projects</a> too!</p>
+
+<h3>
+<a id="app-structure" class="anchor" href="#app-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>App Structure</h3>
+
+<p>Glazed is loosely-based on MVC design, and it has the following structure (<code>tree</code> output below):</p>
+
+<pre lang="log"><code>.
+├── History.md
+├── LICENSE
+├── Readme.md
+├── VERSION
+├── gulpfile.babel.js
+├── package.json
+├── sample.env
+├── src
+│   ├── app
+│   │   ├── controllers
+│   │   │   ├── app
+│   │   │   │   └── index.js
+│   │   │   └── index.js
+│   │   ├── models
+│   │   │   ├── plugins
+│   │   │   │   └── common.js
+│   │   │   └── user.js
+│   │   └── views
+│   │       ├── 404.html
+│   │       ├── 500.html
+│   │       ├── _footer.html
+│   │       ├── _nav.html
+│   │       ├── about.html
+│   │       ├── admin.html
+│   │       ├── home.html
+│   │       ├── layout.html
+│   │       └── my-account.html
+│   ├── assets
+│   │   ├── browserconfig.xml
+│   │   ├── css
+│   │   │   ├── _variables.scss
+│   │   │   └── app.scss
+│   │   ├── favicon.ico
+│   │   ├── fonts
+│   │   ├── img
+│   │   │   ├── android-chrome-144x144.png
+│   │   │   ├── android-chrome-192x192.png
+│   │   │   ├── android-chrome-36x36.png
+│   │   │   ├── android-chrome-48x48.png
+│   │   │   ├── android-chrome-72x72.png
+│   │   │   ├── android-chrome-96x96.png
+│   │   │   ├── apple-touch-icon-114x114.png
+│   │   │   ├── apple-touch-icon-120x120.png
+│   │   │   ├── apple-touch-icon-144x144.png
+│   │   │   ├── apple-touch-icon-152x152.png
+│   │   │   ├── apple-touch-icon-180x180.png
+│   │   │   ├── apple-touch-icon-57x57.png
+│   │   │   ├── apple-touch-icon-60x60.png
+│   │   │   ├── apple-touch-icon-72x72.png
+│   │   │   ├── apple-touch-icon-76x76.png
+│   │   │   ├── apple-touch-icon-precomposed.png
+│   │   │   ├── apple-touch-icon.png
+│   │   │   ├── favicon-16x16.png
+│   │   │   ├── favicon-194x194.png
+│   │   │   ├── favicon-32x32.png
+│   │   │   ├── favicon-96x96.png
+│   │   │   ├── mstile-144x144.png
+│   │   │   ├── mstile-150x150.png
+│   │   │   ├── mstile-310x150.png
+│   │   │   ├── mstile-310x310.png
+│   │   │   ├── mstile-70x70.png
+│   │   │   └── safari-pinned-tab.svg
+│   │   ├── js
+│   │   │   └── flash.js
+│   │   └── manifest.json
+│   ├── config
+│   │   ├── environments
+│   │   │   ├── development.js
+│   │   │   ├── index.js
+│   │   │   ├── production.js
+│   │   │   ├── staging.js
+│   │   │   └── test.js
+│   │   └── index.js
+│   ├── helpers
+│   │   ├── dynamic-view-helpers.js
+│   │   ├── error-handler.js
+│   │   ├── index.js
+│   │   ├── passport.js
+│   │   ├── policies.js
+│   │   ├── render-page.js
+│   │   └── sentry.js
+│   ├── index.js
+│   └── routes
+│       └── index.js
+└── test
+    ├── mocha.opts
+    ├── support
+    │   └── index.js
+    └── unit
+        └── server.test.js
+</code></pre>
+
+<h3>
+<a id="back-end-with-koa--asyncawait" class="anchor" href="#back-end-with-koa--asyncawait" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Back-end with Koa + Async/Await</h3>
+
+<p>We use Koa for the back-end, and if you previously used <a href="http://expressjs.com/">Express</a>, you might want to understand the differences; <a href="https://github.com/koajs/koahttps://github.com/glazedio/glazed/blob/master/docs/koa-vs-express.md">see this article</a>.</p>
+
+<p>To rid of <a href="http://callbackhell.com/">callback hell</a>, we use a new JavaScript language feature called Async/Await.</p>
+
+<p>For example, here are two blocks of code that compare before and after...</p>
+
+<blockquote>
+<p>This is how one might write a Mongoose save with callbacks:</p>
+</blockquote>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// find the user that belongs to the @glazed organization</span>
+<span class="pl-c">// and make their user group have "admin" status</span>
+<span class="pl-k">function</span> <span class="pl-en">updateUser</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-smi">Users</span>.<span class="pl-en">findOne</span>({ org<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>glazed<span class="pl-pds">'</span></span> }, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">user</span>) {
+    <span class="pl-k">if</span> (err) <span class="pl-k">return</span> <span class="pl-en">next</span>(err);
+    <span class="pl-k">if</span> (<span class="pl-k">!</span>user) <span class="pl-k">return</span> <span class="pl-en">next</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>User does not exist<span class="pl-pds">'</span></span>));
+    <span class="pl-smi">user</span>.<span class="pl-smi">group</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>admin<span class="pl-pds">'</span></span>;
+    <span class="pl-smi">user</span>.<span class="pl-en">save</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">user</span>) {
+      <span class="pl-k">if</span> (err) <span class="pl-k">return</span> <span class="pl-en">next</span>(err);
+      <span class="pl-smi">res</span>.<span class="pl-en">json</span>(user);
+    });
+  });
+}</pre></div>
+
+<blockquote>
+<p>This is how one might write a Mongoose save with Async/Await:</p>
+</blockquote>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// find the user that belongs to the @glazed organization</span>
+<span class="pl-c">// and make their user group have "admin" status</span>
+<span class="pl-k">static</span> <span class="pl-k">async</span> <span class="pl-en">updateUser</span>(<span class="pl-smi">ctx</span>) {
+  <span class="pl-k">let</span> user <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">User</span>.<span class="pl-en">findOne</span>({ org<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>glazed<span class="pl-pds">'</span></span> });
+  <span class="pl-smi">user</span>.<span class="pl-smi">group</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>admin<span class="pl-pds">'</span></span>;
+  <span class="pl-smi">ctx</span>.<span class="pl-c1">body</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">user</span>.<span class="pl-en">save</span>();
+}</pre></div>
+
+<blockquote>
+<p>Glazed has custom built-in error handling – so actually you don't even need to wrap the Async/Await function with a <code>try {} catch (e) {}</code> statement – but be careful, because in other cases you might want to!</p>
+</blockquote>
+
+<p>Other scenarios where Async/Await is resourceful:</p>
+
+<ul>
+<li>Populating database references cleanly</li>
+<li>Complex find, search, or querying in general</li>
+<li>Less indentation = more readable code</li>
+<li>No more callbacks = more readable code</li>
+<li>Less indentation = code wrapping to 80 characters is easy</li>
+</ul>
+
+<h3>
+<a id="front-end-with-jquery--bootstrap" class="anchor" href="#front-end-with-jquery--bootstrap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Front-end with jQuery + Bootstrap</h3>
+
+<p>By default, the <a href="http://v4-alpha.getbootstrap.com/">latest Bootstrap version 4 alpha</a> is used (it uses SCSS for its CSS pre-processor).</p>
+
+<p>However, you can swap out Bootstrap to another version, or entirely for something else.  You can also switch SCSS to use LESS or plain CSS.</p>
+
+<p>Also included are the front-end packages jQuery and <a href="https://t4t5.github.io/sweetalert/">Sweetalert</a>.</p>
+
+<p><strong>You don't need Bower anymore</strong>, since you can simply import libraries through our Browserify setup!</p>
+
+<h3>
+<a id="job-scheduler" class="anchor" href="#job-scheduler" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Job Scheduler</h3>
+
+<p>For job scheduling, we recommend to use <a href="https://github.com/rschmukler/agenda">Agenda</a>.  In the next release, we will hopefully have included the custom job scheduler (written with Agenda) for Glazed.</p>
+
+<h3>
+<a id="database--orm" class="anchor" href="#database--orm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Database &amp; ORM</h3>
+
+<p><a href="https://www.mongodb.org/">MongoDB</a> and <a href="http://mongoosejs.com/">Mongoose</a> are built in, but you can swap them out with your preferred database and ORM glue.  If you need help setting up <a href="https://github.com/brianc/node-postgres">Postgres</a> and <a href="https://github.com/tgriesser/bookshelf">Bookshelf</a>, then we suggest you to change your mind!  It will slow you down – but if you insist, we can put you in the right direction.</p>
+
+<p>To <del>better</del> beautify validation error messages we use <a href="https://github.com/matteodelabre/mongoose-beautiful-unique-validation">mongoose-beautiful-unique-validation</a></p>
+
+<p>To enhance security and allow you to have selective JSON output from query results (e.g. never return a user's <code>refresh_token</code>, <code>access_token</code>, <code>hash</code>, or <code>password</code> fields) we use <a href="https://github.com/nkzawa/mongoose-json-select">mongoose-json-select</a>.</p>
+
+<blockquote>
+<p>We automatically strip the default provided tokens/hash/password fields from JSON output, don't worry!  See the default user model in <code>app/models/user.js</code> for insight.</p>
+</blockquote>
+
+<h3>
+<a id="sessions--auth" class="anchor" href="#sessions--auth" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sessions &amp; Auth</h3>
+
+<p><a href="http://redis.io/">Redis</a> and <a href="https://github.com/jaredhanson/passport">Passport</a> are used for session storage and authentication.</p>
+
+<p>Out of the box, we provide (2) means of authentication for restricted routes:</p>
+
+<ol>
+<li>Google OAuth Strategy - uses <a href="https://github.com/jaredhanson/passport-google-oauth">passport-google-oauth</a> (your users can "Log in with Google")</li>
+<li>Glazed API token - an <code>api_token</code> field is populated for each user in the database after their first log-in, and this can be passed as the <code>user</code> in <code>user:pass</code> with BasicAuth headers – password is blank for simplicity).  This is very useful for API access if you are building an iOS/Android or client-side focused app</li>
+</ol>
+
+<blockquote>
+<p>If you need to add additional strategies, you can literally clone the Google Strategy code and use another <a href="https://www.npmjs.com/search?q=passport">passport package</a> for your auth provider.  Don't be afraid to <a href="http://slack.glazed.io">join our Slack channel</a> and ask us for help!</p>
+</blockquote>
+
+<h3>
+<a id="security" class="anchor" href="#security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security</h3>
+
+<p>With respect to security, we support the following out of the box:</p>
+
+<ul>
+<li>
+<a href="https://github.com/venables/koa-helmet">koa-helmet</a> - defaults are used, including:
+
+<ul>
+<li>
+<a href="https://github.com/helmetjs/dns-prefetch-control">dnsPrefetchControl</a> controls browser DNS prefetching</li>
+<li>
+<a href="https://github.com/helmetjs/frameguard">frameguard</a> to prevent clickjacking</li>
+<li>
+<a href="https://github.com/helmetjs/hide-powered-by">hidePoweredBy</a> to remove the X-Powered-By header</li>
+<li>
+<a href="https://github.com/helmetjs/hsts">hsts</a> for HTTP Strict Transport Security</li>
+<li>
+<a href="https://github.com/helmetjs/ienoopen">ieNoOpen</a> sets X-Download-Options for IE8+</li>
+<li>
+<a href="https://github.com/helmetjs/dont-sniff-mimetype">noSniff</a> to keep clients from sniffing the MIME type</li>
+<li>
+<a href="https://github.com/helmetjs/x-xss-protection">xssFilter</a> adds some small XSS protections</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/koajs/ratelimit">koa-ratelimit</a> - prevent bots and hackers from infinitely brute-forcing routes</li>
+</ul>
+
+<h3>
+<a id="helpers" class="anchor" href="#helpers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Helpers</h3>
+
+<p>Glazed uses the following helper libraries:</p>
+
+<ul>
+<li>
+<a href="https://github.com/hapijs/boom">boom</a> - HTTP-friendly error objects</li>
+<li>
+<a href="https://github.com/chalk/chalk">chalk</a> - colorful output</li>
+<li>
+<a href="https://github.com/niftylettuce/chalkline">chalkline</a> - easily debug with a huge chalkline in your terminal</li>
+<li>
+<a href="https://github.com/motdotla/dotenv">dotenv</a> - management of dotfiles (your environment configurations)</li>
+<li>
+<a href="https://github.com/niftylettuce/frisbee">frisbee</a> - an API wrapper for ES6's fetch method (similar to <a href="https://github.com/request/request">request</a>!)</li>
+<li>
+<a href="https://github.com/koajs/convert">koa-convert</a> - easily convert generator middleware functions to Async/Await</li>
+<li>
+<a href="https://github.com/lodash/lodash">lodash</a> - the utility library</li>
+<li>
+<a href="https://github.com/moment/moment">moment</a> - date and time formatting and manipulation</li>
+<li>
+<a href="https://github.com/epeli/underscore.string">underscore.string</a> - string manipulation</li>
+<li>
+<a href="https://github.com/chriso/validator.js">validator</a> - string validation and sanitization</li>
+</ul>
+
+<h2>
+<a id="-why-should-i-use-it" class="anchor" href="#-why-should-i-use-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-why-should-i-use-it">Why should I use it?</a>
+</h2>
+
+<h3>
+<a id="best-practices" class="anchor" href="#best-practices" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Best Practices</h3>
+
+<ul>
+<li>Zero-downtime, graceful reloading with automated continuous integration (see <a href="#deployment">deployment</a>
+</li>
+<li>Automated test runner and code coverage setup using:
+
+<ul>
+<li><a href="https://github.com/chaijs/chai">chai</a></li>
+<li><a href="https://github.com/niftylettuce/check-chai">check-chai</a></li>
+<li><a href="https://github.com/prodatakey/dirty-chai">dirty-chai</a></li>
+<li><a href="https://github.com/douglasduteil/isparta">isparta</a></li>
+<li><a href="https://github.com/gotwarlost/istanbul">istanbul</a></li>
+<li><a href="https://github.com/tmpvar/jsdom">jsdom</a></li>
+<li><a href="https://github.com/mochajs/mocha">mocha</a></li>
+</ul>
+</li>
+<li>Simple message alert system with <a href="https://github.com/theverything/koa-connect-flash">koa-connect-flash</a> and Sweetalert</li>
+<li>API token without a password for an extremely simple approach to session-less, BasicAuth access</li>
+<li>
+<a href="https://www.heavybit.com/library/video/move-fast-dont-break-api/">Stripe-inspired</a> API design with versioning, error handling, type description, and verbose list output with count and number of pages</li>
+<li>
+<a href="http://callbackhell.com/">No callback hell</a> since you can use Async/Await syntax</li>
+</ul>
+
+<h3>
+<a id="latest-standards" class="anchor" href="#latest-standards" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Latest Standards</h3>
+
+<ul>
+<li>Latest version of Node, <code>v6.0.0</code>
+</li>
+<li>Streams for build process with Gulp</li>
+<li>Newest version of MongoDB and Redis (e.g. you can use <a href="https://docs.mongodb.org/manual/reference/operator/aggregation/lookup/">$lookup</a> operator with MongoDB now!)</li>
+<li>ES6/ES7 with Async/Await syntax</li>
+<li>Latest version of Koa, <code>v2.x</code> (or commonly referred to as <code>@next</code>)</li>
+</ul>
+
+<h3>
+<a id="livereload-built-in" class="anchor" href="#livereload-built-in" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LiveReload Built-in</h3>
+
+<p>Through <a href="https://github.com/yosuke-furukawa/koa-livereload">koa-livereload</a> and <a href="https://github.com/vohof/gulp-livereload">gulp-livereload</a> your assets automatically reload as you continually change and save them.</p>
+
+<p>This means you can have your editor open and a browser tab opened to your app at <a href="http://localhost:3000/">http://localhost:3000/</a> – of course you need to be running the app with <code>gulp watch</code> – and your changes appear in real-time!  Yes, we know this is not new technology, but not many other frameworks had this built-in (at least the right way with gulp).</p>
+
+<p>For example, if you make the following change to your stylesheet file and save it...</p>
+
+<div class="highlight highlight-source-diff"><pre>body {
+<span class="pl-md">-  background-color: red;</span>
+<span class="pl-mi1">+  background-color: hotpink;</span>
+}</pre></div>
+
+<p>... then your background color on the browser tab will instantly change to hot pink.</p>
+
+<h3>
+<a id="production-ready" class="anchor" href="#production-ready" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Production Ready</h3>
+
+<p>Glazed comes with a robust and well-tested Gulpfile (written with Babel!).  Check <a href="https://github.com/glazedio/glazed/blob/master/gulpfile.babel.js">it out here</a>.</p>
+
+<p>What's a Gulpfile?  You can <a href="http://gulpjs.com/">read about Gulp here</a> – but it's basically a file that has a series of build tasks defined (e.g. it's very similar to a <code>Makefile</code>).</p>
+
+<p>In a production environment, your app's assets will be minified, compressed, gzipped,
+revision hashed, and uploaded to Amazon S3 and CloudFront for load balancing.  To do this, we use
+the packages <a href="https://github.com/niftylettuce/koa-manifest-rev">koa-manifest-rev</a> and <a href="https://github.com/sindresorhus/gulp-rev">gulp-rev</a>, with plugins that include:</p>
+
+<ul>
+<li>
+<a href="https://github.com/babel/babelify">babelify</a> - convert ES6/ES7 code to ES5</li>
+<li>
+<a href="http://browserify.org">browserify</a> - you can <code>import</code> (or <code>require</code>) modules in the browser!  You no longer need to use Bower.  We looked at using Webpack when we had worked on React Native stuff, but it was too complicated and we ran into way too many problems.</li>
+<li>
+<a href="https://github.com/eslint/eslint">eslint</a> - lints your JavaScript according to the <code>.eslintrc</code> configuration.  Feel free to swap out our <code>.eslintrc</code> for something like <a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb">eslint-config-airbnb</a>.</li>
+<li>
+<a href="https://github.com/pgherveou/gulp-awspublish">gulp-awspublish</a> - publishes to AWS your assets</li>
+<li>
+<a href="https://github.com/smysnk/gulp-cloudfront">gulp-cloudfront</a> - publishes to CloudFront your assets</li>
+<li>
+<a href="https://github.com/adametry/gulp-eslint">gulp-eslint</a> - lints your JavaScript in the build runner</li>
+<li>
+<a href="https://github.com/sindresorhus/gulp-imagemin">gulp-imagemin</a> - compresses your images</li>
+<li>
+<a href="https://github.com/postcss/gulp-postcss">gulp-postcss</a> - processes your CSS</li>
+<li>
+<a href="https://github.com/floridoo/gulp-sourcemaps">gulp-sourcemaps</a> - adds sourcemaps to your code for easy debugging</li>
+<li>
+<a href="https://github.com/terinjokes/gulp-uglify">gulp-uglify</a> - uglifies and minifies your JavaScript code</li>
+<li>
+<a href="https://github.com/imagemin/imagemin-pngquant">imagemin-pngquant</a> - plugin for imagemin to compress PNG's</li>
+</ul>
+
+<p>This is the de-facto standard for hosting images, fonts, scripts, and assets in general
+– and it is managed properly in Glazed using asset revisioning.  For example, your file
+named <code>glazed-logo.png</code> will become <code>glazed-logo-0775041dd4.png</code> in production (you don't have to worry about cache busting!).</p>
+
+<p>Not only that, but your files will be linted and they come with sourcemaps too!</p>
+
+<h3>
+<a id="cross-browser-compatibility" class="anchor" href="#cross-browser-compatibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cross-browser Compatibility</h3>
+
+<p><img width="100" height="100" alt="Chrome" src="https://rawgit.com/alrra/browser-logos/master/chrome/chrome.svg">
+<img width="100" height="100" alt="Android" src="https://rawgit.com/alrra/browser-logos/master/firefox/firefox.svg">
+<img width="100" height="100" alt="Safari" src="https://raw.githubusercontent.com/alrra/browser-logos/master/safari/safari.png">
+<img width="100" height="100" alt="Internet Explorer" src="https://rawgit.com/alrra/browser-logos/master/internet-explorer-tile/internet-explorer-tile.svg">
+<img width="100" height="100" alt="Opera" src="https://raw.githubusercontent.com/alrra/browser-logos/master/opera/opera.png">
+<img width="100" height="100" alt="Android" src="https://raw.githubusercontent.com/alrra/browser-logos/master/android/android.png"></p>
+
+<p>Is this cross-browser compatible?  Yes, 100%!  What about all of your ES6/ES7 code?  Yes, 100%.</p>
+
+<p><strong>However, if you stick with the default v4 Bootstrap CSS framework – it only supports IE9+ and iOS 7+.</strong></p>
+
+<p>All of your code is converted to browser-friendly ES5 vanilla JavaScript (using <a href="http://browserify.org">Browserify</a> and <a href="https://github.com/babel/babelify">Babelify</a>)...so it's cross-browser compatible!</p>
+
+<blockquote>
+<p>This means both your server-side and client-side code is built to the <code>./lib/</code> folder with ES5 syntax when the Gulpfile is run with <code>gulp build</code>.
+You never have to worry about passing some <code>--harmony</code> flag either to run your app.
+<strong>The idea here is that you can focus on writing clean, short bits of code – and never have to worry about how it runs</strong>.</p>
+</blockquote>
+
+<h3>
+<a id="built-in-user-group-permissioning" class="anchor" href="#built-in-user-group-permissioning" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Built-in User Group Permissioning</h3>
+
+<p>By default, all users are assigned to the "user" group.  This group is defined in the user model under <code>app/models/user.js</code> per the property <code>'group'</code>`.</p>
+
+<p>This approach was inspired by classic Linux-based user-group permissioning.</p>
+
+<p>We've also added a default policy helper to detect whether or not a user an admin, which you can add as a middleware before your controller logic.</p>
+
+<p>For example, if you want to restrict access to all <code>/admin</code> routes, you can add this simple middleware:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">router</span>.<span class="pl-c1">all</span>(<span class="pl-s"><span class="pl-pds">'</span>/admin*<span class="pl-pds">'</span></span>, <span class="pl-smi">policies</span>.<span class="pl-smi">ensureAdmin</span>);</pre></div>
+
+<p><strong>This simple middleware is automatically added by default for you.</strong></p>
+
+<p>If you'd like to grant yourself admin access to the <code>/admin</code> routes, then you can run this script (replace with your email address and database name):</p>
+
+<div class="highlight highlight-source-shell"><pre>mongo glazed_development --eval <span class="pl-s"><span class="pl-pds">'</span>printjson(db.users.update({ email: "niftylettuce@gmail.com" }, { $set: { group: "admin" }}));<span class="pl-pds">'</span></span></pre></div>
+
+<h3>
+<a id="search-engine-indexing" class="anchor" href="#search-engine-indexing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search Engine Indexing</h3>
+
+<p>Since we don't use a SPA, you don't have to worry about rendering SEO-friendly content!  What you see in the browser is what the search engine crawler sees ("WYSIWTSEC" or something... haha)!</p>
+
+<p>By default, we provide a <a href="https://github.com/glazedio/glazed/blob/master/src/config/index.js">simple to use configuration file</a> that allows you to swap in page titles and descriptions for a majority of your routes.</p>
+
+<p>For anything complex, you can customize them yourself by passing local variables <code>title</code> and <code>description</code> to views.</p>
+
+<p>We didn't build in structured open graph tags as a default to edit, since we figure you can customize to your own.</p>
+
+<p><strong>With this setup, we have climbed to #1 on Google for various keywords, easily.  Of course, you need great content and traffic!</strong></p>
+
+<p>In order to prevent duplicate content, we have added a plugin that removes trailing slashes from URL's, so <code>/home/</code> will <code>301</code> redirect to <code>/home</code> automatically.</p>
+
+<h3>
+<a id="l18n-localization" class="anchor" href="#l18n-localization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>l18n Localization</h3>
+
+<p>Yes, you can customize this for international localization.  But we didn't build this in by default.  We're just letting you know we thought of it.  If you want recommendations
+on services to use for this and how to integrate, then <a href="http://slack.glazed.io">join our Slack</a> and ask us!</p>
+
+<h3>
+<a id="performance" class="anchor" href="#performance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Performance</h3>
+
+<p>For performance, you should always use the <code>lean()</code> method while writing your Mongoose queries.</p>
+
+<p>You should also <strong>never use Mongoose hooks, virtuals, or the populate method</strong>.</p>
+
+<p>If you need to asynchronously populate or waterfall chain population of database references, we suggest to use the <a href="https://docs.mongodb.org/manual/reference/operator/aggregation/lookup/">$lookup operator</a> or use Async/Await syntax to keep it clean.
+For an example of how to write a <code>populate()</code> method with $lookup, <a href="https://github.com/Automattic/mongoose/issues/3683#issue-122632405">see this GitHub issue</a>.</p>
+
+<p>We've also included these libraries to help with performance:</p>
+
+<ul>
+<li>
+<a href="https://github.com/omsmith/compress/tree/koa2">koa-compress</a> - compress responses with zlib</li>
+<li>
+<a href="https://github.com/koajs/conditional-get">koa-conditional-get</a> - allows conditional GET response (returns a <code>304</code> "Not Modified" header if condition matches)</li>
+<li>
+<a href="https://github.com/koajs/etag">koa-etag</a> - reduce bandwidth consumption with e-tags on responses</li>
+<li>
+<a href="https://github.com/koajs/response-time">koa-response-time</a> - adds a new response header called <code>X-Response-Time</code> with the number of milliseconds the server took to respond</li>
+</ul>
+
+<p>Other than that, you just need to increase your server storage/bandwidth/memory/swap, add load balancing, and/or use PM2's clustering mode – and you <em>should</em> be able to support thousands of users.  Horizontal scaling!</p>
+
+<p>Check out the <a href="#deployment">deployment</a> section below for how a production environment and deployment process should be configured.</p>
+
+<h2>
+<a id="-how-do-i-use-it" class="anchor" href="#-how-do-i-use-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#how-do-i-use-it">How do I use it?</a>
+</h2>
+
+<h3>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p><strong>You'll need to have the following installed</strong> on your operating system (we provide instructions below):</p>
+
+<ul>
+<li>
+<a href="https://nodejs.org">Node</a> <code>&gt;= v6.x</code> (we recommend using <a href="https://github.com/creationix/nvm">NVM</a> to manage your Node versions)</li>
+<li>
+<a href="https://www.mongodb.org/">MongoDB</a> <code>&gt;= v3.x</code>
+</li>
+<li>
+<a href="http://redis.io/">Redis</a> <code>&gt;= v3.x</code>
+</li>
+</ul>
+
+<p>We also recommend that you install <strong>our preferred <a href="#tools">tools</a></strong> as well!</p>
+
+<h3>
+<a id="mac-os-x" class="anchor" href="#mac-os-x" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mac OS X</h3>
+
+<ol>
+<li>Install <a href="http://brew.sh/">Brew</a>:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>/usr/bin/ruby -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span></pre></div>
+
+<ol>
+<li>Install <a href="https://github.com/creationix/nvm">NVM</a>:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh <span class="pl-k">|</span> bash
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+
+<ol>
+<li>Install <a href="https://nodejs.org">Node</a> with NVM:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>nvm install v6.0.0
+nvm <span class="pl-c1">alias</span> default v6.0.0</pre></div>
+
+<ol>
+<li>Install <a href="https://www.mongodb.org/">MongoDB</a> (and make sure you read the line about <code>launchctl</code> after you hit <code>ENTER</code>):</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>brew install mongo</pre></div>
+
+<ol>
+<li>Install <a href="http://redis.io/">Redis</a> (and make sure you read the line about <code>launchctl</code> after you hit <code>ENTER</code>):</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>brew install redis</pre></div>
+
+<h3>
+<a id="ubuntu" class="anchor" href="#ubuntu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ubuntu</h3>
+
+<ol>
+<li>Install <a href="https://github.com/creationix/nvm">NVM</a>:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh <span class="pl-k">|</span> bash
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+
+<ol>
+<li>Install <a href="https://nodejs.org">Node</a> with NVM:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>nvm install v6.0.0
+nvm <span class="pl-c1">alias</span> default v6.0.0</pre></div>
+
+<ol>
+<li>Install <a href="https://www.mongodb.org/">MongoDB</a>:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>deb http://repo.mongodb.org/apt/ubuntu <span class="pl-pds">"</span></span><span class="pl-s"><span class="pl-pds">$(</span>lsb_release -sc<span class="pl-pds">)</span></span><span class="pl-s"><span class="pl-pds">"</span>/mongodb-org/3.0 multiverse<span class="pl-pds">"</span></span> <span class="pl-k">|</span> sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+service mongod status</pre></div>
+
+<ol>
+<li>Install <a href="http://redis.io/">Redis</a>:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>sudo add-apt-repository ppa:chris-lea/redis-server
+sudo apt-get update
+sudo apt-get install redis-server
+redis-benchmark -q -n 1000 -c 10 -P 5
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.profile</pre></div>
+
+<h3>
+<a id="windows" class="anchor" href="#windows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Windows</h3>
+
+<p>We do not support Windows, so please use <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> or <a href="https://www.vagrantup.com/">Vagrant</a> instead with <a href="http://www.ubuntu.com">Ubuntu</a> or <a href="https://www.linuxmint.com/">Linux Mint</a>.</p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h3>
+
+<p><strong>It's simple; there is no CLI, and you don't need to install anything with NPM.  You just use git!</strong></p>
+
+<p>You have two choices for installation:</p>
+
+<ol>
+<li>You can fork this repository by clicking the "fork" icon at the <a href="#fork-destination-box">top of this page</a> (then you will need to <code>git clone</code> your fork locally).</li>
+<li>Or you can mirror this repository by following <a href="https://help.github.com/articles/duplicating-a-repository/">GitHub's instructions here</a>.  If you mirror this repository, it won't appear on your GitHub as a "forked" repository (but you can still get updates).</li>
+</ol>
+
+<h3>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h3>
+
+<h4>
+<a id="how-does-configuration-work" class="anchor" href="#how-does-configuration-work" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How does configuration work?</h4>
+
+<p>We make configuration easy through a file called <code>.env</code> file using <a href="https://github.com/motdotla/dotenv">dotenv</a>.</p>
+
+<p>However, you'll need to modify it slightly for your own.  Let's dive into how it works!</p>
+
+<p>Configuration is managed by the following:</p>
+
+<ul>
+<li>Contents of the file at <code>src/config/index.js</code> (reads in <code>process.env.SOME_VAR</code>)</li>
+<li>Contents of the files in directories under <code>src/config/environments/</code> (sets defaults per environment, e.g. you can pass <code>NODE_ENV=staging</code> and it will load the file at <code>/src/config/environments/staging.js</code>)</li>
+<li>Environment variables used to override defaults or set required ones</li>
+<li>Third-party OAuth providers (e.g. Google OAuth at <a href="https://console.developers.google.com">https://console.developers.google.com</a>)</li>
+</ul>
+
+<p>Precedence is taken by the environment configuration files, environment variables, then the <code>.env</code> file.</p>
+
+<p>Basically <a href="https://github.com/motdotla/dotenv">dotenv</a> won't set an environment variable if it already detects it was passed as an environment variable.</p>
+
+<p>Take a look in the <a href="https://github.com/glazedio/glazed/blob/master/src/">src/config</a> folder contents and also at the default <a href="https://github.com/glazedio/glazed/blob/master/.env">.env</a> file.</p>
+
+<p>We've provided a default file called <code>sample.env</code>, which you can rename to <code>.env</code> and customize yourself.</p>
+
+<h4>
+<a id="how-do-i-configure-my-app-to-boot" class="anchor" href="#how-do-i-configure-my-app-to-boot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How do I configure my app to boot?</h4>
+
+<p><strong>In order to set-up defaults needed for Glazed app to boot, please follow these instructions:</strong></p>
+
+<ol>
+<li>Rename the file <code>sample.env</code> to <code>.env</code>
+</li>
+<li>Go to <a href="https://console.developers.google.com">https://console.developers.google.com</a> – Create a project (and fill out your project information – if you need a 120x120px default image, <a href="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-120x120.png">you can use this one</a>)</li>
+<li>Under your newly created project, go to Credentials – Create credentials – OAuth client ID – Web application</li>
+<li>Set "Authorized JavaScript origins" to <code>http://yourdomain.com</code> (replace with your domain) and also <code>http://localhost:3000</code> (for local development)</li>
+<li>Set "Authorized redirect URIs" to <code>http://yourdomain.com/login/ok</code> (again, replace with your domain) and also <code>http://localhost:3000/login/ok</code> (again, for local development)</li>
+<li>Copy and paste the newly created key pair for respective properties in your <code>.env</code> file (example below)</li>
+</ol>
+
+<div class="highlight highlight-source-diff"><pre><span class="pl-md">-GOOGLE_CLIENT_ID=</span>
+<span class="pl-mi1">+GOOGLE_CLIENT_ID=424623312719-73vn8vb4tmh8nht96q7vdbn3mc9pd63a.apps.googleusercontent.com</span>
+<span class="pl-md">-GOOGLE_CLIENT_SECRET=</span>
+<span class="pl-mi1">+GOOGLE_CLIENT_SECRET=Oys6WrHleTOksqXTbEY_yi07</span></pre></div>
+
+<ol>
+<li>Go to <a href="https://console.aws.amazon.com/iam/home#security_credential">https://console.aws.amazon.com/iam/home#security_credential</a> &amp;dash; Access Keys – Create New Access Key</li>
+<li>Copy and paste the newly created key pair for respective properties in your <code>.env</code> file (example below)</li>
+</ol>
+
+<div class="highlight highlight-source-diff"><pre><span class="pl-md">-AWS_IAM_KEY=</span>
+<span class="pl-mi1">+AWS_IAM_KEY=AKIAJMH22P6W674YFC7Q</span>
+<span class="pl-md">-AWS_IAM_SECRET=</span>
+<span class="pl-mi1">+AWS_IAM_SECRET=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</span></pre></div>
+
+<ol>
+<li>Go to <a href="https://console.aws.amazon.com/s3/home">https://console.aws.amazon.com/s3/home</a> – Create Bucket</li>
+<li>Create a bucket and copy/paste its name for the property in <code>.env</code> (example below)</li>
+</ol>
+
+<div class="highlight highlight-source-diff"><pre><span class="pl-md">-AWS_S3_BUCKET=</span>
+<span class="pl-mi1">+AWS_S3_BUCKET=glazed-development</span></pre></div>
+
+<ol>
+<li>Go to <a href="https://console.aws.amazon.com/cloudfront/home">https://console.aws.amazon.com/cloudfront/home</a> – Create Distribution – Get Started</li>
+<li>Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)</li>
+<li>Leave the remaining defaults as is (some fields might be blank, this is OK)</li>
+<li>Copy/paste the newly created Distribution ID and Domain Name for respective properties in your <code>.env</code> file (example below)</li>
+</ol>
+
+<div class="highlight highlight-source-diff"><pre><span class="pl-md">-AWS_CF_DI=</span>
+<span class="pl-mi1">+AWS_CF_DI=E2IBEULE9QOPVE</span>
+<span class="pl-md">-AWS_CF_DOMAIN=</span>
+<span class="pl-mi1">+AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net</span></pre></div>
+
+<p>That's it!</p>
+
+<h3>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h3>
+
+<p>You should have Glazed <a href="#installation">installed</a> and <a href="#configuration">configured</a> by now.</p>
+
+<ol>
+<li>Change directories to where you installed Glazed:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /path/to/glazed/</pre></div>
+
+<ol>
+<li>Install NPM dependencies:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>npm install</pre></div>
+
+<ol>
+<li>Run the watch script:</li>
+</ol>
+
+<div class="highlight highlight-source-shell"><pre>npm run watch</pre></div>
+
+<blockquote>
+<p>The watch script will automatically open a browser tab for you (with <a href="#livereload-built-in">LiveReload</a> enabled!).</p>
+</blockquote>
+
+<h3>
+<a id="deployment" class="anchor" href="#deployment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployment</h3>
+
+<p><img alt="Automated Continuous Integration Deployment Setup" width="647" height="58" src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-deploy.png"></p>
+
+<p>We've written a comprehensive tutorial for deployment, continuous integration, and how to automate everything – you can <a href="http://niftylettuce.com/posts/automated-node-app-ci-graceful-zerodowntime-github-pm2/">read the article here</a>.</p>
+
+<p>If you're just interested in what tools/services we recommend, then here is a brief list:</p>
+
+<ul>
+<li>
+<a href="https://github.com/">GitHub</a> - repository hosting</li>
+<li>
+<a href="https://m.do.co/c/a7fe489d1b27">Digital Ocean</a><sup>2</sup> - server hosting</li>
+<li>
+<a href="https://semaphoreci.com/">SemaphoreCI</a> - automated continuous integration</li>
+<li>
+<a href="https://console.aws.amazon.com">Route53</a> - DNS management</li>
+<li>
+<a href="https://www.namecheap.com/?aff=34556">Namecheap</a> - domain name registrar</li>
+<li>
+<a href="https://github.com/Unitech/pm2">PM2</a><sup>1,3</sup> - zero-downtime deployment</li>
+<li>
+<a href="https://getsentry.com">Sentry</a><sup>1</sup> - log storage and query service</li>
+<li>
+<a href="https://console.aws.amazon.com">S3</a><sup>1</sup> - asset storage</li>
+<li>
+<a href="https://console.aws.amazon.com">CloudFront</a><sup>1</sup> - content delivery network for assets</li>
+<li>
+<a href="https://postmarkapp.com">Postmark</a><sup>1,4</sup> - transactional email</li>
+<li>
+<a href="http://mailchimp.com/">MailChimp</a> - bulk email</li>
+<li>
+<a href="https://slack.com/r/02kjqk4v-06846hdf">Slack</a><sup>5</sup> - chat room &amp; automated notifications</li>
+</ul>
+
+<p><sup>1</sup> Baked into Glazed by default – you just need to provide credentials in the <a href="#configuration">configuration</a> step<br>
+<sup>2</sup> You can get $10 free credit for signing up by clicking our referral link above<br>
+<sup>3</sup> We include <code>SIGTERM</code> listener for graceful reloading, see <a href="https://github.com/glazedio/glazed/blob/master/src/index.js">src/index.js</a> for more insight<br>
+<sup>4</sup> You can send 150,000 free <del>credits</del> transactional emails if you're <a href="https://twitter.com/postmarkapp/status/197121068052389888">bootstrapped</a> and <a href="https://postmarkapp.com/blog/get-100000-free-postmark-credits">DMARC compliant</a><br>
+<sup>5</sup> You can get $100 free credit for signing up by clicking our referral link above</p>
+
+<h3>
+<a id="advice" class="anchor" href="#advice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Advice</h3>
+
+<p>The only way to ship code faster is to respect these three points:</p>
+
+<ol>
+<li>Use as many <a href="#tools">tools</a> as possible to automate your workflow.</li>
+<li>Understand that <a href="http://www.catonmat.net/">good coders code, and great reuse</a>.</li>
+<li>Avoid anti-patterns and context-switching habits – you will easily stay focused!</li>
+</ol>
+
+<h3>
+<a id="tools" class="anchor" href="#tools" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tools</h3>
+
+<p>Here is a brief list of recommended tools used to ship rapidly developed MVP's:</p>
+
+<ul>
+<li>Use and modify the included <code>.github</code> folder of GitHub contribution templates (e.g. <a href="https://github.com/glazedio/glazed/blob/master/.github/PULL_REQUEST_TEMPLATE.md">./github/PULL_REQUEST_TEMPLATE.md</a> is a pull request template).</li>
+<li>Use a Mac OS X (preferred), <a href="http://www.ubuntu.com">Ubuntu</a>, or <a href="https://www.linuxmint.com/">Linux Mint</a> operating system for development.  If you're on Windows, use <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> to install <a href="http://www.ubuntu.com">Ubuntu</a> or <a href="https://www.linuxmint.com/">Linux Mint</a>, or you can setup a dual-boot with them.  Or you could use <a href="https://www.vagrantup.com/">Vagrant</a>.</li>
+<li>Use <a href="http://brew.sh/">brew</a> to install other tools for planning and building your app (e.g. <a href="https://www.gimp.org/">GIMP</a>, <a href="https://db.tt/2ZTl6efc">Dropbox</a>, <a href="https://www.evernote.com/referral/Registration.action?sig=2e640ea469c7e68be162fb13114e2dca&amp;uid=80317596">Evernote</a>, <a href="https://www.iterm2.com/">iTerm 2 Beta</a>, <code>google-chrome</code>, <a href="https://github.com/tj/git-extras">git-extras</a>, <a href="http://redis.io/">redis</a>, <a href="https://www.mongodb.org/">mongodb</a>, <code>vim</code>, <code>wget</code>, ...).</li>
+<li>Use <a href="https://github.com/niftylettuce/seuss.md">Seuss.md</a> to plan out your thoughts in a Markdown document before writing any code (this is the "Readme First Approach" that <a href="https://github.com/t">@tj</a> and <a href="https://github.com/substack">@substack</a> shared with me).</li>
+<li>Use <a href="https://www.sketchapp.com/">Sketch</a> to design your app's screens and basic mockups.</li>
+<li>Use <code>vim</code> as your editor to write your code – build up muscle memory by installing magnitude of plugins, which will automate <a href="http://fakegrimlock.com/">your puny human</a> mistakes.  If you need inspiration, here is <a href="https://github.com/niftylettuce/.vim">@niftylettuce's vim config</a>.</li>
+<li>Install an <code>eslint</code> plugin into your text editor so that on file save it lints your code according to the rules defined in the <a href="https://github.com/glazedio/glazed/blob/master/.eslintrc">.eslintrc</a> file.</li>
+<li>Use <a href="https://github.com/niftylettuce/lookerupper">LookerUpper</a> plugin to easily lookup package documentation.</li>
+<li>Use <a href="https://github.com/henrikjoreteg/fixpack">fixpack</a> to keep your <code>package.json</code> file tidy by running <code>fixpack</code> after you alter it.</li>
+<li>Instead of using <code>npm install --save &lt;name&gt;</code> to install packages, use <a href="https://github.com/rstacruz/pnpm">pnpm</a> to install them faster; <code>pnpm install --save &lt;name&gt;</code>.</li>
+</ul>
+
+<h2>
+<a id="-is-there-a-book-on-glazed" class="anchor" href="#-is-there-a-book-on-glazed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-is-there-a-book-on-glazed">Is there a book on Glazed?</a>
+</h2>
+
+<p><strong>Yes, there is a book (coming soon) called Rapid MVP's</strong>.  It comes with Markdown, HTML, and PDF versions, and also accompanying <strong>source code AND screencasts</strong>!  The author <a href="https://twitter.com/niftylettuce">@niftylettuce</a> is self-publishing, and goes in-depth to show you how to build rapid MVP's.  The book will include a "How It's Made" for at least two of his new (and hopefully profitable) side-projects.</p>
+
+<p>It is <strong>available for early bird pre-order</strong> right now at <a href="https://rapidmvp.com">https://rapidmvp.com</a>!  Even if you don't buy the book, you can still get free/inspirational behind the scenes tips, tutorials, and videos!  And a sticker!</p>
+
+<blockquote>
+<p><strong>Get a FREE GLAZED STICKER mailed to you: <a href="https://rapidmvp.com">https://rapidmvp.com</a></strong> (no pre-order required)</p>
+</blockquote>
+
+<h2>
+<a id="-can-i-get-help" class="anchor" href="#-can-i-get-help" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-can-i-get-help">Can I get help?</a>
+</h2>
+
+<p><a href="http://slack.glazed.io"><img alt="Join us in Slack" src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-slack-image.png" width="310" height="264.5"></a></p>
+
+<p><a href="http://slack.glazed.io">Join us in Slack</a>.  Still need help?  <a href="/issues">File an issue</a>.</p>
+
+<h2>
+<a id="-how-do-i-get-updates" class="anchor" href="#-how-do-i-get-updates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-how-do-i-get-updates">How do I get updates?</a>
+</h2>
+
+<p>We provide updates to this repository and a detailed changelog, which you can then add/merge into your project.  You will need to "star" and "watch" this repository to stay active.  We don't have an automated update system or a Google Group (and do not plan to).  It is your duty as a Rapid MVP developer to stay updated.  <strong>Lastly, it's a necessity</strong> that you <a href="http://slack.glazed.io">join us on Slack</a> to stay in the loop!</p>
+
+<p>You can also follow us on Twitter here:</p>
+
+<ul>
+<li><a href="https://twitter.com/glazedio">https://twitter.com/glazedio</a></li>
+<li><a href="https://twitter.com/niftylettuce">https://twitter.com/niftylettuce</a></li>
+</ul>
+
+<h2>
+<a id="-who-built-it" class="anchor" href="#-who-built-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-who-built-it">Who built it?</a>
+</h2>
+
+<p>Glazed <code>v1.0.0</code> was released in May 2016 by <a href="https://twitter.com/niftylettuce">@niftylettuce</a>.</p>
+
+<p>It is a modernized derivative of his project "Eskimo" (a derivative of "Expressling").</p>
+
+<h2>
+<a id="-can-we-hire-glazed" class="anchor" href="#-can-we-hire-glazed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-can-we-hire-glazed">Can we hire @glazed?</a>
+</h2>
+
+<p>Of course!  Please email Niftylettuce LLC at <a href="mailto:niftylettuce@gmail.com">niftylettuce@gmail.com</a> to get in touch with a developer team fit for your project.
+Even if we can't find someone for you, we'd love to help put you in the right direction.  We recommend to <a href="http://slack.glazed.io">join us in Slack</a> first!</p>
+
+<h2>
+<a id="-license" class="anchor" href="#-license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="#index"><img src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg" alt="glazed-logo-xs"></a> <a href="#-license">License</a>
+</h2>
+
+<ul>
+<li>Glazed is <a href="LICENSE">MIT</a> licensed</li>
+<li>Doughnut by Andrey Vasiliev from the <a href="https://thenounproject.com/term/doughnut/163279/">Noun Project</a>
+</li>
+<li>Glazed clay palette by Dia from <a href="http://www.colourlovers.com/palette/63788/Glazed_clay">COLOURlovers</a>
+</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/glazedio/glazed">Glazed</a> is maintained by <a href="https://github.com/glazedio">glazedio</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
