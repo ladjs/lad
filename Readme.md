@@ -639,6 +639,8 @@ We've provided a default file called `sample.env`, which you can rename to `.env
   +AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net
   ```
 
+15. You can customize the favicon and touch icons &ndash; just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [src/assets/][src-assets] folder.
+
 That's it!
 
 ### Development
@@ -916,3 +918,4 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [standard-url]: https://github.com/meetearnest/eslint-config-earnest-es7
 [stability-image]: https://img.shields.io/badge/stability-stable-green.svg
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
+[src-assets]: src/assets/
