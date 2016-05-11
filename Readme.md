@@ -489,71 +489,71 @@ We also recommend that you install **our preferred [tools](#tools)** as well!
 
 1. Install [Brew][brew]:
 
-```bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
+  ```bash
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ```
 
 2. Install [NVM][nvm]:
 
-```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-source ~/.bashrc
-```
+  ```bash
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  source ~/.bashrc
+  ```
 
 3. Install [Node][node] with NVM:
 
-```bash
-nvm install v6.0.0
-nvm alias default v6.0.0
-```
+  ```bash
+  nvm install v6.0.0
+  nvm alias default v6.0.0
+  ```
 
 4. Install [MongoDB][mongodb] (and make sure you read the line about `launchctl` after you hit `ENTER`):
 
-```bash
-brew install mongo
-```
+  ```bash
+  brew install mongo
+  ```
 
 5. Install [Redis][redis] (and make sure you read the line about `launchctl` after you hit `ENTER`):
 
-```bash
-brew install redis
-```
+  ```bash
+  brew install redis
+  ```
 
 ### Ubuntu
 
 1. Install [NVM][nvm]:
 
-```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-source ~/.bashrc
-```
+  ```bash
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  source ~/.bashrc
+  ```
 
 2. Install [Node][node] with NVM:
 
-```bash
-nvm install v6.0.0
-nvm alias default v6.0.0
-```
+  ```bash
+  nvm install v6.0.0
+  nvm alias default v6.0.0
+  ```
 
 3. Install [MongoDB][mongodb]:
 
-```bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-service mongod status
-```
+  ```bash
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+  echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+  sudo apt-get update
+  sudo apt-get install -y mongodb-org
+  service mongod status
+  ```
 
 4. Install [Redis][redis]:
 
-```bash
-sudo add-apt-repository ppa:chris-lea/redis-server
-sudo apt-get update
-sudo apt-get install redis-server
-redis-benchmark -q -n 1000 -c 10 -P 5
-source ~/.profile
-```
+  ```bash
+  sudo add-apt-repository ppa:chris-lea/redis-server
+  sudo apt-get update
+  sudo apt-get install redis-server
+  redis-benchmark -q -n 1000 -c 10 -P 5
+  source ~/.profile
+  ```
 
 ### Windows
 
@@ -602,42 +602,42 @@ We've provided a default file called `sample.env`, which you can rename to `.env
 5. Set "Authorized redirect URIs" to `http://yourdomain.com/login/ok` (again, replace with your domain) and also `http://localhost:3000/login/ok` (again, for local development)
 6. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
 
-```diff
--GOOGLE_CLIENT_ID=
-+GOOGLE_CLIENT_ID=424623312719-73vn8vb4tmh8nht96q7vdbn3mc9pd63a.apps.googleusercontent.com
--GOOGLE_CLIENT_SECRET=
-+GOOGLE_CLIENT_SECRET=Oys6WrHleTOksqXTbEY_yi07
-```
+  ```diff
+  -GOOGLE_CLIENT_ID=
+  +GOOGLE_CLIENT_ID=424623312719-73vn8vb4tmh8nht96q7vdbn3mc9pd63a.apps.googleusercontent.com
+  -GOOGLE_CLIENT_SECRET=
+  +GOOGLE_CLIENT_SECRET=Oys6WrHleTOksqXTbEY_yi07
+  ```
 
 7. Go to <https://console.aws.amazon.com/iam/home#security_credential> &dash; Access Keys &ndash; Create New Access Key
 8. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
 
-```diff
--AWS_IAM_KEY=
-+AWS_IAM_KEY=AKIAJMH22P6W674YFC7Q
--AWS_IAM_SECRET=
-+AWS_IAM_SECRET=9MpR1FOXwPEtPlrlU5WbHjnz2KDcKWSUcB+C5CpS
-```
+  ```diff
+  -AWS_IAM_KEY=
+  +AWS_IAM_KEY=AKIAJMH22P6W674YFC7Q
+  -AWS_IAM_SECRET=
+  +AWS_IAM_SECRET=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
+  ```
 
 9. Go to <https://console.aws.amazon.com/s3/home> &ndash; Create Bucket
 10. Create a bucket and copy/paste its name for the property in `.env` (example below)
 
-```diff
--AWS_S3_BUCKET=
-+AWS_S3_BUCKET=glazed-development
-```
+  ```diff
+  -AWS_S3_BUCKET=
+  +AWS_S3_BUCKET=glazed-development
+  ```
 
 11. Go to <https://console.aws.amazon.com/cloudfront/home> &ndash; Create Distribution &ndash; Get Started
 12. Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)
 13. Leave the remaining defaults as is (some fields might be blank, this is OK)
 14. Copy/paste the newly created Distribution ID and Domain Name for respective properties in your `.env` file (example below)
 
-```diff
--AWS_CF_DI=
-+AWS_CF_DI=E2IBEULE9QOPVE
--AWS_CF_DOMAIN=
-+AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net
-```
+  ```diff
+  -AWS_CF_DI=
+  +AWS_CF_DI=E2IBEULE9QOPVE
+  -AWS_CF_DOMAIN=
+  +AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net
+  ```
 
 That's it!
 
@@ -647,21 +647,21 @@ You should have Glazed [installed](#installation) and [configured](#configuratio
 
 1. Change directories to where you installed Glazed:
 
-```bash
-cd /path/to/glazed/
-```
+  ```bash
+  cd /path/to/glazed/
+  ```
 
 2. Install NPM dependencies:
 
-```bash
-npm install
-```
+  ```bash
+  npm install
+  ```
 
 3. Run the watch script:
 
-```bash
-npm run watch
-```
+  ```bash
+  npm run watch
+  ```
 
 > The watch script will automatically open a browser tab for you (with [LiveReload](#livereload-built-in) enabled!).
 
@@ -820,7 +820,7 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [lookerupper]: https://github.com/niftylettuce/lookerupper
 [puny-human]: http://fakegrimlock.com/
 [vim-config]: https://github.com/niftylettuce/.vim
-[eslint-file]: /blob/master/.eslintrc
+[eslint-file]: .eslintrc
 [fixpack]: https://github.com/henrikjoreteg/fixpack
 [good-coders-code]: http://www.catonmat.net/
 [seuss]: https://github.com/niftylettuce/seuss.md
@@ -862,7 +862,7 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [fake-grimlock]: http://avc.com/2011/09/minimum-viable-personality/
 [browserify]: http://browserify.org
 [babelify]: https://github.com/babel/babelify
-[gulpfile]: /blob/master/gulpfile.babel.js
+[gulpfile]: gulpfile.babel.js
 [gulp]: http://gulpjs.com/
 [sweetalert]: https://t4t5.github.io/sweetalert/
 [glazed-dependencies]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-dependencies.svg
@@ -878,12 +878,12 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [ienoopen]: https://github.com/helmetjs/ienoopen
 [nosniff]: https://github.com/helmetjs/dont-sniff-mimetype
 [xssfilter]: https://github.com/helmetjs/x-xss-protection
-[koa-vs-express]: https://github.com/koajs/koa/blob/master/docs/koa-vs-express.md
+[koa-vs-express]: https://github.com/koajs/koadocs/koa-vs-express.md
 [express]: http://expressjs.com/
 [stripe-inspired]: https://www.heavybit.com/library/video/move-fast-dont-break-api/
 [eslint-config-airbnb]: https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb
-[config-file-seo]: /blob/master/src/config/index.js
-[src-index]: /blob/master/src/index.js
+[config-file-seo]: src/config/index.js
+[src-index]: src/index.js
 [mirror-it]: https://help.github.com/articles/duplicating-a-repository/
 [nifty-ci-setup]: http://niftylettuce.com/posts/automated-node-app-ci-graceful-zerodowntime-github-pm2/
 [slack-referral-url]: https://slack.com/r/02kjqk4v-06846hdf
@@ -898,14 +898,14 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [semaphoreci]: https://semaphoreci.com/
 [dmarc-promotion]: https://postmarkapp.com/blog/get-100000-free-postmark-credits
 [bootstrapped-promotion]: https://twitter.com/postmarkapp/status/197121068052389888
-[src-config]: /blob/master/src/
-[dot-env-file]: /blob/master/.env
+[src-config]: src/
+[dot-env-file]: .env
 [nvm]: https://github.com/creationix/nvm
 [vagrant]: https://www.vagrantup.com/
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
 [linux-mint]: https://www.linuxmint.com/
 [ubuntu]: http://www.ubuntu.com
-[pr-template]: /blob/master/.github/PULL_REQUEST_TEMPLATE.md
+[pr-template]: .github/PULL_REQUEST_TEMPLATE.md
 [120x120]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-120x120.png
 [build-image]: https://semaphoreci.com/api/v1/niftylettuce/glazed/branches/master/shields_badge.svg
 [build-url]: https://semaphoreci.com/niftylettuce/glazed
