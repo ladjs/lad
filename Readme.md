@@ -121,7 +121,7 @@ Glazed is loosely-based on MVC design, and it has the following structure (`tree
 ├── VERSION
 ├── gulpfile.babel.js
 ├── package.json
-├── sample.env
+├── .env.example
 ├── src
 │   ├── app
 │   │   ├── controllers
@@ -391,6 +391,13 @@ named `glazed-logo.png` will become `glazed-logo-0775041dd4.png` in production (
 
 Not only that, but your files will be linted and they come with sourcemaps too!
 
+To build and publish to AWS for production, follow these simple steps:
+
+```bash
+NODE_ENV=production gulp build
+NODE_ENV=production gulp publish
+```
+
 ### Cross-browser Compatibility
 
 <img width="100" height="100" style="width:100px;height:100px;" alt="Chrome" src="https://rawgit.com/alrra/browser-logos/master/chrome/chrome.svg" />
@@ -587,15 +594,15 @@ Precedence is taken by the environment configuration files, environment variable
 
 Basically [dotenv][dotenv] won't set an environment variable if it already detects it was passed as an environment variable.
 
-Take a look in the [src/config][src-config] folder contents and also at the default [sample.env][dot-env-file] file.
+Take a look in the [src/config][src-config] folder contents and also at the default [.env.example][dot-env-file] file.
 
-We've provided a default file called `sample.env`, **which you will need to rename** to `.env` and customize yourself.
+We've provided a default file called `.env.example`, **which you will need to rename** to `.env` and customize yourself.
 
 #### How do I configure my app to boot?
 
 **In order to set-up defaults needed for Glazed app to boot, please follow these instructions:**
 
-1. Rename the file `sample.env` to `.env`
+1. Rename the file `.env.example` to `.env`
 2. Go to <https://console.developers.google.com> &ndash; Create a project (and fill out your project information &ndash; if you need a 120x120px default image, [you can use this one][120x120])
 3. Under your newly created project, go to Credentials &ndash; Create credentials &ndash; OAuth client ID &ndash; Web application
 4. Set "Authorized JavaScript origins" to `http://yourdomain.com` (replace with your domain) and also `http://localhost:3000` (for local development)
@@ -901,7 +908,7 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [dmarc-promotion]: https://postmarkapp.com/blog/get-100000-free-postmark-credits
 [bootstrapped-promotion]: https://twitter.com/postmarkapp/status/197121068052389888
 [src-config]: src/
-[dot-env-file]: sample.env
+[dot-env-file]: .env.example
 [nvm]: https://github.com/creationix/nvm
 [vagrant]: https://www.vagrantup.com/
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads

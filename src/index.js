@@ -4,6 +4,10 @@ import 'babel-polyfill';
 import 'babel-regenerator-runtime';
 import 'source-map-support/register';
 
+// ensure we have all necessary env variables
+import dotenvSafe from 'dotenv-safe';
+dotenvSafe.load();
+
 // core node deps
 import http from 'http';
 import https from 'https';
@@ -132,8 +136,8 @@ app.on('error', (err, ctx) => {
   else
     console.log(err.message);
 });
-
 // koa-manifest-rev
+
 app.use(koaManifestRev(config.koaManifestRev));
 
 // set nunjucks as rendering engine

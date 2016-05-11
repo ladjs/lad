@@ -4,6 +4,10 @@ import 'babel-polyfill';
 import 'babel-regenerator-runtime';
 import 'source-map-support/register';
 
+// ensure we have all necessary env variables
+import dotenvSafe from 'dotenv-safe';
+dotenvSafe.load();
+
 // gulp dependencies
 import babel from 'gulp-babel';
 import awspublish from 'gulp-awspublish';
@@ -98,7 +102,7 @@ gulp.task('publish', () => {
 gulp.task('nunjucks', () => {
   return gulp
     .src('src/app/views/**/*.html')
-    .pipe(gulpif(!PROD, livereload()))
+    .pipe(gulpif(!PROD, livereload()));
 });
 
 gulp.task('watch', (done) => {
@@ -124,7 +128,7 @@ gulp.task('watch', (done) => {
       stdout: true,
       readable: false,
       tasks: 'app'
-    }).on('readable', function() {
+    }).on('readable', function () {
       this.stdout.on('data', (chunk) => {
         if (/^listening/.test(chunk))
           livereload.reload();
@@ -147,7 +151,7 @@ gulp.task('app', [ 'cleanLib', 'lint' ], () => {
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('lib'))
+    .pipe(gulp.dest('lib'));
 });
 
 gulp.task('img', () => {
@@ -168,7 +172,7 @@ gulp.task('img', () => {
     .pipe(gulpif(PROD, rev.manifest('build/rev-manifest.json', {
       base: 'build'
     })))
-    .pipe(gulpif(PROD, gulp.dest('build')))
+    .pipe(gulpif(PROD, gulp.dest('build')));
 });
 
 gulp.task('css', () => {
@@ -186,46 +190,46 @@ gulp.task('css', () => {
     .pipe(gulpif(PROD, rev.manifest('build/rev-manifest.json', {
       merge: true, base: 'build'
     })))
-    .pipe(gulpif(PROD, gulp.dest('build')))
+    .pipe(gulpif(PROD, gulp.dest('build')));
 });
 
 gulp.task('lint', () => {
   return gulp
     .src('src/assets/js/**/*.js')
     .pipe(eslint())
-    .pipe(eslint.format())
+    .pipe(eslint.format());
 });
 
 gulp.task('js', [ 'lint' ], done => {
 
   glob('js/**/*.js', {
-    cwd: 'src/assets',
+    cwd: 'src/assets'
   }, (err, files) => {
 
     if (err) return done(err);
 
-    let tasks = files.map(entry => {
+    const tasks = files.map(entry => {
       return browserify({
-          entries: entry,
-          debug: false,
-          basedir: 'src/assets'
-        })
-        .transform(babelify)
-        .bundle()
-        .pipe(source(entry))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({
-          // loads map from browserify file
-          loadMaps: true
-        }))
-        .pipe(gulpif(PROD, uglify()))
-        .pipe(gulpif(PROD, rev()))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('build'))
-        .pipe(gulpif(!PROD, livereload()))
+        entries: entry,
+        debug: false,
+        basedir: 'src/assets'
+      })
+      .transform(babelify)
+      .bundle()
+      .pipe(source(entry))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({
+        // loads map from browserify file
+        loadMaps: true
+      }))
+      .pipe(gulpif(PROD, uglify()))
+      .pipe(gulpif(PROD, rev()))
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('build'))
+      .pipe(gulpif(!PROD, livereload()));
     });
 
-    let taskStream = es.merge(tasks)
+    const taskStream = es.merge(tasks);
 
     if (PROD)
       taskStream
@@ -233,7 +237,7 @@ gulp.task('js', [ 'lint' ], done => {
           merge: true,
           base: 'build'
         }))
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('build'));
 
     taskStream.on('end', done);
 
@@ -251,7 +255,7 @@ gulp.task('static', () => {
     ], {
       base: 'src/assets'
     })
-    .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('build'));
 });
 
 

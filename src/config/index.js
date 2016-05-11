@@ -6,16 +6,17 @@ import _ from 'lodash';
 import path from 'path';
 import dotenv from 'dotenv';
 
-import environments from './environments';
-
 // load default env vars from `.env` file
 dotenv.load();
+
+import environments from './environments';
 
 const APP_NAME = 'Glazed';
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const PROTOCOL = process.env.PROTOCOL || 'http';
 const MAX_AGE = 24 * 60 * 60 * 1000;
+
 const ENV = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : 'development';
 const DATABASE_URL = process.env.DATABASE_URL || `mongodb://localhost:27017/${APP_NAME.toLowerCase()}_${ENV}`;
 const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
@@ -61,7 +62,7 @@ let config = {
     id: ctx => ctx.ip
   },
   koaManifestRev: {
-    manifest: path.join(__dirname, '..', 'build', 'rev-manifest.json'),
+    manifest: path.join(__dirname, '..', '..', 'build', 'rev-manifest.json'),
     // note in production we switch this to CloudFront
     prepend: '/'
   },
