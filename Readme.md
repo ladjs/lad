@@ -587,7 +587,7 @@ Precedence is taken by the environment configuration files, environment variable
 
 Basically [dotenv][dotenv] won't set an environment variable if it already detects it was passed as an environment variable.
 
-Take a look in the [src/config][src-config] folder contents and also at the default [.env][dot-env-file] file.
+Take a look in the [src/config][src-config] folder contents and also at the default [sample.env][dot-env-file] file.
 
 We've provided a default file called `sample.env`, **which you will need to rename** to `.env` and customize yourself.
 
@@ -901,7 +901,7 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [dmarc-promotion]: https://postmarkapp.com/blog/get-100000-free-postmark-credits
 [bootstrapped-promotion]: https://twitter.com/postmarkapp/status/197121068052389888
 [src-config]: src/
-[dot-env-file]: .env
+[dot-env-file]: sample.env
 [nvm]: https://github.com/creationix/nvm
 [vagrant]: https://www.vagrantup.com/
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
