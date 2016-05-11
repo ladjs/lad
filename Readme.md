@@ -589,7 +589,7 @@ Basically [dotenv][dotenv] won't set an environment variable if it already detec
 
 Take a look in the [src/config][src-config] folder contents and also at the default [.env][dot-env-file] file.
 
-We've provided a default file called `sample.env`, which you can rename to `.env` and customize yourself.
+We've provided a default file called `sample.env`, **which you will need to rename** to `.env` and customize yourself.
 
 #### How do I configure my app to boot?
 
