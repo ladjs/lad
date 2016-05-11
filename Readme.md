@@ -398,6 +398,8 @@ NODE_ENV=production gulp build
 NODE_ENV=production gulp publish
 ```
 
+You can test it out with `NODE_ENV=production node app`.
+
 ### Cross-browser Compatibility
 
 <img width="100" height="100" style="width:100px;height:100px;" alt="Chrome" src="https://rawgit.com/alrra/browser-logos/master/chrome/chrome.svg" />
