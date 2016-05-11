@@ -639,7 +639,7 @@ We've provided a default file called `sample.env`, which you can rename to `.env
   +AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net
   ```
 
-15. You can customize the favicon and touch icons &ndash; just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [src/assets/][src-assets] folder.
+15. You can customize the favicon and touch icons &ndash; just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [src/assets/][src-assets] folder.  Just make sure that the paths match up in the `src/assets/browserconfig.xml` and `src/assets/manifest.json` files.
 
 That's it!
 
