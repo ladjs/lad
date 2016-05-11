@@ -20,7 +20,7 @@ const MAX_AGE = 24 * 60 * 60 * 1000;
 const ENV = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : 'development';
 const DATABASE_URL = process.env.DATABASE_URL || `mongodb://localhost:27017/${APP_NAME.toLowerCase()}_${ENV}`;
 const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
-const URL = process.env.CUSTOM_URL || `${PROTOCOL}://${HOST}:${PORT}`;
+const URL = process.env.CUSTOM_URL || `${PROTOCOL}://${HOST}${PORT === 80 || PORT === 443 ? '' : `:${PORT}`}`;
 
 let config = {
   showStack: false,
@@ -69,7 +69,7 @@ let config = {
   appName: APP_NAME,
   appColor: '#3EA1A0',
   protocol: PROTOCOL,
-  port: PORT,
+  port: parseInt(PORT, 10),
   host: HOST,
   env: ENV,
   url: URL,
