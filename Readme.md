@@ -891,7 +891,7 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [ienoopen]: https://github.com/helmetjs/ienoopen
 [nosniff]: https://github.com/helmetjs/dont-sniff-mimetype
 [xssfilter]: https://github.com/helmetjs/x-xss-protection
-[koa-vs-express]: https://github.com/koajs/koadocs/koa-vs-express.md
+[koa-vs-express]: https://github.com/koajs/koa/blob/master/docs/koa-vs-express.md
 [express]: http://expressjs.com/
 [stripe-inspired]: https://www.heavybit.com/library/video/move-fast-dont-break-api/
 [eslint-config-airbnb]: https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb
