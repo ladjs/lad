@@ -37,7 +37,7 @@ export default function CommonPlugin(object) {
       next();
     });
 
-    Schema.plugin(jsonSelect, '-_id');
+    Schema.plugin(jsonSelect, '-_id -__v');
     Schema.plugin(beautifulValidation);
 
     return Schema;
