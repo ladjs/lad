@@ -5,7 +5,7 @@
 [![MIT License][license-image]][license-url]
 [![Stability][stability-image]][stability-url]
 [![Build Status][build-image]][build-url]
-[![Test Coverage][codecov-image]][codecov-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
 [![Standard JS Style][standard-image]][standard-url]
 [![Unicorn Approved][unicorn-approved]][unicorn-url]
 
@@ -931,3 +931,5 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [src-assets]: src/assets/
 [unicorn-approved]: http://img.shields.io/badge/unicorn-approved-ff69b4.svg
 [unicorn-url]: https://www.youtube.com/watch?v=9auOCbH5Ns4
+[coveralls-image]: https://coveralls.io/repos/github/glazedio/glazed/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/glazedio/glazed?branch=master

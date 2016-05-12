@@ -2,7 +2,7 @@
 import 'isomorphic-fetch';
 import Frisbee from 'frisbee';
 
-let server = require('../../src');
+let server = require('../../lib');
 
 describe('server', () => {
 

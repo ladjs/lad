@@ -1,4 +1,9 @@
 
+// babel requirements
+import 'babel-polyfill';
+import 'babel-regenerator-runtime';
+import 'source-map-support/register';
+
 // base URI for everything
 global._options = {
   baseURI: 'http://localhost:8080',

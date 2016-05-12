@@ -4,5 +4,6 @@
 --reporter spec
 --bail
 --ui bdd
+--report lcovonly
 --require test/support/
 test/**/*.test.js
