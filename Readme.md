@@ -7,6 +7,7 @@
 [![Build Status][build-image]][build-url]
 [![Test Coverage][codecov-image]][codecov-url]
 [![Standard JS Style][standard-image]][standard-url]
+[![Unicorn Approved][unicorn-approved]][unicorn-url]
 
 
 > **tldr;** Freshly baked [Node][nodejs] + [Koa][koa], [MVC][mvc] app ~~framework~~ boilerplate for [rapidly building MVP's][rapid-mvp]
@@ -928,3 +929,5 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [stability-image]: https://img.shields.io/badge/stability-stable-green.svg
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [src-assets]: src/assets/
+[unicorn-approved]: http://img.shields.io/badge/unicorn-approved-ff69b4.svg
+[unicorn-url]: https://www.youtube.com/watch?v=9auOCbH5Ns4
