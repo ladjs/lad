@@ -146,7 +146,7 @@
     "analyze-coverage": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/isparta cover node_modules/.bin/_mocha",
     "build": "gulp build",
     "check-coverage": "node_modules/.bin/babel-node node_modules/.bin/istanbul check-coverage",
-    "codecov": "codecov",
+    "codecov": "codecov -t 6e2de5ad-da0e-4347-9486-c44ab8ca20cb",
     "compile": "babel src --modules common --out-dir lib --source-maps",
     "coverage": "rm -rf coverage/ && npm run lint && npm run build && npm run analyze-coverage && npm run check-coverage && npm run codecov",
     "lint": "node_modules/.bin/eslint src",
