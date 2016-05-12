@@ -628,19 +628,20 @@ We've provided a default file called `.env.example`, **which you will need to re
   -AWS_IAM_SECRET=
   +AWS_IAM_SECRET=9MpR1FOXwPEtPlrlU5WbHjnz2KDcKWSUcB+C5CpS
   ```
-
-9. Go to <https://console.aws.amazon.com/s3/home> &ndash; Create Bucket
-10. Create a bucket and copy/paste its name for the property in `.env` (example below)
+  
+9. Enable your API by clicking on Overview and then clicking the Enable button
+10. Go to <https://console.aws.amazon.com/s3/home> &ndash; Create Bucket
+11. Create a bucket and copy/paste its name for the property in `.env` (example below)
 
   ```diff
   -AWS_S3_BUCKET=
   +AWS_S3_BUCKET=glazed-development
   ```
 
-11. Go to <https://console.aws.amazon.com/cloudfront/home> &ndash; Create Distribution &ndash; Get Started
-12. Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)
-13. Leave the remaining defaults as is (some fields might be blank, this is OK)
-14. Copy/paste the newly created Distribution ID and Domain Name for respective properties in your `.env` file (example below)
+12. Go to <https://console.aws.amazon.com/cloudfront/home> &ndash; Create Distribution &ndash; Get Started
+13. Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)
+14. Leave the remaining defaults as is (some fields might be blank, this is OK)
+15. Copy/paste the newly created Distribution ID and Domain Name for respective properties in your `.env` file (example below)
 
   ```diff
   -AWS_CF_DI=
@@ -649,7 +650,7 @@ We've provided a default file called `.env.example`, **which you will need to re
   +AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net
   ```
 
-15. You can customize the favicon and touch icons &ndash; just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [src/assets/][src-assets] folder.  Just make sure that the paths match up in the `src/assets/browserconfig.xml` and `src/assets/manifest.json` files.
+16. You can customize the favicon and touch icons &ndash; just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [src/assets/][src-assets] folder.  Just make sure that the paths match up in the `src/assets/browserconfig.xml` and `src/assets/manifest.json` files.
 
 That's it!
 
