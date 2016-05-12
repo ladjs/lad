@@ -151,7 +151,7 @@
     "lint": "node_modules/.bin/eslint src",
     "postinstall": "npm run build",
     "start": "DEBUG=* node lib/",
-    "test": "npm run lint && npm run build && NODE_ENV=test _mocha --compilers js:babel-core/register",
+    "test": "npm run lint && NODE_ENV=test _mocha --compilers js:babel-core/register",
     "watch": "gulp watch"
   }
 }

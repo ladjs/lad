@@ -43,9 +43,17 @@ const Users = new mongoose.Schema({
     trim: true,
     validator: validator.isUrl
   },
-  google_oauth_profile_id: String,
+  google_oauth_profile_id: {
+    type: String,
+    unique: true,
+    index: true
+  },
   google_oauth_access_token: String,
   google_oauth_refresh_token: String
+});
+
+Users.post('save', user => {
+  // TODO: send them a welcome email
 });
 
 Users.plugin(CommonPlugin('user'));
