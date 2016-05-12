@@ -44,6 +44,7 @@ import rateLimit from 'koa-ratelimit';
 // view rendering
 import views from 'koa-nunjucks-promise';
 import bodyParser from 'koa-bodyparser';
+import json from 'koa-json';
 
 // security
 import helmet from 'koa-helmet';
@@ -218,6 +219,9 @@ app.use(async function(ctx, next) {
   ctx.req.body = ctx.request.body;
   await next();
 });
+
+// pretty-printed json responses
+app.use(json());
 
 // auth
 app.use(passport.initialize());

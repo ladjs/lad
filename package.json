@@ -29,6 +29,7 @@
     "koa-etag": "^2.1.1",
     "koa-generic-session": "^1.10.2",
     "koa-helmet": "^2.0.0-alpha.1",
+    "koa-json": "^2.0.2",
     "koa-livereload": "^0.1.23",
     "koa-logger": "^2.0.0",
     "koa-manifest-rev": "0.0.3",
