@@ -39,7 +39,7 @@ import conditional from 'koa-conditional-get';
 import etag from 'koa-etag';
 import compress from 'koa-compress';
 import responseTime from 'koa-response-time';
-import rateLimit from 'koa-ratelimit';
+import rateLimit from 'koa-ratelimit-promises';
 
 // view rendering
 import views from 'koa-nunjucks-promise';
