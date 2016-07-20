@@ -1,12 +1,13 @@
 
-// override bootstrap variables
-@import "_variables";
-
 // bootstrap
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
 // sweetalert
 @import "../../../node_modules/sweetalert/dist/sweetalert";
+
+// font awesome
+$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.6.3/fonts";
+@import "../../../node_modules/font-awesome/scss/font-awesome";
 
 // sticky footer
 $footer-height: 60px;

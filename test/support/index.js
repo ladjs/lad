@@ -1,14 +1,35 @@
 
+Error.stackTraceLimit = Infinity;
+
 // babel requirements
 import 'babel-polyfill';
-import 'babel-regenerator-runtime';
 import 'source-map-support/register';
+
+import path from 'path';
+
+// ensure we have all necessary env variables
+import dotenvSafe from 'dotenv-safe';
+dotenvSafe.load();
+
+import 'isomorphic-fetch';
+
+import Frisbee from 'frisbee';
+global.Frisbee = Frisbee;
+
+import FormData from 'form-data';
+global.FormData = FormData;
+
+import config from '../../src/config';
+global.config = config;
+
+// fixtures directory
+global.fixturesDir = path.join(__dirname, '..', 'fixtures');
 
 // base URI for everything
 global._options = {
   baseURI: 'http://localhost:8080',
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json'
   }
 };

@@ -7,11 +7,15 @@ node_modules/
 logs
 *.log
 npm-debug.log*
-*.env
 *.idea
+
+# private keys
 *.awspublish*
+*.env
+*.pem
 
 # build
 lib/
 build/
 coverage/
+.env

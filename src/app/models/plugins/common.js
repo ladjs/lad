@@ -2,6 +2,8 @@
 import jsonSelect from 'mongoose-json-select';
 import beautifulValidation from 'mongoose-beautiful-unique-validation';
 
+import config from '../../../config';
+
 export default function CommonPlugin(object) {
 
   return function Plugin(Schema) {
@@ -37,7 +39,10 @@ export default function CommonPlugin(object) {
       next();
     });
 
-    Schema.plugin(jsonSelect, '-_id -__v');
+    Schema.plugin(
+      jsonSelect,
+      config.omitCommonFields.map(field => `-${field}`).join(' ')
+    );
     Schema.plugin(beautifulValidation);
 
     return Schema;

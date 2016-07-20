@@ -6,7 +6,8 @@
     "array-bracket-spacing": 0,
     "curly": 0,
     "padded-blocks": 0,
-    "no-console": 0
+    "no-console": 0,
+    "prefer-const": [ "error", { "destructuring": "all" } ]
   },
   "globals": {
     "expect": true

@@ -51,9 +51,9 @@ passport.use(new GoogleStrategy(
           display_name: profile.displayName,
           given_name: profile.name.givenName,
           family_name: profile.name.familyName,
-          google_oauth_profile_id: profile.id,
-          google_oauth_access_token: accessToken,
-          google_oauth_refresh_token: refreshToken
+          google_profile_id: profile.id,
+          google_access_token: accessToken,
+          google_refresh_token: refreshToken
         };
 
         if (_.isObject(profile._json.image)
@@ -69,9 +69,9 @@ passport.use(new GoogleStrategy(
 
         // store the access token and refresh token
         if (accessToken)
-          user.set('google_oauth_access_token', accessToken);
+          user.set('google_access_token', accessToken);
         if (refreshToken)
-          user.set('google_oauth_refresh_token', refreshToken);
+          user.set('google_refresh_token', refreshToken);
         user = await user.save();
 
       }

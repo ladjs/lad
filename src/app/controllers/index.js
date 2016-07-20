@@ -1,6 +1,8 @@
 
 import app from './app';
+import api from './api';
 
 export {
-  app
+  app,
+  api
 };

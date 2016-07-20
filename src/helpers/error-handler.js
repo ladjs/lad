@@ -1,4 +1,5 @@
 
+import co from 'co';
 import _ from 'lodash';
 import Boom from 'boom';
 import config from '../config';
@@ -15,12 +16,9 @@ export default async function errorHandler(err) {
 
   if (!err) return;
 
-  // check if we have a boom error that specified
-  // a status code already for us (and then use it)
-  if (_.isObject(err.output) && _.isNumber(err.output.statusCode))
-    err.status = err.output.statusCode;
+  console.log('errorHandler', err);
 
-  this.status = err.status = err.status || 500;
+  this.status = this.statusCode = err.statusCode = err.status = err.status || 500;
   this.body = Boom.create(err.status, err.message).output.payload;
 
   this.app.emit('error', err, this);
@@ -35,11 +33,6 @@ export default async function errorHandler(err) {
 
   const type = this.accepts(['text', 'json', 'html']);
 
-  if (!type) {
-    this.status = 406;
-    this.body = Boom.notAcceptable().output.payload;
-  }
-
   switch (type) {
     case 'html':
       this.type = 'html';
@@ -52,10 +45,28 @@ export default async function errorHandler(err) {
         // prevent redirect loop
         // fix page title and desc for 500 page
         this.state = _.merge(this.state, config.meta['/500']);
-        this.state.flash.error.push(err.message);
+        this.flash('error', err.message);
         await this.render('500');
       } else {
         this.flash('error', err.message);
+        await co.wrap(this.sessionStore.set).call(this.sessionStore, this.sessionId, this.session);
+        this.cookies.set(
+          config.cookiesKey,
+          this.sessionId,
+          this.session.cookie
+        );
+        /*
+        // if we're using `koa-session-store` we need to add
+        // `this._session = new Session()`, and then run this:
+        await co.wrap(this._session._store.save).call(
+          this._session._store,
+          this._session._sid,
+          JSON.stringify(this.session)
+        );
+        this.cookies.set(this._session._name, JSON.stringify({
+          _sid: this._session._sid
+        }), this._session._cookieOpts);
+        */
         this.redirect('back');
       }
       break;

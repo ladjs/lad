@@ -26,6 +26,7 @@
   - [Job Scheduler](#job-scheduler)
   - [Database &amp; ORM](#database--orm)
   - [Sessions &amp; Auth](#sessions--auth)
+  - [API Example](#api-example)
   - [Security](#security)
   - [Helpers](#helpers)
 * [Why should I use it?](#-why-should-i-use-it)
@@ -268,7 +269,11 @@ Also included are the front-end packages jQuery and [Sweetalert][sweetalert].
 
 ### Job Scheduler
 
-For job scheduling, we recommend to use [Agenda][agenda].  In the next release, we will hopefully have included the custom job scheduler (written with Agenda) for Glazed.
+Job scheduling is built on top of [Agenda][agenda].  See the `src/agenda.js` file and also `src/jobs` folder for how it works and is set up.
+
+There is one sample job scheduler built-in, which is in the `post('save')` hook for when a user is created.  The user gets a welcome email.
+
+You can see the content and template of the email in the `src/emails/welcome` folder.  Emails are sent using [Postmark][postmarkapp] and the package [email-templates][email-templates].
 
 ### Database &amp; ORM
 
@@ -287,9 +292,41 @@ To enhance security and allow you to have selective JSON output from query resul
 Out of the box, we provide (2) means of authentication for restricted routes:
 
 1. Google OAuth Strategy - uses [passport-google-oauth][passport-google-oauth] (your users can "Log in with Google")
-2. Glazed API token - an `api_token` field is populated for each user in the database after their first log-in, and this can be passed as the `user` in `user:pass` with BasicAuth headers &ndash; password is blank for simplicity).  This is very useful for API access if you are building an iOS/Android or client-side focused app
+2. Glazed API token - an `api_token` field is populated for each user in the database after their first log-in, and this can be passed as the `user` in `user:pass` with BasicAuth headers &ndash; password is blank for simplicity).  This is very useful for API access if you are building an iOS/Android or client-side focused app.  See the [API Example](#api-example) below for more information on this and how to test it out.
 
 > If you need to add additional strategies, you can literally clone the Google Strategy code and use another [passport package][passport-package] for your auth provider.  Don't be afraid to [join our Slack channel][slack-url] and ask us for help!
+
+### API Example
+
+Using the user's `api_token` field value (which is automatically generated upon user creation, see `src/app/models/user.js`), you can pass the test of the policy `Policies.ensureApiToken`.
+
+For example, we have one restricted route built into Glazed, which is `GET /v1/users`.
+
+As a test, try to sign in with Google OAuth at <http://localhost:3000> once you start up the app.
+
+Then, you can load the MongoDB cli with `mongo` and run the command `use glazed_development` and then `db.users.findOne().api_token` to get the value of the API token.
+
+Take this value, and run the following `curl` command using it (replace it into where it says `<apitoken>` below:
+
+```bash
+curl -u "<apitoken>:" http://localhost:3000/v1/users
+```
+
+This should output a JSON response like the following:
+
+```json
+{
+  "id": "578ee8af0d1f58b77a4f9ad7",
+  "updated_at": "2016-07-20T02:57:51.099Z",
+  "created_at": "2016-07-20T02:57:51.000Z",
+  "object": "user",
+  "display_name": "Nick Baugh",
+  "given_name": "Nick",
+  "family_name": "Baugh",
+  "google_profile_id": "105518868040745239689",
+  "avatar_url": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"
+}
+```
 
 ### Security
 
@@ -458,6 +495,14 @@ We didn't build in structured open graph tags as a default to edit, since we fig
 In order to prevent duplicate content, we have added a plugin that removes trailing slashes from URL's, so `/home/` will `301` redirect to `/home` automatically.
 
 ### l18n Localization
+
+We built-in international localization/translation support!
+
+See the following files for an understanding of how it works:
+
+* `src/locales` folder (full of all the translations, if a locale is missing, it defaults to English; `en.json`)
+* `src/config/locales.js` file (uncommented languages are the ones supported)
+* `src/config/index.js` (see the `config.i18n.HELLO_WORLD` variable, which you can use as your strings)
 
 Yes, you can customize this for international localization.  But we didn't build this in by default.  We're just letting you know we thought of it.  If you want recommendations
 on services to use for this and how to integrate, then [join our Slack][slack-url] and ask us!
@@ -628,7 +673,7 @@ We've provided a default file called `.env.example`, **which you will need to re
   -AWS_IAM_SECRET=
   +AWS_IAM_SECRET=9MpR1FOXwPEtPlrlU5WbHjnz2KDcKWSUcB+C5CpS
   ```
-  
+
 9. Enable your API by clicking on Overview and then clicking the Enable button
 10. Go to <https://console.aws.amazon.com/s3/home> &ndash; Create Bucket
 11. Create a bucket and copy/paste its name for the property in `.env` (example below)
@@ -934,3 +979,4 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [unicorn-url]: https://www.youtube.com/watch?v=9auOCbH5Ns4
 [coveralls-image]: https://coveralls.io/repos/github/glazedio/glazed/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/glazedio/glazed?branch=master
+[email-templates]: https://github.com/niftylettuce/node-email-templates

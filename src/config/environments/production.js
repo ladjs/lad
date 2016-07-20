@@ -10,5 +10,9 @@ dotenv.load();
 export default {
   koaManifestRev: {
     prepend: `//${process.env.AWS_CF_DOMAIN}/`
-  }
+  },
+  agenda: {
+    maxConcurrency: 50
+  },
+  mongooseDebug: false
 };

@@ -1,7 +1,13 @@
 
+import _ from 'lodash';
+import s from 'underscore.string';
+import randomstring from 'randomstring-extended';
 import mongoose from 'mongoose';
 import jsonSelect from 'mongoose-json-select';
 import validator from 'validator';
+import config from '../../config';
+import { Logger } from '../../helpers';
+import Jobs from './job';
 
 import CommonPlugin from './plugins/common';
 
@@ -43,31 +49,52 @@ const Users = new mongoose.Schema({
     trim: true,
     validator: validator.isUrl
   },
-  google_oauth_profile_id: {
+  google_profile_id: {
     type: String,
     unique: true,
     index: true
   },
-  google_oauth_access_token: String,
-  google_oauth_refresh_token: String
+  google_access_token: String,
+  google_refresh_token: String,
+  api_token: {
+    type: String,
+    required: true,
+    lowercase: true,
+    trim: true,
+    unique: true,
+    index: true
+  }
 });
 
-Users.post('save', user => {
-  // TODO: send them a welcome email
+Users.post('save', async user => {
+  // send them a welcome email
+  try {
+    const job = await Jobs.create({
+      name: 'email',
+      data: {
+        template: 'welcome',
+        to: user.email,
+        locals: {
+          name: user.display_name
+        }
+      }
+    });
+    Logger.info('created job', job);
+  } catch (err) {
+    Logger.error(err);
+  }
+});
+
+Users.pre('validate', function (next) {
+  if (!_.isString(this.api_token) || s.isBlank(this.api_token))
+    this.api_token = randomstring.token(24);
+  next();
 });
 
 Users.plugin(CommonPlugin('user'));
 Users.plugin(
   jsonSelect,
-  [
-    // local auth strategy fields
-    // (defaults as provided by `passport-local-mongoose`)
-    '-hash',
-    '-salt',
-    // oauth strategy tokens
-    '-google_oauth_access_token',
-    '-google_oauth_refresh_token'
-  ].join(' ')
+  config.omitUserFields.map(field => `-${field}`).join(' ')
 );
 
 export default mongoose.model('User', Users);

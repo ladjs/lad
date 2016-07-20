@@ -1,13 +1,12 @@
 
-async function home(ctx) {
-  await ctx.render('home');
-}
+export default class AppController {
 
-async function status(ctx) {
-  ctx.body = { status: 'online' };
-}
+  static async home(ctx) {
+    await ctx.render('home');
+  }
 
-export default {
-  home,
-  status
-};
+  static status(ctx) {
+    ctx.body = { status: 'online' };
+  }
+
+}

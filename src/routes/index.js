@@ -1,24 +1,27 @@
 
 import Router from 'koa-router';
 import config from '../config';
-import { renderPage, passport, policies } from '../helpers';
-import { app } from '../app/controllers';
+import { renderPage, passport, Policies } from '../helpers';
+import { app, api } from '../app/controllers';
 
 const router = new Router();
 
+// api routes
+router.get('/v1/users', Policies.ensureApiToken, api.v1.Users.retrieve);
+
+// non-api routes
 router
   .get('/', renderPage('home'))
   .get('/status', app.status)
   .get('/about', renderPage('about'))
-  .get('/my-account', policies.ensureLoggedIn, renderPage('my-account'))
-  .all('/admin*', policies.ensureAdmin)
+  .get('/my-account', Policies.ensureLoggedIn, renderPage('my-account'))
+  .all('/admin*', Policies.ensureAdmin)
   .get('/admin', renderPage('admin'))
-  // TODO: add your routes here
   .get('/404', renderPage('404'))
   .get('/500', renderPage('500'))
   .get(
     '/logout',
-    policies.ensureLoggedIn,
+    Policies.ensureLoggedIn,
     ctx => {
       ctx.logout();
       ctx.redirect('/');
@@ -27,13 +30,13 @@ router
   )
   .get(
     '/login',
-    policies.ensureLoggedOut,
+    Policies.ensureLoggedOut,
     config.auth.catchError,
     passport.authenticate('google', config.auth.google)
   )
   .get(
     '/login/consent',
-    policies.ensureLoggedOut,
+    Policies.ensureLoggedOut,
     config.auth.catchError,
     passport.authenticate('google', {
       accessType: 'offline',
@@ -43,13 +46,13 @@ router
   )
   .get(
     '/login/ok',
-    policies.ensureLoggedOut,
+    Policies.ensureLoggedOut,
     config.auth.catchError,
     passport.authenticate('google', config.auth.callbackOpts)
   )
   .get(
     '/auth/:provider',
-    policies.ensureLoggedIn,
+    Policies.ensureLoggedIn,
     config.auth.catchError,
     (ctx, next) => passport.authenticate(
       ctx.params.provider,
@@ -58,7 +61,7 @@ router
   )
   .get(
     '/auth/:provider/ok',
-    policies.ensureLoggedIn,
+    Policies.ensureLoggedIn,
     config.auth.catchError,
     (ctx, next) => passport.authenticate(
       ctx.params.provider, config.auth.callbackOpts
