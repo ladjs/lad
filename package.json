@@ -121,7 +121,7 @@
     "istanbul": "^0.4.4",
     "jsdom": "^9.4.1",
     "jsonlint": "^1.6.2",
-    "mocha": "^2.5.3",
+    "mocha": "^3.0.2",
     "mocha-mongoose": "^1.2.0",
     "postcss-reporter": "^1.4.1",
     "run-sequence": "^1.2.2",
