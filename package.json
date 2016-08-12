@@ -111,7 +111,7 @@
     "gulp-nodemon": "^2.1.0",
     "gulp-postcss": "^6.1.1",
     "gulp-rename": "^1.2.2",
-    "gulp-rev": "^7.1.0",
+    "gulp-rev": "^7.1.1",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-uglify": "^1.5.4",
