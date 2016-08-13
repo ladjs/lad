@@ -106,7 +106,7 @@
     "gulp-cloudfront": "0.0.14",
     "gulp-eslint": "^3.0.1",
     "gulp-if": "^2.0.1",
-    "gulp-imagemin": "^3.0.2",
+    "gulp-imagemin": "^3.0.3",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.1.0",
     "gulp-postcss": "^6.1.1",
