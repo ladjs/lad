@@ -8,7 +8,7 @@
     "email": "niftylettuce@gmail.com"
   },
   "dependencies": {
-    "agenda": "^0.8.1",
+    "agenda": "^0.9.0",
     "babel-runtime": "^6.9.2",
     "basic-auth": "^1.0.4",
     "boom": "^3.2.2",
