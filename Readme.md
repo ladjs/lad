@@ -907,8 +907,8 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [glazed-logo-xs]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg
 [glazed-description]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-description.svg
 [glazed-url]: http://glazed.io
-[slack-image]: http://slack.glazed.io/badge.svg
-[slack-url]: http://slack.glazed.io
+[slack-image]: http://slack.crocodilejs.com/badge.svg
+[slack-url]: http://slack.crocodilejs.com
 [mongoose]: http://mongoosejs.com/
 [passport]: https://github.com/jaredhanson/passport
 [passport-google-oauth]: https://github.com/jaredhanson/passport-google-oauth
