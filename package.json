@@ -93,7 +93,7 @@
     "check-chai": "0.0.1",
     "codecov": "^1.0.1",
     "colorguard": "^1.2.0",
-    "cssnano": "^3.7.3",
+    "cssnano": "^3.7.4",
     "del": "^2.2.1",
     "dirty-chai": "^1.2.2",
     "eslint": "^3.1.1",
