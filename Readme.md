@@ -965,8 +965,8 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [ubuntu]: http://www.ubuntu.com
 [pr-template]: .github/PULL_REQUEST_TEMPLATE.md
 [120x120]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-120x120.png
-[build-image]: https://semaphoreci.com/api/v1/niftylettuce/glazed/branches/master/shields_badge.svg
-[build-url]: https://semaphoreci.com/niftylettuce/glazed
+[build-image]: https://semaphoreci.com/api/v1/niftylettuce/crocodile-node-mvc-framework/branches/master/shields_badge.svg
+[build-url]: https://semaphoreci.com/niftylettuce/crocodile-node-mvc-framework
 [agenda]: https://github.com/rschmukler/agenda
 [codecov-image]: https://img.shields.io/codecov/c/github/glazedio/glazed/master.svg
 [codecov-url]: https://codecov.io/github/glazedio/glazed
