@@ -118,7 +118,7 @@
     "husky": "^0.11.5",
     "imagemin-pngquant": "^5.0.0",
     "isparta": "^4.0.0",
-    "istanbul": "^0.4.4",
+    "istanbul": "^0.4.5",
     "jsdom": "^9.4.1",
     "jsonlint": "^1.6.2",
     "mocha": "^2.5.3",
