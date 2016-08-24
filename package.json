@@ -59,7 +59,7 @@
     "mime": "^1.3.4",
     "moment": "^2.14.1",
     "mongodb": "^2.2.4",
-    "mongoose": "^4.5.5",
+    "mongoose": "^4.5.10",
     "mongoose-beautiful-unique-validation": "^3.0.2",
     "mongoose-json-select": "^0.2.1",
     "node-fetch": "^1.5.3",
