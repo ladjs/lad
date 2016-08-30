@@ -119,7 +119,7 @@
     "imagemin-pngquant": "^5.0.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.4",
-    "jsdom": "^9.4.1",
+    "jsdom": "^9.4.4",
     "jsonlint": "^1.6.2",
     "mocha": "^2.5.3",
     "mocha-mongoose": "^1.2.0",
