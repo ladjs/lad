@@ -21,7 +21,7 @@
     "es6-promisify": "^4.1.0",
     "eslint": "^2.13.1",
     "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-mocha": "^3.0.0",
+    "eslint-plugin-mocha": "^4.5.1",
     "event-stream": "^3.3.4",
     "font-awesome": "^4.6.3",
     "frisbee": "^1.1.0",
