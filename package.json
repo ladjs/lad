@@ -115,7 +115,7 @@
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-uglify": "^1.5.4",
-    "husky": "^0.11.5",
+    "husky": "^0.11.7",
     "imagemin-pngquant": "^5.0.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.4",
