@@ -49,7 +49,7 @@
     "koa-manifest-rev": "0.1.0",
     "koa-multer": "^1.0.0",
     "koa-no-trailing-slash": "^1.1.0",
-    "koa-nunjucks-promise": "^1.0.3",
+    "koa-nunjucks-promise": "^1.0.4",
     "koa-passport": "^2.0.1",
     "koa-ratelimit-promises": "^3.0.0",
     "koa-redis": "^2.1.1",
