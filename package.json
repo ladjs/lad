@@ -63,7 +63,7 @@
     "mongoose-beautiful-unique-validation": "^3.0.2",
     "mongoose-json-select": "^0.2.1",
     "node-fetch": "^1.5.3",
-    "node-sass": "^3.8.0",
+    "node-sass": "^3.9.1",
     "nodemailer": "^2.5.0",
     "nodemailer-html-to-text": "^2.1.0",
     "passport-google-oauth": "^1.0.0",
