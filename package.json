@@ -109,7 +109,7 @@
     "gulp-imagemin": "^3.0.2",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.1.0",
-    "gulp-postcss": "^6.1.1",
+    "gulp-postcss": "^6.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.1.0",
     "gulp-sass": "^2.3.2",
