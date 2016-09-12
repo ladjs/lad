@@ -105,7 +105,7 @@
     "codecov": "^1.0.1",
     "colorguard": "^1.2.0",
     "cssnano": "^3.7.3",
-    "del": "^2.2.1",
+    "del": "^2.2.2",
     "dirty-chai": "^1.2.2",
     "eslint": "^3.1.1",
     "eslint-config-crocodile": "^1.0.0",
