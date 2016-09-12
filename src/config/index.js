@@ -2,103 +2,75 @@
 // turn off max length eslint rule since this is a config file with long strs
 /* eslint max-len: 0*/
 
+import strength from 'strength';
+import { exec } from 'child-process-promise';
+import gemoji from 'gemoji';
+import s from 'underscore.string';
+import validator from 'validator';
 import os from 'os';
 import _ from 'lodash';
 import path from 'path';
-import dotenv from 'dotenv';
 
-// load default env vars from `.env` file
-dotenv.load();
+// load the defaults and environment specific configuration
+import dotenvExtended from 'dotenv-extended';
+import dotenvMustache from 'dotenv-mustache';
+import dotenvParseVariables from 'dotenv-parse-variables';
 
+let env = dotenvExtended.load({
+  silent: false,
+  errorOnMissing: true,
+  errorOnExtra: true
+});
+env = dotenvMustache(env);
+env = dotenvParseVariables(env);
+
+import pkg from '../../package.json';
 import environments from './environments';
 import locales from './locales';
 
-const APP_NAME = 'Glazed';
-const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || 'localhost';
-const PROTOCOL = process.env.PROTOCOL || 'http';
-const MAX_AGE = 24 * 60 * 60 * 1000;
-
-const ENV = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : 'development';
-const DATABASE_URL = process.env.DATABASE_URL || `mongodb://localhost:27017/${APP_NAME.toLowerCase()}_${ENV}`;
-const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
-const URL = process.env.CUSTOM_URL || `${PROTOCOL}://${HOST}${PORT === 80 || PORT === 443 ? '' : `:${PORT}`}`;
 const omitCommonFields = [ '_id', '__v' ];
 
 let config = {
-  livereload: {
-    port: 1337
+
+  // server
+  protocols: {
+    web: env.WEB_PROTOCOL,
+    api: env.API_PROTOCOL
   },
-  cookiesKey: 'glazed.sid',
-  localesDirectory: path.join(__dirname, '..', '..', 'src', 'locales'),
-  mongooseDebug: true,
+  ports: {
+    web: env.WEB_PORT,
+    api: env.API_PORT
+  },
+  hosts: {
+    web: env.WEB_HOST,
+    api: env.API_HOST
+  },
+  env: env.NODE_ENV,
+  urls: {
+    web: env.WEB_URL,
+    api: env.API_URL
+  },
+  ssl: {
+    web: {},
+    api: {}
+  },
+
+  // app
+  cookiesKey: env.COOKIES_KEY,
   email: {
-    from: 'niftylettuce <support@wakeup.io>',
+    from: env.EMAIL_DEFAULT_FROM,
     attachments: [],
     headers: {}
   },
-  postmark: {
-    service: 'postmark',
-    auth: {
-      user: process.env.POSTMARK_API_TOKEN,
-      pass: process.env.POSTMARK_API_TOKEN
-    }
+  livereload: {
+    port: env.LIVERELOAD_PORT
   },
-  omitCommonFields,
-  omitUserFields: [
-    ...omitCommonFields,
-    'email',
-    'api_token',
-    'group',
-    'hash',
-    'salt',
-    'google_access_token',
-    'google_refresh_token'
-  ],
-  agenda: {
-    name: `${os.hostname()}-${process.pid}`,
-    db: {
-      address: DATABASE_URL,
-      collection: 'jobs'
-    },
-    maxConcurrency: 20
-  },
-  showStack: false,
-  ga: 'UA-77185440-1',
-  aws: {
-    key: process.env.AWS_IAM_KEY,
-    accessKeyId: process.env.AWS_IAM_KEY,
-    secret: process.env.AWS_IAM_SECRET,
-    secretAccessKey: process.env.AWS_IAM_SECRET,
-    distributionId: process.env.AWS_CF_DI,
-    domainName: process.env.AWS_CF_DOMAIN,
-    params: {
-      Bucket: process.env.AWS_S3_BUCKET
-    }
-  },
-  mongodb: DATABASE_URL,
-  redis: REDIS_URL,
-  sessionKeys: [ 'glazed' ],
-  buildDir: path.join(__dirname, '..', '..', 'build'),
-  viewsDir: path.join(__dirname, '..', '..', 'src', 'app', 'views'),
-  sentry: process.env.SENTRY_DSN || '',
-  nunjucks: {
-    ext: 'njk',
-    autoescape: true,
-    // watch
-    // <https://mozilla.github.io/nunjucks/api.html#configure>
-    noCache: ENV !== 'production',
-    filters: {
-      json: str => {
-        return JSON.stringify(str, null, 2);
-      }
-    }
-    // globals: {
-    //   version: '0.0.1'
-    // }
-  },
+  showStack: env.SHOW_STACK,
+  ga: env.GOOGLE_ANALYTICS,
+  sessionKeys: env.SESSION_KEYS,
   rateLimit: {
-    max: 1000,
+    duration: 60000,
+    max: env.NODE_ENV === 'production' ? 100 : 1000,
     id: ctx => ctx.ip
   },
   koaManifestRev: {
@@ -106,27 +78,156 @@ let config = {
     // note in production we switch this to CloudFront
     prepend: '/'
   },
-  appName: APP_NAME,
-  appColor: '#3EA1A0',
-  protocol: PROTOCOL,
-  port: parseInt(PORT, 10),
-  host: HOST,
-  env: ENV,
-  url: URL,
-  strategies: {
-    google: {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${URL}/login/ok`
+  appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
+  appName: env.APP_NAME,
+  serveStatic: {
+    maxage: env.MAX_AGE
+  },
+
+  // postmarkapp.com
+  postmark: {
+    service: 'postmark',
+    auth: {
+      user: env.POSTMARK_API_TOKEN,
+      pass: env.POSTMARK_API_TOKEN
     }
   },
+
+  // mongoose
+  mongooseDebug: env.MONGOOSE_DEBUG,
+  omitCommonFields,
+  omitUserFields: [
+    ...omitCommonFields,
+    'email',
+    'api_token',
+    'group',
+    'attempts',
+    'last',
+    'hash',
+    'salt',
+    'google_profile_id',
+    'google_access_token',
+    'google_refresh_token'
+  ],
+
+  // localization
+  localesDirectory: path.join(__dirname, '..', '..', 'src', 'locales'),
+
+  // agenda
+  agenda: {
+    name: `${os.hostname()}_${process.pid}`,
+    db: {
+      address: env.DATABASE_URL,
+      collection: env.AGENDA_COLLECTION_NAME
+    },
+    maxConcurrency: env.AGENDA_MAX_CONCURRENCY
+  },
+
+  aws: {
+    key: env.AWS_IAM_KEY,
+    accessKeyId: env.AWS_IAM_KEY,
+    secret: env.AWS_IAM_SECRET,
+    secretAccessKey: env.AWS_IAM_SECRET,
+    distributionId: env.AWS_CF_DI,
+    domainName: env.AWS_CF_DOMAIN,
+    params: {
+      Bucket: env.AWS_S3_BUCKET
+    }
+  },
+
+  // getsentry.com
+  sentry: env.SENTRY_DSN,
+
+  // mongodb
+  mongodb: env.DATABASE_URL,
+
+  // redis
+  redis: env.REDIS_URL,
+
+  // templating
+  buildDir: path.join(__dirname, '..', '..', 'build'),
+  viewsDir: path.join(__dirname, '..', '..', 'src', 'app', 'views'),
+  nunjucks: {
+    ext: 'njk',
+    autoescape: true,
+    // watch
+    // <https://mozilla.github.io/nunjucks/api.html#configure>
+    noCache: env.NODE_ENV !== 'production',
+    filters: {
+      json: str => JSON.stringify(str, null, 2),
+      emoji: str => {
+        return gemoji.name[str] ? gemoji.name[str].emoji : '';
+      },
+      curl: [ async (cmd, fn) => {
+        try {
+          const response = await exec(cmd, { stdio: 'ignore' });
+          fn(null, response.stdout ? response.stdout : response);
+        } catch (err) {
+          if (err) console.log(err && err.stack);
+          fn(null, err.stderr ? err.stderr : err.message);
+        }
+      }, true ]
+    },
+    globals: {
+      version: pkg.version,
+      _: _,
+      s: s,
+      validator: validator
+    }
+  },
+
+  // csrf
+  csrf: {},
+
+  // authentication
   auth: {
+    providers: {
+      local: true,
+      facebook: true,
+      twitter: true,
+      google: true,
+      github: true,
+      linkedin: true,
+      instagram: true,
+      stripe: true
+    },
+    strategies: {
+      local: {
+        usernameField: 'email',
+        passwordField: 'password',
+        usernameLowerCase: true,
+        limitAttempts: true,
+        maxAttempts: env.NODE_ENV === 'development' ? Infinity : 5,
+        digestAlgorithm: 'sha256',
+        encoding: 'hex',
+        saltlen: 32,
+        iterations: 25000,
+        keylen: 512,
+        passwordValidator: (password, cb) => {
+          if (env.NODE_ENV === 'development')
+            return cb();
+          const howStrong = strength(password);
+          cb(howStrong < 3 ? new Error('Password not strong enough') : null);
+        }
+      },
+      facebook: {},
+      twitter: {},
+      google: {
+        clientID: env.GOOGLE_CLIENT_ID,
+        clientSecret: env.GOOGLE_CLIENT_SECRET,
+        callbackURL: `${env.WEB_URL}/auth/google/ok`
+      },
+      github: {},
+      linkedin: {},
+      instagram: {},
+      stripe: {}
+    },
     catchError: async function(ctx, next) {
       try {
         await next();
       } catch (err) {
         if (err.message === 'Consent required')
-          return ctx.redirect('/login/consent');
+          return ctx.redirect('/auth/google/consent');
         ctx.flash('error', err.message);
         ctx.redirect('/');
       }
@@ -145,33 +246,31 @@ let config = {
         'https://www.googleapis.com/auth/userinfo.profile'
       ]
     }
-  },
-  serveStatic: {
-    maxage: MAX_AGE
-  },
-  meta: {
-    '/': {
-      title: `${APP_NAME} | Home`,
-      desc: 'Glazed is an opinionated yet simple framework'
-    },
-    '/404': {
-      title: `${APP_NAME} | Page Not Found`,
-      desc: 'The page you requested could not be found'
-    },
-    '/500': {
-      title: `${APP_NAME} | Oops!`,
-      desc: 'Oops! A server error occurred'
-    }
   }
+
 };
 
 config.locales = locales;
 
 config.i18n = {
-  HELLO_WORLD: 'Hello %s world'
+  INVALID_EMAIL: 'Email address was invalid',
+  INVALID_PASSWORD: 'Password was invalid',
+  INVALID_RESET_TOKEN: 'Reset token provided was invalid',
+  INVALID_RESET_PASSWORD: 'Reset token and email were not valid together',
+  INVALID_PASSWORD_STRENGTH: 'Password strength was not strong enough',
+  INVALID_SESSION_SECRET: 'Invalid session secret',
+  INVALID_TOKEN: 'Invalid CSRF token',
+  PASSWORD_RESET_SENT: 'We have sent you an email with a link to reset your password.',
+  HELLO_WORLD: 'Hello %s world',
+  REGISTERED: 'You have successfully registered',
+  RESET_PASSWORD: 'You have successfully reset your password.'
 };
 
-if (_.isObject(environments[ENV]))
-  config = _.merge(config, environments[ENV]);
+if (_.isObject(environments[env.NODE_ENV]))
+  config = _.merge(config, environments[env.NODE_ENV]);
+
+config.nunjucks.globals.config = config;
+
+config.auth.hasThirdPartyProviders = _.some(_.keys(config.auth.providers), bool => bool);
 
 export default config;

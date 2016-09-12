@@ -1,7 +1,7 @@
 
-# Contributing to Glazed
+# Contributing to CrocodileJS
 
-Please follow the simple steps below when contributing to Glazed.
+Please follow the simple steps below when contributing to Crocodile.
 
 
 ## 1. Fork
@@ -9,9 +9,9 @@ Please follow the simple steps below when contributing to Glazed.
 Fork the project on GitHub and clone your fork locally:
 
 ```bash
-git clone git@github.com:username/glazed.git
-cd glazed
-git remote add upstream git://github.com/glazedio/glazed.git
+git clone git@github.com:username/crocodile.git
+cd crocodile
+git remote add upstream git://github.com/crocodilejs/crocodile.git
 ```
 
 
@@ -115,7 +115,7 @@ git push origin feature/<name>
 
 ## 6. Pull Request
 
-Open a new pull-request at <https://github.com/yourusername/glazed> **(replace with your username)** &ndash; and select your newly pushed branch.
+Open a new pull-request at <https://github.com/yourusername/crocodile> **(replace with your username)** &ndash; and select your newly pushed branch.
 
 
 ## 7. Cleanup

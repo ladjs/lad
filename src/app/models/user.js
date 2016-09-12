@@ -5,13 +5,19 @@ import randomstring from 'randomstring-extended';
 import mongoose from 'mongoose';
 import jsonSelect from 'mongoose-json-select';
 import validator from 'validator';
-import config from '../../config';
-import { Logger } from '../../helpers';
-import Jobs from './job';
+import passportLocalMongoose from 'passport-local-mongoose';
 
+import config from '../../config';
 import CommonPlugin from './plugins/common';
 
 const Users = new mongoose.Schema({
+
+  // passport-local-mongoose sets these for us on log in attempts
+  attempts: Number,
+  last: Date,
+  hash: String,
+  salt: String,
+
   group: {
     type: String,
     default: 'user',
@@ -31,17 +37,20 @@ const Users = new mongoose.Schema({
   display_name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    maxlength: 70
   },
   given_name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    maxlength: 35
   },
   family_name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    maxlength: 35
   },
   avatar_url: {
     type: String,
@@ -49,13 +58,6 @@ const Users = new mongoose.Schema({
     trim: true,
     validator: validator.isUrl
   },
-  google_profile_id: {
-    type: String,
-    unique: true,
-    index: true
-  },
-  google_access_token: String,
-  google_refresh_token: String,
   api_token: {
     type: String,
     required: true,
@@ -63,26 +65,23 @@ const Users = new mongoose.Schema({
     trim: true,
     unique: true,
     index: true
-  }
-});
+  },
 
-Users.post('save', async user => {
-  // send them a welcome email
-  try {
-    const job = await Jobs.create({
-      name: 'email',
-      data: {
-        template: 'welcome',
-        to: user.email,
-        locals: {
-          name: user.display_name
-        }
-      }
-    });
-    Logger.info('created job', job);
-  } catch (err) {
-    Logger.error(err);
-  }
+  // password reset
+  reset_token_expires_at: Date,
+  reset_token: String,
+
+  // oauth
+
+  // google
+  google_profile_id: {
+    type: String,
+    unique: true,
+    index: true
+  },
+  google_access_token: String,
+  google_refresh_token: String
+
 });
 
 Users.pre('validate', function (next) {
@@ -96,5 +95,9 @@ Users.plugin(
   jsonSelect,
   config.omitUserFields.map(field => `-${field}`).join(' ')
 );
+
+Users.plugin(passportLocalMongoose, config.auth.strategies.local);
+
+Users.statics.findByEmail = Users.statics.findByUsername;
 
 export default mongoose.model('User', Users);

@@ -26,63 +26,67 @@ passport.deserializeUser(async (email, done) => {
   }
 });
 
-passport.use(new GoogleStrategy(
-  config.strategies.google,
-  async (accessToken, refreshToken, profile, done) => {
+if (config.auth.providers.local)
+  passport.use(Users.createStrategy());
 
-    const email = profile.emails[0].value;
+if (config.auth.providers.google)
+  passport.use(new GoogleStrategy(
+    config.auth.strategies.google,
+    async (accessToken, refreshToken, profile, done) => {
 
-    try {
+      const email = profile.emails[0].value;
 
-      let user = await Users.findOne({ email: email });
+      try {
 
-      if (!user) {
+        let user = await Users.findByEmail(email);
 
-        // there is still a bug that doesn't let us revoke tokens
-        // in order for us to get a new refresh token per:
-        // <http://stackoverflow.com/a/18578660>
-        // so instead we explicitly send them to the google url
-        // with `prompt=consent` specified (this rarely happens)
-        if (!refreshToken)
-          return done(new Error('Consent required'));
+        if (!user) {
 
-        const obj = {
-          email: email,
-          display_name: profile.displayName,
-          given_name: profile.name.givenName,
-          family_name: profile.name.familyName,
-          google_profile_id: profile.id,
-          google_access_token: accessToken,
-          google_refresh_token: refreshToken
-        };
+          // there is still a bug that doesn't let us revoke tokens
+          // in order for us to get a new refresh token per:
+          // <http://stackoverflow.com/a/18578660>
+          // so instead we explicitly send them to the google url
+          // with `prompt=consent` specified (this rarely happens)
+          if (!refreshToken)
+            return done(new Error('Consent required'));
 
-        if (_.isObject(profile._json.image)
-            && _.isString(profile._json.image.url)) {
-          obj.avatar_url = profile._json.image.url;
-          // we don't want ?sz= in the image URL
-          obj.avatar_url = obj.avatar_url.split('?sz=')[0];
+          const obj = {
+            email: email,
+            display_name: profile.displayName,
+            given_name: profile.name.givenName,
+            family_name: profile.name.familyName,
+            google_profile_id: profile.id,
+            google_access_token: accessToken,
+            google_refresh_token: refreshToken
+          };
+
+          if (_.isObject(profile._json.image)
+              && _.isString(profile._json.image.url)) {
+            obj.avatar_url = profile._json.image.url;
+            // we don't want ?sz= in the image URL
+            obj.avatar_url = obj.avatar_url.split('?sz=')[0];
+          }
+
+          user = await Users.create(obj);
+
+        } else {
+
+          // store the access token and refresh token
+          if (accessToken)
+            user.set('google_access_token', accessToken);
+          if (refreshToken)
+            user.set('google_refresh_token', refreshToken);
+          user = await user.save();
+
         }
 
-        user = await Users.create(obj);
+        done(null, user.toObject());
 
-      } else {
-
-        // store the access token and refresh token
-        if (accessToken)
-          user.set('google_access_token', accessToken);
-        if (refreshToken)
-          user.set('google_refresh_token', refreshToken);
-        user = await user.save();
-
+      } catch (err) {
+        done(err);
       }
 
-      done(null, user.toObject());
-
-    } catch (err) {
-      done(err);
     }
-
-  }
-));
+  ));
 
 export default passport;

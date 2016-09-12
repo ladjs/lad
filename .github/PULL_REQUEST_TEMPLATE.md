@@ -1,6 +1,6 @@
 
 <!--
-Thank you for submitting a pull request to Glazed. Before you submit, please
+Thank you for submitting a pull request to Crocodile. Before you submit, please
 review below requirements and walk through the checklist. You can 'tick'
 a box by using the letter "x": [x].
 
@@ -10,10 +10,10 @@ If this aims to fix a regression or you’re adding a feature, make sure you als
 write a test. Finally – if possible – a benchmark that quantifies your changes.
 
 Finally, read through our contributors guide and make adjustments as necessary:
-https://github.com/glazedio/glazed/blob/master/.github/CONTRIBUTING.md
+https://github.com/crocodilejs/crocodile/blob/master/.github/CONTRIBUTING.md
 
 Thank you!
-@glazedio
+@niftylettuce
 -->
 
 ##### Checklist

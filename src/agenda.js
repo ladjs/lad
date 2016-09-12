@@ -1,11 +1,5 @@
 
-// babel requirements
-import 'babel-polyfill';
 import 'source-map-support/register';
-
-// ensure we have all necessary env variables
-import dotenvSafe from 'dotenv-safe';
-dotenvSafe.load();
 
 import Agenda from 'agenda';
 import promisify from 'es6-promisify';
@@ -62,14 +56,6 @@ agenda.on('ready', () => {
 
   agenda.now('locales');
 
-  agenda.now('email', {
-    template: 'welcome',
-    to: 'Nick Baugh <niftylettuce+welcome@gmail.com>',
-    locals: {
-      name: 'Nick'
-    }
-  });
-
   // TODO: we may need to change the `lockLifetime` (default is 10 min)
   // <https://github.com/rschmukler/agenda#multiple-job-processors>
 
@@ -100,7 +86,7 @@ agenda.on('error', Logger.error);
 // <http://goo.gl/nu1Rco>
 async function cancel() {
   try {
-    await promisify(agenda.cancel.bind(agenda))(cancelOptions);
+    await promisify(agenda.cancel, agenda)(cancelOptions);
   } catch (err) {
     throw err;
   }
@@ -109,6 +95,7 @@ async function cancel() {
 // handle uncaught promises
 process.on('unhandledRejection', function (reason, p) {
   Logger.error(`unhandled promise rejection: ${reason}`, p);
+  console.dir(p, { depth: null });
 });
 
 // handle uncaught exceptions
@@ -145,7 +132,7 @@ function graceful() {
       } else {
         clearInterval(jobInterval);
         jobInterval = null;
-        await promisify(agenda.stop.bind(agenda))();
+        await promisify(agenda.stop, agenda)();
       }
     }, 500);
 
@@ -160,3 +147,5 @@ function graceful() {
   }
 
 }
+
+module.exports = agenda;

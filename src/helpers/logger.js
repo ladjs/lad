@@ -3,7 +3,6 @@ import _ from 'lodash';
 import s from 'underscore.string';
 import chalk from 'chalk';
 
-import parseValidationError from './parse-validation-error';
 import sentry from './sentry';
 import config from '../config';
 
@@ -28,8 +27,6 @@ export default class Logger {
   static ctxError(err, ctx) {
 
     console.log(err && err.stack);
-
-    err = parseValidationError(err);
 
     const meta = {
       extra: {}
@@ -79,7 +76,6 @@ export default class Logger {
 
     // validate message (check for err first)
     if (_.isError(message)) {
-      message = parseValidationError(message);
       if (message.stack)
         meta.extra.stack = message.stack;
       message = message.message;

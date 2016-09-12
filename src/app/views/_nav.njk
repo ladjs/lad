@@ -1,60 +1,55 @@
-<div class="container">
-  <nav class="navbar navbar-dark bg-inverse">
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
-      <i class="fa fa-bars"></i>
-    </button>
-    <div class="collapse navbar-toggleable-xs" id="navbar-header">
-      <a class="navbar-brand" href="/">{{config.appName}}</a>
-      <ul class="nav navbar-nav">
+<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+  <button class="navbar-toggler pull-right hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
+    <i class="fa fa-bars"></i>
+  </button>
+  <a class="navbar-brand" href="/">{{config.appName}} <span class="tag tag-success">{{ version }}</span></a>
+  <div class="collapse navbar-toggleable-sm" id="navbar-header">
+    <ul class="nav navbar-nav">
 
-        <li class="nav-item{% if req.url == '/' %} active{% endif %}">
-          <a class="nav-link" href="/">Home {% if req.url == '/' %} <span class="sr-only">(current)</span>{% endif %}</a>
-        </li>
+      <li class="nav-item{% if req.url == '/about' %} active{% endif %}">
+        <a class="nav-link" href="/about"><i class="fa fa-info-circle"></i> About {% if req.url == '/' %} <span class="sr-only">(current)</span>{% endif %}</a>
+      </li>
 
-        {# these links show in all pages (regardless if you're logged in or not) #}
-        {% for link in [ 'about' ] %}
-          <li class="nav-item{% if req.url.indexOf('/' + link) == 0 or (req.url == '/' and link == 'home') %} active{% endif %}">
-            <a class="nav-link" href="{{ '/' + link }}">{{ s.titleize(link) }}{% if req.url.indexOf('/' + link) == 0 or (req.url == '/' and link == 'home') %} <span class="sr-only">(current)</span>{% endif %}</a>
+      <li class="nav-item"><a class="nav-link" href="http://slack.crocodilejs.com"><i class="fa fa-slack"></i> Chat</a></li>
+      <li class="nav-item"><a class="nav-link" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-book"></i> Docs</a></li>
+      <li class="nav-item"><a class="nav-link" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar-plus-o"></i> Training</a></li>
+
+      <div class="pull-xs-right">
+
+        {# links that show only if you're logged in #}
+        {% if user %}
+
+          <li class="nav-item{% if req.url.indexOf('/my-account') == 0 %} active{% endif %}">
+            <a class="nav-link" href="/my-account">
+              <img class="img-circle" src="{{ user.avatar_url }}" alt="My Account" height="25" /> {{ user.given_name }}{% if req.url.indexOf('/my-account') == 0 %} <span class="sr-only">(current)</span>{% endif %}
+            </a>
           </li>
-        {% endfor %}
 
-        <div class="pull-xs-right">
-
-          {# links that show only if you're logged in #}
-          {% if user %}
-
-            <li class="nav-item{% if req.url.indexOf('/my-account') == 0 %} active{% endif %}">
-              <a class="nav-link" href="/my-account">
-                <img class="img-circle" src="{{ user.avatar_url }}" alt="My Account" height="25" /> {{ user.display_name }}{% if req.url.indexOf('/my-account') == 0 %} <span class="sr-only">(current)</span>{% endif %}
-              </a>
+          {# links that show if you're an admin #}
+          {% if user.group == 'admin' %}
+            <li class="nav-item{% if req.url.indexOf('/admin') == 0 %} active{% endif %}">
+              <a class="nav-link" href="/admin">Admin{% if req.url.indexOf('/admin') == 0 %} <span class="sr-only">(current)</span>{% endif %}</a>
             </li>
-
-            {# links that show if you're an admin #}
-            {% if user.group == 'admin' %}
-              <li class="nav-item{% if req.url.indexOf('/admin') == 0 %} active{% endif %}">
-                <a class="nav-link" href="/admin">Admin{% if req.url.indexOf('/admin') == 0 %} <span class="sr-only">(current)</span>{% endif %}</a>
-              </li>
-            {% endif %}
-
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Log out</a>
-            </li>
-
-          {% else %}
-
-            {# links that show only if you're logged out #}
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Log in</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">Sign up</a>
-            </li>
-
           {% endif %}
 
-        </div>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log out</a>
+          </li>
 
-      </ul>
-    </div>
-  </nav>
-</div>
+        {% else %}
+
+          {# links that show only if you're logged out #}
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Log in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Sign up</a>
+          </li>
+
+        {% endif %}
+
+      </div>
+
+    </ul>
+  </div>
+</nav>

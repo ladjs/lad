@@ -1,14 +1,8 @@
 
 // babel requirements
 import 'babel-polyfill';
-import 'source-map-support/register';
-
-// ensure we have all necessary env variables
-import dotenvSafe from 'dotenv-safe';
-dotenvSafe.load();
 
 // gulp dependencies
-import babel from 'gulp-babel';
 import awspublish from 'gulp-awspublish';
 import cloudfront from 'gulp-cloudfront';
 import runSequence from 'run-sequence';
@@ -32,7 +26,6 @@ import sass from 'gulp-sass';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import reporter from 'postcss-reporter';
-import nodemon from 'gulp-nodemon';
 
 import config from './src/config';
 
@@ -63,7 +56,7 @@ gulp.task('build', done => {
   runSequence(
     'lint',
     'css',
-    [ 'app', 'img', 'js', 'static', 'emails', 'locales' ],
+    [ 'img', 'js', 'static', 'emails' ],
     done
   );
 });
@@ -95,88 +88,13 @@ gulp.task('nunjucks', () => {
     .pipe(gulpif(!PROD, livereload(config.livereload)));
 });
 
-gulp.task('agenda', [ 'jobs' ], () => {
-  nodemon({
-    script: 'lib/agenda.js',
-    ext: 'js json',
-    watch: [
-      'src/jobs',
-      'src/agenda.js'
-    ],
-    stdout: true,
-    readable: true,
-    tasks: 'jobs'
-  });
-});
-
-gulp.task('watch', (done) => {
-
+gulp.task('watch', [ 'build' ], (done) => {
   livereload.listen(config.livereload);
-
   gulp.watch('src/assets/img/**/*', [ 'img' ]);
   gulp.watch('src/assets/css/**/*.scss', [ 'css' ]);
   gulp.watch('src/assets/js/**/*.js', [ 'js' ]);
   gulp.watch('src/app/views/**/*.njk', [ 'nunjucks' ]);
-  gulp.watch('src/locales/**/*', [ 'locales' ]);
-
-  runSequence('build', () => {
-
-    nodemon({
-      script: 'lib/index.js',
-      ext: 'js json',
-      ignore: [
-        'src/assets/',
-        'src/jobs/',
-        'src/agenda.js'
-      ],
-      watch: [
-        'src/'
-      ],
-      stdout: true,
-      readable: false,
-      tasks: 'app'
-    }).on('readable', function () {
-      this.stdout.on('data', (chunk) => {
-        if (/^listening/.test(chunk))
-          livereload.reload();
-        process.stdout.write(chunk);
-      });
-    });
-
-  });
-
-
-});
-
-gulp.task('jobs', [ 'lint' ], () => {
-  return gulp
-    .src([
-      'src/**/*.js',
-      '!src/index.js',
-      '!src/app/**/*',
-      '!src/assets/**/*',
-      '!src/config/**/*',
-      '!src/emails/**/*',
-      '!src/locales/**/*',
-      '!src/helpers/**/*',
-      '!src/routes/**/*'
-    ])
-    // .pipe(sourcemaps.init())
-    .pipe(babel())
-    // .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('lib'));
-});
-
-gulp.task('app', () => {
-  return gulp
-    .src([
-      'src/**/*.js',
-      '!src/assets/**/*'
-    ])
-    // .pipe(sourcemaps.init())
-    .pipe(babel())
-    // .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('lib'));
+  gulp.watch('src/emails/**/*', [ 'emails' ]);
 });
 
 gulp.task('img', () => {
@@ -270,19 +188,10 @@ gulp.task('js', [ 'lint' ], done => {
 
 });
 
-gulp.task('locales', () => {
-  return gulp.src([
-    'src/locales/',
-    'src/locales/**/*'
-  ], {
-    base: 'src'
-  }).pipe(gulp.dest('lib'));
-});
-
 gulp.task('emails', () => {
   return gulp.src(['src/emails/**/*'], {
-    base: 'src'
-  }).pipe(gulp.dest('lib'));
+    base: 'src/emails'
+  }).pipe(gulp.dest('lib/emails'));
 });
 
 gulp.task('static', () => {

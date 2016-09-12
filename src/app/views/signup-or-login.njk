@@ -1,0 +1,91 @@
+
+{% extends "layout.njk" %}
+
+{% block body %}
+
+  <div class="container">
+
+    <div class="row m-t-1 m-b-1">
+
+      {% if config.auth.providers.local %}
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="card">
+            <div class="card-block">
+              <h1 class="card-title h4">{{ s.titleize(verb) }} Now</h1>
+              {% if verb == 'sign up' %}
+                <p class="card-text">Hi there {{ 'wave' | emoji }}!</p>
+              {% else %}
+                <p class="card-text">Welcome back {{ 'beers' | emoji }}!</p>
+              {% endif %}
+              <form action="{{ req.path }}" method="POST">
+                <input type="hidden" name="_csrf" value="{{ csrf }}" />
+                <div class="form-group">
+                  <label for="input-email">Email address</label>
+                  <input type="email" class="form-control" id="input-email" placeholder="Email address" />
+                </div>
+                <div class="form-group">
+                  <label for="input-password">Password</label>
+                  <input type="password" name="password" class="form-control" id="input-password" placeholder="Password" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-envelope"></i> {{ s.titleize(verb) }} with Email</button>
+              </form>
+              <p class="text-xs-center text-muted m-t-1">
+                <small>
+                  {% if verb == 'sign up' %}
+                    By signing up, you agree to our <a href="/terms">Terms</a>
+                  {% else %}
+                    <a href="/forgot-password" class="card-link">Forget your password?</a>
+                  {% endif %}
+                </small>
+              </p>
+            </div>
+            {% if verb == 'sign up' %}
+              <div class="card-footer text-xs-center">
+                Already have an account? <a href="/login" class="card-link">Log In</a>
+              </div>
+            {% else %}
+              <div class="card-footer text-xs-center">
+                Don't have an account? <a href="/signup" class="card-link">Sign Up</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if config.auth.hasThirdPartyProviders %}
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="card">
+            <div class="card-block">
+              <h1 class="card-title h4">Third-Party {{ s.titleize(verb) }}</h1>
+              <p class="card-text">One-click, it's easy {{ "sparkles" | emoji }}!</p>
+              {% if config.auth.providers.facebook %}
+                <a class="btn btn-block btn-social btn-facebook" href="/auth/facebook" role="button"><i class="fa fa-fw fa-facebook"></i> {{ s.titleize(verb) }} with Facebook</a>
+              {% endif %}
+              {% if config.auth.providers.twitter %}
+                <a class="btn btn-block btn-social btn-twitter" href="/auth/twitter" role="button"><i class="fa fa-fw fa-twitter"></i> {{ s.titleize(verb) }} with Twitter</a>
+              {% endif %}
+              {% if config.auth.providers.google %}
+                <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button"><i class="fa fa-fw fa-google-plus"></i> {{ s.titleize(verb) }} with Google</a>
+              {% endif %}
+              {% if config.auth.providers.github %}
+                <a class="btn btn-block btn-social btn-github" href="/auth/github" role="button"><i class="fa fa-fw fa-github"></i> {{ s.titleize(verb) }} with GitHub</a>
+              {% endif %}
+              {% if config.auth.providers.linkedin %}
+                <a class="btn btn-block btn-social btn-linkedin" href="/auth/linkedin" role="button"><i class="fa fa-fw fa-linkedin"></i> {{ s.titleize(verb) }} with LinkedIn</a>
+              {% endif %}
+              {% if config.auth.providers.instagram %}
+                <a class="btn btn-block btn-social btn-instagram" href="/auth/instagram" role="button"><i class="fa fa-fw fa-instagram"></i> {{ s.titleize(verb) }} with Instagram</a>
+              {% endif %}
+              {% if config.auth.providers.stripe %}
+                <a class="btn btn-block btn-social btn-stripe" href="/auth/stripe" role="button"><i class="fa fa-fw fa-cc-stripe"></i> {{ s.titleize(verb) }} with Stripe</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+{% endblock %}

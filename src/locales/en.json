@@ -1,1 +1,13 @@
-{}
+{
+  "Email address was invalid": "Email address was invalid",
+  "Password was invalid": "Password was invalid",
+  "Reset token provided was invalid": "Reset token provided was invalid",
+  "Reset token and email were not valid together": "Reset token and email were not valid together",
+  "Password strength was not strong enough": "Password strength was not strong enough",
+  "Invalid session secret": "Invalid session secret",
+  "Invalid CSRF token": "Invalid CSRF token",
+  "We have sent you an email with a link to reset your password.": "We have sent you an email with a link to reset your password.",
+  "Hello %s world": "Hello %s world",
+  "You have successfully registered": "You have successfully registered",
+  "You have successfully reset your password.": "You have successfully reset your password."
+}

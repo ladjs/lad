@@ -1,0 +1,2 @@
+<p>Hi {{ name }},</p>
+<p>Please <a href="{{ link }}">reset your password</a> now, and remember that this link will expire {{ moment(reset_token_expires_at).fromNow() }}.</p>

@@ -1,4 +1,7 @@
 
+// hljs
+@import "../../../node_modules/highlight.js/styles/github";
+
 // bootstrap
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
@@ -9,6 +12,36 @@
 $fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.6.3/fonts";
 @import "../../../node_modules/font-awesome/scss/font-awesome";
 
+// bootstrap-social
+// <https://github.com/lipis/bootstrap-social/issues/123>
+$padding-base-horizontal: $btn-padding-y;
+$padding-large-horizontal: $btn-padding-y-lg;
+$padding-small-horizontal: $btn-padding-y-sm;
+$bs-height-base: (floor($btn-line-height + ($btn-padding-x * 2)));
+$bs-height-lg: (floor($btn-line-height + ($btn-padding-x-lg * 2)));
+$bs-height-sm: (floor($btn-line-height + ($btn-padding-x-sm * 2)));
+$bs-height-xs: (floor($btn-line-height + ($btn-padding-x-sm * 2)));
+.btn-social {
+  > :first-child {
+    line-height: $btn-line-height !important;
+    padding-top: $btn-padding-y !important;
+    padding-bottom: $btn-padding-y !important;
+    font-size: inherit !important;
+  }
+  &.btn-lg {
+    > :first-child {
+      line-height: $btn-line-height !important;
+      padding-top: $btn-padding-y-lg !important;
+      padding-bottom: $btn-padding-y-lg !important;
+      font-size: inherit !important;
+    }
+  }
+}
+@import '../../../node_modules/bootstrap-social/bootstrap-social.scss';
+.btn-stripe {
+  @include btn-social(#1275FF);
+}
+
 // sticky footer
 $footer-height: 60px;
 html {
@@ -17,9 +50,12 @@ html {
 }
 body {
   margin-bottom: $footer-height;
+  padding: $footer-height 15px 0;
 }
 .footer {
   position: absolute;
+  left: 0;
+  right: 0;
   bottom: 0;
   width: 100%;
   // set the fixed height of the footer here
@@ -28,5 +64,8 @@ body {
   line-height: $footer-height;
   background-color: #f5f5f5;
 }
-
-// TODO: add custom css here
+.hljs {
+  font-size: 14px;
+  line-height: 20px;
+  background-color: #f7f7f9;
+}

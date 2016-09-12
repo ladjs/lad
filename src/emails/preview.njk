@@ -1,0 +1,33 @@
+<!doctype html>
+  <head>
+    <title>{{ subject }}</title>
+    <meta name="viewport" content="widdt=device-widdt, initial-scale=1">
+    <link rel="stylesheet" href="{{ config.urls.web }}/css/app.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <h1 class="m-t-1">Development Email Preview</h1>
+      <dl>
+        <dt>Subject</dt>
+        <dd><code>{{ subject }}</code></dd>
+        <dt>From</dt>
+        <dd><code>{{ from }}</code></dd>
+        <dt>To</dt>
+        <dd><code>{{ to }}</code></dd>
+        <dt>Attachments</dt>
+        <dd><pre><code>{{ attachments | json }}</code></pre></dd>
+        <dt>Headers</dt>
+        <dd><pre><code>{{ headers | json }}</code></pre></dd>
+      </dl>
+      <h2>HTML</h2>
+      <div class="embed-responsive embed-responsive-1by1">
+        <iframe class="embed-responsive-item" src="{{ tmpHtmlPath }}"></iframe>
+      </div>
+      <h2>Text</h2>
+      <div class="embed-responsive embed-responsive-1by1">
+        <iframe class="embed-responsive-item" src="{{ tmpTextPath }}"></iframe>
+      </div>
+    </div>
+  </body>
+</html>

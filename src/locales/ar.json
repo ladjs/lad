@@ -1,1 +1,4 @@
-{}
+{
+  "Invalid session secret": "Invalid session secret",
+  "Invalid CSRF token": "Invalid CSRF token"
+}

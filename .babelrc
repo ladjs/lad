@@ -1,6 +1,7 @@
 {
-  "presets": ["es2015", "stage-0"],
+  "presets": [ "crocodile" ],
   "plugins": [
     "transform-runtime"
-  ]
+  ],
+  "sourceMaps": "both"
 }

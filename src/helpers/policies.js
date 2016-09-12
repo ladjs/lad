@@ -9,7 +9,7 @@ import config from '../config';
 
 export default class Policies {
 
-  static async ensureLoggedIn(ctx, next) {
+  static ensureLoggedIn(ctx, next) {
 
     // a more simpler version that is adapted from
     // `koa-ensure-login` to use async/await
@@ -23,7 +23,7 @@ export default class Policies {
       return;
     }
 
-    await next();
+    return next();
 
   }
 
@@ -43,7 +43,7 @@ export default class Policies {
 
     ctx.req.logIn(user, { session: false });
 
-    await next();
+    return next();
 
   }
 

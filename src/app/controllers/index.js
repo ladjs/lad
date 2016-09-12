@@ -1,8 +1,8 @@
 
-import app from './app';
+import web from './web';
 import api from './api';
 
-export {
-  app,
+export default {
+  web,
   api
 };

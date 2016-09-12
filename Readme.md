@@ -1,23 +1,25 @@
 
-[![Glazed Logo][glazed-logo]][glazed-url]
-# [![Glazed is a highly opinionated, yet simple Node + Koa MVC app framework for rapidly building MVP's.][glazed-description]][glazed-url]</h1>
+# :crocodile: CrocodileJS
+
 [![Slack Status][slack-image]][slack-url]
 [![MIT License][license-image]][license-url]
 [![Stability][stability-image]][stability-url]
 [![Build Status][build-image]][build-url]
-[![Coverage Status][coveralls-image]][coveralls-url]
+[![Coverage Status][codecov-image]][codecov-url]
 [![Standard JS Style][standard-image]][standard-url]
-[![Unicorn Approved][unicorn-approved]][unicorn-url]
 
+> CrocodileJS is a Node MVC framework that lets you chew apart JavaScript.
 
-> **tldr;** Freshly baked [Node][nodejs] + [Koa][koa], [MVC][mvc] app ~~framework~~ boilerplate for [rapidly building MVP's][rapid-mvp]
+![Crocodile Dependencies][crocodile-dependencies]
 
-![Glazed Dependencies][glazed-dependencies]
+<!-- TODO: DEMO GOES HERE -->
 
-> **Tip:** While reading, you can click the Glazed logo in section headers to jump back to this index.
+> **Tip:** Click the crocodile :crocodile: emoji in section headers to jump back to this index.
 
-## [![glazed-logo-xs]](#-index) [Index](#-index)
-* [What is Glazed?](#-what-is-glazed)
+## <a href="#crocodile-index">:crocodile:</a> [Index](#crocodile-index)
+* [What is CrocodileJS?](#crocodile-what-is-crocodilejs)
+  - [Features](#features)
+  - [Framework Comparison](#framework-comparison)
   - [Thoughts](#thoughts)
   - [Showcase](#showcase)
   - [App Structure](#app-structure)
@@ -29,7 +31,7 @@
   - [API Example](#api-example)
   - [Security](#security)
   - [Helpers](#helpers)
-* [Why should I use it?](#-why-should-i-use-it)
+* [Why should I use it?](#crocodile-why-should-i-use-it)
   - [Best Practices](#best-practices)
   - [Latest Standards](#latest-standards)
   - [LiveReload Built-in](#livereload-built-in)
@@ -39,61 +41,105 @@
   - [Search Engine Indexing](#search-engine-indexing)
   - [l18n Localization](#l18n-localization)
   - [Performance](#performance)
-* [How do I use it?](#-how-do-i-use-it)
+* [How do I use it?](#crocodile-how-do-i-use-it)
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Configuration](#configuration)
     * [How does configuration work?](#how-does-configuration-work)
-    * [How do I configure my app to boot?](#how-do-i-configure-my-app-to-boot)
+    * [How do I configure my app?](#how-do-i-configure-my-app)
+      - [Basic Configuration](#basic-configuration)
+      - [Authentication Providers](#authentication-providers)
+        * [Facebook Auth](#facebook-auth)
+        * [Twitter Auth](#twitter-auth)
+        * [Google Auth](#google-auth)
+        * [GitHub Auth](#github-auth)
+        * [LinkedIn Auth](#linkedin-auth)
+        * [Instagram Auth](#instagram-auth)
+        * [Stripe Auth](#stripe-auth)
+      - [Amazon S3 and CloudFront Asset Setup](#amazon-s3-and-cloudfront-asset-setup)
+      - [Logging Configuration](#logging-configuration)
+      - [Code Coverage Configuration](#code-coverage-configuration)
+      - [Favicon and Touch Icon Configuration](#favicon-and-touch-icon-configuration)
   - [Development](#development)
   - [Deployment](#deployment)
   - [Advice](#advice)
   - [Tools](#tools)
-* [Is there a book on Glazed?](#-is-there-a-book-on-glazed)
-* [Can I get help?](#-can-i-get-help)
-* [How do I get updates?](#-how-do-i-get-updates)
-* [Who built it?](#-who-built-it)
-* [Can we hire @glazed?](#-can-we-hire-glazed)
-* [Licensing](#-licensing)
+* [Is there a book on CrocodileJS?](#crocodile-is-there-a-book-on-crocodilejs)
+* [Can I get help?](#crocodile-can-i-get-help)
+* [How do I get updates?](#crocodile-how-do-i-get-updates)
+* [Who built it?](#crocodile-who-built-it)
+* [Can we hire @niftylettuce?](#crocodile-can-we-hire-niftylettuce)
+* [License](#crocodile-license)
 
 
-## [![glazed-logo-xs]](#-index) [What is Glazed?](#-what-is-glazed)
+## <a href="#crocodile-index">:crocodile:</a> [What is CrocodileJS?](#what-is-crocodilejs)
 
-Glazed is an application ~~framework~~ boilerplate for rapid iteration of a minimal viable product.
+CrocodileJS is an application ~~framework~~ boilerplate for rapid iteration of a minimal viable product.  It is built with ES6, ES7, Babel, and Koa, and has dozens of other extremely useful packages built-in.  It is production-ready and used by several startups.
+
+### Features
+
+* Built for Startups, Bootstrappers, and Enterprises
+* Includes an API Server, Web Server, and Job Scheduler
+* GitHub Emojis Supported! :smile: :crocodile: :sparkles:
+* ECMAScript 7+ Features
+* Async/await ~~callback hell~~
+* Koa@2.x (latest version of Koa)
+* Localization Supported with i18n
+* Basic Email Signup and Password Reset
+* API BasicAuth Access Built-in
+* 9+ Authentication Providers Supported (e.g. Google/Facebook)
+* Beautiful Email Templates and Translation Support
+* Extremely Secure and Well-tested
+* Ready for Production and Highly Configurable
+* Zero Guesswork; it uses 80+ NPM packages already hooked together
+
+### Framework Comparison
+
+Instead of sharing a table with irrelevant benchmarks and checklists of features that only Crocodile has, we provide a simple summary of the most comparable, popular frameworks that come to mind:
+
+* [Hackathon Starter][hackathon-starter] doesn't do anything for your production-ready assets and it still uses ECMAScript 5.  As a "hackathon starter", it leads you to write spaghetti code for a quick hackathon &ndash; which leads you [to writing huge files][hackathon-app-file] that could be componentized.  It also doesn't use Koa.
+* [Sails][sailsjs] was built in a way that is extremely confusing, as such (and not to be rude) but @niftylettuce won the first SailsJS hackathon and never used SailsJS again since that one time.  It locks you into their philosophy with little wiggle room due to the convoluted setup.  It also uses an [outdated version of Express][outdated-express] with no plans to upgrade.  It also doesn't use Koa.
+* [Hapi.js][hapijs] simply doesn't do enough for you.  Input validation and other menial features don't allow you to ship a high-quality MVP.  It also doesn't use Koa.
+* [Total.js][totaljs] was written from scratch and [is against the Node philosophy][node-philosophy]... just ([look at this file][totaljs-example]).  It also doesn't use Koa.
+
+There really aren't many decent Node frameworks, so only the above made the list.  GitHub is full of [pure web app boilerplates][gh-boilerplate], but they really don't do much for you.
 
 ### Thoughts
 
-Glazed was designed to prove the viability of an idea as quick as possible,
-with sheer simplicity, and extremely ambitious quality level.  It uses the [latest standards](#latest-standards),
+Crocodile was designed to prove the viability of an idea as quick as possible,
+with sheer simplicity, and an extremely ambitious quality level.  It uses the [latest standards](#latest-standards),
 [best practices](#best-practices), and is [production ready](#production-ready).
 
-For example, Glazed can be used to release prototypes of the following in less than 30 days:
+For example, Crocodile can be used to release prototypes of the following in less than 30 days:
 
-* Functional web app for ordering food online
-* RESTful API for a React Native iOS/Android app for online food delivery
+* Enterprise Node.js Web Application for Online Ticket Booking
+* Functional Web App for Online Food Ordering
+* RESTful API for a React Native iOS/Android App
+* HR Platform for Payroll, Billing, and Employee Benefits
 
-Glazed is more of a "boilerplate" than a "framework".  It's often called a framework
+> **As you can see, quite literally any type of Software-as-a-Service business can be built with CrocodileJS!  Of course, you can build something more complex or simpler than these examples with CrocodileJS.**
+
+Crocodile is more of a "boilerplate" than a "framework".  It's often called a framework
 because of keyword search popularity and the confusion between the two words.
 It has a very minimal codebase, which was written with ES6/ES7 (yes, it uses
-the new [Async/Await][async-await] syntax!) &ndash; and it was structured
-according to some loose thoughts on an MVC approach.
+the new [Async/Await][async-await] syntax!) &ndash; and it was structured with an MVC approach (in other words it has three folders to separate your logic `src/app/models` ("M" for models), `src/app/controllers` ("C" for controllers), and `src/app/views` ("V" for views).
 
 ![SPA Framework][spa-image]
 
-**Glazed does not use single page app** ("SPA") client-side library, and does not use any special
-client-side framework by default (other than jQuery; though it can easily be changed to a SPA).
+**Crocodile does not come with a single page app framework out of the box**, and does not use any special
+client-side framework by default (other than jQuery, which isn't really a SPA framework) &ndash; though it can easily be changed, and you could include React, Choo, Angular, VueJS, or whatever you'd like).
 The reason it does not use a SPA library, such as [React][react] or [Angular][angular],
 is because most (probably?) of software as a service start-ups (and API's in general) don't need something this fancy to start (API's don't even need a SPA).
 Using SPA frameworks _will_ and _have_ made proving the viability of an idea take even longer than it already should.
-Instead, **Glazed uses the extremely powerful and fast rendering template language called [Nunjucks][nunjucks]**.
+Instead, **Crocodile uses the extremely powerful and fast rendering template language called [Nunjucks][nunjucks]**.
 In order to render it with Koa, we use [koa-nunjucks-promise][koa-nunjucks-promise].
 
 [![Fake Grimlock][avc-chicken-image]][fake-grimlock]
 
 Before diving into the structure and how it works, it is important to share
-that Glazed is _highly opinionated_ and **may not be for you**.  If you are not
+that Crocodile is _highly opinionated_ and **may not be for you**.  If you are not
 comfortable or do not agree with the ideas shared in these articles, then perhaps
-you should not read any further into Glazed, and close this browser tab.
+you should not read any further into Crocodile, and close this browser tab.
 
 1. [Rapid MVP Standards][rapid-mvp] by [@niftylettuce][nifty-twitter]
 2. [Frameworks don't make much sense][frameworks-dont-make-sense] by [@pkrumins][pkrumins]
@@ -101,112 +147,16 @@ you should not read any further into Glazed, and close this browser tab.
 
 ### Showcase
 
-> Did you ship a project with Glazed?  [File an issue](/issues) and we'll include it!.
-
-To get you excited about using Glazed, here are projects built with it in less than a week each:
-
-* [Standard Signature][standard-signature] - Custom Business Email Signatures for Gmail
-* [Prove][prove] - Simple Phone Verification Service
-* [Wakeup.io][wakeup] - Wake-up Call Service
-
-Its parent framework "Eskimo" was used to ship [some very cool projects][eskimo-ship] too!
+> Did you ship a project with Crocodile?  [File an issue](/issues) and we'll include it!.
 
 ### App Structure
 
-Glazed is loosely-based on MVC design, and it has the following structure (`tree` output below):
+Crocodile is loosely-based on MVC design, and it has the following structure (`tree` output below):
+
+<!-- generate output for every release using `tree -I "build|lib|node_modules|media|coverage"` -->
 
 ```log
-.
-├── History.md
-├── LICENSE
-├── Readme.md
-├── VERSION
-├── gulpfile.babel.js
-├── package.json
-├── .env.example
-├── src
-│   ├── app
-│   │   ├── controllers
-│   │   │   ├── app
-│   │   │   │   └── index.js
-│   │   │   └── index.js
-│   │   ├── models
-│   │   │   ├── plugins
-│   │   │   │   └── common.js
-│   │   │   └── user.js
-│   │   └── views
-│   │       ├── 404.html
-│   │       ├── 500.html
-│   │       ├── _footer.html
-│   │       ├── _nav.html
-│   │       ├── about.html
-│   │       ├── admin.html
-│   │       ├── home.html
-│   │       ├── layout.html
-│   │       └── my-account.html
-│   ├── assets
-│   │   ├── browserconfig.xml
-│   │   ├── css
-│   │   │   ├── _variables.scss
-│   │   │   └── app.scss
-│   │   ├── favicon.ico
-│   │   ├── fonts
-│   │   ├── img
-│   │   │   ├── android-chrome-144x144.png
-│   │   │   ├── android-chrome-192x192.png
-│   │   │   ├── android-chrome-36x36.png
-│   │   │   ├── android-chrome-48x48.png
-│   │   │   ├── android-chrome-72x72.png
-│   │   │   ├── android-chrome-96x96.png
-│   │   │   ├── apple-touch-icon-114x114.png
-│   │   │   ├── apple-touch-icon-120x120.png
-│   │   │   ├── apple-touch-icon-144x144.png
-│   │   │   ├── apple-touch-icon-152x152.png
-│   │   │   ├── apple-touch-icon-180x180.png
-│   │   │   ├── apple-touch-icon-57x57.png
-│   │   │   ├── apple-touch-icon-60x60.png
-│   │   │   ├── apple-touch-icon-72x72.png
-│   │   │   ├── apple-touch-icon-76x76.png
-│   │   │   ├── apple-touch-icon-precomposed.png
-│   │   │   ├── apple-touch-icon.png
-│   │   │   ├── favicon-16x16.png
-│   │   │   ├── favicon-194x194.png
-│   │   │   ├── favicon-32x32.png
-│   │   │   ├── favicon-96x96.png
-│   │   │   ├── mstile-144x144.png
-│   │   │   ├── mstile-150x150.png
-│   │   │   ├── mstile-310x150.png
-│   │   │   ├── mstile-310x310.png
-│   │   │   ├── mstile-70x70.png
-│   │   │   └── safari-pinned-tab.svg
-│   │   ├── js
-│   │   │   └── flash.js
-│   │   └── manifest.json
-│   ├── config
-│   │   ├── environments
-│   │   │   ├── development.js
-│   │   │   ├── index.js
-│   │   │   ├── production.js
-│   │   │   ├── staging.js
-│   │   │   └── test.js
-│   │   └── index.js
-│   ├── helpers
-│   │   ├── dynamic-view-helpers.js
-│   │   ├── error-handler.js
-│   │   ├── index.js
-│   │   ├── passport.js
-│   │   ├── policies.js
-│   │   ├── render-page.js
-│   │   └── sentry.js
-│   ├── index.js
-│   └── routes
-│       └── index.js
-└── test
-    ├── mocha.opts
-    ├── support
-    │   └── index.js
-    └── unit
-        └── server.test.js
+
 ```
 
 ### Back-end with Koa + Async/Await
@@ -220,10 +170,10 @@ For example, here are two blocks of code that compare before and after...
 > This is how one might write a Mongoose save with callbacks:
 
 ```js
-// find the user that belongs to the @glazed organization
+// find the user that belongs to the @crocodilejs organization
 // and make their user group have "admin" status
 function updateUser(req, res, next) {
-  Users.findOne({ org: 'glazed' }, function(err, user) {
+  Users.findOne({ org: 'crocodilejs' }, function(err, user) {
     if (err) return next(err);
     if (!user) return next(new Error('User does not exist'));
     user.group = 'admin';
@@ -238,16 +188,17 @@ function updateUser(req, res, next) {
 > This is how one might write a Mongoose save with Async/Await:
 
 ```js
-// find the user that belongs to the @glazed organization
+// find the user that belongs to the @crocodilejs organization
 // and make their user group have "admin" status
 static async updateUser(ctx) {
-  let user = await User.findOne({ org: 'glazed' });
+  let user = await User.findOne({ org: 'crocodilejs' });
+  if (!user) return ctx.throw(Boom.badRequest('User does not exist'));
   user.group = 'admin';
   ctx.body = await user.save();
 }
 ```
 
-> Glazed has custom built-in error handling &ndash; so actually you don't even need to wrap the Async/Await function with a `try {} catch (e) {}` statement &ndash; but be careful, because in other cases you might want to!
+> Crocodile has custom built-in error handling &ndash; so actually you don't even need to wrap the Async/Await function with a `try {} catch (e) {}` statement &ndash; but be careful, because in other cases you might want to (e.g. when you don't want to show a specific error from a third-party API response)!
 
 Other scenarios where Async/Await is resourceful:
 
@@ -271,9 +222,11 @@ Also included are the front-end packages jQuery and [Sweetalert][sweetalert].
 
 Job scheduling is built on top of [Agenda][agenda].  See the `src/agenda.js` file and also `src/jobs` folder for how it works and is set up.
 
-There is one sample job scheduler built-in, which is in the `post('save')` hook for when a user is created.  The user gets a welcome email.
+There is one sample job scheduler built-in, which is in the `post('save')` hook for when a user is created.  The user gets a welcome email after they are created in the DB.
 
 You can see the content and template of the email in the `src/emails/welcome` folder.  Emails are sent using [Postmark][postmarkapp] and the package [email-templates][email-templates].
+
+However in development mode, emails are not sent using an outbound service such as Postmark App &ndash; instead they are rendered to the OS temporary directory and opened in the browser automatically for you (saving you time and preventing you from clicking "Refresh" in Gmail a dozen times, haha!).
 
 ### Database &amp; ORM
 
@@ -289,10 +242,19 @@ To enhance security and allow you to have selective JSON output from query resul
 
 [Redis][redis] and [Passport][passport] are used for session storage and authentication.
 
-Out of the box, we provide (2) means of authentication for restricted routes:
+Out of the box, we provide quite a few authentication methods (but only basic email/password and API token access is enabled by default &ndash; see [Authentication Providers](#authentication-providers) for more info).
 
-1. Google OAuth Strategy - uses [passport-google-oauth][passport-google-oauth] (your users can "Log in with Google")
-2. Glazed API token - an `api_token` field is populated for each user in the database after their first log-in, and this can be passed as the `user` in `user:pass` with BasicAuth headers &ndash; password is blank for simplicity).  This is very useful for API access if you are building an iOS/Android or client-side focused app.  See the [API Example](#api-example) below for more information on this and how to test it out.
+Type | Description
+---- | -----------
+Basic | users sign up with an email address and password
+API Token | an `api_token` field is populated for each user in the database after their first log-in, and this can be passed as the `user` in `user:pass` with BasicAuth headers &ndash; password is blank for simplicity).  This is very useful for API access if you are building an iOS/Android or client-side focused app.  See the [API Example](#api-example) below for more information on this and how to test it out.
+Facebook | uses [passport-facebook][passport-facebook] (your users can "Log in with Facebook")
+Twitter | uses [passport-twitter][passport-twitter] (your users can "Log in with Twitter")
+Google | uses [passport-google-oauth][passport-google-oauth] (your users can "Log in with Google")
+GitHub | uses [passport-github][passport-github] (your users can "Log in with GitHub")
+LinkedIn | uses [passport-linkedin][passport-linkedin] (your users can "Log in with LinkedIn")
+Instagram | uses [passport-instagram][passport-instagram] (your users can "Log in with Instagram")
+Stripe | uses [passport-stripe][passport-stripe] (your users can "Log in with Stripe")
 
 > If you need to add additional strategies, you can literally clone the Google Strategy code and use another [passport package][passport-package] for your auth provider.  Don't be afraid to [join our Slack channel][slack-url] and ask us for help!
 
@@ -300,16 +262,16 @@ Out of the box, we provide (2) means of authentication for restricted routes:
 
 Using the user's `api_token` field value (which is automatically generated upon user creation, see `src/app/models/user.js`), you can pass the test of the policy `Policies.ensureApiToken`.
 
-For example, we have one restricted route built into Glazed, which is `GET /v1/users`.
+For example, we have one restricted route built into Crocodile, which is `GET /v1/users`.
 
-As a test, try to sign in with Google OAuth at <http://localhost:3000> once you start up the app.
+As a test, try to sign in at <http://localhost:3000> after you've start up the web server and API server.
 
-Then, you can load the MongoDB cli with `mongo` and run the command `use glazed_development` and then `db.users.findOne().api_token` to get the value of the API token.
+Go to your account page at <http://localhost:3000/my-account> and copy your API token to your clipboard.
 
-Take this value, and run the following `curl` command using it (replace it into where it says `<apitoken>` below:
+Take this value, and run the following `curl` command using it (replace with your API token where it says `api_token` below:
 
 ```bash
-curl -u "<apitoken>:" http://localhost:3000/v1/users
+curl -u "api_token:" http://localhost:3000/v1/users
 ```
 
 This should output a JSON response like the following:
@@ -344,13 +306,13 @@ With respect to security, we support the following out of the box:
 
 ### Helpers
 
-Glazed uses the following helper libraries:
+Crocodile uses the following helper libraries:
 
 * [boom][boom] - HTTP-friendly error objects
 * [chalk][chalk] - colorful output
 * [chalkline][chalkline] - easily debug with a huge chalkline in your terminal
 * [dotenv][dotenv] - management of dotfiles (your environment configurations)
-* [frisbee][frisbee] - an API wrapper for ES6's fetch method (similar to [request][request]!)
+* [frisbee][frisbee] - an API wrapper for WHATWG's fetch method (similar to [request][request]!)
 * [koa-convert][koa-convert] - easily convert generator middleware functions to Async/Await
 * [lodash][lodash] - the utility library
 * [moment][moment] - date and time formatting and manipulation
@@ -358,37 +320,36 @@ Glazed uses the following helper libraries:
 * [validator][validator] - string validation and sanitization
 
 
-## [![glazed-logo-xs]](#-index) [Why should I use it?](#-why-should-i-use-it)
+## <a href="#crocodile-index">:crocodile:</a> [Why should I use it?](#crocodile-why-should-i-use-it)
 
 ### Best Practices
 
-* Zero-downtime, graceful reloading with automated continuous integration (see [deployment](#deployment)
+* Zero-downtime, graceful reloading with automated continuous integration (see [deployment](#deployment))
 * Automated test runner and code coverage setup using:
   - [chai][chai]
   - [check-chai][check-chai]
   - [dirty-chai][dirty-chai]
-  - [isparta][isparta]
   - [istanbul][istanbul]
   - [jsdom][jsdom]
   - [mocha][mocha]
-* Simple message alert system with [koa-connect-flash][koa-connect-flash] and Sweetalert
+* Simple message alert system with [koa-connect-flash][koa-connect-flash] and [Sweetalert][sweetalert]
 * API token without a password for an extremely simple approach to session-less, BasicAuth access
 * [Stripe-inspired][stripe-inspired] API design with versioning, error handling, type description, and verbose list output with count and number of pages
 * [No callback hell][callback-hell] since you can use Async/Await syntax
 
 ### Latest Standards
 
-* Latest version of Node, `v6.0.0`
+* Latest stable version of Node (`v6.x.x`)
 * Streams for build process with Gulp
 * Newest version of MongoDB and Redis (e.g. you can use [$lookup][lookup-operator] operator with MongoDB now!)
-* ES6/ES7 with Async/Await syntax
-* Latest version of Koa, `v2.x` (or commonly referred to as `@next`)
+* Uses ES6/ES7 syntax (no more callbacks; you can use `await` and `async` finally!)
+* Latest version of Koa `v2.x` (or commonly referred to as `@next`)
 
 ### LiveReload Built-in
 
 Through [koa-livereload][koa-livereload] and [gulp-livereload][gulp-livereload] your assets automatically reload as you continually change and save them.
 
-This means you can have your editor open and a browser tab opened to your app at <http://localhost:3000/> &ndash; of course you need to be running the app with `gulp watch` &ndash; and your changes appear in real-time!  Yes, we know this is not new technology, but not many other frameworks had this built-in (at least the right way with gulp).
+This means you can have your editor open and a browser tab opened to your app at <http://localhost:3000/> &ndash; of course you need to be running the app with `npm run livereload` (which runs `gulp watch`) &ndash; and your changes appear in real-time!  Yes, we know this is not new technology, but not many other frameworks had this built-in (at least the right way with gulp).
 
 For example, if you make the following change to your stylesheet file and save it...
 
@@ -403,9 +364,9 @@ body {
 
 ### Production Ready
 
-Glazed comes with a robust and well-tested Gulpfile (written with Babel!).  Check [it out here][gulpfile].
+Crocodile comes with a robust and well-tested Gulpfile (written with Babel!), check [it out here][gulpfile].  This file will let you build a version of your project that is ready for production.
 
-What's a Gulpfile?  You can [read about Gulp here][gulp] &ndash; but it's basically a file that has a series of build tasks defined (e.g. it's very similar to a `Makefile`).
+What's a Gulpfile?  You can [read about Gulp here][gulp] &ndash; but it's basically a file that has a series of build tasks defined (e.g. it's very similar to a `Makefile` or [Grunt][grunt] if you're familiar with that).
 
 In a production environment, your app's assets will be minified, compressed, gzipped,
 revision hashed, and uploaded to Amazon S3 and CloudFront for load balancing.  To do this, we use
@@ -424,19 +385,44 @@ the packages [koa-manifest-rev][koa-manifest-rev] and [gulp-rev][gulp-rev], with
 * [imagemin-pngquant][imagemin-pngquant] - plugin for imagemin to compress PNG's
 
 This is the de-facto standard for hosting images, fonts, scripts, and assets in general
-&ndash; and it is managed properly in Glazed using asset revisioning.  For example, your file
-named `glazed-logo.png` will become `glazed-logo-0775041dd4.png` in production (you don't have to worry about cache busting!).
+&ndash; and it is managed properly in Crocodile using asset revisioning.  For example, your file
+named `crocodile-logo.png` will become `crocodile-logo-0775041dd4.png` in production (you don't have to worry about cache busting!).
 
 Not only that, but your files will be linted and they come with sourcemaps too!
 
-To build and publish to AWS for production, follow these simple steps:
+> To compile all the assets and source code for production:
 
 ```bash
-NODE_ENV=production gulp build
-NODE_ENV=production gulp publish
+NODE_ENV=production npm run compile
 ```
 
-You can test it out with `NODE_ENV=production node app`.
+> To publish to Amazon S3/CloudFront all of the assets:
+
+```bash
+NODE_ENV=production npm run publish-assets
+```
+
+After running these two sets of commands, you can test things out locally by running the processes (simulate production on your own machine):
+
+> Web:
+
+```bash
+NODE_ENV=production npm run app
+```
+
+> API:
+
+```bash
+NODE_ENV=production npm run api
+```
+
+> Job Scheduler:
+
+```bash
+NODE_ENV=production npm run agenda
+```
+
+> **NOTE**: The above commands are what you'd use in a deployment configuration.
 
 ### Cross-browser Compatibility
 
@@ -476,21 +462,16 @@ router.all('/admin*', policies.ensureAdmin);
 If you'd like to grant yourself admin access to the `/admin` routes, then you can run this script (replace with your email address and database name):
 
 ```bash
-mongo glazed_development --eval 'printjson(db.users.update({ email: "niftylettuce@gmail.com" }, { $set: { group: "admin" }}));'
+mongo crocodile_development --eval 'printjson(db.users.update({ email: "niftylettuce@gmail.com" }, { $set: { group: "admin" }}));'
 ```
-
 
 ### Search Engine Indexing
 
-Since we don't use a SPA, you don't have to worry about rendering SEO-friendly content!  What you see in the browser is what the search engine crawler sees ("WYSIWTSEC" or something... haha)!
+Since we don't use a SPA, you don't have to worry about rendering SEO-friendly content!  What you see in the browser is what the search engine crawler sees.
 
-By default, we provide a [simple to use configuration file][config-file-seo] that allows you to swap in page titles and descriptions for a majority of your routes.
+We didn't build in structured open graph tags as a default to edit, since we figure you can customize to your own needs.
 
-For anything complex, you can customize them yourself by passing local variables `title` and `description` to views.
-
-We didn't build in structured open graph tags as a default to edit, since we figure you can customize to your own.
-
-**With this setup, we have climbed to #1 on Google for various keywords, easily.  Of course, you need great content and traffic!**
+With this setup, we have climbed to #1 on Google for various keywords, easily.  Of course, you need great content and traffic.
 
 In order to prevent duplicate content, we have added a plugin that removes trailing slashes from URL's, so `/home/` will `301` redirect to `/home` automatically.
 
@@ -502,16 +483,19 @@ See the following files for an understanding of how it works:
 
 * `src/locales` folder (full of all the translations, if a locale is missing, it defaults to English; `en.json`)
 * `src/config/locales.js` file (uncommented languages are the ones supported)
-* `src/config/index.js` (see the `config.i18n.HELLO_WORLD` variable, which you can use as your strings)
+* `src/config/index.js` (see the `config.i18n.HELLO_WORLD` variable as an example &ndash; you can use the `config.i18n` object for error messages, success messages, page titles, page descriptions, and more)
 
-Yes, you can customize this for international localization.  But we didn't build this in by default.  We're just letting you know we thought of it.  If you want recommendations
-on services to use for this and how to integrate, then [join our Slack][slack-url] and ask us!
+If you want recommendations on services to use for this and how to integrate, then [join our Slack][slack-url] and ask us!
+
+To translate a message, you simply use the context helper method `ctx.translate('SOME_CONFIG_KEY_MESSAGE')`.  If you need interpolation, you can pass them as such `ctx.translate('SOME_MESSAGE', 'Foo', 'Bar', 'Baz')` whereas `config.i18n.SOME_MESSAGE = 'Hello %s %s %s'` (outputs `Hello Foo Bar Baz`).
+
+Translations of message keys in `config.i18n` are found in `locales/`.  If you wanted to translate `SOME_CONFIG_KEY_MESSAGE` in Spanish, then edit the property for the key of `"Hello %s %s %s"` in `locales/es.json`.
 
 ### Performance
 
-For performance, you should always use the `lean()` method while writing your Mongoose queries.
+For performance, you should always use the `lean()` method while writing your Mongoose queries (here's [an example article][lean-method] showing why).
 
-You should also **never use Mongoose hooks, virtuals, or the populate method**.
+You should also **never use Mongoose hooks, virtuals, or the populate method**.  Instead you should write static functions in the models, such as `User.doSomething(user, fn)`.  For insight as to how to write static methods, [see the Mongoose docs here][mongoose-static-method].
 
 If you need to asynchronously populate or waterfall chain population of database references, we suggest to use the [$lookup operator][lookup-operator] or use Async/Await syntax to keep it clean.
 For an example of how to write a `populate()` method with $lookup, [see this GitHub issue][gh-mongoose-issue].
@@ -528,7 +512,7 @@ Other than that, you just need to increase your server storage/bandwidth/memory/
 Check out the [deployment](#deployment) section below for how a production environment and deployment process should be configured.
 
 
-## [![glazed-logo-xs]](#-index) [How do I use it?](#how-do-i-use-it)
+## <a href="#crocodile-index">:crocodile:</a> [How do I use it?](#how-do-i-use-it)
 
 ### Requirements
 
@@ -558,8 +542,8 @@ We also recommend that you install **our preferred [tools](#tools)** as well!
 3. Install [Node][node] with NVM:
 
   ```bash
-  nvm install v6.0.0
-  nvm alias default v6.0.0
+  nvm install stable
+  nvm alias default stable
   ```
 
 4. Install [MongoDB][mongodb] (and make sure you read the line about `launchctl` after you hit `ENTER`):
@@ -586,8 +570,8 @@ We also recommend that you install **our preferred [tools](#tools)** as well!
 2. Install [Node][node] with NVM:
 
   ```bash
-  nvm install v6.0.0
-  nvm alias default v6.0.0
+  nvm install stable
+  nvm alias default stable
   ```
 
 3. Install [MongoDB][mongodb]:
@@ -616,27 +600,123 @@ We do not support Windows, so please use [VirtualBox][virtualbox] or [Vagrant][v
 
 ### Installation
 
-**It's simple; there is no CLI, and you don't need to install anything with NPM.  You just use git!**
+We crafted a simple command-line utility for creating new projects using Crocodile.
 
-You have two choices for installation:
+Simply install it, then run one of the available commands.
 
-1. You can fork this repository by clicking the "fork" icon at the <a href="#fork-destination-box">top of this page</a> (then you will need to `git clone` your fork locally).
-2. Or you can mirror this repository by following [GitHub's instructions here][mirror-it].  If you mirror this repository, it won't appear on your GitHub as a "forked" repository (but you can still get updates).
+```bash
+npm install -g crocodile
+```
+
+```bash
+crocodile
+
+
+          `.-::::-.`
+      `-+ooooooooooo+/`
+     :osso++//+ssooooos:.
+    +s/.     -sssoo+ooosso-
+   :o`      :yso++++o+ooyso
+   /`      `:yo+++++ooosyys-
+         -/++oo+++oooosy/...
+     ./osss+++oo+oossosso/
+     ``/oo+ssoosoossossss/
+     ./+++ooossysso:.soo
+    :ooooo/:-:--.    +oo-
+    `--.             `.`
+
+
+🐊  CrocodileJS is a Node MVC framework that lets you chew apart JavaScript - https://crocodilejs.com
+
+
+  Usage:  [options] [command]
+
+
+  Commands:
+
+    chew <dir>  Create a new CrocodileJS project
+    upgrade     Upgrade your existing CrocodileJS project
+    issues      Open GitHub issues for CrocodileJS
+    docs        Read CrocodileJS documentation on GitHub
+    rock        I wonder what this does?
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+```
+
+After you run `crocodile chew <dir>` for the first time, you will need to follow these steps to get started:
+
+1. Change directories to your newly created project directory:
+
+  ```bash
+  cd <dir>
+  ```
+
+2. Install NPM dependencies:
+
+  ```bash
+  npm install
+  ```
+
+3. Start watching assets and scripts for changes (note that this also does the required initial build of the project to the `lib` folder &ndash; which has to happen in order for you to use Crocodile):
+
+  > Assets (also starts [LiveReload](#livereload-built-in)):
+
+  ```bash
+  npm run watch-assets
+  ```
+
+  > Scripts:
+
+  ```bash
+  npm run watch-scripts
+  ```
+
+4. Start the processes (install `nodemon` with `npm install -g nodemon`):
+
+  > Web:
+
+  ```bash
+  nodemon lib/web
+  ```
+
+  > API:
+
+  ```bash
+  nodemon lib/api
+  ```
+
+  > Jobs:
+
+  ```bash
+  nodemon lib/agenda
+  ```
+
+5. Go to <http://localhost:3000> in your browser.
+
+> **NOTE:** In production you won't run these same commands, see [Production Ready](#production-ready) for more info.
 
 ### Configuration
 
 #### How does configuration work?
 
-We make configuration easy through a file called `.env` file using [dotenv][dotenv].
+We have made configuration of your CrocodileJS project easy through a [dotenv][dotenv] configuration, per the [Twelve-Factors][twelve-factors].
 
-However, you'll need to modify it slightly for your own.  Let's dive into how it works!
+We use the following three packages to manage configuration:
 
-Configuration is managed by the following:
+* [dotenv-extended][dotenv-extended] - allows us to craft a `.env` definition (otherwise known as a "schema") in a file named `.env.schema`
+* [dotenv-mustache][dotenv-mustache] - allows us to use the [Mustache templating language][mustache] in our `.env` and `.env.defaults` confguration files
+* [dotenv-parse-variables][dotenv-parse-variables] - automatically parses variable types from `process.env` (e.g. `FOO=4` will set `process.env.FOO = 4` with a `Number` variable type instead of a `String`)
 
-* Contents of the file at `src/config/index.js` (reads in `process.env.SOME_VAR`)
-* Contents of the files in directories under `src/config/environments/` (sets defaults per environment, e.g. you can pass `NODE_ENV=staging` and it will load the file at `/src/config/environments/staging.js`)
-* Environment variables used to override defaults or set required ones
-* Third-party OAuth providers (e.g. Google OAuth at <https://console.developers.google.com>)
+Configuration is managed by the following, in order of priority:
+
+1. Contents of the file at `src/config/index.js` (reads in `process.env` environment variables)
+2. Contents of the files in directories under `src/config/environments/` (sets defaults per environment, e.g. you can pass `NODE_ENV=staging` and it will load the file at `/src/config/environments/staging.js`)
+3. Environment variables used to override defaults or set required ones (e.g. `NODE_ENV=production`)
+4. Environment configuration in `.env`
+5. Environment configuration in `.env.defaults`
 
 Precedence is taken by the environment configuration files, environment variables, then the `.env` file.
 
@@ -646,16 +726,34 @@ Take a look in the [src/config][src-config] folder contents and also at the defa
 
 We've provided a default file called `.env.example`, **which you will need to rename** to `.env` and customize yourself.
 
-#### How do I configure my app to boot?
+#### How do I configure my app?
 
-**In order to set-up defaults needed for Glazed app to boot, please follow these instructions:**
+##### Basic Configuration
 
-1. Rename the file `.env.example` to `.env`
-2. Go to <https://console.developers.google.com> &ndash; Create a project (and fill out your project information &ndash; if you need a 120x120px default image, [you can use this one][120x120])
-3. Under your newly created project, go to Credentials &ndash; Create credentials &ndash; OAuth client ID &ndash; Web application
-4. Set "Authorized JavaScript origins" to `http://yourdomain.com` (replace with your domain) and also `http://localhost:3000` (for local development)
-5. Set "Authorized redirect URIs" to `http://yourdomain.com/login/ok` (again, replace with your domain) and also `http://localhost:3000/login/ok` (again, for local development)
-6. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
+1. Copy the file `.env.defaults` to `.env` (this step is automatically done for you with the `crocodile chew` CLI command)
+2. Edit the `.env` file and make it your own (e.g. replace the default email address and app name)
+
+##### Authentication Providers
+
+Authentication is managed by `src/config/index.js` and `src/helpers/passport.js`.
+
+###### Facebook Auth
+
+> TODO
+
+###### Twitter Auth
+
+> TODO
+
+###### Google Auth
+
+> In order to add Google Auth to your app (so users can log in with their Google account):
+
+1. Go to <https://console.developers.google.com> &ndash; Create a project (and fill out your project information &ndash; if you need a 120x120px default image, [you can use this one][120x120])
+2. Under your newly created project, go to Credentials &ndash; Create credentials &ndash; OAuth client ID &ndash; Web application
+3. Set "Authorized JavaScript origins" to `http://yourdomain.com` (replace with your domain) and also `http://localhost:3000` (for local development)
+4. Set "Authorized redirect URIs" to `http://yourdomain.com/auth/google/ok` (again, replace with your domain) and also `http://localhost:3000/auth/google/ok` (again, for local development)
+5. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
 
   ```diff
   -GOOGLE_CLIENT_ID=
@@ -663,9 +761,30 @@ We've provided a default file called `.env.example`, **which you will need to re
   -GOOGLE_CLIENT_SECRET=
   +GOOGLE_CLIENT_SECRET=Oys6WrHleTOksqXTbEY_yi07
   ```
+6. In `src/config/index.js`, set `auth.providers.google = true` to enable this authentication method.
 
-7. Go to <https://console.aws.amazon.com/iam/home#security_credential> &dash; Access Keys &ndash; Create New Access Key
-8. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
+###### GitHub Auth
+
+> TODO
+
+###### LinkedIn Auth
+
+> TODO
+
+###### Instagram Auth
+
+> TODO
+
+###### Stripe Auth
+
+> TODO
+
+##### Amazon S3 and CloudFront Asset Setup
+
+> In order for your assets to get properly served in a production environment, you'll need to configure AWS:
+
+1. Go to <https://console.aws.amazon.com/iam/home#security_credential> &dash; Access Keys &ndash; Create New Access Key
+2. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
 
   ```diff
   -AWS_IAM_KEY=
@@ -674,19 +793,19 @@ We've provided a default file called `.env.example`, **which you will need to re
   +AWS_IAM_SECRET=9MpR1FOXwPEtPlrlU5WbHjnz2KDcKWSUcB+C5CpS
   ```
 
-9. Enable your API by clicking on Overview and then clicking the Enable button
-10. Go to <https://console.aws.amazon.com/s3/home> &ndash; Create Bucket
-11. Create a bucket and copy/paste its name for the property in `.env` (example below)
+3. Enable your API by clicking on Overview and then clicking the Enable button
+4. Go to <https://console.aws.amazon.com/s3/home> &ndash; Create Bucket
+5. Create a bucket and copy/paste its name for the property in `.env` (example below)
 
   ```diff
   -AWS_S3_BUCKET=
-  +AWS_S3_BUCKET=glazed-development
+  +AWS_S3_BUCKET=crocodile-development
   ```
 
-12. Go to <https://console.aws.amazon.com/cloudfront/home> &ndash; Create Distribution &ndash; Get Started
-13. Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)
-14. Leave the remaining defaults as is (some fields might be blank, this is OK)
-15. Copy/paste the newly created Distribution ID and Domain Name for respective properties in your `.env` file (example below)
+6. Go to <https://console.aws.amazon.com/cloudfront/home> &ndash; Create Distribution &ndash; Get Started
+7. Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)
+8. Leave the remaining defaults as is (some fields might be blank, this is OK)
+9. Copy/paste the newly created Distribution ID and Domain Name for respective properties in your `.env` file (example below)
 
   ```diff
   -AWS_CF_DI=
@@ -695,18 +814,58 @@ We've provided a default file called `.env.example`, **which you will need to re
   +AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net
   ```
 
-16. You can customize the favicon and touch icons &ndash; just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [src/assets/][src-assets] folder.  Just make sure that the paths match up in the `src/assets/browserconfig.xml` and `src/assets/manifest.json` files.
+#### Outbound Email Configuration
 
-That's it!
+> By default, in a development environment, we simply render the email in your browser.  However on non-development environments we send the outbound emails through Postmark App by default (though you can swap in your own `transport` provider):
+
+1. Go to [https://postmarkapp.com](https://postmarkapp.com?utm_source=crocodilejs) &ndash; Start Free Trial
+2. Create a free trial account, then click Get Started, and proceed to create a "Server" and "Sender Signature"
+3. Copy/paste the "Server API token" under "Credentials" in your `.env` file (example below)
+
+  ```diff
+  -POSTMARK_API_TOKEN=
+  +POSTMARK_API_TOKEN=ac6657eb-2732-4cfd-915b-912b1b10beb1
+  ```
+
+##### Logging Configuration
+
+> We recommend to use [Sentry][sentry] for logging, though you could swap in your own provider:
+
+1. Go to <https://getsentry.com/> &ndash; Try for free
+2. Create a free account, then proceed to create a "Project"
+3. Under your project, on the left side under the "DATA" section, go to "Client Keys (DSN)", and copy the private (not public) key value for "DSN" to your clipboard.
+4. Paste this value in your `.env` file (example below)
+
+  ```diff
+  -SENTRY_DSN=
+  +SENTRY_DSN=https://fde13b9ab0104dd9a157a045826fb97b:fd9a68972636435eaf4bf9a414355d9a@app.getsentry.com/87713
+  ```
+
+#### Code Coverage Configuration
+
+> We recommend to use [CodeCov][codecov] for code coverage configuration, though you could swap in your own provider:
+
+1. Go to <https://codecov.io/> &ndash; Sign up with GitHub
+2. Click on your existing project, then proceed to settings where you can copy to your clipboard your Codecov token.
+3. Paste this value in your `.env` file (example below)
+
+  ```diff
+  -CODECOV_TOKEN=
+  +CODECOV_TOKEN=522d2za9-22z4-az8m-9190-215zef1qpnz1
+  ```
+
+#### Favicon and Touch Icon Configuration
+
+You can customize the favicon and touch icons &ndash; just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [src/assets/][src-assets] folder.  Just make sure that the paths match up in the `src/assets/browserconfig.xml` and `src/assets/manifest.json` files.
 
 ### Development
 
-You should have Glazed [installed](#installation) and [configured](#configuration) by now.
+You should have Crocodile [installed](#installation) and [configured](#configuration) by now.
 
-1. Change directories to where you installed Glazed:
+1. Change directories to your newly created project directory:
 
   ```bash
-  cd /path/to/glazed/
+  cd <dir>
   ```
 
 2. Install NPM dependencies:
@@ -715,17 +874,47 @@ You should have Glazed [installed](#installation) and [configured](#configuratio
   npm install
   ```
 
-3. Run the watch script:
+3. Start watching assets and scripts for changes (note that this also does the required initial build of the project to the `lib` folder &ndash; which has to happen in order for you to use Crocodile):
+
+  > Assets (also starts [LiveReload](#livereload-built-in)):
 
   ```bash
-  npm run watch
+  npm run watch-assets
   ```
 
-> The watch script will automatically open a browser tab for you (with [LiveReload](#livereload-built-in) enabled!).
+  > Scripts:
+
+  ```bash
+  npm run watch-scripts
+  ```
+
+4. Start the processes (install `nodemon` with `npm install -g nodemon`):
+
+  > Web:
+
+  ```bash
+  nodemon lib/web
+  ```
+
+  > API:
+
+  ```bash
+  nodemon lib/api
+  ```
+
+  > Jobs:
+
+  ```bash
+  nodemon lib/agenda
+  ```
+
+5. Go to <http://localhost:3000> in your browser.
+
+6. See [Deployment](#deployment) below for how to set up other environments, such as production.
 
 ### Deployment
 
-<img alt="Automated Continuous Integration Deployment Setup" width="647" height="58" style="width:647px;height:58px;" src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-deploy.png" />
+<img alt="Automated Continuous Integration Deployment Setup" width="649" height="60" style="width:649px;height:60px;" src="https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-deployment.png" />
 
 We've written a comprehensive tutorial for deployment, continuous integration, and how to automate everything &ndash; you can [read the article here][nifty-ci-setup].
 
@@ -744,9 +933,9 @@ If you're just interested in what tools/services we recommend, then here is a br
 * [MailChimp][mailchimp] - bulk email
 * [Slack][slack-referral-url]<sup>5</sup> - chat room &amp; automated notifications
 
-<small><sup>1</sup> Baked into Glazed by default &ndash; you just need to provide credentials in the [configuration](#configuration) step</small><br />
+<small><sup>1</sup> Baked into Crocodile by default &ndash; you just need to provide credentials in the [configuration](#configuration) step</small><br />
 <small><sup>2</sup> You can get $10 free credit for signing up by clicking our referral link above</small><br />
-<small><sup>3</sup> We include `SIGTERM` listener for graceful reloading, see [src/index.js][src-index] for more insight</small><br />
+<small><sup>3</sup> We include `SIGTERM` listener for graceful reloading, see [src/app.js][src-index] for more insight</small><br />
 <small><sup>4</sup> You can send 150,000 free ~~credits~~ transactional emails if you're [bootstrapped][bootstrapped-promotion] and [DMARC compliant][dmarc-promotion]</small><br />
 <small><sup>5</sup> You can get $100 free credit for signing up by clicking our referral link above</small>
 
@@ -756,7 +945,7 @@ The only way to ship code faster is to respect these three points:
 
 1. Use as many [tools](#tools) as possible to automate your workflow.
 2. Understand that [good coders code, and great reuse][good-coders-code].
-3. Avoid anti-patterns and context-switching habits &ndash; you will easily stay focused!
+3. Avoid [vim][vim-antipatterns] and [JavaScript][js-antipatterns] anti-patterns and context-switching habits in order to stay focused.
 
 ### Tools
 
@@ -774,49 +963,47 @@ Here is a brief list of recommended tools used to ship rapidly developed MVP's:
 * Instead of using `npm install --save <name>` to install packages, use [pnpm][pnpm] to install them faster; `pnpm install --save <name>`.
 
 
-## [![glazed-logo-xs]](#-index) [Is there a book on Glazed?](#-is-there-a-book-on-glazed)
+## <a href="#crocodile-index">:crocodile:</a> [Is there a book on CrocodileJS?](#crocodile-is-there-a-book-on-crocodilejs)
 
 **Yes, there is a book (coming soon) called <u>Rapid MVP's</u>**.  It comes with Markdown, HTML, and PDF versions, and also accompanying **<u>source code</u> AND <u>screencasts</u>**!  The author [@niftylettuce][nifty-twitter] is self-publishing, and goes in-depth to show you how to build rapid MVP's.  The book will include a "How It's Made" for at least two of his new (and hopefully profitable) side-projects.
 
 It is **available for <u>early bird</u> pre-order** right now at <https://rapidmvp.com>!  Even if you don't buy the book, you can still get free/inspirational behind the scenes tips, tutorials, and videos!  And a sticker!
 
-> **Get a <u>FREE GLAZED STICKER</u> mailed to you: <https://rapidmvp.com>** (no pre-order required)
+> **Get a <u>FREE CROCODILE STICKER</u> mailed to you: <https://rapidmvp.com>** (no pre-order required)
 
-## [![glazed-logo-xs]](#-index) [Can I get help?](#-can-i-get-help)
+## <a href="#crocodile-index">:crocodile:</a> [Can I get help?](#crocodile-can-i-get-help)
 
-<a href="http://slack.glazed.io"><img alt="Join us in Slack" src="https://d2jyi1ndcvo0nf.cloudfront.net/glazed-slack-image.png" width="310" height="264.5" style="width:310px; height:264.5px;" /></a>
+<a href="http://slack.crocodilejs.com"><img alt="Join us in Slack" src="https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-slack-image.png" width="300" height="255" style="width:300px; height:255px;" /></a>
 
 [Join us in Slack][slack-url].  Still need help?  [File an issue](/issues).
 
 
-## [![glazed-logo-xs]](#-index) [How do I get updates?](#-how-do-i-get-updates)
+## <a href="#crocodile-index">:crocodile:</a> [How do I get updates?](#crocodile-how-do-i-get-updates)
 
-We provide updates to this repository and a detailed changelog, which you can then add/merge into your project.  You will need to "star" and "watch" this repository to stay active.  We don't have an automated update system or a Google Group (and do not plan to).  It is your duty as a Rapid MVP developer to stay updated.  **<u>Lastly, it's a necessity</u>** that you [join us on Slack][slack-url] to stay in the loop!
+We provide updates to this repository and a detailed changelog, which you can then add/merge into your project.
 
-You can also follow us on Twitter here:
+The [GitHub Releases Pages][gh-releases] provides detailed documentation for every release of CrocodileJS.
 
-* <https://twitter.com/glazedio>
-* <https://twitter.com/niftylettuce>
+You can also use the CLI tool `crocodile`, and run the command `crocodile upgrade` in order to upgrade your project.
 
+Please note that after you upgrade, you will need to update the version specified in `.crocodile.yml` of your project.
 
-## [![glazed-logo-xs]](#-index) [Who built it?](#-who-built-it)
+You will need to "star" and "watch" this repository to stay active.  We don't have an automated update system nor a Google Group.  It is your responsibility and duty as a CrocodileJS developer to stay up to date on everything.  **<u>Lastly, it's a necessity</u>** that you [join us on Slack][slack-url] to stay in the loop!
 
-Glazed `v1.0.0` was released in May 2016 by [@niftylettuce][nifty-twitter].
-
-It is a modernized derivative of his project "Eskimo" (a derivative of "Expressling").
+You can also follow us on Twitter at <https://twitter.com/niftylettuce>.
 
 
-## [![glazed-logo-xs]](#-index) [Can we hire @glazed?](#-can-we-hire-glazed)
+## <a href="#crocodile-index">:crocodile:</a> [Who built it?](#crocodile-who-built-it)
 
-Of course!  Please email Niftylettuce LLC at <niftylettuce@gmail.com> to get in touch with a developer team fit for your project.
-Even if we can't find someone for you, we'd love to help put you in the right direction.  We recommend to [join us in Slack][slack-url] first!
+CrocodileJS v1.0.0 was released in September 2016 by [@niftylettuce][nifty-twitter].
 
-## [![glazed-logo-xs]](#-index) [License](#-license)
+## <a href="#crocodile-index">:crocodile:</a> [Can we hire or partner with @niftylettuce?](#crocodile-can-we-hire-niftylettuce)
 
-* Glazed is [MIT][license-url] licensed
-* Doughnut by Andrey Vasiliev from the [Noun Project][noun-project]
-* Glazed clay palette by Dia from [COLOURlovers][colour-lovers]
+I am always willing to entertain new opportunities.  Please reach out to me at <niftylettuce@gmail.com>.
 
+## <a href="#crocodile-index">:crocodile:</a> [License](#crocodile-licee)
+
+Crocodile is [MIT][license-url] licensed
 
 [gh-mongoose-issue]: https://github.com/Automattic/mongoose/issues/3683#issue-122632405
 [mongoose-json-select]: https://github.com/nkzawa/mongoose-json-select
@@ -830,7 +1017,6 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [istanbul]: https://github.com/gotwarlost/istanbul
 [jsdom]: https://github.com/tmpvar/jsdom
 [mocha]: https://github.com/mochajs/mocha
-[isparta]: https://github.com/douglasduteil/isparta
 [dirty-chai]: https://github.com/prodatakey/dirty-chai
 [check-chai]: https://github.com/niftylettuce/check-chai
 [chai]: https://github.com/chaijs/chai
@@ -861,8 +1047,7 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [gulp-uglify]: https://github.com/terinjokes/gulp-uglify
 [imagemin-pngquant]: https://github.com/imagemin/imagemin-pngquant
 [noun-project]: https://thenounproject.com/term/doughnut/163279/
-[colour-lovers]: http://www.colourlovers.com/palette/63788/Glazed_clay
-[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: LICENSE
 [mvc]: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
 [nodejs]: https://nodejs.org
@@ -903,27 +1088,23 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [brew]: http://brew.sh/
 [sketch]: https://www.sketchapp.com/
 [koa]: https://github.com/koajs/koa/tree/v2.x
-[glazed-logo]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo.svg
-[glazed-logo-xs]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-logo-xs.svg
-[glazed-description]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-description.svg
-[glazed-url]: http://glazed.io
-[slack-image]: http://slack.glazed.io/badge.svg
-[slack-url]: http://slack.glazed.io
+[slack-image]: http://slack.crocodilejs.com/badge.svg
+[slack-url]: http://slack.crocodilejs.com
 [mongoose]: http://mongoosejs.com/
 [passport]: https://github.com/jaredhanson/passport
 [passport-google-oauth]: https://github.com/jaredhanson/passport-google-oauth
 [passport-package]: https://www.npmjs.com/search?q=passport
 [pg]: https://github.com/brianc/node-postgres
 [bookshelf]: https://github.com/tgriesser/bookshelf
-[spa-image]: https://d2jyi1ndcvo0nf.cloudfront.net/spa-image.svg
-[avc-chicken-image]: https://d2jyi1ndcvo0nf.cloudfront.net/avc-eat-this-chicken.jpg
+[spa-image]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/spa-image.png
+[avc-chicken-image]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/avc-eat-this-chicken.jpg
 [fake-grimlock]: http://avc.com/2011/09/minimum-viable-personality/
 [browserify]: http://browserify.org
 [babelify]: https://github.com/babel/babelify
 [gulpfile]: gulpfile.babel.js
 [gulp]: http://gulpjs.com/
 [sweetalert]: https://t4t5.github.io/sweetalert/
-[glazed-dependencies]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-dependencies.svg
+[crocodile-dependencies]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-deployment.png
 [callback-hell]: http://callbackhell.com/
 [bootstrap-4-alpha]: http://v4-alpha.getbootstrap.com/
 [koa-compress]: https://github.com/omsmith/compress/tree/koa2
@@ -941,7 +1122,7 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [stripe-inspired]: https://www.heavybit.com/library/video/move-fast-dont-break-api/
 [eslint-config-airbnb]: https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb
 [config-file-seo]: src/config/index.js
-[src-index]: src/index.js
+[src-index]: src/app.js
 [mirror-it]: https://help.github.com/articles/duplicating-a-repository/
 [nifty-ci-setup]: http://niftylettuce.com/posts/automated-node-app-ci-graceful-zerodowntime-github-pm2/
 [slack-referral-url]: https://slack.com/r/02kjqk4v-06846hdf
@@ -964,19 +1145,42 @@ Even if we can't find someone for you, we'd love to help put you in the right di
 [linux-mint]: https://www.linuxmint.com/
 [ubuntu]: http://www.ubuntu.com
 [pr-template]: .github/PULL_REQUEST_TEMPLATE.md
-[120x120]: https://d2jyi1ndcvo0nf.cloudfront.net/glazed-120x120.png
-[build-image]: https://semaphoreci.com/api/v1/niftylettuce/glazed/branches/master/shields_badge.svg
-[build-url]: https://semaphoreci.com/niftylettuce/glazed
+[build-image]: https://semaphoreci.com/api/v1/crocodilejs/crocodile-node-mvc-framework/branches/master/shields_badge.svg
+[build-url]: https://semaphoreci.com/crocodilejs/crocodile-node-mvc-framework
 [agenda]: https://github.com/rschmukler/agenda
-[codecov-image]: https://img.shields.io/codecov/c/github/glazedio/glazed/master.svg
-[codecov-url]: https://codecov.io/github/glazedio/glazed
+[codecov-image]: https://img.shields.io/codecov/c/github/crocodilejs/crocodile-node-mvc-framework/master.svg
+[codecov-url]: https://codecov.io/github/crocodilejs/crocodile-node-mvc-framework
 [standard-image]: https://img.shields.io/badge/code%20style-standard%2Bes7-brightgreen.svg
-[standard-url]: https://github.com/meetearnest/eslint-config-earnest-es7
+[standard-url]: https://github.com/crocodilejs/eslint-config-crocodile
 [stability-image]: https://img.shields.io/badge/stability-stable-green.svg
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 [src-assets]: src/assets/
-[unicorn-approved]: http://img.shields.io/badge/unicorn-approved-ff69b4.svg
-[unicorn-url]: https://www.youtube.com/watch?v=9auOCbH5Ns4
-[coveralls-image]: https://coveralls.io/repos/github/glazedio/glazed/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/github/glazedio/glazed?branch=master
 [email-templates]: https://github.com/niftylettuce/node-email-templates
+[crocodile-demo]: https://crocodilejs.com
+[twelve-factors]: http://12factor.net/
+[mustache]: https://github.com/janl/mustache.js/
+[dotenv-extended]: https://github.com/keithmorris/node-dotenv-extended
+[dotenv-mustache]: https://github.com/samcrosoft/dotenv-mustache
+[dotenv-parse-variables]: https://github.com/niftylettuce/dotenv-parse-variables
+[codecov]: https://codecov.io
+[js-antipatterns]: https://shichuan.github.io/javascript-patterns/
+[vim-antipatterns]: https://sanctum.geek.nz/arabesque/vim-anti-patterns/
+[passport-stripe]: https://github.com/mathisonian/passport-stripe
+[passport-facebook]: https://github.com/jaredhanson/passport-facebook
+[passport-twitter]: https://github.com/jaredhanson/passport-twitter
+[passport-github]: https://github.com/jaredhanson/passport-github
+[passport-linkedin]: https://github.com/jaredhanson/passport-linkedin
+[passport-instagram]: https://github.com/jaredhanson/passport-instagram
+[lean-method]: http://www.tothenew.com/blog/high-performance-find-query-using-lean-in-mongoose-2/
+[mongoose-static-method]: http://mongoosejs.com/docs/guide.html#statics
+[grunt]: http://gruntjs.com/
+[outdated-express]: https://github.com/balderdashy/sails/issues/3460
+[totaljs-example]: https://github.com/totaljs/framework/blob/master/index.js
+[node-philosophy]: http://substack.net/how_I_write_modules
+[hackathon-starter]: https://github.com/sahat/hackathon-starter
+[totaljs]: https://www.totaljs.com/
+[hapijs]: http://hapijs.com/
+[sailsjs]: http://sailsjs.org/
+[hackathon-app-file]: https://github.com/sahat/hackathon-starter
+[gh-boilerplate]: https://www.google.com/search?q=github+node+boilerplate
+[gh-releases]: https://github.com/crocodilejs/crocodile-node-mvc-framework/releases

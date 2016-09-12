@@ -4,7 +4,10 @@ import s from 'underscore.string';
 import config from '../config';
 import moment from 'moment';
 
-export default async function dynamicViewHelpers(ctx, next) {
+export default function dynamicViewHelpers(ctx, next) {
+
+  // add csrf for forms, global, and meta tag
+  ctx.state.csrf = ctx.csrf;
 
   // add lodash in case we need it
   ctx.state._ = _;
@@ -18,17 +21,12 @@ export default async function dynamicViewHelpers(ctx, next) {
   // add moment
   ctx.state.moment = moment;
 
-  // bind meta tag information
-  ctx.state = _.merge(ctx.state, config.meta['/']);
-  if (config.meta[ctx.path])
-    ctx.state = _.merge(ctx.state, config.meta[ctx.path]);
-
   // add `user` object to the state for views
   if (ctx.isAuthenticated())
     ctx.state.user = ctx.req.user.toObject();
 
   // add `req` object to the state for views
-  ctx.state.req = ctx.req;
+  ctx.state.req = ctx.request;
 
   // add flash messages to state
   ctx.state.flash = function () {
@@ -42,6 +40,6 @@ export default async function dynamicViewHelpers(ctx, next) {
     };
   };
 
-  await next();
+  return next();
 
-};
+}
