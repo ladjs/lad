@@ -9,7 +9,8 @@ import auth from './auth';
 const router = new Router();
 
 router
-  .get('/', renderPage('home'))
+  .get('/', controllers.web.home)
+  // .get('/', renderPage('home'))
   .get('/about', renderPage('about'))
   .get('/status', controllers.web.status)
   .get('/my-account', Policies.ensureLoggedIn, renderPage('my-account'))

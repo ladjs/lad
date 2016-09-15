@@ -29,14 +29,13 @@ export default function dynamicViewHelpers(ctx, next) {
   ctx.state.req = ctx.request;
 
   // add flash messages to state
-  ctx.state.flash = function () {
-    if (!_.some(ctx.session.flash, messages => messages.length > 0))
-      return [];
+  ctx.state.flash = () => {
     return {
       success: ctx.flash('success'),
       error: ctx.flash('error'),
       info: ctx.flash('info'),
-      warning: ctx.flash('warning')
+      warning: ctx.flash('warning'),
+      question: ctx.flash('question')
     };
   };
 

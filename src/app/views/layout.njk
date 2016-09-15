@@ -61,6 +61,27 @@
       window._messages = {{ flash() | json | safe }};
     </script>
 
+    {# raven client-side logging with console support #}
+    {% if config.env == 'production' and config.raven %}
+      <script src="//cdn.ravenjs.com/3.7.0/console/raven.min.js"></script>
+      <script>
+        if (window.Raven && typeof window.Raven === 'object') {
+          Raven.config('{{ config.raven }}').install();
+          {% if user %}
+          Raven.setUserContext({
+            email: "{{ user.email }}",
+            id: "{{ user.id }}",
+            ip_address: "{{ req.ip }}"
+          });
+          {% else %}
+          Raven.setUserContext({
+            ip_address: "{{ req.ip }}"
+          });
+          {% endif %}
+        }
+      </script>
+    {% endif %}
+
     {# scripts get loaded here #}
     {% block scripts %}
       <script src="{{ manifest('js/core.js') }}"></script>

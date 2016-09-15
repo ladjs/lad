@@ -7,12 +7,6 @@
   <div class="container">
 
     <div class="text-xs-center m-t-2">
-      {% set referrer = req.headers.referer or req.headers.referrer or '' %}
-      {% if referrer == 'https://news.ycombinator.com' or referrer == 'https://www.producthunt.com' %}
-        <div class="alert alert-success" role="alert">
-          <strong>{{ 'wave' | emoji }} Welcome Hacker News and Product Hunt friends!</strong> Don't forget to give us an <button type="button" onclick="window.history.back();" class="btn btn-link">upvote</button>!
-        </div>
-      {% endif %}
       <h2 class="lead font-italic m-y-2">{{ '100' | emoji }} <u>The Best</u> <strong>Node.js MVC Framework</strong> For <u>Rapidly Building</u> <strong>Apps</strong> and <strong>API's</strong> {{ 'star' | emoji }}</h2>
       <hr />
       <h3 class="h1 m-y-3">Chew apart <span class="hidden-md-up">your projects</span><mark class="hidden-sm-down">your projects</mark> with <i>speed</i>.</h3>
@@ -127,7 +121,7 @@ export default router;</code></pre>
     {% endif %}
 
     <div class="jumbotron m-y-2 p-y-2">
-      <p class="lead">With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API's &ndash; we've crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the My Account page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>).</p>
+      <p class="lead">With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API's &ndash; we've crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the <a href="/my-account">My Account</a> page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>).</p>
 
       {% if not user %}
         <div class="alert alert-danger text-xs-center">Please <a href="/signup?redirect=/#the-api-server">sign up</a> first, then come back to this page and your unique API token will be populated below!</div>

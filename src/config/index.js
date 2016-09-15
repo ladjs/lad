@@ -137,6 +137,7 @@ let config = {
 
   // getsentry.com
   sentry: env.SENTRY_DSN,
+  raven: env.RAVEN_DSN,
 
   // mongodb
   mongodb: env.DATABASE_URL,

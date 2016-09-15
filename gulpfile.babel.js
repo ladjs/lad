@@ -3,6 +3,7 @@
 import 'babel-polyfill';
 
 // gulp dependencies
+import gutil from 'gulp-util';
 import awspublish from 'gulp-awspublish';
 import cloudfront from 'gulp-cloudfront';
 import runSequence from 'run-sequence';
@@ -158,7 +159,10 @@ gulp.task('js', [ 'lint' ], done => {
         basedir: 'src/assets'
       })
       .transform(babelify)
-      .bundle()
+      .bundle().on('error', function (err) {
+        gutil.log(err.message);
+        this.emit('end');
+      })
       .pipe(source(entry))
       .pipe(buffer())
       .pipe(sourcemaps.init({

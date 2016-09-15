@@ -93,6 +93,7 @@ app.use(koaManifestRev(config.koaManifestRev));
 app.use(convert(i18n(app, {
   extension: '.json',
   directory: config.localesDirectory,
+  indent: '  ',
   locales: config.locales,
   modes: [ 'header' ]
 })));

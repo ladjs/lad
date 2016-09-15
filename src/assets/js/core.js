@@ -11,7 +11,6 @@ window.hljs.initHighlightingOnLoad();
 
 (($) => {
 
-
   $(() => {
 
     // handle hashes when page loads

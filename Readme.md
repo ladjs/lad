@@ -28,6 +28,7 @@
   - [Job Scheduler](#job-scheduler)
   - [Database &amp; ORM](#database--orm)
   - [Sessions &amp; Auth](#sessions--auth)
+  - [Flash Messaging](#flash-messaging)
   - [API Example](#api-example)
   - [Security](#security)
   - [Helpers](#helpers)
@@ -39,7 +40,7 @@
   - [Cross-browser Compatibility](#cross-browser-compatibility)
   - [Built-in User Group Permissioning](#built-in-user-group-permissioning)
   - [Search Engine Indexing](#search-engine-indexing)
-  - [l18n Localization](#l18n-localization)
+  - [i18n Internationalization and l10n Localization)(#i18n-internationalization-and-l10n-localization)
   - [Performance](#performance)
 * [How do I use it?](#crocodile-how-do-i-use-it)
   - [Requirements](#requirements)
@@ -98,9 +99,10 @@ CrocodileJS is an application ~~framework~~ boilerplate for rapid iteration of a
 Instead of sharing a table with irrelevant benchmarks and checklists of features that only Crocodile has, we provide a simple summary of the most comparable, popular frameworks that come to mind:
 
 * [Hackathon Starter][hackathon-starter] doesn't do anything for your production-ready assets and it still uses ECMAScript 5.  As a "hackathon starter", it leads you to write spaghetti code for a quick hackathon &ndash; which leads you [to writing huge files][hackathon-app-file] that could be componentized.  It also doesn't use Koa.
-* [Sails][sailsjs] was built in a way that is extremely confusing, as such (and not to be rude) but @niftylettuce won the first SailsJS hackathon and never used SailsJS again since that one time.  It locks you into their philosophy with little wiggle room due to the convoluted setup.  It also uses an [outdated version of Express][outdated-express] with no plans to upgrade.  It also doesn't use Koa.
+* [Sails][sailsjs] was built in a way that is extremely confusing, as such (and not to be rude) but @niftylettuce [won the first official SailsJS hackathon][won-hackathon] and never used SailsJS again since that one time.  It locks you into their philosophy with little wiggle room due to the convoluted setup.  It also uses an [outdated version of Express][outdated-express] with no plans to upgrade.  It also doesn't use Koa.
 * [Hapi.js][hapijs] simply doesn't do enough for you.  Input validation and other menial features don't allow you to ship a high-quality MVP.  It also doesn't use Koa.
 * [Total.js][totaljs] was written from scratch and [is against the Node philosophy][node-philosophy]... just ([look at this file][totaljs-example]).  It also doesn't use Koa.
+* ... quite really every single framework and boilerplate out there is half-baked and really not great for building stellar MVP's
 
 There really aren't many decent Node frameworks, so only the above made the list.  GitHub is full of [pure web app boilerplates][gh-boilerplate], but they really don't do much for you.
 
@@ -206,7 +208,7 @@ Other scenarios where Async/Await is resourceful:
 * Complex find, search, or querying in general
 * Less indentation = more readable code
 * No more callbacks = more readable code
-* Less indentation = code wrapping to 80 characters is easy
+* Less indentation = code wrapping to 80 or 100 (recommended) characters is easy
 
 ### Front-end with jQuery + Bootstrap
 
@@ -214,7 +216,7 @@ By default, the [latest Bootstrap version 4 alpha][bootstrap-4-alpha] is used (i
 
 However, you can swap out Bootstrap to another version, or entirely for something else.  You can also switch SCSS to use LESS or plain CSS.
 
-Also included are the front-end packages jQuery and [Sweetalert][sweetalert].
+Also included are the front-end packages jQuery and [Sweetalert2][sweetalert2].
 
 **You don't need Bower anymore**, since you can simply import libraries through our Browserify setup!
 
@@ -257,6 +259,50 @@ Instagram | uses [passport-instagram][passport-instagram] (your users can "Log i
 Stripe | uses [passport-stripe][passport-stripe] (your users can "Log in with Stripe")
 
 > If you need to add additional strategies, you can literally clone the Google Strategy code and use another [passport package][passport-package] for your auth provider.  Don't be afraid to [join our Slack channel][slack-url] and ask us for help!
+
+### Flash Messaging
+
+<img width="800" height="406" style="width:800px;height:406px;" alt="Flash Messaging" src="https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/sweetalert2-screenshot.png" />
+
+Through the use of [Sweetalert2][sweetalert2] and [koa-connect-flash][koa-connect-flash], we allow you to display to users extremely beautiful alerts.
+
+```js
+ctx.flash(level, message);
+```
+
+Combine this with [our support for international localization/translation](#i18n-internationalization-and-l10n-localization) and you get localized alerts!
+
+The `level` parameter can be one of the following (adhering to Sweetalert2 defaults):
+
+* `success` - Success/OK messages
+
+  ```js
+  ctx.flash('success', 'Everything worked OK');
+  ```
+
+* `info` - Informational messages
+
+  ```js
+  ctx.flash('info', 'You will never achieve greatness unless you believe in such greatness');
+  ```
+
+* `warning` - Warning messages
+
+  ```js
+  ctx.flash('warning', "Don't forget to tie your shoes before you walk forward");
+  ```
+
+* `error` - Error messages
+
+  ```js
+  ctx.flash('error', 'If you fail, then retry, and retry, and retry, until you succeed.');
+  ```
+
+* `question` - Question messages
+
+  ```js
+  ctx.flash('question', 'Who are you?');
+  ```
 
 ### API Example
 
@@ -332,7 +378,7 @@ Crocodile uses the following helper libraries:
   - [istanbul][istanbul]
   - [jsdom][jsdom]
   - [mocha][mocha]
-* Simple message alert system with [koa-connect-flash][koa-connect-flash] and [Sweetalert][sweetalert]
+* Simple message alert system with [koa-connect-flash][koa-connect-flash] and [Sweetalert2][sweetalert2]
 * API token without a password for an extremely simple approach to session-less, BasicAuth access
 * [Stripe-inspired][stripe-inspired] API design with versioning, error handling, type description, and verbose list output with count and number of pages
 * [No callback hell][callback-hell] since you can use Async/Await syntax
@@ -475,7 +521,7 @@ With this setup, we have climbed to #1 on Google for various keywords, easily.  
 
 In order to prevent duplicate content, we have added a plugin that removes trailing slashes from URL's, so `/home/` will `301` redirect to `/home` automatically.
 
-### l18n Localization
+### i18n Internationalization and l10n Localization
 
 We built-in international localization/translation support!
 
@@ -829,7 +875,7 @@ Authentication is managed by `src/config/index.js` and `src/helpers/passport.js`
 
 ##### Logging Configuration
 
-> We recommend to use [Sentry][sentry] for logging, though you could swap in your own provider:
+> We recommend to use [Sentry][sentry] for server-side and client-side logging, though you could swap in your own provider:
 
 1. Go to <https://getsentry.com/> &ndash; Try for free
 2. Create a free account, then proceed to create a "Project"
@@ -838,7 +884,14 @@ Authentication is managed by `src/config/index.js` and `src/helpers/passport.js`
 
   ```diff
   -SENTRY_DSN=
-  +SENTRY_DSN=https://fde13b9ab0104dd9a157a045826fb97b:fd9a68972636435eaf4bf9a414355d9a@app.getsentry.com/87713
+  +SENTRY_DSN=https://fde13b9ab0104zz9a157a045826fb97b:fd9a23972636435eaf4bf9a414355d9a@app.getsentry.com/87713
+  ```
+5. Under your project, on the left side under the "DATA" section, go to "Client Keys (DSN)", and copy the public (not private) key value for "DSN" to your clipboard.
+6. Paste this value in your `.env` file (example below)
+
+  ```diff
+  -RAVEN_DSN=
+  +RAVEN_DSN=https://fde13b9ab0994zz9a157a045826fb52b@app.getsentry.com/87713
   ```
 
 #### Code Coverage Configuration
@@ -973,7 +1026,7 @@ It is **available for <u>early bird</u> pre-order** right now at <https://rapidm
 
 ## <a href="#crocodile-index">:crocodile:</a> [Can I get help?](#crocodile-can-i-get-help)
 
-<a href="http://slack.crocodilejs.com"><img alt="Join us in Slack" src="https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-slack-image.png" width="300" height="255" style="width:300px; height:255px;" /></a>
+<a href="http://slack.crocodilejs.com"><img alt="Join us in Slack" src="https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-slack-join.png" width="300" height="255" style="width:300px; height:255px;" /></a>
 
 [Join us in Slack][slack-url].  Still need help?  [File an issue](/issues).
 
@@ -1096,14 +1149,14 @@ Crocodile is [MIT][license-url] licensed
 [passport-package]: https://www.npmjs.com/search?q=passport
 [pg]: https://github.com/brianc/node-postgres
 [bookshelf]: https://github.com/tgriesser/bookshelf
-[spa-image]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/spa-image.png
+[spa-image]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/spa-image.svg
 [avc-chicken-image]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/avc-eat-this-chicken.jpg
 [fake-grimlock]: http://avc.com/2011/09/minimum-viable-personality/
 [browserify]: http://browserify.org
 [babelify]: https://github.com/babel/babelify
 [gulpfile]: gulpfile.babel.js
 [gulp]: http://gulpjs.com/
-[sweetalert]: https://t4t5.github.io/sweetalert/
+[sweetalert2]: https://github.com/limonte/sweetalert2
 [crocodile-dependencies]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-deployment.png
 [callback-hell]: http://callbackhell.com/
 [bootstrap-4-alpha]: http://v4-alpha.getbootstrap.com/
@@ -1145,8 +1198,8 @@ Crocodile is [MIT][license-url] licensed
 [linux-mint]: https://www.linuxmint.com/
 [ubuntu]: http://www.ubuntu.com
 [pr-template]: .github/PULL_REQUEST_TEMPLATE.md
-[build-image]: https://semaphoreci.com/api/v1/crocodilejs/crocodile-node-mvc-framework/branches/master/shields_badge.svg
-[build-url]: https://semaphoreci.com/crocodilejs/crocodile-node-mvc-framework
+[build-image]: https://semaphoreci.com/api/v1/niftylettuce/crocodile-node-mvc-framework/branches/master/shields_badge.svg
+[build-url]: https://semaphoreci.com/niftylettuce/crocodile-node-mvc-framework
 [agenda]: https://github.com/rschmukler/agenda
 [codecov-image]: https://img.shields.io/codecov/c/github/crocodilejs/crocodile-node-mvc-framework/master.svg
 [codecov-url]: https://codecov.io/github/crocodilejs/crocodile-node-mvc-framework
@@ -1184,3 +1237,4 @@ Crocodile is [MIT][license-url] licensed
 [hackathon-app-file]: https://github.com/sahat/hackathon-starter
 [gh-boilerplate]: https://www.google.com/search?q=github+node+boilerplate
 [gh-releases]: https://github.com/crocodilejs/crocodile-node-mvc-framework/releases
+[won-hackathon]: http://www.hackathon.io/tbd
