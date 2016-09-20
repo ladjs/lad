@@ -1,46 +1,63 @@
 
 import 'source-map-support/register';
-
 import Agenda from 'agenda';
 import promisify from 'es6-promisify';
 import _ from 'lodash';
 
 import Jobs from './jobs';
-import { Logger } from './helpers/';
+import { Mongoose, Logger, updateNotifier } from './helpers/';
 import config from './config/';
 
-// database
-import mongoose from 'mongoose';
-
-// create the database connection
-if (config.env === 'development')
-  mongoose.set('debug', true);
-// use native promises
-mongoose.Promise = global.Promise;
-mongoose.connect(config.mongodb);
-mongoose.connection.on('connected', () => {
-  Logger.info(`mongoose connection open to ${config.mongodb}`);
-});
-
-// if the connection throws an error
-mongoose.connection.on('error', err => {
-  Logger.error(err);
-});
-
-// when the connection is disconnected
-mongoose.connection.on('disconnected', function () {
-  Logger.info('mongoose connection disconnected');
-});
+// check for updates
+updateNotifier();
 
 const Job = new Jobs();
 
-const agenda = new Agenda(config.agenda);
+// initialize mongoose
+const mongoose = new Mongoose();
+
+// when the connection is connected we need to override
+// the default connection event, because agenda requires
+// us to in order to connect with the same mongoose connection
+mongoose.connection.on('connected', () => {
+  // re-use existing mongoose connection
+  // <https://github.com/rschmukler/agenda/issues/156#issuecomment-163700272>
+  agenda.mongo(
+    mongoose.connection.collection(config.agenda.collection).conn.db,
+    config.agenda.collection,
+    err => {
+      if (err) return Logger.error(err);
+      Logger.info('agenda opened connection using existing mongoose connection');
+    }
+  );
+});
+
+// similarly when disconnected, we need to ensure that we stop agenda
+mongoose.connection.on('disconnected', async () => {
+  if (agenda._collection) {
+    cancel();
+    try {
+      await promisify(agenda.stop, agenda)();
+    } catch (err) {
+      Logger.error(err);
+    }
+  }
+});
+
+
+// set up agenda
+
 const cancelOptions = {
   repeatInterval: {
     $exists: true,
     $ne: null
   }
 };
+
+const agenda = new Agenda({
+  name: config.agenda.name,
+  maxConcurrency: config.agenda.maxConcurrency
+});
 
 agenda.on('ready', () => {
 
@@ -66,29 +83,24 @@ agenda.on('ready', () => {
 
 });
 
-agenda.on('start', job =>
-  Logger.info(`job "${job.attrs.name}" started`));
-
-agenda.on('complete', job =>
-  Logger.info(`job "${job.attrs.name}" completed`));
-
-agenda.on('success', job =>
-  Logger.info(`job "${job.attrs.name}" succeeded`));
-
+// handle events emitted
+agenda.on('start', job => Logger.info(`job "${job.attrs.name}" started`));
+agenda.on('complete', job => Logger.info(`job "${job.attrs.name}" completed`));
+agenda.on('success', job => Logger.info(`job "${job.attrs.name}" succeeded`));
 agenda.on('fail', (err, job) => {
   err.message = `job "${job.attrs.name}" failed: ${err.message}`;
   Logger.error(err, { extra: { job }});
 });
-
 agenda.on('error', Logger.error);
 
 // cancel recurring jobs so they get redefined on the next server start
 // <http://goo.gl/nu1Rco>
 async function cancel() {
+  if (!agenda._collection) return Logger.error('Collection did not exist');
   try {
     await promisify(agenda.cancel, agenda)(cancelOptions);
   } catch (err) {
-    throw err;
+    Logger.error(err);
   }
 }
 
@@ -111,8 +123,6 @@ process.on('SIGINT', graceful);
 
 function graceful() {
 
-  Logger.warn('agenda gracefully shutting down');
-
   // stop accepting new jobs
   agenda.maxConcurrency(0);
 
@@ -120,7 +130,7 @@ function graceful() {
 
     cancel();
 
-    // give it only 5 seconds to finish the apn and job shutdown
+    // give it only 5 seconds to gracefully shut down
     setTimeout(() => {
       throw new Error('agenda did not shut down after 5s');
     }, 5000);
@@ -132,13 +142,16 @@ function graceful() {
       } else {
         clearInterval(jobInterval);
         jobInterval = null;
-        await promisify(agenda.stop, agenda)();
+        if (agenda._collection)
+          await promisify(agenda.stop, agenda)();
       }
     }, 500);
 
     setInterval(() => {
-      if (!jobInterval)
+      if (!jobInterval) {
+        Logger.info('gracefully shut down');
         process.exit(0);
+      }
     }, 500);
 
   } catch (err) {

@@ -1,11 +1,9 @@
 {
   "ignore": [
     "gulpfile.babel.js",
-    "src/locales",
-    "src/assets",
     "build",
     "media",
-    "lib",
+    "src",
     "test"
   ]
 }

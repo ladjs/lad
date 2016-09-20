@@ -3,25 +3,35 @@
     <i class="fa fa-bars"></i>
   </button>
   <a class="navbar-brand" href="/">{{config.appName}} <span class="tag tag-success">{{ version }}</span></a>
-  <div class="collapse navbar-toggleable-sm" id="navbar-header">
+  <div class="collapse navbar-toggleable-md" id="navbar-header">
     <ul class="nav navbar-nav">
 
-      <li class="nav-item{% if req.url == '/about' %} active{% endif %}">
-        <a class="nav-link" href="/about"><i class="fa fa-info-circle"></i> About {% if req.url == '/' %} <span class="sr-only">(current)</span>{% endif %}</a>
-      </li>
-
-      <li class="nav-item"><a class="nav-link" href="http://slack.crocodilejs.com"><i class="fa fa-slack"></i> Chat</a></li>
-      <li class="nav-item"><a class="nav-link" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-book"></i> Docs</a></li>
-      <li class="nav-item"><a class="nav-link" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar-plus-o"></i> Training</a></li>
+      <li class="nav-item"><a class="btn btn-outline-info" target="_blank"  href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE3EFQ5X9RHT6"><i class="fa fa-paypal"></i> Donate Now</a></li>
+      <li class="nav-item"><a class="btn btn-outline-warning" href="#"><i class="fa fa-cc-stripe"></i> Buy License</a></li>
+      <li class="nav-item"><a class="btn btn-outline-danger" href="#"><i class="fa fa-book"></i> Order Book</a></li>
 
       <div class="pull-xs-right">
+
+        <li class="nav-item btn-group">
+          <a class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-more-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-life-ring"></i> Support
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-more-links">
+            <li><a class="dropdown-item" target="_blank" href="http://slack.crocodilejs.com"><i class="fa fa-slack"></i> Chat</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-book"></i> Docs</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar-plus-o"></i> Training</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework/issues"><i class="fa fa-github"></i> GitHub</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://twitter.com/niftylettuce"><i class="fa fa-twitter"></i> Twitter</a></li>
+            <li><a class="dropdown-item" href="/contact"><i class="fa fa-envelope"></i> Contact</a></li>
+          </ul>
+        </li>
 
         {# links that show only if you're logged in #}
         {% if user %}
 
           <li class="nav-item{% if req.url.indexOf('/my-account') == 0 %} active{% endif %}">
             <a class="nav-link" href="/my-account">
-              <img class="img-circle" src="{{ user.avatar_url }}" alt="My Account" height="25" /> {{ user.given_name }}{% if req.url.indexOf('/my-account') == 0 %} <span class="sr-only">(current)</span>{% endif %}
+              <img class="img-circle" src="{{ user.avatar_url }}" alt="My Account" height="25" /> {{ user.display_name }}{% if req.url.indexOf('/my-account') == 0 %} <span class="sr-only">(current)</span>{% endif %}
             </a>
           </li>
 

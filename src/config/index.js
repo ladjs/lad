@@ -32,6 +32,9 @@ const omitCommonFields = [ '_id', '__v' ];
 
 let config = {
 
+  // check daily for crocodilejs updates
+  updateCheckInterval: 1000 * 60 * 60 * 24,
+
   // server
   protocols: {
     web: env.WEB_PROTOCOL,
@@ -56,6 +59,9 @@ let config = {
   },
 
   // app
+  webRequestTimeoutMs: env.WEB_REQUEST_TIMEOUT_MS,
+  apiRequestTimeoutMs: env.API_REQUEST_TIMEOUT_MS,
+  contactRequestMaxLength: env.CONTACT_REQUEST_MAX_LENGTH,
   cookiesKey: env.COOKIES_KEY,
   email: {
     from: env.EMAIL_DEFAULT_FROM,
@@ -95,6 +101,7 @@ let config = {
 
   // mongoose
   mongooseDebug: env.MONGOOSE_DEBUG,
+  mongooseReconnectMs: env.MONGOOSE_RECONNECT_MS,
   omitCommonFields,
   omitUserFields: [
     ...omitCommonFields,
@@ -116,10 +123,7 @@ let config = {
   // agenda
   agenda: {
     name: `${os.hostname()}_${process.pid}`,
-    db: {
-      address: env.DATABASE_URL,
-      collection: env.AGENDA_COLLECTION_NAME
-    },
+    collection: env.AGENDA_COLLECTION_NAME,
     maxConcurrency: env.AGENDA_MAX_CONCURRENCY
   },
 
@@ -141,6 +145,11 @@ let config = {
 
   // mongodb
   mongodb: env.DATABASE_URL,
+  mongodbOptions: {
+    server: {
+      reconnectTries: Number.MAX_VALUE
+    }
+  },
 
   // redis
   redis: env.REDIS_URL,
@@ -149,7 +158,7 @@ let config = {
   buildDir: path.join(__dirname, '..', '..', 'build'),
   viewsDir: path.join(__dirname, '..', '..', 'src', 'app', 'views'),
   nunjucks: {
-    ext: 'njk',
+    extname: 'njk',
     autoescape: true,
     // watch
     // <https://mozilla.github.io/nunjucks/api.html#configure>
@@ -159,15 +168,20 @@ let config = {
       emoji: str => {
         return gemoji.name[str] ? gemoji.name[str].emoji : '';
       },
-      curl: [ async (cmd, fn) => {
-        try {
-          const response = await exec(cmd, { stdio: 'ignore' });
-          fn(null, response.stdout ? response.stdout : response);
-        } catch (err) {
-          if (err) console.log(err && err.stack);
-          fn(null, err.stderr ? err.stderr : err.message);
-        }
-      }, true ]
+      curl: cmd => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const response = await exec(cmd, {
+              stdio: 'ignore',
+              timeout: env.CURL_FILTER_TIMEOUT_MS
+            });
+            resolve(response.stdout ? response.stdout : response);
+          } catch (err) {
+            if (err) console.log(err && err.stack);
+            resolve(err.stderr ? err.stderr : err.message);
+          }
+        });
+      }
     },
     globals: {
       version: pkg.version,
@@ -182,15 +196,15 @@ let config = {
 
   // authentication
   auth: {
+    local: env.AUTH_LOCAL_ENABLED,
     providers: {
-      local: true,
-      facebook: true,
-      twitter: true,
-      google: true,
-      github: true,
-      linkedin: true,
-      instagram: true,
-      stripe: true
+      facebook: env.AUTH_FACEBOOK_ENABLED,
+      twitter: env.AUTH_TWITTER_ENABLED,
+      google: env.AUTH_GOOGLE_ENABLED,
+      github: env.AUTH_GITHUB_ENABLED,
+      linkedin: env.AUTH_LINKEDIN_ENABLED,
+      instagram: env.AUTH_INSTAGRAM_ENABLED,
+      stripe: env.AUTH_STRIPE_ENABLED
     },
     strategies: {
       local: {
@@ -230,12 +244,12 @@ let config = {
         if (err.message === 'Consent required')
           return ctx.redirect('/auth/google/consent');
         ctx.flash('error', err.message);
-        ctx.redirect('/');
+        ctx.redirect('/login');
       }
     },
     callbackOpts: {
       successReturnToOrRedirect: '/',
-      failureRedirect: '/',
+      failureRedirect: '/login',
       successFlash: true,
       failureFlash: true
     },
@@ -261,10 +275,19 @@ config.i18n = {
   INVALID_PASSWORD_STRENGTH: 'Password strength was not strong enough',
   INVALID_SESSION_SECRET: 'Invalid session secret',
   INVALID_TOKEN: 'Invalid CSRF token',
+  INVALID_MESSAGE: `Your message was invalid, as it was either blank or more than (${env.CONTACT_REQUEST_MAX_LENGTH}) characters`,
   PASSWORD_RESET_SENT: 'We have sent you an email with a link to reset your password.',
   HELLO_WORLD: 'Hello %s world',
   REGISTERED: 'You have successfully registered',
-  RESET_PASSWORD: 'You have successfully reset your password.'
+  RESET_PASSWORD: 'You have successfully reset your password.',
+  CONTACT_REQUEST_MESSAGE: 'Thank you for contacting us.  We would love to hear more from you.  How can we help?',
+  CONTACT_REQUEST_SENT: 'Your contact request has been sent successfully.  You should hear from us soon.  Thank you!',
+  CONTACT_REQUEST_ERROR: 'We were unable to send your contact request.  We have been alerted of this problem.  Please try again later.',
+  CONTACT_REQUEST_LIMIT: 'You have reached the limit for sending contact requests.  Please try again later.',
+  REQUEST_TIMED_OUT: 'Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.',
+  LOGGED_IN: 'You have successfully signed in.',
+  SIGNED_OUT: 'You have successfully signed out.',
+  UNKNOWN_ERROR: 'An unknown error has occurred. We have been alerted of this issue. Please try again.'
 };
 
 if (_.isObject(environments[env.NODE_ENV]))
@@ -272,6 +295,6 @@ if (_.isObject(environments[env.NODE_ENV]))
 
 config.nunjucks.globals.config = config;
 
-config.auth.hasThirdPartyProviders = _.some(_.keys(config.auth.providers), bool => bool);
+config.auth.hasThirdPartyProviders = _.some(config.auth.providers, bool => bool);
 
 export default config;

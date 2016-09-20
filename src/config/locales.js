@@ -8,7 +8,7 @@ export default [
   // 'ak-GH',
   // 'am',
   // 'am-ET',
-  'ar', // arabic
+  // 'ar', // arabic *
   // 'ar-001',
   // 'ar-AE',
   // 'ar-BH',
@@ -48,7 +48,7 @@ export default [
   // 'bg-BG',
   // 'bm',
   // 'bm-ML',
-  'bn', // bengali/bangladesh
+  // 'bn', // bengali/bangladesh *
   // 'bn-BD',
   // 'bn-IN',
   // 'bo',
@@ -74,7 +74,7 @@ export default [
   // 'da-DK',
   // 'dav',
   // 'dav-KE',
-  'de', // german
+  // 'de', // german *
   // 'de-AT',
   // 'de-BE',
   // 'de-CH',
@@ -95,7 +95,7 @@ export default [
   // 'el',
   // 'el-CY',
   // 'el-GR',
-  'en',
+  'en' // english *
   // 'en-AS',
   // 'en-AU',
   // 'en-BB',
@@ -128,7 +128,7 @@ export default [
   // 'en-ZA',
   // 'en-ZW',
   // 'eo',
-  'es', // spanish
+  // 'es', // spanish *
   // 'es-419',
   // 'es-AR',
   // 'es-BO',
@@ -168,7 +168,7 @@ export default [
   // 'fil-PH',
   // 'fo',
   // 'fo-FO',
-  'fr', // french
+  // 'fr', // french *
   // 'fr-BE',
   // 'fr-BF',
   // 'fr-BI',
@@ -223,7 +223,7 @@ export default [
   // 'haw-US',
   // 'he',
   // 'he-IL',
-  'hi', // hindi
+  // 'hi', // hindi *
   // 'hi-IN',
   // 'hr',
   // 'hr-HR',
@@ -239,10 +239,10 @@ export default [
   // 'ii-CN',
   // 'is',
   // 'is-IS',
-  'it', // italian
+  // 'it', // italian *
   // 'it-CH',
   // 'it-IT',
-  'ja', // japanese
+  // 'ja', // japanese *
   // 'ja-JP',
   // 'jmc',
   // 'jmc-TZ',
@@ -361,7 +361,7 @@ export default [
   // 'pl-PL',
   // 'ps',
   // 'ps-AF',
-  'pt', // portuguese
+  // 'pt', // portuguese *
   // 'pt-AO',
   // 'pt-BR',
   // 'pt-GW',
@@ -377,7 +377,7 @@ export default [
   // 'ro-RO',
   // 'rof',
   // 'rof-TZ',
-  'ru', // russian
+  // 'ru', // russian *
   // 'ru-MD',
   // 'ru-RU',
   // 'ru-UA',
@@ -481,7 +481,7 @@ export default [
   // 'yav-CM',
   // 'yo',
   // 'yo-NG',
-  'zh' // chinese
+  // 'zh' // chinese *
   // 'zh-Hans',
   // 'zh-Hans-CN',
   // 'zh-Hans-HK',

@@ -56,7 +56,6 @@ export default class Jobs {
       if (!_.isObject(job.attrs.data.locals))
         job.attrs.data.locals = {};
 
-
       const results = await template.render({
         // avoid max call stack
         ... job.attrs.data.locals,
@@ -67,11 +66,8 @@ export default class Jobs {
       });
 
       const transportOptions = {
-        ...results,
-        from: job.attrs.data.from,
-        to: job.attrs.data.to,
-        attachments: job.attrs.data.attachments,
-        headers: job.attrs.data.headers
+        ... results,
+        ... _.omit(job.attrs.data, [ 'locals', 'template' ])
       };
 
       // if we're in development mode then render the email template for browser viewing
@@ -133,46 +129,47 @@ export default class Jobs {
             file = {};
           }
 
-          // warn if the file was empty (and not `en` default)
-          // and subsequently do not create the file
-          if (_.isEmpty(file) && locale !== 'en') {
-            missingLocales.push(locale);
-            return resolve();
-          }
+          // warn of any fields that are missing in the locale file
+          const notFound = _.difference(
+            _.values(config.i18n),
+            _.keys(file)
+          );
 
+          if (notFound.length > 0)
+            Logger.warn([
+              `the following phrases were missing and will be automatically added to ${locale}:`,
+              ...notFound
+            ].join('\n'));
+
+          // warn if any fields that no longer exist in the locale file
+          const noLongerExist = _.difference(
+            _.keys(file),
+            _.values(config.i18n)
+          );
+
+          if (noLongerExist.length > 0)
+            Logger.warn([
+              `the following phrases from ${locale} no longer exist:`,
+              ...noLongerExist
+            ].join('\n'));
+
+          // add any missing fields if they don't exist
+          file = _.defaultsDeep(file, defaultFields);
+
+          // omit any fields that don't exist anymore
+          file = _.pick(file, _.values(config.i18n));
+
+          // if the locale is not english, then check if translations need done
           if (locale !== 'en') {
-
-            // warn of any fields that are missing in the locale file
-            const notFound = _.difference(
+            const translationsRequired = _.intersection(
               _.values(config.i18n),
-              _.keys(file)
+              _.values(file)
             );
-
-            if (notFound.length > 0)
+            if (translationsRequired.length > 0)
               Logger.warn([
-                `the following phrases were missing from ${locale}:`,
-                ...notFound
+                `the following phrases need translated in ${locale}:`,
+                ...translationsRequired
               ].join('\n'));
-
-            // warn if any fields that no longer exist in the locale file
-            const noLongerExist = _.difference(
-              _.keys(file),
-              _.values(config.i18n)
-            );
-
-            if (noLongerExist.length > 0)
-              Logger.warn([
-                `the following phrases from ${locale} no longer exist:`,
-                ...noLongerExist
-              ].join('\n'));
-
-          }
-
-          if (locale === 'en') {
-            // add any missing fields if they don't exist
-            file = _.defaultsDeep(file, defaultFields);
-            // omit any fields that don't exist anymore
-            file = _.pick(file, _.values(config.i18n));
           }
 
           // write the file again

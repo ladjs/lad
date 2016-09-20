@@ -32,7 +32,7 @@ const Users = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    validator: validator.isEmail
+    validate: val => validator.isEmail(val)
   },
   display_name: {
     type: String,
@@ -42,13 +42,11 @@ const Users = new mongoose.Schema({
   },
   given_name: {
     type: String,
-    required: true,
     trim: true,
     maxlength: 35
   },
   family_name: {
     type: String,
-    required: true,
     trim: true,
     maxlength: 35
   },
@@ -56,7 +54,7 @@ const Users = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    validator: validator.isUrl
+    validate: val => validator.isURL(val)
   },
   api_token: {
     type: String,
@@ -85,9 +83,21 @@ const Users = new mongoose.Schema({
 });
 
 Users.pre('validate', function (next) {
+
+  // create api token if doesn't exist
   if (!_.isString(this.api_token) || s.isBlank(this.api_token))
     this.api_token = randomstring.token(24);
+
+  // create avatar url using gravatar
+  if (!_.isString(this.avatar_url)
+    || (_.isString(this.avatar_url) && !validator.isURL(this.avatar_url)))
+    this.avatar_url = 'http://google.com';
+
+  if (_.isString(this.email) && (!_.isString(this.display_name) || s.isBlank(this.display_name)))
+    this.display_name = this.email.split('@')[0];
+
   next();
+
 });
 
 Users.plugin(CommonPlugin('user'));

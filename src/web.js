@@ -3,7 +3,7 @@ import 'source-map-support/register';
 
 import http from 'http';
 import https from 'https';
-import mongoose from 'mongoose';
+import Boom from 'boom';
 import locale from 'koa-locale';
 import i18n from 'koa-i18n-2';
 import Koa from 'koa';
@@ -18,7 +18,8 @@ import compress from 'koa-compress';
 import responseTime from 'koa-response-time';
 import rateLimit from 'koa-simple-ratelimit';
 import logger from 'koa-logger';
-import views from 'koa-nunjucks-promise';
+import views from 'koa-nunjucks-next';
+import methodOverride from 'koa-methodoverride';
 import bodyParser from 'koa-bodyparser';
 import json from 'koa-json';
 import errorHandler from 'koa-better-error-handler';
@@ -37,27 +38,18 @@ import {
   contextHelpers,
   passport,
   Logger,
-  _404Handler
+  _404Handler,
+  timeout,
+  Mongoose,
+  updateNotifier
 } from './helpers';
 import routes from './routes';
 
-// create the database connection
-mongoose.set('debug', config.mongooseDebug);
-// use native promises
-mongoose.Promise = global.Promise;
-mongoose.connect(config.mongodb);
-// when the connection is connected
-mongoose.connection.on('connected', () => {
-  app.emit('log', 'info', `mongoose connection open to ${config.mongodb}`);
-});
-// if the connection throws an error
-mongoose.connection.on('error', err => {
-  app.emit('error', err);
-});
-// when the connection is disconnected
-mongoose.connection.on('disconnected', function () {
-  app.emit('log', 'info', 'mongoose connection disconnected');
-});
+// check for updates
+updateNotifier();
+
+// initialize mongoose
+const mongoose = new Mongoose();
 
 // connect to redis
 const redisClient = redis.createClient(config.redis);
@@ -149,6 +141,9 @@ app.use(convert(session({ store: redisStore, key: config.cookiesKey })));
 // flash messages
 app.use(convert(flash()));
 
+// method override (e.g. `input[type=_method]=PUT`
+app.use(methodOverride());
+
 // body parser
 app.use(bodyParser());
 
@@ -176,7 +171,7 @@ app.use(async (ctx, next) => {
       invalidTokenMessage: ctx.translate('INVALID_TOKEN')
     })(ctx, next);
   } catch (err) {
-    ctx.throw(err);
+    ctx.throw(Boom.forbidden(err.message));
   }
 });
 
@@ -186,6 +181,18 @@ app.use(passport.session());
 
 // add dynamic view helpers
 app.use(dynamicViewHelpers);
+
+// configure timeout
+app.use(async (ctx, next) => {
+  try {
+    await timeout(
+      config.webRequestTimeoutMs,
+      ctx.translate('REQUEST_TIMED_OUT')
+    )(ctx, next);
+  } catch (err) {
+    ctx.throw(err);
+  }
+});
 
 // mount the app's defined and nested routes
 app.use(routes.web.routes());
@@ -215,21 +222,32 @@ process.on('uncaughtException', err => {
 });
 
 // handle graceful restarts
-process.on('SIGTERM', async () => {
+process.on('SIGTERM', graceful);
+process.on('SIGHUP', graceful);
+process.on('SIGINT', graceful);
+
+async function graceful() {
   if (!server || !server.close)
     return process.exit(0);
+  // give it only 5 seconds to gracefully shut down
+  setTimeout(() => {
+    throw new Error('agenda did not shut down after 5s');
+  }, 5000);
   // convert callbacks to promises
   server.close = promisify(server.close, server);
   redisClient.quit = promisify(redisClient.quit, redisClient);
   try {
-    await server.close();
-    await redisClient.quit();
-    await mongoose.disconnect();
+    await Promise.all([
+      server.close,
+      redisClient.quit,
+      mongoose.disconnect
+    ]);
+    Logger.info('gracefully shut down');
     process.exit(0);
   } catch (err) {
-    app.emit('error', err);
+    Logger.error(err);
     process.exit(1);
   }
-});
+}
 
 module.exports = server;

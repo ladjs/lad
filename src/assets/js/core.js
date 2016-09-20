@@ -1,4 +1,7 @@
 
+import qs from 'querystring';
+import swal from 'sweetalert2';
+
 const jQuery = window.jQuery = require('jquery');
 
 window.Tether = require('tether');
@@ -8,6 +11,27 @@ const Clipboard = window.Clipboard = require('clipboard');
 
 window.hljs = require('highlight.js');
 window.hljs.initHighlightingOnLoad();
+
+// add optional support for older browsers
+import es6promise from 'es6-promise';
+es6promise.polyfill();
+
+// add required support for global `fetch` method
+// *this must always come before `frisbee` is imported*
+import 'isomorphic-fetch';
+
+// require the module
+import Frisbee from 'frisbee';
+
+// create a new instance of Frisbee
+const api = new Frisbee({
+  baseURI: window.location.origin,
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRF-Token': window._csrf
+  }
+});
 
 (($) => {
 
@@ -66,6 +90,35 @@ window.hljs.initHighlightingOnLoad();
       $(ev.trigger).on('hidden.bs.tooltip', () => {
         $(ev.trigger).tooltip('dispose');
       });
+    });
+
+
+    // ajax form submission with frisbee
+    // and sweetalert2 message response
+    $('body').on('submit', '.ajax-form', async function (ev) {
+
+      ev.preventDefault();
+
+      const $form = $(this);
+      const action = $form.attr('action');
+      let method = $form.attr('method').toLowerCase();
+
+      // take into account method override middleware
+      if (method === 'POST' && $form.find('input[name="_method"]').length)
+        method = $form.find('input[name="_method"]').val().toLowerCase();
+
+      try {
+        const res = await api[method](action, {
+          body: qs.parse($form.serialize()),
+          credentials: 'same-origin'
+        });
+        console.log('res', res);
+        console.log('res.headers', res.headers);
+        if (res.err) throw res.err;
+      } catch (err) {
+        swal('Oops!', err.message, 'error');
+      }
+
     });
 
   });

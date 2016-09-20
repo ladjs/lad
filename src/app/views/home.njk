@@ -7,7 +7,7 @@
   <div class="container">
 
     <div class="text-xs-center m-t-2">
-      <h2 class="lead font-italic m-y-2">{{ '100' | emoji }} <u>The Best</u> <strong>Node.js MVC Framework</strong> For <u>Rapidly Building</u> <strong>Apps</strong> and <strong>API's</strong> {{ 'star' | emoji }}</h2>
+      <h2 class="lead font-italic m-y-2">{{ '100' | emoji }} <u>The Best</u> <strong>Node.js MVC Framework</strong> For <u>Rapidly Building</u> <strong>Apps</strong> and <strong>API's</strong> {{ 'star' | emoji }}{{ 'star' | emoji }}{{ 'star' | emoji }}{{ 'star' | emoji }}{{ 'star' | emoji }}</h2>
       <hr />
       <h3 class="h1 m-y-3">Chew apart <span class="hidden-md-up">your projects</span><mark class="hidden-sm-down">your projects</mark> with <i>speed</i>.</h3>
     </div>
@@ -33,7 +33,7 @@
 
     <hr />
 
-    <h4 class="text-muted text-xs-center m-t-1">Crafted in 2016 with {{ 'coffee' | emoji }} by <a href="https://github.com/niftylettuce" target="_blank" data-toggle="tooltip" title="@niftylettuce is a bootstrapped startup hacker and open source developer of 50+ NPM modules with over 2.2+ million downloads">@niftylettuce</a></h4>
+    <h4 class="text-muted text-xs-center m-t-1"><i class="fa fa-arrow-down"></i>&nbsp;&nbsp;Read more about the <a href="#the-web-server">Web Server</a>, <a href="#the-api-server">API Server</a>, and <a href="#the-job-scheduler">Job Scheduler</a> below.&nbsp;&nbsp;<i class="fa fa-arrow-down"></i></h4>
 
     <hr />
 
@@ -97,13 +97,17 @@ export default router;</code></pre>
         </div>
       </div>
       <div class="alert alert-success text-xs-center"><small>Use the built-in templating language <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a>, or plug in any front-end (such as <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, or <a href="https://github.com/yoshuawuyts/choo" target="_blank">Choo</a>).</small></div>
-      <p class="lead">We rode the {{ 'surfer' | emoji }} wave with Jade (now known as <a href="https://github.com/pugjs/pug" target="_blank">Pug</a>) for years... but then we found <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a> to be extremely lightweight and faster in comparison.  Plus it is inspired by <a href="http://jinja.pocoo.org/docs/dev/" target="_blank">Jinja2</a>, which is amazing!  Of course, if you don't like Nunjucks, you can swap it out with <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="https://github.com/pugjs/pug" target="_blank">Pug</a>, <a href="https://github.com/tj/ejs" target="_blank">EJS</a>, <a href="https://github.com/janl/mustache.js/" target="_blank">Mustache</a>, <a href="https://github.com/marko-js/marko" target="_blank">Marko</a> &ndash; whatever you want!</p>
+      <p class="lead">We rode the {{ 'surfer' | emoji }} wave with Jade (now known as <a href="https://github.com/pugjs/pug" target="_blank">Pug</a>) for years... but then we found <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a> to be extremely lightweight and faster in comparison.  Plus it is inspired by <a href="http://jinja.pocoo.org/docs/dev/" target="_blank">Jinja2</a>, which is amazing!  Of course, if you don't like Nunjucks, you can swap it out with <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="https://github.com/pugjs/pug" target="_blank">Pug</a>, <a href="https://github.com/tj/ejs" target="_blank">EJS</a>, <a href="https://github.com/janl/mustache.js/" target="_blank">Mustache</a>, <a href="https://github.com/marko-js/marko" target="_blank">Marko</a> &ndash; whatever you want!  The default front-end with Nunjucks is beautiful and simple.  It has Bootstrap 4 (the latest), AJAX form submission, LiveReload, and so much more already built-in for you.</p>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-md-3">
           <div class="card">
             <div class="card-block">
               <p class="lead text-xs-center">We use <a href="http://passportjs.org/" target="_blank">Passport</a> for web authentication.</p>
-              <a href="/signup" class="btn btn-lg btn-block btn-success">Try it out</a>
+              {% if user %}
+                <a href="/signup" disabled="disabled" class="btn btn-lg btn-block btn-success">You're already logged in!</a>
+              {% else %}
+                <a href="/signup" class="btn btn-lg btn-block btn-success">Try it out</a>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -121,7 +125,7 @@ export default router;</code></pre>
     {% endif %}
 
     <div class="jumbotron m-y-2 p-y-2">
-      <p class="lead">With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API's &ndash; we've crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the <a href="/my-account">My Account</a> page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>).</p>
+      <p class="lead">With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API's &ndash; we've crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the <a href="/my-account">My Account</a> page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>). It's absolutely perfect for building the back-end of your <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a> mobile app.  You have full control of everything; you don't need to rely on a third-party API platform provider.</p>
 
       {% if not user %}
         <div class="alert alert-danger text-xs-center">Please <a href="/signup?redirect=/#the-api-server">sign up</a> first, then come back to this page and your unique API token will be populated below!</div>
@@ -167,12 +171,106 @@ export default router;</code></pre>
       </div>
     </div>
 
-    {# 3. job queue #}
+    {# 3. job scheduler #}
 
-    <h3 id="the-job-queue" class="display-4 text-xs-center text-muted m-t-2 m-b-2"><a href="#the-job-queue"><u>3. The Job Queue</u></a></h3>
+    <h3 id="the-job-scheduler" class="display-4 text-xs-center text-muted m-t-2 m-b-2"><a href="#the-job-scheduler"><u>3. The Job Scheduler</u></a></h3>
 
     <div class="jumbotron m-y-2 p-y-2">
-      <p class="lead">No need for cron jobs, we've included a job scheduler which is backed by <a href="http://redis.io/" target="_blank">Redis</a> and <a href="https://github.com/rschmukler/agenda" target="_blank">Agenda</a>.</p>
+      <p class="lead">No need for cron jobs, as we've included a job scheduler which is built on <a href="http://redis.io/" target="_blank">Redis</a> and <a href="https://github.com/rschmukler/agenda" target="_blank">Agenda</a>.  By default, we've included two jobs out of the box: <code>email</code> and <code>locales</code>.  In development mode, emails are rendered to a temporary HTML file on your computer, and are then opened automatically for you in the default browser.  This saves you time and prevents you from clicking "Refresh" in Gmail a hundred times!  In non-development environments (e.g. production), by default we use <a href="https://postmarkapp.com/" target="_blank">Postmark</a> to send emails (see Crocodile's <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#deployment" target="_blank">Readme</a> for how to get 150K free credits with them). Don't want to use Postmark?  You can swap in your own <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework/blob/master/src/jobs/index.js#L49" target="_blank">transport</a> of <a target="_blank" href="https://github.com/nodemailer/nodemailer#using-well-known-services">choice</a> in minutes.</p>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card">
+            <div class="card-block">
+              <p class="text-xs-center text-uppercase text-muted"><small>Send an email now</small></p>
+              <pre class="js"><code>import Jobs from '../../models/job';
+import { Logger } from '../../../helpers';
+
+try {
+  const job = await Jobs.create({
+    name: 'email',
+    data: {
+      template: 'some-template-name',
+      to: 'niftylettuce@gmail.com',
+      locals: {
+        name: '@niftylettuce',
+      }
+    }
+  });
+  Logger.info('Queued an email to send now');
+} catch (err) {
+  Logger.error(err);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card">
+            <div class="card-block">
+              <p class="text-xs-center text-uppercase text-muted"><small>Send an email in 24 hours</small></p>
+              <pre class="js"><code>import Jobs from '../../models/job';
+import { Logger } from '../../../helpers';
+import moment from 'moment';
+
+try {
+  const job = await Jobs.create({
+    name: 'email',
+    nextRunAt: moment().add(24, 'hours').toDate(),
+    data: {
+      template: 'some-template-name',
+      to: 'niftylettuce@gmail.com',
+      locals: {
+        name: '@niftylettuce',
+      }
+    }
+  });
+  Logger.info('Queued an email to send in 24 hours');
+} catch (err) {
+  Logger.error(err);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card">
+            <div class="card-block">
+              <p class="text-xs-center text-uppercase text-muted"><small>Send an email every 5 minutes</small></p>
+              <pre class="js"><code>agenda.every('5 minutes', 'five-minute-email');</code></pre>
+              <pre class="js"><code>getJobs() {
+  return [
+    [ 'email', {}, this.email ],
+    [ 'locales', {}, this.locales ],
+    [ 'five-minute-email', {}, this.fiveMinuteEmail ]
+  ]
+}
+
+async fiveMinuteEmail(job, done) {
+  try {
+    const job = await Jobs.create({
+      name: 'email',
+      data: {
+        template: 'some-template-name',
+        to: 'niftylettuce@gmail.com',
+        locals: {
+          name: '@niftylettuce',
+        }
+      }
+    });
+    done(null, job);
+  } catch (err) {
+    done(err);
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <p class="lead">What about the "locales" job mentioned?  The locales job runs automatically every time the job scheduler boots.  It will keep you up to date on your translation and localization efforts (e.g. if you're forgetting to translate a particular phrase, then it will notify you in the command line output).  Finally, here is an example of the helpful output that the "locales" job provides:</p>
+      <pre class="bash"><code>warning: the following phrases need translated in es:
+Email address was invalid
+Password was invalid
+You have successfully reset your password.</code></pre>
+      <p class="lead">You can specify which locales (languages) you support in the <code>src/config/locales.js</code> file.</p>
     </div>
 
     {{ getStartedNow() }}
@@ -292,9 +390,10 @@ export default router;</code></pre>
               <h4 class="card-title">Need help building your app?</h4>
               <p class="card-text">Get in touch with a CrocodileJS expert now.</p>
               <form action="/contact" method="POST">
+                <input type="hidden" name="_csrf" value="{{ csrf }}" />
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input type="email" class="form-control" placeholder="Email address">
+                  <input type="email" required="required" name="email" class="form-control" placeholder="Email address">
                   <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="We'll be in touch!"><i class="fa fa-paper-plane"></i></button>
                   </span>
@@ -308,7 +407,9 @@ export default router;</code></pre>
 
     <h3 class="text-xs-center">Trusted Globally</h3>
 
-    <p class="h2 text-xs-center m-y-1">{{ 'us' | emoji }} {{ 'it' | emoji }} {{ 'uk' | emoji }} {{ 'ru' | emoji }} {{ 'fr' | emoji }} {{ 'jp' | emoji }} {{ 'kr' | emoji }}</p>
+    <p class="h2 text-xs-center m-t-1">{{ 'us' | emoji }} {{ 'it' | emoji }} {{ 'uk' | emoji }} {{ 'ru' | emoji }} {{ 'fr' | emoji }} {{ 'jp' | emoji }} {{ 'kr' | emoji }}</p>
+
+    <p class="m-y-1 text-xs-center text-muted"><small>Crafted in 2016 with {{ 'coffee' | emoji }} by <a href="https://github.com/niftylettuce" target="_blank" data-toggle="tooltip" title="@niftylettuce is a bootstrapped startup hacker and open source developer of 50+ NPM modules with over 2.2+ million downloads">@niftylettuce</a></small></p>
 
   </div>
 

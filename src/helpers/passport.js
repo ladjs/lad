@@ -26,7 +26,7 @@ passport.deserializeUser(async (email, done) => {
   }
 });
 
-if (config.auth.providers.local)
+if (config.auth.local)
   passport.use(Users.createStrategy());
 
 if (config.auth.providers.google)

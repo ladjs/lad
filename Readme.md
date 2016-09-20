@@ -1,8 +1,9 @@
 
 # :crocodile: CrocodileJS
 
+[![PayPal Donate][paypal-donate-image]][paypal-donate-url]
 [![Slack Status][slack-image]][slack-url]
-[![MIT License][license-image]][license-url]
+[![GPLv3 License][license-image]][license-url]
 [![Stability][stability-image]][stability-url]
 [![Build Status][build-image]][build-url]
 [![Coverage Status][codecov-image]][codecov-url]
@@ -21,9 +22,9 @@
   - [Features](#features)
   - [Framework Comparison](#framework-comparison)
   - [Thoughts](#thoughts)
-  - [Showcase](#showcase)
-  - [App Structure](#app-structure)
-  - [Back-end with Koa + Async/Await](#back-end-with-koa-async--await)
+  - [Who's using CrocodileJS?](#who-s-using-crocodilejs-)
+  - [Architecture](#architecture)
+  - [Back-end with Koa + Async/Await](#back-end-with-koa--asyncawait)
   - [Front-end with jQuery + Bootstrap](#front-end-with-jquery--bootstrap)
   - [Job Scheduler](#job-scheduler)
   - [Database &amp; ORM](#database--orm)
@@ -40,7 +41,7 @@
   - [Cross-browser Compatibility](#cross-browser-compatibility)
   - [Built-in User Group Permissioning](#built-in-user-group-permissioning)
   - [Search Engine Indexing](#search-engine-indexing)
-  - [i18n Internationalization and l10n Localization)(#i18n-internationalization-and-l10n-localization)
+  - [i18n Internationalization and l10n Localization](#i18n-internationalization-and-l10n-localization)
   - [Performance](#performance)
 * [How do I use it?](#crocodile-how-do-i-use-it)
   - [Requirements](#requirements)
@@ -102,7 +103,7 @@ Instead of sharing a table with irrelevant benchmarks and checklists of features
 * [Sails][sailsjs] was built in a way that is extremely confusing, as such (and not to be rude) but @niftylettuce [won the first official SailsJS hackathon][won-hackathon] and never used SailsJS again since that one time.  It locks you into their philosophy with little wiggle room due to the convoluted setup.  It also uses an [outdated version of Express][outdated-express] with no plans to upgrade.  It also doesn't use Koa.
 * [Hapi.js][hapijs] simply doesn't do enough for you.  Input validation and other menial features don't allow you to ship a high-quality MVP.  It also doesn't use Koa.
 * [Total.js][totaljs] was written from scratch and [is against the Node philosophy][node-philosophy]... just ([look at this file][totaljs-example]).  It also doesn't use Koa.
-* ... quite really every single framework and boilerplate out there is half-baked and really not great for building stellar MVP's
+* ... honestly every single framework/boilerplate is half-baked and really not great for building stellar MVP's
 
 There really aren't many decent Node frameworks, so only the above made the list.  GitHub is full of [pure web app boilerplates][gh-boilerplate], but they really don't do much for you.
 
@@ -147,13 +148,21 @@ you should not read any further into Crocodile, and close this browser tab.
 2. [Frameworks don't make much sense][frameworks-dont-make-sense] by [@pkrumins][pkrumins]
 3. [Do Things that Don't Scale][dont-scale] by [@paulg][pg-twitter]
 
-### Showcase
+### Who's using CrocodileJS?
 
-> Did you ship a project with Crocodile?  [File an issue](/issues) and we'll include it!.
+[See the full list on GitHub here][gh-showcase-issue].
 
-### App Structure
+> Did you ship a project with Crocodile?  Post a comment [here][gh-showcase-issue]!
 
-Crocodile is loosely-based on MVC design, and it has the following structure (`tree` output below):
+### Architecture
+
+Since we use ECMAScript 7+ features, Crocodile does not lock you into this framework and does not make you do something that is not ordinary.  In other words, it does not make you adhere to some function named `frameworkDoSomething` everywhere in your app.  It also does not use globals either to try to make things glue together.  It's very clean and organized.
+
+In other words, we use concepts like ES6 classes, standard `import` and `export`, and directory traversal, which are all new standards in JavaScript.
+
+We don't use dependency injection, and quite simply don't need to.  If you need to use a model in another model, you can simply `import` it.
+
+The architecture is based on MVC design (another standard), and it has the following structure (`tree` output below):
 
 <!-- generate output for every release using `tree -I "build|lib|node_modules|media|coverage"` -->
 
@@ -224,11 +233,115 @@ Also included are the front-end packages jQuery and [Sweetalert2][sweetalert2].
 
 Job scheduling is built on top of [Agenda][agenda].  See the `src/agenda.js` file and also `src/jobs` folder for how it works and is set up.
 
-There is one sample job scheduler built-in, which is in the `post('save')` hook for when a user is created.  The user gets a welcome email after they are created in the DB.
+There are two sample jobs built-in, `email` and `locales`.  The job "email" is obviously used for queuing outbound emails, and "locales" is used for generating and validating your localization efforts.
 
-You can see the content and template of the email in the `src/emails/welcome` folder.  Emails are sent using [Postmark][postmarkapp] and the package [email-templates][email-templates].
+Here are a few code examples of how to queue emails:
 
-However in development mode, emails are not sent using an outbound service such as Postmark App &ndash; instead they are rendered to the OS temporary directory and opened in the browser automatically for you (saving you time and preventing you from clicking "Refresh" in Gmail a dozen times, haha!).
+> Send an email now
+
+```js
+import Jobs from '../../models/job';
+import { Logger } from '../../../helpers';
+
+try {
+  const job = await Jobs.create({
+    name: 'email',
+    data: {
+      template: 'some-template-name',
+      to: 'niftylettuce@gmail.com',
+      locals: {
+        name: '@niftylettuce',
+      }
+    }
+  });
+  Logger.info('Queued an email to send now');
+} catch (err) {
+  Logger.error(err);
+}
+```
+
+> Send an email in 24 hours
+
+```js
+import Jobs from '../../models/job';
+import { Logger } from '../../../helpers';
+import moment from 'moment';
+
+try {
+  const job = await Jobs.create({
+    name: 'email',
+    nextRunAt: moment().add(24, 'hours').toDate(),
+    data: {
+      template: 'some-template-name',
+      to: 'niftylettuce@gmail.com',
+      locals: {
+        name: '@niftylettuce',
+      }
+    }
+  });
+  Logger.info('Queued an email to send in 24 hours');
+} catch (err) {
+  Logger.error(err);
+}
+```
+
+> Send an email every 5 minutes
+
+```js
+agenda.every('5 minutes', 'five-minute-email');
+```
+
+
+```js
+getJobs() {
+  return [
+    [ 'email', {}, this.email ],
+    [ 'locales', {}, this.locales ],
+    [ 'five-minute-email', {}, this.fiveMinuteEmail ]
+  ]
+}
+
+async fiveMinuteEmail(job, done) {
+  try {
+    const job = await Jobs.create({
+      name: 'email',
+      data: {
+        template: 'some-template-name',
+        to: 'niftylettuce@gmail.com',
+        locals: {
+          name: '@niftylettuce',
+        }
+      }
+    });
+    done(null, job);
+  } catch (err) {
+    done(err);
+  }
+}
+```
+
+You can see the contents, subjects, and templates of the provided emails in the `src/emails/` folder.  Emails are sent using [Postmark][postmarkapp] and the package [email-templates][email-templates].
+
+However in development mode, emails are not sent using an outbound service.  Instead they are rendered to the OS temporary directory and opened in the browser automatically for you (saving you time and preventing you from clicking "Refresh" in Gmail a dozen times!).
+
+Finally, here is an example of the helpful output that the "locales" job provides:
+
+```bash
+warning: the following phrases need translated in es:
+Email address was invalid
+Password was invalid
+Reset token provided was invalid
+Reset token and email were not valid together
+Password strength was not strong enough
+Invalid session secret
+Invalid CSRF token
+We have sent you an email with a link to reset your password.
+Hello %s world
+You have successfully registered
+You have successfully reset your password.
+````
+
+You can specify which locales (languages) you support in the `src/config/locales.js` file.
 
 ### Database &amp; ORM
 
@@ -535,7 +648,7 @@ If you want recommendations on services to use for this and how to integrate, th
 
 To translate a message, you simply use the context helper method `ctx.translate('SOME_CONFIG_KEY_MESSAGE')`.  If you need interpolation, you can pass them as such `ctx.translate('SOME_MESSAGE', 'Foo', 'Bar', 'Baz')` whereas `config.i18n.SOME_MESSAGE = 'Hello %s %s %s'` (outputs `Hello Foo Bar Baz`).
 
-Translations of message keys in `config.i18n` are found in `locales/`.  If you wanted to translate `SOME_CONFIG_KEY_MESSAGE` in Spanish, then edit the property for the key of `"Hello %s %s %s"` in `locales/es.json`.
+Translations of message keys in `config.i18n` are found in `locales/`.  If you wanted to translate `SOME_CONFIG_KEY_MESSAGE` in Spanish, then edit the value for the key of `"Hello %s %s %s"` in `locales/es.json`.
 
 ### Performance
 
@@ -1054,10 +1167,22 @@ CrocodileJS v1.0.0 was released in September 2016 by [@niftylettuce][nifty-twitt
 
 I am always willing to entertain new opportunities.  Please reach out to me at <niftylettuce@gmail.com>.
 
-## <a href="#crocodile-index">:crocodile:</a> [License](#crocodile-licee)
+## <a href="#crocodile-index">:crocodile:</a> [License](#crocodile-license)
 
-Crocodile is [MIT][license-url] licensed
+**Please CrocodileJS's licensing, as we have poured many hours and long nights into building it for you.  Open-source isn't free for everyone involved.  If you have feedback or questions about the licensing information below please email <niftylettuce@gmail.com>.**
 
+CrocodileJS has two kinds of licenses; [GPLv3][license-url] for open-source projects and [MIT][comm-license-url] for commercial projects.
+
+From the [GPL FAQ][gpl-faq]:
+
+> If you release the modified version to the public in some way, the GPL requires you to make the modified source code available to the program's users, under the GPL.
+
+This means that if your project is open source, then you must release it publicly under the GPLv3 license (e.g. on a public GitHub repository).  If your project is commercial and you do not want to release it publicly, then you can opt to purchase the MIT commercial license.  This allows you to keep the code proprietary, and use CrocodileJS to develop commercial websites, e-commerce stores, consumer applications, etc.
+
+**If you wish to purchase a commercial license, please do so at <https://crocodilejs.com>.**
+
+
+[gpl-faq]: https://www.gnu.org/licenses/gpl-faq.html#GPLRequireSourcePostedPublic
 [gh-mongoose-issue]: https://github.com/Automattic/mongoose/issues/3683#issue-122632405
 [mongoose-json-select]: https://github.com/nkzawa/mongoose-json-select
 [mongoose-beautiful-unique-validation]: https://github.com/matteodelabre/mongoose-beautiful-unique-validation
@@ -1100,8 +1225,9 @@ Crocodile is [MIT][license-url] licensed
 [gulp-uglify]: https://github.com/terinjokes/gulp-uglify
 [imagemin-pngquant]: https://github.com/imagemin/imagemin-pngquant
 [noun-project]: https://thenounproject.com/term/doughnut/163279/
-[license-image]: http://img.shields.io/badge/license-MIT-blue.svg
+[license-image]: https://img.shields.io/badge/license-GPLv3%20or%20MIT-blue.svg
 [license-url]: LICENSE
+[comm-license-url]: COMM-LICENSE
 [mvc]: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
 [nodejs]: https://nodejs.org
 [node]: https://nodejs.org
@@ -1238,3 +1364,6 @@ Crocodile is [MIT][license-url] licensed
 [gh-boilerplate]: https://www.google.com/search?q=github+node+boilerplate
 [gh-releases]: https://github.com/crocodilejs/crocodile-node-mvc-framework/releases
 [won-hackathon]: http://www.hackathon.io/tbd
+[gh-showcase-issue]: https://github.com/crocodilejs/crocodile-node-mvc-framework/issues/129
+[paypal-donate-image]: https://img.shields.io/badge/paypal-donate-orange.svg
+[paypal-donate-url]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE3EFQ5X9RHT6
