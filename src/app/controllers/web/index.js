@@ -83,7 +83,15 @@ export default class Web {
       inquiry.job = job._id;
       await inquiry.save();
 
-      ctx.flash('success', ctx.translate('CONTACT_REQUEST_SENT'));
+      if (ctx.is('json')) {
+        ctx.body = {
+          message: ctx.translate('CONTACT_REQUEST_SENT'),
+          reloadPage: true
+        };
+      } else {
+        ctx.flash('success', ctx.translate('CONTACT_REQUEST_SENT'));
+        ctx.redirect('back');
+      }
 
     } catch (err) {
 
@@ -93,12 +101,9 @@ export default class Web {
         email: ctx.req.body.email
       });
 
-      ctx.flash('error', ctx.translate('CONTACT_REQUEST_ERROR'));
+      ctx.throw(ctx.translate('CONTACT_REQUEST_ERROR'));
 
-    } finally {
-      ctx.redirect('back');
     }
-
 
   }
 
@@ -124,7 +129,7 @@ export default class Web {
 
       await passport.authenticate('local', function (user, info, status) {
 
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
 
           let redirectTo = config.auth.callbackOpts.successReturnToOrRedirect;
 
@@ -134,17 +139,26 @@ export default class Web {
           }
 
           if (user) {
+
+            try {
+              await ctx.login(user);
+            } catch (err) {
+              return reject(err);
+            }
+
             if (ctx.is('json')) {
               ctx.body = {
                 message: ctx.translate('LOGGED_IN'),
-                redirectTo: redirectTo
+                redirectTo: redirectTo,
+                autoRedirect: true
               };
             } else {
               ctx.flash('success', ctx.translate('LOGGED_IN'));
               ctx.redirect(redirectTo);
-              // TODO: ctx.login(user);
             }
+
             return resolve();
+
           }
 
           if (info)
@@ -177,9 +191,28 @@ export default class Web {
           { email: ctx.req.body.email },
           ctx.req.body.password,
           async (err, user) => {
+
             if (err) return reject(err);
-            ctx.flash('success', ctx.translate('REGISTERED'));
+
+            let redirectTo = config.auth.callbackOpts.successReturnToOrRedirect;
+
+            if (ctx.session && ctx.session.returnTo) {
+              redirectTo = ctx.session.returnTo;
+              delete ctx.session.returnTo;
+            }
+
+            if (ctx.is('json')) {
+              ctx.body = {
+                message: ctx.translate('REGISTERED'),
+                redirectTo: redirectTo
+              };
+            } else {
+              ctx.flash('success', ctx.translate('REGISTERED'));
+              ctx.redirect(redirectTo);
+            }
+
             resolve();
+
             // add welcome email job
             try {
               const job = await Jobs.create({
@@ -188,7 +221,7 @@ export default class Web {
                   template: 'welcome',
                   to: user.email,
                   locals: {
-                    name: user.given_name
+                    name: user.display_name
                   }
                 }
               });
@@ -218,10 +251,24 @@ export default class Web {
     // we always say "a password reset request has been sent to your email address"
     // and if the email didn't exist in our system them we simply don't send it
     if (!user) {
-      ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
-      ctx.redirect('back');
+      if (ctx.is('json')) {
+        ctx.body = {
+          message: ctx.translate('PASSWORD_RESET_SENT')
+        };
+      } else {
+        ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
+        ctx.redirect('back');
+      }
       return;
     }
+
+    // if we've already sent a reset password request in the past half hour
+    if (user.reset_token_expires_at
+      && user.reset_token
+      && moment(user.reset_token_expires_at).isBefore(moment().add(30, 'minutes')))
+      return ctx.throw(Boom.badRequest(
+        ctx.translate('PASSWORD_RESET_LIMIT', moment(user.reset_token_expires_at).fromNow())
+      ));
 
     // set the reset token and expiry
     user.reset_token_expires_at = moment().add(30, 'minutes').toDate();
@@ -229,7 +276,6 @@ export default class Web {
 
     await user.save();
 
-    // TODO: FIX THIS
     if (ctx.is('json')) {
       ctx.body = {
         message: ctx.translate('PASSWORD_RESET_SENT')
@@ -249,7 +295,7 @@ export default class Web {
           locals: {
             reset_token_expires_at: user.reset_token_expires_at,
             link: `${config.urls.web}/reset-password/${user.reset_token}`,
-            name: user.given_name
+            name: user.display_name
           }
         }
       });
@@ -293,9 +339,16 @@ export default class Web {
       ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD_STRENGTH')));
     } finally {
       await user.save();
-      ctx.flash('success', ctx.translate('RESET_PASSWORD'));
       await promisify(ctx.req.logIn, ctx.req)(user);
-      ctx.redirect('/');
+      if (ctx.is('json')) {
+        ctx.body = {
+          message: ctx.translate('RESET_PASSWORD'),
+          redirectTo: '/'
+        };
+      } else {
+        ctx.flash('success', ctx.translate('RESET_PASSWORD'));
+        ctx.redirect('/');
+      }
     }
 
   }

@@ -10,6 +10,7 @@ const router = new Router({
 
 router
   .get('/account', Policies.ensureApiToken, controllers.api.v1.Users.retrieve)
-  .put('/account', Policies.ensureApiToken, controllers.api.v1.Users.update);
+  .put('/account', Policies.ensureApiToken, controllers.api.v1.Users.update)
+  .get('/license-key/:key', controllers.api.v1.Users.checkLicenseKey);
 
 export default router;

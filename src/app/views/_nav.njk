@@ -1,60 +1,90 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-  <button class="navbar-toggler pull-right hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
+  <button class="navbar-toggler bg-inverse pull-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
     <i class="fa fa-bars"></i>
   </button>
   <a class="navbar-brand" href="/">{{config.appName}} <span class="tag tag-success">{{ version }}</span></a>
+  <div class="clearfix hidden-lg-up"></div>
   <div class="collapse navbar-toggleable-md" id="navbar-header">
-    <ul class="nav navbar-nav">
 
-      <li class="nav-item"><a class="btn btn-outline-info" target="_blank"  href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE3EFQ5X9RHT6"><i class="fa fa-paypal"></i> Donate Now</a></li>
-      <li class="nav-item"><a class="btn btn-outline-warning" href="#"><i class="fa fa-cc-stripe"></i> Buy License</a></li>
-      <li class="nav-item"><a class="btn btn-outline-danger" href="#"><i class="fa fa-book"></i> Order Book</a></li>
+    {# mobile navbar #}
+    <ul class="nav navbar-nav hidden-lg-up">
+      <li class="nav-item"><a role="button" class="nav-link" href="#"><i class="fa fa-fw fa-book"></i> Book <span class="tag tag-danger text-uppercase">Pre-order</span></a></li>
+      <li class="nav-item"><a role="button" class="nav-link" target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE3EFQ5X9RHT6"><i class="fa fa-fw fa-paypal"></i> Donate</a></li>
+      <li class="nav-item"><a role="button" class="nav-link" target="_blank" href="https://calendly.com/niftylettuce"><i class="fa fa-fw fa-calendar"></i> Training</a></li>
+      <li class="dropdown-divider"></li>
+      {# links that show only if you're logged in #}
+      {% if user %}
+      <li class="nav-item"><a class="nav-link" href="/my-account"><i class="fa fa-fw fa-gears"></i> My Account</a></li>
+        {# links that show if you're an admin #}
+        {% if user.group == 'admin' %}
+          <li class="nav-item"><a class="nav-link" href="/admin"><i class="fa fa-fw fa-user-secret"></i> Admin</a></li>
+        {% endif %}
+        <li class="nav-item"><a class="nav-link" href="/logout"><i class="fa fa-fw fa-sign-out"></i> Log out</a></li>
+      {% else %}
+        {# links that show only if you're logged out #}
+        <li class="nav-item"><a class="nav-link" href="/login"><i class="fa fa-fw fa-sign-in"></i> Log in</a></li>
+        <li class="nav-item"><a class="nav-link" href="/signup"><i class="fa fa-fw fa-user-plus"></i> Sign up</a></li>
+      {% endif %}
+      <li class="dropdown-divider"></li>
+      <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license"><i class="fa fa-fw fa-file-text"></i> License</a></li>
+      <li class="nav-item"><a class="nav-link" target="_blank" href="http://slack.crocodilejs.com"><i class="fa fa-fw fa-slack"></i> Chat</a></li>
+      <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-fw fa-book"></i> Docs</a></li>
+      <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework/issues"><i class="fa fa-fw fa-github"></i> GitHub</a></li>
+      <li class="nav-item"><a class="nav-link" target="_blank" href="https://twitter.com/niftylettuce"><i class="fa fa-fw fa-twitter"></i> Twitter</a></li>
+      <li class="nav-item"><a class="nav-link" href="/contact"><i class="fa fa-fw fa-envelope"></i> Contact</a></li>
+    </ul>
+
+    {# desktop navbar #}
+    <ul class="nav navbar-nav hidden-md-down">
+
+      <li class="nav-item"><a role="button" class="btn btn-outline-danger" href="#"><i class="fa fa-book"></i> Book <span class="tag tag-danger text-uppercase">Pre-order</span></a></li>
+      <li class="nav-item"><a role="button" class="btn btn-outline-warning" target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE3EFQ5X9RHT6"><i class="fa fa-paypal"></i> Donate</a>
+      <li class="nav-item"><a role="button" class="btn btn-outline-info" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar"></i> Training</a></li>
 
       <div class="pull-xs-right">
 
         <li class="nav-item btn-group">
-          <a class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-more-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-life-ring"></i> Support
+          <a href="#" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-more-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-life-ring"></i> Help
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-more-links">
-            <li><a class="dropdown-item" target="_blank" href="http://slack.crocodilejs.com"><i class="fa fa-slack"></i> Chat</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-book"></i> Docs</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar-plus-o"></i> Training</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework/issues"><i class="fa fa-github"></i> GitHub</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://twitter.com/niftylettuce"><i class="fa fa-twitter"></i> Twitter</a></li>
-            <li><a class="dropdown-item" href="/contact"><i class="fa fa-envelope"></i> Contact</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license"><i class="fa fa-fw fa-file-text"></i> License</a></li>
+            <li><a class="dropdown-item" target="_blank" href="http://slack.crocodilejs.com"><i class="fa fa-fw fa-slack"></i> Chat</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-fw fa-book"></i> Docs</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://calendly.com/niftylettuce"><i class="fa fa-fw fa-calendar-plus-o"></i> Training</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework/issues"><i class="fa fa-fw fa-github"></i> GitHub</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://twitter.com/niftylettuce"><i class="fa fa-fw fa-twitter"></i> Twitter</a></li>
+            <li><a class="dropdown-item" href="/contact"><i class="fa fa-fw fa-envelope"></i> Contact</a></li>
           </ul>
         </li>
 
         {# links that show only if you're logged in #}
         {% if user %}
 
-          <li class="nav-item{% if req.url.indexOf('/my-account') == 0 %} active{% endif %}">
-            <a class="nav-link" href="/my-account">
-              <img class="img-circle" src="{{ user.avatar_url }}" alt="My Account" height="25" /> {{ user.display_name }}{% if req.url.indexOf('/my-account') == 0 %} <span class="sr-only">(current)</span>{% endif %}
+          <li class="nav-item btn-group">
+            <a href="/my-account" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-my-account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {% if user.avatar_url %}
+                <img class="img-circle" src="{{ user.avatar_url }}" height="25" />
+              {% else %}
+                <i class="fa fa-user"></i>
+              {% endif %}
+              Account
             </a>
-          </li>
-
-          {# links that show if you're an admin #}
-          {% if user.group == 'admin' %}
-            <li class="nav-item{% if req.url.indexOf('/admin') == 0 %} active{% endif %}">
-              <a class="nav-link" href="/admin">Admin{% if req.url.indexOf('/admin') == 0 %} <span class="sr-only">(current)</span>{% endif %}</a>
-            </li>
-          {% endif %}
-
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Log out</a>
+            <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-my-account">
+              <li><a class="dropdown-item" href="/my-account"><i class="fa fa-fw fa-gears"></i> My Account</a></li>
+              {# links that show if you're an admin #}
+              {% if user.group == 'admin' %}
+                <li><a class="dropdown-item" href="/admin"><i class="fa fa-fw fa-user-secret"></i> Admin</a></li>
+              {% endif %}
+              <li><a class="dropdown-item" href="/logout"><i class="fa fa-fw fa-sign-out"></i> Log out</a></li>
+            </ul>
           </li>
 
         {% else %}
 
           {# links that show only if you're logged out #}
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Log in</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/signup">Sign up</a>
-          </li>
+          <li class="nav-item"><a class="btn btn-outline-secondary bg-inverse" href="/login"><i class="fa fa-sign-in"></i> Log in</a></li>
+          <li class="nav-item"><a class="btn btn-outline-secondary bg-inverse" href="/signup"><i class="fa fa-user-plus"></i> Sign up</a></li>
 
         {% endif %}
 

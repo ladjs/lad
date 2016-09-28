@@ -225,7 +225,18 @@ By default, the [latest Bootstrap version 4 alpha][bootstrap-4-alpha] is used (i
 
 However, you can swap out Bootstrap to another version, or entirely for something else.  You can also switch SCSS to use LESS or plain CSS.
 
-Also included are the front-end packages jQuery and [Sweetalert2][sweetalert2].
+Also included are the following front-end components:
+
+* [jQuery][jquery]
+* [FontAwesome][fontawesome]
+* [SpinKit][spinkit]
+* [Sweetalert2][sweetalert2]
+* [dense][dense]
+* [jquery.lazy][jquery-lazy]
+* [Frisbee][frisbee]
+* [clipboard][clipboard]
+* [bootstrap-social][bootstrap-social]
+* [tether][tether]
 
 **You don't need Bower anymore**, since you can simply import libraries through our Browserify setup!
 
@@ -359,6 +370,8 @@ To enhance security and allow you to have selective JSON output from query resul
 
 Out of the box, we provide quite a few authentication methods (but only basic email/password and API token access is enabled by default &ndash; see [Authentication Providers](#authentication-providers) for more info).
 
+> **NOTE**: Some providers such as Twitter do not provide a user's email address.  Similarly, Facebook doesn't always share a user's email, especially if they choose not to share it.  For cases like this, we automatically prompt the user for a valid email address upon sign-in (if we do not detect an email address).
+
 Type | Description
 ---- | -----------
 Basic | users sign up with an email address and password
@@ -423,7 +436,7 @@ Using the user's `api_token` field value (which is automatically generated upon 
 
 For example, we have one restricted route built into Crocodile, which is `GET /v1/users`.
 
-As a test, try to sign in at <http://localhost:3000> after you've start up the web server and API server.
+As a test, try to sign in at <http://localhost:3000> after you've started the web server and API server.
 
 Go to your account page at <http://localhost:3000/my-account> and copy your API token to your clipboard.
 
@@ -498,7 +511,7 @@ Crocodile uses the following helper libraries:
 
 ### Latest Standards
 
-* Latest stable version of Node (`v6.x.x`)
+* Latest stable version of Node (`v6.x`)
 * Streams for build process with Gulp
 * Newest version of MongoDB and Redis (e.g. you can use [$lookup][lookup-operator] operator with MongoDB now!)
 * Uses ES6/ES7 syntax (no more callbacks; you can use `await` and `async` finally!)
@@ -508,7 +521,7 @@ Crocodile uses the following helper libraries:
 
 Through [koa-livereload][koa-livereload] and [gulp-livereload][gulp-livereload] your assets automatically reload as you continually change and save them.
 
-This means you can have your editor open and a browser tab opened to your app at <http://localhost:3000/> &ndash; of course you need to be running the app with `npm run livereload` (which runs `gulp watch`) &ndash; and your changes appear in real-time!  Yes, we know this is not new technology, but not many other frameworks had this built-in (at least the right way with gulp).
+This means you can have your editor open and a browser tab opened to your app at <http://localhost:3000/> &ndash; of course you need to be running the task `npm run watch-assets` (which in turn runs the LiveReload bit) &ndash; and your changes appear in real-time!  Yes, we know this is not new technology, but not many other frameworks had this built-in (at least the right way with gulp).
 
 For example, if you make the following change to your stylesheet file and save it...
 
@@ -523,7 +536,9 @@ body {
 
 ### Production Ready
 
-Crocodile comes with a robust and well-tested Gulpfile (written with Babel!), check [it out here][gulpfile].  This file will let you build a version of your project that is ready for production.
+Building your project for production is as easy as running `npm run compile`.  This runs a script to compile your back-end and front-end assets consecutively.
+
+Crocodile comes with a robust and well-tested Gulpfile (written with Babel!), check [it out here][gulpfile].  This file builds for you all the assets, from images to client-side JavaScript assets (through Browserify and Babelify).
 
 What's a Gulpfile?  You can [read about Gulp here][gulp] &ndash; but it's basically a file that has a series of build tasks defined (e.g. it's very similar to a `Makefile` or [Grunt][grunt] if you're familiar with that).
 
@@ -621,7 +636,7 @@ router.all('/admin*', policies.ensureAdmin);
 If you'd like to grant yourself admin access to the `/admin` routes, then you can run this script (replace with your email address and database name):
 
 ```bash
-mongo crocodile_development --eval 'printjson(db.users.update({ email: "niftylettuce@gmail.com" }, { $set: { group: "admin" }}));'
+mongo crocodilejs_development --eval 'printjson(db.users.update({ email: "niftylettuce@gmail.com" }, { $set: { group: "admin" }}));'
 ```
 
 ### Search Engine Indexing
@@ -642,7 +657,7 @@ See the following files for an understanding of how it works:
 
 * `src/locales` folder (full of all the translations, if a locale is missing, it defaults to English; `en.json`)
 * `src/config/locales.js` file (uncommented languages are the ones supported)
-* `src/config/index.js` (see the `config.i18n.HELLO_WORLD` variable as an example &ndash; you can use the `config.i18n` object for error messages, success messages, page titles, page descriptions, and more)
+* `src/config/i18n.js` file (see the `HELLO_WORLD` variable as an example &ndash; you can use the `config.i18n` object for error messages, success messages, page titles, page descriptions, and more)
 
 If you want recommendations on services to use for this and how to integrate, then [join our Slack][slack-url] and ask us!
 
@@ -896,6 +911,8 @@ We've provided a default file called `.env.example`, **which you will need to re
 
 Authentication is managed by `src/config/index.js` and `src/helpers/passport.js`.
 
+You can easily toggle on and off authentication providers by modifying their values to be either `true` or `false` in your `.env` configuration file.
+
 ###### Facebook Auth
 
 > TODO
@@ -1124,18 +1141,16 @@ Here is a brief list of recommended tools used to ship rapidly developed MVP's:
 * Use [Sketch][sketch] to design your app's screens and basic mockups.
 * Use `vim` as your editor to write your code &ndash; build up muscle memory by installing magnitude of plugins, which will automate [your puny human][puny-human] mistakes.  If you need inspiration, here is [@niftylettuce's vim config][vim-config].
 * Install an `eslint` plugin into your text editor so that on file save it lints your code according to the rules defined in the [.eslintrc][eslint-file] file.
-* Use [LookerUpper][lookerupper] plugin to easily lookup package documentation.
+* Use [LookerUpper][lookerupper] and [OctoLinker][octolinker] to easily lookup package documentation.
 * Use [fixpack][fixpack] to keep your `package.json` file tidy by running `fixpack` after you alter it.
 * Instead of using `npm install --save <name>` to install packages, use [pnpm][pnpm] to install them faster; `pnpm install --save <name>`.
 
 
 ## <a href="#crocodile-index">:crocodile:</a> [Is there a book on CrocodileJS?](#crocodile-is-there-a-book-on-crocodilejs)
 
-**Yes, there is a book (coming soon) called <u>Rapid MVP's</u>**.  It comes with Markdown, HTML, and PDF versions, and also accompanying **<u>source code</u> AND <u>screencasts</u>**!  The author [@niftylettuce][nifty-twitter] is self-publishing, and goes in-depth to show you how to build rapid MVP's.  The book will include a "How It's Made" for at least two of his new (and hopefully profitable) side-projects.
+**Yes, there is a book on CrocodileJS available!**  It comes with Markdown, HTML, and PDF versions, and also accompanying **<u>source code</u> AND <u>screencasts</u>**!  The author [@niftylettuce][nifty-twitter] is self-publishing, and goes in-depth to show you how to build projects with CrocodileJS (using actual apps he built).  The book includes a "How It's Made" for two side-projects he created using CrocodileJS.
 
-It is **available for <u>early bird</u> pre-order** right now at <https://rapidmvp.com>!  Even if you don't buy the book, you can still get free/inspirational behind the scenes tips, tutorials, and videos!  And a sticker!
-
-> **Get a <u>FREE CROCODILE STICKER</u> mailed to you: <https://rapidmvp.com>** (no pre-order required)
+It is **available for order** at <https://crocodilejs.com>!
 
 ## <a href="#crocodile-index">:crocodile:</a> [Can I get help?](#crocodile-can-i-get-help)
 
@@ -1146,22 +1161,22 @@ It is **available for <u>early bird</u> pre-order** right now at <https://rapidm
 
 ## <a href="#crocodile-index">:crocodile:</a> [How do I get updates?](#crocodile-how-do-i-get-updates)
 
-We provide updates to this repository and a detailed changelog, which you can then add/merge into your project.
+We provide updates to this repository and a detailed changelog, which you can then add/merge into your project.  The [GitHub Releases Pages][gh-releases] provides detailed documentation for every release of CrocodileJS.
 
-The [GitHub Releases Pages][gh-releases] provides detailed documentation for every release of CrocodileJS.
+The CLI tool `crocodile` comes with a command `crocodile update`.  Running this command will give you the latest updates on CrocodileJS.
 
-You can also use the CLI tool `crocodile`, and run the command `crocodile upgrade` in order to upgrade your project.
+Also, we've built-in to CrocodileJS an [update-notifier][update-notifier] script that will let you know if updates are available (based off the version in your `.crocodile.yml` file in the root of your project).  It checks daily for updates, and you can change the frequency of this in `src/config/index.js`.
 
-Please note that after you upgrade, you will need to update the version specified in `.crocodile.yml` of your project.
+Please note that after you upgrade or merge changes from a new CrocodileJS release &ndash; you will need to update the version specified in `.crocodile.yml` of your project.
 
-You will need to "star" and "watch" this repository to stay active.  We don't have an automated update system nor a Google Group.  It is your responsibility and duty as a CrocodileJS developer to stay up to date on everything.  **<u>Lastly, it's a necessity</u>** that you [join us on Slack][slack-url] to stay in the loop!
+You should also "star" and "watch" this repository on GitHub to stay up to date.  It is your responsibility and duty as a CrocodileJS developer to stay updated.  **<u>Lastly, it's a necessity, especially for debugging</u>** that you [join us on Slack][slack-url]!
 
 You can also follow us on Twitter at <https://twitter.com/niftylettuce>.
 
 
 ## <a href="#crocodile-index">:crocodile:</a> [Who built it?](#crocodile-who-built-it)
 
-CrocodileJS v1.0.0 was released in September 2016 by [@niftylettuce][nifty-twitter].
+CrocodileJS was released in September 2016 by [@niftylettuce][nifty-twitter].
 
 ## <a href="#crocodile-index">:crocodile:</a> [Can we hire or partner with @niftylettuce?](#crocodile-can-we-hire-niftylettuce)
 
@@ -1169,7 +1184,7 @@ I am always willing to entertain new opportunities.  Please reach out to me at <
 
 ## <a href="#crocodile-index">:crocodile:</a> [License](#crocodile-license)
 
-**Please CrocodileJS's licensing, as we have poured many hours and long nights into building it for you.  Open-source isn't free for everyone involved.  If you have feedback or questions about the licensing information below please email <niftylettuce@gmail.com>.**
+**Please respect CrocodileJS's licensing, as we have poured many hours and long nights into building it for you.  [Open-source isn't free for everyone][oss-docs].  If you have feedback or questions about the licensing information below please email <niftylettuce@gmail.com>.**
 
 CrocodileJS has two kinds of licenses; [GPLv3][license-url] for open-source projects and [MIT][comm-license-url] for commercial projects.
 
@@ -1177,7 +1192,7 @@ From the [GPL FAQ][gpl-faq]:
 
 > If you release the modified version to the public in some way, the GPL requires you to make the modified source code available to the program's users, under the GPL.
 
-This means that if your project is open source, then you must release it publicly under the GPLv3 license (e.g. on a public GitHub repository).  If your project is commercial and you do not want to release it publicly, then you can opt to purchase the MIT commercial license.  This allows you to keep the code proprietary, and use CrocodileJS to develop commercial websites, e-commerce stores, consumer applications, etc.
+This means that if your project is open source, then you must release it publicly under the GPLv3 license (e.g. on a public GitHub repository).  If your project is commercial and you do not want to release it publicly, then you must purchase the MIT commercial license for a one-time fee.  If it is not affordable in your current situation, then please contact us and we can try to help you.  This allows you to keep the code proprietary, and use CrocodileJS to develop commercial websites, e-commerce stores, consumer applications, ...
 
 **If you wish to purchase a commercial license, please do so at <https://crocodilejs.com>.**
 
@@ -1367,3 +1382,15 @@ This means that if your project is open source, then you must release it publicl
 [gh-showcase-issue]: https://github.com/crocodilejs/crocodile-node-mvc-framework/issues/129
 [paypal-donate-image]: https://img.shields.io/badge/paypal-donate-orange.svg
 [paypal-donate-url]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE3EFQ5X9RHT6
+[update-notifier]: https://github.com/yeoman/update-notifier
+[oss-docs]: https://github.com/mrjoelkemp/awesome-paid-open-source
+[spinkit]: https://github.com/tobiasahlin/SpinKit
+[jquery]: https://jquery.com/
+[fontawesome]: http://fontawesome.io/
+[dense]: https://github.com/gocom/dense
+[jquery-lazy]: https://github.com/eisbehr-/jquery.lazy
+[clipboard]: https://github.com/zenorocha/clipboard.js
+[bootstrap-social]: https://lipis.github.io/bootstrap-social/
+[tether]: https://github.com/HubSpot/tether
+[120x120]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-120x120.png
+[octolinker]: http://octolinker.github.io/

@@ -1,0 +1,9 @@
+
+{# for a list of all available spinners: #}
+{# <https://github.com/tobiasahlin/SpinKit/tree/master/scss/spinners> #}
+
+<div id="spinner" class="pos-f-t fade">
+  {# get a random number between 1-11 #}
+  {% set num = range(1, 11) | random %}
+  {% include "./" + num + ".njk" %}
+</div>

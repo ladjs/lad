@@ -11,3 +11,4 @@ export _404Handler from './_404-handler';
 export contextHelpers from './context-helpers';
 export Mongoose from './mongoose';
 export updateNotifier from './update-notifier';
+export checkLicense from './check-license';

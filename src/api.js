@@ -24,10 +24,14 @@ import {
   _404Handler,
   timeout,
   Mongoose,
+  checkLicense,
   updateNotifier
 } from './helpers';
 import config from './config';
 import routes from './routes';
+
+// check for CrocodileJS license key
+checkLicense();
 
 // check for updates
 updateNotifier();

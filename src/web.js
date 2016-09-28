@@ -41,9 +41,13 @@ import {
   _404Handler,
   timeout,
   Mongoose,
+  checkLicense,
   updateNotifier
 } from './helpers';
 import routes from './routes';
+
+// check for CrocodileJS license key
+checkLicense();
 
 // check for updates
 updateNotifier();
@@ -110,6 +114,8 @@ app.context.onerror = errorHandler;
 app.use(convert(responseTime()));
 
 // add the logger for development environment only
+// TODO: there's a weird logger issue, see this GH issue
+// <https://github.com/koajs/logger/issues/49>
 if (config.env === 'development')
   app.use(logger());
 
@@ -170,8 +176,13 @@ app.use(async (ctx, next) => {
       invalidSessionSecretMessage: ctx.translate('INVALID_SESSION_SECRET'),
       invalidTokenMessage: ctx.translate('INVALID_TOKEN')
     })(ctx, next);
-  } catch (err) {
-    ctx.throw(Boom.forbidden(err.message));
+  } catch (e) {
+    let err = e;
+    if (e.name && e.name === 'ForbiddenError') {
+      err = Boom.forbidden(e.message);
+      if (e.stack) err.stack = e.stack;
+    }
+    ctx.throw(err);
   }
 });
 

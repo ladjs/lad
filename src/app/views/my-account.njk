@@ -7,13 +7,13 @@
     <div class="jumbotron m-t-1">
       <h1>
         {% if moment().format('HH') >= 12 and moment().format('HH') <= 17 %}
-          Good afternoon,
+          {{ __('Good afternoon') }},
         {% elif moment().format('HH') >= 17 %}
-          Good evening,
+          {{ __('Good evening') }},
         {% else %}
-          Good morning,
+          {{ __('Good morning') }},
         {% endif %}
-        <span> {{user.given_name}}!</span>
+        <span> {{user.display_name}}!</span>
       </h1>
       <p>This is your account page.</p>
       <h2>API Key</h2>

@@ -1,0 +1,168 @@
+
+// bootstrap
+@import "_variables";
+@import "../../../node_modules/bootstrap/scss/_variables";
+@import "../../../node_modules/bootstrap/scss/mixins/_breakpoints";
+
+// <http://www.minimit.com/demos/bootstrap-3-responsive-columns-of-same-height>
+
+/* USAGE
+<div class="row">
+  <div class="row-height">
+    <div class="col-xs-2 col-xs-height col-xs-middle">
+      <div class="inside"></div>
+    </div>
+    <div class="col-xs-4 col-lg-5 col-xs-height col-xs-middle">
+      <div class="inside"></div>
+    </div>
+  </div>
+</div>
+*/
+
+/* content styles */
+
+.inside-full-height {
+  // if you want to give content full height give him height: 100%;
+  // with content full height you can't apply margins to the content
+  // content full height does not work in ie http://stackoverflow.com/questions/27384433/ie-display-table-cell-child-ignores-height-100
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* columns of same height styles */
+.row-height {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+}
+.col-height {
+  display: table-cell;
+  float: none;
+  height: 100%;
+}
+.col-top {
+  vertical-align: top;
+}
+.col-middle {
+  vertical-align: middle;
+}
+.col-bottom {
+  vertical-align: bottom;
+}
+
+@include media-breakpoint-only(xs) {
+  .row-xs-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-xs-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-xs-top {
+    vertical-align: top;
+  }
+  .col-xs-middle {
+    vertical-align: middle;
+  }
+  .col-xs-bottom {
+    vertical-align: bottom;
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .row-sm-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-sm-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-sm-top {
+    vertical-align: top;
+  }
+  .col-sm-middle {
+    vertical-align: middle;
+  }
+  .col-sm-bottom {
+    vertical-align: bottom;
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .row-md-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-md-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-md-top {
+    vertical-align: top;
+  }
+  .col-md-middle {
+    vertical-align: middle;
+  }
+  .col-md-bottom {
+    vertical-align: bottom;
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .row-lg-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-lg-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-lg-top {
+    vertical-align: top;
+  }
+  .col-lg-middle {
+    vertical-align: middle;
+  }
+  .col-lg-bottom {
+    vertical-align: bottom;
+  }
+}
+
+@include media-breakpoint-only(xl) {
+  .row-xl-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-xl-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-xl-top {
+    vertical-align: top;
+  }
+  .col-xl-middle {
+    vertical-align: middle;
+  }
+  .col-xl-bottom {
+    vertical-align: bottom;
+  }
+}

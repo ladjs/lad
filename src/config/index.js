@@ -1,7 +1,4 @@
 
-// turn off max length eslint rule since this is a config file with long strs
-/* eslint max-len: 0*/
-
 import strength from 'strength';
 import { exec } from 'child-process-promise';
 import gemoji from 'gemoji';
@@ -27,6 +24,7 @@ env = dotenvParseVariables(env);
 import pkg from '../../package.json';
 import environments from './environments';
 import locales from './locales';
+import i18n from './i18n';
 
 const omitCommonFields = [ '_id', '__v' ];
 
@@ -212,7 +210,7 @@ let config = {
         passwordField: 'password',
         usernameLowerCase: true,
         limitAttempts: true,
-        maxAttempts: env.NODE_ENV === 'development' ? Infinity : 5,
+        maxAttempts: env.NODE_ENV === 'development' ? Number.MAX_VALUE : 5,
         digestAlgorithm: 'sha256',
         encoding: 'hex',
         saltlen: 32,
@@ -261,34 +259,16 @@ let config = {
         'https://www.googleapis.com/auth/userinfo.profile'
       ]
     }
-  }
+  },
+
+  // CrocodileJS license key check URL
+  licenseKeyCheckURL: env.CROCODILEJS_LICENSE_KEY_CHECK_URL
 
 };
 
+// localization support
 config.locales = locales;
-
-config.i18n = {
-  INVALID_EMAIL: 'Email address was invalid',
-  INVALID_PASSWORD: 'Password was invalid',
-  INVALID_RESET_TOKEN: 'Reset token provided was invalid',
-  INVALID_RESET_PASSWORD: 'Reset token and email were not valid together',
-  INVALID_PASSWORD_STRENGTH: 'Password strength was not strong enough',
-  INVALID_SESSION_SECRET: 'Invalid session secret',
-  INVALID_TOKEN: 'Invalid CSRF token',
-  INVALID_MESSAGE: `Your message was invalid, as it was either blank or more than (${env.CONTACT_REQUEST_MAX_LENGTH}) characters`,
-  PASSWORD_RESET_SENT: 'We have sent you an email with a link to reset your password.',
-  HELLO_WORLD: 'Hello %s world',
-  REGISTERED: 'You have successfully registered',
-  RESET_PASSWORD: 'You have successfully reset your password.',
-  CONTACT_REQUEST_MESSAGE: 'Thank you for contacting us.  We would love to hear more from you.  How can we help?',
-  CONTACT_REQUEST_SENT: 'Your contact request has been sent successfully.  You should hear from us soon.  Thank you!',
-  CONTACT_REQUEST_ERROR: 'We were unable to send your contact request.  We have been alerted of this problem.  Please try again later.',
-  CONTACT_REQUEST_LIMIT: 'You have reached the limit for sending contact requests.  Please try again later.',
-  REQUEST_TIMED_OUT: 'Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.',
-  LOGGED_IN: 'You have successfully signed in.',
-  SIGNED_OUT: 'You have successfully signed out.',
-  UNKNOWN_ERROR: 'An unknown error has occurred. We have been alerted of this issue. Please try again.'
-};
+config.i18n = i18n;
 
 if (_.isObject(environments[env.NODE_ENV]))
   config = _.merge(config, environments[env.NODE_ENV]);

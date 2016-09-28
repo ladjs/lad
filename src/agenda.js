@@ -5,8 +5,16 @@ import promisify from 'es6-promisify';
 import _ from 'lodash';
 
 import Jobs from './jobs';
-import { Mongoose, Logger, updateNotifier } from './helpers/';
+import {
+  Mongoose,
+  Logger,
+  checkLicense,
+  updateNotifier
+} from './helpers/';
 import config from './config/';
+
+// check for CrocodileJS license key
+checkLicense();
 
 // check for updates
 updateNotifier();

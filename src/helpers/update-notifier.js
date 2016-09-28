@@ -9,7 +9,7 @@ import boxen from 'boxen';
 import Logger from './logger';
 import config from '../config';
 
-export default function () {
+export default function updateNotifierHelper() {
 
   const yaml = YAML.load(path.join(__dirname, '..', '..', '.crocodile.yml'));
 
@@ -38,7 +38,7 @@ export default function () {
     '',
     `Run ${chalk.magenta.bold('crocodile update')} to read about this update on GitHub.`,
     '',
-    `Don't have crocodile installed?  Run ${chalk.magenta.bold(`npm install -g ${pkg.name}`)} to update.`,
+    `Don't have crocodile installed?  Run ${chalk.magenta.bold(`npm install -g ${pkg.name}`)} to install.`,
     '',
     `${chalk.gray('Already updated or want to ignore this?  Change the version in your .crocodile.yml file to match!')}`,
     '',

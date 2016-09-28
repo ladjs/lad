@@ -1,7 +1,12 @@
 
+import s from 'underscore.string';
+import Boom from 'boom';
 import _ from 'lodash';
 
-export default class Users {
+import { Logger } from '../../../../helpers';
+import UsersModel from '../../../models/user';
+
+export default class UsersController {
 
   static async retrieve(ctx) {
     // since we already have the user object
@@ -29,6 +34,23 @@ export default class Users {
 
     // send the response
     ctx.body = ctx.req.user;
+
+  }
+
+  static async checkLicenseKey(ctx, next) {
+
+    if (!_.isString(ctx.params.license_key) || s.isBlank(ctx.params.license_key))
+      return ctx.throw(Boom.badRequest(ctx.translate('INVALID_LICENSE_KEY')));
+
+    try {
+      const user = await UsersModel.findOne({
+        'license.key': ctx.params.key
+      });
+      ctx.body = _.pick(user, [ 'license' ]);
+    } catch (err) {
+      Logger.error(err);
+      return ctx.throw(Boom.badRequest(ctx.translate('INVALID_LICENSE_KEY')));
+    }
 
   }
 

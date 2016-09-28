@@ -1,10 +1,10 @@
 
+import validator from 'validator';
 import _ from 'lodash';
 import s from 'underscore.string';
 import randomstring from 'randomstring-extended';
 import mongoose from 'mongoose';
 import jsonSelect from 'mongoose-json-select';
-import validator from 'validator';
 import passportLocalMongoose from 'passport-local-mongoose';
 
 import config from '../../config';
@@ -52,7 +52,6 @@ const Users = new mongoose.Schema({
   },
   avatar_url: {
     type: String,
-    required: true,
     trim: true,
     validate: val => validator.isURL(val)
   },
@@ -69,7 +68,7 @@ const Users = new mongoose.Schema({
   reset_token_expires_at: Date,
   reset_token: String,
 
-  // oauth
+  // authentication
 
   // google
   google_profile_id: {
@@ -78,7 +77,39 @@ const Users = new mongoose.Schema({
     index: true
   },
   google_access_token: String,
-  google_refresh_token: String
+  google_refresh_token: String,
+
+  // TODO: stripe
+  stripe_customer_id: String,
+
+  // TODO: you can remove these fields below
+  // but you should also remove their respective
+  // controllers, views, and routes as well!
+
+  // CrocodileJS license key and info
+  license: {
+    // when the license was created
+    created_at: Date,
+    // uuid v4 license key randomly generated
+    key: {
+      type: String,
+      validate: (val) => validator.isUUID(val, 4)
+    },
+    // description of the user's license
+    desc: String,
+    // amount the user paid for the license in dollars
+    amount: Number,
+    // stripe charge id
+    stripe_charge_id: String,
+    // t-shirt size and tracking
+    free_tshirt_size: {
+      type: String,
+      enum: [ 'S', 'M', 'L', 'XL', 'XXL' ]
+    },
+    free_tshirt_tracking: String,
+    // shipping info
+    shipping_address: {}
+  }
 
 });
 
@@ -87,11 +118,6 @@ Users.pre('validate', function (next) {
   // create api token if doesn't exist
   if (!_.isString(this.api_token) || s.isBlank(this.api_token))
     this.api_token = randomstring.token(24);
-
-  // create avatar url using gravatar
-  if (!_.isString(this.avatar_url)
-    || (_.isString(this.avatar_url) && !validator.isURL(this.avatar_url)))
-    this.avatar_url = 'http://google.com';
 
   if (_.isString(this.email) && (!_.isString(this.display_name) || s.isBlank(this.display_name)))
     this.display_name = this.email.split('@')[0];

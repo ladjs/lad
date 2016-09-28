@@ -17,7 +17,7 @@
               {% else %}
                 <p class="card-text">Welcome back {{ 'beers' | emoji }}!</p>
               {% endif %}
-              <form action="{{ req.path }}" class="ajax-form" method="POST">
+              <form action="{{ req.path }}" method="POST" class="ajax-form">
                 <input type="hidden" name="_csrf" value="{{ csrf }}" />
                 <div class="form-group">
                   <label for="input-email">Email address</label>
