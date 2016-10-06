@@ -16,7 +16,9 @@ import _ from 'lodash';
       if (messages.length === 0) return;
       steps.push({
         title: window._types[type],
-        html: `<ul><li>${messages.join('</li><li>')}</li></ul>`,
+        html: messages.length === 1 ?
+          messages[0]
+          : `<ul class="m-a-0 text-xs-left"><li>${messages.join('</li><li>')}</li></ul>`,
         type: type
       });
     });
