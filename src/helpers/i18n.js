@@ -44,9 +44,9 @@ i18n.translate = function translate(key, locale) {
   }
   args = [
     { phrase, locale },
-    ... args
+    ...args
   ];
-  return i18n.api.t(... args);
+  return i18n.api.t(...args);
 };
 
 i18n.middleware = function middleware(ctx, next) {
@@ -99,7 +99,7 @@ i18n.middleware = function middleware(ctx, next) {
 
 };
 
-i18n.redirect = function redirect(ctx, next) {
+i18n.redirect = async function redirect(ctx, next) {
 
   // inspired by nodejs.org language support
   // <https://github.com/nodejs/nodejs.org/blob/master/server.js#L38-L58>
@@ -120,6 +120,16 @@ i18n.redirect = function redirect(ctx, next) {
     // TODO: probably need to change this
     secure: !_.isEmpty(config.ssl.web)
   });
+
+  // if the user is logged in, then save it as `last_locale`
+  if (ctx.isAuthenticated()) {
+    ctx.req.user.last_locale = locale;
+    try {
+      await ctx.req.user.save();
+    } catch (err) {
+      logger.error(err);
+    }
+  }
 
   return next();
 

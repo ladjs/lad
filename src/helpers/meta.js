@@ -24,15 +24,11 @@ export default function meta(ctx) {
   if (!_.isArray(config.meta['/']))
     logger.error('Meta path "/" is not defined in `config.meta`');
 
-  if (!_.isArray(config.meta[ctx.path]))
-    logger.warn(`Meta path "${ctx.path}" is not defined in \`config.meta\``);
-  else
+  if (_.isArray(config.meta[ctx.path]))
     meta = config.meta[ctx.path];
 
-  if (_.isArray(meta) && nonLocalePath && _.isArray(config.meta[nonLocalePath])) {
-    logger.info(`Meta non-localized path of "${nonLocalePath}" was used`);
+  if (_.isArray(meta) && nonLocalePath && _.isArray(config.meta[nonLocalePath]))
     meta = config.meta[nonLocalePath];
-  }
 
   if (_.isEmpty(meta)) {
     logger.error('Meta definition defaulted to "/" since no definitions were found');
@@ -61,8 +57,6 @@ export default function meta(ctx) {
 
   // translate the meta information
   meta = _.map(meta, str => {
-    console.log('str', str);
-    console.log('translated', ctx.req.t(str));
     return s.isBlank(str) ? '' : sanitizeHtml(ctx.req.t(str), {
       allowedTags: [],
       allowedAttributes: []

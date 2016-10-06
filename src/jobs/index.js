@@ -61,6 +61,22 @@ export async function email(job, done) {
     if (!_.isObject(job.attrs.data.locals))
       job.attrs.data.locals = {};
 
+    // TODO: if there are any mongoose objects passed
+    // to locals, then convert them to plain objects
+    _.each(job.attrs.data.locals, (local, i) => {
+      console.log('local', local, 'i', i);
+    });
+
+    // if there was a locale object passed
+    if (_.isString(job.attrs.data.locale)
+      && _.includes(config.locales, job.attrs.data.locale))
+      i18n.setLocale(job.attrs.data.locale);
+    // else if the locale was not explicitly set
+    // then check if there was a user object
+    else if (_.isObject(job.attrs.data.locals.user)
+      && _.isString(job.attrs.data.locals.user.last_locale))
+      i18n.setLocale(job.attrs.data.locals.user.last_locale);
+
     const results = await template.render({
       // avoid max call stack
       ... job.attrs.data.locals,
@@ -74,7 +90,7 @@ export async function email(job, done) {
 
     const transportOptions = {
       ... results,
-      ... _.omit(job.attrs.data, [ 'locals', 'template' ])
+      ... _.omit(job.attrs.data, [ 'locale', 'locals', 'template' ])
     };
 
     // if we're in development mode then render the email template for browser viewing
@@ -111,22 +127,21 @@ export async function email(job, done) {
 
 export async function locales(job, done) {
 
-  // TODO: ensure files are synced
   const defaultFields = _.zipObject(
     _.values(config.i18n),
     _.values(config.i18n)
   );
 
-  const englishFilePath = path.join(
+  const defaultLocaleFilePath = path.join(
     config.localesDirectory,
-    'en.json'
+    `${config.defaultLocale}.json`
   );
 
-  let englishFile;
+  let defaultLocaleFile;
   try {
-    englishFile = require(englishFilePath);
+    defaultLocaleFile = require(defaultLocaleFilePath);
   } catch (err) {
-    englishFile = {};
+    defaultLocaleFile = {};
   }
 
   try {
@@ -151,14 +166,14 @@ export async function locales(job, done) {
         // add any missing fields if they don't exist
         file = _.defaultsDeep(file, defaultFields);
 
-        // if the locale is not english, then check if translations need done
-        if (locale !== 'en') {
+        // if the locale is not the default, then check if translations need done
+        if (locale !== config.defaultLocale) {
 
           const translationsRequired = _.intersection(
             _.uniq(
               _.concat(
                 _.values(config.i18n),
-                _.values(englishFile)
+                _.values(defaultLocaleFile)
               )
             ),
             _.values(file)

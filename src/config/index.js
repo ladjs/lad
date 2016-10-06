@@ -284,8 +284,8 @@ let config = {
 
   // CrocodileJS default app config
   licenseKeyCheckURL: env.CROCODILEJS_LICENSE_KEY_CHECK_URL,
-  licenseCostDollars: 95,
-  jobPostCostDollars: 49
+  licenseCostDollars: 195,
+  jobPostCostDollars: 145
 
 };
 

@@ -17,7 +17,7 @@ export default {
     // currently we cannot use the `|` pipe character due to this issue
     // <https://github.com/mashpie/i18n-node/issues/274>
     // otherwise we'd have `| CrocodileJS` below, which is SEO standard
-    'Node.js MVC Framework built with Koa and ES7 - CrocodileJS',
-    "Full-stack Node.js + Koa + ES7 MVC framework for Apps and API's."
+    'Node JS MVC Koa Framework - CrocodileJS',
+    "Multilingual full-stack Node.js + Koa + ES7 + MVC framework for Apps and API's."
   ]
 };

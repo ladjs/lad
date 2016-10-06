@@ -1,1 +1,1 @@
-{{ name }}, reset your password
+{{ name }}, {{ t('reset your password') }}

@@ -11,7 +11,7 @@
     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-language-mobile">
       {% for language in availableLanguages %}
         {% if language.locale !== locale %}
-          <li><a class="dropdown-item" href="{{ req.url.replace(locale, language.locale) }}">{{ language.name }}</a></li>
+          <li><a class="dropdown-item" href="{{ ctx.req.url.replace(locale, language.locale) }}">{{ language.name }}</a></li>
         {% endif %}
       {% endfor %}
     </ul>
@@ -81,7 +81,7 @@
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-language">
               {% for language in availableLanguages %}
                 {% if language.locale !== locale %}
-                  <li><a class="dropdown-item" href="{{ req.url.replace(locale, language.locale) }}">{{ s.titleize(language.name) }}</a></li>
+                  <li><a class="dropdown-item" href="{{ ctx.req.url.replace(locale, language.locale) }}">{{ s.titleize(language.name) }}</a></li>
                 {% endif %}
               {% endfor %}
             </ul>
@@ -93,12 +93,7 @@
 
           <li class="nav-item btn-group">
             <a href="/{{ locale }}/my-account" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-my-account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {% if user.avatar_url %}
-                <img class="img-circle" src="{{ user.avatar_url }}" height="25" />
-              {% else %}
-                <i class="fa fa-user"></i>
-              {% endif %}
-              {{ t('Account') }}
+              <i class="fa fa-user"></i> {{ t('Account') }}
             </a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-my-account">
               <li><a class="dropdown-item" href="/{{ locale }}/my-account"><i class="fa fa-fw fa-gears"></i> {{ t('My Account') }}</a></li>

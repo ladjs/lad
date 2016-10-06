@@ -16,6 +16,7 @@ router
   .get('/', web.home)
   .get('/about', renderPage('about'))
   .get('/status', web.status)
+  .post('/purchase-license', web.purchaseLicense)
   .get('/my-account', policies.ensureLoggedIn, renderPage('my-account'))
   .get('/404', renderPage('404'))
   .get('/500', renderPage('500'))

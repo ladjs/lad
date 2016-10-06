@@ -8,7 +8,8 @@ import meta from './meta';
 export default function dynamicViewHelpers(ctx, next) {
 
   // lookup page metadata information such as title and description
-  ctx.state.meta = meta(ctx);
+  if (ctx.method === 'GET' && !ctx.xhr)
+    ctx.state.meta = meta(ctx);
 
   // add csrf for forms, global, and meta tag
   ctx.state.csrf = ctx.csrf;
@@ -29,8 +30,8 @@ export default function dynamicViewHelpers(ctx, next) {
   if (ctx.isAuthenticated())
     ctx.state.user = ctx.req.user.toObject();
 
-  // add `req` object to the state for views
-  ctx.state.req = ctx.req;
+  // add `ctx` object to the state for views
+  ctx.state.ctx = ctx;
 
   // add `query` object to the state for views
   ctx.state.query = ctx.query;

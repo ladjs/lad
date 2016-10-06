@@ -68,6 +68,12 @@ const Users = new mongoose.Schema({
   reset_token_expires_at: Date,
   reset_token: String,
 
+  // last locale
+  last_locale: {
+    type: String,
+    default: config.defaultLocale
+  },
+
   // authentication
 
   // google

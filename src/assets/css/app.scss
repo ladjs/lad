@@ -137,4 +137,11 @@ img:not([src]) {
   margin-top: 7px;
 }
 
+.no-text-decoration {
+  text-decoration: none !important;
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
 @import "_custom";

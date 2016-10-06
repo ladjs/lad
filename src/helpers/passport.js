@@ -1,4 +1,6 @@
 
+import randomstring from 'randomstring-extended';
+import promisify from 'es6-promisify';
 import passport from 'koa-passport';
 import _ from 'lodash';
 import {
@@ -67,6 +69,10 @@ if (config.auth.providers.google)
           }
 
           user = await Users.create(obj);
+
+          // generate the user a random password so they have a salt
+          await promisify(user.setPassword, user)(randomstring.token());
+          await user.save();
 
         } else {
 

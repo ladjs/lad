@@ -26,7 +26,7 @@
 
     <ul class="text-xs-center m-y-1 list-inline">
       <li class="list-inline-item d-inline">
-        {{ '100' | emoji }} {{ t('CrocodileJS is a <mark>full-stack</mark> <strong class="notranslate">Node.js</strong> + <strong class="notranslate">Koa</strong> + <strong class="notranslate">ES7</strong> <abbr title="Model View Controller" class="notranslate">MVC</abbr> framework for <strong class="notranslate">Apps</strong> and <strong class="notranslate">API\'s</strong>') | safe }}.
+        {{ '100' | emoji }} {{ t('CrocodileJS is a multilingual <mark>full-stack</mark> <strong class="notranslate">Node.js</strong> + <strong class="notranslate">Koa</strong> + <strong class="notranslate">ES7</strong> <abbr title="Model View Controller" class="notranslate">MVC</abbr> framework for <strong class="notranslate">Apps</strong> and <strong class="notranslate">API\'s</strong>') | safe }}.
       </li>
       <li class="list-inline-item d-inline">
         <a href="/{{ locale }}/jobs" class="btn btn-sm btn-outline-success">{{ t('Browse Jobs') }}</a>
@@ -73,7 +73,8 @@
                     <div class="card card-outline-primary">
                       <div class="card-block">
                         <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars }}</h3>
-                        <p class="card-text"><small class="text-muted">{{ t('<strong>1</strong> developer') | safe}}</small></p>
+                        <small class="font-weight-bold text-primary">{{ t('Most Popular') }}</small>
+                        <p class="card-text"><small class="text-muted">{{ t('<strong>1</strong> project') | safe}}</small></p>
                         <form
                           action="/{{ locale }}/purchase-license"
                           method="POST"
@@ -85,6 +86,7 @@
                           data-panel-label="{{ t('Purchase License') }}"
                         >
                           <input type="hidden" name="_csrf" value="{{ csrf }}" />
+                          <input type="hidden" name="num_licenses" value="1" />
                           <input type="hidden" name="stripe_token" />
                           <button type="submit" class="btn btn-primary btn-md btn-block">{{ t('Select') }}</button>
                         </form>
@@ -94,19 +96,21 @@
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div class="card card-outline-secondary">
                       <div class="card-block">
-                        <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 10}}</h3>
-                        <p class="card-text"><small class="text-muted">{{ t('<strong>10</strong> developers') | safe }}</small></p>
+                        <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 5 * 0.88 }}</h3>
+                        <small><mark class="text-uppercase font-weight-bold">{{ t('12% Discount') }}</mark></small>
+                        <p class="card-text"><small class="text-muted">{{ t('<strong>5</strong> projects') | safe }}</small></p>
                         <form
                           action="/{{ locale }}/purchase-license"
                           method="POST"
                           class="ajax-form stripe-checkout"
                           data-name="CrocodileJS"
                           data-email="{% if user %}{{ user.email }}{% endif %}"
-                          data-description="{{ t('Purchase (10) Commercial Licenses') }}"
-                          data-amount={{ config.licenseCostDollars * 100 * 10 }}
+                          data-description="{{ t('Purchase (5) Commercial Licenses') }}"
+                          data-amount={{ config.licenseCostDollars * 100 * 5 * 0.9 }}
                           data-panel-label="{{ t('Purchase Licenses') }}"
                         >
                           <input type="hidden" name="_csrf" value="{{ csrf }}" />
+                          <input type="hidden" name="num_licenses" value="5" />
                           <input type="hidden" name="stripe_token" />
                           <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
                         </form>
@@ -116,19 +120,21 @@
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div class="card card-outline-secondary">
                       <div class="card-block">
-                        <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 50}}</h3>
-                        <p class="card-text"><small class="text-muted">{{ t('<strong>50</strong> developers') | safe }}</small></p>
+                        <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 10 * 0.76}}</h3>
+                        <small><mark class="text-uppercase font-weight-bold">{{ t('24% Discount') }}</mark></small>
+                        <p class="card-text"><small class="text-muted">{{ t('<strong>10</strong> projects') | safe }}</small></p>
                         <form
                           action="/{{ locale }}/purchase-license"
                           method="POST"
                           class="ajax-form stripe-checkout"
                           data-name="CrocodileJS"
                           data-email="{% if user %}{{ user.email }}{% endif %}"
-                          data-description="{{ t('Purchase (50) Commercial Licenses') }}"
-                          data-amount={{ config.licenseCostDollars * 100 * 50 }}
+                          data-description="{{ t('Purchase (10) Commercial Licenses') }}"
+                          data-amount={{ config.licenseCostDollars * 100 * 10 * 0.8 }}
                           data-panel-label="{{ t('Purchase Licenses') }}"
                         >
                           <input type="hidden" name="_csrf" value="{{ csrf }}" />
+                          <input type="hidden" name="num_licenses" value="10" />
                           <input type="hidden" name="stripe_token" />
                           <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
                         </form>
@@ -361,10 +367,10 @@ export default router;</code></pre>
     {% endif %}
 
     <div class="jumbotron m-y-1 p-a-1">
-      <p class="lead">{{ t('With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API\'s &ndash; we\'ve crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the <a href="/{{ locale }}/my-account">My Account</a> page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>). It\'s absolutely perfect for building the back-end of your <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, <a href="https://github.com/electron/electron" target="_blank">Electron</a>, iOS, or Android app.  You have full control of everything; you don\'t need to rely on a third-party API platform provider.  You can finally stop reading convoluted documentation and start writing your API endpoints!') | safe }}</p>
+      <p class="lead">{{ t('With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API\'s &ndash; we\'ve crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the <a href="/' + locale + '/my-account">My Account</a> page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>). It\'s absolutely perfect for building the back-end of your <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, <a href="https://github.com/electron/electron" target="_blank">Electron</a>, iOS, or Android app.  You have full control of everything; you don\'t need to rely on a third-party API platform provider.  You can finally stop reading convoluted documentation and start writing your API endpoints!') | safe }}</p>
 
       {% if not user %}
-        <div class="alert alert-danger text-xs-center">{{ t('Please <a href="/{{ locale }}/signup?redirect=/#the-api-server">sign up</a> first, then come back to this page and your unique API token will be populated below!') | safe }}</div>
+        <div class="alert alert-danger text-xs-center">{{ t('Please <a href="/' + locale + '/signup?return_to=/' + locale + '/?hash=the-api-server">sign up</a> first, then come back to this page and your unique API token will be populated below!') | safe }}</div>
       {% endif %}
 
       <div class="alert alert-info text-xs-center">{{ t('The API responses rendered below contain the actual responses from the API server! Try it out yourself.') }}</div>
@@ -501,12 +507,12 @@ async fiveMinuteEmail(job, done) {
         </div>
       </div>
       <hr />
-      <p class="lead">{{ t('What about the "locales" job mentioned?  The locales job runs automatically every time the job scheduler boots.  It will keep you up to date on your translation and localization efforts (e.g. if you\'re forgetting to translate a particular phrase, then it will notify you in the command line output).  <strong>We built in support for automatic Google Translation too.</strong>.  Finally, here is an example of the helpful output that the "locales" job provides:') }}</p>
+      <p class="lead">{{ t('What about the "locales" job mentioned?  The locales job runs automatically every time the job scheduler boots.  It will keep you up to date on your translation and localization efforts (e.g. if you\'re forgetting to translate a particular phrase, then it will notify you in the command line output).  <strong>We built in support for automatic Google Translation too.</strong>.  Finally, here is an example of the helpful output that the "locales" job provides:') | safe }}</p>
       <pre class="bash"><code>warning: the following phrases need translated in es:
 Email address was invalid
 Password was invalid
 You have successfully reset your password.</code></pre>
-      <p class="lead">{{ t('You can specify which locales (languages) you support in the <code>src/config/locales.js</code> file.') | safe }}</p>
+      <p class="lead m-b-0">{{ t('You can specify which locales (languages) you support in the <code>src/config/locales.js</code> file.') | safe }}</p>
     </div>
 
     {# 4. proxy #}
@@ -531,8 +537,8 @@ You have successfully reset your password.</code></pre>
         <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
           <div class="card m-a-0">
             <div class="card-block">
-              <h4 class="card-title">{{ t('Need help building your app?') }}</h4>
-              <p class="card-text">{{ t('Get in touch with a CrocodileJS expert now.') }}</p>
+              <h4 class="card-title text-xs-center">{{ t('Need help building your app?') }}</h4>
+              <p class="card-text text-xs-center">{{ t('Get in touch with a CrocodileJS expert now.') }}</p>
               <form action="/{{ locale }}/contact" method="POST" class="ajax-form">
                 <input type="hidden" name="_csrf" value="{{ csrf }}" />
                 <div class="input-group">
@@ -551,9 +557,7 @@ You have successfully reset your password.</code></pre>
 
     {{ getStartedNow() }}
 
-    <h3 class="text-xs-center p-t-1">{{ t('Trusted Globally') }}</h3>
-
-    <p class="h2 text-xs-center p-t-1 m-b-0">{{ 'us' | emoji }} {{ 'it' | emoji }} {{ 'uk' | emoji }} {{ 'ru' | emoji }} {{ 'fr' | emoji }} {{ 'jp' | emoji }} {{ 'kr' | emoji }}</p>
+    <h3 class="text-xs-center p-t-1"><a href="#" data-toggle="tooltip" title="{{ t('Scroll to the top') }}" class="no-text-decoration">{{ 'crocodile' | emoji }}</a></h3>
 
     <p class="p-y-1 text-xs-center text-muted"><small>Crafted with {{ 'coffee' | emoji }} by <a href="https://github.com/niftylettuce" target="_blank" data-toggle="tooltip" title="@niftylettuce is a bootstrapped startup hacker and open source developer of 50+ NPM modules with over 2.2+ million downloads">@niftylettuce</a> &amp; other <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework/graphs/contributors" target="_blank">contributors</a></small></p>
 

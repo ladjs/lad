@@ -91,11 +91,11 @@
           Raven.setUserContext({
             email: "{{ user.email }}",
             id: "{{ user.id }}",
-            ip_address: "{{ req.ip }}"
+            ip_address: "{{ ctx.req.ip }}"
           });
           {% else %}
           Raven.setUserContext({
-            ip_address: "{{ req.ip }}"
+            ip_address: "{{ ctx.req.ip }}"
           });
           {% endif %}
         }

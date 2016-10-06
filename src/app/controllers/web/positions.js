@@ -121,18 +121,15 @@ export async function list(ctx, next) {
 
 export async function create(ctx, next) {
 
-  // get a list of our fields
-  const fields = [
+  // filter body
+  const body = _.pick(ctx.req.body, [
     'company_name',
     'company_email',
     'company_website',
     'job_title',
     'job_description',
     'stripe_token'
-  ];
-
-  // filter out only the fields we want
-  const body = _.pick(ctx.req.body, fields);
+  ]);
 
   // ensure stripe token exists
   if (!_.isString(body.stripe_token) || s.isBlank(body.stripe_token))

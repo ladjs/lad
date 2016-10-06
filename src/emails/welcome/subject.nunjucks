@@ -1,1 +1,1 @@
-{{ name }}, thank you for signing up
+{{ name }}, {{ t('thank you for signing up') }}

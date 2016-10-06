@@ -17,8 +17,20 @@ export async function logout(ctx) {
 }
 
 export async function signupOrLogin(ctx) {
-  ctx.state.verb = ctx.path === '/signup' ? 'sign up' : 'log in';
+
+  // if the user passed `?return_to` and it is not blank
+  // then set it as the returnTo value for when we log in
+  if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to))
+    ctx.session.returnTo = ctx.query.return_to;
+  // in case people had a typo, we should support redirect_to as well
+  else if (_.isString(ctx.query.redirect_to) && !s.isBlank(ctx.query.redirect_to))
+    ctx.session.returnTo = ctx.query.redirect_to;
+
+  ctx.state.verb = ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup' ?
+    'sign up' : 'log in';
+
   await ctx.render('signup-or-login');
+
 }
 
 export async function login(ctx, next) {
@@ -29,7 +41,7 @@ export async function login(ctx, next) {
 
       return new Promise(async (resolve, reject) => {
 
-        let redirectTo = config.auth.callbackOpts.successReturnToOrRedirect;
+        let redirectTo = `/${ctx.req.locale}${config.auth.callbackOpts.successReturnToOrRedirect}`;
 
         if (ctx.session && ctx.session.returnTo) {
           redirectTo = ctx.session.returnTo;
@@ -47,7 +59,7 @@ export async function login(ctx, next) {
           if (ctx.is('json')) {
             ctx.body = {
               message: ctx.translate('LOGGED_IN'),
-              redirectTo: redirectTo,
+              redirectTo,
               autoRedirect: true
             };
           } else {
@@ -69,7 +81,7 @@ export async function login(ctx, next) {
     })(ctx, next);
 
   } catch (err) {
-    ctx.throw(err);
+    ctx.throw(Boom.badRequest(err.message));
   }
 
 }
@@ -102,7 +114,7 @@ export async function register(ctx, next) {
           if (ctx.is('json')) {
             ctx.body = {
               message: ctx.translate('REGISTERED'),
-              redirectTo: redirectTo
+              redirectTo
             };
           } else {
             ctx.flash('success', ctx.translate('REGISTERED'));

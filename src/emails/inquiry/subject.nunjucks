@@ -1,1 +1,1 @@
-Information regarding your contact inquiry
+{{ t('Information regarding your contact inquiry') }}
