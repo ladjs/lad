@@ -1,2 +1,11 @@
 
 // custom styles below
+
+#learn-more {
+  &.fade {
+    margin-bottom: -100px;
+    &.in {
+      margin-bottom: auto;
+    }
+  }
+}

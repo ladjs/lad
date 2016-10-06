@@ -116,4 +116,25 @@ img:not([src]) {
   visibility: hidden;
 }
 
+// support custom file inputs
+.custom-file-name {
+  &:after {
+    content: attr(data-content) !important;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    padding: 0.5rem 1rem;
+  }
+  &:before {
+    content: attr(data-btn) !important;
+  }
+}
+
+.navbar-btn-sm-margin-top {
+  margin-top: 7px;
+}
+
 @import "_custom";

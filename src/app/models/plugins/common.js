@@ -39,6 +39,12 @@ export default function CommonPlugin(object) {
       next();
     });
 
+    Schema.virtual('locale').get(function () {
+      return this.__locale;
+    }).set(function (locale) {
+      this.__locale = locale;
+    });
+
     Schema.plugin(
       jsonSelect,
       config.omitCommonFields.map(field => `-${field}`).join(' ')

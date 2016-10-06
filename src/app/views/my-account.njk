@@ -7,18 +7,18 @@
     <div class="jumbotron m-t-1">
       <h1>
         {% if moment().format('HH') >= 12 and moment().format('HH') <= 17 %}
-          {{ __('Good afternoon') }},
+          {{ t('Good afternoon') }},
         {% elif moment().format('HH') >= 17 %}
-          {{ __('Good evening') }},
+          {{ t('Good evening') }},
         {% else %}
-          {{ __('Good morning') }},
+          {{ t('Good morning') }},
         {% endif %}
         <span> {{user.display_name}}!</span>
       </h1>
-      <p>This is your account page.</p>
-      <h2>API Key</h2>
+      <p>{{ t('This is your account page.') }}</p>
+      <h2>{{ t('API Key') }}</h2>
       <code id="api-key">{{ user.api_token }}</code>
-      <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#api-key"><i class="fa fa-clipboard"></i> Copy</button>
+      <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#api-key"><i class="fa fa-clipboard"></i> {{ t('Copy') }}</button>
     </div>
   </div>
 

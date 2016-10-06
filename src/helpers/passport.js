@@ -1,12 +1,11 @@
 
 import passport from 'koa-passport';
 import _ from 'lodash';
-
 import {
   OAuth2Strategy as GoogleStrategy
 } from 'passport-google-oauth';
 
-import Users from '../app/models/user';
+import { Users } from '../app/models';
 import config from '../config';
 
 passport.serializeUser((user, done) => {

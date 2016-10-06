@@ -27,6 +27,7 @@
   - [Back-end with Koa + Async/Await](#back-end-with-koa--asyncawait)
   - [Front-end with jQuery + Bootstrap](#front-end-with-jquery--bootstrap)
   - [Job Scheduler](#job-scheduler)
+  - [Proxy](#proxy)
   - [Database &amp; ORM](#database--orm)
   - [Sessions &amp; Auth](#sessions--auth)
   - [Flash Messaging](#flash-messaging)
@@ -38,6 +39,7 @@
   - [Latest Standards](#latest-standards)
   - [LiveReload Built-in](#livereload-built-in)
   - [Production Ready](#production-ready)
+  - [File uploads](#file-uploads)
   - [Cross-browser Compatibility](#cross-browser-compatibility)
   - [Built-in User Group Permissioning](#built-in-user-group-permissioning)
   - [Search Engine Indexing](#search-engine-indexing)
@@ -85,7 +87,9 @@ CrocodileJS is an application ~~framework~~ boilerplate for rapid iteration of a
 * GitHub Emojis Supported! :smile: :crocodile: :sparkles:
 * ECMAScript 7+ Features
 * Async/await ~~callback hell~~
-* Koa@2.x (latest version of Koa)
+* Koa@next (latest version of Koa)
+* Automatic translation using Google Translate
+* File uploads using streams (built-in resizing, optimization, and image transformation!)
 * Localization Supported with i18n
 * Basic Email Signup and Password Reset
 * API BasicAuth Access Built-in
@@ -354,6 +358,10 @@ You have successfully reset your password.
 
 You can specify which locales (languages) you support in the `src/config/locales.js` file.
 
+### Proxy
+
+> TODO
+
 ### Database &amp; ORM
 
 [MongoDB][mongodb] and [Mongoose][mongoose] are built in, but you can swap them out with your preferred database and ORM glue.  If you need help setting up [Postgres][pg] and [Bookshelf][bookshelf], then we suggest you to change your mind!  It will slow you down &ndash; but if you insist, we can put you in the right direction.
@@ -432,7 +440,7 @@ The `level` parameter can be one of the following (adhering to Sweetalert2 defau
 
 ### API Example
 
-Using the user's `api_token` field value (which is automatically generated upon user creation, see `src/app/models/user.js`), you can pass the test of the policy `Policies.ensureApiToken`.
+Using the user's `api_token` field value (which is automatically generated upon user creation, see `src/app/models/user.js`), you can pass the test of the policy `policies.ensureApiToken`.
 
 For example, we have one restricted route built into Crocodile, which is `GET /v1/users`.
 
@@ -515,7 +523,7 @@ Crocodile uses the following helper libraries:
 * Streams for build process with Gulp
 * Newest version of MongoDB and Redis (e.g. you can use [$lookup][lookup-operator] operator with MongoDB now!)
 * Uses ES6/ES7 syntax (no more callbacks; you can use `await` and `async` finally!)
-* Latest version of Koa `v2.x` (or commonly referred to as `@next`)
+* Latest version of Koa `next` (or commonly referred to as `@next`)
 
 ### LiveReload Built-in
 
@@ -598,6 +606,10 @@ NODE_ENV=production npm run agenda
 
 > **NOTE**: The above commands are what you'd use in a deployment configuration.
 
+### File Uploads
+
+> TODO
+
 ### Cross-browser Compatibility
 
 <img width="100" height="100" style="width:100px;height:100px;" alt="Chrome" src="https://rawgit.com/alrra/browser-logos/master/chrome/chrome.svg" />
@@ -651,7 +663,7 @@ In order to prevent duplicate content, we have added a plugin that removes trail
 
 ### i18n Internationalization and l10n Localization
 
-We built-in international localization/translation support!
+We built-in international localization/translation support &ndash; **with automatic Google Translations**.
 
 See the following files for an understanding of how it works:
 
@@ -662,6 +674,8 @@ See the following files for an understanding of how it works:
 If you want recommendations on services to use for this and how to integrate, then [join our Slack][slack-url] and ask us!
 
 To translate a message, you simply use the context helper method `ctx.translate('SOME_CONFIG_KEY_MESSAGE')`.  If you need interpolation, you can pass them as such `ctx.translate('SOME_MESSAGE', 'Foo', 'Bar', 'Baz')` whereas `config.i18n.SOME_MESSAGE = 'Hello %s %s %s'` (outputs `Hello Foo Bar Baz`).
+
+Or if you are in a template/view, you can write `{{ t('Some phrase that should get translated.') }}`.
 
 Translations of message keys in `config.i18n` are found in `locales/`.  If you wanted to translate `SOME_CONFIG_KEY_MESSAGE` in Spanish, then edit the value for the key of `"Hello %s %s %s"` in `locales/es.json`.
 

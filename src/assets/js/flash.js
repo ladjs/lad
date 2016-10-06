@@ -15,8 +15,8 @@ import _ from 'lodash';
     _.each(window._messages, (messages, type) => {
       if (messages.length === 0) return;
       steps.push({
-        title: _.upperFirst(type),
-        html: messages.join(', '),
+        title: window._types[type],
+        html: `<ul><li>${messages.join('</li><li>')}</li></ul>`,
         type: type
       });
     });

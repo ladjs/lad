@@ -18,26 +18,18 @@ import removeTrailingSlashes from 'koa-no-trailing-slash';
 import redis from 'redis';
 import promisify from 'es6-promisify';
 
-import {
-  Logger,
-  contextHelpers,
-  _404Handler,
-  timeout,
-  Mongoose,
-  checkLicense,
-  updateNotifier
-} from './helpers';
+import * as helpers from './helpers';
 import config from './config';
 import routes from './routes';
 
 // check for CrocodileJS license key
-checkLicense();
+helpers.checkLicense();
 
 // check for updates
-updateNotifier();
+helpers.updateNotifier();
 
 // initialize mongoose
-const mongoose = new Mongoose();
+const mongoose = helpers.mongoose();
 
 // connect to redis
 const redisClient = redis.createClient(config.redis);
@@ -55,8 +47,8 @@ locale(app);
 // later on with `server.close()`
 let server;
 
-app.on('error', Logger.ctxError);
-app.on('log', Logger.log);
+app.on('error', helpers.logger.ctxError);
+app.on('log', helpers.logger.log);
 
 // setup localization
 app.use(convert(i18n(app, {
@@ -98,12 +90,12 @@ app.use(bodyParser());
 app.use(json());
 
 // add context helpers
-app.use(contextHelpers);
+app.use(helpers.contextHelpers);
 
 // configure timeout
 app.use(async (ctx, next) => {
   try {
-    await timeout(
+    await helpers.timeout(
       config.apiRequestTimeoutMs,
       ctx.translate('REQUEST_TIMED_OUT')
     )(ctx, next);
@@ -116,7 +108,7 @@ app.use(async (ctx, next) => {
 app.use(routes.api.routes());
 
 // custom 404 handler since it's not already built in
-app.use(_404Handler);
+app.use(helpers._404Handler);
 
 // start server on either http or https
 if (config.protocols.api === 'http')
@@ -127,18 +119,18 @@ else
 if (!module.parent)
   server = server.listen(
     config.ports.api,
-    () => Logger.info(`api server listening on ${config.ports.api}`)
+    () => helpers.logger.info(`api server listening on ${config.ports.api}`)
   );
 
 // handle uncaught promises
 process.on('unhandledRejection', function (reason, p) {
-  Logger.error(`unhandled promise rejection: ${reason}`, p);
+  helpers.logger.error(`unhandled promise rejection: ${reason}`, p);
   console.dir(p, { depth: null });
 });
 
 // handle uncaught exceptions
 process.on('uncaughtException', err => {
-  Logger.error(err);
+  helpers.logger.error(err);
   process.exit(1);
 });
 
@@ -163,10 +155,10 @@ async function graceful() {
       redisClient.quit,
       mongoose.disconnect
     ]);
-    Logger.info('gracefully shut down');
+    helpers.logger.info('gracefully shut down');
     process.exit(0);
   } catch (err) {
-    Logger.error(err);
+    helpers.logger.error(err);
     process.exit(1);
   }
 }

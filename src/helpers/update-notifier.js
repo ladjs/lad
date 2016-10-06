@@ -6,7 +6,7 @@ import path from 'path';
 import YAML from 'yamljs';
 import boxen from 'boxen';
 
-import Logger from './logger';
+import logger from './logger';
 import config from '../config';
 
 export default function updateNotifierHelper() {
@@ -14,13 +14,13 @@ export default function updateNotifierHelper() {
   const yaml = YAML.load(path.join(__dirname, '..', '..', '.crocodile.yml'));
 
   if (!_.isObject(yaml))
-    return Logger.error('You are missing a ".crocodile.yml" file in the root of your project');
+    return logger.error('You are missing a ".crocodile.yml" file in the root of your project');
 
   if (!_.isObject(yaml.crocodile))
-    return Logger.error('You must have a `crocodile` block in the ".crocodile.yml" file');
+    return logger.error('You must have a `crocodile` block in the ".crocodile.yml" file');
 
   if (!_.isString(yaml.crocodile.version))
-    return Logger.error('Version was missing in the `crocodile` block of the YAML file');
+    return logger.error('Version was missing in the `crocodile` block of the YAML file');
 
   const pkg = {
     name: 'crocodile',

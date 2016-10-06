@@ -1,59 +1,43 @@
 
 import Router from 'koa-router';
 
-import controllers from '../../app/controllers';
-import { renderPage, Policies, passport } from '../../helpers';
+import { web } from '../../app/controllers';
+import { renderPage, policies, passport } from '../../helpers';
 import admin from './admin';
 import auth from './auth';
+import jobs from './jobs';
 import config from '../../config';
 
-const router = new Router();
+const router = new Router({
+  prefix: '/:locale'
+});
 
 router
-  .get('/', controllers.web.home)
+  .get('/', web.home)
   .get('/about', renderPage('about'))
-  .get('/status', controllers.web.status)
-  .get('/my-account', Policies.ensureLoggedIn, renderPage('my-account'))
+  .get('/status', web.status)
+  .get('/my-account', policies.ensureLoggedIn, renderPage('my-account'))
   .get('/404', renderPage('404'))
   .get('/500', renderPage('500'))
   .get('/terms', renderPage('terms'))
   .get('/contact', renderPage('contact'))
-  .post('/contact', controllers.web.contact)
+  .post('/contact', web.contact)
   .get('/forgot-password', renderPage('forgot-password'))
-  .post('/forgot-password', controllers.web.forgotPassword)
+  .post('/forgot-password', web.auth.forgotPassword)
   .get('/reset-password/:token', renderPage('reset-password'))
-  .post('/reset-password/:token', controllers.web.resetPassword)
-  .get(
-    '/logout',
-    Policies.ensureLoggedIn,
-    ctx => {
-      ctx.logout();
-      ctx.redirect('/');
-      return;
-    }
-  )
-  .get(
-    '/login',
-    Policies.ensureLoggedOut,
-    controllers.web.signupOrLogin
-  )
-  .post(
-    '/login',
-    Policies.ensureLoggedOut,
-    controllers.web.login
-  )
-  .get(
-    '/signup',
-    Policies.ensureLoggedOut,
-    controllers.web.signupOrLogin
-  )
+  .post('/reset-password/:token', web.auth.resetPassword)
+  .get('/logout', policies.ensureLoggedIn, web.auth.logout)
+  .get('/login', policies.ensureLoggedOut, web.auth.signupOrLogin)
+  .post('/login', policies.ensureLoggedOut, web.auth.login)
+  .get('/signup', policies.ensureLoggedOut, web.auth.signupOrLogin)
   .post(
     '/signup',
-    Policies.ensureLoggedOut,
-    controllers.web.register,
+    policies.ensureLoggedOut,
+    web.auth.register,
     passport.authenticate('local', config.auth.callbackOpts)
   );
 
+router.use(jobs.routes());
 router.use(auth.routes());
 router.use(admin.routes());
 

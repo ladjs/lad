@@ -19,7 +19,6 @@ global.FormData = FormData;
 global.config = config;
 global.fixturesDir = path.join(__dirname, '..', 'fixtures');
 global._options = {
-  baseURI: 'http://localhost:8080',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

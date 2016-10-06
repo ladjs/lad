@@ -1,8 +1,3 @@
 
-import web from './web';
-import api from './api';
-
-export default {
-  web,
-  api
-};
+export * as web from './web';
+export * as api from './api';

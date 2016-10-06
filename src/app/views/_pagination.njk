@@ -1,0 +1,50 @@
+{% if pageCount and pageCount > 0 %}
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      {% set links = paginate.getArrayPages(5, pageCount, query.page) %}
+      {% if paginate.hasPreviousPages %}
+        <li class="page-item">
+          <a class="page-link" href="{{ paginate.href(true) }}" aria-label="{{ t('Previous') }}">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+            <span class="sr-only">{{ t('Previous') }}</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-label="{{ t('Previous') }}">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+            <span class="sr-only">{{ t('Previous') }}</span>
+          </span>
+        </li>
+      {% endif %}
+      {% for link in links %}
+        {% if link.number == 1 and pageCount == 1 %}
+          <li class="page-item disabled"><span class="page-link">{{ link.number }}</span></li>
+        {% else %}
+          {% if link.number == pageCount %}
+            <li class="page-item active"><a class="page-link" href="{{ link.url }}">{{ link.number }}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="{{ link.url }}">{{ link.number }}</a></li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% if paginate.hasNextPages(pageCount) %}
+        <li class="page-item">
+          <a class="page-link" href="{{ paginate.href({ page: query.page + 1 }) }}" aria-label="{{ t('Next') }}">
+            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+            <span class="sr-only">{{ t('Next') }}</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-label="{{ t('Next') }}">
+            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+            <span class="sr-only">{{ t('Next') }}</span>
+          </span>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% else %}
+  <div class="alert alert-warning">{{ t('No results were found.') }}</div>
+{% endif %}

@@ -33,27 +33,17 @@ import promisify from 'es6-promisify';
 import CSRF from 'koa-csrf';
 
 import config from './config';
-import {
-  dynamicViewHelpers,
-  contextHelpers,
-  passport,
-  Logger,
-  _404Handler,
-  timeout,
-  Mongoose,
-  checkLicense,
-  updateNotifier
-} from './helpers';
+import * as helpers from './helpers';
 import routes from './routes';
 
 // check for CrocodileJS license key
-checkLicense();
+helpers.checkLicense();
 
 // check for updates
-updateNotifier();
+helpers.updateNotifier();
 
 // initialize mongoose
-const mongoose = new Mongoose();
+const mongoose = helpers.mongoose();
 
 // connect to redis
 const redisClient = redis.createClient(config.redis);
@@ -76,11 +66,20 @@ locale(app);
 // later on with `server.close()`
 let server;
 
-app.on('error', Logger.ctxError);
-app.on('log', Logger.log);
+app.on('error', helpers.logger.ctxError);
+app.on('log', helpers.logger.log);
+
+// trust proxy
+app.proxy = true;
+
+// compress/gzip
+app.use(compress());
 
 // favicons
 app.use(favicon(config.favicon));
+
+// serve static assets
+app.use(convert(serveStatic(config.buildDir, config.serveStatic)));
 
 // koa-manifest-rev
 app.use(koaManifestRev(config.koaManifestRev));
@@ -91,17 +90,11 @@ app.use(convert(i18n(app, {
   directory: config.localesDirectory,
   indent: '  ',
   locales: config.locales,
-  modes: [ 'header' ]
+  modes: [ 'url', 'cookie', 'header' ]
 })));
 
 // set nunjucks as rendering engine
 app.use(views(config.viewsDir, config.nunjucks));
-
-// trust proxy
-app.proxy = true;
-
-// compress/gzip
-app.use(compress());
 
 // livereload if we're in dev mode
 if (config.env === 'development')
@@ -137,9 +130,6 @@ app.use(helmet());
 // remove trailing slashes
 app.use(convert(removeTrailingSlashes));
 
-// serve static assets
-app.use(convert(serveStatic(config.buildDir, config.serveStatic)));
-
 // session store
 app.keys = config.sessionKeys;
 app.use(convert(session({ store: redisStore, key: config.cookiesKey })));
@@ -157,10 +147,10 @@ app.use(bodyParser());
 app.use(json());
 
 // add context helpers (e.g. `ctx.translate`)
-app.use(contextHelpers);
+app.use(helpers.contextHelpers);
 
 // custom 404 handler since it's not already built in
-app.use(_404Handler);
+app.use(helpers._404Handler);
 
 // csrf (with added localization support)
 app.use((ctx, next) => {
@@ -187,16 +177,16 @@ app.use(async (ctx, next) => {
 });
 
 // auth
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(helpers.passport.initialize());
+app.use(helpers.passport.session());
 
 // add dynamic view helpers
-app.use(dynamicViewHelpers);
+app.use(helpers.dynamicViewHelpers);
 
 // configure timeout
 app.use(async (ctx, next) => {
   try {
-    await timeout(
+    await helpers.timeout(
       config.webRequestTimeoutMs,
       ctx.translate('REQUEST_TIMED_OUT')
     )(ctx, next);
@@ -204,6 +194,9 @@ app.use(async (ctx, next) => {
     ctx.throw(err);
   }
 });
+
+// detect or redirect based off locale url
+app.use(helpers.i18n.middleware);
 
 // mount the app's defined and nested routes
 app.use(routes.web.routes());
@@ -217,18 +210,18 @@ else
 if (!module.parent)
   server = server.listen(
     config.ports.web,
-    () => Logger.info(`web server listening on ${config.ports.web}`)
+    () => helpers.logger.info(`web server listening on ${config.ports.web}`)
   );
 
 // handle uncaught promises
 process.on('unhandledRejection', function (reason, p) {
-  Logger.error(`unhandled promise rejection: ${reason}`, p);
+  helpers.logger.error(`unhandled promise rejection: ${reason}`, p);
   console.dir(p, { depth: null });
 });
 
 // handle uncaught exceptions
 process.on('uncaughtException', err => {
-  Logger.error(err);
+  helpers.logger.error(err);
   process.exit(1);
 });
 
@@ -253,10 +246,10 @@ async function graceful() {
       redisClient.quit,
       mongoose.disconnect
     ]);
-    Logger.info('gracefully shut down');
+    helpers.logger.info('gracefully shut down');
     process.exit(0);
   } catch (err) {
-    Logger.error(err);
+    helpers.logger.error(err);
     process.exit(1);
   }
 }

@@ -1,0 +1,97 @@
+
+{% extends "layout.njk" %}
+
+{% block scripts %}
+  {{ super() }}
+  {# https://stripe.com/docs/checkout#integration-custom #}
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script>window.STRIPE_PUBLISHABLE_KEY = "{{config.stripe.publishableKey}}";</script>
+{% endblock %}
+
+{% block body %}
+
+  <div class="container">
+
+    <h1 class="m-y-3 text-xs-center">{{ t('Post a job') }}</h1>
+
+    <div class="alert alert-info text-xs-center m-y-2">
+      <ul class="list-inline m-b-0">
+        <li class="list-inline-item">
+          <strong>{{ t('Are you using CrocodileJS and hiring developers?') }}</strong>
+        </li>
+        <li class="list-inline-item">
+          {{ t('Post your job to be displayed <a class="alert-link" href="/jobs">here</a>!') | safe }}</div>
+        </li>
+      </ul>
+
+    <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 m-b-1">
+
+      <h2 class="h3 text-xs-center text-muted m-y-2">{{ t('How does it work?') }}</h2>
+
+      <ol class="lead">
+        <li>{{ t('Complete the simple form fields below.') }}</li>
+        <li>{{ t('Pay a fee of <sup><i class="fa fa-usd"></i></sup>29 for 30 days of publicity.') | safe }}</li>
+        <li>{{ t('Applicants get introduced to you by email.') }}</li>
+      </ol>
+
+      <h2 class="h3 text-xs-center text-muted m-y-2">{{ t('Get started now') }}</h2>
+
+      <form
+        action="/{{ locale }}/jobs/post-a-job"
+        method="POST"
+        class="ajax-form stripe-checkout"
+        data-name="CrocodileJS"
+        data-email="{% if user %}{{ user.email }}{% endif %}"
+        data-description="{{ t('Your job will be posted for (30) days') }}"
+        data-amount=4900
+        data-panel-label="{{ t('Post Job') }}"
+        >
+        <input type="hidden" name="_csrf" value="{{ csrf }}" />
+        <input type="hidden" name="stripe_token" />
+        <div class="card card-outline-primary">
+          <div class="card-block">
+            <h3 class="card-title h5 text-xs-center">{{ t('Company Details') }}</h3>
+
+            <div class="form-group">
+              <input type="text" required="required" name="company_name" class="form-control" placeholder="{{ t('Name') }}" />
+            </div>
+
+            <div class="form-group">
+              <input type="email" required="required" name="company_email" class="form-control" placeholder="{{ t('Email address') }}" />
+            </div>
+
+            <div class="form-group">
+              <input type="url" required="required" name="company_website" class="form-control" placeholder="{{ t('Website') }}" />
+            </div>
+
+            <label class="custom-file d-block">
+              <input required="required" data-toggle="custom-file" data-target="#company-logo" type="file" name="company_logo" accept="image/*" class="custom-file-input">
+              <span id="company-logo" class="custom-file-control custom-file-name" data-btn="{{ t('Select File') }}" data-content="{{ t('Upload company logo...') }}"></span>
+            </label>
+
+            <ul class="form-text text-muted list-inline text-xs-center">
+              <li class="list-inline-item"><small><strong>{{ t('File Types:') }}</strong> PNG, JPEG, GIF</small></li>
+              <li class="list-inline-item"><small><strong>{{ t('Resolution:') }}</strong> 600 x 600</small></li>
+            </ul>
+
+            <h3 class="card-title h5 text-xs-center m-t-2">{{ t('Job Details') }}</h3>
+
+            <div class="form-group">
+              <input required="required" type="text" name="job_title" class="form-control" placeholder="{{ t('Title') }}" />
+            </div>
+            <div class="form-group">
+              <textarea required="required" maxlength="240" rows="3" name="job_description" class="form-control" placeholder="{{ t('Description') }}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">{{ t('Continue') }}</button>
+          </div>
+          <div class="card-footer text-xs-center">
+            {{ t('Have questions?') }} <a href="/contact" class="card-link">{{ t('Contact us') }}</a>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+{% endblock %}

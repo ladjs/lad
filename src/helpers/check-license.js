@@ -10,31 +10,31 @@ import YAML from 'yamljs';
 import boxen from 'boxen';
 
 import config from '../config';
-import Logger from './logger';
+import logger from './logger';
 
 export default async function checkLicense() {
 
   const yaml = YAML.load(path.join(__dirname, '..', '..', '.crocodile.yml'));
 
   if (!_.isObject(yaml))
-    return Logger.error('You are missing a ".crocodile.yml" file in the root of your project');
+    return logger.error('You are missing a ".crocodile.yml" file in the root of your project');
 
   if (!_.isObject(yaml.crocodile))
-    return Logger.error('You must have a `crocodile` block in the ".crocodile.yml" file');
+    return logger.error('You must have a `crocodile` block in the ".crocodile.yml" file');
 
   if (!_.isString(yaml.crocodile.license) || s.isBlank(yaml.crocodile.license)) {
     /* eslint-disable max-len */
     output([
       `CrocodileJS commercial license key was ${chalk.red.bold('not detected')}.`,
       '',
-      `Using for commercial purposes? Purchase your license + ${chalk.green.bold('get free t-shirt')}!`,
+      'Using for commercial purposes? Purchase your license today!',
       '',
-      `Run ${chalk.magenta.bold('crocodile license')} or visit the website link below`,
+      `Run ${chalk.green.bold('crocodile license')} or visit the website link below`,
       '',
       `${chalk.gray('Already have a license key?  Add it to your .crocodile.yml file to hide this message.')}`,
       '',
-      `${chalk.magenta.bold('https://crocodilejs.com')}`
-    ]);
+      `${chalk.green.bold('https://crocodilejs.com')}`
+    ], 'red');
     /* eslint-enable max-len */
     return;
   }
@@ -47,8 +47,6 @@ export default async function checkLicense() {
       'Content-Type': 'application/json'
     }
   });
-
-  console.log('api', api);
 
   try {
 
@@ -71,33 +69,33 @@ export default async function checkLicense() {
       '',
       `It is valid for "${res.body.desc}".`,
       '',
-      `${chalk.magenta.bold('https://crocodilejs.com')}`
-    ]);
+      `${chalk.green.bold('https://crocodilejs.com')}`
+    ], 'green');
     /* eslint-enable max-len */
 
   } catch (err) {
-    Logger.error(err);
+    logger.error(err);
     /* eslint-disable max-len */
     output([
       `CrocodileJS commercial license key was ${chalk.red.bold('invalid')}.`,
       '',
       'Please make sure that you entered the license key correctly.',
       '',
-      `Run ${chalk.magenta.bold('crocodile license')} or visit the website link below`,
+      `Run ${chalk.green.bold('crocodile license')} or visit the website link below`,
       '',
       `${chalk.gray('Already have a license key?  Add it to your .crocodile.yml file to hide this message.')}`,
       '',
-      `${chalk.magenta.bold('https://crocodilejs.com')}`
-    ]);
+      `${chalk.green.bold('https://crocodilejs.com')}`
+    ], 'red');
     /* eslint-enable max-len */
   }
 
 }
 
-function output(message) {
+function output(message, borderColor) {
   console.log(boxen(message.join('\n'), {
     borderStyle: 'round',
-    borderColor: 'red',
+    borderColor: borderColor,
     margin: 1,
     padding: 1,
     align: 'center'

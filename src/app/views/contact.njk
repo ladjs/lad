@@ -6,18 +6,16 @@
   <div class="container">
     <div class="jumbotron m-t-1">
       <h1>Contact</h1>
-      <p class="lead">Complete the form below to get in touch.</p>
-      <form action="/contact" method="POST" class="ajax-form">
+      <p class="lead">{{ t('Complete the form below to get in touch.') }}</p>
+      <form action="/{{ locale }}/contact" method="POST" class="ajax-form">
         <input type="hidden" name="_csrf" value="{{ csrf }}" />
         <div class="form-group">
-          <label for="input-email">Email address</label>
-          <input id="email" required="required" name="email" type="email" class="form-control" placeholder="Email address">
+          <input id="email" required="required" name="email" type="email" class="form-control" placeholder="{{ t('Email address') }}">
         </div>
         <div class="form-group">
-          <label for="input-message">Message</label>
-          <textarea rows="3" maxlength="{{ config.contactRequestMaxLength }}" id="message" name="message" class="form-control" placeholder="Message"></textarea>
+          <textarea rows="3" maxlength="{{ config.contactRequestMaxLength }}" id="message" name="message" class="form-control" placeholder="{{ t('Message') }}"></textarea>
         </div>
-        <button type="submit" class="btn btn-block btn-primary" data-toggle="tooltip" data-placement="bottom" title="We'll be in touch!"><i class="fa fa-paper-plane"></i> Send Contact Request</button>
+        <button type="submit" class="btn btn-block btn-primary" data-toggle="tooltip" data-placement="bottom" title="{{ t('We\'ll be in contact with you!') }}"><i class="fa fa-paper-plane"></i> {{ t('Send Contact Request') }}</button>
       </form>
     </div>
   </div>

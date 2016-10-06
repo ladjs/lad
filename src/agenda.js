@@ -4,25 +4,18 @@ import Agenda from 'agenda';
 import promisify from 'es6-promisify';
 import _ from 'lodash';
 
-import Jobs from './jobs';
-import {
-  Mongoose,
-  Logger,
-  checkLicense,
-  updateNotifier
-} from './helpers/';
-import config from './config/';
+import * as jobs from './jobs';
+import * as helpers from './helpers';
+import config from './config';
 
 // check for CrocodileJS license key
-checkLicense();
+helpers.checkLicense();
 
 // check for updates
-updateNotifier();
-
-const Job = new Jobs();
+helpers.updateNotifier();
 
 // initialize mongoose
-const mongoose = new Mongoose();
+const mongoose = helpers.mongoose();
 
 // when the connection is connected we need to override
 // the default connection event, because agenda requires
@@ -34,8 +27,8 @@ mongoose.connection.on('connected', () => {
     mongoose.connection.collection(config.agenda.collection).conn.db,
     config.agenda.collection,
     err => {
-      if (err) return Logger.error(err);
-      Logger.info('agenda opened connection using existing mongoose connection');
+      if (err) return helpers.logger.error(err);
+      helpers.logger.info('agenda opened connection using existing mongoose connection');
     }
   );
 });
@@ -47,7 +40,7 @@ mongoose.connection.on('disconnected', async () => {
     try {
       await promisify(agenda.stop, agenda)();
     } catch (err) {
-      Logger.error(err);
+      helpers.logger.error(err);
     }
   }
 });
@@ -69,14 +62,13 @@ const agenda = new Agenda({
 
 agenda.on('ready', () => {
 
-  Logger.info('agenda ready');
+  helpers.logger.info('agenda ready');
 
   cancel();
 
   // define all of our jobs
-  _.each(Job.getJobs(), function (job) {
-    job[2] = job[2].bind(Job);
-    agenda.define(...job);
+  _.each(jobs.getJobs(), function (_job) {
+    agenda.define(..._job);
   });
 
   agenda.now('locales');
@@ -92,35 +84,35 @@ agenda.on('ready', () => {
 });
 
 // handle events emitted
-agenda.on('start', job => Logger.info(`job "${job.attrs.name}" started`));
-agenda.on('complete', job => Logger.info(`job "${job.attrs.name}" completed`));
-agenda.on('success', job => Logger.info(`job "${job.attrs.name}" succeeded`));
+agenda.on('start', job => helpers.logger.info(`job "${job.attrs.name}" started`));
+agenda.on('complete', job => helpers.logger.info(`job "${job.attrs.name}" completed`));
+agenda.on('success', job => helpers.logger.info(`job "${job.attrs.name}" succeeded`));
 agenda.on('fail', (err, job) => {
   err.message = `job "${job.attrs.name}" failed: ${err.message}`;
-  Logger.error(err, { extra: { job }});
+  helpers.logger.error(err, { extra: { job }});
 });
-agenda.on('error', Logger.error);
+agenda.on('error', helpers.logger.error);
 
 // cancel recurring jobs so they get redefined on the next server start
 // <http://goo.gl/nu1Rco>
 async function cancel() {
-  if (!agenda._collection) return Logger.error('Collection did not exist');
+  if (!agenda._collection) return helpers.logger.error('Collection did not exist');
   try {
     await promisify(agenda.cancel, agenda)(cancelOptions);
   } catch (err) {
-    Logger.error(err);
+    helpers.logger.error(err);
   }
 }
 
 // handle uncaught promises
 process.on('unhandledRejection', function (reason, p) {
-  Logger.error(`unhandled promise rejection: ${reason}`, p);
+  helpers.logger.error(`unhandled promise rejection: ${reason}`, p);
   console.dir(p, { depth: null });
 });
 
 // handle uncaught exceptions
 process.on('uncaughtException', err => {
-  Logger.error(err);
+  helpers.logger.error(err);
   process.exit(1);
 });
 
@@ -146,7 +138,7 @@ function graceful() {
     // check every second for jobs still running
     let jobInterval = setInterval(async () => {
       if (agenda._runningJobs.length > 0) {
-        Logger.info(`${agenda._runningJobs.length} jobs still running`);
+        helpers.logger.info(`${agenda._runningJobs.length} jobs still running`);
       } else {
         clearInterval(jobInterval);
         jobInterval = null;
@@ -157,13 +149,13 @@ function graceful() {
 
     setInterval(() => {
       if (!jobInterval) {
-        Logger.info('gracefully shut down');
+        helpers.logger.info('gracefully shut down');
         process.exit(0);
       }
     }, 500);
 
   } catch (err) {
-    Logger.error(err);
+    helpers.logger.error(err);
     throw err;
   }
 

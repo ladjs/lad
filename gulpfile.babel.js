@@ -2,7 +2,6 @@
 // babel requirements
 import 'babel-polyfill';
 
-// gulp dependencies
 import gutil from 'gulp-util';
 import awspublish from 'gulp-awspublish';
 import cloudfront from 'gulp-cloudfront';
@@ -27,6 +26,7 @@ import sass from 'gulp-sass';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import reporter from 'postcss-reporter';
+import ms from 'ms';
 
 import config from './src/config';
 
@@ -35,7 +35,7 @@ const publisher = awspublish.create(config.aws);
 
 // define custom headers
 const headers = {
-  'Cache-Control': 'max-age=315360000, no-transform, public'
+  'Cache-Control': `public, max-age=${ms('1yr')}`
 };
 
 const PROD = config.env === 'production';

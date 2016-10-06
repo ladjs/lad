@@ -1,4 +1,5 @@
 
+import { getLanguage } from 'country-language';
 import _ from 'lodash';
 import s from 'underscore.string';
 import config from '../config';
@@ -27,6 +28,28 @@ export default function dynamicViewHelpers(ctx, next) {
 
   // add `req` object to the state for views
   ctx.state.req = ctx.request;
+
+  // add `query` object to the state for views
+  ctx.state.query = ctx.query;
+
+  // bind a `t` helper function for translations
+  ctx.state.t = ctx.state.__;
+  ctx.state.tn = ctx.state.__n;
+
+  // available languages for a dropdown menu to change language
+  ctx.state.languages = _.sortBy(_.map(config.locales, locale => {
+    return {
+      locale,
+      name: getLanguage(locale).name
+    };
+  }), 'name');
+
+  // get the name of the current locale's language
+  ctx.state.currentLanguage = getLanguage(ctx.i18n.locale).name;
+
+  // allow the locale to be read by the view
+  // (useful for defining the `lang` attribute in `<html>`)
+  ctx.state.locale = ctx.i18n.locale;
 
   // add flash messages to state
   ctx.state.flash = () => {

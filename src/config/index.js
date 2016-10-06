@@ -30,6 +30,9 @@ const omitCommonFields = [ '_id', '__v' ];
 
 let config = {
 
+  // package.json
+  pkg,
+
   // check daily for crocodilejs updates
   updateCheckInterval: 1000 * 60 * 60 * 24,
 
@@ -57,6 +60,7 @@ let config = {
   },
 
   // app
+  googleTranslateKey: env.GOOGLE_TRANSLATE_KEY,
   webRequestTimeoutMs: env.WEB_REQUEST_TIMEOUT_MS,
   apiRequestTimeoutMs: env.API_REQUEST_TIMEOUT_MS,
   contactRequestMaxLength: env.CONTACT_REQUEST_MAX_LENGTH,
@@ -110,6 +114,10 @@ let config = {
     'last',
     'hash',
     'salt',
+    'reset_token_expires_at',
+    'reset_token',
+    'licenses',
+    'has_license',
     'google_profile_id',
     'google_access_token',
     'google_refresh_token'
@@ -261,8 +269,19 @@ let config = {
     }
   },
 
-  // CrocodileJS license key check URL
-  licenseKeyCheckURL: env.CROCODILEJS_LICENSE_KEY_CHECK_URL
+  // stripe
+  stripe: {
+    secretKey: env.STRIPE_SECRET_KEY,
+    publishableKey: env.STRIPE_PUBLISHABLE_KEY
+  },
+
+  // footer copyright
+  copyright: 'Niftylettuce LLC.',
+
+  // CrocodileJS default app config
+  licenseKeyCheckURL: env.CROCODILEJS_LICENSE_KEY_CHECK_URL,
+  licenseCostDollars: 95,
+  jobPostCostDollars: 49
 
 };
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en-US">
+<html class="no-js" lang="{{ locale }}">
   <head>
 
     {% block head %}
@@ -9,6 +9,14 @@
       <title>{{title}}</title>
       <meta name="description" content="{{desc}}">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      {# languages supported #}
+      {# https://support.google.com/webmasters/answer/189077?hl=en #}
+      {# https://support.google.com/webmasters/answer/182192?hl=en #}
+      <link rel="alternate" href="{{ config.urls.web }}" hreflang="x-default" />
+      {% for language in languages %}
+        <link rel="alternate" href="{{ config.urls.web }}/{{ language.locale }}" hreflang="{{ language.locale }}" />
+      {% endfor %}
 
       {# generated with https://realfavicongenerator.net #}
       <link rel="apple-touch-icon" sizes="152x152" href="{{ manifest('img/apple-touch-icon.png') }}">
@@ -63,6 +71,13 @@
 
     {# sweetalert flash messaging #}
     <script>
+      window._types = {
+        success: "{{ t('Success') }}",
+        error: "{{ t('Error') }}",
+        info: "{{ t('Info') }}",
+        warning: "{{ t('Warning') }}",
+        question: "{{ t('Question') }}"
+      };
       window._messages = {{ flash() | json | safe }};
     </script>
 

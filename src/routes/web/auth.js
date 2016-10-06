@@ -2,7 +2,7 @@
 import Boom from 'boom';
 import Router from 'koa-router';
 
-import { Policies, passport } from '../../helpers';
+import { policies, passport } from '../../helpers';
 import config from '../../config';
 
 const router = new Router({
@@ -10,14 +10,14 @@ const router = new Router({
 });
 
 router
-  .param('provider', async (provider, ctx, next) => {
+  .param('provider', (provider, ctx, next) => {
     if (!config.auth.providers[provider])
-      return await ctx.throw(Boom.badRequest('Invalid provider'));
-    await next();
+      return ctx.throw(Boom.badRequest('Invalid provider'));
+    return next();
   })
   .get(
     '/:provider',
-    Policies.ensureLoggedOut,
+    policies.ensureLoggedOut,
     config.auth.catchError,
     (ctx, next) => passport.authenticate(
       ctx.params.provider,
@@ -26,7 +26,7 @@ router
   )
   .get(
     '/:provider/ok',
-    Policies.ensureLoggedOut,
+    policies.ensureLoggedOut,
     config.auth.catchError,
     (ctx, next) => passport.authenticate(
       ctx.params.provider, config.auth.callbackOpts
@@ -36,7 +36,7 @@ router
 if (config.auth.providers.google)
   router.get(
     '/google/consent',
-    Policies.ensureLoggedOut,
+    policies.ensureLoggedOut,
     config.auth.catchError,
     passport.authenticate('google', {
       accessType: 'offline',

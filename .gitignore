@@ -19,3 +19,6 @@ lib/
 build/
 coverage/
 .env
+
+# artillery
+artillery*.json

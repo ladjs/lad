@@ -87,7 +87,11 @@ const Users = new mongoose.Schema({
   // controllers, views, and routes as well!
 
   // CrocodileJS license key and info
-  license: {
+  has_license: {
+    type: Boolean,
+    default: false
+  },
+  licenses: [{
     // when the license was created
     created_at: Date,
     // uuid v4 license key randomly generated
@@ -100,16 +104,8 @@ const Users = new mongoose.Schema({
     // amount the user paid for the license in dollars
     amount: Number,
     // stripe charge id
-    stripe_charge_id: String,
-    // t-shirt size and tracking
-    free_tshirt_size: {
-      type: String,
-      enum: [ 'S', 'M', 'L', 'XL', 'XXL' ]
-    },
-    free_tshirt_tracking: String,
-    // shipping info
-    shipping_address: {}
-  }
+    stripe_charge_id: String
+  }]
 
 });
 
