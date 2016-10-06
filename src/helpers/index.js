@@ -1,4 +1,5 @@
 
+export meta from './meta';
 export timeout from './timeout';
 export passport from './passport';
 export dynamicViewHelpers from './dynamic-view-helpers';

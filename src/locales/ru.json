@@ -195,5 +195,12 @@
   "Description": "Описание",
   "Continue": "Продолжать",
   "Have questions?": "Есть вопросы?",
-  "Contact us": "Свяжитесь с нами"
+  "Contact us": "Свяжитесь с нами",
+  "Node.js MVC Framework using Koa and ES7 | CrocodileJS": "Node.js MVC Framework с использованием Коа и ES7 | CrocodileJS",
+  "CrocodileJS is a full-stack Node.js + Koa + ES7 MVC framework for Apps and API's.": "CrocodileJS является полный стек Node.js + Коа + ES7 MVC рамки для приложений и API.",
+  "Node.js MVC Framework using Koa and ES7 - CrocodileJS": "Node.js MVC Framework с использованием Коа и ES7 - CrocodileJS",
+  "Node.js MVC Framework using Koa and ES7 || CrocodileJS": "Node.js MVC Framework с использованием Коа и ES7 || CrocodileJS",
+  "Node.js MVC Framework built with Koa and ES7 - CrocodileJS": "Node.js MVC Framework построен с Коа и ES7 - CrocodileJS",
+  "Full-stack Node.js + Koa + ES7 MVC framework for Apps and API's.": "Полный стек рамки Node.js + Коа + ES7 MVC для приложений и API.",
+  "Español": "Español"
 }

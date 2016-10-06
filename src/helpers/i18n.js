@@ -54,7 +54,6 @@ i18n.middleware = function middleware(ctx, next) {
   // expose api methods to `ctx.req` and `ctx.state`
   i18n.init(ctx.req, ctx.state);
 
-
   // override the existing locale detection with our own
   // in order of priority:
   //

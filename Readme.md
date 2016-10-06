@@ -9,7 +9,7 @@
 [![Coverage Status][codecov-image]][codecov-url]
 [![Standard JS Style][standard-image]][standard-url]
 
-> CrocodileJS is a full-stack Node.js + Koa + ES7 MVC framework for Apps and API’s
+> CrocodileJS is a full-stack Node.js + Koa + ES7 MVC framework for Apps and API's
 
 ![Crocodile Dependencies][crocodile-dependencies]
 

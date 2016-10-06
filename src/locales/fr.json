@@ -341,5 +341,12 @@
   "Français": "Français",
   "Deutsch": "allemand",
   "Server Error": "erreur du serveur",
-  "A server error has unfortunately occurred.  If this error persists, please contact us.": "Une erreur de serveur a malheureusement eu lieu. Si cette erreur persiste, s'il vous plaît contactez-nous."
+  "A server error has unfortunately occurred.  If this error persists, please contact us.": "Une erreur de serveur a malheureusement eu lieu. Si cette erreur persiste, s'il vous plaît contactez-nous.",
+  "Node.js MVC Framework using Koa and ES7 | CrocodileJS": "MVC Framework Node.js utilisant Koa et ES7 | CrocodileJS",
+  "CrocodileJS is a full-stack Node.js + Koa + ES7 MVC framework for Apps and API's.": "CrocodileJS est un full-stack-cadre Node.js + Koa + ES7 MVC pour API Apps et de.",
+  "Node.js MVC Framework using Koa and ES7 - CrocodileJS": "MVC Framework Node.js utilisant Koa et ES7 - CrocodileJS",
+  "Node.js MVC Framework using Koa and ES7 || CrocodileJS": "MVC Framework Node.js utilisant Koa et ES7 || CrocodileJS",
+  "Node.js MVC Framework built with Koa and ES7 - CrocodileJS": "MVC Framework Node.js construit avec Koa et ES7 - CrocodileJS",
+  "Full-stack Node.js + Koa + ES7 MVC framework for Apps and API's.": "Full-pile cadre Node.js + Koa + ES7 MVC pour API Apps et de.",
+  "Español": "Español"
 }

@@ -71,7 +71,13 @@ agenda.on('ready', () => {
     agenda.define(..._job);
   });
 
+  // i18n translation
   agenda.now('locales');
+
+  // if we're in dev mode, translate every minute
+  // TODO: convert this to watch script somehow
+  if (config.env === 'development')
+    agenda.every('5 minutes', 'locales');
 
   // TODO: we may need to change the `lockLifetime` (default is 10 min)
   // <https://github.com/rschmukler/agenda#multiple-job-processors>

@@ -148,7 +148,7 @@ export async function create(ctx, next) {
     position.locale = ctx.req.locale;
     await position.validate();
   } catch (err) {
-    ctx.throw(Boom.badRequest(err));
+    return ctx.throw(Boom.badRequest(err));
   }
 
   const file = ctx.req.file;

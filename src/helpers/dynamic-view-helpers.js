@@ -3,8 +3,12 @@ import _ from 'lodash';
 import s from 'underscore.string';
 import config from '../config';
 import moment from 'moment';
+import meta from './meta';
 
 export default function dynamicViewHelpers(ctx, next) {
+
+  // lookup page metadata information such as title and description
+  ctx.state.meta = meta(ctx);
 
   // add csrf for forms, global, and meta tag
   ctx.state.csrf = ctx.csrf;

@@ -196,5 +196,12 @@
   "Description": "বিবরণ",
   "Continue": "Continue",
   "Have questions?": "প্রশ্ন আছে?",
-  "Contact us": "আমাদের সাথে যোগাযোগ করুন"
+  "Contact us": "আমাদের সাথে যোগাযোগ করুন",
+  "Node.js MVC Framework using Koa and ES7 | CrocodileJS": "Node.js MVC ফ্রেমওয়ার্ক Koa এবং ES7 ব্যবহার | CrocodileJS",
+  "CrocodileJS is a full-stack Node.js + Koa + ES7 MVC framework for Apps and API's.": "CrocodileJS একটি পূর্ণ স্ট্যাক অ্যাপস ও এপিআই এর জন্য Node.js + + Koa + + ES7 MVC ফ্রেমওয়ার্ক হল.",
+  "Node.js MVC Framework using Koa and ES7 - CrocodileJS": "Node.js MVC ফ্রেমওয়ার্ক Koa এবং ES7 ব্যবহার - CrocodileJS",
+  "Node.js MVC Framework using Koa and ES7 || CrocodileJS": "Node.js MVC ফ্রেমওয়ার্ক Koa এবং ES7 ব্যবহার || CrocodileJS",
+  "Node.js MVC Framework built with Koa and ES7 - CrocodileJS": "Node.js MVC ফ্রেমওয়ার্ক Koa এবং ES7 সঙ্গে অন্তর্নির্মিত - CrocodileJS",
+  "Full-stack Node.js + Koa + ES7 MVC framework for Apps and API's.": "অ্যাপস ও এপিআই এর জন্য ফুল স্ট্যাক Node.js + + Koa + + ES7 MVC ফ্রেমওয়ার্ক.",
+  "Español": "Español"
 }

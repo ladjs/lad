@@ -25,6 +25,7 @@ import pkg from '../../package.json';
 import environments from './environments';
 import locales from './locales';
 import i18n from './i18n';
+import meta from './meta';
 
 const omitCommonFields = [ '_id', '__v' ];
 
@@ -291,6 +292,9 @@ let config = {
 // localization support
 config.locales = locales;
 config.i18n = i18n;
+
+// meta support for SEO
+config.meta = meta;
 
 if (_.isObject(environments[env.NODE_ENV]))
   config = _.merge(config, environments[env.NODE_ENV]);
