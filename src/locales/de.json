@@ -187,5 +187,19 @@
   "Log in": "Einloggen",
   "Sign up": "Anmelden",
   "Try it out": "Versuch es",
-  "Please <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">sign up</a> first, then come back to this page and your unique API token will be populated below!": "Bitte <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">melden</a> Sie <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">sich</a> zuerst, dann kommen Sie wieder auf diese Seite und Ihre einzigartige API - Token wird weiter unten aufgefüllt werden!"
+  "Please <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">sign up</a> first, then come back to this page and your unique API token will be populated below!": "Bitte <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">melden</a> Sie <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">sich</a> zuerst, dann kommen Sie wieder auf diese Seite und Ihre einzigartige API - Token wird weiter unten aufgefüllt werden!",
+  "Log InNow": "Jetzt einloggen",
+  "Welcome back!": "Willkommen zurück!",
+  "Password": "Passwort",
+  "Log In with Email": "Anmelden mit E-Mail",
+  "Forget your password?": "Passwort vergessen?",
+  "Don't have an account? <a href=\"/{{ locale }}/signup\" class=\"card-link\">Sign Up</a>": "Sie haben noch kein Konto? <a href=\"/{{ locale }}/signup\" class=\"card-link\">Registrieren</a>",
+  "中文 (zhōngwén)": "Chinesisch (Zhongwen)",
+  "日本語 (にほんご)": "Japanisch (Japanisch)",
+  "العربية": "Arabisch",
+  "Français": "Französisch",
+  "Deutsch": "Deutsch",
+  "Server Error": "Serverfehler",
+  "A server error has unfortunately occurred.  If this error persists, please contact us.": "Ein Server-Fehler ist leider aufgetreten. Wenn dieser Fehler weiterhin auftritt, wenden Sie sich bitte an uns.",
+  "Select File": "Datei aussuchen"
 }

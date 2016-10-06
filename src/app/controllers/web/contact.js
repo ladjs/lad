@@ -36,9 +36,6 @@ export default async function contact(ctx) {
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_MESSAGE')));
   }
 
-  if (_.isUndefined(ctx.req.ip) && config.env === 'development')
-    ctx.req.ip = '127.0.0.1';
-
   // check if we already sent a contact request in the past day
   // with this given ip address, otherwise create and email
   const count = await Inquiries.count({

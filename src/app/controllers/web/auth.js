@@ -13,7 +13,7 @@ import config from '../../../config';
 
 export async function logout(ctx) {
   ctx.logout();
-  ctx.redirect(`/${ctx.i18n.locale}`);
+  ctx.redirect(`/${ctx.req.locale}`);
 }
 
 export async function signupOrLogin(ctx) {
@@ -241,11 +241,11 @@ export async function resetPassword(ctx) {
     if (ctx.is('json')) {
       ctx.body = {
         message: ctx.translate('RESET_PASSWORD'),
-        redirectTo: `/${ctx.i18n.locale}`
+        redirectTo: `/${ctx.req.locale}`
       };
     } else {
       ctx.flash('success', ctx.translate('RESET_PASSWORD'));
-      ctx.redirect(`/${ctx.i18n.locale}`);
+      ctx.redirect(`/${ctx.req.locale}`);
     }
   }
 

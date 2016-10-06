@@ -3,8 +3,6 @@ import 'source-map-support/register';
 
 import http from 'http';
 import https from 'https';
-import locale from 'koa-locale';
-import i18n from 'koa-i18n-2';
 import Koa from 'koa';
 import convert from 'koa-convert';
 import compress from 'koa-compress';
@@ -39,9 +37,6 @@ redisClient.on('error', err => app.emit('error', err));
 // initialize the app
 const app = new Koa();
 
-// initialize localization
-locale(app);
-
 // store the server initialization
 // so that we can gracefully exit
 // later on with `server.close()`
@@ -51,12 +46,7 @@ app.on('error', helpers.logger.ctxError);
 app.on('log', helpers.logger.log);
 
 // setup localization
-app.use(convert(i18n(app, {
-  extension: '.json',
-  directory: config.localesDirectory,
-  locales: config.locales,
-  modes: [ 'header' ]
-})));
+app.use(helpers.i18n.middleware);
 
 // trust proxy
 app.proxy = true;

@@ -324,5 +324,22 @@
   "Have questions?": "Avoir des questions?",
   "Contact us": "Contactez nous",
   "Select File": "Choisir le dossier",
-  "What about the \"locales\" job mentioned?  The locales job runs automatically every time the job scheduler boots.  It will keep you up to date on your translation and localization efforts (e.g. if you're forgetting to translate a particular phrase, then it will notify you in the command line output).  <strong>We built in support for automatic Google Translation too.</strong>.  Finally, here is an example of the helpful output that the \"locales\" job provides:": "Qu'en est-il le travail \"locales\" mentionné? Le travail des lieux se déroule automatiquement à chaque démarrage du planificateur d'emploi. Il vous tiendra à jour sur votre traduction et de localisation des efforts (par exemple , si vous oubliez de traduire une phrase en particulier, il vous avertira à la sortie de la ligne de commande). <strong>Nous avons construit à</strong> l' <strong>appui de traduction automatique</strong> de <strong>Google aussi..</strong> Enfin , voici un exemple de la sortie utile que le \"locales\" travail fournit:"
+  "What about the \"locales\" job mentioned?  The locales job runs automatically every time the job scheduler boots.  It will keep you up to date on your translation and localization efforts (e.g. if you're forgetting to translate a particular phrase, then it will notify you in the command line output).  <strong>We built in support for automatic Google Translation too.</strong>.  Finally, here is an example of the helpful output that the \"locales\" job provides:": "Qu'en est-il le travail \"locales\" mentionné? Le travail des lieux se déroule automatiquement à chaque démarrage du planificateur d'emploi. Il vous tiendra à jour sur votre traduction et de localisation des efforts (par exemple , si vous oubliez de traduire une phrase en particulier, il vous avertira à la sortie de la ligne de commande). <strong>Nous avons construit à</strong> l' <strong>appui de traduction automatique</strong> de <strong>Google aussi..</strong> Enfin , voici un exemple de la sortie utile que le \"locales\" travail fournit:",
+  "Log in": "S'identifier",
+  "Sign up": "S'inscrire",
+  "Try it out": "Essayez-le",
+  "Please <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">sign up</a> first, then come back to this page and your unique API token will be populated below!": "S'il vous plaît <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">inscrivez</a> - <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">vous</a> d' abord, puis de revenir à cette page et votre clé API unique sera peuplé ci - dessous!",
+  "Log InNow": "Connecte-toi maintenant",
+  "Welcome back!": "Nous saluons le retour!",
+  "Password": "Mot de passe",
+  "Log In with Email": "Connectez-vous avec Email",
+  "Forget your password?": "Mot de passe oublié?",
+  "Don't have an account? <a href=\"/{{ locale }}/signup\" class=\"card-link\">Sign Up</a>": "Ne pas avoir un compte? <a href=\"/{{ locale }}/signup\" class=\"card-link\">Inscription</a>",
+  "中文 (zhōngwén)": "Chinois (zhongwen)",
+  "日本語 (にほんご)": "Japanese (Japonais)",
+  "العربية": "arabe",
+  "Français": "Français",
+  "Deutsch": "allemand",
+  "Server Error": "erreur du serveur",
+  "A server error has unfortunately occurred.  If this error persists, please contact us.": "Une erreur de serveur a malheureusement eu lieu. Si cette erreur persiste, s'il vous plaît contactez-nous."
 }

@@ -36,7 +36,7 @@ export async function list(ctx, next) {
     && (!ctx.isAuthenticated() || !ctx.req.user.has_license)) {
     ctx.session.returnTo = ctx.req.url;
     ctx.flash('warning', ctx.translate('LICENSE_REQUIRED'));
-    ctx.redirect(`/${ctx.i18n.locale}`);
+    ctx.redirect(`/${ctx.req.locale}`);
     return;
   }
 
@@ -138,9 +138,6 @@ export async function create(ctx, next) {
   if (!_.isString(body.stripe_token) || s.isBlank(body.stripe_token))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_STRIPE_TOKEN')));
 
-  if (_.isUndefined(ctx.req.ip) && config.env === 'development')
-    ctx.req.ip = '127.0.0.1';
-
   // validate fields
   const position = new Positions({
     ... body,
@@ -148,7 +145,7 @@ export async function create(ctx, next) {
   });
 
   try {
-    position.locale = ctx.i18n.locale;
+    position.locale = ctx.req.locale;
     await position.validate();
   } catch (err) {
     ctx.throw(Boom.badRequest(err));

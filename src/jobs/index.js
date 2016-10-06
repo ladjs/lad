@@ -13,7 +13,7 @@ import s from 'underscore.string';
 import _ from 'lodash';
 import nodemailer from 'nodemailer';
 import { htmlToText as htmlToTextPlugin } from 'nodemailer-html-to-text';
-import { logger } from '../helpers';
+import { i18n, logger } from '../helpers';
 import config from '../config';
 import path from 'path';
 
@@ -67,7 +67,9 @@ export async function email(job, done) {
       // add to locals some utility libraries
       moment,
       _,
-      accounting
+      accounting,
+      // add support for translation in emails
+      ... i18n.api
     });
 
     const transportOptions = {

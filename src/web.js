@@ -4,8 +4,6 @@ import 'source-map-support/register';
 import http from 'http';
 import https from 'https';
 import Boom from 'boom';
-import locale from 'koa-locale';
-import i18n from 'koa-i18n-2';
 import Koa from 'koa';
 import livereload from 'koa-livereload';
 import convert from 'koa-convert';
@@ -58,9 +56,6 @@ const redisStore = new RedisStore({
 // initialize the app
 const app = new Koa();
 
-// initialize localization
-locale(app);
-
 // store the server initialization
 // so that we can gracefully exit
 // later on with `server.close()`
@@ -85,13 +80,7 @@ app.use(convert(serveStatic(config.buildDir, config.serveStatic)));
 app.use(koaManifestRev(config.koaManifestRev));
 
 // setup localization
-app.use(convert(i18n(app, {
-  extension: '.json',
-  directory: config.localesDirectory,
-  indent: '  ',
-  locales: config.locales,
-  modes: [ 'url', 'cookie', 'header' ]
-})));
+app.use(helpers.i18n.middleware);
 
 // set nunjucks as rendering engine
 app.use(views(config.viewsDir, config.nunjucks));
@@ -196,7 +185,7 @@ app.use(async (ctx, next) => {
 });
 
 // detect or redirect based off locale url
-app.use(helpers.i18n.middleware);
+app.use(helpers.i18n.redirect);
 
 // mount the app's defined and nested routes
 app.use(routes.web.routes());

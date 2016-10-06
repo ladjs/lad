@@ -3,15 +3,15 @@
     <i class="fa fa-bars"></i>
   </button>
   <a class="navbar-brand" href="/{{ locale }}">{{config.appName}} <span class="tag tag-default">{{ version }}</span></a>
-  {% if languages.length > 1 %}
-  <div class="btn-group pull-xs-right">
-    <a href="#" class="hidden-md-up navbar-btn-sm-margin-top m-r-1 dropdown-toggle btn btn-sm btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-language-mobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  {% if availableLanguages.length > 1 %}
+  <div class="hidden-lg-up btn-group pull-xs-right">
+    <a href="#" class="navbar-btn-sm-margin-top m-r-1 dropdown-toggle btn btn-sm btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-language-mobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-language"></i> {{ s.titleize(t(currentLanguage)) }}
     </a>
     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-language-mobile">
-      {% for language in languages %}
+      {% for language in availableLanguages %}
         {% if language.locale !== locale %}
-          <li><a class="dropdown-item" href="{{ req.url.replace(locale, language.locale) }}">{{ s.titleize(language.name) }}</a></li>
+          <li><a class="dropdown-item" href="{{ req.url.replace(locale, language.locale) }}">{{ language.name }}</a></li>
         {% endif %}
       {% endfor %}
     </ul>
@@ -73,13 +73,13 @@
           </ul>
         </li>
 
-        {% if languages.length > 1 %}
+        {% if availableLanguages.length > 1 %}
           <li class="nav-item btn-group">
             <a href="#" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-language"></i> {{ s.titleize(t(currentLanguage)) }}
             </a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-language">
-              {% for language in languages %}
+              {% for language in availableLanguages %}
                 {% if language.locale !== locale %}
                   <li><a class="dropdown-item" href="{{ req.url.replace(locale, language.locale) }}">{{ s.titleize(language.name) }}</a></li>
                 {% endif %}

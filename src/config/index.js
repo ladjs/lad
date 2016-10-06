@@ -30,6 +30,9 @@ const omitCommonFields = [ '_id', '__v' ];
 
 let config = {
 
+  // default language/locale
+  defaultLocale: 'en',
+
   // package.json
   pkg,
 

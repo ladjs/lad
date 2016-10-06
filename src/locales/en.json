@@ -193,5 +193,16 @@
   "Please <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">sign up</a> first, then come back to this page and your unique API token will be populated below!": "Please <a href=\"/{{ locale }}/signup?redirect=/#the-api-server\">sign up</a> first, then come back to this page and your unique API token will be populated below!",
   "Select File": "Select File",
   "foo bar baz": "foo bar baz",
-  "foo bar baz beep": "foo bar baz beep"
+  "foo bar baz beep": "foo bar baz beep",
+  "Log InNow": "Log InNow",
+  "Welcome back!": "Welcome back!",
+  "Password": "Password",
+  "Log In with Email": "Log In with Email",
+  "Forget your password?": "Forget your password?",
+  "Don't have an account? <a href=\"/{{ locale }}/signup\" class=\"card-link\">Sign Up</a>": "Don't have an account? <a href=\"/{{ locale }}/signup\" class=\"card-link\">Sign Up</a>",
+  "中文 (zhōngwén)": "中文 (zhōngwén)",
+  "日本語 (にほんご)": "日本語 (にほんご)",
+  "العربية": "العربية",
+  "Français": "Français",
+  "Deutsch": "Deutsch"
 }
