@@ -15,7 +15,7 @@
       <a href="#the-web-server" class="btn btn-block btn-success btn-md">
         <i class="fa fa-arrow-down"></i>
         &nbsp;&nbsp;
-        {{ t('Learn more about <span class="hidden-sm-down">the built-in Web Server, API Server, Job Scheduler, and Proxy</span><span class="hidden-md-up">the stack</span>') | safe }}
+        {{ t('Learn more about <span class="hidden-sm-down">the built-in Web Server, API Server, Job Scheduler, Email Engine, and Proxy</span><span class="hidden-md-up">the stack</span>') | safe }}
         &nbsp;&nbsp;
         <i class="fa fa-arrow-down"></i>
       </a>
@@ -80,14 +80,16 @@
                           method="POST"
                           class="ajax-form stripe-checkout"
                           data-name="CrocodileJS"
+                          data-locale="{{ locale }}"
                           data-email="{% if user %}{{ user.email }}{% endif %}"
                           data-description="{{ t('Purchase (1) Commercial License') }}"
                           data-amount={{ config.licenseCostDollars * 100 }}
                           data-panel-label="{{ t('Purchase License') }}"
                         >
-                          <input type="hidden" name="_csrf" value="{{ csrf }}" />
-                          <input type="hidden" name="num_licenses" value="1" />
+                          <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
+                          <input type="hidden" name="stripe_email" />
                           <input type="hidden" name="stripe_token" />
+                          <input type="hidden" name="num_licenses" value="1" />
                           <button type="submit" class="btn btn-primary btn-md btn-block">{{ t('Select') }}</button>
                         </form>
                       </div>
@@ -104,14 +106,16 @@
                           method="POST"
                           class="ajax-form stripe-checkout"
                           data-name="CrocodileJS"
+                          data-locale="{{ locale }}"
                           data-email="{% if user %}{{ user.email }}{% endif %}"
                           data-description="{{ t('Purchase (5) Commercial Licenses') }}"
                           data-amount={{ config.licenseCostDollars * 100 * 5 * 0.9 }}
                           data-panel-label="{{ t('Purchase Licenses') }}"
                         >
-                          <input type="hidden" name="_csrf" value="{{ csrf }}" />
-                          <input type="hidden" name="num_licenses" value="5" />
+                          <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
+                          <input type="hidden" name="stripe_email" />
                           <input type="hidden" name="stripe_token" />
+                          <input type="hidden" name="num_licenses" value="5" />
                           <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
                         </form>
                       </div>
@@ -128,14 +132,16 @@
                           method="POST"
                           class="ajax-form stripe-checkout"
                           data-name="CrocodileJS"
+                          data-locale="{{ locale }}"
                           data-email="{% if user %}{{ user.email }}{% endif %}"
                           data-description="{{ t('Purchase (10) Commercial Licenses') }}"
                           data-amount={{ config.licenseCostDollars * 100 * 10 * 0.8 }}
                           data-panel-label="{{ t('Purchase Licenses') }}"
                         >
-                          <input type="hidden" name="_csrf" value="{{ csrf }}" />
-                          <input type="hidden" name="num_licenses" value="10" />
+                          <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
+                          <input type="hidden" name="stripe_email" />
                           <input type="hidden" name="stripe_token" />
+                          <input type="hidden" name="num_licenses" value="10" />
                           <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
                         </form>
                       </div>
@@ -515,9 +521,17 @@ You have successfully reset your password.</code></pre>
       <p class="lead m-b-0">{{ t('You can specify which locales (languages) you support in the <code>src/config/locales.js</code> file.') | safe }}</p>
     </div>
 
-    {# 4. proxy #}
+    {# 4. email engine #}
 
-    <h3 id="the-proxy" class="display-4 text-xs-center text-muted p-y-2"><a href="#the-job-scheduler"><u>{{ t('4. The Proxy') }}</u></a></h3>
+    <h3 id="the-email-engine" class="display-4 text-xs-center text-muted p-y-2"><a href="#the-email-engine"><u>{{ t('4. The Email Engine') }}</u></a></h3>
+
+    <div class="jumbotron p-a-1 m-b-0">
+      <p class="lead">TODO</p>
+    </div>
+
+    {# 5. proxy #}
+
+    <h3 id="the-proxy" class="display-4 text-xs-center text-muted p-y-2"><a href="#the-proxy"><u>{{ t('5. The Proxy') }}</u></a></h3>
 
     <div class="jumbotron p-a-1 m-b-0">
       <p class="lead">TODO</p>
@@ -540,7 +554,7 @@ You have successfully reset your password.</code></pre>
               <h4 class="card-title text-xs-center">{{ t('Need help building your app?') }}</h4>
               <p class="card-text text-xs-center">{{ t('Get in touch with a CrocodileJS expert now.') }}</p>
               <form action="/{{ locale }}/contact" method="POST" class="ajax-form">
-                <input type="hidden" name="_csrf" value="{{ csrf }}" />
+                <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                   <input type="email" required="required" name="email" class="form-control" placeholder="{{ t('Email address') }}">

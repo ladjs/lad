@@ -41,12 +41,13 @@
         method="POST"
         class="ajax-form stripe-checkout"
         data-name="CrocodileJS"
+        data-locale="{{ locale }}"
         data-email="{% if user %}{{ user.email }}{% endif %}"
         data-description="{{ t('Your job will be posted for (30) days') }}"
         data-amount=4900
         data-panel-label="{{ t('Post Job') }}"
         >
-        <input type="hidden" name="_csrf" value="{{ csrf }}" />
+        <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
         <input type="hidden" name="stripe_token" />
         <div class="card card-outline-primary">
           <div class="card-block">
@@ -82,6 +83,12 @@
             <div class="form-group">
               <textarea required="required" maxlength="240" rows="3" name="job_description" class="form-control" placeholder="{{ t('Description') }}"></textarea>
             </div>
+            <div class="form-group">
+              <div class="text-xs-center"><label for="input-start-at">{{ t('When should we publish your job?') }}</label></div>
+              <input required="required" id="input-start-at" type="text" name="start_at" class="form-control" value="{{  moment().format('MM/DD/YY') }}" placeholder="{{ t('MM/DD/YY') }}" />
+              <p class="form-text text-xs-center"><small class="text-muted"><strong>{{ t('Date Format:') }}</strong> {{ t('MM/DD/YY') }}</small></p>
+            </div>
+
             <button type="submit" class="btn btn-primary btn-lg btn-block">{{ t('Continue') }}</button>
           </div>
           <div class="card-footer text-xs-center">

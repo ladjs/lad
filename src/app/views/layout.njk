@@ -29,11 +29,28 @@
       <meta name="theme-color" content="{{ config.appColor }}">
 
       {# csrf token #}
-      <meta name="csrf-token" content="{{ csrf }}">
-      <script>window._csrf = "{{ csrf }}";</script>
+      <meta name="csrf-token" content="{{ ctx.csrf }}">
+      <script>window._csrf = "{{ ctx.csrf }}";</script>
 
       {# add opengraph tags to your structured data pages #}
       {% block opengraph %}
+
+        {# TODO: Finish this #}
+        <!--
+        <link rel="image_src" type="image/png" href="https://stripe.com/img/v3/home/social.png">
+
+        <meta property="og:title" content="Checkout Reference">
+        <meta property="og:url" content="https://stripe.com/docs/checkout">
+        <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+        <meta property="og:image" content="https://stripe.com/img/v3/home/social.png">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@stripe">
+        <meta name="twitter:title" content="Checkout Reference">
+        <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+        <meta name="twitter:image:src" content="https://stripe.com/img/v3/home/social.png">
+        -->
+
       {% endblock %}
 
       {# css file #}
@@ -50,8 +67,8 @@
       {% include "spinner/spinner.njk" %}
     {% endblock %}
 
-    <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <!--[if lt IE 9]>
+      <p class="browserupgrade">{{ t('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.') | safe }}</p>
     <![endif]-->
 
     {# navigation #}

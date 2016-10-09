@@ -1,0 +1,36 @@
+
+{% extends "../layout.njk" %}
+
+{% block header %}
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container text-xs-center">
+      <h1 class="display-5">{{ t('Thank you!') }} {{ 'wave' | emoji }}</h1>
+      <p class="lead">{{ t('We appreciate your support.  Your license key is below!') }}</p>
+      <p><code class="lead font-weight-bold">{{ license.key }}</code></p>
+      <p class="m-b-0"><a class="btn btn-lg btn-success" href="{{ config.urls.web }}/{{ locale }}/my-account">{{ t('Go to My Account') }} {{ fa.png2x('angle-double-right', '#fff', 25, 25, [ [ 'class', 'fa-img' ] ] ) | safe }}</a></p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+
+    <div class="text-xs-center">
+      <h4>{{ t('Set up your config') }}</h4>
+      <p>{{ t('Your <span class="notranslate">".crocodile.yml"</span> file should look like:') | safe }}</p>
+    </div>
+    {% code %}
+    crocodile:
+      version: {{ config.pkg.version }}
+      license: "{{ license.key }}"
+    {% endcode %}
+    <div class="text-xs-center">
+      <h4 class="text-muted">{{ t("Next steps...") }}</h4>
+      <p>{{ t('Read the documentation on GitHub to familiarize yourself.') }}</p>
+      <p><a class="btn btn-md btn-outline-primary text-primary" href="https://github.com/crocodilejs/crocodile-node-mvc-framework">{{ fa.png2x('github', '#0275d8', 20, 20, [ [ 'class', 'fa-img' ] ]) | safe }} {{ t('Read the documentation') }}</a></p>
+    </div>
+
+  </div>
+
+{% endblock %}

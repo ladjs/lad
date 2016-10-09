@@ -2,8 +2,6 @@
 import strength from 'strength';
 import { exec } from 'child-process-promise';
 import gemoji from 'gemoji';
-import s from 'underscore.string';
-import validator from 'validator';
 import os from 'os';
 import _ from 'lodash';
 import path from 'path';
@@ -24,12 +22,16 @@ env = dotenvParseVariables(env);
 import pkg from '../../package.json';
 import environments from './environments';
 import locales from './locales';
+import * as utilities from './utilities';
 import i18n from './i18n';
 import meta from './meta';
 
 const omitCommonFields = [ '_id', '__v' ];
 
 let config = {
+
+  // if we should send email or not
+  sendEmail: env.SEND_EMAIL,
 
   // default language/locale
   defaultLocale: 'en',
@@ -168,11 +170,27 @@ let config = {
   buildDir: path.join(__dirname, '..', '..', 'build'),
   viewsDir: path.join(__dirname, '..', '..', 'src', 'app', 'views'),
   nunjucks: {
+    // we use <https://github.com/men232/nunjucks-minify-loaders>
+    // which in turns passes the objects of `minify` to:
+    // <https://github.com/kangax/html-minifier>
+    minify: {
+      minifyJS: true,
+      minifyCSS: true,
+      // collapseWhitespace: true,
+      preserveLineBreaks: true,
+      conservativeCollapse: true,
+      removeComments: env.NODE_ENV !== 'development',
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      quoteCharacter: '"'
+    },
+    ext: 'njk',
+    // used by koa-nunjucks-next
     extname: 'njk',
-    autoescape: true,
-    // watch
     // <https://mozilla.github.io/nunjucks/api.html#configure>
-    noCache: env.NODE_ENV !== 'production',
+    autoescape: true,
+    watch: env.NODE_ENV === 'development',
+    noCache: env.NODE_ENV === 'development',
     filters: {
       json: str => JSON.stringify(str, null, 2),
       emoji: str => {
@@ -194,10 +212,7 @@ let config = {
       }
     },
     globals: {
-      version: pkg.version,
-      _: _,
-      s: s,
-      validator: validator
+      ...utilities
     }
   },
 
@@ -284,8 +299,8 @@ let config = {
 
   // CrocodileJS default app config
   licenseKeyCheckURL: env.CROCODILEJS_LICENSE_KEY_CHECK_URL,
-  licenseCostDollars: 195,
-  jobPostCostDollars: 145
+  licenseCostDollars: 95,
+  jobPostCostDollars: 45
 
 };
 
@@ -299,8 +314,8 @@ config.meta = meta;
 if (_.isObject(environments[env.NODE_ENV]))
   config = _.merge(config, environments[env.NODE_ENV]);
 
-config.nunjucks.globals.config = config;
-
 config.auth.hasThirdPartyProviders = _.some(config.auth.providers, bool => bool);
+
+config.nunjucks.globals.config = config;
 
 export default config;

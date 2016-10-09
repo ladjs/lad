@@ -1,0 +1,9 @@
+
+{% extends "../layout.njk" %}
+
+{% block content %}
+
+  <p>{{ t('Hi') }} {{ user.display_name }},</p>
+  <p>{{ t('Please') }} <a href="{{ link }}">{{ t('reset your password') }}</a> {{ t('now, and remember that this link will expire') }} {{ moment(user.reset_token_expires_at).fromNow() }}.</p>
+
+{% endblock content %}

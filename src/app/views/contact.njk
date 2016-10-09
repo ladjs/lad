@@ -8,7 +8,7 @@
       <h1>Contact</h1>
       <p class="lead">{{ t('Complete the form below to get in touch.') }}</p>
       <form action="/{{ locale }}/contact" method="POST" class="ajax-form">
-        <input type="hidden" name="_csrf" value="{{ csrf }}" />
+        <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
         <div class="form-group">
           <input id="email" required="required" name="email" type="email" class="form-control" placeholder="{{ t('Email address') }}">
         </div>

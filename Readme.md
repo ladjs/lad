@@ -9,7 +9,7 @@
 [![Coverage Status][codecov-image]][codecov-url]
 [![Standard JS Style][standard-image]][standard-url]
 
-> CrocodileJS is a full-stack Node.js + Koa + ES7 MVC framework for Apps and API's
+> CrocodileJS is a multilingual full-stack Node.js + Koa + ES7 MVC framework for Apps and API's
 
 ![Crocodile Dependencies][crocodile-dependencies]
 
@@ -84,7 +84,11 @@ CrocodileJS is an application ~~framework~~ boilerplate for rapid iteration of a
 
 * Built for Startups, Bootstrappers, and Enterprises
 * Includes an API Server, Web Server, and Job Scheduler
-* GitHub Emojis Supported! :smile: :crocodile: :sparkles:
+* GitHub emojis are supported in email content, email subject lines, and views! :smile: :crocodile: :sparkles:
+* Bootstrap 4.x and FontAwesome
+* FontAwesome fonts are supported in emails through [font-awesome-assets][font-awesome-assets]!
+* Emails contain inlined CSS (re-uses your web stylesheet)
+* Emails support highlighted code blocks using [Highlight.js][highlight.js]
 * ECMAScript 7+ Features
 * Async/await ~~callback hell~~
 * Koa@next (latest version of Koa)
@@ -514,6 +518,7 @@ Crocodile uses the following helper libraries:
   - [mocha][mocha]
 * Simple message alert system with [koa-connect-flash][koa-connect-flash] and [Sweetalert2][sweetalert2]
 * API token without a password for an extremely simple approach to session-less, BasicAuth access
+* Store dollar values as cents (which is inspired by Stripe), and it avoids floating/rounding issues.  If you want to format cents to dollars, simply run `accounting.formatMoney(cents / 100)`.
 * [Stripe-inspired][stripe-inspired] API design with versioning, error handling, type description, and verbose list output with count and number of pages
 * [No callback hell][callback-hell] since you can use Async/Await syntax
 
@@ -822,11 +827,12 @@ crocodile
 
   Commands:
 
-    chew <dir>  Create a new CrocodileJS project
-    upgrade     Upgrade your existing CrocodileJS project
-    issues      Open GitHub issues for CrocodileJS
-    docs        Read CrocodileJS documentation on GitHub
-    rock        I wonder what this does?
+    chew <dir> [version]  Create a new CrocodileJS project
+    upgrade               Upgrade your existing CrocodileJS project
+    issues                Open GitHub issues for CrocodileJS
+    docs                  Read CrocodileJS documentation on GitHub
+    license               Purchase a commercial CrocodileJS license
+    rock                  I wonder what this does?
 
   Options:
 
@@ -1408,3 +1414,5 @@ This means that if your project is open source, then you must release it publicl
 [tether]: https://github.com/HubSpot/tether
 [120x120]: https://cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/crocodile-120x120.png
 [octolinker]: http://octolinker.github.io/
+[font-awesome-assets]: https://github.com/crocodilejs/font-awesome-assets
+[highlight.js]: https://github.com/isagalaev/highlight.js/

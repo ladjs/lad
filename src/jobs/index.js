@@ -1,32 +1,83 @@
 
+import { FileMinifyLoader } from 'nunjucks-minify-loaders';
+import juice from 'juice';
+import uuid from 'uuid';
 import GoogleTranslate from 'google-translate';
-import moment from 'moment';
-import accounting from 'accounting';
 import htmlToText from 'html-to-text';
 import promisify from 'es6-promisify';
 import os from 'os';
 import fs from 'fs';
 import opn from 'opn';
 import nunjucks from 'nunjucks';
-import { EmailTemplate } from 'email-templates';
 import s from 'underscore.string';
 import _ from 'lodash';
 import nodemailer from 'nodemailer';
 import { htmlToText as htmlToTextPlugin } from 'nodemailer-html-to-text';
+import base64ToS3 from 'nodemailer-base64-to-s3';
+import path from 'path';
+import NunjucksCodeHighlight from 'nunjucks-highlight.js';
+import hljs from 'highlight.js';
+
 import { i18n, logger } from '../helpers';
 import config from '../config';
-import path from 'path';
+
+const highlight = new NunjucksCodeHighlight(nunjucks, hljs);
+
+// create transport and add html to text conversion
+const transport = nodemailer.createTransport(config.postmark);
+transport.use('compile', base64ToS3({
+  cloudFrontDomainName: config.aws.domainName,
+  aws: config.aws
+}));
+transport.use('compile', htmlToTextPlugin());
 
 // setup google translate with api key
 const googleTranslate = new GoogleTranslate(config.googleTranslateKey);
-
 // convert to a promise the translation function
 const translate = promisify(googleTranslate.translate, googleTranslate);
 
+// promise version of `juice.juiceResources`
+function juiceResources(html, options) {
+  return new Promise((resolve, reject) => {
+    juice.juiceResources(html, options, (err, html) => {
+      if (err) return reject(err);
+      resolve(html);
+    });
+  });
+}
+
 // configure nunjucks for email rendering
-const njk = nunjucks.configure(config.nunjucks);
-_.forOwn(config.nunjucks.filters, (value, key) => njk.addFilter(key, value));
-_.forOwn(config.nunjucks.globals, (value, key) => njk.addGlobal(key, value));
+const loader = new FileMinifyLoader(
+  path.join(__dirname, '..', 'emails', '/'),
+  config.nunjucks
+);
+const env = new nunjucks.Environment(loader);
+env.addExtension('NunjucksCodeHighlight', highlight);
+
+// promise version of `env.render`
+function render(view, locals) {
+  return new Promise((resolve, reject) => {
+    env.render(`${view}.njk`, locals, (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+}
+function filterWrapper(filter) {
+  return (...args) => {
+    const callback = args.pop();
+    Promise.resolve(filter(...args)).then(
+      val => callback(null, val),
+      err => callback(err, null)
+    );
+  };
+}
+Object.keys(config.nunjucks.filters).forEach(filterKey => {
+  env.addFilter(filterKey, filterWrapper(config.nunjucks.filters[filterKey]), true);
+});
+Object.keys(config.nunjucks.globals).forEach(globalKey => {
+  env.addGlobal(globalKey, config.nunjucks.globals[globalKey]);
+});
 
 export function getJobs() {
   return [
@@ -50,70 +101,74 @@ export async function email(job, done) {
 
   try {
 
-    // create transport and add html to text conversion
-    const transport = nodemailer.createTransport(config.postmark);
-    transport.use('compile', htmlToTextPlugin());
-
-    const template = new EmailTemplate(
-      path.join(__dirname, '..', 'emails', job.attrs.data.template)
-    );
-
+    // ensure there is a locals object for rendering
     if (!_.isObject(job.attrs.data.locals))
       job.attrs.data.locals = {};
 
-    // TODO: if there are any mongoose objects passed
-    // to locals, then convert them to plain objects
-    _.each(job.attrs.data.locals, (local, i) => {
-      console.log('local', local, 'i', i);
-    });
-
     // if there was a locale object passed
-    if (_.isString(job.attrs.data.locale)
-      && _.includes(config.locales, job.attrs.data.locale))
-      i18n.setLocale(job.attrs.data.locale);
+    if (_.isString(job.attrs.data.locals.locale)
+      && _.includes(config.locales, job.attrs.data.locals.locale))
+      i18n.setLocale(job.attrs.data.locals.locale);
     // else if the locale was not explicitly set
     // then check if there was a user object
     else if (_.isObject(job.attrs.data.locals.user)
-      && _.isString(job.attrs.data.locals.user.last_locale))
+      && _.isString(job.attrs.data.locals.user.last_locale)
+      && _.includes(config.locales, job.attrs.data.locals.user.last_locale))
       i18n.setLocale(job.attrs.data.locals.user.last_locale);
 
-    const results = await template.render({
-      // avoid max call stack
+    // set i18n in `job.attrs.data.locals`
+    const locals = {
       ... job.attrs.data.locals,
-      // add to locals some utility libraries
-      moment,
-      _,
-      accounting,
-      // add support for translation in emails
       ... i18n.api
+    };
+
+    const subject = await render(`${job.attrs.data.template}/subject`, locals);
+
+    const html = await render(`${job.attrs.data.template}/html`, {
+      ...locals,
+      subject
     });
 
-    const transportOptions = {
-      ... results,
+    // TODO: add support for custom text
+
+    // transform the html with juice using remote paths
+    // google now supports media queries
+    // https://developers.google.com/gmail/design/reference/supported_css
+    const inlineHtml = await juiceResources(html, {
+      preserveImportant: true,
+      webResources: {
+        relativeTo: path.join(__dirname, '..', '..', 'build')
+      }
+    });
+
+    const transportOpts = {
+      html: inlineHtml,
+      subject,
       ... _.omit(job.attrs.data, [ 'locale', 'locals', 'template' ])
     };
 
     // if we're in development mode then render the email template for browser viewing
     if (config.env === 'development') {
-      transportOptions.tmpHtmlPath = `${os.tmpdir()}/email.html`;
-      transportOptions.tmpTextPath = `${os.tmpdir()}/text.txt`;
-      await promisify(fs.writeFile)(transportOptions.tmpHtmlPath, results.html);
-      await promisify(fs.writeFile)(
-        transportOptions.tmpTextPath,
-        htmlToText.fromString(results.html)
-      );
-      const html = await njk.render(
-        path.join(__dirname, '..', 'emails', 'preview.njk'),
-        transportOptions
-      );
-      const previewPath = `${os.tmpdir()}/preview.html`;
-      await promisify(fs.writeFile)(previewPath, html);
-      await opn(previewPath);
-      done();
-      return;
+
+      const tmpHtmlPath = `${os.tmpdir()}/${uuid.v4()}.html`;
+      const tmpTextPath = `${os.tmpdir()}/${uuid.v4()}.txt`;
+
+      await promisify(fs.writeFile)(tmpHtmlPath, inlineHtml);
+      await promisify(fs.writeFile)(tmpTextPath, htmlToText.fromString(inlineHtml, {
+        ignoreImage: true
+      }));
+
+      await opn(tmpHtmlPath, { wait: false });
+      // await opn(tmpTextPath, { wait: false });
+
     }
 
-    const res = await transport.sendMail(transportOptions);
+    if (!config.sendEmail) {
+      logger.info('Email sending has been disabled');
+      return done();
+    }
+
+    const res = await transport.sendMail(transportOpts);
 
     logger.info('email sent', { extra: res });
 
@@ -187,18 +242,33 @@ export async function locales(job, done) {
 
           // attempt to translate all of these in the given language
           const promises = _.map(translationsRequired, phrase => {
-            // prevent %s %d and %j from getting translated
+
+            // TODO: prevent %s %d and %j from getting translated
             // <https://nodejs.org/api/util.html#util_util_format_format>
-            // also prevent {{...}} from getting translated
-            // by wrapping such with `<span class="notranslate">`
-            return translate(phrase, locale);
+            //
+            // TODO: also prevent {{...}} from getting translated
+            // by wrapping such with `<span class="notranslate">`?
+
+            // only give the Google API a few seconds to finish
+            return Promise.race([
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  logger.info('Google Translate API did not respond in 4s');
+                  resolve();
+                }, 20000);
+              }),
+              translate(phrase, locale)
+            ]);
           });
 
           // get the translation results from Google
           try {
             const results = await Promise.all(promises);
-            _.each(results, result => {
-              file[result.originalText] = result.translatedText;
+            _.each(_.compact(results), result => {
+              // replace `|` pipe character because translation will interpret as ranged interval
+              // <https://github.com/mashpie/i18n-node/issues/274>
+              // TODO: maybe we should use `he` package to re-encode entities?
+              file[result.originalText] = result.translatedText.replace(/\|/g, '&#124;');
             });
           } catch (err) {
             logger.error(err);

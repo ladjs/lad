@@ -57,6 +57,9 @@ export default function meta(ctx) {
 
   // translate the meta information
   meta = _.map(meta, str => {
+    // replace `|` pipe character because translation will interpret as ranged interval
+    // <https://github.com/mashpie/i18n-node/issues/274>
+    str = str.replace(/\|/g, '&#124;');
     return s.isBlank(str) ? '' : sanitizeHtml(ctx.req.t(str), {
       allowedTags: [],
       allowedAttributes: []

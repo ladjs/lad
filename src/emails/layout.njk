@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ locale }}">
+  <head>
+    {% block head %}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="x-apple-disable-message-reformatting">
+      <title>{{ subject }}</title>
+      <link rel="stylesheet" href="/css/app.css" data-inline>
+    {% endblock %}
+  </head>
+  <body class="email">
+
+    {% block body %}
+
+      {% block nav %}
+        {% include "_nav.njk" %}
+      {% endblock %}
+
+      {% block header %}
+        {% include "_header.njk" %}
+      {% endblock %}
+
+      {% block content %}
+        {% include "_content.njk" %}
+      {% endblock %}
+
+      {% block footer %}
+        {% include "_footer.njk" %}
+      {% endblock %}
+
+    {% endblock %}
+
+  </body>
+</html>

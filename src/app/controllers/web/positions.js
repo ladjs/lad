@@ -128,16 +128,24 @@ export async function create(ctx, next) {
     'company_website',
     'job_title',
     'job_description',
-    'stripe_token'
+    'stripe_token',
+    'start_at'
   ]);
 
   // ensure stripe token exists
   if (!_.isString(body.stripe_token) || s.isBlank(body.stripe_token))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_STRIPE_TOKEN')));
 
+  // ensure that date format is correct
+  if (!_.isString(body.start_at)
+    || s.isBlank(body.start_at)
+    || !moment(body.start_at, 'MM/DD/YY').isValid()
+    || moment(body.start_at, 'MM/DD/YY').isBefore(moment().startOf('day')))
+    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_START_AT_DATE')));
+
   // validate fields
   const position = new Positions({
-    ... body,
+    ... _.omit(body, [ 'stripe_token', 'start_at' ]),
     ip: ctx.req.ip
   });
 
@@ -238,7 +246,7 @@ export async function create(ctx, next) {
 
     // if we're in dev mode then open the images in our browser
     if (config.env === 'development')
-      _.each(data, img => opn(img.Location));
+      _.each(data, img => opn(img.Location, { wait: false }));
 
     // charge user on stripe
     const charge = await stripe.charges.create({
@@ -249,7 +257,7 @@ export async function create(ctx, next) {
 
     logger.info('Created charge', charge);
 
-    position.stripe_charge = charge;
+    position.stripe_charge_id = charge.id;
     await position.save();
 
     logger.info('Created position', position);

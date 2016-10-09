@@ -64,6 +64,7 @@ export default async function contact(ctx) {
         to: ctx.req.body.email,
         cc: config.email.from,
         locals: {
+          locale: ctx.req.locale,
           inquiry
         }
       }
@@ -71,16 +72,11 @@ export default async function contact(ctx) {
 
     logger.info('Queued inquiry email', job);
 
-    inquiry.job = job._id;
-    await inquiry.save();
-
+    const message = ctx.translate('CONTACT_REQUEST_SENT');
     if (ctx.is('json')) {
-      ctx.body = {
-        message: ctx.translate('CONTACT_REQUEST_SENT'),
-        reloadPage: true
-      };
+      ctx.body = { message };
     } else {
-      ctx.flash('success', ctx.translate('CONTACT_REQUEST_SENT'));
+      ctx.flash('success', message);
       ctx.redirect('back');
     }
 

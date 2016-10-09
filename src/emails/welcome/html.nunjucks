@@ -1,2 +1,0 @@
-<p>{{ t('Hi') }} {{ name }},</p>
-<p>{{ t('Welcome to our website!  Thank you for signing up.') }}</p>

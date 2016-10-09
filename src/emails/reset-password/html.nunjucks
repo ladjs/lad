@@ -1,2 +1,0 @@
-<p>{{ t('Hi') }} {{ name }},</p>
-<p>{{ t('Please') }} <a href="{{ link }}">{{ t('reset your password') }}</a> {{ t('now, and remember that this link will expire') }} {{ moment(reset_token_expires_at).fromNow() }}.</p>

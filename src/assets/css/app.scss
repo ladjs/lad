@@ -11,7 +11,7 @@
 
 // bootstrap columns same height
 // <https://github.com/twbs/bootstrap/issues/20321>
-@import "bootstrap-cols-same-height";
+@import "_bootstrap-cols-same-height";
 
 // sweetalert2
 @import "../../../node_modules/sweetalert2/dist/sweetalert2";
@@ -143,5 +143,12 @@ img:not([src]) {
     text-decoration: none !important;
   }
 }
+
+img.fa-img {
+  display: inline-block !important;
+  vertical-align: top !important;
+}
+
+@import "_email";
 
 @import "_custom";

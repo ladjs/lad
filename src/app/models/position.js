@@ -91,7 +91,7 @@ const Position = new mongoose.Schema({
     index: true,
     validate: val => validator.isIP(val)
   },
-  stripe_charge: {}
+  stripe_charge_id: String
 });
 
 Position.plugin(CommonPlugin('position'));

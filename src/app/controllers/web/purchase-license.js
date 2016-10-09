@@ -1,12 +1,14 @@
 
+import uuid from 'uuid';
 import _ from 'lodash';
 import Stripe from 'stripe';
 import s from 'underscore.string';
 import Boom from 'boom';
+import validator from 'validator';
 
 import config from '../../../config';
 import { logger } from '../../../helpers';
-// import { Users, Jobs } from '../../models';
+import { Users, Jobs } from '../../models';
 
 const stripe = new Stripe(config.stripe.secretKey);
 
@@ -15,8 +17,13 @@ export default async function purchaseLicense(ctx) {
   // filter body
   const body = _.pick(ctx.req.body, [
     'num_licenses',
-    'stripe_token'
+    'stripe_token',
+    'stripe_email'
   ]);
+
+  // ensure email passed is a valid email address
+  if (!_.isString(body.stripe_email) || !validator.isEmail(body.stripe_email))
+    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
   // ensure number of licenses exists
   if (!_.isString(body.num_licenses) || s.isBlank(body.num_licenses))
@@ -57,23 +64,130 @@ export default async function purchaseLicense(ctx) {
   if (!_.isString(body.stripe_token) || s.isBlank(body.stripe_token))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_STRIPE_TOKEN')));
 
-  // charge user on stripe
-  const charge = await stripe.charges.create({
-    amount,
-    currency: 'usd',
-    source: body.stripe_token
+  // create the licenses
+  let licenses = _.times(body.num_licenses, (i) => {
+    return {
+      created_at: Date.now(),
+      key: uuid.v4(),
+      desc: `${i + 1}/${body.num_licenses} license${body.num_licenses > 1 ? 's' : ''}`,
+      amount: amount / body.num_licenses
+    };
   });
 
-  logger.info('Created charge', charge);
+  // charge user on stripe and prevent user
+  // from seeing the third party api response
+  let charge;
 
-  ctx.throw('foobar');
+  try {
 
-  // TODO: save to user the licenses
-  //
-  // TODO: send the user an email
-  //
-  // TODO: register the user if they aren't registered
-  // and send the user a temporary password that needs changed
-  // upon the user being logged in
+    charge = await stripe.charges.create({
+      amount,
+      currency: 'usd',
+      source: body.stripe_token
+    });
+
+    logger.info('Created charge', charge);
+
+    // store the stripe charge id to each license created
+    licenses = _.map(licenses, license => {
+      license.stripe_charge_id = charge.id;
+      return license;
+    });
+
+    // if the user is not logged in then
+    // either find their user object or register
+    if (!ctx.req.isAuthenticated()) {
+      ctx.req.user = await Users.findOne({
+        email: body.stripe_email
+      });
+      if (!ctx.req.user)
+        ctx.req.user = await Users.create({
+          email: body.stripe_email
+        });
+      ctx.req.user.last_locale = ctx.req.locale;
+    }
+
+    // set that they have purchased a license
+    ctx.req.user.has_license = true;
+
+    // set the licenses
+    ctx.req.user.licenses = _.concat(
+      ctx.req.user.licenses,
+      licenses
+    );
+
+    // save the user
+    await ctx.req.user.save();
+
+    logger.info('Saved license(s) to user');
+
+    // send out individual emails for each
+    // license that was purchased by the user
+    const promises = _.map(licenses, (license, i) => {
+      return Jobs.create({
+        name: 'email',
+        data: {
+          template: 'purchase-license',
+          to: ctx.req.user.email,
+          cc: config.email.from,
+          locals: {
+            locale: ctx.req.locale,
+            user: _.pick(ctx.req.user, 'display_name'),
+            licenses,
+            license,
+            i
+          }
+        }
+      });
+    });
+
+    // send the user an email receipt
+    const jobs = await Promise.all(promises);
+
+    logger.info('Queued purchase-license email(s)', jobs);
+
+    const message = ctx.translate('PURCHASE_LICENSE_SENT');
+    if (ctx.is('json')) {
+      ctx.body = { message };
+    } else {
+      ctx.flash('success', message);
+      ctx.redirect('back');
+    }
+
+  } catch (err) {
+
+    // if any errors occurred then refund the charge
+    // immediately if it was created and remove licenses
+    if (charge) {
+      try {
+        await stripe.refunds.create({ charge: charge.id });
+      } catch (err) {
+        logger.error(err);
+      }
+    }
+
+    // remove any licenses that were created
+    if (_.isObject(ctx.req.user)) {
+
+      // exclude any licenses that were just added
+      ctx.req.user.licenses = _.filter(ctx.req.user.licenses, license => {
+        return !_.includes(_.pluck(licenses, 'key'), license.key);
+      });
+
+      try {
+        await ctx.req.user.save();
+      } catch (err) {
+        logger.error(err);
+      }
+
+    }
+
+    // TODO: handle the stripe error (if any) with a helper
+    // <https://github.com/stripe/stripe-node/wiki/Error-Handling>
+
+    ctx.throw(Boom.badRequest(err));
+
+  }
+
 
 }

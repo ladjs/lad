@@ -130,9 +130,7 @@ export async function register(ctx, next) {
               data: {
                 template: 'welcome',
                 to: user.email,
-                locals: {
-                  name: user.display_name
-                }
+                locals: { user }
               }
             });
             logger.info('Queued welcome email', job);
@@ -203,9 +201,11 @@ export async function forgotPassword(ctx) {
         template: 'reset-password',
         to: user.email,
         locals: {
-          reset_token_expires_at: user.reset_token_expires_at,
-          link: `${config.urls.web}/reset-password/${user.reset_token}`,
-          name: user.display_name
+          user: _.pick(user, [
+            'display_name',
+            'reset_token_expires_at'
+          ]),
+          link: `${config.urls.web}/reset-password/${user.reset_token}`
         }
       }
     });

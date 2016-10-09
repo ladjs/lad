@@ -79,18 +79,10 @@ const Users = new mongoose.Schema({
   // google
   google_profile_id: {
     type: String,
-    unique: true,
     index: true
   },
   google_access_token: String,
   google_refresh_token: String,
-
-  // TODO: stripe
-  stripe_customer_id: String,
-
-  // TODO: you can remove these fields below
-  // but you should also remove their respective
-  // controllers, views, and routes as well!
 
   // CrocodileJS license key and info
   has_license: {
@@ -98,18 +90,13 @@ const Users = new mongoose.Schema({
     default: false
   },
   licenses: [{
-    // when the license was created
     created_at: Date,
-    // uuid v4 license key randomly generated
     key: {
       type: String,
       validate: (val) => validator.isUUID(val, 4)
     },
-    // description of the user's license
     desc: String,
-    // amount the user paid for the license in dollars
     amount: Number,
-    // stripe charge id
     stripe_charge_id: String
   }]
 
@@ -123,6 +110,9 @@ Users.pre('validate', function (next) {
 
   if (_.isString(this.email) && (!_.isString(this.display_name) || s.isBlank(this.display_name)))
     this.display_name = this.email.split('@')[0];
+
+  if (!_.isArray(this.licenses) || this.licenses.length === 0)
+    this.has_license = false;
 
   next();
 

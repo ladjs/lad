@@ -51,7 +51,7 @@
                 <p class="card-text">{{ t('Welcome back!') }} {{ 'beers' | emoji }}</p>
               {% endif %}
               <form action="{{ ctx.path }}" method="POST" class="ajax-form">
-                <input type="hidden" name="_csrf" value="{{ csrf }}" />
+                <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
                 <div class="form-group">
                   <input type="email" required="required" name="email" class="form-control" id="input-email" placeholder="{{ t('Email address') }}" />
                 </div>

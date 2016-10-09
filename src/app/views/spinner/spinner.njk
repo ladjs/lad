@@ -3,7 +3,16 @@
 {# <https://github.com/tobiasahlin/SpinKit/tree/master/scss/spinners> #}
 
 <div id="spinner" class="pos-f-t fade">
+
+  {# for some reason #10 from SpinKit has issues with centering so we renamed 11 to 10 #}
+  {# also #4 has sizing issues so we excluded it too #}
+  {# https://github.com/tobiasahlin/SpinKit/issues/122 #}
+
   {# get a random number between 1-11 #}
-  {% set num = range(1, 11) | random %}
+  {# {% set num = range(1, 11) | random %} #}
+
+  {# get a random number from a given selection of spinners #}
+  {% set num = [ 1, 2, 3, 5, 6, 7, 8, 9, 11 ] | random %}
+
   {% include "./" + num + ".njk" %}
 </div>

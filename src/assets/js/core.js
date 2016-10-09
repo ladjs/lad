@@ -148,6 +148,9 @@ const api = new Frisbee({
       if (!window.StripeCheckout)
         return console.error('Stripe checkout missing');
 
+      // lookup email input for later
+      const $email = $form.find('input[name="stripe_email"]');
+
       // if there is already a token then continue
       const $token = $form.find('input[name="stripe_token"]');
 
@@ -165,6 +168,11 @@ const api = new Frisbee({
             // you can access the token ID with `token.id`.
             // get the token ID to your server-side code for use
             $token.val(token.id);
+            // also included is `token.email`
+            // which we append to the form if
+            // there is an `input[name=email]`
+            if ($email.length !== 0)
+              $email.val(token.email);
             ajaxForm.call(this, ev);
           }
         });
@@ -208,7 +216,7 @@ const api = new Frisbee({
 
     try {
 
-      // set defaul headers
+      // set default headers
       const headers = { ...defaultHeaders };
 
       // if the form contains a file input, then we need to use FormData
@@ -262,22 +270,19 @@ const api = new Frisbee({
           // redirect
           window.location(res.body.redirectTo);
         }
-      } else if (_.isBoolean(res.body.reloadPage) && res.body.reloadPage) {
+      } else if (_.isString(res.body.message)) {
+
         // hide the spinner
         spinner.hide();
         // show message
         await swal(window._types.success, res.body.message, 'success');
         // reset the form
         $form.get(0).reset();
+
         // reload page
-        window.location.reload();
-      } else if (_.isString(res.body.message)) {
-        // hide the spinner
-        spinner.hide();
-        // show message
-        swal(window._types.success, res.body.message, 'success');
-        // reset the form
-        $form.get(0).reset();
+        if ((_.isBoolean(res.body.reloadPage) && res.body.reloadPage))
+          window.location.reload();
+
       } else {
         // hide the spinner
         spinner.hide();

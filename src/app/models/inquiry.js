@@ -27,10 +27,6 @@ const Inquiry = new mongoose.Schema({
   is_email_only: {
     type: Boolean,
     default: false
-  },
-  job: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User'
   }
 });
 
