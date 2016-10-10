@@ -45,6 +45,7 @@
   - [Search Engine Indexing](#search-engine-indexing)
   - [i18n Internationalization and l10n Localization](#i18n-internationalization-and-l10n-localization)
   - [Performance](#performance)
+  - [Validation](#validation)
 * [How do I use it?](#crocodile-how-do-i-use-it)
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -666,6 +667,8 @@ With this setup, we have climbed to #1 on Google for various keywords, easily.  
 
 In order to prevent duplicate content, we have added a plugin that removes trailing slashes from URL's, so `/home/` will `301` redirect to `/home` automatically.
 
+We support easily configurable (and translated) meta tags for `<title>` and `<meta name="description">` &ndash; see `src/config/meta.js`.
+
 ### i18n Internationalization and l10n Localization
 
 We built-in international localization/translation support &ndash; **with automatic Google Translations**.
@@ -703,6 +706,105 @@ We've also included these libraries to help with performance:
 Other than that, you just need to increase your server storage/bandwidth/memory/swap, add load balancing, and/or use PM2's clustering mode &ndash; and you _should_ be able to support thousands of users.  Horizontal scaling!
 
 Check out the [deployment](#deployment) section below for how a production environment and deployment process should be configured.
+
+### Validation
+
+In order to validate data sent from `<form>` and other HTTP requests (and in general), we use:
+
+* `lodash` ([docs][lodash])
+* `validator` ([docs][validator])
+* Mongoose's `validate` instance method ([docs][mongoose-validate]).
+
+Imagine you have a form asking for a user's favorite color.
+
+The user can select from a dropdown a color.
+
+> Controller:
+
+```js
+import _ from 'lodash';
+import validator from 'validator';
+import Boom from 'boom';
+
+const colors = [ 'red', 'blue', 'green' ];
+
+function someController(ctx, next) {
+
+  if (!_.isString(ctx.req.body.fav_color) || !_.contains(colors, ctx.req.body.fav_color))
+    return ctx.throw(Boom.badRequest('You did not specify a valid color, try again!'));
+
+  // if you wanted to support translation from a key in `src/config/i18n.js`
+  // return ctx.throw(Boom.badRequest(ctx.translate('INVALID_COLOR')));
+
+  // ...
+
+}
+```
+
+Now imagine that you want to store this user's favorite color to their user object stored in MongoDB.
+
+And imagine that you want to reduce code you write elsewhere, in case something else manipulates `favorite_color`.
+
+To accomplish this, we use a custom Schema validator object, which also supports translation.
+
+> Model:
+
+```js
+
+const colors = [ 'red', 'blue', 'green' ];
+
+const Users = new mongoose.Schema({
+
+  fav_color: {
+    type: String,
+    required: true,
+    validate: function (val, fn) {
+
+      if (_.isString(val) && _.contains(colors, val))
+        return fn();
+
+      fn(null, i18n.t({ phrase: 'Invalid color', locale: this.locale });
+
+      // if you wanted to support translation from a key in `src/config/i18n.js`
+      // fn(null, i18n.translate('INVALID_COLOR', this.locale));
+
+    }
+  }
+
+  // ...
+
+});
+```
+
+> Controller:
+
+```js
+function someController(ctx, next) {
+
+  // set favorite color
+  ctx.req.user.fav_color = ctx.req.body.fav_color;
+
+  try {
+
+    // (optional) set the locale for i18n translations
+    // this `locale` is a getter/setter on ALL models
+    // see `src/models/plugins/common.js` for more info
+    ctx.req.user.locale = ctx.req.locale;
+
+    // simply validates the user object
+    await ctx.req.user.validate();
+
+    // you could also just call this instead of `.validate()`:
+    // await ctx.req.user.save();
+
+  } catch(err) {
+    ctx.throw(Boom.badRequest(err));
+  }
+
+}
+```
+
+We've already crafted some complex validation examples for you &ndash; see the controllers in `src/app/controllers`.
 
 
 ## <a href="#crocodile-index">:crocodile:</a> [How do I use it?](#how-do-i-use-it)
@@ -1416,3 +1518,4 @@ This means that if your project is open source, then you must release it publicl
 [octolinker]: http://octolinker.github.io/
 [font-awesome-assets]: https://github.com/crocodilejs/font-awesome-assets
 [highlight.js]: https://github.com/isagalaev/highlight.js/
+[mongoose-validate]: http://mongoosejs.com/docs/validation.html
