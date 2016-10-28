@@ -1,11 +1,13 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-  <button class="navbar-toggler bg-inverse pull-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
-    <i class="fa fa-bars"></i>
+  <button class="navbar-toggler bg-inverse float-xs-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
+    {# TODO: we can't currently use this because `navbar-dark` causes `navbar-toggler` to have an SVG background #}
+    {# <https://github.com/twbs/bootstrap/issues/21012> #}
+    {# <i class="fa fa-bars"></i> #}
   </button>
   <a class="navbar-brand" href="/{{ locale }}">{{config.appName}} <span class="tag tag-default">{{ version }}</span></a>
   {% if availableLanguages.length > 1 %}
-  <div class="hidden-lg-up btn-group pull-xs-right">
-    <a href="#" class="navbar-btn-sm-margin-top m-r-1 dropdown-toggle btn btn-sm btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-language-mobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div class="hidden-lg-up btn-group float-xs-right">
+    <a href="#" class="navbar-btn-sm-margin-top mr-1 dropdown-toggle btn btn-sm btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-language-mobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-language"></i> {{ s.titleize(t(currentLanguage)) }}
     </a>
     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-language-mobile">
@@ -24,7 +26,7 @@
     <ul class="nav navbar-nav hidden-lg-up">
       <li class="nav-item"><a role="button" class="nav-link" href="#"><i class="fa fa-fw fa-book"></i> {{ t('Book') }}</a></li>
       <li class="nav-item"><a role="button" class="nav-link" href="#"><i class="fa fa-fw fa-cc-stripe"></i> {{ t('Donate') }}</a></li>
-      <li class="nav-item"><a role="button" class="nav-link" href="/{{ locale }}/jobs"><i class="fa fa-fw fa-briefcase"></i> {{ t('Jobs') }}</a></li>
+      <li class="nav-item"><a role="button" class="nav-link" href="/{{ locale }}/gigs"><i class="fa fa-fw fa-briefcase"></i> {{ t('Gigs') }}</a></li>
       <li class="nav-item"><a role="button" class="nav-link" target="_blank" href="https://calendly.com/niftylettuce"><i class="fa fa-fw fa-calendar"></i> {{ t('Training') }}</a></li>
       <li class="dropdown-divider"></li>
       {# links that show only if you're logged in #}
@@ -52,12 +54,12 @@
     {# desktop navbar #}
     <ul class="nav navbar-nav hidden-md-down">
 
-      <li class="nav-item"><a role="button" class="btn btn-outline-secondary bg-inverse" href="#"><i class="fa fa-book"></i> {{ t('Book') }}</a></li>
-      <li class="nav-item"><a role="button" class="btn btn-outline-secondary bg-inverse" href="#"><i class="fa fa-cc-stripe"></i> {{ t('Donate') }}</a></li>
-        <li class="nav-item"><a role="button" class="btn btn-outline-secondary bg-inverse" href="/{{ locale }}/jobs"><i class="fa fa-briefcase"></i> {{ t('Jobs') }}</a>
-      <li class="nav-item"><a role="button" class="btn btn-outline-secondary bg-inverse" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar"></i> {{ t('Training') }}</a></li>
+      <li class="nav-item"><a title="{{ t('Pre-order the book') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="#"><i class="fa fa-book"></i> {{ t('Book') }}</a></li>
+      <li class="nav-item"><a title="{{ t('Donate and support us') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="#"><i class="fa fa-cc-stripe"></i> {{ t('Donate') }}</a></li>
+      <li class="nav-item"><a title="{{ t('Browse available gigs') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="/{{ locale }}/gigs"><i class="fa fa-briefcase"></i> {{ t('Gigs') }}</a>
+      <li class="nav-item"><a title="{{ t('Schedule training and consultation') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar"></i> {{ t('Training') }}</a></li>
 
-      <div class="pull-xs-right">
+      <div class="float-xs-right">
 
         <li class="nav-item btn-group">
           <a href="#" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-more-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,6 +1,5 @@
 
 import uuid from 'uuid';
-import promisify from 'es6-promisify';
 import opn from 'opn';
 import ms from 'ms';
 import sharp from 'sharp';
@@ -16,7 +15,7 @@ import moment from 'moment';
 
 import { logger } from '../../../helpers';
 import config from '../../../config';
-import { Positions } from '../../models';
+import { Users, Gigs } from '../../models';
 
 const stripe = new Stripe(config.stripe.secretKey);
 
@@ -77,41 +76,31 @@ export async function list(ctx, next) {
   if (_.isEmpty($sort))
     $sort = { created_at: -1 };
 
-  // get paginated result of job postings using $lookup
+  // get paginated result of gigs
   // <https://github.com/Automattic/mongoose/issues/3683>
-  let [ positions, itemCount ] = await Promise.all([
-    Positions.aggregate([
-      { $match },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'user',
-          foreignField: '_id',
-          as: 'user'
-        }
-      },
-      {
-        $project: {
-          user: {
-            $arrayElemAt: [ '$user', 0 ]
-          }
-        }
-      },
-      { $sort },
-      { $limit: ctx.query.limit },
-      { $skip: ctx.paginate.skip  }
-    ]),
-    Positions.count($match).exec()
+  let [ gigs, itemCount ] = await Promise.all([
+    (async () => {
+      const gigs = await Gigs.find($match)
+        .sort($sort)
+        .limit(ctx.query.limit)
+        .skip(ctx.paginate.skip)
+        .lean()
+        .exec();
+      return Promise.map(_.map(gigs, pos => {
+        return Users.findById(pos.user).lean().exec();
+      }));
+    })(),
+    Gigs.count($match).exec()
   ]);
 
   // omit user props we don't want to expose
-  if (positions.length > 0)
-    positions = _.map(positions, position => {
-      position.user = _.omit(position.user, config.omitUserFields);
-      return position;
+  if (gigs.length > 0)
+    gigs = _.map(gigs, gig => {
+      gig.user = _.omit(gig.user, config.omitUserFields);
+      return gig;
     });
 
-  ctx.state.positions = positions;
+  ctx.state.gigs = gigs;
   ctx.state.itemCount = itemCount;
   ctx.state.pageCount = Math.ceil(itemCount / ctx.query.limit);
 
@@ -126,8 +115,8 @@ export async function create(ctx, next) {
     'company_name',
     'company_email',
     'company_website',
-    'job_title',
-    'job_description',
+    'gig_title',
+    'gig_description',
     'stripe_token',
     'start_at'
   ]);
@@ -144,14 +133,14 @@ export async function create(ctx, next) {
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_START_AT_DATE')));
 
   // validate fields
-  const position = new Positions({
+  const gig = new Gigs({
     ... _.omit(body, [ 'stripe_token', 'start_at' ]),
     ip: ctx.req.ip
   });
 
   try {
-    position.locale = ctx.req.locale;
-    await position.validate();
+    gig.locale = ctx.req.locale;
+    await gig.validate();
   } catch (err) {
     return ctx.throw(Boom.badRequest(err));
   }
@@ -173,9 +162,9 @@ export async function create(ctx, next) {
   ], file.mimetype))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_COMPANY_LOGO')));
 
-  // check if we already created a job posting in the past day
+  // check if we already created a gig in the past day
   // with this given ip address, otherwise create and email
-  const count = await Positions.count({
+  const count = await Gigs.count({
     ip: ctx.req.ip,
     created_at: {
       $gte: moment().subtract(1, 'day').toDate()
@@ -183,7 +172,7 @@ export async function create(ctx, next) {
   });
 
   if (count > 0)
-    return ctx.throw(Boom.badRequest(ctx.translate('JOB_POST_LIMIT')));
+    return ctx.throw(Boom.badRequest(ctx.translate('GIG_POST_LIMIT')));
 
   try {
 
@@ -230,16 +219,13 @@ export async function create(ctx, next) {
         ContentType: file.mimetype
       };
 
-      // we cannot currently use this since it does not return a promise
-      // <https://github.com/aws/aws-sdk-js/pull/1079>
-      // await s3obj.upload({ Body }).promise();
-      //
-      // so instead we use es6-promisify to convert it to a promise
-      return promisify(s3.upload, s3)(obj);
+      return s3.upload(obj).promise();
 
     });
 
     const data = await Promise.all(promises);
+
+    console.log('data', data);
 
     // get cloudfront path for first image only (@1x version)
     body.company_logo = `https://${config.aws.domainName}/${data[0].key}`;
@@ -250,17 +236,17 @@ export async function create(ctx, next) {
 
     // charge user on stripe
     const charge = await stripe.charges.create({
-      amount: parseInt(config.jobPostCostDollars * 100, 10),
+      amount: parseInt(config.gigPostCostDollars * 100, 10),
       currency: 'usd',
       source: body.stripe_token
     });
 
     logger.info('Created charge', charge);
 
-    position.stripe_charge_id = charge.id;
-    await position.save();
+    gig.stripe_charge_id = charge.id;
+    await gig.save();
 
-    logger.info('Created position', position);
+    logger.info('Created gig', gig);
 
     // TODO: send out an email for approval to admin
     // TODO: send out an email to user with receipt + pending

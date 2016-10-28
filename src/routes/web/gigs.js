@@ -8,7 +8,7 @@ import { web } from '../../app/controllers';
 import { policies, renderPage } from '../../helpers';
 
 const router = new Router({
-  prefix: '/jobs'
+  prefix: '/gigs'
 });
 
 const upload = multer({
@@ -22,23 +22,23 @@ const upload = multer({
 });
 
 router
-  .param('slug', web.positions.retrieve)
+  .param('slug', web.gigs.retrieve)
   .get(
     '/',
     middleware(10, 50),
-    web.positions.list,
-    renderPage('jobs/list')
+    web.gigs.list,
+    renderPage('gigs/list')
   )
-  .get('/post-a-job', renderPage('jobs/create'))
+  .get('/post-a-gig', renderPage('gigs/create'))
   .post(
-    '/post-a-job',
+    '/post-a-gig',
     upload.single('company_logo'),
-    web.positions.create
+    web.gigs.create
   )
-  .get('/:slug', renderPage('jobs/retrieve'))
-  .get('/:slug/edit', policies.ensureLoggedIn, renderPage('jobs/edit'))
-  .put('/:slug', policies.ensureLoggedIn, web.positions.update)
-  .del('/:slug', policies.ensureLoggedIn, web.positions.remove)
-  .post('/:slug', policies.ensureLoggedIn, web.positions.apply);
+  .get('/:slug', renderPage('gigs/retrieve'))
+  .get('/:slug/edit', policies.ensureLoggedIn, renderPage('gigs/edit'))
+  .put('/:slug', policies.ensureLoggedIn, web.gigs.update)
+  .del('/:slug', policies.ensureLoggedIn, web.gigs.remove)
+  .post('/:slug', policies.ensureLoggedIn, web.gigs.apply);
 
 export default router;

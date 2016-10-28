@@ -5,7 +5,7 @@
 
   <div class="container">
 
-    <div class="row m-t-1 m-b-1">
+    <div class="row mt-1 mb-1">
 
       {% if config.auth.hasThirdPartyProviders %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -61,7 +61,7 @@
                 {% set btn = s.titleize(verb) + ' with Email' %}
                 <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-envelope"></i> {{ t(btn) }}</button>
               </form>
-              <p class="text-xs-center text-muted m-t-1">
+              <p class="text-xs-center text-muted mt-1">
                 <small>
                   {% if verb == 'sign up' %}
                     {{ t('By signing up, you agree to our <a href="/' + locale + '/terms">Terms</a>') | safe }}

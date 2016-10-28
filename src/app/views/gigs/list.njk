@@ -1,0 +1,21 @@
+
+{% extends "layout.njk" %}
+
+{% block body %}
+
+  <div class="container text-xs-center">
+    <h1 class="my-3">{{ t("Who's Hiring?") }}</h1>
+    <div class="card card-outline-secondary">
+      <div class="card-block">
+        <ul class="list-inline mb-0 card-title text-muted">
+          <li class="list-inline-item">{{ t('These exclusive gigs are from verified companies using CrocodileJS.') }}</li>
+          <li class="list-inline-item"><a href="/gigs/create" class="btn btn-md btn-primary">{{ t('Post a Gig') }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <p>Item Count: {{ itemCount }}</p>
+    <p>Gigs: {{ gigs | json }}</p>
+    {% include "../_pagination.njk" %}
+  </div>
+
+{% endblock %}

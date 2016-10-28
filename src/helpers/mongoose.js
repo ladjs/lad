@@ -28,7 +28,9 @@ export default function _mongoose() {
   // connect to mongodb
   (async function reconnect() {
     try {
-      await mongoose.connect(config.mongodb, config.mongodbOptions);
+      // until this issue is resolved, we have to use `.then`
+      // <https://github.com/Automattic/mongoose/issues/4659>
+      await mongoose.connect(config.mongodb, config.mongodbOptions).then;
     } catch (err) {
       logger.error(err);
       logger.info(`attempting to reconnect in (${config.mongooseReconnectMs}) ms`);

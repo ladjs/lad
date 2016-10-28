@@ -5,7 +5,7 @@ import { web } from '../../app/controllers';
 import { renderPage, policies, passport } from '../../helpers';
 import admin from './admin';
 import auth from './auth';
-import jobs from './jobs';
+import gigs from './gigs';
 import config from '../../config';
 
 const router = new Router({
@@ -38,7 +38,7 @@ router
     passport.authenticate('local', config.auth.callbackOpts)
   );
 
-router.use(jobs.routes());
+router.use(gigs.routes());
 router.use(auth.routes());
 router.use(admin.routes());
 

@@ -57,6 +57,9 @@ app.use(compress());
 // override koa's undocumented error handler
 app.context.onerror = errorHandler;
 
+// specify that this is our api
+app.context.api = true;
+
 // response time
 app.use(convert(responseTime()));
 

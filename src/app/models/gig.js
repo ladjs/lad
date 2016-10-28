@@ -5,15 +5,9 @@ import _ from 'lodash';
 import validator from 'validator';
 
 import { i18n } from '../../helpers';
-import CommonPlugin from './plugins/common';
+import { SlugPlugin, CommonPlugin } from './plugins';
 
-const Position = new mongoose.Schema({
-  slug: {
-    type: String,
-    required: true,
-    index: true,
-    unique: true
-  },
+const Gig = new mongoose.Schema({
   company_name: {
     type: String,
     required: true,
@@ -50,22 +44,23 @@ const Position = new mongoose.Schema({
       fn(false, i18n.translate('INVALID_COMPANY_WEBSITE', this.locale));
     }
   },
-  job_title: {
+  gig_title: {
     type: String,
     required: true,
     validate: function (val, fn) {
       if (_.isString(val) && _.inRange(val.length, 4, 41))
         return fn();
-      fn(false, i18n.translate('INVALID_JOB_TITLE', this.locale));
+      fn(false, i18n.translate('INVALID_GIG_TITLE', this.locale));
     }
   },
-  job_description: {
+  gig_description: {
     type: String,
     required: true,
+    // TODO: only allow certain html tags in `gig_description`
     validate: function (val, fn) {
       if (_.isString(val) && _.inRange(val.length, 100, 301))
         return fn();
-      fn(false, i18n.translate('INVALID_JOB_DESCRIPTION', this.locale));
+      fn(false, i18n.translate('INVALID_GIG_DESCRIPTION', this.locale));
     }
   },
   status: {
@@ -94,32 +89,20 @@ const Position = new mongoose.Schema({
   stripe_charge_id: String
 });
 
-Position.plugin(CommonPlugin('position'));
+Gig.plugin(SlugPlugin);
+Gig.plugin(CommonPlugin('gig'));
 
-function validate(position, fn) {
-  fn();
-  // TODO: ensure the slug is unique based off `job_title`
-  // we can use async validator for this
-  // TODO: only allow certain html tags in `job_description`
-}
-
-Position.pre('validate', function (next) {
-  validate(this, next);
-});
-
-Position.statics.validate = validate;
-
-Position.index({
+Gig.index({
   company_name: 'text',
-  job_title: 'text',
-  job_description: 'text'
+  gig_title: 'text',
+  gig_description: 'text'
 }, {
   name: 'Text index',
   weights: {
     company_name: 10,
-    job_title: 5,
-    job_description: 1
+    gig_title: 5,
+    gig_description: 1
   }
 });
 
-export default mongoose.model('Position', Position);
+export default mongoose.model('Gig', Gig);

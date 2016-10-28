@@ -73,7 +73,7 @@
 * [Can I get help?](#crocodile-can-i-get-help)
 * [How do I get updates?](#crocodile-how-do-i-get-updates)
 * [Who built it?](#crocodile-who-built-it)
-* [Can we hire @niftylettuce?](#crocodile-can-we-hire-niftylettuce)
+* [Can we hire or partner with @niftylettuce?](#crocodile-can-we-hire-or-partner-with-niftylettuce)
 * [License](#crocodile-license)
 
 
@@ -527,7 +527,7 @@ Crocodile uses the following helper libraries:
 
 * Latest stable version of Node (`v6.x`)
 * Streams for build process with Gulp
-* Newest version of MongoDB and Redis (e.g. you can use [$lookup][lookup-operator] operator with MongoDB now!)
+* Newest versions of MongoDB and Redis
 * Uses ES6/ES7 syntax (no more callbacks; you can use `await` and `async` finally!)
 * Latest version of Koa `next` (or commonly referred to as `@next`)
 
@@ -693,8 +693,7 @@ For performance, you should always use the `lean()` method while writing your Mo
 
 You should also **never use Mongoose hooks, virtuals, or the populate method**.  Instead you should write static functions in the models, such as `User.doSomething(user, fn)`.  For insight as to how to write static methods, [see the Mongoose docs here][mongoose-static-method].
 
-If you need to asynchronously populate or waterfall chain population of database references, we suggest to use the [$lookup operator][lookup-operator] or use Async/Await syntax to keep it clean.
-For an example of how to write a `populate()` method with $lookup, [see this GitHub issue][gh-mongoose-issue].
+If you need to asynchronously populate or waterfall chain populate of database references (e.g. populate each user that made a post on a message board) &ndash; then we suggest to use Async/Await with `Promise.all`.
 
 We've also included these libraries to help with performance:
 
@@ -1300,7 +1299,7 @@ You can also follow us on Twitter at <https://twitter.com/niftylettuce>.
 
 CrocodileJS was released in September 2016 by [@niftylettuce][nifty-twitter].
 
-## <a href="#crocodile-index">:crocodile:</a> [Can we hire or partner with @niftylettuce?](#crocodile-can-we-hire-niftylettuce)
+## <a href="#crocodile-index">:crocodile:</a> [Can we hire or partner with @niftylettuce?](#crocodile-can-we-hire-or-partner-with-niftylettuce)
 
 I am always willing to entertain new opportunities.  Please reach out to me at <niftylettuce@gmail.com>.
 
