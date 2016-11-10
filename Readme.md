@@ -1017,9 +1017,9 @@ Precedence is taken by the environment configuration files, environment variable
 
 Basically [dotenv][dotenv] won't set an environment variable if it already detects it was passed as an environment variable.
 
-Take a look in the [src/config][src-config] folder contents and also at the default [.env.example][dot-env-file] file.
+Take a look in the [src/config][src-config] folder contents and also at the default [.env.default][dot-env-default] file.
 
-We've provided a default file called `.env.example`, **which you will need to rename** to `.env` and customize yourself.
+We've provided a default file called `.env.default`, **which you will need to rename** to `.env` and customize yourself.
 
 #### How do I configure my app?
 
@@ -1452,8 +1452,8 @@ This means that if your project is open source, then you must release it publicl
 [semaphoreci]: https://semaphoreci.com/
 [dmarc-promotion]: https://postmarkapp.com/blog/get-100000-free-postmark-credits
 [bootstrapped-promotion]: https://twitter.com/postmarkapp/status/197121068052389888
-[src-config]: src/
-[dot-env-file]: .env.example
+[src-config]: src/config/
+[dot-env-default]: .env.default
 [nvm]: https://github.com/creationix/nvm
 [vagrant]: https://www.vagrantup.com/
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
