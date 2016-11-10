@@ -94,6 +94,9 @@ let config = {
   },
   appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
   appName: env.APP_NAME,
+  i18nUpdateFiles: env.I18N_UPDATE_FILES,
+  i18nAutoReload: env.I18N_AUTO_RELOAD,
+  i18nSyncFiles: env.I18N_SYNC_FILES,
   serveStatic: {
     maxage: env.MAX_AGE
   },

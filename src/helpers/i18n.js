@@ -28,9 +28,9 @@ i18n.configure({
   },
   register: i18n.api,
   defaultLocale: config.defaultLocale,
-  syncFiles: true,
-  autoReload: true,
-  updateFiles: true
+  syncFiles: config.i18nSyncFiles,
+  autoReload: config.i18nAutoReload,
+  updateFiles: config.i18nUpdateFiles
 });
 
 i18n.translate = function translate(key, locale) {
