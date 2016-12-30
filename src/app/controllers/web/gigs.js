@@ -15,7 +15,7 @@ import moment from 'moment';
 
 import { logger } from '../../../helpers';
 import config from '../../../config';
-import { Users, Gigs } from '../../models';
+import { Jobs, Gigs } from '../../models';
 
 const stripe = new Stripe(config.stripe.secretKey);
 
@@ -32,6 +32,7 @@ export async function list(ctx, next) {
   // but if they want to make that effort so be it
   const userDevice = device(ctx.get('user-agent'));
   if (!userDevice.is('bot')
+    && !ctx.session.has_purchased_license
     && (!ctx.isAuthenticated() || !ctx.req.user.has_license)) {
     ctx.session.returnTo = ctx.req.url;
     ctx.flash('warning', ctx.translate('LICENSE_REQUIRED'));
@@ -41,12 +42,8 @@ export async function list(ctx, next) {
 
   let $match = {
     status: 'Approved',
-    start_at: {
-      $lte: new Date()
-    },
-    end_at: {
-      $gte: new Date()
-    }
+    start_at: { $lte: new Date() },
+    end_at: { $gte: new Date() }
   };
 
   let $sort = {};
@@ -72,33 +69,28 @@ export async function list(ctx, next) {
 
   }
 
-  // default sorting is by created_at
+  // default sorting is by reverse start_at date
   if (_.isEmpty($sort))
-    $sort = { created_at: -1 };
+    $sort = { start_at: -1 };
 
   // get paginated result of gigs
   // <https://github.com/Automattic/mongoose/issues/3683>
-  let [ gigs, itemCount ] = await Promise.all([
-    (async () => {
-      const gigs = await Gigs.find($match)
-        .sort($sort)
-        .limit(ctx.query.limit)
-        .skip(ctx.paginate.skip)
-        .lean()
-        .exec();
-      return Promise.map(_.map(gigs, pos => {
-        return Users.findById(pos.user).lean().exec();
-      }));
-    })(),
+  const [ gigs, itemCount ] = await Promise.all([
+    Gigs.find($match)
+      .select([
+        'company_name',
+        'company_logo',
+        'company_website',
+        'gig_title',
+        'slug'
+      ].join(' '))
+      .sort($sort)
+      .limit(ctx.query.limit)
+      .skip(ctx.paginate.skip)
+      .lean()
+      .exec(),
     Gigs.count($match).exec()
   ]);
-
-  // omit user props we don't want to expose
-  if (gigs.length > 0)
-    gigs = _.map(gigs, gig => {
-      gig.user = _.omit(gig.user, config.omitUserFields);
-      return gig;
-    });
 
   ctx.state.gigs = gigs;
   ctx.state.itemCount = itemCount;
@@ -133,7 +125,7 @@ export async function create(ctx, next) {
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_START_AT_DATE')));
 
   // validate fields
-  const gig = new Gigs({
+  let gig = new Gigs({
     ... _.omit(body, [ 'stripe_token', 'start_at' ]),
     ip: ctx.req.ip
   });
@@ -171,7 +163,7 @@ export async function create(ctx, next) {
     }
   });
 
-  if (count > 0)
+  if (count > 0 && config.env !== 'development')
     return ctx.throw(Boom.badRequest(ctx.translate('GIG_POST_LIMIT')));
 
   try {
@@ -225,15 +217,6 @@ export async function create(ctx, next) {
 
     const data = await Promise.all(promises);
 
-    console.log('data', data);
-
-    // get cloudfront path for first image only (@1x version)
-    body.company_logo = `https://${config.aws.domainName}/${data[0].key}`;
-
-    // if we're in dev mode then open the images in our browser
-    if (config.env === 'development')
-      _.each(data, img => opn(img.Location, { wait: false }));
-
     // charge user on stripe
     const charge = await stripe.charges.create({
       amount: parseInt(config.gigPostCostDollars * 100, 10),
@@ -243,74 +226,108 @@ export async function create(ctx, next) {
 
     logger.info('Created charge', charge);
 
+    // get cloudfront path for first image only (@1x version)
+    gig.company_logo = `https://${config.aws.domainName}/${data[0].key}`;
+    // set stripe charge id
     gig.stripe_charge_id = charge.id;
-    await gig.save();
+    gig = await gig.save();
 
     logger.info('Created gig', gig);
 
-    // TODO: send out an email for approval to admin
-    // TODO: send out an email to user with receipt + pending
+    let redirectTo = `/${ctx.req.locale}/gigs/${gig.slug}`;
 
-    ctx.throw('foobar');
+    if (moment(gig.start_at).isAfter(moment()))
+      redirectTo = `/${ctx.req.locale}`;
+
+    if (ctx.is('json')) {
+      ctx.body = {
+        message: ctx.translate('GIG_CREATED'),
+        redirectTo
+      };
+    } else {
+      ctx.flash('success', ctx.translate('GIG_CREATED'));
+      ctx.redirect(redirectTo);
+    }
+
+    // if we're in dev mode then open the images in our browser
+    if (config.env === 'development')
+      _.each(data, img => opn(img.Location, { wait: false }));
+
+    // send out an email to user with receipt
+    try {
+      const job = await Jobs.create({
+        name: 'email',
+        data: {
+          template: 'gig-created',
+          to: gig.company_email,
+          cc: config.email.from,
+          locals: { gig }
+        }
+      });
+      logger.info('Queued gig created email', job);
+    } catch (err) {
+      logger.error(err, {
+        ip: ctx.req.ip,
+        email: gig.company_email,
+        gig
+      });
+    }
 
   } catch (err) {
     ctx.throw(err);
   }
 
-  /*
-  try {
-
-    const inquiry = await Inquiries.create({
-      ... ctx.req.body,
-      ip: ctx.req.ip
-    });
-
-    logger.info('Created inquiry', inquiry);
-
-    const job = await Jobs.create({
-      name: 'email',
-      data: {
-        template: 'inquiry',
-        to: ctx.req.body.email,
-        cc: config.email.from,
-        locals: {
-          inquiry
-        }
-      }
-    });
-
-    logger.info('Queued inquiry email', job);
-
-    inquiry.job = job._id;
-    await inquiry.save();
-
-    if (ctx.is('json')) {
-      ctx.body = {
-        message: ctx.translate('CONTACT_REQUEST_SENT'),
-        reloadPage: true
-      };
-    } else {
-      ctx.flash('success', ctx.translate('CONTACT_REQUEST_SENT'));
-      ctx.redirect('back');
-    }
-
-  } catch (err) {
-
-    logger.error(err, {
-      ip: ctx.req.ip,
-      message: ctx.req.body.message,
-      email: ctx.req.body.email
-    });
-
-    ctx.throw(ctx.translate('CONTACT_REQUEST_ERROR'));
-
-  }
-  */
-
 }
 
 export async function retrieve(slug, ctx, next) {
-  await next();
+
+  const query = {
+    status: 'Approved',
+    start_at: { $lte: new Date() },
+    end_at: { $gte: new Date() }
+  };
+
+  const select = [
+    'company_name',
+    'company_logo',
+    'company_website',
+    'gig_title',
+    'gig_description'
+  ].join(' ');
+
+  try {
+
+    // look up `slug` by the :slug
+    let gig = await Gigs.findOne({
+      ...query,
+      slug: ctx.params.slug
+    })
+    .select(select)
+    .lean()
+    .exec();
+
+    // if no slug found, check in `slug_history` array
+    if (!gig)
+      gig = await Gigs.findOne({
+        ...query,
+        slug_history: ctx.params.slug
+      })
+      .select(select)
+      .lean()
+      .exec();
+
+    if (!gig)
+      throw new Error(`No gig found with slug ${ctx.params.slug}`);
+
+    ctx.state.gig = gig;
+
+    await next();
+
+  } catch (err) {
+    logger.error(err);
+    ctx.throw(Boom.badRequest(ctx.translate('INVALID_GIG')));
+  }
+
 }
 
 export async function update(ctx, next) {

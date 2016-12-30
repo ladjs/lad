@@ -10,7 +10,7 @@
 
 {% block body %}
 
-  <div class="container">
+  <div class="container pb-1">
 
     <h1 class="py-3 text-xs-center">{{ t('Post a gig') }}</h1>
 
@@ -37,7 +37,7 @@
       <h2 class="h3 text-xs-center text-muted py-2">{{ t('Get started now') }}</h2>
 
       <form
-        action="/{{ locale }}/gigs/post-a-gig"
+        action="/{{ locale }}/gigs/create"
         method="POST"
         class="ajax-form stripe-checkout"
         data-name="CrocodileJS"

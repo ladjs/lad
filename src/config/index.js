@@ -1,10 +1,14 @@
 
+import nunjucks from 'nunjucks';
+import customFonts from 'custom-fonts-in-emails';
 import strength from 'strength';
 import { exec } from 'child-process-promise';
 import gemoji from 'gemoji';
 import os from 'os';
 import _ from 'lodash';
 import path from 'path';
+import NunjucksCodeHighlight from 'nunjucks-highlight.js';
+import hljs from 'highlight.js';
 
 // load the defaults and environment specific configuration
 import dotenvExtended from 'dotenv-extended';
@@ -25,6 +29,8 @@ import locales from './locales';
 import * as utilities from './utilities';
 import i18n from './i18n';
 import meta from './meta';
+
+const highlight = new NunjucksCodeHighlight(nunjucks, hljs);
 
 const omitCommonFields = [ '_id', '__v' ];
 
@@ -209,10 +215,14 @@ let config = {
             resolve(err.stderr ? err.stderr : err.message);
           }
         });
-      }
+      },
+      ...customFonts
     },
     globals: {
       ...utilities
+    },
+    extensions: {
+      NunjucksCodeHighlight: highlight
     }
   },
 

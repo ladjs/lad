@@ -109,6 +109,7 @@ export default async function purchaseLicense(ctx) {
 
     // set that they have purchased a license
     ctx.req.user.has_license = true;
+    ctx.session.has_purchased_license = true;
 
     // set the licenses
     ctx.req.user.licenses = _.concat(

@@ -1,10 +1,74 @@
 
 {% extends "layout.njk" %}
 
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ manifest('js/admin/dashboard.js') }}"></script>
+{% endblock %}
+
 {% block body %}
 
-  <div class="container">
-    <p class="lead">{{ t('You are an admin with super power!') }}</p>
+  <div class="container-fluid pb-1">
+    <div class="row mt-1">
+      <div class="col-md-4 col-lg-2">
+        <nav class="nav nav-pills nav-stacked">
+          <a class="nav-link active" href="#">Dashboard</a>
+          <a class="nav-link" href="#">Users</a>
+          <a class="nav-link" href="#">Gigs</a>
+          <a class="nav-link" href="#">Inquiries</a>
+          <a class="nav-link" href="#">Licenses</a>
+          <a class="nav-link" href="#">Jobs</a>
+        </nav>
+      </div>
+      <div class="col-md-8 col-lg-10">
+        <div class="row">
+          <div class="col-md-6 col-lg-8">
+            <h1 class="h6 text-uppercase text-muted">{{ t('Admin') }}</h1>
+            <h2>{{ t('Dashboard') }}</h2>
+          </div>
+          <div class="col-md-6 col-lg-4 text-right">
+            <form class="form-inline">
+              <input class="form-control" type="date" value="2011-08-19">
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="card card-primary">
+          <div class="card-block text-white">
+            <h3 class="text-uppercase">{{ t('Users') }}</h3>
+            <hr />
+             <canvas
+              width="900"
+              height="300"
+              data-chart="line"
+              {% set labels = ['','Aug 29','','','Sept 5','','','Sept 12','','','Sept 19',''] %}
+              {% set values = [{fillColor: 'rgba(28,168,221,.03)', data: [2500, 3300, 2512, 2775, 2498, 3512, 2925, 4275, 3507, 3825, 3445, 3985]}] %}
+              data-labels="{{ labels | json }}"
+              data-datasets="{{ values | json }}">
+          </div>
+        </div>
+        <div class="card card-primary">
+          <div class="card-block text-white">
+            <h3 class="text-uppercase">{{ t('Gigs') }}</h3>
+          </div>
+        </div>
+        <div class="card card-primary">
+          <div class="card-block text-white">
+            <h3 class="text-uppercase">{{ t('Inquiries') }}</h3>
+          </div>
+        </div>
+        <div class="card card-primary">
+          <div class="card-block text-white">
+            <h3 class="text-uppercase">{{ t('Licenses') }}</h3>
+          </div>
+        </div>
+        <div class="card card-primary">
+          <div class="card-block text-white">
+            <h3 class="text-uppercase">{{ t('Jobs') }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 {% endblock %}

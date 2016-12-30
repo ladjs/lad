@@ -54,5 +54,8 @@ export default {
   INVALID_STRIPE_TOKEN: 'An issue occurred while communicating with our payment provider. Please try again.',
   INVALID_NUM_LICENSES: 'The number of licenses to purchase must be at least 1.',
   INVALID_START_AT_DATE: 'The date specified must be formatted as MM/DD/YY and must be either today or sometime in the future.',
-  PURCHASE_LICENSE_SENT: 'Your license key(s) have been emailed to you.  You can also view your license key(s) at the <a href="/my-account">My Account</a> page.'
+  PURCHASE_LICENSE_SENT: 'Your license key(s) have been emailed to you.  You can also view your license key(s) at the <a href="/my-account">My Account</a> page.',
+  INVALID_SLUG: 'Please slightly change values to ensure slug uniqueness.',
+  INVALID_GIG: 'No gig was found',
+  GIG_CREATED: 'Gig was successfully created'
 };

@@ -1,6 +1,6 @@
 <footer class="py-3 mt-3 email-footer">
   <div class="container text-xs-center">
-    <img src="/img/email/enjoy.svg" alt="" width="145" height="39" data-inline />
+    {{ { text: 'enjoy.', fontSize: 49, fontNameOrPath: 'fox in the snow'} | png2x | safe }}
     <p><small class="text-muted">&copy; {{ moment().format('YYYY') }} {{ config.copyright }} {{ t('All Rights Reserved.') }} <a href="/terms" class="font-weight-bold">{{ t('Terms') }}</a></small></p>
     <p class="text-muted"><a class="text-decoration-none" href="https://crocodilejs.com" title="Powered by CrocodileJS">{{ 'crocodile' | emoji }}</a></p>
   </div>

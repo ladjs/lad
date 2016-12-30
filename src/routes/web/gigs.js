@@ -29,9 +29,9 @@ router
     web.gigs.list,
     renderPage('gigs/list')
   )
-  .get('/post-a-gig', renderPage('gigs/create'))
+  .get('/create', renderPage('gigs/create'))
   .post(
-    '/post-a-gig',
+    '/create',
     upload.single('company_logo'),
     web.gigs.create
   )

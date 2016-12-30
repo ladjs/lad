@@ -3,9 +3,11 @@
 
 {% block body %}
 
-  <div class="container">
-    <div class="jumbotron mt-1">
-      <h1>
+  <div class="container pb-1">
+    <div class="row mt-1">
+      <h1 class="h6 text-uppercase text-muted">{{ t('My Account') }}</h1>
+      <h2>{{ t('Dashboard') }}</h2>
+      <h3>
         {% if moment().format('HH') >= 12 and moment().format('HH') <= 17 %}
           {{ t('Good afternoon') }},
         {% elif moment().format('HH') >= 17 %}
@@ -14,7 +16,7 @@
           {{ t('Good morning') }},
         {% endif %}
         <span> {{user.display_name}}!</span>
-      </h1>
+      </h3>
       <p>{{ t('This is your account page.') }}</p>
       <h2>{{ t('API Key') }}</h2>
       <code id="api-key">{{ user.api_token }}</code>

@@ -26,18 +26,23 @@ export default function _mongoose() {
   });
 
   // connect to mongodb
-  (async function reconnect() {
-    try {
-      // until this issue is resolved, we have to use `.then`
-      // <https://github.com/Automattic/mongoose/issues/4659>
-      await mongoose.connect(config.mongodb, config.mongodbOptions).then;
-    } catch (err) {
-      logger.error(err);
-      logger.info(`attempting to reconnect in (${config.mongooseReconnectMs}) ms`);
-      setTimeout(reconnect, config.mongooseReconnectMs);
-    }
-  }());
+  (async () => await reconnect())();
 
   return mongoose;
 
+}
+
+function reconnect() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await mongoose.connect(config.mongodb, config.mongodbOptions);
+      resolve();
+    } catch (err) {
+      logger.error(err);
+      logger.info(`attempting to reconnect in (${config.mongooseReconnectMs}) ms`);
+      setTimeout(() => {
+        resolve(reconnect());
+      }, config.mongooseReconnectMs);
+    }
+  });
 }

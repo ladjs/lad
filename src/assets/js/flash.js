@@ -4,10 +4,6 @@ import _ from 'lodash';
 
 (() => {
 
-  // initialize sweetalert manually
-  // <https://github.com/limonte/sweetalert2/issues/287>
-  swal.init();
-
   if (!_.isEmpty(window._messages)) {
 
     const steps = [];

@@ -13,9 +13,6 @@ require('bootstrap/dist/js/bootstrap');
 
 const Clipboard = window.Clipboard = require('clipboard');
 
-window.hljs = require('highlight.js');
-window.hljs.initHighlightingOnLoad();
-
 // add optional support for older browsers
 import es6promise from 'es6-promise';
 es6promise.polyfill();
@@ -33,10 +30,9 @@ import WebFont from 'webfontloader';
 WebFont.load({
   google: {
     families: [
-      'Inconsolata',
-      // 'Open+Sans:400,700'
-      'Lato:400,700',
-      'Roboto:400,700'
+      'Source+Code+Pro',
+      'Roboto:300,400',
+      'Montserrat'
     ]
   }
 });

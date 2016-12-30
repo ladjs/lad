@@ -3,9 +3,9 @@
 
 {% block body %}
 
-  <div class="container">
+  <div class="container pb-1">
 
-    <div class="row mt-1 mb-1">
+    <div class="row mt-1">
 
       {% if config.auth.hasThirdPartyProviders %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -45,7 +45,7 @@
             <div class="card-block">
               {% set h1 = s.titleize(verb) + ' Now' %}
               <h1 class="card-title h4">{{ t(h1) }}</h1>
-              {% if verb == 'sign up' %}
+              {% if verb === 'sign up' %}
                 <p class="card-text">{{ t('Hi there!') }} {{ 'wave' | emoji }}</p>
               {% else %}
                 <p class="card-text">{{ t('Welcome back!') }} {{ 'beers' | emoji }}</p>
@@ -63,7 +63,7 @@
               </form>
               <p class="text-xs-center text-muted mt-1">
                 <small>
-                  {% if verb == 'sign up' %}
+                  {% if verb === 'sign up' %}
                     {{ t('By signing up, you agree to our <a href="/' + locale + '/terms">Terms</a>') | safe }}
                   {% else %}
                     <a href="/{{ locale }}/forgot-password" class="card-link">{{ t('Forget your password?') }}</a>

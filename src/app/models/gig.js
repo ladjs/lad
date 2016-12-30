@@ -28,14 +28,13 @@ const Gig = new mongoose.Schema({
   },
   company_logo: {
     type: String,
-    required: true,
     validate: function (val, fn) {
       if (_.isString(val) && validator.isURL(val))
         return fn();
       fn(false, i18n.translate('INVALID_COMPANY_LOGO', this.locale));
     }
   },
-  company_website:{
+  company_website: {
     type: String,
     required: true,
     validate: function (val, fn) {
@@ -89,8 +88,10 @@ const Gig = new mongoose.Schema({
   stripe_charge_id: String
 });
 
-Gig.plugin(SlugPlugin);
 Gig.plugin(CommonPlugin('gig'));
+
+// slug plugin needs to come after common plugin since it uses `this.locale`
+Gig.plugin(SlugPlugin('${gig_title} ${company_name}'));
 
 Gig.index({
   company_name: 'text',

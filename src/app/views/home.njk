@@ -22,21 +22,25 @@
     </h5>
   </nav>
 
-  <div class="container">
+  <div class="container pb-1">
 
-    <ul class="text-xs-center my-1 list-inline">
-      <li class="list-inline-item d-inline">
-        {{ '100' | emoji }} {{ t('CrocodileJS is a multilingual <mark>full-stack</mark> <strong class="notranslate">Node.js</strong> + <strong class="notranslate">Koa</strong> + <strong class="notranslate">ES7</strong> <abbr title="Model View Controller" class="notranslate">MVC</abbr> framework for <strong class="notranslate">Apps</strong> and <strong class="notranslate">API\'s</strong>') | safe }}.
-      </li>
-      <li class="list-inline-item d-inline">
-        <a href="/{{ locale }}/gigs" class="btn btn-sm btn-outline-success">{{ t('Browse Gigs') }}</a>
-      </li>
-      <li class="list-inline-item d-inline">
-        <a href="/{{ locale }}/gigs/post-a-gig" class="btn btn-sm btn-outline-danger">{{ t('Post a Gig') }}</a>
-      </li>
-    </ul>
+    <h1 class="text-xs-center py-3 mb-0">{{ t('Chew apart your projects with speed.') }} </h1>
 
-    <h1 class="text-xs-center pt-2 pb-1 mb-0">{{ t('Build your projects with speed and quality.') }}</h1>
+    <div class="card card-outline-secondary">
+      <div class="card-block">
+        <ul class="text-xs-center mb-0 list-inline">
+          <li class="list-inline-item d-inline">
+            {{ t('CrocodileJS is a <mark>full-stack</mark> <strong class="notranslate">Node.js</strong>, <strong class="notranslate">Koa</strong>, and <strong class="notranslate">ES7</strong> project starter.') | safe }}
+          </li>
+          <li class="list-inline-item d-inline">
+            <a href="/{{ locale }}/gigs" class="btn btn-sm btn-outline-success">{{ t('Browse Gigs') }}</a>
+          </li>
+          <li class="list-inline-item d-inline">
+            <a href="/{{ locale }}/gigs/create" class="btn btn-sm btn-outline-danger">{{ t('Post a Gig') }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     {% macro getStartedNow() %}
       {# responsive bootstrap 4 cards #}
@@ -46,7 +50,7 @@
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 col-lg-height col-xl-height col-lg-top col-xl-top">
             <div class="inside inside-full-height card bg-inverse">
               <div class="card-block py-1 text-white">
-                <h2 class="card-title">{{ t('Get Started') }}</h2>
+                <h2 class="card-title">{{ t('Get Started for Free') }}</h2>
                 <kbd class="d-inline-block p-1 bg-success lead">npm install -g crocodile</kbd>
                 <div class="clearfix"></div>
                 <p class="card-text mt-1">{{ t('Make sure that you bring:') }}</p>
@@ -64,13 +68,13 @@
           </div>
           <div class="hidden-lg-up col-xs-12 col-sm-12 col-md-12 my-1"></div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 col-lg-height col-xl-height col-lg-top col-xl-top">
-            <div class="inside inside-full-height card card-outline-secondary">
+            <div class="inside inside-full-height card card-primary">
               <div class="card-block py-1">
-                <h3 class="card-title h2">{{ t('Commercial Use') }}</h2>
-                <p class="lead">{{ t('Pay a <strong>one-time fee</strong> to unlock the <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license" target="_blank" data-placement="bottom" data-toggle="tooltip" title="Allows commercial use"><u>MIT License</u></a>') | safe }}!</p>
+                <h3 class="card-title h2 text-white">{{ t('Commercial Use') }}</h2>
+                <p class="lead text-white">{{ t('<i class="fa fa-github-alt notranslate"></i> Support <strong>open-source</strong> and unlock the <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license" class="text-white" arget="_blank" data-placement="bottom" data-toggle="tooltip" title="Allows commercial use"><u>MIT License</u></a>') | safe }}!</p>
                 <div class="row">
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card card-outline-primary">
+                    <div class="card bg-white">
                       <div class="card-block">
                         <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars }}</h3>
                         <small class="font-weight-bold text-primary">{{ t('Most Popular') }}</small>
@@ -96,7 +100,7 @@
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card card-outline-secondary">
+                    <div class="card bg-white">
                       <div class="card-block">
                         <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 5 * 0.88 }}</h3>
                         <small><mark class="text-uppercase font-weight-bold">{{ t('12% Discount') }}</mark></small>
@@ -122,7 +126,7 @@
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card card-outline-secondary">
+                    <div class="card bg-white">
                       <div class="card-block">
                         <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 10 * 0.76}}</h3>
                         <small><mark class="text-uppercase font-weight-bold">{{ t('24% Discount') }}</mark></small>
@@ -150,10 +154,10 @@
                 </div>
                 <ul class="list-inline mb-0">
                   <li class="list-inline-item">
-                    <small class="text-muted"><i class="fa fa-lock"></i> {{ t('<strong>Secure</strong> and <strong>trusted</strong> payments by <a href="https://stripe.com" target="_blank">Stripe</a>.') | safe }}</small>
+                    <small class="text-white"><i class="fa fa-lock"></i> {{ t('<strong>Secure</strong> and <strong>trusted</strong> payments by <a class="text-white" href="https://stripe.com" target="_blank"><u>Stripe</u></a>.') | safe }}</small>
                   </li>
                   <li class="list-inline-item">
-                    <small class="text-muted"><mark class="text-uppercase font-weight-bold"><u>{{ t('30-day refund guaranteed') }}</u></mark></small>
+                    <small class="text-white font-weight-bold text-uppercase"><u>{{ t('30-day refund guaranteed') }}</u></small>
                   </li>
                 </ul>
               </div>
@@ -286,62 +290,66 @@
     <h2 class="h3 text-xs-center text-muted py-2 mb-0">{{ t('What does it come with?') }}</h2>
 
     {# 1. web server #}
-    <h3 id="the-web-server" class="display-4 text-xs-center text-muted py-2"><a href="#the-web-server"><u>{{ t('1. The Web Server') }}</u></a></h3>
+    <h3 id="the-web-server" class="display-4 text-xs-center text-muted py-2"><a href="#the-web-server"><u>{{ t('The Web Server') }}</u></a></h3>
 
-    <div class="jumbotron p-1 my-1">
+    <div class="p-1 my-1">
       <p class="lead">{{ t('To fully utilize the potential of Node and ES7, we\'ve used Koa <span class="tag tag-primary">next</span> (by <a href="https://github.com/tj" target="_blank" data-toggle="tooltip" title="TJ is also the author of Express!">TJ Holowaychuk</a>), the spiritual successor to the <a href="http://expressjs.com/" target="_blank">Express framework</a>, and added everything to it you would need for a modern application; MVC architecture, <a href="https://github.com/koajs/csrf" target="_blank">CSRF</a> and <a href="https://github.com/venables/koa-helmet" target="_blank">XSS</a> protection, <a href="https://github.com/scttcper/koa-simple-ratelimit" target="_blank">rate limiting</a>, <a href="https://github.com/niftylettuce/koa-manifest-rev" target="_blank">manifest asset revisioning</a>, <a href="https://github.com/koajs/generic-session" target="_blank">sessions</a> (backed by <a href="https://github.com/koajs/koa-redis" target="_blank">Redis</a>), <a href="https://github.com/theverything/koa-connect-flash" target="_blank">flash messaging</a>, file uploading using streams (with built-in image resizing and transformation!), <a href="https://github.com/yosuke-furukawa/koa-livereload" target="_blank">LiveReload</a>, and more.') | safe }}</p>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <div class="card">
-            <div class="card-block">
-              <p class="lead">{{ t('We automatically enable stage-0 ES6/ES7 features.  You can simply <code>import</code> models in your controllers, and <code>import</code> controllers in your routes.') | safe }}</p>
-              <pre class="js"><code>import Router from 'koa-router';
+          <p class="lead">{{ t('We automatically enable stage-0 ES6/ES7 features.  You can simply <code>import</code> models in your controllers, and <code>import</code> controllers in your routes.') | safe }}</p>
+          {% code %}
+          import Router from 'koa-router';
 
-import controllers from '../../app/controllers';
-import { renderPage, policies } from '../../helpers';
+          import controllers from '../../app/controllers';
+          import { renderPage, policies } from '../../helpers';
 
-const router = new Router();
+          const router = new Router();
 
-router
-  .get('/', renderPage('home'))
-  .get('/about', renderPage('about'))
-  .get('/status', controllers.web.status)
-  // ...
-  .get(
-    '/signup',
-    policies.ensureLoggedOut,
-    controllers.web.signupOrLogin
-  );
+          router
+            .get('/', renderPage('home'))
+            .get('/about', renderPage('about'))
+            .get('/status', controllers.web.status)
+            // ...
+            .get(
+              '/signup',
+              policies.ensureLoggedOut,
+              controllers.web.signupOrLogin
+            );
 
-export default router;</code></pre>
-            </div>
-          </div>
+          export default router;
+          {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <div class="card">
-            <div class="card-block">
-              <p class="lead">{{ t('To rid of <a class="notranslate" href="http://callbackhell.com/" target="_blank">callback hell</a>, and write more readable, maintainable code &ndash; we use <a class="notranslate" href="https://ponyfoo.com/articles/understanding-javascript-async-await" target="_blank">Async/Await</a>.') | safe}}</p>
-              <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Before') }}</small></p>
-              <pre class="js"><code>function updateUser(req, res, next) {
-  Users.findOne({ org: 'crocodilejs' }, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new Error('User does not exist'));
-    user.group = 'admin';
-    user.save(function(err, user) {
-      if (err) return next(err);
-      res.json(user);
-    });
-  });
-}</code></pre>
-              <p class="text-xs-center text-uppercase text-muted"><small>{{ t('After') }}</small></p>
-              <pre class="js"><code>static async updateUser(ctx) {
-  let user = await User.findOne({ org: 'crocodilejs' });
-  if (!user) return ctx.throw(Boom.badRequest('User does not exist'));
-  user.group = 'admin';
-  ctx.body = await user.save();
-}</code></pre>
-            </div>
-          </div>
+          <p class="lead">{{ t('To rid of <a class="notranslate" href="http://callbackhell.com/" target="_blank">callback hell</a> and write more readable, maintainable code &ndash; we use <a class="notranslate" href="https://ponyfoo.com/articles/understanding-javascript-async-await" target="_blank">Async/Await</a>.  The following is an before vs. after example of updating a user object with Mongoose.') | safe}}</p>
+          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Before with Express and ES5') }}</small></p>
+          {% code %}
+          function updateUser(req, res, next) {
+            Users.findOne({ org: 'crocodilejs' }, function(err, user) {
+              if (err) return next(err);
+              if (!user)
+                return next(new Error('User does not exist'));
+              user.group = 'admin';
+              user.save(function(err, user) {
+                if (err) return next(err);
+                res.json(user);
+              });
+            });
+          }
+          {% endcode %}
+          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('After with Koa, ES7, and Boom') }}</small></p>
+          {% code %}
+          static async updateUser(ctx) {
+            try {
+              let user = await User.findOne({ org: 'crocodilejs' });
+              if (!user)
+                return ctx.throw(Boom.badRequest('User does not exist'));
+              user.group = 'admin';
+              ctx.body = await user.save();
+            } catch (err) {
+              ctx.throw(err);
+            }
+          }
+          {% endcode %}
         </div>
       </div>
       <div class="alert alert-success text-xs-center"><small>{{ t('Use the built-in templating language <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a>, or plug in any front-end (such as <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, or <a href="https://github.com/yoshuawuyts/choo" target="_blank">Choo</a>).') | safe }}</small></div>
@@ -364,7 +372,7 @@ export default router;</code></pre>
 
     {# 2. api server #}
 
-    <h3 id="the-api-server" class="display-4 text-xs-center text-muted py-2"><a href="#the-api-server"><u>{{ t('2. The API Server') }}</u></a></h3>
+    <h3 id="the-api-server" class="display-4 text-xs-center text-muted py-2"><a href="#the-api-server"><u>{{ t('The API Server') }}</u></a></h3>
 
     {% if user %}
       {% set token = user.api_token %}
@@ -372,7 +380,7 @@ export default router;</code></pre>
       {% set token = 'api_token' %}
     {% endif %}
 
-    <div class="jumbotron my-1 p-1">
+    <div class="my-1 p-1">
       <p class="lead">{{ t('With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API\'s &ndash; we\'ve crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the <a href="/' + locale + '/my-account">My Account</a> page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>). It\'s absolutely perfect for building the back-end of your <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, <a href="https://github.com/electron/electron" target="_blank">Electron</a>, iOS, or Android app.  You have full control of everything; you don\'t need to rely on a third-party API platform provider.  You can finally stop reading convoluted documentation and start writing your API endpoints!') | safe }}</p>
 
       {% if not user %}
@@ -385,145 +393,145 @@ export default router;</code></pre>
 
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <div class="card">
-            <div class="card-block">
-              <p class="lead text-xs-center">{{ t('Retrieve account') }}</p>
-              <p class="text-xs-center"><span class="tag tag-success">GET</span> <code>/v1/account</code></p>
-              <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
-              {% set getV1Account = 'curl -sS -u ' + token + ': ' + config.urls.api + '/v1/account' %}
-              <pre class="bash"><code id="get-v1-account">{{ getV1Account }}</code></pre>
-              <div class="text-xs-center">
-                <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#get-v1-account"><i class="fa fa-clipboard"></i> {{ t('Copy') }}</button>
-              </div>
-              <p class="text-xs-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
-              <pre class="json"><code>{{ getV1Account | curl }}</code></pre>
-            </div>
+          <p class="lead text-xs-center">{{ t('Retrieve account') }}</p>
+          <p class="text-xs-center"><span class="tag tag-success">GET</span> <code>/v1/account</code></p>
+          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
+          {% set getV1Account = 'curl -sS -u ' + token + ': ' + config.urls.api + '/v1/account' %}
+          {% set getV1AccountOutput = getV1Account | curl %}
+          <div id="get-v1-account">
+            {% code %}bash
+            {{ getV1Account }}
+            {% endcode %}
           </div>
+          <div class="text-xs-center">
+            <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#get-v1-account"><i class="fa fa-clipboard"></i> {{ t('Copy') }}</button>
+          </div>
+          <p class="text-xs-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
+          {% code %}json
+          {{ getV1AccountOutput | safe }}
+          {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <div class="card">
-            <div class="card-block">
-              <p class="lead text-xs-center">{{ t('Update account') }}</p>
-              <p class="text-xs-center"><span class="tag tag-success">PUT</span> <code>/v1/account</code></p>
-              <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
-              {% set putV1Account = 'curl -sS -u ' + token + ': -X PUT -d "display_name=' + (user.display_name if user else 'display_name') + '" ' + config.urls.api + '/v1/account' %}
-              <pre class="bash"><code id="put-v1-account">{{ putV1Account }}</code></pre>
-              <div class="text-xs-center">
-                <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#put-v1-account"><i class="fa fa-clipboard"></i> {{ t('Copy') }}</button>
-              </div>
-              <p class="text-xs-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
-              <pre class="json"><code>{{ putV1Account | curl }}</code></pre>
-            </div>
+          <p class="lead text-xs-center">{{ t('Update account') }}</p>
+          <p class="text-xs-center"><span class="tag tag-success">PUT</span> <code>/v1/account</code></p>
+          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
+          {% set putV1Account = 'curl -sS -u ' + token + ': -X PUT -d "display_name=' + (user.display_name if user else 'display_name') + '" ' + config.urls.api + '/v1/account' %}
+          {% set putV1AccountOutput = putV1Account | curl %}
+          {% code %}bash
+          {{ putV1Account | safe }}
+          {% endcode %}
+          <div class="text-xs-center">
+            <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#put-v1-account"><i class="fa fa-clipboard"></i> {{ t('Copy') }}</button>
           </div>
+          <p class="text-xs-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
+          {% code %}json
+          {{ putV1AccountOutput | safe }}
+          {% endcode %}
         </div>
       </div>
     </div>
 
     {# 3. job scheduler #}
 
-    <h3 id="the-job-scheduler" class="display-4 text-xs-center text-muted py-2"><a href="#the-job-scheduler"><u>{{ t('3. The Job Scheduler') }}</u></a></h3>
+    <h3 id="the-job-scheduler" class="display-4 text-xs-center text-muted py-2"><a href="#the-job-scheduler"><u>{{ t('The Job Scheduler') }}</u></a></h3>
 
-    <div class="jumbotron p-1 mb-0">
+    <div class="p-1 mb-0">
       <p class="lead">{{ t('No need for cron jobs, as we\'ve included a job scheduler which is built on <a href="http://redis.io/" target="_blank">Redis</a> and <a href="https://github.com/rschmukler/agenda" target="_blank">Agenda</a>.  By default, we\'ve included two jobs out of the box: <code>email</code> and <code>locales</code>.  In development mode, emails are rendered to a temporary HTML file on your computer, and are then opened automatically for you in the default browser.  This saves you time and prevents you from clicking "Refresh" in Gmail a hundred times!  In non-development environments (e.g. production), by default we use <a href="https://postmarkapp.com/" target="_blank">Postmark</a> to send emails (see Crocodile\'s <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#deployment" target="_blank">Readme</a> for how to get 150K free credits with them). Don\'t want to use Postmark?  You can swap in your own <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework/blob/master/src/jobs/index.js#L49" target="_blank">transport</a> of <a target="_blank" href="https://github.com/nodemailer/nodemailer#using-well-known-services">choice</a> in minutes.') | safe }}</p>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <div class="card">
-            <div class="card-block">
-              <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email now') }}</small></p>
-              <pre class="js"><code>import Jobs from '../../models/job';
-import { Logger } from '../../../helpers';
+          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email now') }}</small></p>
+          {% code %}
+          import Jobs from '../../models/job';
+          import { Logger } from '../../../helpers';
 
-try {
-  const job = await Jobs.create({
-    name: 'email',
-    data: {
-      template: 'some-template-name',
-      to: 'niftylettuce@gmail.com',
-      locals: {
-        name: '@niftylettuce',
-      }
-    }
-  });
-  Logger.info('Queued an email to send now');
-} catch (err) {
-  Logger.error(err);
-}</code></pre>
-            </div>
-          </div>
+          try {
+            const job = await Jobs.create({
+              name: 'email',
+              data: {
+                template: 'some-template-name',
+                to: 'niftylettuce@gmail.com',
+                locals: {
+                  name: '@niftylettuce',
+                }
+              }
+            });
+            Logger.info('Queued an email to send now');
+          } catch (err) {
+            Logger.error(err);
+          }
+          {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <div class="card">
-            <div class="card-block">
-              <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email in 24 hours') }}</small></p>
-              <pre class="js"><code>import Jobs from '../../models/job';
-import { Logger } from '../../../helpers';
-import moment from 'moment';
+          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email in 24 hours') }}</small></p>
+          {% code %}
+          import Jobs from '../../models/job';
+          import { Logger } from '../../../helpers';
+          import moment from 'moment';
 
-try {
-  const job = await Jobs.create({
-    name: 'email',
-    nextRunAt: moment().add(24, 'hours').toDate(),
-    data: {
-      template: 'some-template-name',
-      to: 'niftylettuce@gmail.com',
-      locals: {
-        name: '@niftylettuce',
-      }
-    }
-  });
-  Logger.info('Queued an email to send in 24 hours');
-} catch (err) {
-  Logger.error(err);
-}</code></pre>
-            </div>
-          </div>
+          try {
+            const job = await Jobs.create({
+              name: 'email',
+              nextRunAt: moment().add(24, 'hours').toDate(),
+              data: {
+                template: 'some-template-name',
+                to: 'niftylettuce@gmail.com',
+                locals: {
+                  name: '@niftylettuce',
+                }
+              }
+            });
+            Logger.info('Queued an email to send in 24 hours');
+          } catch (err) {
+            Logger.error(err);
+          }
+          {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <div class="card">
-            <div class="card-block">
-              <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email every 5 minutes') }}</small></p>
-              <pre class="js"><code>agenda.every('5 minutes', 'five-minute-email');</code></pre>
-              <pre class="js"><code>getJobs() {
-  return [
-    [ 'email', {}, this.email ],
-    [ 'locales', {}, this.locales ],
-    [ 'five-minute-email', {}, this.fiveMinuteEmail ]
-  ]
-}
+          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email every 5 minutes') }}</small></p>
+          {% code %}agenda.every('5 minutes', 'five-minute-email');{% endcode %}
+          {% code %}
+          getJobs() {
+            return [
+              [ 'email', {}, this.email ],
+              [ 'locales', {}, this.locales ],
+              [ 'five-minute-email', {}, this.fiveMinuteEmail ]
+            ]
+          }
 
-async fiveMinuteEmail(job, done) {
-  try {
-    const job = await Jobs.create({
-      name: 'email',
-      data: {
-        template: 'some-template-name',
-        to: 'niftylettuce@gmail.com',
-        locals: {
-          name: '@niftylettuce',
-        }
-      }
-    });
-    done(null, job);
-  } catch (err) {
-    done(err);
-  }
-}</code></pre>
-            </div>
-          </div>
+          async fiveMinuteEmail(job, done) {
+            try {
+              const job = await Jobs.create({
+                name: 'email',
+                data: {
+                  template: 'some-template-name',
+                  to: 'niftylettuce@gmail.com',
+                  locals: {
+                    name: '@niftylettuce',
+                  }
+                }
+              });
+              done(null, job);
+            } catch (err) {
+              done(err);
+            }
+          }
+          {% endcode %}
         </div>
       </div>
       <hr />
       <p class="lead">{{ t('What about the "locales" job mentioned?  The locales job runs automatically every time the job scheduler boots.  It will keep you up to date on your translation and localization efforts (e.g. if you\'re forgetting to translate a particular phrase, then it will notify you in the command line output).  <strong>We built in support for automatic Google Translation too!</strong>  Finally, here is an example of the helpful output that the "locales" job provides:') | safe }}</p>
-      <pre class="bash"><code>warning: the following phrases need translated in es:
-Email address was invalid
-Password was invalid
-You have successfully reset your password.</code></pre>
+      {% code %}
+      warning: the following phrases need translated in es:
+      Email address was invalid
+      Password was invalid
+      You have successfully reset your password.
+      {% endcode %}
       <p class="lead mb-0">{{ t('You can specify which locales (languages) you support in the <code>src/config/locales.js</code> file.') | safe }}</p>
     </div>
 
     {# 4. email engine #}
 
-    <h3 id="the-email-engine" class="display-4 text-xs-center text-muted py-2"><a href="#the-email-engine"><u>{{ t('4. The Email Engine') }}</u></a></h3>
+    <h3 id="the-email-engine" class="display-4 text-xs-center text-muted py-2"><a href="#the-email-engine"><u>{{ t('The Email Engine') }}</u></a></h3>
 
     <div class="jumbotron p-1 mb-0">
       <p class="lead">TODO</p>
@@ -539,14 +547,14 @@ You have successfully reset your password.</code></pre>
 
     <h2 class="h3 text-xs-center text-muted py-2 mb-0">{{ t('What packages are used?') }}</h2>
 
-    <div class="jumbotron p-1 lead text-xs-center">
+    <div class="p-1 lead text-xs-center">
       {% set deps = _.concat(_.keys(config.pkg.dependencies), _.keys(config.pkg.devDependencies)) | sort %}
       {% for dep in deps %}
         <a href="https://www.npmjs.com/package/{{ dep }}" target="_blank" class="tag tag-default">{{ dep }}</a>
       {% endfor %}
     </div>
 
-    <div class="jumbotron p-1">
+    <div class="p-1">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
           <div class="card m-0">

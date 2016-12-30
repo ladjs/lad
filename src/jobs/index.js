@@ -15,13 +15,9 @@ import nodemailer from 'nodemailer';
 import { htmlToText as htmlToTextPlugin } from 'nodemailer-html-to-text';
 import base64ToS3 from 'nodemailer-base64-to-s3';
 import path from 'path';
-import NunjucksCodeHighlight from 'nunjucks-highlight.js';
-import hljs from 'highlight.js';
 
 import { i18n, logger } from '../helpers';
 import config from '../config';
-
-const highlight = new NunjucksCodeHighlight(nunjucks, hljs);
 
 // create transport and add html to text conversion
 const transport = nodemailer.createTransport(config.postmark);
@@ -52,7 +48,6 @@ const loader = new FileMinifyLoader(
   config.nunjucks
 );
 const env = new nunjucks.Environment(loader);
-env.addExtension('NunjucksCodeHighlight', highlight);
 
 // promise version of `env.render`
 function render(view, locals) {
@@ -72,6 +67,10 @@ function filterWrapper(filter) {
     );
   };
 }
+
+Object.keys(config.nunjucks.extensions).forEach(extensionKey => {
+  env.addExtension(extensionKey, config.nunjucks.extensions[extensionKey]);
+});
 Object.keys(config.nunjucks.filters).forEach(filterKey => {
   env.addFilter(filterKey, filterWrapper(config.nunjucks.filters[filterKey]), true);
 });

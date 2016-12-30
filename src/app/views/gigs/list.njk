@@ -3,18 +3,30 @@
 
 {% block body %}
 
-  <div class="container text-xs-center">
+  <div class="container text-xs-center pb-1">
     <h1 class="my-3">{{ t("Who's Hiring?") }}</h1>
     <div class="card card-outline-secondary">
       <div class="card-block">
-        <ul class="list-inline mb-0 card-title text-muted">
+        <ul class="list-inline mb-0 card-title">
           <li class="list-inline-item">{{ t('These exclusive gigs are from verified companies using CrocodileJS.') }}</li>
-          <li class="list-inline-item"><a href="/gigs/create" class="btn btn-md btn-primary">{{ t('Post a Gig') }}</a></li>
+          <li class="list-inline-item"><a href="/{{ locale }}/gigs/create" class="btn btn-md btn-primary">{{ t('Post a Gig') }}</a></li>
         </ul>
       </div>
     </div>
-    <p>Item Count: {{ itemCount }}</p>
-    <p>Gigs: {{ gigs | json }}</p>
+
+    <div class="row">
+      {% for gig in gigs %}
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+          <div class="card">
+            <div class="card-block">
+              <a href="/{{ locale }}/gigs/{{ gig.slug }}"><img class="img-fluid img-thumbnail" src="{{ gig.company_logo }}" alt="{{ gig.company_name }}" /></a>
+              <h2 class="h4 card-title my-2">{{ t(gig.gig_title) }}<br /><small class="text-muted">{{ gig.company_name }}</small></h4>
+              <a href="/{{ locale }}/gigs/{{ gig.slug }}" class="btn btn-block btn-md btn-success">{{ t('Learn more') }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
     {% include "../_pagination.njk" %}
   </div>
 

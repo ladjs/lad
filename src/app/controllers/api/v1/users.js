@@ -47,7 +47,7 @@ export async function checkLicenseKey(ctx, next) {
     ctx.body = _.pick(user, [ 'license' ]);
   } catch (err) {
     logger.error(err);
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_LICENSE_KEY')));
+    ctx.throw(Boom.badRequest(ctx.translate('INVALID_LICENSE_KEY')));
   }
 
 }
