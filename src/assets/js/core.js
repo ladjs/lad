@@ -264,7 +264,7 @@ const api = new Frisbee({
           // reset the form
           $form.get(0).reset();
           // redirect
-          window.location(res.body.redirectTo);
+          window.location = res.body.redirectTo;
         }
       } else if (_.isString(res.body.message)) {
 
