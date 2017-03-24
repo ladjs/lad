@@ -618,12 +618,13 @@ NODE_ENV=production npm run agenda
 
 ### Cross-browser Compatibility
 
-<img width="100" height="100" style="width:100px;height:100px;" alt="Chrome" src="https://rawgit.com/alrra/browser-logos/master/src/chrome/chrome.svg" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Android" src="https://rawgit.com/alrra/browser-logos/master/src/firefox/firefox.svg" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Safari" src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari.png" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Internet Explorer" src="https://rawgit.com/alrra/browser-logos/master/src/archive/internet-explorer-tile_10-11/internet-explorer-tile_10-11.svg" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Opera" src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera.png" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Android" src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/android/android.png" />
+![Chrome](https://rawgit.com/alrra/browser-logos/master/src/chrome/chrome_64x64.png)
+![Firefox](https://rawgit.com/alrra/browser-logos/master/src/firefox/firefox_64x64.png)
+![Safari](https://rawgit.com/alrra/browser-logos/master/src/safari/safari_64x64.png)
+![Microsoft Edge](https://rawgit.com/alrra/browser-logos/master/src/edge/edge_64x64.png)
+![Internet Explorer](https://rawgit.com/alrra/browser-logos/master/src/archive/internet-explorer-tile_10-11/internet-explorer-tile_10-11_64x64.png)
+![Opera](https://rawgit.com/alrra/browser-logos/master/src/opera/opera_64x64.png)
+![Android](https://rawgit.com/alrra/browser-logos/master/src/android/android_64x64.png)
 
 Is this cross-browser compatible?  Yes, 100%!  What about all of your ES6/ES7 code?  Yes, 100%.
 
