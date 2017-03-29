@@ -622,8 +622,6 @@ Is this cross-browser compatible?  Yes, 100%!  What about all of your ES6/ES7 co
 
 For a list of supported browsers, please see Bootstrap's list of [supported browsers](https://v4-alpha.getbootstrap.com/getting-started/browsers-devices/#supported-browsers).
 
-**However, if you stick with the default v4 Bootstrap CSS framework &ndash; it only supports IE9+ and iOS 7+.**
-
 All of your code is converted to browser-friendly ES5 vanilla JavaScript (using [Browserify][browserify] and [Babelify][babelify])...so it's cross-browser compatible!
 
 > This means both your server-side and client-side code is built to the `./lib/` folder with ES5 syntax when the Gulpfile is run with `gulp build`.
