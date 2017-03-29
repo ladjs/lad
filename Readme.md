@@ -618,16 +618,9 @@ NODE_ENV=production npm run agenda
 
 ### Cross-browser Compatibility
 
-<img width="100" height="100" style="width:100px;height:100px;" alt="Chrome" src="https://rawgit.com/alrra/browser-logos/master/src/chrome/chrome.svg" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Android" src="https://rawgit.com/alrra/browser-logos/master/src/firefox/firefox.svg" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Safari" src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari.png" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Internet Explorer" src="https://rawgit.com/alrra/browser-logos/master/src/archive/internet-explorer-tile_10-11/internet-explorer-tile_10-11.svg" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Opera" src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera.png" />
-<img width="100" height="100" style="width:100px;height:100px;" alt="Android" src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/android/android.png" />
-
 Is this cross-browser compatible?  Yes, 100%!  What about all of your ES6/ES7 code?  Yes, 100%.
 
-**However, if you stick with the default v4 Bootstrap CSS framework &ndash; it only supports IE9+ and iOS 7+.**
+For a list of supported browsers, please see Bootstrap's list of [supported browsers](https://v4-alpha.getbootstrap.com/getting-started/browsers-devices/#supported-browsers).
 
 All of your code is converted to browser-friendly ES5 vanilla JavaScript (using [Browserify][browserify] and [Babelify][babelify])...so it's cross-browser compatible!
 
