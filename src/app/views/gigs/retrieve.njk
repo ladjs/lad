@@ -10,7 +10,7 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-2">
         <p class="hidden-sm-down pull-right text-xs-right mt-2 mb-0"><small><a href="/{{ locale }}/gigs">{{ t('Not interested in this gig?') }}</a></small></p>
-        <h1 class="py-2 h3 mb-0 text-xs-center text-md-left">{{ t(gig.gig_title) }}<br /><small class="text-muted">{{ gig.company_name }}</small></h1>
+        <h1 class="py-2 h3 mb-0 text-center text-md-left">{{ t(gig.gig_title) }}<br /><small class="text-muted">{{ gig.company_name }}</small></h1>
         <p class="lead">{{ t(gig.gig_description) }}</p>
         <hr />
         <a class="btn btn-md btn-primary btn-block" href="{{ gig.company_website}}" target="_blank">{{ t('Visit Website') }}</a>
@@ -18,7 +18,7 @@
           <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
           <button class="btn btn-md btn-success btn-block" type="submit">{{ t('Apply Now') }}</button>
         </button>
-        <p class="hidden-md-up text-xs-center mt-2"><a href="/{{ locale }}/gigs">{{ t('Not interested in this gig?') }}</a></p>
+        <p class="hidden-md-up text-center mt-2"><a href="/{{ locale }}/gigs">{{ t('Not interested in this gig?') }}</a></p>
       </div>
     </div>
   </div>

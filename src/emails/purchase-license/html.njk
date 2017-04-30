@@ -3,7 +3,7 @@
 
 {% block header %}
   <div class="jumbotron jumbotron-fluid">
-    <div class="container text-xs-center">
+    <div class="container text-center">
       <h1 class="display-5">{{ t('Thank you!') }} {{ 'wave' | emoji }}</h1>
       <p class="lead">{{ t('We appreciate your support.  Your license key is below!') }}</p>
       <p><code class="lead font-weight-bold">{{ license.key }}</code></p>
@@ -16,7 +16,7 @@
 
   <div class="container">
 
-    <div class="text-xs-center">
+    <div class="text-center">
       <h4>{{ t('Set up your config') }}</h4>
       <p>{{ t('Your <span class="notranslate">".crocodile.yml"</span> file should look like:') | safe }}</p>
     </div>
@@ -25,7 +25,7 @@
       version: {{ config.pkg.version }}
       license: "{{ license.key }}"
     {% endcode %}
-    <div class="text-xs-center">
+    <div class="text-center">
       <h4 class="text-muted">{{ t("Next steps...") }}</h4>
       <p>{{ t('Read the documentation on GitHub to familiarize yourself.') }}</p>
       <p><a class="btn btn-md btn-outline-primary text-primary" href="https://github.com/crocodilejs/crocodile-node-mvc-framework">{{ fa.png2x('github', '#0275d8', 20, 20, [ [ 'class', 'fa-img' ] ]) | safe }} {{ t('Read the documentation') }}</a></p>

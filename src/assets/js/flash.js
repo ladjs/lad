@@ -14,7 +14,7 @@ import _ from 'lodash';
         title: window._types[type],
         html: messages.length === 1 ?
           messages[0]
-          : `<ul class="m-a-0 text-xs-left"><li>${messages.join('</li><li>')}</li></ul>`,
+          : `<ul class="m-a-0 text-left"><li>${messages.join('</li><li>')}</li></ul>`,
         type: type
       });
     });

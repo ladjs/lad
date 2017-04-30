@@ -12,9 +12,9 @@
 
   <div class="container pb-1">
 
-    <h1 class="py-3 text-xs-center">{{ t('Post a gig') }}</h1>
+    <h1 class="py-3 text-center">{{ t('Post a gig') }}</h1>
 
-    <div class="alert alert-info text-xs-center my-0">
+    <div class="alert alert-info text-center my-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item">
           <strong>{{ t('Are you using CrocodileJS and hiring developers?') }}</strong>
@@ -26,7 +26,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mb-1">
 
-      <h2 class="h3 text-xs-center text-muted py-2">{{ t('How does it work?') }}</h2>
+      <h2 class="h3 text-center text-muted py-2">{{ t('How does it work?') }}</h2>
 
       <ol class="lead">
         <li>{{ t('Complete the simple form fields below.') }}</li>
@@ -34,7 +34,7 @@
         <li>{{ t('Applicants get introduced to you by email.') }}</li>
       </ol>
 
-      <h2 class="h3 text-xs-center text-muted py-2">{{ t('Get started now') }}</h2>
+      <h2 class="h3 text-center text-muted py-2">{{ t('Get started now') }}</h2>
 
       <form
         action="/{{ locale }}/gigs/create"
@@ -51,7 +51,7 @@
         <input type="hidden" name="stripe_token" />
         <div class="card card-outline-primary">
           <div class="card-block">
-            <h3 class="card-title h5 text-xs-center">{{ t('Company Details') }}</h3>
+            <h3 class="card-title h5 text-center">{{ t('Company Details') }}</h3>
 
             <div class="form-group">
               <input type="text" required="required" name="company_name" class="form-control" placeholder="{{ t('Name') }}" />
@@ -70,12 +70,12 @@
               <span id="company-logo" class="custom-file-control custom-file-name" data-btn="{{ t('Select File') }}" data-content="{{ t('Upload company logo...') }}"></span>
             </label>
 
-            <ul class="form-text text-muted list-inline text-xs-center">
+            <ul class="form-text text-muted list-inline text-center">
               <li class="list-inline-item"><small><strong>{{ t('File Types:') }}</strong> PNG, JPEG, GIF</small></li>
               <li class="list-inline-item"><small><strong>{{ t('Resolution:') }}</strong> 600 x 600</small></li>
             </ul>
 
-            <h3 class="card-title h5 text-xs-center mt-2">{{ t('Gig Details') }}</h3>
+            <h3 class="card-title h5 text-center mt-2">{{ t('Gig Details') }}</h3>
 
             <div class="form-group">
               <input required="required" type="text" name="gig_title" class="form-control" placeholder="{{ t('Title') }}" />
@@ -84,14 +84,14 @@
               <textarea required="required" maxlength="240" rows="3" name="gig_description" class="form-control" placeholder="{{ t('Description') }}"></textarea>
             </div>
             <div class="form-group">
-              <div class="text-xs-center"><label for="input-start-at">{{ t('When should we publish your gig?') }}</label></div>
+              <div class="text-center"><label for="input-start-at">{{ t('When should we publish your gig?') }}</label></div>
               <input required="required" id="input-start-at" type="text" name="start_at" class="form-control" value="{{  moment().format('MM/DD/YY') }}" placeholder="{{ t('MM/DD/YY') }}" />
-              <p class="form-text text-xs-center"><small class="text-muted"><strong>{{ t('Date Format:') }}</strong> {{ t('MM/DD/YY') }}</small></p>
+              <p class="form-text text-center"><small class="text-muted"><strong>{{ t('Date Format:') }}</strong> {{ t('MM/DD/YY') }}</small></p>
             </div>
 
             <button type="submit" class="btn btn-primary btn-lg btn-block">{{ t('Continue') }}</button>
           </div>
-          <div class="card-footer text-xs-center">
+          <div class="card-footer text-center">
             {{ t('Have questions?') }} <a href="/contact" class="card-link">{{ t('Contact us') }}</a>
           </div>
         </div>

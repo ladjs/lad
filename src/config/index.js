@@ -1,4 +1,5 @@
 
+import fsp from 'fs-promise';
 import nunjucks from 'nunjucks';
 import customFonts from 'custom-fonts-in-emails';
 import strength from 'strength';
@@ -204,6 +205,10 @@ let config = {
       json: str => JSON.stringify(str, null, 2),
       emoji: str => {
         return gemoji.name[str] ? gemoji.name[str].emoji : '';
+      },
+      readFile: fileName => {
+        fileName = path.join(__dirname, '..', '..', fileName);
+        return fsp.readFile(fileName, { encoding: 'utf8' });
       },
       curl: cmd => {
         return new Promise(async (resolve, reject) => {

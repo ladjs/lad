@@ -61,7 +61,7 @@
                 {% set btn = s.titleize(verb) + ' with Email' %}
                 <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-envelope"></i> {{ t(btn) }}</button>
               </form>
-              <p class="text-xs-center text-muted mt-1">
+              <p class="text-center text-muted mt-1">
                 <small>
                   {% if verb === 'sign up' %}
                     {{ t('By signing up, you agree to our <a href="/' + locale + '/terms">Terms</a>') | safe }}
@@ -72,11 +72,11 @@
               </p>
             </div>
             {% if verb === 'sign up' %}
-              <div class="card-footer text-xs-center">
+              <div class="card-footer text-center">
                 {{ t('Already have an account? <a href="/' + locale + '/login" class="card-link">Log In</a>') | safe }}
               </div>
             {% else %}
-              <div class="card-footer text-xs-center">
+              <div class="card-footer text-center">
                 {{ t('Don\'t have an account? <a href="/' + locale + '/signup" class="card-link">Sign Up</a>') | safe }}
               </div>
             {% endif %}

@@ -309,7 +309,7 @@ const api = new Frisbee({
   // detect the height of the top navbar and
   // set it as the `padding-top` property of body
   function resizeNavbarPadding() {
-    const $navbarFixedTop = $('.navbar-fixed-top');
+    const $navbarFixedTop = $('.navbar.fixed-top');
     if ($navbarFixedTop.length === 0) return;
     $('body').css('padding-top', $navbarFixedTop.outerHeight());
   }
@@ -320,6 +320,10 @@ const api = new Frisbee({
     resizeNavbarPadding();
     $(window).on('resize.resizeNavbarPadding', resizeNavbarPadding);
 
+    // resize navbar padding when navbar is shown/collapsed
+    $('.navbar-collapse').on('hidden.bs.collapse', resizeNavbarPadding);
+    $('.navbar-collapse').on('shown.bs.collapse', resizeNavbarPadding);
+
     // detect when we scroll to the #the-web-server selector
     // so that we can hide the "Learn More" banner on bottom
     if ($('#learn-more').length && $('#the-web-server').length) {
@@ -327,9 +331,9 @@ const api = new Frisbee({
         element: $('#the-web-server').get(0),
         handler: direction => {
           if (direction === 'up')
-            $('#learn-more').addClass('in');
+            $('#learn-more').addClass('show');
           else if (direction === 'down')
-            $('#learn-more').removeClass('in');
+            $('#learn-more').removeClass('show');
         },
         offset: '25%'
       });
@@ -352,7 +356,7 @@ const api = new Frisbee({
     // <http://stackoverflow.com/a/29853395>
     function adjustAnchor(ev) {
       const $anchor = $(':target');
-      const $navbarFixedTop = $('.navbar-fixed-top');
+      const $navbarFixedTop = $('.navbar.fixed-top');
       if ($anchor.length !== 0 && $navbarFixedTop.length !== 0)
         window.scrollTo(0, $anchor.offset().top - $navbarFixedTop.outerHeight());
     }

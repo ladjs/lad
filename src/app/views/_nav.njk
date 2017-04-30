@@ -1,122 +1,78 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-  <button class="navbar-toggler bg-inverse float-xs-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
+<nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-inverse">
+
+  <button class="navbar-toggler navbar-toggler-right bg-inverse hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation">
     {# TODO: we can't currently use this because `navbar-dark` causes `navbar-toggler` to have an SVG background #}
     {# <https://github.com/twbs/bootstrap/issues/21012> #}
     {# <i class="fa fa-bars"></i> #}
+    <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="/{{ locale }}">{{config.appName}} <span class="tag tag-default">{{ version }}</span></a>
-  {% if availableLanguages.length > 1 %}
-  <div class="hidden-lg-up btn-group float-xs-right">
-    <a href="#" class="navbar-btn-sm-margin-top mr-1 dropdown-toggle btn btn-sm btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-language-mobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-language"></i> {{ s.titleize(t(currentLanguage)) }}
-    </a>
-    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-language-mobile">
-      {% for language in availableLanguages %}
-        {% if language.locale !== locale %}
-          <li><a class="dropdown-item" href="{{ ctx.req.url.replace(locale, language.locale) }}">{{ language.name }}</a></li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-  <div class="clearfix hidden-lg-up"></div>
-  <div class="collapse navbar-toggleable-md" id="navbar-header">
 
-    {# mobile navbar #}
-    <ul class="nav navbar-nav hidden-lg-up">
-      <li class="nav-item"><a role="button" class="nav-link" href="#"><i class="fa fa-fw fa-book"></i> {{ t('Book') }}</a></li>
-      <li class="nav-item"><a role="button" class="nav-link" href="#"><i class="fa fa-fw fa-cc-stripe"></i> {{ t('Donate') }}</a></li>
-      <li class="nav-item"><a role="button" class="nav-link" href="/{{ locale }}/gigs"><i class="fa fa-fw fa-briefcase"></i> {{ t('Gigs') }}</a></li>
-      <li class="nav-item"><a role="button" class="nav-link" target="_blank" href="https://calendly.com/niftylettuce"><i class="fa fa-fw fa-calendar"></i> {{ t('Training') }}</a></li>
-      <li class="dropdown-divider"></li>
+  <a href="/{{ locale }}" class="navbar-brand">{{config.appName}}</a>
+
+  <div class="collapse navbar-collapse" id="navbar-header">
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" role="button" id="navbar-dropdown-more-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-fw fa-life-ring"></i> {{ t('Help') }}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-more-links">
+          <li><a class="dropdown-item" href="#"><i class="fa fa-fw fa-book"></i> {{ t('Book') }}</a></li>
+          <li><a class="dropdown-item" href="https://calendly.com/niftylettuce"><i class="fa fa-fw fa-calendar"></i> {{ t('Training') }}</a></li>
+          <li><a class="dropdown-item" href="/{{ locale }}/gigs"><i class="fa fa-fw fa-briefcase"></i> {{ t('Gigs') }}</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FE3EFQ5X9RHT6"><i class="fa fa-fw fa-heart"></i> {{ t('Donate') }}</a></li>
+          <li><a class="dropdown-item" target="_blank" href="http://slack.crocodilejs.com"><i class="fa fa-fw fa-slack"></i> {{ t('Chat') }}</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-fw fa-book"></i> {{ t('Docs') }}</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework"><i class="fa fa-fw fa-github"></i> GitHub</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://twitter.com/niftylettuce"><i class="fa fa-fw fa-twitter"></i> Twitter</a></li>
+          <li><a class="dropdown-item" href="/{{ locale }}/contact"><i class="fa fa-fw fa-envelope"></i> {{ t('Contact') }}</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license"><i class="fa fa-fw fa-file-text"></i> {{ t('License') }}</a></li>
+        </ul>
+      </li>
+
+      {% if availableLanguages.length > 1 %}
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" id="navbar-dropdown-language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-language"></i> {{ s.titleize(t(currentLanguage)) }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-language">
+            {% for language in availableLanguages %}
+              {% if language.locale !== locale %}
+                <li><a class="dropdown-item" href="{{ ctx.req.url.replace(locale, language.locale) }}">{{ s.titleize(language.name) }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+
       {# links that show only if you're logged in #}
       {% if user %}
-        <li class="nav-item"><a class="nav-link" href="/{{ locale }}/my-account"><i class="fa fa-fw fa-gears"></i> {{ t('My Account') }}</a></li>
-        {# links that show if you're an admin #}
-        {% if user.group === 'admin' %}
-          <li class="nav-item"><a class="nav-link" href="/{{ locale }}/admin"><i class="fa fa-fw fa-user-secret"></i> {{ t('Admin') }}</a></li>
-        {% endif %}
-        <li class="nav-item"><a class="nav-link" href="/{{ locale }}/logout"><i class="fa fa-fw fa-sign-out"></i> {{ t('Log out') }}</a></li>
-      {% else %}
-        {# links that show only if you're logged out #}
-        <li class="nav-item"><a class="nav-link" href="/{{ locale }}/login"><i class="fa fa-fw fa-sign-in"></i> {{ t('Log in') }}</a></li>
-        <li class="nav-item"><a class="nav-link" href="/{{ locale }}/signup"><i class="fa fa-fw fa-user-plus"></i> {{ t('Sign up') }}</a></li>
-      {% endif %}
-      <li class="dropdown-divider"></li>
-      <li class="nav-item"><a class="nav-link" target="_blank" href="http://slack.crocodilejs.com"><i class="fa fa-fw fa-slack"></i> {{ t('Chat') }}</a></li>
-      <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-fw fa-book"></i> {{ t('Docs') }}</a></li>
-      <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework"><i class="fa fa-fw fa-github"></i> GitHub</a></li>
-      <li class="nav-item"><a class="nav-link" target="_blank" href="https://twitter.com/niftylettuce"><i class="fa fa-fw fa-twitter"></i> Twitter</a></li>
-      <li class="nav-item"><a class="nav-link" href="/{{ locale }}/contact"><i class="fa fa-fw fa-envelope"></i> {{ t('Contact') }}</a></li>
-      <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license"><i class="fa fa-fw fa-file-text"></i> {{ t('License') }}</a></li>
-    </ul>
 
-    {# desktop navbar #}
-    <ul class="nav navbar-nav hidden-md-down">
-
-      <li class="nav-item"><a title="{{ t('Pre-order the book') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="#"><i class="fa fa-book"></i> {{ t('Book') }}</a></li>
-      <li class="nav-item"><a title="{{ t('Donate and support us') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="#"><i class="fa fa-cc-stripe"></i> {{ t('Donate') }}</a></li>
-      <li class="nav-item"><a title="{{ t('Browse available gigs') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="/{{ locale }}/gigs"><i class="fa fa-briefcase"></i> {{ t('Gigs') }}</a>
-      <li class="nav-item"><a title="{{ t('Schedule training and consultation') }}" data-toggle="tooltip" data-placement="bottom" role="button" class="btn btn-outline-secondary bg-inverse" href="https://calendly.com/niftylettuce"><i class="fa fa-calendar"></i> {{ t('Training') }}</a></li>
-
-      <div class="float-xs-right">
-
-        <li class="nav-item btn-group">
-          <a href="#" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-more-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-life-ring"></i> {{ t('Help') }}
+        <li class="nav-item dropdown">
+          <a href="/{{ locale }}/my-account" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-my-account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-user"></i> {{ t('Account') }}
           </a>
-          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-more-links">
-            <li><a class="dropdown-item" target="_blank" href="http://slack.crocodilejs.com"><i class="fa fa-fw fa-slack"></i> {{ t('Chat') }}</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme"><i class="fa fa-fw fa-book"></i> {{ t('Docs') }}</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework"><i class="fa fa-fw fa-github"></i> GitHub</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://twitter.com/niftylettuce"><i class="fa fa-fw fa-twitter"></i> Twitter</a></li>
-            <li><a class="dropdown-item" href="/{{ locale }}/contact"><i class="fa fa-fw fa-envelope"></i> {{ t('Contact') }}</a></li>
-            <li><a class="dropdown-item" target="_blank" href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license"><i class="fa fa-fw fa-file-text"></i> {{ t('License') }}</a></li>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-my-account">
+            <li><a class="dropdown-item" href="/{{ locale }}/my-account"><i class="fa fa-fw fa-gears"></i> {{ t('My Account') }}</a></li>
+            {# links that show if you're an admin #}
+            {% if user.group === 'admin' %}
+              <li><a class="dropdown-item" href="/{{ locale }}/admin"><i class="fa fa-fw fa-user-secret"></i> {{ t('Admin') }}</a></li>
+            {% endif %}
+            <li><a class="dropdown-item" href="/{{ locale }}/logout"><i class="fa fa-fw fa-sign-out"></i> {{ t('Log out') }}</a></li>
           </ul>
         </li>
 
-        {% if availableLanguages.length > 1 %}
-          <li class="nav-item btn-group">
-            <a href="#" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-language"></i> {{ s.titleize(t(currentLanguage)) }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-language">
-              {% for language in availableLanguages %}
-                {% if language.locale !== locale %}
-                  <li><a class="dropdown-item" href="{{ ctx.req.url.replace(locale, language.locale) }}">{{ s.titleize(language.name) }}</a></li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </li>
-        {% endif %}
+      {% else %}
 
-        {# links that show only if you're logged in #}
-        {% if user %}
+        {# links that show only if you're logged out #}
+        <li class="nav-item"><a class="nav-link" href="/{{ locale }}/login"><i class="fa fa-fw fa-sign-in"></i> {{ t('Log in') }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="/{{ locale }}/signup"><i class="fa fa-fw fa-user-plus"></i> {{ t('Sign up') }}</a></li>
 
-          <li class="nav-item btn-group">
-            <a href="/{{ locale }}/my-account" class="dropdown-toggle btn btn-outline-secondary bg-inverse" role="button" id="navbar-dropdown-my-account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-user"></i> {{ t('Account') }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-my-account">
-              <li><a class="dropdown-item" href="/{{ locale }}/my-account"><i class="fa fa-fw fa-gears"></i> {{ t('My Account') }}</a></li>
-              {# links that show if you're an admin #}
-              {% if user.group === 'admin' %}
-                <li><a class="dropdown-item" href="/{{ locale }}/admin"><i class="fa fa-fw fa-user-secret"></i> {{ t('Admin') }}</a></li>
-              {% endif %}
-              <li><a class="dropdown-item" href="/{{ locale }}/logout"><i class="fa fa-fw fa-sign-out"></i> {{ t('Log out') }}</a></li>
-            </ul>
-          </li>
-
-        {% else %}
-
-          {# links that show only if you're logged out #}
-          <li class="nav-item"><a class="btn btn-outline-secondary bg-inverse" href="/{{ locale }}/login"><i class="fa fa-sign-in"></i> {{ t('Log in') }}</a></li>
-          <li class="nav-item"><a class="btn btn-outline-secondary bg-inverse" href="/{{ locale }}/signup"><i class="fa fa-user-plus"></i> {{ t('Sign up') }}</a></li>
-
-        {% endif %}
-
-      </div>
+      {% endif %}
 
     </ul>
+
   </div>
+
 </nav>

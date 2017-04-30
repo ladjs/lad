@@ -4,13 +4,13 @@ import mongoose from 'mongoose';
 import logger from './logger';
 import config from '../config';
 
+// use native promises
+mongoose.Promise = global.Promise;
+
 export default function _mongoose() {
 
   // create the database connection
   mongoose.set('debug', config.mongooseDebug);
-
-  // use native promises
-  mongoose.Promise = global.Promise;
 
   // when the connection is connected
   mongoose.connection.on('connected', () => {

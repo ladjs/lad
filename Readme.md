@@ -3,7 +3,7 @@
 
 [![PayPal Donate][paypal-donate-image]][paypal-donate-url]
 [![Slack Status][slack-image]][slack-url]
-[![GPLv3 License][license-image]][license-url]
+[![GPLv3 License][license-image]](#crocodile-license)
 [![Stability][stability-image]][stability-url]
 [![Build Status][build-image]][build-url]
 [![Coverage Status][codecov-image]][codecov-url]
@@ -15,7 +15,7 @@
 
 <!-- TODO: DEMO GOES HERE -->
 
-> **Tip:** Click the crocodile :crocodile: emoji in section headers to jump back to this index.
+> **Tip:** Click the :crocodile: in section headers to jump back to this index.
 
 ## <a href="#crocodile-index">:crocodile:</a> [Index](#crocodile-index)
 * [What is CrocodileJS?](#crocodile-what-is-crocodilejs)
@@ -365,7 +365,32 @@ You can specify which locales (languages) you support in the `src/config/locales
 
 ### Proxy
 
-> TODO
+You no longer need to install, configure, nor use [Apache's Virtual Hosts][apache-virtual-hosts] or [Nginx's Reverse Proxy][nginx-reverse-proxy]!
+
+Crocodile includes a simple script (shown below) that serves as a proxy for port `80` to port `443` (so `http` requests are automatically redirected to the secure `https` protocol in production).
+
+Just run `NODE_ENV=production npm run proxy` in production to start forwarding ports!
+
+```js
+
+// this redirects any incoming connections
+// on port 80 to port 443 (http -> https)
+
+import qs from 'qs';
+import _ from 'lodash';
+import Koa from 'koa';
+
+const app = new Koa();
+
+app.use(ctx => {
+  // 301 = permanent redirect for SEO
+  ctx.status = 301;
+  ctx.redirect(`https://${ctx.hostname}${ctx.path}${_.isEmpty(ctx.query) ? '' : `?${qs.stringify(ctx.query)}`}`);
+});
+
+app.listen(80);
+```
+
 
 ### Database &amp; ORM
 
@@ -525,11 +550,11 @@ Crocodile uses the following helper libraries:
 
 ### Latest Standards
 
-* Latest stable version of Node (`v6.x`)
+* Latest stable version of Node
 * Streams for build process with Gulp
 * Newest versions of MongoDB and Redis
 * Uses ES6/ES7 syntax (no more callbacks; you can use `await` and `async` finally!)
-* Latest version of Koa `next` (or commonly referred to as `@next`)
+* Latest version of Koa `v2` (or commonly referred to as `@next`)
 
 ### LiveReload Built-in
 
@@ -608,6 +633,12 @@ NODE_ENV=production npm run api
 
 ```bash
 NODE_ENV=production npm run agenda
+```
+
+> Proxy:
+
+```bash
+NODE_ENV=production npm run proxy
 ```
 
 > **NOTE**: The above commands are what you'd use in a deployment configuration.
@@ -805,7 +836,7 @@ We've already crafted some complex validation examples for you &ndash; see the c
 
 **<u>You'll need to have the following installed</u>** on your operating system (we provide instructions below):
 
-* [Node][node] `>= v6.x` (we recommend using [NVM][nvm] to manage your Node versions)
+* [Node][node] `>= v7.7.x` (we recommend using [NVM][nvm] to manage your Node versions)
 * [MongoDB][mongodb] `>= v3.x`
 * [Redis][redis] `>= v3.x`
 
@@ -980,6 +1011,12 @@ After you run `crocodile chew <dir>` for the first time, you will need to follow
 
   ```bash
   nodemon lib/agenda
+  ```
+
+  > Proxy (forwards port 80 to 443; for production):
+
+  ```bash
+  nodemon lib/proxy
   ```
 
 5. Go to <http://localhost:3000> in your browser.
@@ -1205,6 +1242,12 @@ You should have Crocodile [installed](#installation) and [configured](#configura
   nodemon lib/agenda
   ```
 
+  > Proxy (forwards port 80 to 443; for production):
+
+  ```bash
+  nodemon lib/proxy
+  ```
+
 5. Go to <http://localhost:3000> in your browser.
 
 6. See [Deployment](#deployment) below for how to set up other environments, such as production.
@@ -1238,11 +1281,13 @@ If you're just interested in what tools/services we recommend, then here is a br
 
 ### Advice
 
-The only way to ship code faster is to respect these three points:
+The only way to ship code faster is to respect these five points:
 
 1. Use as many [tools](#tools) as possible to automate your workflow.
 2. Understand that [good coders code, and great reuse][good-coders-code].
 3. Avoid [vim][vim-antipatterns] and [JavaScript][js-antipatterns] anti-patterns and context-switching habits in order to stay focused.
+4. Exercise and take walks frequently.
+5. Eat healthy and be mindful.
 
 ### Tools
 

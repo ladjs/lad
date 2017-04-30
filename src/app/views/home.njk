@@ -8,10 +8,160 @@
   <script>window.STRIPE_PUBLISHABLE_KEY = "{{config.stripe.publishableKey}}";</script>
 {% endblock %}
 
+{% macro contactForm() %}
+  <div class="container py-3">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+        <div class="card m-0">
+          <div class="card-block">
+            <h4 class="card-title text-center">{{ t('Need help building your app?') }}</h4>
+            <p class="card-text text-center">{{ t('Get in touch with a CrocodileJS expert now.') }}</p>
+            <form action="/{{ locale }}/contact" method="POST" class="ajax-form">
+              <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="email" required="required" name="email" class="form-control" placeholder="{{ t('Email address') }}">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="{{ t('We\'ll be in contact with you!') }}"><i class="fa fa-paper-plane"></i></button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro getStartedNow() %}
+  {# responsive bootstrap 4 cards #}
+  {# <https://github.com/twbs/bootstrap/issues/20321#issuecomment-249855499> #}
+  <div class="row text-center py-3">
+    <div class="row-height">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 col-lg-height col-xl-height col-lg-top col-xl-top">
+        <div class="inside inside-full-height card bg-inverse">
+          <div class="card-block text-white">
+            <h2 class="card-title">{{ t('Get Started for Free') }}</h2>
+            <kbd class="d-inline-block p-2 my-3 bg-success lead">npm install -g crocodile</kbd>
+            <div class="clearfix"></div>
+            <p class="card-text mt-1">{{ t('Core dependencies:') }}</p>
+            <ul class="list-unstyled">
+              <li>Node.js <span class="badge badge-default">{{ config.pkg.engines.node }}</span></li>
+              <li>MongoDB <span class="badge badge-default">{{ config.pkg.engines.mongodb }}</span></li>
+              <li>Redis <span class="badge badge-default">{{ config.pkg.engines.redis }}</span></li>
+            </ul>
+            <p class="card-text">
+              <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#requirements" target="_blank" class="btn btn-outline-secondary bg-inverse btn-sm"><i class="fa fa-external-link"></i> {{ t('Requirements') }}</a>
+              <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme" target="_blank" class="btn btn-outline-secondary bg-inverse btn-sm"><i class="fa fa-external-link"></i> {{ t('Docs') }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="hidden-lg-up col-xs-12 col-sm-12 col-md-12 my-1"></div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 col-lg-height col-xl-height col-lg-top col-xl-top">
+        <div class="inside inside-full-height card card-primary">
+          <div class="card-block">
+            <h3 class="card-title h2 text-white">{{ t('Commercial Use') }}</h2>
+            <p class="lead text-white">{{ t('<i class="fa fa-github-alt notranslate"></i> Support <strong>open-source</strong> and unlock the <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license" class="text-white" arget="_blank" data-placement="bottom" data-toggle="tooltip" title="Allows commercial use"><u>MIT License</u></a>') | safe }}!</p>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="card bg-white">
+                  <div class="card-block">
+                    <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars }}</h3>
+                    <small class="font-weight-bold text-primary">{{ t('Most Popular') }}</small>
+                    <p class="card-text"><small class="text-muted">{{ t('<strong>1</strong> project') | safe}}</small></p>
+                    <form
+                      action="/{{ locale }}/purchase-license"
+                      method="POST"
+                      class="ajax-form stripe-checkout"
+                      data-name="CrocodileJS"
+                      data-locale="{{ locale }}"
+                      data-email="{% if user %}{{ user.email }}{% endif %}"
+                      data-description="{{ t('Unlock (1) Commercial License') }}"
+                      data-amount={{ config.licenseCostDollars * 100 }}
+                      data-panel-label="{{ t('Unlock') }}"
+                    >
+                      <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
+                      <input type="hidden" name="stripe_email" />
+                      <input type="hidden" name="stripe_token" />
+                      <input type="hidden" name="num_licenses" value="1" />
+                      <button type="submit" class="btn btn-primary btn-md btn-block">{{ t('Select') }}</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="card bg-white">
+                  <div class="card-block">
+                    <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 5 * 0.88 }}</h3>
+                    <small><mark class="text-uppercase font-weight-bold">{{ t('12% Discount') }}</mark></small>
+                    <p class="card-text"><small class="text-muted">{{ t('<strong>5</strong> projects') | safe }}</small></p>
+                    <form
+                      action="/{{ locale }}/purchase-license"
+                      method="POST"
+                      class="ajax-form stripe-checkout"
+                      data-name="CrocodileJS"
+                      data-locale="{{ locale }}"
+                      data-email="{% if user %}{{ user.email }}{% endif %}"
+                      data-description="{{ t('Unlock (5) Commercial Licenses') }}"
+                      data-amount={{ config.licenseCostDollars * 100 * 5 * 0.88 }}
+                      data-panel-label="{{ t('Unlock') }}"
+                    >
+                      <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
+                      <input type="hidden" name="stripe_email" />
+                      <input type="hidden" name="stripe_token" />
+                      <input type="hidden" name="num_licenses" value="5" />
+                      <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="card bg-white">
+                  <div class="card-block">
+                    <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 10 * 0.76}}</h3>
+                    <small><mark class="text-uppercase font-weight-bold">{{ t('24% Discount') }}</mark></small>
+                    <p class="card-text"><small class="text-muted">{{ t('<strong>10</strong> projects') | safe }}</small></p>
+                    <form
+                      action="/{{ locale }}/purchase-license"
+                      method="POST"
+                      class="ajax-form stripe-checkout"
+                      data-name="CrocodileJS"
+                      data-locale="{{ locale }}"
+                      data-email="{% if user %}{{ user.email }}{% endif %}"
+                      data-description="{{ t('Unlock (10) Commercial Licenses') }}"
+                      data-amount={{ config.licenseCostDollars * 100 * 10 * 0.76 }}
+                      data-panel-label="{{ t('Unlock') }}"
+                    >
+                      <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
+                      <input type="hidden" name="stripe_email" />
+                      <input type="hidden" name="stripe_token" />
+                      <input type="hidden" name="num_licenses" value="10" />
+                      <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ul class="list-inline mt-3 mb-0">
+              <li class="list-inline-item">
+                <small class="text-white"><i class="fa fa-lock"></i> {{ t('<strong>Secure</strong> and <strong>trusted</strong> payments by <a class="text-white" href="https://stripe.com" target="_blank"><u>Stripe</u></a>.') | safe }}</small>
+              </li>
+              <li class="list-inline-item">
+                <small class="text-white font-weight-bold text-uppercase"><u>{{ t('30-day refund guaranteed') }}</u></small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
 {% block body %}
 
-  <nav class="navbar navbar-fixed-bottom navbar-dark bg-success p-0 fade in" id="learn-more">
-    <h5 class="text-xs-center mb-0">
+  <nav class="navbar fixed-bottom navbar-dark bg-success p-0 fade show" id="learn-more">
+    <h5 class="text-center mb-0">
       <a href="#the-web-server" class="btn btn-block btn-success btn-md">
         <i class="fa fa-arrow-down"></i>
         &nbsp;&nbsp;
@@ -24,11 +174,11 @@
 
   <div class="container pb-1">
 
-    <h1 class="text-xs-center py-3 mb-0">{{ t('Chew apart your projects with speed.') }} </h1>
+    <h1 class="text-center my-5">{{ t('Chew apart your projects with speed.') }} </h1>
 
-    <div class="card card-outline-secondary">
+    <div class="card card-outline-secondary my-3">
       <div class="card-block">
-        <ul class="text-xs-center mb-0 list-inline">
+        <ul class="text-center mb-0 list-inline">
           <li class="list-inline-item d-inline">
             {{ t('CrocodileJS is a <mark>full-stack</mark> <strong class="notranslate">Node.js</strong>, <strong class="notranslate">Koa</strong>, and <strong class="notranslate">ES7</strong> project starter.') | safe }}
           </li>
@@ -42,134 +192,9 @@
       </div>
     </div>
 
-    {% macro getStartedNow() %}
-      {# responsive bootstrap 4 cards #}
-      {# <https://github.com/twbs/bootstrap/issues/20321#issuecomment-249855499> #}
-      <div class="row text-xs-center py-1">
-        <div class="row-lg-height row-xl-height">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 col-lg-height col-xl-height col-lg-top col-xl-top">
-            <div class="inside inside-full-height card bg-inverse">
-              <div class="card-block py-1 text-white">
-                <h2 class="card-title">{{ t('Get Started for Free') }}</h2>
-                <kbd class="d-inline-block p-1 bg-success lead">npm install -g crocodile</kbd>
-                <div class="clearfix"></div>
-                <p class="card-text mt-1">{{ t('Make sure that you bring:') }}</p>
-                <ul class="list-unstyled">
-                  <li>Node.js <span class="tag tag-default">6.x</span></li>
-                  <li>MongoDB <span class="tag tag-default">3.x</span></li>
-                  <li>Redis <span class="tag tag-default">3.x</span></li>
-                </ul>
-                <p class="card-text">
-                  <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#requirements" target="_blank" class="btn btn-outline-secondary bg-inverse btn-sm"><i class="fa fa-external-link"></i> {{ t('Requirements') }}</a>
-                  <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#readme" target="_blank" class="btn btn-outline-secondary bg-inverse btn-sm"><i class="fa fa-external-link"></i> {{ t('Docs') }}</a>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="hidden-lg-up col-xs-12 col-sm-12 col-md-12 my-1"></div>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 col-lg-height col-xl-height col-lg-top col-xl-top">
-            <div class="inside inside-full-height card card-primary">
-              <div class="card-block py-1">
-                <h3 class="card-title h2 text-white">{{ t('Commercial Use') }}</h2>
-                <p class="lead text-white">{{ t('<i class="fa fa-github-alt notranslate"></i> Support <strong>open-source</strong> and unlock the <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#crocodile-license" class="text-white" arget="_blank" data-placement="bottom" data-toggle="tooltip" title="Allows commercial use"><u>MIT License</u></a>') | safe }}!</p>
-                <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card bg-white">
-                      <div class="card-block">
-                        <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars }}</h3>
-                        <small class="font-weight-bold text-primary">{{ t('Most Popular') }}</small>
-                        <p class="card-text"><small class="text-muted">{{ t('<strong>1</strong> project') | safe}}</small></p>
-                        <form
-                          action="/{{ locale }}/purchase-license"
-                          method="POST"
-                          class="ajax-form stripe-checkout"
-                          data-name="CrocodileJS"
-                          data-locale="{{ locale }}"
-                          data-email="{% if user %}{{ user.email }}{% endif %}"
-                          data-description="{{ t('Purchase (1) Commercial License') }}"
-                          data-amount={{ config.licenseCostDollars * 100 }}
-                          data-panel-label="{{ t('Purchase License') }}"
-                        >
-                          <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
-                          <input type="hidden" name="stripe_email" />
-                          <input type="hidden" name="stripe_token" />
-                          <input type="hidden" name="num_licenses" value="1" />
-                          <button type="submit" class="btn btn-primary btn-md btn-block">{{ t('Select') }}</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card bg-white">
-                      <div class="card-block">
-                        <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 5 * 0.88 }}</h3>
-                        <small><mark class="text-uppercase font-weight-bold">{{ t('12% Discount') }}</mark></small>
-                        <p class="card-text"><small class="text-muted">{{ t('<strong>5</strong> projects') | safe }}</small></p>
-                        <form
-                          action="/{{ locale }}/purchase-license"
-                          method="POST"
-                          class="ajax-form stripe-checkout"
-                          data-name="CrocodileJS"
-                          data-locale="{{ locale }}"
-                          data-email="{% if user %}{{ user.email }}{% endif %}"
-                          data-description="{{ t('Purchase (5) Commercial Licenses') }}"
-                          data-amount={{ config.licenseCostDollars * 100 * 5 * 0.9 }}
-                          data-panel-label="{{ t('Purchase Licenses') }}"
-                        >
-                          <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
-                          <input type="hidden" name="stripe_email" />
-                          <input type="hidden" name="stripe_token" />
-                          <input type="hidden" name="num_licenses" value="5" />
-                          <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card bg-white">
-                      <div class="card-block">
-                        <h3 class="card-title"><sup><small><i class="fa fa-usd"></i></small></sup>{{ config.licenseCostDollars * 10 * 0.76}}</h3>
-                        <small><mark class="text-uppercase font-weight-bold">{{ t('24% Discount') }}</mark></small>
-                        <p class="card-text"><small class="text-muted">{{ t('<strong>10</strong> projects') | safe }}</small></p>
-                        <form
-                          action="/{{ locale }}/purchase-license"
-                          method="POST"
-                          class="ajax-form stripe-checkout"
-                          data-name="CrocodileJS"
-                          data-locale="{{ locale }}"
-                          data-email="{% if user %}{{ user.email }}{% endif %}"
-                          data-description="{{ t('Purchase (10) Commercial Licenses') }}"
-                          data-amount={{ config.licenseCostDollars * 100 * 10 * 0.8 }}
-                          data-panel-label="{{ t('Purchase Licenses') }}"
-                        >
-                          <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
-                          <input type="hidden" name="stripe_email" />
-                          <input type="hidden" name="stripe_token" />
-                          <input type="hidden" name="num_licenses" value="10" />
-                          <button type="submit" class="btn btn-outline-primary btn-md btn-block">{{ t('Select') }}</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <ul class="list-inline mb-0">
-                  <li class="list-inline-item">
-                    <small class="text-white"><i class="fa fa-lock"></i> {{ t('<strong>Secure</strong> and <strong>trusted</strong> payments by <a class="text-white" href="https://stripe.com" target="_blank"><u>Stripe</u></a>.') | safe }}</small>
-                  </li>
-                  <li class="list-inline-item">
-                    <small class="text-white font-weight-bold text-uppercase"><u>{{ t('30-day refund guaranteed') }}</u></small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endmacro %}
-
     {{ getStartedNow() }}
 
-    <div class="row text-xs-center py-1">
+    <div class="row text-center py-3">
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         {{ t('Built for ' + ('ramen' | emoji) + ' <a href="http://www.paulgraham.com/ramenprofitable.html" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Read Ramen Profitable by Paul Graham of YCombinator">Bootstrappers</a>') | safe }}
       </div>
@@ -192,7 +217,9 @@
 
   </div>
 
-  <h2 class="h3 text-xs-center text-muted py-2 mb-0">{{ t('What are people saying?') }}</h2>
+  {{ contactForm() }}
+
+  <h2 class="h3 text-center text-muted py-4 mb-0">{{ t('What are people saying?') }}</h2>
 
   <div id="carousel-example-generic" class="carousel slide hidden-sm-down" data-ride="carousel" data-interval="5000" data-pause="hover">
     <ol class="carousel-indicators">
@@ -202,21 +229,21 @@
     </ol>
     <div class="carousel-inner" role="listbox">
       <div class="carousel-item active">
-        <img src="https://images.unsplash.com/photo-1462007361476-49e695345154?dpr=2&auto=format&crop=entropy&fit=crop&w=1000&h=300&q=60&cs=tinysrgb" />
+        <img src="https://images.unsplash.com/photo-1462007361476-49e695345154?dpr=2&auto=format&crop=entropy&fit=crop&w=1000&h=150&q=80&cs=tinysrgb" />
         <div class="carousel-caption">
           <h3 class="h2">{{ 'smile' | emoji }} {{ t('Prolific Node.js Developer') }}</h3>
           <blockquote class="blockquote text-xs-left">{{ t('Wow. I am truly amazed by the effort put into including practically everything you could ever need in an app.  There are security features built-in, and other things like localization that I had no idea how to use!') }}</blockquote>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="https://images.unsplash.com/photo-1464667831196-208f4be2592e?dpr=2&auto=format&crop=entropy&fit=crop&w=1000&h=300&q=80&cs=tinysrgb" />
+        <img src="https://images.unsplash.com/photo-1464667831196-208f4be2592e?dpr=2&auto=format&crop=entropy&fit=crop&w=1000&h=150&q=80&cs=tinysrgb" />
         <div class="carousel-caption">
           <h3 class="h1">{{ 'sparkles' | emoji }} {{ t('Open Source Enthusiast') }}</h3>
           <blockquote class="blockquote text-xs-left">{{ t('This can be used for anything!  I made my own invoicing software in a weekend.  It\'s really easy to understand, especially since it doesn\'t use a convoluted client-side framework.  It\'s easy to crawl with search engines too.  So cool!') }}</blockquote>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="https://images.unsplash.com/photo-1422640805998-18a4dd89bec2?dpr=2&auto=format&crop=entropy&fit=crop&w=1000&h=300&q=60&cs=tinysrgb" />
+        <img src="https://images.unsplash.com/photo-1422640805998-18a4dd89bec2?dpr=2&auto=format&crop=entropy&fit=crop&w=1000&h=150&q=80&cs=tinysrgb" />
         <div class="carousel-caption">
           <h3>{{ 'briefcase' | emoji }} {{ t('Prominent Serial Entrepeneur') }}</h3>
           <blockquote class="blockquote text-xs-left">{{ t('Finally an enterprise-ready Node.js framework that includes a web server with the latest versions of Koa, Bootstrap, and Font Awesome, an API server inspired by Stripe\'s design with BasicAuth access and versioning, and even a job scheduler built on Agenda!  The job scheduler even renders previews of outbound emails in your browser while you\'re hacking away.') }}</blockquote>
@@ -251,12 +278,25 @@
 
   <div class="container">
 
-    <h2 class="h3 text-xs-center text-muted py-2 mb-0">{{ t("Who's using it?") }}</h2>
+    <h2 class="h3 text-center text-muted py-4 mb-0">{{ t("Who's using it?") }}</h2>
 
     <div class="row pb-1">
+
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
-          <img class="card-img-top img-fluid" src="//cdn.rawgit.com/crocodilejs/crocodile-node-mvc-framework/master/media/featured/standard-signature.png" alt="Standard Signature">
+          <img class="card-img-top img-fluid" src="{{ manifest('img/featured/spontaneous.png') }}" alt="Spontaneous" />
+          <div class="card-block">
+            <h4 class="card-title">Spontaneous</h4>
+            <p class="card-text">{{ t('iOS and Android app to hangout with friends & family nearby.') }}</p>
+            <p class="card-text"><small class="text-muted"><a href="http://niftylettuce.com">Niftylettuce LLC.</a></small></p>
+            <a href="https://joinspontaneous.com" target="_blank" class="btn btn-block btn-primary"><i class="fa fa-external-link"></i> joinspontaneous.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+          <img class="card-img-top img-fluid" src="{{ manifest('img/featured/standard-signature.png') }}" alt="Standard Signature" />
           <div class="card-block">
             <h4 class="card-title">Standard Signature</h4>
             <p class="card-text">{{ t('Visually create a standard and company-wide business signature for Gmail.') }}</p>
@@ -283,17 +323,16 @@
       {% endmacro %}
 
       {{ yourProjectHere() }}
-      {{ yourProjectHere() }}
 
     </div>
 
-    <h2 class="h3 text-xs-center text-muted py-2 mb-0">{{ t('What does it come with?') }}</h2>
+    <h2 class="h3 text-center text-muted py-4 mb-0">{{ t('What does it come with?') }}</h2>
 
     {# 1. web server #}
-    <h3 id="the-web-server" class="display-4 text-xs-center text-muted py-2"><a href="#the-web-server"><u>{{ t('The Web Server') }}</u></a></h3>
+    <h3 id="the-web-server" class="display-4 text-center text-muted mb-5"><a href="#the-web-server"><u>{{ t('The Web Server') }}</u></a></h3>
 
     <div class="p-1 my-1">
-      <p class="lead">{{ t('To fully utilize the potential of Node and ES7, we\'ve used Koa <span class="tag tag-primary">next</span> (by <a href="https://github.com/tj" target="_blank" data-toggle="tooltip" title="TJ is also the author of Express!">TJ Holowaychuk</a>), the spiritual successor to the <a href="http://expressjs.com/" target="_blank">Express framework</a>, and added everything to it you would need for a modern application; MVC architecture, <a href="https://github.com/koajs/csrf" target="_blank">CSRF</a> and <a href="https://github.com/venables/koa-helmet" target="_blank">XSS</a> protection, <a href="https://github.com/scttcper/koa-simple-ratelimit" target="_blank">rate limiting</a>, <a href="https://github.com/niftylettuce/koa-manifest-rev" target="_blank">manifest asset revisioning</a>, <a href="https://github.com/koajs/generic-session" target="_blank">sessions</a> (backed by <a href="https://github.com/koajs/koa-redis" target="_blank">Redis</a>), <a href="https://github.com/theverything/koa-connect-flash" target="_blank">flash messaging</a>, file uploading using streams (with built-in image resizing and transformation!), <a href="https://github.com/yosuke-furukawa/koa-livereload" target="_blank">LiveReload</a>, and more.') | safe }}</p>
+      <p class="lead">{{ t('To fully utilize the potential of Node and ES7, we\'ve used Koa <span class="badge badge-primary">next</span> (by <a href="https://github.com/tj" target="_blank" data-toggle="tooltip" title="TJ is also the author of Express!">TJ Holowaychuk</a>), the spiritual successor to the <a href="http://expressjs.com/" target="_blank">Express framework</a>, and added everything to it you would need for a modern application; MVC architecture, <a href="https://github.com/koajs/csrf" target="_blank">CSRF</a> and <a href="https://github.com/venables/koa-helmet" target="_blank">XSS</a> protection, <a href="https://github.com/scttcper/koa-simple-ratelimit" target="_blank">rate limiting</a>, <a href="https://github.com/niftylettuce/koa-manifest-rev" target="_blank">manifest asset revisioning</a>, <a href="https://github.com/koajs/generic-session" target="_blank">sessions</a> (backed by <a href="https://github.com/koajs/koa-redis" target="_blank">Redis</a>), <a href="https://github.com/theverything/koa-connect-flash" target="_blank">flash messaging</a>, file uploading using streams (with built-in image resizing and transformation!), <a href="https://github.com/yosuke-furukawa/koa-livereload" target="_blank">LiveReload</a>, and more.') | safe }}</p>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <p class="lead">{{ t('We automatically enable stage-0 ES6/ES7 features.  You can simply <code>import</code> models in your controllers, and <code>import</code> controllers in your routes.') | safe }}</p>
@@ -320,8 +359,8 @@
           {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <p class="lead">{{ t('To rid of <a class="notranslate" href="http://callbackhell.com/" target="_blank">callback hell</a> and write more readable, maintainable code &ndash; we use <a class="notranslate" href="https://ponyfoo.com/articles/understanding-javascript-async-await" target="_blank">Async/Await</a>.  The following is an before vs. after example of updating a user object with Mongoose.') | safe}}</p>
-          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Before with Express and ES5') }}</small></p>
+          <p class="lead">{{ t('To rid of <a class="notranslate" href="http://callbackhell.com/" target="_blank">callback hell</a> and write more readable, maintainable code &ndash; we use <a class="notranslate" href="https://ponyfoo.com/articles/understanding-javascript-async-await" target="_blank">Async/Await</a>.  The following is a before vs. after example of updating a user object with Mongoose.') | safe}}</p>
+          <p class="text-center text-uppercase text-muted"><small>{{ t('Before with Express and ES5') }}</small></p>
           {% code %}
           function updateUser(req, res, next) {
             Users.findOne({ org: 'crocodilejs' }, function(err, user) {
@@ -336,7 +375,7 @@
             });
           }
           {% endcode %}
-          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('After with Koa, ES7, and Boom') }}</small></p>
+          <p class="text-center text-uppercase text-muted"><small>{{ t('After with Koa, ES7, and Boom') }}</small></p>
           {% code %}
           static async updateUser(ctx) {
             try {
@@ -352,13 +391,13 @@
           {% endcode %}
         </div>
       </div>
-      <div class="alert alert-success text-xs-center"><small>{{ t('Use the built-in templating language <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a>, or plug in any front-end (such as <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, or <a href="https://github.com/yoshuawuyts/choo" target="_blank">Choo</a>).') | safe }}</small></div>
+      <div class="alert alert-success text-center"><small>{{ t('Use the built-in templating language <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a>, or plug in any front-end (such as <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, or <a href="https://github.com/yoshuawuyts/choo" target="_blank">Choo</a>).') | safe }}</small></div>
       <p class="lead">{{ t('We had used Jade (now known as <a href="https://github.com/pugjs/pug" target="_blank">Pug</a>) for years... but then we found <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a> to be extremely lightweight and faster in comparison.  Plus it is inspired by <a href="http://jinja.pocoo.org/docs/dev/" target="_blank">Jinja2</a>, which is amazing!  Of course, if you don\'t like Nunjucks, you can swap it out with <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="https://github.com/pugjs/pug" target="_blank">Pug</a>, <a href="https://github.com/tj/ejs" target="_blank">EJS</a>, <a href="https://github.com/janl/mustache.js/" target="_blank">Mustache</a>, <a href="https://github.com/marko-js/marko" target="_blank">Marko</a> &ndash; whatever you want!  The default front-end consists of <a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a>, <a href="https://v4-alpha.getbootstrap.com/" target="_blank">Bootstrap 4</a>, AJAX form submission using <a href="https://github.com/crocodilejs/frisbee" target="_blank">Frisbee</a>, <a href="https://github.com/limonte/sweetalert2" target="_blank">SweetAlert2</a>, and <a href="https://github.com/tobiasahlin/SpinKit" target="_blank">SpinKit</a>, <a href="https://github.com/gocom/dense" target="_blank">dense</a> and <a href="https://github.com/eisbehr-/jquery.lazy" target="_blank">jquery-lazy</a> for automatic retina image support, <a href="https://github.com/yosuke-furukawa/koa-livereload" target="_blank">LiveReload</a>, <a href="https://github.com/imakewebthings/waypoints" target="_blank">Waypoints</a>, and more.') | safe }}</p>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-md-3">
           <div class="card mb-0">
             <div class="card-block">
-              <p class="lead text-xs-center">{{ t('We use <a href="http://passportjs.org/" target="_blank">Passport</a> for web authentication.') | safe }}</p>
+              <p class="lead text-center">{{ t('We use <a href="http://passportjs.org/" target="_blank">Passport</a> for web authentication.') | safe }}</p>
               {% if user %}
                 <a href="/{{ locale }}/signup" disabled="disabled" class="btn btn-lg btn-block btn-success disabled">{{ t('You\'re already logged in!') }}</a>
               {% else %}
@@ -372,7 +411,7 @@
 
     {# 2. api server #}
 
-    <h3 id="the-api-server" class="display-4 text-xs-center text-muted py-2"><a href="#the-api-server"><u>{{ t('The API Server') }}</u></a></h3>
+    <h3 id="the-api-server" class="display-4 text-center text-muted my-5"><a href="#the-api-server"><u>{{ t('The API Server') }}</u></a></h3>
 
     {% if user %}
       {% set token = user.api_token %}
@@ -384,18 +423,18 @@
       <p class="lead">{{ t('With inspiration from <a href="https://stripe.com" target="_blank">Stripe</a> (namely <a href="http://www.amberfeng.com/" target="_blank">Amber Feng</a>), and years of experience building developer-friendly API\'s &ndash; we\'ve crafted a RESTful API that is simple to use, secure, and documented.  <strong>You can even try it out right now from your terminal (see below)</strong>.  It supports versioning, BasicAuth token access (automatically generated for users and available on the <a href="/' + locale + '/my-account">My Account</a> page), rate limiting, and beautiful API responses (even for errors thanks to <a href="https://github.com/hapijs/boom" target="_blank">Boom</a>). It\'s absolutely perfect for building the back-end of your <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>, <a href="https://github.com/electron/electron" target="_blank">Electron</a>, iOS, or Android app.  You have full control of everything; you don\'t need to rely on a third-party API platform provider.  You can finally stop reading convoluted documentation and start writing your API endpoints!') | safe }}</p>
 
       {% if not user %}
-        <div class="alert alert-danger text-xs-center">{{ t('Please <a href="/' + locale + '/signup?return_to=/' + locale + '/?hash=the-api-server">sign up</a> first, then come back to this page and your unique API token will be populated below!') | safe }}</div>
+        <div class="alert alert-danger text-center">{{ t('Please <a href="/' + locale + '/signup?return_to=/' + locale + '/?hash=the-api-server">sign up</a> first, then come back to this page and your unique API token will be populated below!') | safe }}</div>
       {% endif %}
 
-      <div class="alert alert-info text-xs-center">{{ t('The API responses rendered below contain the actual responses from the API server! Try it out yourself.') }}</div>
+      <div class="alert alert-info text-center">{{ t('The API responses rendered below contain the actual responses from the API server! Try it out yourself.') }}</div>
 
-      <p class="text-muted text-xs-center"><small>{{ t('We use asynchronous <code>curl</code> rendering in our Nunjucks template to achieve this.  It makes writing documentation easy!') | safe }}</small></p>
+      <p class="text-muted text-center"><small>{{ t('We use asynchronous <code>curl</code> rendering in our Nunjucks template to achieve this.  It makes writing documentation easy!') | safe }}</small></p>
 
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <p class="lead text-xs-center">{{ t('Retrieve account') }}</p>
-          <p class="text-xs-center"><span class="tag tag-success">GET</span> <code>/v1/account</code></p>
-          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
+          <p class="lead text-center">{{ t('Retrieve account') }}</p>
+          <p class="text-center"><span class="badge badge-success">GET</span> <code>/v1/account</code></p>
+          <p class="text-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
           {% set getV1Account = 'curl -sS -u ' + token + ': ' + config.urls.api + '/v1/account' %}
           {% set getV1AccountOutput = getV1Account | curl %}
           <div id="get-v1-account">
@@ -403,27 +442,27 @@
             {{ getV1Account }}
             {% endcode %}
           </div>
-          <div class="text-xs-center">
+          <div class="text-center">
             <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#get-v1-account"><i class="fa fa-clipboard"></i> {{ t('Copy') }}</button>
           </div>
-          <p class="text-xs-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
+          <p class="text-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
           {% code %}json
           {{ getV1AccountOutput | safe }}
           {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <p class="lead text-xs-center">{{ t('Update account') }}</p>
-          <p class="text-xs-center"><span class="tag tag-success">PUT</span> <code>/v1/account</code></p>
-          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
+          <p class="lead text-center">{{ t('Update account') }}</p>
+          <p class="text-center"><span class="badge badge-success">PUT</span> <code>/v1/account</code></p>
+          <p class="text-center text-uppercase text-muted"><small>{{ t('Request') }}</small></p>
           {% set putV1Account = 'curl -sS -u ' + token + ': -X PUT -d "display_name=' + (user.display_name if user else 'display_name') + '" ' + config.urls.api + '/v1/account' %}
           {% set putV1AccountOutput = putV1Account | curl %}
           {% code %}bash
           {{ putV1Account | safe }}
           {% endcode %}
-          <div class="text-xs-center">
+          <div class="text-center">
             <button class="btn btn-secondary btn-sm" data-toggle="clipboard" data-clipboard-target="#put-v1-account"><i class="fa fa-clipboard"></i> {{ t('Copy') }}</button>
           </div>
-          <p class="text-xs-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
+          <p class="text-center text-uppercase text-muted pt-1"><small>{{ t('Response') }}</small></p>
           {% code %}json
           {{ putV1AccountOutput | safe }}
           {% endcode %}
@@ -433,13 +472,13 @@
 
     {# 3. job scheduler #}
 
-    <h3 id="the-job-scheduler" class="display-4 text-xs-center text-muted py-2"><a href="#the-job-scheduler"><u>{{ t('The Job Scheduler') }}</u></a></h3>
+    <h3 id="the-job-scheduler" class="display-4 text-center text-muted my-5"><a href="#the-job-scheduler"><u>{{ t('The Job Scheduler') }}</u></a></h3>
 
     <div class="p-1 mb-0">
       <p class="lead">{{ t('No need for cron jobs, as we\'ve included a job scheduler which is built on <a href="http://redis.io/" target="_blank">Redis</a> and <a href="https://github.com/rschmukler/agenda" target="_blank">Agenda</a>.  By default, we\'ve included two jobs out of the box: <code>email</code> and <code>locales</code>.  In development mode, emails are rendered to a temporary HTML file on your computer, and are then opened automatically for you in the default browser.  This saves you time and prevents you from clicking "Refresh" in Gmail a hundred times!  In non-development environments (e.g. production), by default we use <a href="https://postmarkapp.com/" target="_blank">Postmark</a> to send emails (see Crocodile\'s <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework#deployment" target="_blank">Readme</a> for how to get 150K free credits with them). Don\'t want to use Postmark?  You can swap in your own <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework/blob/master/src/jobs/index.js#L49" target="_blank">transport</a> of <a target="_blank" href="https://github.com/nodemailer/nodemailer#using-well-known-services">choice</a> in minutes.') | safe }}</p>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email now') }}</small></p>
+          <p class="text-center text-uppercase text-muted"><small>{{ t('Send an email now') }}</small></p>
           {% code %}
           import Jobs from '../../models/job';
           import { Logger } from '../../../helpers';
@@ -462,7 +501,7 @@
           {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email in 24 hours') }}</small></p>
+          <p class="text-center text-uppercase text-muted"><small>{{ t('Send an email in 24 hours') }}</small></p>
           {% code %}
           import Jobs from '../../models/job';
           import { Logger } from '../../../helpers';
@@ -487,7 +526,7 @@
           {% endcode %}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <p class="text-xs-center text-uppercase text-muted"><small>{{ t('Send an email every 5 minutes') }}</small></p>
+          <p class="text-center text-uppercase text-muted"><small>{{ t('Send an email every 5 minutes') }}</small></p>
           {% code %}agenda.every('5 minutes', 'five-minute-email');{% endcode %}
           {% code %}
           getJobs() {
@@ -531,57 +570,40 @@
 
     {# 4. email engine #}
 
-    <h3 id="the-email-engine" class="display-4 text-xs-center text-muted py-2"><a href="#the-email-engine"><u>{{ t('The Email Engine') }}</u></a></h3>
+    <h3 id="the-email-engine" class="display-4 text-center text-muted my-5"><a href="#the-email-engine"><u>{{ t('The Email Engine') }}</u></a></h3>
 
-    <div class="jumbotron p-1 mb-0">
-      <p class="lead">TODO</p>
+    <div class="p-1 mb-0">
+      <p class="lead text-center">{{ t('') | safe }}</p>
     </div>
 
     {# 5. proxy #}
 
-    <h3 id="the-proxy" class="display-4 text-xs-center text-muted py-2"><a href="#the-proxy"><u>{{ t('5. The Proxy') }}</u></a></h3>
+    <h3 id="the-proxy" class="display-4 text-center text-muted my-5"><a href="#the-proxy"><u>{{ t('The Proxy') }}</u></a></h3>
 
-    <div class="jumbotron p-1 mb-0">
-      <p class="lead">TODO</p>
+    <div class="p-1 mb-0">
+      <p class="lead">{{ t('You no longer need to install, configure, nor use <a class="notranslate" href="http://stackoverflow.com/a/11621187" target="_blank">Apache\'s Virtual Hosts</a> or <a class="notranslate" href="http://stackoverflow.com/a/34644304" target="_blank">Nginx\'s Reverse Proxy</a>! Crocodile includes a simple script (shown below) that serves as a proxy for port <code>80</code> to port <code>443</code> (so <code>http</code> requests are automatically redirected to the secure <code>https</code> protocol in production).  Just run <code>node lib/proxy</code> in production to start forwarding ports!') | safe }}</p>
+      {% set proxyFile = "src/proxy.js" | readFile %}
+      {% code %}js
+      {{ proxyFile | safe }}
+      {% endcode %}
     </div>
 
-    <h2 class="h3 text-xs-center text-muted py-2 mb-0">{{ t('What packages are used?') }}</h2>
+    <h2 class="h3 text-center text-muted py-3 mb-0">{{ t('What packages are used?') }}</h2>
 
-    <div class="p-1 lead text-xs-center">
+    <div class="py-3 lead text-center">
       {% set deps = _.concat(_.keys(config.pkg.dependencies), _.keys(config.pkg.devDependencies)) | sort %}
       {% for dep in deps %}
-        <a href="https://www.npmjs.com/package/{{ dep }}" target="_blank" class="tag tag-default">{{ dep }}</a>
+        <a href="https://www.npmjs.com/package/{{ dep }}" target="_blank" class="badge badge-default">{{ dep }}</a>
       {% endfor %}
     </div>
 
-    <div class="p-1">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-          <div class="card m-0">
-            <div class="card-block">
-              <h4 class="card-title text-xs-center">{{ t('Need help building your app?') }}</h4>
-              <p class="card-text text-xs-center">{{ t('Get in touch with a CrocodileJS expert now.') }}</p>
-              <form action="/{{ locale }}/contact" method="POST" class="ajax-form">
-                <input type="hidden" name="_csrf" value="{{ ctx.csrf }}" />
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input type="email" required="required" name="email" class="form-control" placeholder="{{ t('Email address') }}">
-                  <span class="input-group-btn">
-                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="{{ t('We\'ll be in contact with you!') }}"><i class="fa fa-paper-plane"></i></button>
-                  </span>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    {{ contactForm() }}
 
     {{ getStartedNow() }}
 
-    <h3 class="text-xs-center pt-1"><a href="#" data-toggle="tooltip" title="{{ t('Scroll to the top') }}" class="no-text-decoration">{{ 'crocodile' | emoji }}</a></h3>
+    <h3 class="text-center pt-1"><a href="#" data-toggle="tooltip" title="{{ t('Scroll to the top') }}" class="no-text-decoration">{{ 'crocodile' | emoji }}</a></h3>
 
-    <p class="py-1 text-xs-center text-muted"><small>Crafted with {{ 'coffee' | emoji }} by <a href="https://github.com/niftylettuce" target="_blank" data-toggle="tooltip" title="@niftylettuce is a bootstrapped startup hacker and open source developer of 50+ NPM modules with over 2.2+ million downloads">@niftylettuce</a> &amp; other <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework/graphs/contributors" target="_blank">contributors</a></small></p>
+    <p class="py-2 text-center text-muted"><small>Crafted with {{ 'coffee' | emoji }} by <a href="https://github.com/niftylettuce" target="_blank" data-toggle="tooltip" title="@niftylettuce is a bootstrapped startup hacker and open source developer of 50+ NPM modules with over 2.2+ million downloads">@niftylettuce</a> &amp; other <a href="https://github.com/crocodilejs/crocodile-node-mvc-framework/graphs/contributors" target="_blank">contributors</a></small></p>
 
   </div>
 

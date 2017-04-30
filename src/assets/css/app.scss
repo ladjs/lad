@@ -4,7 +4,9 @@
 
 
 // hljs
-@import "../../../node_modules/highlight.js/styles/github";
+// ../../../node_modules/highlight.js/styles/github";
+// (just cloned the code basically and made it a scss file so we could import)
+@import "_hljs-github";
 
 // bootstrap
 @import "../../../node_modules/bootstrap/scss/bootstrap";
@@ -13,8 +15,15 @@
 // <https://github.com/twbs/bootstrap/issues/20321>
 @import "_bootstrap-cols-same-height";
 
+// override sweetalert 2 styles with bootstraps
+$success: $brand-primary;
+$error: $brand-danger;
+$warning: $brand-warning;
+$info: $brand-info;
+$question: $gray-light;
+
 // sweetalert2
-@import "../../../node_modules/sweetalert2/dist/sweetalert2";
+@import "../../../node_modules/sweetalert2/src/sweetalert2";
 
 // font awesome
 @import "../../../node_modules/font-awesome/scss/font-awesome";
@@ -157,6 +166,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@import "_email";
+// bootstrap 4 alpha 6 removed cursor pointer
+// <https://github.com/twbs/bootstrap/pull/21812>
+.btn {
+  cursor: pointer;
+}
 
+@import "_email";
 @import "_custom";

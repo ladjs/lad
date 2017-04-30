@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import Agenda from 'agenda';
 import promisify from 'es6-promisify';
 import _ from 'lodash';
+import memwatch from 'memwatch-next';
 
 import * as jobs from './jobs';
 import * as helpers from './helpers';
@@ -76,8 +77,8 @@ agenda.on('ready', () => {
 
   // if we're in dev mode, translate every minute
   // TODO: convert this to watch script somehow
-  if (config.env === 'development')
-    agenda.every('5 minutes', 'locales');
+  // if (config.env === 'development')
+  //   agenda.every('5 minutes', 'locales');
 
   // TODO: we may need to change the `lockLifetime` (default is 10 min)
   // <https://github.com/rschmukler/agenda#multiple-job-processors>
@@ -91,7 +92,12 @@ agenda.on('ready', () => {
 
 // handle events emitted
 agenda.on('start', job => helpers.logger.info(`job "${job.attrs.name}" started`));
-agenda.on('complete', job => helpers.logger.info(`job "${job.attrs.name}" completed`));
+agenda.on('complete', job => {
+  helpers.logger.info(`job "${job.attrs.name}" completed`);
+  // manually handle garbage collection
+  // <https://github.com/rschmukler/agenda/issues/129#issuecomment-108057837>
+  memwatch.gc();
+});
 agenda.on('success', job => helpers.logger.info(`job "${job.attrs.name}" succeeded`));
 agenda.on('fail', (err, job) => {
   err.message = `job "${job.attrs.name}" failed: ${err.message}`;
