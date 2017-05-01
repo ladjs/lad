@@ -805,20 +805,20 @@ const Users = new mongoose.Schema({
 function someController(ctx, next) {
 
   // set favorite color
-  ctx.req.user.fav_color = ctx.req.body.fav_color;
+  ctx.state.user.fav_color = ctx.req.body.fav_color;
 
   try {
 
     // (optional) set the locale for i18n translations
     // this `locale` is a getter/setter on ALL models
     // see `src/models/plugins/common.js` for more info
-    ctx.req.user.locale = ctx.req.locale;
+    ctx.state.user.locale = ctx.req.locale;
 
     // simply validates the user object
-    await ctx.req.user.validate();
+    await ctx.state.user.validate();
 
     // you could also just call this instead of `.validate()`:
-    // await ctx.req.user.save();
+    // await ctx.state.user.save();
 
   } catch(err) {
     ctx.throw(Boom.badRequest(err));

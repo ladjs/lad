@@ -9,7 +9,7 @@ export default function dynamicViewHelpers(ctx, next) {
 
   // add `user` object to the state for views
   if (ctx.isAuthenticated())
-    ctx.state.user = ctx.req.user.toObject();
+    ctx.state.user = ctx.state.user.toObject();
 
   // add `ctx` object to the state for views
   ctx.state.ctx = ctx;

@@ -123,9 +123,9 @@ i18n.redirect = async function redirect(ctx, next) {
 
   // if the user is logged in, then save it as `last_locale`
   if (ctx.isAuthenticated()) {
-    ctx.req.user.last_locale = locale;
+    ctx.state.user.last_locale = locale;
     try {
-      await ctx.req.user.save();
+      await ctx.state.user.save();
     } catch (err) {
       logger.error(err);
     }

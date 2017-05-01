@@ -35,10 +35,10 @@ function ctxError(err, ctx) {
 
   if (ctx && _.isObject(ctx.req)) {
     meta.extra.req = ctx.req;
-    if (_.isObject(ctx.req.user))
+    if (_.isObject(ctx.state.user))
       meta.user = {
-        email: ctx.req.user.email,
-        id: ctx.req.user.id
+        email: ctx.state.user.email,
+        id: ctx.state.user.id
       };
   }
 

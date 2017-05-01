@@ -54,7 +54,7 @@ export async function ensureLoggedOut(ctx, next) {
 }
 
 export async function ensureAdmin(ctx, next) {
-  if (!ctx.isAuthenticated() || ctx.req.user.group !== 'admin')
+  if (!ctx.isAuthenticated() || ctx.state.user.group !== 'admin')
     return ctx.throw(Boom.unauthorized(
       'You do not belong to the "admin" user group'
     ));

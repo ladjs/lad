@@ -97,28 +97,28 @@ export default async function purchaseLicense(ctx) {
     // if the user is not logged in then
     // either find their user object or register
     if (!ctx.req.isAuthenticated()) {
-      ctx.req.user = await Users.findOne({
+      ctx.state.user = await Users.findOne({
         email: body.stripe_email
       });
-      if (!ctx.req.user)
-        ctx.req.user = await Users.create({
+      if (!ctx.state.user)
+        ctx.state.user = await Users.create({
           email: body.stripe_email
         });
-      ctx.req.user.last_locale = ctx.req.locale;
+      ctx.state.user.last_locale = ctx.req.locale;
     }
 
     // set that they have purchased a license
-    ctx.req.user.has_license = true;
+    ctx.state.user.has_license = true;
     ctx.session.has_purchased_license = true;
 
     // set the licenses
-    ctx.req.user.licenses = _.concat(
-      ctx.req.user.licenses,
+    ctx.state.user.licenses = _.concat(
+      ctx.state.user.licenses,
       licenses
     );
 
     // save the user
-    await ctx.req.user.save();
+    await ctx.state.user.save();
 
     logger.info('Saved license(s) to user');
 
@@ -129,11 +129,11 @@ export default async function purchaseLicense(ctx) {
         name: 'email',
         data: {
           template: 'purchase-license',
-          to: ctx.req.user.email,
+          to: ctx.state.user.email,
           cc: config.email.from,
           locals: {
             locale: ctx.req.locale,
-            user: _.pick(ctx.req.user, 'display_name'),
+            user: _.pick(ctx.state.user, 'display_name'),
             licenses,
             license,
             i
@@ -168,15 +168,15 @@ export default async function purchaseLicense(ctx) {
     }
 
     // remove any licenses that were created
-    if (_.isObject(ctx.req.user)) {
+    if (_.isObject(ctx.state.user)) {
 
       // exclude any licenses that were just added
-      ctx.req.user.licenses = _.filter(ctx.req.user.licenses, license => {
+      ctx.state.user.licenses = _.filter(ctx.state.user.licenses, license => {
         return !_.includes(_.pluck(licenses, 'key'), license.key);
       });
 
       try {
-        await ctx.req.user.save();
+        await ctx.state.user.save();
       } catch (err) {
         logger.error(err);
       }

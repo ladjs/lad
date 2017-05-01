@@ -33,7 +33,7 @@ export async function list(ctx, next) {
   const userDevice = device(ctx.get('user-agent'));
   if (!userDevice.is('bot')
     && !ctx.session.has_purchased_license
-    && (!ctx.isAuthenticated() || !ctx.req.user.has_license)) {
+    && (!ctx.isAuthenticated() || !ctx.state.user.has_license)) {
     ctx.session.returnTo = ctx.req.url;
     ctx.flash('warning', ctx.translate('LICENSE_REQUIRED'));
     ctx.redirect(`/${ctx.req.locale}`);

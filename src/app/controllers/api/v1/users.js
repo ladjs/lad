@@ -9,7 +9,7 @@ import Users from '../../../models/user';
 export async function retrieve(ctx) {
   // since we already have the user object
   // just send it over as a response
-  ctx.body = ctx.req.user;
+  ctx.body = ctx.state.user;
 }
 
 export async function update(ctx) {
@@ -25,13 +25,13 @@ export async function update(ctx) {
 
   // extend the user object
   // (basically overwrites or "extends" the existing fields)
-  ctx.req.user = _.extend(ctx.req.user, _.pick(ctx.req.body, fields));
+  ctx.state.user = _.extend(ctx.state.user, _.pick(ctx.req.body, fields));
 
   // save the user (allow mongoose to handle validation)
-  ctx.req.user = await ctx.req.user.save();
+  ctx.state.user = await ctx.state.user.save();
 
   // send the response
-  ctx.body = ctx.req.user;
+  ctx.body = ctx.state.user;
 
 }
 
