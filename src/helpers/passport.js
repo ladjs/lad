@@ -14,7 +14,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (email, done) => {
   try {
-    const user = await Users.findOne({ email: email });
+    const user = await Users.findOne({ email });
     // if no user exists then invalidate the previous session
     // <https://github.com/jaredhanson/passport/issues/6#issuecomment-4857287>
     if (!user) return done(null, false);

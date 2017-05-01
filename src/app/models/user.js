@@ -98,8 +98,17 @@ const Users = new mongoose.Schema({
     desc: String,
     amount: Number,
     stripe_charge_id: String
-  }]
-
+  }],
+  last_ips: [{
+    type: String,
+    trim: true,
+    validate: val => validator.isIP(val)
+  }],
+  ip: {
+    type: String,
+    trim: true,
+    validate: val => validator.isIP(val)
+  }
 });
 
 Users.pre('validate', function (next) {
