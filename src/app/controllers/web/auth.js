@@ -37,7 +37,10 @@ export async function login(ctx, next) {
 
   try {
 
-    await passport.authenticate('local', function (user, info, status) {
+    await passport.authenticate('local', function (err, user, info, status) {
+
+      // TODO: what the heck is `err` here (?)
+      if (err) throw err;
 
       return new Promise(async (resolve, reject) => {
 

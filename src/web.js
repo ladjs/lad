@@ -187,6 +187,9 @@ app.use(async (ctx, next) => {
 // detect or redirect based off locale url
 app.use(helpers.i18n.redirect);
 
+// store the user's ip if they're logged in
+app.use(helpers.storeIPAddress);
+
 // mount the app's defined and nested routes
 app.use(routes.web.routes());
 

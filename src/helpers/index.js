@@ -13,3 +13,4 @@ export contextHelpers from './context-helpers';
 export mongoose from './mongoose';
 export updateNotifier from './update-notifier';
 export checkLicense from './check-license';
+export storeIPAddress from './store-ip-address';
