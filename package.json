@@ -1,0 +1,147 @@
+{
+  "name": "lad",
+  "description": "Lad scaffolds a Koa webapp and API framework for Node.js",
+  "version": "0.0.1",
+  "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
+  "bin": "cli.js",
+  "ava": {
+    "files": [
+      "test.js",
+      "test-*.js",
+      "test/**/*.js",
+      "**/__tests__/**/*.js",
+      "**/*.test.js",
+      "template/test.js",
+      "template/test-*.js",
+      "template/test/**/*.js",
+      "template/**/__tests__/**/*.js",
+      "template/**/*.test.js"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/ladjs/lad/issues",
+    "email": "niftylettuce@gmail.com"
+  },
+  "contributors": [
+    "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)"
+  ],
+  "dependencies": {
+    "cac": "^4.2.1",
+    "camelcase": "^4.1.0",
+    "github-username-regex": "^1.0.0",
+    "is-email": "^1.0.0",
+    "is-url": "^1.2.2",
+    "limax": "^1.5.0",
+    "npm-conf": "^1.1.2",
+    "sao": "^0.21.9",
+    "semver": "^5.4.1",
+    "superb": "^1.3.0",
+    "update-notifier": "^2.2.0",
+    "uppercamelcase": "^3.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "codecov": "^2.3.0",
+    "cross-env": "^5.0.5",
+    "eslint": "^4.6.0",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-plugin-prettier": "^2.2.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.4",
+    "nyc": "^11.1.0",
+    "prettier": "^1.6.1",
+    "remark-cli": "^4.0.0",
+    "remark-preset-github": "^0.0.5",
+    "xo": "^0.19.0"
+  },
+  "engines": {
+    "node": ">=8.x"
+  },
+  "homepage": "https://github.com/ladjs/lad",
+  "keywords": [
+    "ava",
+    "boilerplate",
+    "codecov",
+    "es6",
+    "es7",
+    "flavored",
+    "generator",
+    "gfm",
+    "github",
+    "lad",
+    "license",
+    "license-generator",
+    "markdown",
+    "module",
+    "np",
+    "npm",
+    "nyc",
+    "package",
+    "prettier",
+    "project",
+    "remark",
+    "sao",
+    "scaffold",
+    "spdx",
+    "starter",
+    "xo",
+    "yeoman"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
+      "prettier --write --single-quote --trailing-comma none",
+      "git add"
+    ],
+    "*.md": ["remark . -qfo", "git add"]
+  },
+  "main": "sao.js",
+  "nyc": {
+    "reporter": ["lcov", "html", "text"]
+  },
+  "remarkConfig": {
+    "plugins": ["preset-github"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ladjs/lad"
+  },
+  "scripts": {
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "lint": "xo && remark . -qfo",
+    "precommit": "lint-staged && npm test",
+    "test": "npm run lint && npm run test-coverage",
+    "test-coverage": "cross-env NODE_ENV=test nyc ava"
+  },
+  "xo": {
+    "extends": "prettier",
+    "plugins": ["prettier"],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "bracketSpacing": true,
+          "trailingComma": "none"
+        }
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 80,
+          "ignoreUrls": true
+        }
+      ],
+      "capitalized-comments": "off",
+      "camelcase": "off",
+      "no-warning-comments": "off"
+    },
+    "space": true,
+    "ignores": [
+      "example.js",
+      "example.archive.js",
+      "template/example.js",
+      "config.js"
+    ]
+  }
+}
