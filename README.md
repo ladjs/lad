@@ -140,7 +140,7 @@ Please ensure your operating system has the following software installed:
 
 * [Redis][] (v4.x+):
 
-  * Mac (via [brew][]): `brew install redis-server`
+  * Mac (via [brew][]): `brew install redis`
   * Ubuntu:
 
     ```sh
