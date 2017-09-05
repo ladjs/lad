@@ -12,7 +12,7 @@
 </div>
 <br />
 <div align="center">
-  Lad scaffolds a <a href="">Koa</a> webapp and API framework for <a href="https://nodejs.org">Node</a>
+  Lad scaffolds a <a href="http://koajs.com/">Koa</a> webapp and API framework for <a href="https://nodejs.org">Node</a>
 </div>
 <div align="center">
   <sub>
