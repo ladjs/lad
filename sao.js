@@ -14,19 +14,14 @@ module.exports = {
   templateOptions: {
     context: {
       camelcase,
-      uppercamelcase
+      uppercamelcase,
+      slug
     }
   },
   prompts: {
     name: {
       message: 'What is the name of the new project',
-      default: ':folderName:',
-      validate: async val => {
-        if (process.env.NODE_ENV === 'test' && val === 'lad') return true;
-        return slug(val) === val
-          ? true
-          : `Please change the name from "${val}" to "${slug(val)}"`;
-      }
+      default: ':folderName:'
     },
     description: {
       message: 'How would you describe the new project',
@@ -67,7 +62,7 @@ module.exports = {
       message: "What is your GitHub repository's URL",
       default(answers) {
         return `https://github.com/${slug(answers.username)}/${slug(
-          answers.name
+          slug(answers.name)
         )}`;
       },
       validate: val => {

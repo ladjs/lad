@@ -1,0 +1,42 @@
+
+if pageCount && pageCount > 0
+  nav(aria-label="Page navigation")
+    ul.pagination
+      - const links = paginate.getArrayPages(5, pageCount, ctx.query.page)
+      if paginate.hasPreviousPages
+        li.page-item
+          a.page-link(href=paginate.href(true), aria-label=t('Previous'))
+            span(aria-hidden="true")
+              i.fa.fa-angle-double-left
+            span.sr-only= t('Previous')
+      else
+        li.page-item.disabled
+          span.page-link(aria-label=t('Previous'))
+            span(aria-hidden="true")
+              i.fa.fa-angle-double-left
+            span.sr-only= t('Previous')
+      each link in links
+        if link.number === 1 && pageCount === 1
+          li.page-item.disabled
+            span.page-link= link.number
+        else
+          if link.number === ctx.query.page
+            li.page-item.active
+              a.page-link(href=link.url)= link.number
+          else
+            li.page-item
+              a.page-link(href=link.url)= link.number
+      if paginate.hasNextPages(pageCount)
+        li.page-item
+          a.page-link(href=paginate.href({ page: ctx.query.page + 1 }), aria-label=t('Next'))
+            span(aria-hidden="true")
+              i.fa.fa-angle-double-right
+            span.sr-only= t('Next')
+      else
+        li.page-item.disabled
+          span.page-link(aria-label=t('Next'))
+            span(aria-hidden="true")
+              i.fa.fa-angle-double-right
+            span.sr-only= t('Next')
+else
+  .alert.alert-info.my-3= t('No results were found, please try again later')

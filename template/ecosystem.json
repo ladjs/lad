@@ -1,0 +1,52 @@
+{
+  "apps": [
+    {
+      "name": "web",
+      "script": "web.js",
+      "exec_mode": "cluster",
+      "instances": "max",
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_staging": {
+        "NODE_ENV": "staging"
+      }
+    },
+    {
+      "name": "api",
+      "script": "api.js",
+      "exec_mode": "cluster",
+      "instances": "max",
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_staging": {
+        "NODE_ENV": "staging"
+      }
+    },
+    {
+      "name": "app",
+      "script": "app.js",
+      "exec_mode": "cluster",
+      "instances": "max",
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_staging": {
+        "NODE_ENV": "staging"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "deploy",
+      "host": "<%= this.slug(name) %>-deploy",
+      "ref": "origin/master",
+      "repo":
+        "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
+      "path": "/var/www/production",
+      "post-deploy":
+        "yarn && yarn run build && yarn publish-assets && pm2 startOrGracefulReload ecosystem.json --env production"
+    }
+  }
+}

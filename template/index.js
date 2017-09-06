@@ -1,11 +1,6 @@
-class Script {
-  constructor(config) {
-    config = config || {};
-    this._name = config.name || 'script';
-  }
-  renderName() {
-    return this._name;
-  }
-}
+const agenda = require('./agenda');
+const api = require('./api');
+const proxy = require('./proxy');
+const web = require('./web');
 
-module.exports = Script;
+module.exports = { agenda, api, proxy, web };

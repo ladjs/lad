@@ -1,0 +1,79 @@
+
+extends layout
+
+block body
+  .container.pb-1
+    .row.mt-1
+      if config.auth.hasThirdPartyProviders
+        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+          .card
+            .card-body
+              h1.card-title.h4= `Third-Party ${s.titleize(verb)}`
+              p.card-text= `One-click, it's easy! ${emoji("sparkles")}`
+              if config.auth.providers.facebook
+                a.btn.btn-block.btn-social.btn-facebook(href=`/${locale}/auth/facebook`, role="button")
+                  i.fa.fa-fw.fa-facebook
+                  = ` ${s.titleize(verb)} with Facebook`
+              if config.auth.providers.twitter
+                a.btn.btn-block.btn-social.btn-twitter(href=`/${locale}/auth/twitter`, role="button")
+                  i.fa.fa-fw.fa-twitter
+                  = ` ${s.titleize(verb)} with Twitter`
+              if config.auth.providers.google
+                a.btn.btn-block.btn-social.btn-google(href=`/${locale}/auth/google`, role="button")
+                  i.fa.fa-fw.fa-google-plus
+                  = ` ${s.titleize(verb)} with Google`
+              if config.auth.providers.github
+                a.btn.btn-block.btn-social.btn-github(href=`/${locale}/auth/github`, role="button")
+                  i.fa.fa-fw.fa-github
+                  = ` ${s.titleize(verb)} with GitHub`
+              if config.auth.providers.linkedin
+                a.btn.btn-block.btn-social.btn-linkedin(href=`/${locale}/auth/linkedin`, role="button")
+                  i.fa.fa-fw.fa-linkedin
+                  = ` ${s.titleize(verb)} with LinkedIn`
+              if config.auth.providers.instagram
+                a.btn.btn-block.btn-social.btn-instagram(href=`/${locale}/auth/instagram`, role="button")
+                  i.fa.fa-fw.fa-instagram
+                  = ` ${s.titleize(verb)} with Instagram`
+              if config.auth.providers.stripe
+                a.btn.btn-block.btn-social.btn-stripe(href=`/${locale}/auth/stripe`, role="button")
+                  i.fa.fa-fw.fa-cc-stripe
+                  = ` ${s.titleize(verb)} with Stripe`
+      if config.auth.local
+        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+          .card
+            .card-body
+              - const h1 = `${s.titleize(verb)} Now`
+              h1.card-title.h4= t(h1)
+              if verb === 'sign up'
+                p.card-text
+                  = t('Hi there!')
+                  = ' '
+                  = emoji('wave')
+              else
+                p.card-text
+                  = t('Welcome back!')
+                  = ' '
+                  = emoji('beers')
+              form.ajax-form(action=ctx.path, method="POST")
+                input(type="hidden", name="_csrf", value=ctx.csrf)
+                .form-group
+                  input#input-email.form-control(type="email", required="required", name="email", placeholder=t('Email address'))
+                .form-group
+                  input#input-password.form-control(type="password", required="required", name="password", placeholder=t('Password'))
+                - const btn = `${s.titleize(verb)} with Email`
+                button.btn.btn-primary.btn-block(type="submit")
+                  i.fa.fa-envelope
+                  = ' '
+                  = t(btn)
+              p.text-center.text-muted.mt-1
+                small
+                  if verb === 'sign up'
+                    != t(`By signing up, you agree to our <a href="/${locale}/terms" class="card-link">Terms</a>`)
+                  else
+                    a.card-link(href=`/${locale}/forgot-password`)= t('Forget your password?')
+            if verb === 'sign up'
+              .card-footer.text-center
+                != t(`Already have an account? <a href="/${locale}/login" class="card-link">Log In</a>`)
+            else
+              .card-footer.text-center
+                != t(`Don't have an account? <a href="/${locale}/signup" class="card-link">Sign Up</a>`)
