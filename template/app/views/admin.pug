@@ -1,0 +1,35 @@
+
+extends layout
+
+append scripts
+  script(src=manifest('js/admin/dashboard.js'))
+
+block body
+  .container-fluid.pb-1.pt-3
+    .row.mt-1
+      .col-md-4.col-lg-2
+        nav.nav.nav-pills.flex-column.flex-row
+          a.nav-link.flex-fill.active(href="#")= t('Dashboard')
+          a.nav-link.flex-fill(href="#")= t('Users')
+      .col-md-8.col-lg-10
+        .row
+          .col-md-6.col-lg-8
+            h1.h6.text-uppercase.text-muted= t('Admin')
+            h2= t('Dashboard')
+          .col-md-6.col-lg-4.text-right
+            form.form-inline
+              input.form-control(type="date", value="2011-08-19")
+        hr
+        .card.bg-primary
+          .card-body.text-white
+            h3.text-uppercase= t('Users')
+            hr
+            - const labels = ['','Aug 29','','','Sept 5','','','Sept 12','','','Sept 19','']
+            - const values = [{fillColor: 'rgba(28,168,221,.03)', data: [2500, 3300, 2512, 2775, 2498, 3512, 2925, 4275, 3507, 3825, 3445, 3985]}]
+            canvas(
+              width="900",
+              height="300",
+              data-chart="line",
+              data-labels=json(labels)
+              data-datasets=json(values)
+            )

@@ -1,0 +1,38 @@
+
+extends layout
+
+//- Uncomment this to add Stripe support
+//-.
+  append scripts
+    //- https://stripe.com/docs/checkout#integration-custom
+    script(src="https://checkout.stripe.com/checkout.js")
+    script.
+      window.STRIPE_PUBLISHABLE_KEY = "#{config.stripe.publishableKey}";
+
+block body
+
+  //- Main jumbotron for a primary marketing message or call to action
+  .jumbotron
+    .container
+      h1.display-3 Hello, world!
+      p This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+      p
+        a.btn.btn-primary.btn-lg(href="#", role="button") Learn more »
+  .container
+    //- Example row of columns
+    .row
+      .col-md-4
+        h2 Heading
+        p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        p
+          a.btn.btn-secondary(href="#", role="button") View details »
+      .col-md-4
+        h2 Heading
+        p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        p
+          a.btn.btn-secondary(href="#", role="button") View details »
+      .col-md-4
+        h2 Heading
+        p Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+        p
+          a.btn.btn-secondary(href="#", role="button") View details »

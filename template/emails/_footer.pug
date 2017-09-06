@@ -1,0 +1,8 @@
+footer.py-3.mt-3.email-footer
+  .container.text-center
+    != png2x({ text: `Thanks from ${config.appName}!`, fontSize: 49, fontNameOrPath: config.emailFontPath })
+    p
+      small.text-muted
+        | © #{ moment().format('YYYY') } #{ config.appName }. #{t('All Rights Reserved.')}
+        a.font-weight-bold(href=`${config.urls.web}/terms`)= t('Terms')
+      sm

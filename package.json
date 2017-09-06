@@ -43,15 +43,16 @@
     "ava": "^0.22.0",
     "codecov": "^2.3.0",
     "cross-env": "^5.0.5",
-    "eslint": "^4.6.0",
+    "eslint": "^4.6.1",
     "eslint-config-prettier": "^2.4.0",
+    "eslint-plugin-compat": "^1.0.4",
     "eslint-plugin-prettier": "^2.2.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.0.4",
-    "nyc": "^11.1.0",
+    "lint-staged": "^4.1.0",
+    "nyc": "^11.2.0",
     "prettier": "^1.6.1",
     "remark-cli": "^4.0.0",
-    "remark-preset-github": "^0.0.5",
+    "remark-preset-github": "^0.0.6",
     "xo": "^0.19.0"
   },
   "engines": {
@@ -116,6 +117,9 @@
   "xo": {
     "extends": "prettier",
     "plugins": ["prettier"],
+    "parserOptions": {
+      "sourceType": "script"
+    },
     "rules": {
       "prettier/prettier": [
         "error",
@@ -137,11 +141,22 @@
       "no-warning-comments": "off"
     },
     "space": true,
-    "ignores": [
-      "example.js",
-      "example.archive.js",
-      "template/example.js",
-      "config.js"
+    "ignores": ["config.js"],
+    "overrides": [
+      {
+        "plugins": ["prettier", "compat"],
+        "settings": {
+          "polyfills": ["fetch"]
+        },
+        "parserOptions": {
+          "sourceType": "script"
+        },
+        "files": "template/assets/js/**/*.js",
+        "envs": ["browser"],
+        "rules": {
+          "compat/compat": "error"
+        }
+      }
     ]
   }
 }

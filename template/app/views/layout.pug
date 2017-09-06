@@ -1,0 +1,93 @@
+doctype html
+html(lang=locale)
+  head
+    block head
+      meta(charset="utf-8")
+      meta(http-equiv="x-ua-compatible", content="ie=edge")
+      title= meta.title
+      meta(name="description", content=meta.description)
+      meta(name="viewport", content="width=device-width, initial-scale=1")
+      //- languages supported
+      //- <https://support.google.com/webmasters/answer/189077?hl=en>
+      //- <https://support.google.com/webmasters/answer/182192?hl=en>
+      link(rel="alternate", href=config.urls.web, hreflang="x-default")
+      each language in availableLanguages
+        link(rel="alternate", href=`${config.urls.web}/${language.locale}`, hreflang=language.locale)
+      //- generated with https://realfavicongenerator.net
+      link(rel="apple-touch-icon", sizes="152x152", href=manifest('img/apple-touch-icon.png'))
+      link(rel="icon", type="image/png", href=manifest('img/favicon-32x32.png'), sizes="32x32")
+      link(rel="icon", type="image/png", href=manifest('img/favicon-16x16.png'), sizes="16x16")
+      link(rel="manifest", href="/manifest.json")
+      //- TODO: add mask-icon
+      //- link(rel="mask-icon", href=manifest('img/safari-pinned-tab.svg'), color=config.appColor)
+      meta(name="apple-mobile-web-app-title", content=config.appName)
+      meta(name="application-name", content=config.appName)
+      meta(name="theme-color", content=config.appColor)
+      //- csrf token
+      meta(name="csrf-token", content=ctx.csrf)
+      script.
+        window._csrf = "#{ctx.csrf}";
+      //- add opengraph tags to your structured data pages #}
+      block opengraph
+        //- TODO: finish this
+        //.
+          <link rel="image_src" type="image/png" href="https://stripe.com/img/v3/home/social.png">
+          <meta property="og:title" content="Checkout Reference">
+          <meta property="og:url" content="https://stripe.com/docs/checkout">
+          <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+          <meta property="og:image" content="https://stripe.com/img/v3/home/social.png">
+          <meta name="twitter:card" content="summary_large_image">
+          <meta name="twitter:site" content="@stripe">
+          <meta name="twitter:title" content="Checkout Reference">
+          <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+          <meta name="twitter:image:src" content="https://stripe.com/img/v3/home/social.png">
+      //- css file
+      link(rel="stylesheet", href=manifest('css/app.css'))
+
+  body(role='document')
+
+    //- spinner
+    block spinner
+      include spinner/spinner
+
+    <!--[if lt IE 9]>
+      <p class="browserupgrade">!{ t('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.')}</p>
+    <![endif]-->
+
+    //- navigation
+    block navigation
+      include _nav
+
+    //- body
+    block body
+
+    //- footer
+    block footer
+      include _footer
+
+    //- sweetalert2 flash messaging (with koa-better-flash)
+    script.
+      window._types = {
+        success: "#{ t('Success') }",
+        error: "#{ t('Error') }",
+        info: "#{ t('Info') }",
+        warning: "#{ t('Warning') }",
+        question: "#{ t('Question') }"
+      };
+      window._messages = !{json(flash(), null, null)};
+    //- TODO: add cabin client-side logging
+
+    //- scripts
+    block scripts
+      script(src=manifest('js/core.js'))
+      script(src=manifest('js/flash.js'))
+
+    //- google analytics
+    if config.env === 'production' && config.ga
+      script.
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='https://www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','#{config.ga}','auto');ga('send','pageview');

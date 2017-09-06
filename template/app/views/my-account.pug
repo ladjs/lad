@@ -1,0 +1,26 @@
+
+extends layout
+
+block body
+  .container.pb-1.pt-3
+    .row
+      .col-md-12
+        h1.h6.text-uppercase.text-muted= t('My Account')
+        h2= t('Dashboard')
+        hr
+        h3
+          if moment().format('HH') >= 12 && moment().format('HH') <= 17
+            = t('Good afternoon')
+          else if moment().format('HH') >= 17
+            = t('Good evening')
+          else
+            = t('Good morning')
+          = ' '
+          = user.display_name
+        p= t('This is your account page.')
+        h2= t('API Key')
+        code#api-key= user.api_token
+        button.btn.btn-secondary.btn-sm(data-toggle="clipboard", data-clipboard-target="#api-key")
+          i.fa.fa-clipboard
+          = ' '
+          = t('Copy')

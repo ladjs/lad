@@ -1,0 +1,9 @@
+{
+  "presets": [
+    [ "env", { "useBuiltIns": true } ]
+  ],
+  "plugins": [
+    "lodash",
+    [ "transform-object-rest-spread", { "useBuiltIns": false } ]
+  ]
+}
