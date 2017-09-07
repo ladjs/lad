@@ -324,6 +324,11 @@ Please ensure your operating system has the following software installed:
 
 * [Git][] - see [GitHub's tutorial][github-git] for installation
 
+* [Sharp][] - we use this for image transformation (e.g. an avatar file upload needs resized)
+
+  * Mac (via [brew][]): `brew install homebrew/science/vips --with-webp --with-graphicsmagick` (as of [sharp][] v0.18.2 this is required)
+  * Ubuntu/Windows - should work out of the box
+
 * [Node.js][node] (v8.x+) - use [nvm][] to install it on any OS
 
   * After installing `nvm` you will need to run `nvm install node`
@@ -331,7 +336,7 @@ Please ensure your operating system has the following software installed:
 
 * [MongoDB][] (v3.x+):
 
-  * Mac (via [brew][]): `brew install mongodb`
+  * Mac (via [brew][]): `brew install mongodb && brew services start mongo`
   * Ubuntu:
 
     ```sh
@@ -343,7 +348,7 @@ Please ensure your operating system has the following software installed:
 
 * [Redis][] (v4.x+):
 
-  * Mac (via [brew][]): `brew install redis`
+  * Mac (via [brew][]): `brew install redis && brew services start redis`
   * Ubuntu:
 
     ```sh
@@ -373,6 +378,7 @@ yarn global add lad
 ```sh
 lad new-project
 cd new-project
+cp .env.defaults .env
 ```
 
 #### Development
@@ -515,6 +521,8 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [redis]: https://redis.io/
 
 [github-git]: https://help.github.com/articles/set-up-git/
+
+[sharp]: http://sharp.dimens.io/en/stable/
 
 [git]: https://git-scm.com/
 
