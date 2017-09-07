@@ -23,7 +23,7 @@
     "clipboard": "^1.7.1",
     "consolidate": "^0.14.5",
     "country-language": "^0.1.7",
-    "custom-fonts-in-emails": "1.0.0",
+    "custom-fonts-in-emails": "^1.0.1",
     "dense": "^0.0.1",
     "dotenv-extended": "^2.0.1",
     "dotenv-mustache": "^1.0.0",

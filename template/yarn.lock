@@ -1190,7 +1190,7 @@ bluebird@2.10.2:
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.10.2.tgz#024a5517295308857f14f91f1106fc3b555f446b"
 
-bluebird@^3.0.0, bluebird@^3.1.1, bluebird@^3.4.6, bluebird@^3.4.7:
+bluebird@^3.0.0, bluebird@^3.1.1, bluebird@^3.4.6:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
@@ -2470,15 +2470,15 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-fonts-in-emails@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/custom-fonts-in-emails/-/custom-fonts-in-emails-1.0.0.tgz#78ba9d63eb637c3afa83d1581c72e2f5456655fc"
+custom-fonts-in-emails@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/custom-fonts-in-emails/-/custom-fonts-in-emails-1.0.1.tgz#33d7e5f7ecc2420598450952a56e317788f906b4"
   dependencies:
     cheerio "^1.0.0-rc.2"
     deasync "^0.1.10"
     fast-levenshtein "^2.0.5"
     lodash "^4.16.4"
-    os-fonts niftylettuce/os-fonts
+    os-fonts "^0.4.1"
     sharp "^0.18.2"
     text-to-svg "^3.0.1"
     underscore.string "^3.3.4"
@@ -7962,9 +7962,9 @@ os-filter-obj@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/os-filter-obj/-/os-filter-obj-1.0.3.tgz#5915330d90eced557d2d938a31c6dd214d9c63ad"
 
-os-fonts@niftylettuce/os-fonts:
-  version "0.4.0"
-  resolved "https://codeload.github.com/niftylettuce/os-fonts/tar.gz/2b248b4c757be277b08f49f4dbde4dc1a27662a8"
+os-fonts@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/os-fonts/-/os-fonts-0.4.1.tgz#34c742590b7bb39350d3ad6c1397cd1a556d252a"
   dependencies:
     recursive-readdir "^2.2.1"
     recursive-readdir-sync "^1.0.6"
@@ -10291,12 +10291,6 @@ sanitize-html@^1.14.1:
     htmlparser2 "^3.9.0"
     regexp-quote "0.0.0"
     xtend "^4.0.0"
-
-sass-extract@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/sass-extract/-/sass-extract-0.5.3.tgz#902208485f292ec1231981a63c2bd34b709fa089"
-  dependencies:
-    bluebird "^3.4.7"
 
 sass-graph@^2.1.1:
   version "2.2.4"
