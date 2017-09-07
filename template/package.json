@@ -3,7 +3,7 @@
   "private": true,
   "description": "<%= description %>",
   "version": "0.0.1",
-  "author": "<%= author %> <<%= email %>> (<%= website%>)",
+  "author": "example <example@example.com> (example.com)",
   "bugs": {
     "url": "<%= repo %>/issues",
     "email": "<%= email %>"
@@ -134,7 +134,7 @@
     "gulp-xo": "^0.16.0",
     "husky": "^0.14.3",
     "imagemin-pngquant": "^5.0.1",
-    "lint-staged": "^4.1.0",
+    "lint-staged": "^4.1.2",
     "ms": "^2.0.0",
     "nodemon": "^1.12.0",
     "nyc": "^11.1.0",
@@ -154,11 +154,14 @@
   "keywords": ["<%= this.slug(name) %>", "lad", "lass"],
   "license": "Unlicensed",
   "lint-staged": {
-    "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
-      "prettier --write --single-quote --trailing-comma none",
-      "git add"
-    ],
-    "*.md": ["remark . -qfo", "git add"]
+    "gitDir": "../",
+    "linters": {
+      "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
+        "prettier --write --single-quote --trailing-comma none",
+        "git add"
+      ],
+      "*.md": ["remark . -qfo", "git add"]
+    }
   },
   "main": "index.js",
   "nyc": {
@@ -173,7 +176,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "<%= repo %>"
+    "url": "https://github.com/ladjs/lad"
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
