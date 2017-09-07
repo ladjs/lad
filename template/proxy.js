@@ -1,21 +1,12 @@
-// TODO: rewrite this to use pure http server
-// this redirects any incoming connections
-// on port 80 to port 443 (http -> https)
+const http = require('http');
+const url = require('url');
 
-const qs = require('qs');
-const _ = require('lodash');
-const Koa = require('koa');
+const app = http.createServer((req, res) => {
+  res.writeHead(301, {
+    Location: url.parse(`https://${req.headers.host}${req.url}`).href
+  });
 
-const app = new Koa();
-
-app.use(ctx => {
-  // 301 = permanent redirect for SEO
-  ctx.status = 301;
-  ctx.redirect(
-    `https://${ctx.hostname}${ctx.path}${_.isEmpty(ctx.query)
-      ? ''
-      : `?${qs.stringify(ctx.query)}`}`
-  );
+  res.end();
 });
 
 if (!module.parent) app.listen(80);
