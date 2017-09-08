@@ -7,7 +7,7 @@
   <a href="https://codecov.io/github/ladjs/lad"><img src="https://img.shields.io/codecov/c/github/ladjs/lad/master.svg" alt="code coverage" /></a>
   <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="code style" /></a>
   <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" alt="styled with prettier" /></a>
-  <a href="https://github.com/lassjs/lass"><img src="https://img.shields.io/badge/made_with-lass-95CC28.svg" alt="made with lass" /></a>
+  <a href="https://lass.js.org"><img src="https://img.shields.io/badge/made_with-lass-95CC28.svg" alt="made with lass" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/ladjs/lad.svg" alt="license" /></a>
 </div>
 <br />
@@ -16,7 +16,7 @@
 </div>
 <div align="center">
   <sub>
-    A lad that fell in love with a <a href="https://github.com/lassjs/lass"><strong>lass</strong></a>
+    A lad that fell in love with a <a href="https://lass.js.org"><strong>lass</strong></a>
     &bull; Built by <a href="https://github.com/niftylettuce">@niftylettuce</a>
     and <a href="#contributors">contributors</a>
   </sub>
@@ -645,7 +645,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [yarn]: https://yarnpkg.com/
 
-[lass]: https://github.com/lassjs/lass
+[lass]: https://lass.js.org
 
 [node]: https://nodejs.org
 
