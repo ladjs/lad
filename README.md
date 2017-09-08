@@ -43,6 +43,7 @@
   * [Install](#install)
   * [Usage](#usage)
   * [Continuous Integration and Code Coverage](#continuous-integration-and-code-coverage)
+  * [Configuration](#configuration)
   * [Tutorials](#tutorials)
   * [Community](#community)
 * [Related](#related)
@@ -451,6 +452,113 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 7. Run a test build ("Rebuild last revision") on SemaphoreCI and check to make sure your code coverage report uploads properly on Codecov
 8. Ensure your `README.md` file has the build status and code coverage badges rendered properly (you will need to use a different badge link from each provider if your GitHub repository is private)
 
+### Configuration
+
+#### Environment Variables
+
+We have made configuration of your Lad project easy through a [dotenv][] configuration, per [Twelve-Factor][twelve-factor].
+
+We use the following three packages to manage configuration:
+
+* [dotenv-extended][] - allows us to craft a `.env` definition (otherwise known as a "schema") in a file named `.env.schema`
+* [dotenv-mustache][] - allows us to use the [Mustache templating language][mustache] in our `.env` and `.env.defaults` confguration files
+* [dotenv-parse-variables][] - automatically parses variable types from `process.env` (e.g. `FOO=4` will set `process.env.FOO = 4` with a `Number` variable type instead of a `String`)
+
+Configuration is managed by the following, in order of priority:
+
+1. Contents of the file at `config/index.js` (reads in `process.env` environment variables)
+2. Contents of the files in directories under `config/environments/` (sets defaults per environment, e.g. you can pass `NODE_ENV=staging` and it will load the file at `config/environments/staging.js`)
+3. Environment variables used to override defaults or set required ones (e.g. `NODE_ENV=production`)
+4. Environment configuration in `.env`
+5. Environment configuration in `.env.defaults`
+
+Precedence is taken by the environment configuration files, environment variables, then the `.env` file.
+
+Basically [dotenv][] won't set an environment variable if it already detects it was passed as an environment variable.
+
+Take a look at the [config](template/config) folder contents and also at the defaults at [.env.defaults](template/.env.defaults).
+
+#### Outbound Email Configuration
+
+> By default in the development environment we simply render the email in your browser.
+
+However in other environments such as production, you definitely want emails to be sent.
+
+We built-in support for Postmark by default (though you can swap in your own `transport` provider in the `jobs/email.js` file):
+
+1. Go to [https://postmarkapp.com](https://postmarkapp.com?utm_source=lad) – Start Free Trial
+2. Create a free trial account, then click Get Started, and proceed to create a "Server" and "Sender Signature"
+3. Copy/paste the "Server API token" under "Credentials" in your `.env` file (example below)
+
+   ```diff
+   -POSTMARK_API_TOKEN=
+   +POSTMARK_API_TOKEN=ac6657eb-2732-4cfd-915b-912b1b10beb1
+   ```
+
+4. Modify the `SEND_EMAIL` variable in `.env` from `false` to `true`
+
+#### Favicon and Touch Icon Configuration
+
+You can customize the favicon and touch icons – just generate a new set at <https://realfavicongenerator.net> and overwrite the existing in the [assets](template/assets) folder.
+
+Just make sure that any relative paths match up in the `assets/browserconfig.xml` and `assets/manifest.json` files.
+
+#### Authentication Methods
+
+##### Google Auth
+
+> In order to add Google sign-in to your app (so users can log in with their Google account):
+
+1. Go to <https://console.developers.google.com> – Create a project (and fill out your project information – if you need a 120x120px default image, [you can use this one](media/lad-120x120.png)
+2. Under your newly created project, go to Credentials – Create credentials – OAuth client ID – Web application
+3. Set "Authorized JavaScript origins" to `http://yourdomain.com` (replace with your domain) and also `http://localhost:3000` (for local development)
+4. Set "Authorized redirect URIs" to `http://yourdomain.com/auth/google/ok` (again, replace with your domain) and also `http://localhost:3000/auth/google/ok` (again, for local development)
+5. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
+
+   ```diff
+   -GOOGLE_CLIENT_ID=
+   +GOOGLE_CLIENT_ID=424623312719-73vn8vb4tmh8nht96q7vdbn3mc9pd63a.apps.googleusercontent.com
+   -GOOGLE_CLIENT_SECRET=
+   +GOOGLE_CLIENT_SECRET=Oys6WrHleTOksqXTbEY_yi07
+   ```
+
+6. In `config/index.js`, make sure that `AUTH_GOOGLE_ENABLED=true` to enable this authentication method.
+
+#### Amazon S3 and CloudFront Asset Setup
+
+> In order for your assets to get properly served in a production environment, you'll need to configure AWS:
+
+1. Go to <https://console.aws.amazon.com/iam/home#security_credential> ‐ Access Keys – Create New Access Key
+2. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
+
+   ```diff
+   -AWS_IAM_KEY=
+   +AWS_IAM_KEY=AKIAJMH22P6W674YFC7Q
+   -AWS_IAM_SECRET=
+   +AWS_IAM_SECRET=9MpR1FOXwPEtPlrlU5WbHjnz2KDcKWSUcB+C5CpS
+   ```
+
+3. Enable your API by clicking on Overview and then clicking the Enable button
+4. Go to <https://console.aws.amazon.com/s3/home> – Create Bucket
+5. Create a bucket and copy/paste its name for the property in `.env` (example below)
+
+   ```diff
+   -AWS_S3_BUCKET=
+   +AWS_S3_BUCKET=lad-development
+   ```
+
+6. Go to <https://console.aws.amazon.com/cloudfront/home> – Create Distribution – Get Started
+7. Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)
+8. Leave the remaining defaults as is (some fields might be blank, this is OK)
+9. Copy/paste the newly created Distribution ID and Domain Name for respective properties in your `.env` file (example below)
+
+   ```diff
+   -AWS_CF_DI=
+   +AWS_CF_DI=E2IBEULE9QOPVE
+   -AWS_CF_DOMAIN=
+   +AWS_CF_DOMAIN=d36aditw73gdrz.cloudfront.net
+   ```
+
 ### Tutorials
 
 * [Writing Your App](https://github.com/koajs/koa#getting-started)
@@ -490,7 +598,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -567,3 +675,13 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [nodemailer]: https://nodemailer.com/
 
 [email-templates]: https://github.com/niftylettuce/node-email-templates
+
+[mustache]: https://github.com/janl/mustache.js/
+
+[dotenv-extended]: https://github.com/keithmorris/node-dotenv-extended
+
+[dotenv-mustache]: https://github.com/samcrosoft/dotenv-mustache
+
+[dotenv-parse-variables]: https://github.com/niftylettuce/dotenv-parse-variables
+
+[dotenv]: https://github.com/motdotla/dotenv
