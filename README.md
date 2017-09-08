@@ -342,7 +342,7 @@ Please ensure your operating system has the following software installed:
   * Mac (via [brew][]): `brew install homebrew/science/vips --with-webp --with-graphicsmagick` (as of [sharp][] v0.18.2 this is required)
   * Ubuntu/Windows - should work out of the box
 
-* [Node.js][node] (v8.x+) - use [nvm][] to install it on any OS
+* [Node.js][node] (v8.3+) - use [nvm][] to install it on any OS
 
   * After installing `nvm` you will need to run `nvm install node`
   * We also recommend you install [yarn][], which is an alternative to [npm][]
@@ -525,7 +525,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
    > Replace `npm` with `yarn` if you're using [yarn][] as your package manager
 
    * Language: `JavaScript`
-   * Node.js version: `8.x` (latest)
+   * Node.js version: `8.3+` (latest)
    * Setup: `npm install`
    * Job 1: `npm test`
    * After job: `npm run coverage`
