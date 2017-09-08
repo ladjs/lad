@@ -42,7 +42,6 @@
   * [Requirements](#requirements)
   * [Install](#install)
   * [Usage](#usage)
-  * [Continuous Integration and Code Coverage](#continuous-integration-and-code-coverage)
   * [Configuration](#configuration)
   * [Tutorials](#tutorials)
   * [Community](#community)
@@ -428,30 +427,6 @@ npm test
 yarn test
 ```
 
-### Continuous Integration and Code Coverage
-
-> We strongly recommend that you use [SemaphoreCI][] for continuous integration and [Codecov][] for code coverage.
-
-Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
-
-1. Go to [SemaphoreCI][] and sign up for a free account
-2. Once your repository is pushed to GitHub, add it as a project on SemaphoreCI
-3. Configure your project on SemaphoreCI with the following build settings:
-
-   > Replace `npm` with `yarn` if you're using [yarn][] as your package manager
-
-   * Language: `JavaScript`
-   * Node.js version: `8.x` (latest)
-   * Setup: `npm install`
-   * Job 1: `npm test`
-   * After job: `npm run coverage`
-
-4. Go to [Codecov][] and sign up for a free account
-5. Add your project on Codecov and copy to your clipboard the token
-6. Go to SemaphoreCI's Project Settings for your project and add `CODECOV_TOKEN` as an environment variable (with the contents from your clipboard)
-7. Run a test build ("Rebuild last revision") on SemaphoreCI and check to make sure your code coverage report uploads properly on Codecov
-8. Ensure your `README.md` file has the build status and code coverage badges rendered properly (you will need to use a different badge link from each provider if your GitHub repository is private)
-
 ### Configuration
 
 #### Environment Variables
@@ -509,7 +484,7 @@ Just make sure that any relative paths match up in the `assets/browserconfig.xml
 
 > In order to add Google sign-in to your app (so users can log in with their Google account):
 
-1. Go to <https://console.developers.google.com> – Create a project (and fill out your project information – if you need a 120x120px default image, [you can use this one](media/lad-120x120.png)
+1. Go to <https://console.developers.google.com> – Create a project (and fill out your project information – if you need a 120x120px default image, [you can use this one](https://cdn.rawgit.com/ladjs/lad/82d38d64/media/lad-120x120.png) with a CDN path of <https://cdn.rawgit.com/ladjs/lad/82d38d64/media/lad-120x120.png>
 2. Under your newly created project, go to Credentials – Create credentials – OAuth client ID – Web application
 3. Set "Authorized JavaScript origins" to `http://yourdomain.com` (replace with your domain) and also `http://localhost:3000` (for local development)
 4. Set "Authorized redirect URIs" to `http://yourdomain.com/auth/google/ok` (again, replace with your domain) and also `http://localhost:3000/auth/google/ok` (again, for local development)
@@ -523,6 +498,30 @@ Just make sure that any relative paths match up in the `assets/browserconfig.xml
    ```
 
 6. In `config/index.js`, make sure that `AUTH_GOOGLE_ENABLED=true` to enable this authentication method.
+
+#### Continuous Integration and Code Coverage
+
+> We strongly recommend that you use [SemaphoreCI][] for continuous integration and [Codecov][] for code coverage.
+
+Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
+
+1. Go to [SemaphoreCI][] and sign up for a free account
+2. Once your repository is pushed to GitHub, add it as a project on SemaphoreCI
+3. Configure your project on SemaphoreCI with the following build settings:
+
+   > Replace `npm` with `yarn` if you're using [yarn][] as your package manager
+
+   * Language: `JavaScript`
+   * Node.js version: `8.x` (latest)
+   * Setup: `npm install`
+   * Job 1: `npm test`
+   * After job: `npm run coverage`
+
+4. Go to [Codecov][] and sign up for a free account
+5. Add your project on Codecov and copy to your clipboard the token
+6. Go to SemaphoreCI's Project Settings for your project and add `CODECOV_TOKEN` as an environment variable (with the contents from your clipboard)
+7. Run a test build ("Rebuild last revision") on SemaphoreCI and check to make sure your code coverage report uploads properly on Codecov
+8. Ensure your `README.md` file has the build status and code coverage badges rendered properly (you will need to use a different badge link from each provider if your GitHub repository is private)
 
 #### Amazon S3 and CloudFront Asset Setup
 
@@ -598,7 +597,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
