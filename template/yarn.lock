@@ -6347,9 +6347,9 @@ limax@^1.5.0:
     pinyin "^2.8.2"
     speakingurl "^13.0.0"
 
-lint-staged@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-4.1.0.tgz#5d983361566aa5974cd58f0a64afa5acbd9d6118"
+lint-staged@^4.1.2:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-4.1.3.tgz#07c592e4b8dee914450a183c761187dc53d079e2"
   dependencies:
     app-root-path "^2.0.0"
     chalk "^2.1.0"
@@ -6359,6 +6359,7 @@ lint-staged@^4.1.0:
     jest-validate "^20.0.3"
     listr "^0.12.0"
     lodash "^4.17.4"
+    log-symbols "^2.0.0"
     minimatch "^3.0.0"
     npm-which "^3.0.1"
     p-map "^1.1.1"
