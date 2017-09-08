@@ -24,6 +24,7 @@ const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const reporter = require('postcss-reporter');
 const ms = require('ms');
+const opn = require('opn');
 
 const config = require('./config');
 
@@ -59,7 +60,12 @@ gulp.task('build', done => {
   // TODO: add `rimraf dist`
   // TODO: add remark-cli with -qfo options
   // TODO: ensure depcheck, xo, pug-lint, remark lint called in lint task
-  runSequence('lint', 'css', ['img', 'js', 'static'], done);
+  runSequence('lint', 'css', ['img', 'js', 'static'], async () => {
+    if (!PROD) {
+      await opn(config.urls.web, { wait: false });
+    }
+    done();
+  });
 });
 
 gulp.task('publish', () => {
