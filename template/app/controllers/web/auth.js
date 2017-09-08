@@ -90,8 +90,9 @@ async function register(ctx) {
 
   // register the user
   try {
+    const count = await Users.count({ group: 'admin' });
     const user = await Users.registerAsync(
-      { email: ctx.req.body.email },
+      { email: ctx.req.body.email, group: count === 0 ? 'admin' : 'user' },
       ctx.req.body.password
     );
 
