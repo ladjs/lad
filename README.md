@@ -436,7 +436,7 @@ We have made configuration of your Lad project easy through a [dotenv][] configu
 We use the following three packages to manage configuration:
 
 * [dotenv-extended][] - allows us to craft a `.env` definition (otherwise known as a "schema") in a file named `.env.schema`
-* [dotenv-mustache][] - allows us to use the [Mustache templating language][mustache] in our `.env` and `.env.defaults` confguration files
+* [dotenv-mustache][] - allows us to use the [Mustache templating language][mustache] in our `.env` and `.env.defaults` configuration files
 * [dotenv-parse-variables][] - automatically parses variable types from `process.env` (e.g. `FOO=4` will set `process.env.FOO = 4` with a `Number` variable type instead of a `String`)
 
 Configuration is managed by the following, in order of priority:
