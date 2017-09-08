@@ -46,6 +46,7 @@
   * [Tutorials](#tutorials)
   * [Community](#community)
 * [Related](#related)
+* [Contributing](#contributing)
 * [Contributors](#contributors)
 * [Trademark Notice](#trademark-notice)
 * [License](#license)
@@ -576,6 +577,33 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 ## Related
 
 * [lass][] - Scaffold a modern boilerplate for [Node.js][node]
+
+
+## Contributing
+
+> Interesting in contributing to this project or testing early releases?
+
+1. Follow all of the above [Requirements](#requirements)
+2. You will need to fork this repository locally
+3. After forking, follow these steps:
+
+   ```sh
+   cd lad
+   yarn install
+   cd template
+   yarn install
+   yarn start
+   ```
+
+If you'd like to preview changes to the `README.md` file, you can use `docute`.
+
+```sh
+yarn global add docute
+cd lad
+docute ./
+```
+
+Then visit <http://localhost:8080> in your browser.
 
 
 ## Contributors
