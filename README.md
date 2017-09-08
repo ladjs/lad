@@ -596,7 +596,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 > Interesting in contributing to this project or testing early releases?
 
 1. Follow all of the above [Requirements](#requirements)
-2. You will need to fork this repository locally
+2. You will need to fork and clone this repository locally
 3. After forking, follow these steps:
 
    ```sh
