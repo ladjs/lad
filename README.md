@@ -510,7 +510,7 @@ Just make sure that any relative paths match up in the `assets/browserconfig.xml
    +GOOGLE_CLIENT_SECRET=Oys6WrHleTOksqXTbEY_yi07
    ```
 
-6. In `config/index.js`, make sure that `AUTH_GOOGLE_ENABLED=true` to enable this authentication method.
+6. In `.env`, make sure that `AUTH_GOOGLE_ENABLED=true` to enable this authentication method.
 
 #### Continuous Integration and Code Coverage
 
