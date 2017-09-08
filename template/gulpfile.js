@@ -61,7 +61,7 @@ gulp.task('build', done => {
   // TODO: add remark-cli with -qfo options
   // TODO: ensure depcheck, xo, pug-lint, remark lint called in lint task
   runSequence('lint', 'css', ['img', 'js', 'static'], async () => {
-    if (!PROD) {
+    if (!PROD && config.openInBrowser) {
       await opn(config.urls.web, { wait: false });
     }
     done();
