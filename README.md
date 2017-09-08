@@ -35,6 +35,7 @@
   * [Backend](#backend)
   * [Localization](#localization)
   * [Email Engine](#email-engine)
+  * [Error Handling](#error-handling)
   * [Performance](#performance)
   * [Security](#security)
 * [Architecture](#architecture)
@@ -131,6 +132,17 @@ Lad boasts dozens of features and is extremely configurable.
 * Include any image you want and it will be properly rendered
 * Rids the need for awkward embedded image CID attachments
 * …
+
+### Error Handling
+
+> We've spent a lot of time designing a beautiful error handler.
+
+* Supports `text/html`, `application/json`, and `text` response types
+* [User-friendly responses](https://github.com/niftylettuce/koa-better-error-handler#user-friendly-responses)
+* [HTML error lists](https://github.com/niftylettuce/koa-better-error-handler#html-error-lists)
+* …
+
+See [koa-better-error-handler][] for a complete reference.
 
 ### Performance
 
@@ -712,3 +724,5 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [dotenv-parse-variables]: https://github.com/niftylettuce/dotenv-parse-variables
 
 [dotenv]: https://github.com/motdotla/dotenv
+
+[koa-better-error-handler]: https://github.com/niftylettuce/koa-better-error-handler
