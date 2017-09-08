@@ -3,6 +3,7 @@
 
 module.exports = {
   showStack: true,
+  openInBrowser: true,
   koaManifestRev: {
     manifest: '',
     prepend: '/'
