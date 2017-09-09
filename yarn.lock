@@ -2827,6 +2827,12 @@ is-utf8@^0.2.0, is-utf8@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
 
+is-valid-npm-name@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/is-valid-npm-name/-/is-valid-npm-name-0.0.2.tgz#cd0275e68fbd2ffb517d3cd3b598dc32c614f035"
+  dependencies:
+    limax "^1.5.0"
+
 is-whitespace-character@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-whitespace-character/-/is-whitespace-character-1.0.1.tgz#9ae0176f3282b65457a1992cdb084f8a5f833e3b"
@@ -3047,8 +3053,8 @@ kind-of@^4.0.0:
     is-buffer "^1.1.5"
 
 kopy@^8.2.0:
-  version "8.2.1"
-  resolved "https://registry.yarnpkg.com/kopy/-/kopy-8.2.1.tgz#906c465091dfab10b20fbc16a38d4a0be86be8cc"
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/kopy/-/kopy-8.2.2.tgz#f2f0b4378bb27af4cd3ec026af70e2bbc44e18e2"
   dependencies:
     inquirer "^3.2.3"
     is-binary-path "^2.0.0"
@@ -4331,7 +4337,7 @@ remark-heading-gap@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/remark-heading-gap/-/remark-heading-gap-3.0.0.tgz#f52ac47a27995ef3248a59eb7544b5620b4736a6"
 
-remark-license@niftylettuce/remark-license:
+"remark-license@github:niftylettuce/remark-license":
   version "4.0.1"
   resolved "https://codeload.github.com/niftylettuce/remark-license/tar.gz/17ecb8f64f8f6082414d14f9267a12764e6ddbfb"
   dependencies:

@@ -34,10 +34,7 @@ test('invalid name', async t => {
       })
     )
   );
-  t.regex(
-    error.message,
-    /Please change the name from "Foo Bar Baz Beep" to "foo-bar-baz-beep"/
-  );
+  t.regex(error.message, /package name cannot have uppercase letters/);
 });
 
 test('invalid email', async t => {

@@ -6,6 +6,7 @@ const camelcase = require('camelcase');
 const uppercamelcase = require('uppercamelcase');
 const slug = require('limax');
 const npmConf = require('npm-conf');
+const isValidNpmName = require('is-valid-npm-name');
 
 const conf = npmConf();
 
@@ -21,7 +22,11 @@ module.exports = {
   prompts: {
     name: {
       message: 'What is the name of the new project',
-      default: ':folderName:'
+      default: ':folderName:',
+      validate: val => {
+        if (process.env.NODE_ENV === 'test' && val === 'lad') return true;
+        return isValidNpmName(val);
+      }
     },
     description: {
       message: 'How would you describe the new project',
@@ -73,6 +78,11 @@ module.exports = {
           : 'Please include a valid GitHub.com URL without a trailing slash';
       }
     }
+  },
+  filters: {
+    // until this issue is resolved we need this line:
+    // <https://github.com/saojs/sao/issues/59>
+    'node_modules/**': false
   },
   move: {
     // We keep `.gitignore` as `gitignore` in the project
