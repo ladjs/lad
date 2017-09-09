@@ -10,6 +10,7 @@ const json = require('koa-json');
 const errorHandler = require('koa-better-error-handler');
 const removeTrailingSlashes = require('koa-no-trailing-slash');
 const redis = require('redis');
+const StoreIPAddress = require('@ladjs/store-ip-address');
 
 const helpers = require('./helpers');
 const config = require('./config');
@@ -89,6 +90,9 @@ app.use(async (ctx, next) => {
     ctx.throw(err);
   }
 });
+
+// store the user's last ip address in the background
+app.use(new StoreIPAddress({ logger: helpers.logger }).middleware);
 
 // mount the app's defined and nested routes
 app.use(routes.api.routes());

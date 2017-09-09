@@ -61,6 +61,21 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
+"@ladjs/logger@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.1.tgz#37c28bd8ba56240f879f5e187944ca55f00fc846"
+  dependencies:
+    chalk "^2.1.0"
+    lodash "^4.17.4"
+    underscore.string "^3.3.4"
+
+"@ladjs/store-ip-address@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/store-ip-address/-/store-ip-address-0.0.1.tgz#08bec1f5acae060188b3b80a19269864bdc37aa8"
+  dependencies:
+    "@ladjs/logger" "^0.0.1"
+    lodash "^4.17.4"
+
 "@types/dotenv@^4.0.0":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-4.0.1.tgz#a0db2a2d25b5c01ff387f07c4f1e002d592873e8"
