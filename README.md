@@ -2,7 +2,7 @@
   <a href="https://ladjs.github.io/lad/"><img src="media/lad.png" alt="lad" /></a>
 </h1>
 <div align="center">
-  <a href="http://slack.crocodilejs.com"><img src="http://slack.crocodilejs.com/badge.svg" alt="chat" /></a>
+  <a href="http://slack.crocodilejs.com"><a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/lad/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/lad/sponsors/badge.svg" /></a> <img src="http://slack.crocodilejs.com/badge.svg" alt="chat" /></a>
   <a href="https://semaphoreci.com/niftylettuce/lad"><img src="https://semaphoreci.com/api/v1/niftylettuce/lad/branches/master/shields_badge.svg" alt="build status"></a>
   <a href="https://codecov.io/github/ladjs/lad"><img src="https://img.shields.io/codecov/c/github/ladjs/lad/master.svg" alt="code coverage" /></a>
   <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="code style" /></a>
@@ -630,6 +630,36 @@ Then visit <http://localhost:8080> in your browser.
 Lad, Lass, and their respective logos are trademarks of Niftylettuce LLC.
 These trademarks may not be reproduced, distributed, transmitted, or otherwise used, except with the prior written permission of Niftylettuce LLC.
 If you are seeking permission to use these trademarks, then please [contact us](mailto:niftylettuce@gmail.com).
+
+
+## Contributors
+
+This project exists thanks to all the people who contribute.
+<a href="graphs/contributors"><img src="https://opencollective.com/lad/contributors.svg?width=890" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/lad#backer)]
+
+<a href="https://opencollective.com/lad#backers" target="_blank"><img src="https://opencollective.com/lad/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/lad#sponsor)]
+
+<a href="https://opencollective.com/lad/sponsor/0/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/1/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/2/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/3/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/4/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/5/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/6/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/7/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/8/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/lad/sponsor/9/website" target="_blank"><img src="https://opencollective.com/lad/sponsor/9/avatar.svg"></a>
+
 
 
 ## License
