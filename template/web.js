@@ -26,6 +26,7 @@ const RedisStore = require('koa-redis');
 const session = require('koa-generic-session');
 const flash = require('koa-better-flash');
 const CSRF = require('koa-csrf');
+const StoreIPAddress = require('@ladjs/store-ip-address');
 
 const config = require('./config');
 const helpers = require('./helpers');
@@ -189,9 +190,8 @@ app.use(async (ctx, next) => {
 // detect or redirect based off locale url
 app.use(helpers.i18n.redirect);
 
-// TODO: this should get put into passport-local-mongoose
-// store the user's ip if they're logged in
-app.use(helpers.storeIPAddress);
+// store the user's last ip address in the background
+app.use(new StoreIPAddress({ logger: helpers.logger }).middleware);
 
 // mount the app's defined and nested routes
 app.use(routes.web.routes());

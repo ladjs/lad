@@ -10,6 +10,8 @@
   },
   "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
   "dependencies": {
+    "@ladjs/logger": "^0.0.1",
+    "@ladjs/store-ip-address": "^0.0.1",
     "accounting": "^0.4.1",
     "agenda": "^1.0.0",
     "async": "^2.5.0",
