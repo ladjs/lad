@@ -18,14 +18,18 @@ async function logout(ctx) {
 async function signupOrLogin(ctx) {
   // if the user passed `?return_to` and it is not blank
   // then set it as the returnTo value for when we log in
-  if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to))
+  if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to)) {
     ctx.session.returnTo = ctx.query.return_to;
-  else if (
+  } else if (
     _.isString(ctx.query.redirect_to) &&
     !s.isBlank(ctx.query.redirect_to)
-  )
+  ) {
     // in case people had a typo, we should support redirect_to as well
     ctx.session.returnTo = ctx.query.redirect_to;
+  }
+
+  // prevents this being used as a open redirect
+  if (ctx.session.returnTo.startWith('http')) ctx.session.returnTo = null;
 
   ctx.state.verb =
     ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup'
