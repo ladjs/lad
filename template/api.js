@@ -12,6 +12,7 @@ const removeTrailingSlashes = require('koa-no-trailing-slash');
 const redis = require('redis');
 const StoreIPAddress = require('@ladjs/store-ip-address');
 
+const { Timeout } = require('./helpers');
 const helpers = require('./helpers');
 const config = require('./config');
 const routes = require('./routes');
@@ -82,10 +83,11 @@ app.use(helpers.passport.initialize());
 // configure timeout
 app.use(async (ctx, next) => {
   try {
-    await helpers.timeout(
-      config.apiRequestTimeoutMs,
-      ctx.translate('REQUEST_TIMED_OUT')
-    )(ctx, next);
+    const timeout = new Timeout({
+      ms: config.apiRequestTimeoutMs,
+      message: ctx.translate('REQUEST_TIMED_OUT')
+    });
+    await timeout.middleware(ctx, next);
   } catch (err) {
     ctx.throw(err);
   }

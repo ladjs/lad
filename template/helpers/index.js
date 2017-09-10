@@ -1,8 +1,8 @@
 const Logger = require('@ladjs/logger');
+const Timeout = require('koa-better-timeout');
 
 const graceful = require('./graceful');
 const meta = require('./meta');
-const timeout = require('./timeout');
 const passport = require('./passport');
 const dynamicViewHelpers = require('./dynamic-view-helpers');
 const renderPage = require('./render-page');
@@ -16,7 +16,7 @@ const stopAgenda = require('./stop-agenda');
 module.exports = {
   graceful,
   meta,
-  timeout,
+  Timeout,
   passport,
   dynamicViewHelpers,
   renderPage,

@@ -6122,6 +6122,12 @@ koa-better-static@^1.0.5:
     debug "*"
     resolve-path "^1.3.0"
 
+koa-better-timeout@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/koa-better-timeout/-/koa-better-timeout-0.0.1.tgz#58237b680fd64ba9bd8073190864859b7a48d01e"
+  dependencies:
+    boom "^5.2.0"
+
 koa-bodyparser@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/koa-bodyparser/-/koa-bodyparser-4.2.0.tgz#bce6e08bc65f8709b6d1faa9411c7f0d8938aa54"
