@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const Logger = require('@ladjs/logger');
 
 const config = require('../config');
-const { logger } = require('.');
 const stopAgenda = require('./stop-agenda');
+
+const logger = new Logger();
 
 // use native promises
 mongoose.Promise = global.Promise;

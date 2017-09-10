@@ -1,7 +1,9 @@
 const async = require('async');
+const Logger = require('@ladjs/logger');
 
 const config = require('../config');
-const { logger } = require('.');
+
+const logger = new Logger();
 
 module.exports = function(agenda, fn) {
   // stop accepting new jobs

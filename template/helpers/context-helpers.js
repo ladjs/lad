@@ -1,7 +1,9 @@
 const _ = require('lodash');
+const Logger = require('@ladjs/logger');
 
 const config = require('../config');
-const { logger } = require('.');
+
+const logger = new Logger();
 
 module.exports = function(ctx, next) {
   // detect if we have an XHR request, inspired by:
