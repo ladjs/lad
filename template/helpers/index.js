@@ -1,6 +1,5 @@
 const Logger = require('@ladjs/logger');
 const Timeout = require('koa-better-timeout');
-const render = require('koa-views-render');
 
 const graceful = require('./graceful');
 const meta = require('./meta');
@@ -19,7 +18,6 @@ module.exports = {
   Timeout,
   passport,
   dynamicViewHelpers,
-  renderPage: render,
   policies,
   logger: new Logger(),
   i18n,

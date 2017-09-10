@@ -1,12 +1,13 @@
 const Router = require('koa-router');
+const render = require('koa-views-render');
 
-const { policies, renderPage } = require('../../helpers');
+const { policies } = require('../../helpers');
 
 const router = new Router({
   prefix: '/admin'
 });
 
 router.use(policies.ensureAdmin);
-router.get('/', renderPage('admin'));
+router.get('/', render('admin'));
 
 module.exports = router;
