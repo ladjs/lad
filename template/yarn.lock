@@ -6289,6 +6289,10 @@ koa-simple-ratelimit@^2.3.2:
     debug "^3.0.1"
     ms "^2.0.0"
 
+koa-views-render@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/koa-views-render/-/koa-views-render-0.0.1.tgz#98b38e52de411d55e380a3d4af8be06a85f404bf"
+
 koa-views@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/koa-views/-/koa-views-6.0.2.tgz#0c8252589dbbdd63e30896080942b4bf4b0e5214"
