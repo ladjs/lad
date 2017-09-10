@@ -1,9 +1,11 @@
 const sanitizeHtml = require('sanitize-html');
 const s = require('underscore.string');
 const _ = require('lodash');
+const Logger = require('@ladjs/logger');
 
 const config = require('../config');
-const { logger } = require('.');
+
+const logger = new Logger();
 
 module.exports = function(ctx) {
   let meta = [];

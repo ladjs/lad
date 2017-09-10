@@ -1,7 +1,9 @@
 const async = require('async');
+const Logger = require('@ladjs/logger');
 
 const stopAgenda = require('./stop-agenda');
-const { logger } = require('.');
+
+const logger = new Logger();
 
 module.exports = function(server, redisClient, mongoose, agenda) {
   function shutDown() {

@@ -5,9 +5,11 @@ const { getLanguage } = require('country-language');
 const moment = require('moment');
 const _ = require('lodash');
 const i18n = require('i18n');
+const Logger = require('@ladjs/logger');
 
 const config = require('../config');
-const { logger } = require('.');
+
+const logger = new Logger();
 
 // <https://github.com/mashpie/i18n-node>
 i18n.api = {};
