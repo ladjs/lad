@@ -11,6 +11,7 @@ const errorHandler = require('koa-better-error-handler');
 const removeTrailingSlashes = require('koa-no-trailing-slash');
 const redis = require('redis');
 const StoreIPAddress = require('@ladjs/store-ip-address');
+const isajax = require('koa-isajax');
 
 const { Timeout } = require('./helpers');
 const helpers = require('./helpers');
@@ -76,6 +77,9 @@ app.use(json());
 
 // add context helpers
 app.use(helpers.contextHelpers);
+
+// ajax request detection (sets `ctx.state.xhr` boolean)
+app.use(isajax());
 
 // auth
 app.use(helpers.passport.initialize());

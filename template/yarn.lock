@@ -83,8 +83,8 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "8.0.27"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.27.tgz#13fbe7e92afeecebb843d7cea6c15b521e0000e1"
+  version "8.0.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.28.tgz#86206716f8d9251cf41692e384264cbd7058ad60"
 
 "@types/node@^6.0.46":
   version "6.0.88"
@@ -565,8 +565,8 @@ ava@^0.22.0:
     update-notifier "^2.1.0"
 
 aws-sdk@^2.1.16, aws-sdk@^2.6.7:
-  version "2.111.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.111.0.tgz#a834ce13ff440b348e45e047c8dc7bd696f1b26d"
+  version "2.112.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.112.0.tgz#9a048c0dd5a7407a21f6e862371d2049a9cfb350"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -1495,7 +1495,11 @@ bytes@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.4.0.tgz#7d97196f9d5baf7f6935e25985549edd2a6c2339"
 
-bytes@2.5.0, bytes@^2.3.0, bytes@^2.5.0:
+bytes@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
+
+bytes@^2.3.0, bytes@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.5.0.tgz#4c9423ea2d252c270c41b2bdefeff9bb6b62c06a"
 
@@ -1695,17 +1699,17 @@ chart.js@^2.6.0:
     chartjs-color "^2.1.0"
     moment "^2.10.6"
 
-chartjs-color-string@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.4.0.tgz#57748d4530ae28d8db0a5492182ba06dfdf2f468"
+chartjs-color-string@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.5.0.tgz#8d3752d8581d86687c35bfe2cb80ac5213ceb8c1"
   dependencies:
     color-name "^1.0.0"
 
 chartjs-color@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.1.0.tgz#9c39ac830ccd98996ae80c9f11086ff12c98a756"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.2.0.tgz#84a2fb755787ed85c39dd6dd8c7b1d88429baeae"
   dependencies:
-    chartjs-color-string "^0.4.0"
+    chartjs-color-string "^0.5.0"
     color-convert "^0.5.3"
 
 cheerio@^0.22.0:
@@ -2775,10 +2779,6 @@ delegates@^1.0.0:
 dense@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/dense/-/dense-0.0.1.tgz#e688b922f01e888e0d54ab8d449387c776e4486f"
-
-depd@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.0.tgz#e1bd82c6aab6ced965b97b88b17ed3e528ca18c3"
 
 depd@1.1.1, depd@^1.1.0, depd@~1.1.0, depd@~1.1.1:
   version "1.1.1"
@@ -4048,8 +4048,8 @@ function-name-support@^0.2.0:
   resolved "https://registry.yarnpkg.com/function-name-support/-/function-name-support-0.2.0.tgz#55d3bfaa6eafd505a50f9bc81fdf57564a0bb071"
 
 function.name@^1.0.3:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/function.name/-/function.name-1.0.8.tgz#d11c12e4a7dfa7de7c71d9c504567083bb6be05b"
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/function.name/-/function.name-1.0.9.tgz#91c45c8f91f2002bc68086c673872b607dd873c3"
   dependencies:
     noop6 "^1.0.1"
 
@@ -5044,16 +5044,7 @@ http-assert@^1.1.0:
     deep-equal "~1.0.1"
     http-errors "~1.6.1"
 
-http-errors@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.6.1.tgz#5f8b8ed98aca545656bf572997387f904a722257"
-  dependencies:
-    depd "1.1.0"
-    inherits "2.0.3"
-    setprototypeof "1.0.3"
-    statuses ">= 1.3.1 < 2"
-
-http-errors@^1.2.8, http-errors@^1.3.1, http-errors@^1.6.1, http-errors@~1.6.1:
+http-errors@1.6.2, http-errors@^1.2.8, http-errors@^1.3.1, http-errors@^1.6.1, http-errors@~1.6.1:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.6.2.tgz#0a002cc85707192a7e7946ceedc11155f60ec736"
   dependencies:
@@ -5139,9 +5130,9 @@ iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
 
-iconv-lite@0.4.18, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
-  version "0.4.18"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.18.tgz#23d8656b16aae6742ac29732ea8f0336a4789cf2"
+iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
+  version "0.4.19"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 ieee754@^1.1.4:
   version "1.1.8"
@@ -6204,6 +6195,10 @@ koa-is-json@1, koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
 
+koa-isajax@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/koa-isajax/-/koa-isajax-1.0.5.tgz#20eabcf2b8eb3150391b11de50724b8a34f1556c"
+
 koa-json@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/koa-json/-/koa-json-2.0.2.tgz#36af14e6ea1f5d646d7c44a285701c6f85a4fde4"
@@ -6231,6 +6226,13 @@ koa-manifest-rev@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/koa-manifest-rev/-/koa-manifest-rev-0.3.0.tgz#e043e26a2885c7419b2c8abbe49ed3657d03f48a"
 
+koa-meta@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/koa-meta/-/koa-meta-0.0.1.tgz#aa75d6d81efbe6c646aec54e44833f2ab0a9f898"
+  dependencies:
+    "@ladjs/logger" "^0.0.1"
+    sanitize-html "^1.14.1"
+
 koa-methodoverride@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/koa-methodoverride/-/koa-methodoverride-2.0.0.tgz#821030060fd373202d2059268761f06eb736b014"
@@ -6249,13 +6251,13 @@ koa-passport@^4.0.0:
     passport "^0.4.0"
 
 koa-redis@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/koa-redis/-/koa-redis-3.0.0.tgz#a683778408eb80bd22f8317fdc5b1473cbf7b7e3"
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/koa-redis/-/koa-redis-3.1.1.tgz#b08acb3908740e17e28de74edeb782c0ee31be50"
   dependencies:
     co-redis "^2.1.1"
     co-wrap-all "^1.0.0"
-    debug "^2.6.3"
-    redis "^2.7.1"
+    debug "^3.0.1"
+    redis "^2.8.0"
   optionalDependencies:
     hiredis "~0.5.0"
 
@@ -7598,8 +7600,8 @@ nlcst-to-string@^2.0.0:
   resolved "https://registry.yarnpkg.com/nlcst-to-string/-/nlcst-to-string-2.0.1.tgz#f90f3cf905c137dc8edd8727fbcde73e73c2a1d9"
 
 no-case@^2.2.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.1.tgz#7aeba1c73a52184265554b7dc03baf720df80081"
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
   dependencies:
     lower-case "^1.1.1"
 
@@ -7608,8 +7610,8 @@ nocache@2.0.0:
   resolved "https://registry.yarnpkg.com/nocache/-/nocache-2.0.0.tgz#202b48021a0c4cbde2df80de15a17443c8b43980"
 
 node-fetch@^1.0.1:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.2.tgz#c54e9aac57e432875233525f3c891c4159ffefd7"
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
@@ -7717,8 +7719,8 @@ nodemon@^1.12.0:
     update-notifier "^2.2.0"
 
 noop6@^1.0.1:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/noop6/-/noop6-1.0.6.tgz#eb2b6b5ee1248a02838ee0cea12e8dd5caaf849b"
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/noop6/-/noop6-1.0.7.tgz#96767bf2058ba59ca8cb91559347ddc80239fa8e"
 
 "nopt@2 || 3", nopt@~3.0.6:
   version "3.0.6"
@@ -8243,8 +8245,8 @@ parse5@^3.0.1:
     "@types/node" "^6.0.46"
 
 parseurl@^1.3.0, parseurl@~1.3.0, parseurl@~1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.1.tgz#c8ab8c9223ba34888aa64a297b28853bec18da56"
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
 
 pascal-case@^2.0.0:
   version "2.0.1"
@@ -8399,8 +8401,8 @@ pause@0.0.1:
   resolved "https://registry.yarnpkg.com/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
 
 pbkdf2@^3.0.3:
-  version "3.0.13"
-  resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.13.tgz#c37d295531e786b1da3e3eadc840426accb0ae25"
+  version "3.0.14"
+  resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.14.tgz#a35e13c64799b06ce15320f459c230e68e73bade"
   dependencies:
     create-hash "^1.1.2"
     create-hmac "^1.1.4"
@@ -9056,8 +9058,8 @@ qs@5.2.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-5.2.0.tgz#a9f31142af468cb72b25b30136ba2456834916be"
 
 qs@^6.2.0, qs@^6.4.0, qs@^6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.0.tgz#8d04954d364def3efc55b5a0793e1e2c8b1e6e49"
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
 qs@~2.2.3:
   version "2.2.5"
@@ -9108,12 +9110,12 @@ randomstring-extended@^1.0.0:
   resolved "https://registry.yarnpkg.com/randomstring-extended/-/randomstring-extended-1.0.0.tgz#82f620dee99ba4d916774840c36ecf62f6279086"
 
 raw-body@^2.2.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.3.0.tgz#f79ce1acacaba5b6362d33454d785d7129f4bc67"
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.3.2.tgz#bcd60c77d3eb93cde0050295c3f379389bc88f89"
   dependencies:
-    bytes "2.5.0"
-    http-errors "1.6.1"
-    iconv-lite "0.4.18"
+    bytes "3.0.0"
+    http-errors "1.6.2"
+    iconv-lite "0.4.19"
     unpipe "1.0.0"
 
 raw-body@~2.1.5:
@@ -9299,7 +9301,7 @@ redis-parser@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/redis-parser/-/redis-parser-2.6.0.tgz#52ed09dacac108f1a631c07e9b69941e7a19504b"
 
-redis@^2.7.1, redis@^2.8.0:
+redis@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/redis/-/redis-2.8.0.tgz#202288e3f58c49f6079d97af7a10e1303ae14b02"
   dependencies:
@@ -11523,8 +11525,8 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
 typpy@^2.3.6:
-  version "2.3.8"
-  resolved "https://registry.yarnpkg.com/typpy/-/typpy-2.3.8.tgz#5dfc0a1e9b9e4f9287ef8fa94dce8aa18103e581"
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/typpy/-/typpy-2.3.9.tgz#28664fda5ea71dd718724f89d00060af1f09c38e"
   dependencies:
     function.name "^1.0.3"
 
@@ -11877,8 +11879,8 @@ validate-npm-package-license@^3.0.1:
     spdx-expression-parse "~1.0.0"
 
 validator@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-8.1.0.tgz#89cf6b512ff71eba886afd8d10d47f8dc800eac0"
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-8.2.0.tgz#3c1237290e37092355344fef78c231249dab77b9"
 
 vary@^1.0.0:
   version "1.1.1"
