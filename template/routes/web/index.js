@@ -1,7 +1,8 @@
 const Router = require('koa-router');
+const render = require('koa-views-render');
 
 const { web } = require('../../app/controllers');
-const { renderPage, policies } = require('../../helpers');
+const { policies } = require('../../helpers');
 const admin = require('./admin');
 const auth = require('./auth');
 
@@ -10,17 +11,17 @@ const router = new Router({
 });
 
 router
-  .get('/', renderPage('home'))
-  .get('/about', renderPage('about'))
-  .get('/my-account', policies.ensureLoggedIn, renderPage('my-account'))
-  .get('/404', renderPage('404'))
-  .get('/500', renderPage('500'))
-  .get('/terms', renderPage('terms'))
-  .get('/contact', renderPage('contact'))
+  .get('/', render('home'))
+  .get('/about', render('about'))
+  .get('/my-account', policies.ensureLoggedIn, render('my-account'))
+  .get('/404', render('404'))
+  .get('/500', render('500'))
+  .get('/terms', render('terms'))
+  .get('/contact', render('contact'))
   .post('/contact', web.contact)
-  .get('/forgot-password', renderPage('forgot-password'))
+  .get('/forgot-password', render('forgot-password'))
   .post('/forgot-password', web.auth.forgotPassword)
-  .get('/reset-password/:token', renderPage('reset-password'))
+  .get('/reset-password/:token', render('reset-password'))
   .post('/reset-password/:token', web.auth.resetPassword)
   .get('/logout', policies.ensureLoggedIn, web.auth.logout)
   .get('/login', policies.ensureLoggedOut, web.auth.signupOrLogin)
