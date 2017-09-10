@@ -29,6 +29,7 @@ const CSRF = require('koa-csrf');
 const StoreIPAddress = require('@ladjs/store-ip-address');
 
 const config = require('./config');
+const { Timeout } = require('./helpers');
 const helpers = require('./helpers');
 const routes = require('./routes');
 
@@ -178,10 +179,11 @@ app.use(helpers.dynamicViewHelpers);
 // configure timeout
 app.use(async (ctx, next) => {
   try {
-    await helpers.timeout(
-      config.webRequestTimeoutMs,
-      ctx.translate('REQUEST_TIMED_OUT')
-    )(ctx, next);
+    const timeout = new Timeout({
+      ms: config.webRequestTimeoutMs,
+      message: ctx.translate('REQUEST_TIMED_OUT')
+    });
+    await timeout.middleware(ctx, next);
   } catch (err) {
     ctx.throw(err);
   }

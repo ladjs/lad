@@ -8,7 +8,9 @@
     "url": "<%= repo %>/issues",
     "email": "<%= email %>"
   },
-  "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
+  "contributors": [
+    "<%= author %> <<%= email %>> (<%= website%>)"
+  ],
   "dependencies": {
     "@ladjs/logger": "^0.0.1",
     "@ladjs/store-ip-address": "^0.0.1",
@@ -51,6 +53,7 @@
     "koa-better-error-handler": "^1.2.0",
     "koa-better-flash": "0.0.3",
     "koa-better-static": "^1.0.5",
+    "koa-better-timeout": "^0.0.1",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^2.0.0",
     "koa-conditional-get": "^2.0.0",
@@ -153,7 +156,11 @@
     "node": ">=8.3"
   },
   "homepage": "<%= repo %>",
-  "keywords": ["<%= this.slug(name) %>", "lad", "lass"],
+  "keywords": [
+    "<%= this.slug(name) %>",
+    "lad",
+    "lass"
+  ],
   "license": "Unlicensed",
   "lint-staged": {
     "gitDir": "../",
@@ -162,7 +169,10 @@
         "prettier --write --single-quote --trailing-comma none",
         "git add"
       ],
-      "*.md": ["remark . -qfo", "git add"]
+      "*.md": [
+        "remark . -qfo",
+        "git add"
+      ]
     }
   },
   "main": "index.js",
@@ -171,10 +181,16 @@
     "lines": 100,
     "functions": 100,
     "branches": 100,
-    "reporter": ["lcov", "html", "text"]
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
   },
   "remarkConfig": {
-    "plugins": ["preset-github"]
+    "plugins": [
+      "preset-github"
+    ]
   },
   "repository": {
     "type": "git",
@@ -188,8 +204,7 @@
     "test-coverage": "cross-env NODE_ENV=test nyc ava",
     "build": "gulp build",
     "publish-assets": "gulp publish",
-    "start":
-      "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
+    "start": "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
     "start-agenda": "nodemon agenda",
     "start-api": "nodemon api",
     "start-web": "nodemon web",
@@ -197,7 +212,9 @@
   },
   "xo": {
     "extends": "prettier",
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -224,15 +241,22 @@
     "space": true,
     "overrides": [
       {
-        "plugins": ["prettier", "compat"],
+        "plugins": [
+          "prettier",
+          "compat"
+        ],
         "settings": {
-          "polyfills": ["fetch"]
+          "polyfills": [
+            "fetch"
+          ]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "assets/js/**/*.js",
-        "envs": ["browser"],
+        "envs": [
+          "browser"
+        ],
         "rules": {
           "compat/compat": "error"
         }
