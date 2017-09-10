@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const config = require('../config');
-const logger = require('./logger');
+const { logger } = require('.');
 const stopAgenda = require('./stop-agenda');
 
 // use native promises

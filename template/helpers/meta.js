@@ -3,7 +3,7 @@ const s = require('underscore.string');
 const _ = require('lodash');
 
 const config = require('../config');
-const logger = require('./logger');
+const { logger } = require('.');
 
 module.exports = function(ctx) {
   let meta = [];

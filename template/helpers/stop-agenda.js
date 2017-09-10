@@ -1,7 +1,7 @@
 const async = require('async');
 
 const config = require('../config');
-const logger = require('./logger');
+const { logger } = require('.');
 
 module.exports = function(agenda, fn) {
   // stop accepting new jobs

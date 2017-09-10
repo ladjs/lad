@@ -1,7 +1,7 @@
 const async = require('async');
 
 const stopAgenda = require('./stop-agenda');
-const logger = require('./logger');
+const { logger } = require('.');
 
 module.exports = function(server, redisClient, mongoose, agenda) {
   function shutDown() {

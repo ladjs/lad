@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 const config = require('../config');
-const logger = require('./logger');
+const { logger } = require('.');
 
 module.exports = function(ctx, next) {
   // detect if we have an XHR request, inspired by:

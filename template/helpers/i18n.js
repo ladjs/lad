@@ -7,7 +7,7 @@ const _ = require('lodash');
 const i18n = require('i18n');
 
 const config = require('../config');
-const logger = require('./logger');
+const { logger } = require('.');
 
 // <https://github.com/mashpie/i18n-node>
 i18n.api = {};
