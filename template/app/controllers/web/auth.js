@@ -7,7 +7,7 @@ const _ = require('lodash');
 const validator = require('validator');
 
 const { Users, Jobs } = require('../../models');
-const { passport } = require('../../../helpers');
+const { logger, passport } = require('../../../helpers');
 const config = require('../../../config');
 
 async function logout(ctx) {
@@ -28,8 +28,16 @@ async function signupOrLogin(ctx) {
     ctx.session.returnTo = ctx.query.redirect_to;
   }
 
-  // prevents this being used as a open redirect
-  if (ctx.session.returnTo.startWith('http')) ctx.session.returnTo = null;
+  // prevents lad being used as a open redirect
+  if (
+    ctx.session.returnTo.indexOf('://') !== -1 &&
+    ctx.session.returnTo.indexOf(config.urls.web) !== 0
+  ) {
+    logger.warn(
+      `Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`
+    );
+    ctx.session.returnTo = null;
+  }
 
   ctx.state.verb =
     ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup'
