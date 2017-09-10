@@ -27,6 +27,8 @@ const session = require('koa-generic-session');
 const flash = require('koa-better-flash');
 const CSRF = require('koa-csrf');
 const StoreIPAddress = require('@ladjs/store-ip-address');
+const isajax = require('koa-isajax');
+const Meta = require('koa-meta');
 
 const config = require('./config');
 const { Timeout } = require('./helpers');
@@ -142,6 +144,9 @@ app.use(json());
 // add context helpers
 app.use(helpers.contextHelpers);
 
+// ajax request detection (sets `ctx.state.xhr` boolean)
+app.use(isajax());
+
 // custom 404 handler since it's not already built in
 app.use(helpers._404Handler);
 
@@ -175,6 +180,9 @@ app.use(helpers.passport.session());
 
 // add dynamic view helpers
 app.use(helpers.dynamicViewHelpers);
+
+// add support for SEO <title> and <meta name="description">
+app.use(new Meta(config.meta).middleware);
 
 // configure timeout
 app.use(async (ctx, next) => {
