@@ -1,49 +1,31 @@
 {
-  "Chew apart your projects with speed.":
-    "Mastique los proyectos con velocidad.",
+  "Chew apart your projects with speed.": "Mastique los proyectos con velocidad.",
   "Good morning": "Buenos días",
   "Good afternoon": "Buenas tardes",
   "Good evening": "Buena noches",
-  "Email address was invalid.":
-    "La dirección de correo electrónico no es válida.",
+  "Email address was invalid.": "La dirección de correo electrónico no es válida.",
   "Password was invalid.": "La contraseña no es válida.",
-  "Reset token provided was invalid.":
-    "El token de restablecimiento proporcionado no es válido.",
-  "Reset token and email were not valid together.":
-    "El token de restablecimiento y el correo electrónico no eran válidos juntos.",
-  "Password strength was not strong enough.":
-    "La fuerza de la contraseña no era lo suficientemente fuerte.",
+  "Reset token provided was invalid.": "El token de restablecimiento proporcionado no es válido.",
+  "Reset token and email were not valid together.": "El token de restablecimiento y el correo electrónico no eran válidos juntos.",
+  "Password strength was not strong enough.": "La fuerza de la contraseña no era lo suficientemente fuerte.",
   "Invalid session secret.": "Secreto de sesión no válido.",
   "Invalid CSRF token.": "Símbolo CSRF no válido.",
-  "Your message was invalid, as it was either blank or more than (500) characters.":
-    "Su mensaje no era válido, ya que estaba en blanco o más de (500) caracteres.",
+  "Your message was invalid, as it was either blank or more than (500) characters.": "Su mensaje no era válido, ya que estaba en blanco o más de (500) caracteres.",
   "File upload was invalid.": "La subida de archivos no es válida.",
-  "We have sent you an email with a link to reset your password.":
-    "Te hemos enviado un correo electrónico con un enlace para restablecer tu contraseña.",
-  "You can only request a password reset every 30 minutes.  Please try again %s.":
-    "Sólo puede solicitar una contraseña restablecida cada 30 minutos. Inténtalo de nuevo% s.",
+  "We have sent you an email with a link to reset your password.": "Te hemos enviado un correo electrónico con un enlace para restablecer tu contraseña.",
+  "You can only request a password reset every 30 minutes.  Please try again %s.": "Sólo puede solicitar una contraseña restablecida cada 30 minutos. Inténtalo de nuevo% s.",
   "Hello %s world.": "Hola mundo.",
   "You have successfully registered": "Se ha registrado exitosamente",
-  "You have successfully reset your password.":
-    "Ha restablecido correctamente su contraseña.",
-  "Thank you for contacting us.  We would love to hear more from you.  How can we help?":
-    "Gracias por contactarnos. Nos encantaría escuchar más de usted. ¿Cómo podemos ayudar?",
-  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!":
-    "Su solicitud de contacto se ha enviado correctamente. Usted debe tener noticias de nosotros pronto. ¡Gracias!",
-  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.":
-    "No hemos podido enviar tu solicitud de contacto. Hemos sido alertados de este problema. Vuelve a intentarlo.",
-  "You have reached the limit for sending contact requests.  Please try again.":
-    "Ha alcanzado el límite para enviar solicitudes de contacto. Vuelve a intentarlo.",
-  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.":
-    "Lo sentimos, su solicitud ha caducado. Nos han alertado de este problema. Vuelve a intentarlo.",
+  "You have successfully reset your password.": "Ha restablecido correctamente su contraseña.",
+  "Thank you for contacting us.  We would love to hear more from you.  How can we help?": "Gracias por contactarnos. Nos encantaría escuchar más de usted. ¿Cómo podemos ayudar?",
+  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!": "Su solicitud de contacto se ha enviado correctamente. Usted debe tener noticias de nosotros pronto. ¡Gracias!",
+  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.": "No hemos podido enviar tu solicitud de contacto. Hemos sido alertados de este problema. Vuelve a intentarlo.",
+  "You have reached the limit for sending contact requests.  Please try again.": "Ha alcanzado el límite para enviar solicitudes de contacto. Vuelve a intentarlo.",
+  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.": "Lo sentimos, su solicitud ha caducado. Nos han alertado de este problema. Vuelve a intentarlo.",
   "You have successfully signed in.": "Has iniciado sesión correctamente.",
   "You have successfully signed out.": "Has salido con éxito.",
-  "An unknown error has occurred. We have been alerted of this issue. Please try again.":
-    "Un error desconocido a ocurrido. Nos han alertado de este problema. Vuelve a intentarlo.",
-  "Please log in to view the page you requested.":
-    "Inicie sesión para ver la página solicitada.",
-  "An issue occurred while communicating with our payment provider. Please try again.":
-    "Se ha producido un problema al comunicarse con nuestro proveedor de pagos. Vuelve a intentarlo.",
-  "Please slightly change values to ensure slug uniqueness.":
-    "Por favor, cambie ligeramente los valores para garantizar la unicidad de las babosas."
+  "An unknown error has occurred. We have been alerted of this issue. Please try again.": "Un error desconocido a ocurrido. Nos han alertado de este problema. Vuelve a intentarlo.",
+  "Please log in to view the page you requested.": "Inicie sesión para ver la página solicitada.",
+  "An issue occurred while communicating with our payment provider. Please try again.": "Se ha producido un problema al comunicarse con nuestro proveedor de pagos. Vuelve a intentarlo.",
+  "Please slightly change values to ensure slug uniqueness.": "Por favor, cambie ligeramente los valores para garantizar la unicidad de las babosas."
 }
