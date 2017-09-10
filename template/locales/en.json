@@ -1,47 +1,31 @@
 {
-  "Chew apart your projects with speed.":
-    "Chew apart your projects with speed.",
+  "Chew apart your projects with speed.": "Chew apart your projects with speed.",
   "Good morning": "Good morning",
   "Good afternoon": "Good afternoon",
   "Good evening": "Good evening",
   "Email address was invalid.": "Email address was invalid.",
   "Password was invalid.": "Password was invalid.",
   "Reset token provided was invalid.": "Reset token provided was invalid.",
-  "Reset token and email were not valid together.":
-    "Reset token and email were not valid together.",
-  "Password strength was not strong enough.":
-    "Password strength was not strong enough.",
+  "Reset token and email were not valid together.": "Reset token and email were not valid together.",
+  "Password strength was not strong enough.": "Password strength was not strong enough.",
   "Invalid session secret.": "Invalid session secret.",
   "Invalid CSRF token.": "Invalid CSRF token.",
-  "Your message was invalid, as it was either blank or more than (500) characters.":
-    "Your message was invalid, as it was either blank or more than (500) characters.",
+  "Your message was invalid, as it was either blank or more than (500) characters.": "Your message was invalid, as it was either blank or more than (500) characters.",
   "File upload was invalid.": "File upload was invalid.",
-  "We have sent you an email with a link to reset your password.":
-    "We have sent you an email with a link to reset your password.",
-  "You can only request a password reset every 30 minutes.  Please try again %s.":
-    "You can only request a password reset every 30 minutes.  Please try again %s.",
+  "We have sent you an email with a link to reset your password.": "We have sent you an email with a link to reset your password.",
+  "You can only request a password reset every 30 minutes.  Please try again %s.": "You can only request a password reset every 30 minutes.  Please try again %s.",
   "Hello %s world.": "Hello %s world.",
   "You have successfully registered": "You have successfully registered",
-  "You have successfully reset your password.":
-    "You have successfully reset your password.",
-  "Thank you for contacting us.  We would love to hear more from you.  How can we help?":
-    "Thank you for contacting us.  We would love to hear more from you.  How can we help?",
-  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!":
-    "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!",
-  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.":
-    "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.",
-  "You have reached the limit for sending contact requests.  Please try again.":
-    "You have reached the limit for sending contact requests.  Please try again.",
-  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.":
-    "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.",
+  "You have successfully reset your password.": "You have successfully reset your password.",
+  "Thank you for contacting us.  We would love to hear more from you.  How can we help?": "Thank you for contacting us.  We would love to hear more from you.  How can we help?",
+  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!": "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!",
+  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.": "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.",
+  "You have reached the limit for sending contact requests.  Please try again.": "You have reached the limit for sending contact requests.  Please try again.",
+  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.": "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.",
   "You have successfully signed in.": "You have successfully signed in.",
   "You have successfully signed out.": "You have successfully signed out.",
-  "An unknown error has occurred. We have been alerted of this issue. Please try again.":
-    "An unknown error has occurred. We have been alerted of this issue. Please try again.",
-  "Please log in to view the page you requested.":
-    "Please log in to view the page you requested.",
-  "An issue occurred while communicating with our payment provider. Please try again.":
-    "An issue occurred while communicating with our payment provider. Please try again.",
-  "Please slightly change values to ensure slug uniqueness.":
-    "Please slightly change values to ensure slug uniqueness."
+  "An unknown error has occurred. We have been alerted of this issue. Please try again.": "An unknown error has occurred. We have been alerted of this issue. Please try again.",
+  "Please log in to view the page you requested.": "Please log in to view the page you requested.",
+  "An issue occurred while communicating with our payment provider. Please try again.": "An issue occurred while communicating with our payment provider. Please try again.",
+  "Please slightly change values to ensure slug uniqueness.": "Please slightly change values to ensure slug uniqueness."
 }

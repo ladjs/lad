@@ -10,33 +10,22 @@
   "Password strength was not strong enough.": "密码强度不够强。",
   "Invalid session secret.": "会话密码无效",
   "Invalid CSRF token.": "无效的CSRF令牌",
-  "Your message was invalid, as it was either blank or more than (500) characters.":
-    "您的消息无效，因为它是空白或超过（500）个字符。",
+  "Your message was invalid, as it was either blank or more than (500) characters.": "您的消息无效，因为它是空白或超过（500）个字符。",
   "File upload was invalid.": "文件上传无效。",
-  "We have sent you an email with a link to reset your password.":
-    "我们向您发送了一封电子邮件，其中包含重置密码的链接。",
-  "You can only request a password reset every 30 minutes.  Please try again %s.":
-    "您只能每30分钟要求重置一次密码。请再试一次％s。",
+  "We have sent you an email with a link to reset your password.": "我们向您发送了一封电子邮件，其中包含重置密码的链接。",
+  "You can only request a password reset every 30 minutes.  Please try again %s.": "您只能每30分钟要求重置一次密码。请再试一次％s。",
   "Hello %s world.": "你好％s的世界。",
   "You have successfully registered": "您已成功注册",
   "You have successfully reset your password.": "您已成功重置密码。",
-  "Thank you for contacting us.  We would love to hear more from you.  How can we help?":
-    "感谢您与我们联系。我们很乐意听到您的更多信息。我们能帮你什么吗？",
-  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!":
-    "您的联系请求已成功发送。你应该尽快收到我们的消息。谢谢！",
-  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.":
-    "我们无法发送您的联系请求。我们已经收到这个问题的提醒。请再试一次。",
-  "You have reached the limit for sending contact requests.  Please try again.":
-    "您已达到发送联系人请求的限制。请再试一次。",
-  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.":
-    "对不起，您的请求已超时。我们已经收到这个问题的提醒。请再试一次。",
+  "Thank you for contacting us.  We would love to hear more from you.  How can we help?": "感谢您与我们联系。我们很乐意听到您的更多信息。我们能帮你什么吗？",
+  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!": "您的联系请求已成功发送。你应该尽快收到我们的消息。谢谢！",
+  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.": "我们无法发送您的联系请求。我们已经收到这个问题的提醒。请再试一次。",
+  "You have reached the limit for sending contact requests.  Please try again.": "您已达到发送联系人请求的限制。请再试一次。",
+  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.": "对不起，您的请求已超时。我们已经收到这个问题的提醒。请再试一次。",
   "You have successfully signed in.": "您已成功登录",
   "You have successfully signed out.": "您已成功登出。",
-  "An unknown error has occurred. We have been alerted of this issue. Please try again.":
-    "出现未知错误。我们已经收到这个问题的提醒。请再试一次。",
+  "An unknown error has occurred. We have been alerted of this issue. Please try again.": "出现未知错误。我们已经收到这个问题的提醒。请再试一次。",
   "Please log in to view the page you requested.": "请登录查看您请求的页面。",
-  "An issue occurred while communicating with our payment provider. Please try again.":
-    "与我们的付款提供商沟通时出现问题。请再试一次。",
-  "Please slightly change values to ensure slug uniqueness.":
-    "请略微改变价值，以确保lug lug lug。。"
+  "An issue occurred while communicating with our payment provider. Please try again.": "与我们的付款提供商沟通时出现问题。请再试一次。",
+  "Please slightly change values to ensure slug uniqueness.": "请略微改变价值，以确保lug lug lug。。"
 }
