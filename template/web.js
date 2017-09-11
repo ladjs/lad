@@ -6,7 +6,7 @@ const Koa = require('koa');
 const livereload = require('koa-livereload');
 const favicon = require('koa-favicon');
 const koaManifestRev = require('koa-manifest-rev');
-const serve = require('koa-better-serve');
+const serveStatic = require('@ladjs/koa-better-static');
 const conditional = require('koa-conditional-get');
 const etag = require('koa-etag');
 const compress = require('koa-compress');
@@ -78,7 +78,8 @@ app.use(compress());
 app.use(favicon(config.favicon));
 
 // serve static assets
-app.use(serve(config.buildDir, config.serve));
+// TODO: <https://github.com/tunnckoCore/koa-better-serve/issues/13>
+app.use(serveStatic(config.buildDir, config.serveStatic));
 
 // koa-manifest-rev
 app.use(koaManifestRev(config.koaManifestRev));
