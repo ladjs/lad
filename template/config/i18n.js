@@ -4,7 +4,7 @@
 // TODO: ensure no strings here are unused
 
 // load the defaults and environment specific configuration
-const dotenvExtended = require('dotenv-extended');
+const dotenvExtended = require('@ladjs/dotenv-extended');
 const dotenvMustache = require('dotenv-mustache');
 const dotenvParseVariables = require('dotenv-parse-variables');
 
