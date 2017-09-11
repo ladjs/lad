@@ -416,13 +416,17 @@ DEBUG=* yarn start
 
 1. We've provided you with a preconfigured [ecosystem.json](template/ecosystem.json) [deployment file](http://pm2.keymetrics.io/docs/usage/deployment/). You will need to modify this file with your server's IP, hostname, and other metadata if needed.
 
-2. You can test this locally by installing [PM2][] globally with [npm][] or [yarn][], and then running the following command:
+2. Make sure that your project's assets are built with `NODE_ENV=production` flag, e.g. `NODE_ENV=production npm run build` (this creates a `build/rev-manifest.json` file per [koa-manifest-rev][]).
+
+3. You can test this locally by installing [PM2][] globally with [npm][] or [yarn][], and then running the following command:
 
    ```sh
-   pm2 start
+   NODE_ENV=production pm2 start
    ```
 
-3. See the [Continuous Integration and Code Coverage](#continuous-integration-and-code-coverage) and [Tutorials](#tutorials) sections below for instructions on how to setup continuous integration, code coverage, and deployment.
+4. See the [Continuous Integration and Code Coverage](#continuous-integration-and-code-coverage) and [Tutorials](#tutorials) sections below for instructions on how to setup continuous integration, code coverage, and deployment.
+
+5. If you specify the environment variables `AWS_CF_DOMAIN` then your assets will need to be published to Amazon S3/Cloudfront.  To do so run `NODE_ENV=production gulp publish`.
 
 #### Tests
 
@@ -637,7 +641,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -726,3 +730,5 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [dotenv]: https://github.com/motdotla/dotenv
 
 [koa-better-error-handler]: https://github.com/niftylettuce/koa-better-error-handler
+
+[koa-manifest-rev]: https://github.com/niftylettuce/koa-manifest-rev
