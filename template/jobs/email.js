@@ -179,7 +179,6 @@ module.exports = async function(job, done) {
       );
 
       await opn(tmpHtmlPath, { wait: false });
-      // await opn(tmpTextPath, { wait: false });
     }
 
     if (!config.sendEmail) {

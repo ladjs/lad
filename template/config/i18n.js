@@ -17,7 +17,9 @@ env = dotenvMustache(env);
 env = dotenvParseVariables(env);
 
 module.exports = {
-  SLOGAN: 'Chew apart your projects with speed.',
+  INVALID_API_TOKEN: 'Invalid token',
+  INVALID_API_CREDENTIALS: 'Invalid creds',
+  IS_NOT_ADMIN: 'You do not belong to the administrative user group',
   GOOD_MORNING: 'Good morning',
   GOOD_AFTERNOON: 'Good afternoon',
   GOOD_EVENING: 'Good evening',
