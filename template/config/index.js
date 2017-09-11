@@ -104,8 +104,8 @@ const config = {
   i18nUpdateFiles: env.I18N_UPDATE_FILES,
   i18nAutoReload: env.I18N_AUTO_RELOAD,
   i18nSyncFiles: env.I18N_SYNC_FILES,
-  serveStatic: {
-    // <https://github.com/koajs/static#options>
+  serve: {
+    // <https://github.com/koajs/send>
   },
 
   // postmarkapp.com

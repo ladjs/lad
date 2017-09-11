@@ -51,7 +51,7 @@
     "koa": "^2.3.0",
     "koa-better-error-handler": "^1.2.0",
     "koa-better-flash": "0.0.3",
-    "koa-better-static": "^1.0.5",
+    "koa-better-serve": "^2.0.6",
     "koa-better-timeout": "^0.0.1",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^2.0.0",
