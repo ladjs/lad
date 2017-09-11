@@ -82,7 +82,12 @@ module.exports = {
   filters: {
     // until this issue is resolved we need this line:
     // <https://github.com/saojs/sao/issues/59>
-    'node_modules/**': false
+    'node_modules/**': false,
+    // never copy env file
+    '.env': false,
+    // ignore build and coverage folder
+    'coverage/**': false,
+    'build/**': false
   },
   move: {
     // We keep `.gitignore` as `gitignore` in the project
