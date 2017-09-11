@@ -81,7 +81,9 @@ const config = {
   livereload: {
     port: env.LIVERELOAD_PORT
   },
-  showStack: env.SHOW_STACK,
+  logger: {
+    showStack: env.SHOW_STACK
+  },
   ga: env.GOOGLE_ANALYTICS,
   sessionKeys: env.SESSION_KEYS,
   cors: {
@@ -116,8 +118,16 @@ const config = {
   },
 
   // mongoose
-  mongooseDebug: env.MONGOOSE_DEBUG,
-  mongooseReconnectMs: env.MONGOOSE_RECONNECT_MS,
+  mongoose: {
+    debug: env.MONGOOSE_DEBUG,
+    Promise: global.Promise,
+    mongo: {
+      url: env.DATABASE_URL
+    }
+  },
+
+  // mongoose security helpers
+  // (these fields get omitted when responses sent)
   omitCommonFields,
   omitUserFields: [
     ...omitCommonFields,
@@ -141,20 +151,16 @@ const config = {
   localesDirectory: path.join(__dirname, '..', 'locales'),
 
   // agenda
-
-  // TODO: this should get merged into agenda core
-  // into a function like `agenda.cancelRecurring`
-  agendaCancelQuery: {
-    repeatInterval: {
-      $exists: true,
-      $ne: null
-    }
-  },
   agenda: {
     name: `${os.hostname()}_${process.pid}`,
-    collection: env.AGENDA_COLLECTION_NAME,
     maxConcurrency: env.AGENDA_MAX_CONCURRENCY
   },
+  agendaCollectionName: env.AGENDA_COLLECTION_NAME,
+  // these get automatically invoked to `agenda.every`
+  // e.g. `agenda.every('5 minutes', 'locales')`
+  // and you define them as [ interval, job name ]
+  // you need to define them here for graceful handling
+  agendaRecurringJobs: [],
 
   aws: {
     key: env.AWS_IAM_KEY,
@@ -165,14 +171,6 @@ const config = {
     domainName: env.AWS_CF_DOMAIN,
     params: {
       Bucket: env.AWS_S3_BUCKET
-    }
-  },
-
-  // mongodb
-  mongodb: env.DATABASE_URL,
-  mongodbOptions: {
-    server: {
-      reconnectTries: Number.MAX_VALUE
     }
   },
 
@@ -236,17 +234,17 @@ const config = {
           cb(howStrong < 3 ? new Error('Password not strong enough') : null);
         }
       },
-      facebook: {},
-      twitter: {},
       google: {
         clientID: env.GOOGLE_CLIENT_ID,
         clientSecret: env.GOOGLE_CLIENT_SECRET,
         callbackURL: `${env.WEB_URL}/auth/google/ok`
-      },
-      github: {},
-      linkedin: {},
-      instagram: {},
-      stripe: {}
+      }
+      // facebook: {},
+      // twitter: {},
+      // github: {},
+      // linkedin: {},
+      // instagram: {},
+      // stripe: {}
     },
     catchError: async (ctx, next) => {
       try {

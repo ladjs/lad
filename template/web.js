@@ -29,14 +29,19 @@ const CSRF = require('koa-csrf');
 const StoreIPAddress = require('@ladjs/store-ip-address');
 const isajax = require('koa-isajax');
 const Meta = require('koa-meta');
+const Timeout = require('koa-better-timeout');
+const Mongoose = require('@ladjs/mongoose');
+const Graceful = require('@ladjs/graceful');
 
 const config = require('./config');
-const { Timeout } = require('./helpers');
 const helpers = require('./helpers');
 const routes = require('./routes');
 
 // initialize mongoose
-const mongoose = new helpers.Mongoose();
+const mongoose = new Mongoose({
+  ...config.mongoose,
+  logger: helpers.logger
+}).mongoose;
 
 // initialize the app
 const app = new Koa();
@@ -57,8 +62,8 @@ const redisStore = new RedisStore({
 // later on with `server.close()`
 let server;
 
-app.on('error', helpers.logger.contextError);
-app.on('log', helpers.logger.log);
+app.on('error', helpers.logger.contextError.bind(helpers.logger));
+app.on('log', helpers.logger.log.bind(helpers.logger));
 
 // trust proxy
 app.proxy = true;
@@ -216,6 +221,12 @@ if (!module.parent)
   );
 
 // handle process events and graceful restart
-helpers.graceful(server, redisClient, mongoose);
+const graceful = new Graceful({
+  mongoose,
+  server,
+  redisClient,
+  logger: helpers.logger
+});
+graceful.listen();
 
 module.exports = server;

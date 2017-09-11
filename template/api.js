@@ -12,19 +12,24 @@ const removeTrailingSlashes = require('koa-no-trailing-slash');
 const redis = require('redis');
 const StoreIPAddress = require('@ladjs/store-ip-address');
 const isajax = require('koa-isajax');
+const Timeout = require('koa-better-timeout');
+const Graceful = require('@ladjs/graceful');
+const Mongoose = require('@ladjs/mongoose');
 
-const { Timeout } = require('./helpers');
 const helpers = require('./helpers');
 const config = require('./config');
 const routes = require('./routes');
 
 // initialize mongoose
-const mongoose = new helpers.Mongoose();
+const mongoose = new Mongoose({
+  ...config.mongoose,
+  logger: helpers.logger
+}).mongoose;
 
 // connect to redis
 const redisClient = redis.createClient(config.redis);
 redisClient.on('connect', () => helpers.logger.info('redis connected'));
-redisClient.on('error', helpers.logger.error);
+redisClient.on('error', helpers.logger.error.bind(helpers.logger));
 
 // initialize the app
 const app = new Koa();
@@ -34,8 +39,8 @@ const app = new Koa();
 // later on with `server.close()`
 let server;
 
-app.on('error', helpers.logger.contextError);
-app.on('log', helpers.logger.log);
+app.on('error', helpers.logger.contextError.bind(helpers.logger));
+app.on('log', helpers.logger.log.bind(helpers.logger));
 
 // setup localization
 app.use(helpers.i18n.middleware);
@@ -116,6 +121,12 @@ if (!module.parent)
   );
 
 // handle process events and graceful restart
-helpers.graceful(server, redisClient, mongoose);
+const graceful = new Graceful({
+  server,
+  redisClient,
+  mongoose,
+  logger: helpers.logger
+});
+graceful.listen();
 
 module.exports = server;

@@ -5,20 +5,18 @@ const { getLanguage } = require('country-language');
 const moment = require('moment');
 const _ = require('lodash');
 const i18n = require('i18n');
-const Logger = require('@ladjs/logger');
 
 const config = require('../config');
-
-const logger = new Logger();
+const logger = require('./logger');
 
 // <https://github.com/mashpie/i18n-node>
 i18n.api = {};
 i18n.configure({
   directory: config.localesDirectory,
   locales: config.locales,
-  logDebugFn: config.env === 'development' ? logger.debug : null,
-  logWarnFn: logger.warn,
-  logErrorFn: logger.error,
+  logDebugFn: logger.debug.bind(logger),
+  logWarnFn: logger.warn.bind(logger),
+  logErrorFn: logger.error.bind(logger),
   cookiename: 'locale',
   indent: '  ',
   api: {
