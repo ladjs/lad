@@ -6,7 +6,7 @@ const Koa = require('koa');
 const livereload = require('koa-livereload');
 const favicon = require('koa-favicon');
 const koaManifestRev = require('koa-manifest-rev');
-const serveStatic = require('koa-better-static');
+const serve = require('koa-better-serve');
 const conditional = require('koa-conditional-get');
 const etag = require('koa-etag');
 const compress = require('koa-compress');
@@ -77,9 +77,8 @@ app.use(compress());
 // favicons
 app.use(favicon(config.favicon));
 
-// TODO: investigate koa-better-static vs regular
 // serve static assets
-app.use(serveStatic(config.buildDir, config.serveStatic));
+app.use(serve(config.buildDir, config.serve));
 
 // koa-manifest-rev
 app.use(koaManifestRev(config.koaManifestRev));
