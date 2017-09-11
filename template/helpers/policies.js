@@ -31,12 +31,19 @@ async function ensureApiToken(ctx, next) {
     !_.isString(credentials.name) ||
     s.isBlank(credentials.name)
   )
-    return ctx.throw(Boom.unauthorized('Invalid creds', config.appName));
+    return ctx.throw(
+      Boom.unauthorized(
+        ctx.translate('INVALID_API_CREDENTIALS'),
+        config.appName
+      )
+    );
 
   const user = await Users.findOne({ api_token: credentials.name });
 
   if (!user)
-    return ctx.throw(Boom.unauthorized('Invalid token', config.appName));
+    return ctx.throw(
+      Boom.unauthorized(ctx.translate('INVALID_API_TOKEN'), config.appName)
+    );
 
   await ctx.login(user, { session: false });
 
@@ -50,9 +57,7 @@ async function ensureLoggedOut(ctx, next) {
 
 async function ensureAdmin(ctx, next) {
   if (!ctx.isAuthenticated() || ctx.state.user.group !== 'admin')
-    return ctx.throw(
-      Boom.unauthorized('You do not belong to the "admin" user group')
-    );
+    return ctx.throw(Boom.unauthorized(ctx.translate('IS_NOT_ADMIN')));
   await next();
 }
 
