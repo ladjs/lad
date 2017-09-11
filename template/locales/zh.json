@@ -27,5 +27,8 @@
   "An unknown error has occurred. We have been alerted of this issue. Please try again.": "出现未知错误。我们已经收到这个问题的提醒。请再试一次。",
   "Please log in to view the page you requested.": "请登录查看您请求的页面。",
   "An issue occurred while communicating with our payment provider. Please try again.": "与我们的付款提供商沟通时出现问题。请再试一次。",
-  "Please slightly change values to ensure slug uniqueness.": "请略微改变价值，以确保lug lug lug。。"
+  "Please slightly change values to ensure slug uniqueness.": "请略微改变价值，以确保lug lug lug。。",
+  "Invalid token": "令牌无效",
+  "Invalid creds": "无效的信誉",
+  "You do not belong to the administrative user group": "您不属于管理用户组"
 }
