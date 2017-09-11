@@ -25,8 +25,20 @@
       }
     },
     {
-      "name": "app",
-      "script": "app.js",
+      "name": "agenda",
+      "script": "agenda.js",
+      "exec_mode": "cluster",
+      "instances": "max",
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_staging": {
+        "NODE_ENV": "staging"
+      }
+    },
+    {
+      "name": "proxy",
+      "script": "proxy.js",
       "exec_mode": "cluster",
       "instances": "max",
       "env_production": {
