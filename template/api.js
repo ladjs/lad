@@ -74,7 +74,7 @@ app.use(
 );
 
 // remove trailing slashes
-app.use(removeTrailingSlashes);
+app.use(removeTrailingSlashes());
 
 // body parser
 app.use(bodyParser());

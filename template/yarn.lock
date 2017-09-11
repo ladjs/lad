@@ -68,6 +68,13 @@
     debug "^3.0.1"
     stop-agenda "^0.0.5"
 
+"@ladjs/koa-better-static@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@ladjs/koa-better-static/-/koa-better-static-1.0.5.tgz#2353d00b6dcda721535d6fb9ce84f0f615557f91"
+  dependencies:
+    debug "*"
+    resolve-path "^1.3.0"
+
 "@ladjs/logger@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.1.tgz#37c28bd8ba56240f879f5e187944ca55f00fc846"
@@ -6103,10 +6110,6 @@ keypress@0.1.x:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/keypress/-/keypress-0.1.0.tgz#4a3188d4291b66b4f65edb99f806aa9ae293592a"
 
-kind-of@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-5.0.2.tgz#f57bec933d9a2209ffa96c5c08343607b7035fda"
-
 kind-of@^3.0.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -6138,13 +6141,6 @@ koa-better-error-handler@^1.2.0:
 koa-better-flash@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/koa-better-flash/-/koa-better-flash-0.0.3.tgz#4bfb1829f0f927e5a775770ea0ca0fa9440d8df0"
-
-koa-better-serve@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/koa-better-serve/-/koa-better-serve-2.0.6.tgz#730ad714a7ceb20616bca5875dc9b2f417991163"
-  dependencies:
-    kind-of "5.0.2"
-    koa-send "4.1.0"
 
 koa-better-timeout@^0.0.1:
   version "0.0.1"
@@ -6308,7 +6304,7 @@ koa-router@^7.2.1:
     methods "^1.0.1"
     path-to-regexp "^1.1.1"
 
-koa-send@4.1.0, koa-send@^4.0.0:
+koa-send@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/koa-send/-/koa-send-4.1.0.tgz#07d5a4eaab212679fe99916aae6b1109c08c2361"
   dependencies:
@@ -10197,7 +10193,7 @@ resolve-from@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-3.0.0.tgz#b22c7af7d9d6881bc8b6e653335eebcb0a188748"
 
-resolve-path@^1.3.3:
+resolve-path@^1.3.0, resolve-path@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/resolve-path/-/resolve-path-1.3.3.tgz#4d83aba6468c2b8e632a575e3f52b0fa0dbe1a5c"
   dependencies:
