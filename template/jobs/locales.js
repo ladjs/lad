@@ -1,5 +1,5 @@
 const { promisify } = require('util');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const GoogleTranslate = require('google-translate');
 const _ = require('lodash');

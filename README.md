@@ -401,13 +401,13 @@ cp .env.defaults .env
 [npm][]:
 
 ```sh
-npm start
+DEBUG=* npm start
 ```
 
 [yarn][]:
 
 ```sh
-yarn start
+DEBUG=* yarn start
 ```
 
 #### Production
@@ -637,7 +637,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 

@@ -61,6 +61,13 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
+"@ladjs/graceful@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/graceful/-/graceful-0.0.1.tgz#7e7ecc58a3f60febc079c5190536a0f7ae852f6b"
+  dependencies:
+    debug "^3.0.1"
+    stop-agenda "^0.0.5"
+
 "@ladjs/logger@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.1.tgz#37c28bd8ba56240f879f5e187944ca55f00fc846"
@@ -69,12 +76,28 @@
     lodash "^4.17.4"
     underscore.string "^3.3.4"
 
-"@ladjs/store-ip-address@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@ladjs/store-ip-address/-/store-ip-address-0.0.1.tgz#08bec1f5acae060188b3b80a19269864bdc37aa8"
+"@ladjs/logger@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.3.tgz#818f9e769cf25d5fbfb07e3c5b85ddffa1b0faa7"
   dependencies:
-    "@ladjs/logger" "^0.0.1"
+    chalk "^2.1.0"
+    debug "^3.0.1"
     lodash "^4.17.4"
+    underscore.string "^3.3.4"
+
+"@ladjs/mongoose@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@ladjs/mongoose/-/mongoose-0.0.3.tgz#8dacea52d94809cd392fbf9895e3ae828d37d66a"
+  dependencies:
+    debug "^3.0.1"
+    delay "^2.0.0"
+    mongoose "^4.11.11"
+
+"@ladjs/store-ip-address@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@ladjs/store-ip-address/-/store-ip-address-0.0.2.tgz#056fd89041a33d25c9c512e19c9bf74a77376beb"
+  dependencies:
+    debug "^3.0.1"
 
 "@types/dotenv@^4.0.0":
   version "4.0.1"
@@ -418,7 +441,7 @@ async@^1.4.0, async@~1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.1.2, async@^2.5.0:
+async@^2.1.2:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
   dependencies:
@@ -1693,11 +1716,11 @@ character-reference-invalid@^1.0.0:
   resolved "https://registry.yarnpkg.com/character-reference-invalid/-/character-reference-invalid-1.1.1.tgz#942835f750e4ec61a308e60c2ef8cc1011202efc"
 
 chart.js@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.6.0.tgz#308f9a4b0bfed5a154c14f5deb1d9470d22abe71"
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.0.tgz#330dbbee0c66199eb715f60fbf8ca4029609a529"
   dependencies:
-    chartjs-color "^2.1.0"
-    moment "^2.10.6"
+    chartjs-color "~2.2.0"
+    moment "~2.18.0"
 
 chartjs-color-string@^0.5.0:
   version "0.5.0"
@@ -1705,7 +1728,7 @@ chartjs-color-string@^0.5.0:
   dependencies:
     color-name "^1.0.0"
 
-chartjs-color@^2.1.0:
+chartjs-color@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.2.0.tgz#84a2fb755787ed85c39dd6dd8c7b1d88429baeae"
   dependencies:
@@ -2763,6 +2786,12 @@ del@^2.0.2:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
     rimraf "^2.2.8"
+
+delay@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/delay/-/delay-2.0.0.tgz#9112eadc03e4ec7e00297337896f273bbd91fae5"
+  dependencies:
+    p-defer "^1.0.0"
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -5912,8 +5941,8 @@ jquery@>=1.7.2, jquery@^3.2.1:
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.2.0.tgz#5e8a8d193a908198dd23d1704826d207b0e5a8f6"
 
 js-string-escape@^1.0.1:
   version "1.0.1"
@@ -7425,7 +7454,7 @@ moment-timezone@^0.5.0, moment-timezone@~0.5.5:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.10.6, moment@^2.18.1:
+"moment@>= 2.9.0", moment@^2.18.1, moment@~2.18.0:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
@@ -7454,9 +7483,9 @@ mongoose-json-select@^0.2.1:
   dependencies:
     clone "0.1.9"
 
-mongoose@^4.11.10:
-  version "4.11.10"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.11.10.tgz#f68b131df09893b9f0073f46d5dcab0116789f56"
+mongoose@^4.11.10, mongoose@^4.11.11:
+  version "4.11.11"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.11.11.tgz#ae9baf860241e086c90b226fdda52f1afddc6a7b"
   dependencies:
     async "2.1.4"
     bson "~1.0.4"
@@ -8085,6 +8114,10 @@ osenv@0, osenv@^0.1.4:
 p-cancelable@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-0.3.0.tgz#b9e123800bcebb7ac13a479be195b507b98d30fa"
+
+p-defer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/p-defer/-/p-defer-1.0.0.tgz#9f6eb182f6c9aa8cd743004a7d4f96b196b0fb0c"
 
 p-finally@^1.0.0:
   version "1.0.0"
@@ -10670,8 +10703,8 @@ source-map-resolve@^0.3.0:
     urix "~0.1.0"
 
 source-map-support@^0.4.0, source-map-support@^0.4.15:
-  version "0.4.17"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.17.tgz#6f2150553e6375375d0ccb3180502b78c18ba430"
+  version "0.4.18"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.18.tgz#0286a6de8be42641338594e97ccea75f0a2c585f"
   dependencies:
     source-map "^0.5.6"
 
@@ -10811,6 +10844,12 @@ stdout-stream@^1.4.0:
   resolved "https://registry.yarnpkg.com/stdout-stream/-/stdout-stream-1.4.0.tgz#a2c7c8587e54d9427ea9edb3ac3f2cd522df378b"
   dependencies:
     readable-stream "^2.0.1"
+
+stop-agenda@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/stop-agenda/-/stop-agenda-0.0.5.tgz#9363a69a30fb99a7935760dd8d41477a470a5f34"
+  dependencies:
+    debug "^3.0.1"
 
 stream-browserify@^2.0.0:
   version "2.0.1"
@@ -11540,8 +11579,8 @@ uglify-js@^2.6, uglify-js@^2.6.1:
     uglify-to-browserify "~1.0.0"
 
 uglify-js@^3.0.5:
-  version "3.0.28"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.28.tgz#96b8495f0272944787b5843a1679aa326640d5f7"
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.0.tgz#92fae17b88dfbc3c394175a935044cdbcf4085ae"
   dependencies:
     commander "~2.11.0"
     source-map "~0.5.1"
@@ -12115,8 +12154,8 @@ websocket-driver@>=0.3.6:
     websocket-extensions ">=0.1.1"
 
 websocket-extensions@>=0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.1.tgz#76899499c184b6ef754377c2dbb0cd6cb55d29e7"
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.2.tgz#0e18781de629a18308ce1481650f67ffa2693a5d"
 
 well-known-symbols@^1.0.0:
   version "1.0.0"
