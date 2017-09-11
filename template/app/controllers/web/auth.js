@@ -30,6 +30,7 @@ async function signupOrLogin(ctx) {
 
   // prevents lad being used as a open redirect
   if (
+    ctx.session.returnTo &&
     ctx.session.returnTo.indexOf('://') !== -1 &&
     ctx.session.returnTo.indexOf(config.urls.web) !== 0
   ) {

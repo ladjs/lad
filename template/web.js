@@ -28,7 +28,7 @@ const flash = require('koa-better-flash');
 const CSRF = require('koa-csrf');
 const StoreIPAddress = require('@ladjs/store-ip-address');
 const isajax = require('koa-isajax');
-const Meta = require('koa-meta');
+// const Meta = require('koa-meta');
 const Timeout = require('koa-better-timeout');
 const Mongoose = require('@ladjs/mongoose');
 const Graceful = require('@ladjs/graceful');
@@ -36,6 +36,9 @@ const Graceful = require('@ladjs/graceful');
 const config = require('./config');
 const helpers = require('./helpers');
 const routes = require('./routes');
+
+const storeIPAddress = new StoreIPAddress({ logger: helpers.logger });
+// const meta = new Meta(config.meta);
 
 // initialize mongoose
 const mongoose = new Mongoose({
@@ -187,7 +190,11 @@ app.use(helpers.passport.session());
 app.use(helpers.dynamicViewHelpers);
 
 // add support for SEO <title> and <meta name="description">
-app.use(new Meta(config.meta).middleware);
+// app.use(meta.middleware.bind(meta));
+app.use((ctx, next) => {
+  ctx.state.meta = { title: '', description: '' };
+  return next();
+});
 
 // configure timeout
 app.use(async (ctx, next) => {
@@ -206,7 +213,7 @@ app.use(async (ctx, next) => {
 app.use(helpers.i18n.redirect);
 
 // store the user's last ip address in the background
-app.use(new StoreIPAddress({ logger: helpers.logger }).middleware);
+app.use(storeIPAddress.middleware.bind(storeIPAddress));
 
 // mount the app's defined and nested routes
 app.use(routes.web.routes());
