@@ -10,6 +10,7 @@
   },
   "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
   "dependencies": {
+    "@ladjs/dotenv-extended": "^2.0.2",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/koa-better-static": "^1.0.5",
     "@ladjs/logger": "^0.0.3",
@@ -29,7 +30,6 @@
     "country-language": "^0.1.7",
     "custom-fonts-in-emails": "^1.0.1",
     "dense": "^0.0.1",
-    "dotenv-extended": "^2.0.1",
     "dotenv-mustache": "^1.0.0",
     "dotenv-parse-variables": "^0.1.0",
     "es6-promise": "^4.1.1",

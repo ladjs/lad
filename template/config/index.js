@@ -3,7 +3,7 @@ const path = require('path');
 const strength = require('strength');
 const consolidate = require('consolidate');
 const _ = require('lodash');
-const dotenvExtended = require('dotenv-extended');
+const dotenvExtended = require('@ladjs/dotenv-extended');
 const dotenvMustache = require('dotenv-mustache');
 const dotenvParseVariables = require('dotenv-parse-variables');
 
@@ -96,8 +96,8 @@ const config = {
     id: ctx => ctx.ip
   },
   koaManifestRev: {
-    manifest: path.join(__dirname, '..', '..', 'build', 'rev-manifest.json'),
-    prepend: `//${env.AWS_CF_DOMAIN}/`
+    manifest: path.join(__dirname, '..', 'build', 'rev-manifest.json'),
+    prepend: env.AWS_CF_DOMAIN ? `//${env.AWS_CF_DOMAIN}/` : '/'
   },
   appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
   appName: env.APP_NAME,
