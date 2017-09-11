@@ -426,7 +426,7 @@ DEBUG=* yarn start
 
 4. See the [Continuous Integration and Code Coverage](#continuous-integration-and-code-coverage) and [Tutorials](#tutorials) sections below for instructions on how to setup continuous integration, code coverage, and deployment.
 
-5. If you specify the environment variables `AWS_CF_DOMAIN` then your assets will need to be published to Amazon S3/Cloudfront.  To do so run `NODE_ENV=production gulp publish`.
+5. If you specify the environment variables `AWS_CF_DOMAIN` then your assets will need to be published to Amazon S3/Cloudfront.  To do so run `npm run publish-assets` (or with yarn as `yarn publish-assets`).
 
 #### Tests
 
