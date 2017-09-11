@@ -95,18 +95,20 @@ async function login(ctx, next) {
 }
 
 async function register(ctx) {
-  if (!_.isString(ctx.req.body.email) || !validator.isEmail(ctx.req.body.email))
+  const { body } = ctx.request;
+
+  if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
-  if (!_.isString(ctx.req.body.password) || s.isBlank(ctx.req.body.password))
+  if (!_.isString(body.password) || s.isBlank(body.password))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD')));
 
   // register the user
   try {
     const count = await Users.count({ group: 'admin' });
     const user = await Users.registerAsync(
-      { email: ctx.req.body.email, group: count === 0 ? 'admin' : 'user' },
-      ctx.req.body.password
+      { email: body.email, group: count === 0 ? 'admin' : 'user' },
+      body.password
     );
 
     await ctx.login(user);
@@ -148,11 +150,13 @@ async function register(ctx) {
 }
 
 async function forgotPassword(ctx) {
-  if (!_.isString(ctx.req.body.email) || !validator.isEmail(ctx.req.body.email))
+  const { body } = ctx.request;
+
+  if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
   // lookup the user
-  const user = await Users.findOne({ email: ctx.req.body.email });
+  const user = await Users.findOne({ email: body.email });
 
   // to prevent people from being able to find out valid email accounts
   // we always say "a password reset request has been sent to your email"
@@ -221,10 +225,12 @@ async function forgotPassword(ctx) {
 }
 
 async function resetPassword(ctx) {
-  if (!_.isString(ctx.req.body.email) || !validator.isEmail(ctx.req.body.email))
+  const { body } = ctx.request;
+
+  if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
-  if (!_.isString(ctx.req.body.password) || s.isBlank(ctx.req.body.password))
+  if (!_.isString(body.password) || s.isBlank(body.password))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD')));
 
   if (!_.isString(ctx.params.token) || s.isBlank(ctx.params.token))
@@ -232,7 +238,7 @@ async function resetPassword(ctx) {
 
   // lookup the user that has this token and if it matches the email passed
   const user = await Users.findOne({
-    email: ctx.req.body.email,
+    email: body.email,
     reset_token: ctx.params.token,
     // ensure that the reset_at is only valid for 30 minutes
     reset_token_expires_at: {
@@ -247,7 +253,7 @@ async function resetPassword(ctx) {
   user.reset_at = null;
 
   try {
-    await util.promisify(user.setPassword).bind(user)(ctx.req.body.password);
+    await util.promisify(user.setPassword).bind(user)(body.password);
   } catch (err) {
     ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD_STRENGTH')));
   } finally {
