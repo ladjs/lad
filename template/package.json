@@ -10,7 +10,7 @@
   },
   "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
   "dependencies": {
-    "@ladjs/dotenv-extended": "^2.0.2",
+    "@ladjs/dotenv-extended": "^2.0.3",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/koa-better-static": "^1.0.5",
     "@ladjs/logger": "^0.0.3",
