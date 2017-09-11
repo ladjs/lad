@@ -20,6 +20,8 @@ const helpers = require('./helpers');
 const config = require('./config');
 const routes = require('./routes');
 
+const storeIPAddress = new StoreIPAddress({ logger: helpers.logger });
+
 // initialize mongoose
 const mongoose = new Mongoose({
   ...config.mongoose,
@@ -103,7 +105,7 @@ app.use(async (ctx, next) => {
 });
 
 // store the user's last ip address in the background
-app.use(new StoreIPAddress({ logger: helpers.logger }).middleware);
+app.use(storeIPAddress.middleware.bind(storeIPAddress));
 
 // mount the app's defined and nested routes
 app.use(routes.api.routes());
