@@ -87,7 +87,9 @@ module.exports = {
     '.env': false,
     // ignore build and coverage folder
     'coverage/**': false,
-    'build/**': false
+    'build/**': false,
+    '.nyc_output/**': false,
+    '*.log': false
   },
   move: {
     // We keep `.gitignore` as `gitignore` in the project
