@@ -28,6 +28,8 @@
 
 ## Table of Contents
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ladjs/lad.svg)](https://greenkeeper.io/)
+
 * [Philosophy](#philosophy)
 * [Features](#features)
   * [Microservices](#microservices)
