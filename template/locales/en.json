@@ -27,5 +27,8 @@
   "An unknown error has occurred. We have been alerted of this issue. Please try again.": "An unknown error has occurred. We have been alerted of this issue. Please try again.",
   "Please log in to view the page you requested.": "Please log in to view the page you requested.",
   "An issue occurred while communicating with our payment provider. Please try again.": "An issue occurred while communicating with our payment provider. Please try again.",
-  "Please slightly change values to ensure slug uniqueness.": "Please slightly change values to ensure slug uniqueness."
+  "Please slightly change values to ensure slug uniqueness.": "Please slightly change values to ensure slug uniqueness.",
+  "Invalid token": "Invalid token",
+  "Invalid creds": "Invalid creds",
+  "You do not belong to the administrative user group": "You do not belong to the administrative user group"
 }

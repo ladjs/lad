@@ -27,5 +27,8 @@
   "An unknown error has occurred. We have been alerted of this issue. Please try again.": "Un error desconocido a ocurrido. Nos han alertado de este problema. Vuelve a intentarlo.",
   "Please log in to view the page you requested.": "Inicie sesión para ver la página solicitada.",
   "An issue occurred while communicating with our payment provider. Please try again.": "Se ha producido un problema al comunicarse con nuestro proveedor de pagos. Vuelve a intentarlo.",
-  "Please slightly change values to ensure slug uniqueness.": "Por favor, cambie ligeramente los valores para garantizar la unicidad de las babosas."
+  "Please slightly change values to ensure slug uniqueness.": "Por favor, cambie ligeramente los valores para garantizar la unicidad de las babosas.",
+  "Invalid token": "Simbolo no valido",
+  "Invalid creds": "Creds no válidas",
+  "You do not belong to the administrative user group": "No pertenece al grupo de usuarios administrativos"
 }
