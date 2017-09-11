@@ -18,7 +18,7 @@ async function update(ctx) {
 
   // extend the user object
   // (basically overwrites or "extends" the existing fields)
-  ctx.state.user = _.extend(ctx.state.user, _.pick(ctx.req.body, fields));
+  ctx.state.user = _.extend(ctx.state.user, _.pick(ctx.request.body, fields));
 
   // save the user (allow mongoose to handle validation)
   ctx.state.user = await ctx.state.user.save();

@@ -9,27 +9,29 @@ const { Jobs, Inquiries } = require('../../models');
 const config = require('../../../config');
 
 module.exports = async function(ctx) {
-  ctx.req.body = _.pick(ctx.req.body, ['email', 'message']);
+  let { body } = ctx.request;
 
-  if (!_.isString(ctx.req.body.email) || !validator.isEmail(ctx.req.body.email))
+  body = _.pick(body, ['email', 'message']);
+
+  if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
-  if (!_.isUndefined(ctx.req.body.message) && !_.isString(ctx.req.body.message))
-    delete ctx.req.body.message;
+  if (!_.isUndefined(body.message) && !_.isString(body.message))
+    delete body.message;
 
-  if (ctx.req.body.message)
-    ctx.req.body.message = sanitize(ctx.req.body.message, {
+  if (body.message)
+    body.message = sanitize(body.message, {
       allowedTags: [],
       allowedAttributes: []
     });
 
-  if (ctx.req.body.message && s.isBlank(ctx.req.body.message))
+  if (body.message && s.isBlank(body.message))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_MESSAGE')));
 
-  if (!ctx.req.body.message) {
-    ctx.req.body.message = ctx.translate('CONTACT_REQUEST_MESSAGE');
-    ctx.req.body.is_email_only = true;
-  } else if (ctx.req.body.message.length > config.contactRequestMaxLength) {
+  if (!body.message) {
+    body.message = ctx.translate('CONTACT_REQUEST_MESSAGE');
+    body.is_email_only = true;
+  } else if (body.message.length > config.contactRequestMaxLength) {
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_MESSAGE')));
   }
 
@@ -49,7 +51,7 @@ module.exports = async function(ctx) {
 
   try {
     const inquiry = await Inquiries.create({
-      ...ctx.req.body,
+      ...body,
       ip: ctx.req.ip
     });
 
@@ -62,7 +64,7 @@ module.exports = async function(ctx) {
       name: 'email',
       data: {
         template: 'inquiry',
-        to: ctx.req.body.email,
+        to: body.email,
         cc: config.email.from,
         locals: {
           locale: ctx.req.locale,
@@ -84,8 +86,8 @@ module.exports = async function(ctx) {
     // TODO: this should have a `user` object prop
     ctx.logger.error(err, {
       ip: ctx.req.ip,
-      message: ctx.req.body.message,
-      email: ctx.req.body.email
+      message: body.message,
+      email: body.email
     });
 
     ctx.throw(ctx.translate('CONTACT_REQUEST_ERROR'));
