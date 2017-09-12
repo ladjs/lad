@@ -23,6 +23,7 @@
     "boom": "^5.2.0",
     "bootstrap": "^4.0.0-beta",
     "bootstrap-social": "^5.1.1",
+    "cache-pug-templates": "^0.0.4",
     "chalk": "^2.1.0",
     "chart.js": "^2.6.0",
     "clipboard": "^1.7.1",
