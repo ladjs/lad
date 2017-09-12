@@ -464,7 +464,7 @@ async@^1.4.0, async@~1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.1.2:
+async@^2.1.2, async@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
   dependencies:
@@ -1548,6 +1548,14 @@ bytes@3.0.0:
 bytes@^2.3.0, bytes@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.5.0.tgz#4c9423ea2d252c270c41b2bdefeff9bb6b62c06a"
+
+cache-pug-templates@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/cache-pug-templates/-/cache-pug-templates-0.0.4.tgz#49f4f4c918a9e3801c46a8042afe87bf817356df"
+  dependencies:
+    async "^2.5.0"
+    debug "^3.0.1"
+    rev-hash "^2.0.0"
 
 cached-path-relative@^1.0.0:
   version "1.0.1"

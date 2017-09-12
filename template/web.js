@@ -28,6 +28,7 @@ const flash = require('koa-better-flash');
 const CSRF = require('koa-csrf');
 const StoreIPAddress = require('@ladjs/store-ip-address');
 const isajax = require('koa-isajax');
+const cachePugTemplates = require('cache-pug-templates');
 // const Meta = require('koa-meta');
 const Timeout = require('koa-better-timeout');
 const Mongoose = require('@ladjs/mongoose');
@@ -67,6 +68,9 @@ let server;
 
 app.on('error', helpers.logger.contextError.bind(helpers.logger));
 app.on('log', helpers.logger.log.bind(helpers.logger));
+
+// inherit cache variable for cache-pug-templates
+app.cache = config.views.locals.cache;
 
 // trust proxy
 app.proxy = true;
@@ -223,9 +227,13 @@ if (config.protocols.web === 'http') server = http.createServer(app.callback());
 else server = https.createServer(config.ssl.web, app.callback());
 
 if (!module.parent)
-  server = server.listen(config.ports.web, () =>
-    helpers.logger.info(`web server listening on ${config.ports.web}`)
-  );
+  server = server.listen(config.ports.web, () => {
+    helpers.logger.info(`web server listening on ${config.ports.web}`);
+    cachePugTemplates(app, redisClient, config.views.root, (err, cached) => {
+      if (err) return helpers.logger.error(err);
+      helpers.logger.debug(`successfully cached ${cached.length} views`);
+    });
+  });
 
 // handle process events and graceful restart
 const graceful = new Graceful({
