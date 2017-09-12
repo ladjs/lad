@@ -43,6 +43,7 @@
     "html-to-text": "^3.3.0",
     "html5-history-api": "^4.2.8",
     "i18n": "^0.8.3",
+    "ip": "^1.1.5",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.2.1",
     "jquery-lazy": "^1.7.5",
