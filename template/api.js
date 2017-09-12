@@ -15,6 +15,7 @@ const isajax = require('koa-isajax');
 const Timeout = require('koa-better-timeout');
 const Graceful = require('@ladjs/graceful');
 const Mongoose = require('@ladjs/mongoose');
+const ip = require('ip');
 
 const helpers = require('./helpers');
 const config = require('./config');
@@ -119,7 +120,9 @@ else server = https.createServer(config.ssl.api, app.callback());
 
 if (!module.parent)
   server = server.listen(config.ports.api, () =>
-    helpers.logger.info(`api server listening on ${config.ports.api}`)
+    helpers.logger.info(
+      `api server listening on ${ip.address()}:${config.ports.api}`
+    )
   );
 
 // handle process events and graceful restart
