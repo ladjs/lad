@@ -16,6 +16,7 @@ const views = require('koa-views');
 const logger = require('koa-logger');
 const methodOverride = require('koa-methodoverride');
 const bodyParser = require('koa-bodyparser');
+const koa404Handler = require('koa-404-handler');
 const json = require('koa-json');
 const errorHandler = require('koa-better-error-handler');
 const helmet = require('koa-helmet');
@@ -160,8 +161,8 @@ app.use(helpers.contextHelpers);
 // ajax request detection (sets `ctx.state.xhr` boolean)
 app.use(isajax());
 
-// custom 404 handler since it's not already built in
-app.use(helpers._404Handler);
+// 404 handler
+app.use(koa404Handler);
 
 // csrf (with added localization support)
 app.use((ctx, next) => {

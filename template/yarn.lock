@@ -99,9 +99,9 @@
     lodash "^4.17.4"
     underscore.string "^3.3.4"
 
-"@ladjs/logger@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.3.tgz#818f9e769cf25d5fbfb07e3c5b85ddffa1b0faa7"
+"@ladjs/logger@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.4.tgz#c28757b8e599780a22c7cf0bb2a586406af04811"
   dependencies:
     chalk "^2.1.0"
     debug "^3.0.1"
@@ -1529,10 +1529,6 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
 
-bulk-replace@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/bulk-replace/-/bulk-replace-0.0.1.tgz#f095682a896abd4b3d9e08de409cc222e213f9dd"
-
 bytes@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.2.0.tgz#fd35464a403f6f9117c2de3609ecff9cae000588"
@@ -2125,12 +2121,6 @@ commander@2.9.0:
 commander@^2.11.0, commander@^2.9.0, commander@~2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
-
-commander@~1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-1.1.1.tgz#50d1651868ae60eccff0a2d9f34595376bc6b041"
-  dependencies:
-    keypress "0.1.x"
 
 common-path-prefix@^1.0.0:
   version "1.0.0"
@@ -4958,12 +4948,6 @@ helmet@^3.6.1:
     referrer-policy "1.1.0"
     x-xss-protection "1.0.0"
 
-hepburn@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/hepburn/-/hepburn-1.0.0.tgz#49ce862942a77570cd4f5c8fe100b85d942cb61b"
-  dependencies:
-    bulk-replace "0.0.1"
-
 hide-powered-by@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/hide-powered-by/-/hide-powered-by-1.0.0.tgz#4a85ad65881f62857fc70af7174a1184dccce32b"
@@ -6118,10 +6102,6 @@ keygrip@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/keygrip/-/keygrip-1.0.2.tgz#ad3297c557069dea8bcfe7a4fa491b75c5ddeb91"
 
-keypress@0.1.x:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/keypress/-/keypress-0.1.0.tgz#4a3188d4291b66b4f65edb99f806aa9ae293592a"
-
 kind-of@^3.0.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -6139,6 +6119,10 @@ klaw@^1.0.0:
   resolved "https://registry.yarnpkg.com/klaw/-/klaw-1.3.1.tgz#4088433b46b3b1ba259d78785d8e96f73ba02439"
   optionalDependencies:
     graceful-fs "^4.1.9"
+
+koa-404-handler@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/koa-404-handler/-/koa-404-handler-0.0.1.tgz#c23f9578bbe99d2c3539e42bf9855766e79dde64"
 
 koa-better-error-handler@^1.2.0:
   version "1.2.0"
@@ -6457,14 +6441,6 @@ liftoff@^2.1.0, liftoff@^2.3.0:
     lodash.mapvalues "^4.4.0"
     rechoir "^0.6.2"
     resolve "^1.1.7"
-
-limax@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/limax/-/limax-1.5.0.tgz#bbe7f2d3231cef709ebef8c32e3c75bce8fa5734"
-  dependencies:
-    hepburn "^1.0.0"
-    pinyin "^2.8.2"
-    speakingurl "^13.0.0"
 
 lint-staged@^4.1.3:
   version "4.1.3"
@@ -7596,10 +7572,6 @@ nan@^2.0.7, nan@^2.3.0, nan@^2.3.2, nan@^2.3.4, nan@^2.4.0, nan@^2.6.2:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.7.0.tgz#d95bf721ec877e08db276ed3fc6eb78f9083ad46"
 
-nan@~2.3.0:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.3.5.tgz#822a0dc266290ce4cd3a12282ca3e7e364668a08"
-
 natives@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.0.tgz#e9ff841418a6b2ec7a495e939984f78f163e6e31"
@@ -7716,12 +7688,6 @@ node-sass@^4.2.0:
 node-status-codes@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/node-status-codes/-/node-status-codes-1.0.0.tgz#5ae5541d024645d32a58fcddc9ceecea7ae3ac2f"
-
-nodejieba@^2.2.1:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/nodejieba/-/nodejieba-2.2.5.tgz#821441a683fad25ebd2c8dde1401dd43dbeb027a"
-  dependencies:
-    nan "~2.3.0"
 
 nodemailer-base64-to-s3@0.0.2:
   version "0.0.2"
@@ -8504,15 +8470,6 @@ pinkie@^1.0.0:
 pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
-
-pinyin@^2.8.2:
-  version "2.8.3"
-  resolved "https://registry.yarnpkg.com/pinyin/-/pinyin-2.8.3.tgz#301ccb4358ccfe802523c4bd640a612bee4d7c4b"
-  dependencies:
-    commander "~1.1.1"
-    object-assign "^4.0.1"
-  optionalDependencies:
-    nodejieba "^2.2.1"
 
 pkg-conf@^2.0.0:
   version "2.0.0"
@@ -10777,9 +10734,9 @@ spdx-license-list@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/spdx-license-list/-/spdx-license-list-3.0.1.tgz#163d72123e00f4f8bd6e18125696b009f1248ff5"
 
-speakingurl@^13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/speakingurl/-/speakingurl-13.0.0.tgz#266c52d2b47585375af058e4783c8d1097a2d3db"
+speakingurl@^14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/speakingurl/-/speakingurl-14.0.1.tgz#f37ec8ddc4ab98e9600c1c9ec324a8c48d772a53"
 
 spinkit@^1.2.5:
   version "1.2.5"

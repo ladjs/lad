@@ -4,7 +4,7 @@ const isEmail = require('is-email');
 const superb = require('superb');
 const camelcase = require('camelcase');
 const uppercamelcase = require('uppercamelcase');
-const slug = require('limax');
+const slug = require('speakingurl');
 const npmConf = require('npm-conf');
 const isValidNpmName = require('is-valid-npm-name');
 

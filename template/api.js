@@ -6,6 +6,7 @@ const responseTime = require('koa-response-time');
 const rateLimit = require('koa-simple-ratelimit');
 const logger = require('koa-logger');
 const bodyParser = require('koa-bodyparser');
+const koa404Handler = require('koa-404-handler');
 const json = require('koa-json');
 const errorHandler = require('koa-better-error-handler');
 const removeTrailingSlashes = require('koa-no-trailing-slash');
@@ -111,8 +112,8 @@ app.use(storeIPAddress.middleware.bind(storeIPAddress));
 // mount the app's defined and nested routes
 app.use(routes.api.routes());
 
-// custom 404 handler since it's not already built in
-app.use(helpers._404Handler);
+// 404 handler
+app.use(koa404Handler);
 
 // start server on either http or https
 if (config.protocols.api === 'http') server = http.createServer(app.callback());
