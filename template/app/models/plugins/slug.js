@@ -1,6 +1,6 @@
 const s = require('underscore.string');
 const _ = require('lodash');
-const slug = require('limax');
+const slug = require('speakingurl');
 
 const { logger, i18n } = require('../../../helpers');
 

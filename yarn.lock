@@ -2827,9 +2827,9 @@ is-utf8@^0.2.0, is-utf8@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
 
-is-valid-npm-name@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/is-valid-npm-name/-/is-valid-npm-name-0.0.2.tgz#cd0275e68fbd2ffb517d3cd3b598dc32c614f035"
+is-valid-npm-name@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/is-valid-npm-name/-/is-valid-npm-name-0.0.3.tgz#151c71f6d2e9e0e7bef05d8cc6855551fc52c170"
   dependencies:
     limax "^1.5.0"
 
@@ -5358,6 +5358,10 @@ spdx-license-list@^3.0.1:
 speakingurl@^13.0.0:
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/speakingurl/-/speakingurl-13.0.0.tgz#266c52d2b47585375af058e4783c8d1097a2d3db"
+
+speakingurl@^14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/speakingurl/-/speakingurl-14.0.1.tgz#f37ec8ddc4ab98e9600c1c9ec324a8c48d772a53"
 
 sprintf-js@~1.0.2:
   version "1.0.3"
