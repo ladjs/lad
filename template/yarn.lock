@@ -1549,9 +1549,9 @@ bytes@^2.3.0, bytes@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.5.0.tgz#4c9423ea2d252c270c41b2bdefeff9bb6b62c06a"
 
-cache-pug-templates@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/cache-pug-templates/-/cache-pug-templates-0.0.4.tgz#49f4f4c918a9e3801c46a8042afe87bf817356df"
+cache-pug-templates@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/cache-pug-templates/-/cache-pug-templates-0.0.5.tgz#afd83555613cdd5e3b0bd0f559092ed9ff60e33c"
   dependencies:
     async "^2.5.0"
     debug "^3.0.1"
