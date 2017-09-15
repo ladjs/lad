@@ -6270,11 +6270,12 @@ koa-manifest-rev@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/koa-manifest-rev/-/koa-manifest-rev-0.3.0.tgz#e043e26a2885c7419b2c8abbe49ed3657d03f48a"
 
-koa-meta@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/koa-meta/-/koa-meta-0.0.2.tgz#d64f6b2b067699348b641fb770ad1a1eca35baac"
+koa-meta@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/koa-meta/-/koa-meta-0.0.3.tgz#b5c554fe30dd84ca59d82b5ff8c4b6c5f3d2c331"
   dependencies:
     "@ladjs/logger" "^0.0.1"
+    auto-bind "^1.1.0"
     sanitize-html "^1.14.1"
 
 koa-methodoverride@^2.0.0:
