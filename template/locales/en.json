@@ -134,5 +134,62 @@
   "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.":
     "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.",
   "This is a paragraph of placeholder text that will be automatically translated.":
-    "This is a paragraph of placeholder text that will be automatically translated."
+    "This is a paragraph of placeholder text that will be automatically translated.",
+  "Sign Up Now": "Sign Up Now",
+  "Hi there!": "Hi there!",
+  "Sign Up with Email": "Sign Up with Email",
+  "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>":
+    "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>",
+  "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>":
+    "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>",
+  "Account": "Account",
+  "My Account": "My Account",
+  "Admin": "Admin",
+  "Log out": "Log out",
+  "Complete the form below to get in touch.":
+    "Complete the form below to get in touch.",
+  "Message": "Message",
+  "We'll be in contact with you!": "We'll be in contact with you!",
+  "Send Contact Request": "Send Contact Request",
+  "Contact &#124; <span class=\"notranslate\">Lad</span>":
+    "Contact &#124; <span class=\"notranslate\">Lad</span>",
+  "Contact Lad with your questions and comments":
+    "Contact Lad with your questions and comments",
+  "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>":
+    "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>",
+  "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>":
+    "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>",
+  "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>":
+    "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>",
+  "Forgot Password": "Forgot Password",
+  "If you need to reset your password, then enter your email below.":
+    "If you need to reset your password, then enter your email below.",
+  "Send Password Reset Link": "Send Password Reset Link",
+  "Remember your password?": "Remember your password?",
+  "Log in now": "Log in now",
+  "thank you for signing up": "thank you for signing up",
+  "Hi": "Hi",
+  "Welcome to our website!  Thank you for signing up.":
+    "Welcome to our website!  Thank you for signing up.",
+  "reset your password": "reset your password",
+  "Please": "Please",
+  "now, and remember that this link will expire":
+    "now, and remember that this link will expire",
+  "Dashboard": "Dashboard",
+  "This is your account page.": "This is your account page.",
+  "API Key": "API Key",
+  "Copy": "Copy",
+  "Log in &#124; <span class=\"notranslate\">Lad</span>":
+    "Log in &#124; <span class=\"notranslate\">Lad</span>",
+  "Log in to your account": "Log in to your account",
+  "My Account &#124; <span class=\"notranslate\">Lad</span>":
+    "My Account &#124; <span class=\"notranslate\">Lad</span>",
+  "View your account and manage your settings":
+    "View your account and manage your settings",
+  "Sign up &#124; <span class=\"notranslate\">Lad</span>":
+    "Sign up &#124; <span class=\"notranslate\">Lad</span>",
+  "Sign up for an account": "Sign up for an account",
+  "About &#124; <span class=\"notranslate\">Lad</span>":
+    "About &#124; <span class=\"notranslate\">Lad</span>",
+  "Learn more about Lad": "Learn more about Lad"
 }

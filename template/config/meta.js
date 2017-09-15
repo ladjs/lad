@@ -14,7 +14,9 @@
 // before returning them to be rendered in tags such as
 // `<title>` and `<meta name="description">`
 //
+
 module.exports = function(config) {
+  const lad = `&#124; <span class="notranslate">${config.appName}</span>`;
   return {
     '/': [
       // currently we cannot use the `|` pipe character due to this issue
@@ -22,8 +24,37 @@ module.exports = function(config) {
       // otherwise we'd have `| Lad` below, which is SEO standard
       // so instead we need to use `&#124;` which is the html entity
       // which gets decoded to a `|` in the helper.meta function
-      `Home &#124; <span class="notranslate">${config.appName}</span>`,
+      `Home ${lad}`,
       config.pkg.description
+    ],
+    '/about': [`About ${lad}`, `Learn more about ${config.appName}`],
+    '/terms': [`Terms ${lad}`, 'Read our terms and conditions of use'],
+    '/contact': [
+      `Contact ${lad}`,
+      `Contact ${config.appName} with your questions and comments`
+    ],
+    '/login': [`Log in ${lad}`, 'Log in to your account'],
+    '/signup': [`Sign up ${lad}`, 'Sign up for an account'],
+    '/my-account': [
+      `My Account ${lad}`,
+      'View your account and manage your settings'
+    ],
+    '/admin': [`Admin ${lad}`, 'Admin dashboard for administrative management'],
+    '/forgot-password': [
+      `Forgot password ${lad}`,
+      'Get access to your access by resetting your password'
+    ],
+    '/404': [
+      `Page not found ${lad}`,
+      'The page you requested could not be found'
+    ],
+    '/500': [
+      `Server error ${lad}`,
+      'A server error has unfortunately occurred'
+    ],
+    '/reset-password': [
+      `Reset password ${lad}`,
+      'Confirm your password reset token'
     ]
   };
 };

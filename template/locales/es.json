@@ -136,5 +136,62 @@
   "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.":
     "Donec Identificación elit non mi porta mujer embarazada en el eget metus Sed congue. dapibus Fusce, Tellus ac cursus commodo, tortor mauris condimentum nibh, ut sit amet Justo fermentum RISUS. Incluso la ensalada puerta malesuada con un rendimiento suave. Pero hasta que odiaba la pena.",
   "This is a paragraph of placeholder text that will be automatically translated.":
-    "Este es un párrafo de texto reservado que se traducirá automáticamente."
+    "Este es un párrafo de texto reservado que se traducirá automáticamente.",
+  "Sign Up Now": "Regístrese ahora",
+  "Hi there!": "¡Hola!",
+  "Sign Up with Email": "Ingresa con e-mail",
+  "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>":
+    "Al registrarse, usted acepta nuestros <a href=\"/es/terms\" class=\"card-link\">Términos</a>",
+  "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>":
+    "¿Ya tienes una cuenta? <a href=\"/es/login\" class=\"card-link\">Iniciar sesión</a>",
+  "Account": "Cuenta",
+  "My Account": "Mi cuenta",
+  "Admin": "Administración",
+  "Log out": "Cerrar sesión",
+  "Complete the form below to get in touch.":
+    "Complete el siguiente formulario para ponerse en contacto.",
+  "Message": "Mensaje",
+  "We'll be in contact with you!": "Estaremos en contacto con usted!",
+  "Send Contact Request": "Enviar solicitud de contacto",
+  "Contact &#124; <span class=\"notranslate\">Lad</span>":
+    "Contacto &#124; <span class=\"notranslate\">Lad</span>",
+  "Contact Lad with your questions and comments":
+    "Contacto Lad con sus preguntas y comentarios",
+  "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>":
+    "Al registrarse, usted acepta nuestros <a href=\"/en/terms\" class=\"card-link\">Términos</a>",
+  "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>":
+    "¿Ya tienes una cuenta? <a href=\"/en/login\" class=\"card-link\">Iniciar sesión</a>",
+  "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>":
+    "¿No tiene una cuenta? <a href=\"/en/signup\" class=\"card-link\">Regístrate</a>",
+  "Forgot Password": "Se te olvidó tu contraseña",
+  "If you need to reset your password, then enter your email below.":
+    "Si necesita restablecer su contraseña, ingrese su correo electrónico a continuación.",
+  "Send Password Reset Link": "Enviar contraseña Restablecer enlace",
+  "Remember your password?": "¿Recuerdas tu contraseña?",
+  "Log in now": "Inicia sesión ahora",
+  "thank you for signing up": "Gracias por registrarte",
+  "Hi": "Hola",
+  "Welcome to our website!  Thank you for signing up.":
+    "¡Bienvenido a nuestro sitio web! Gracias por registrarte.",
+  "reset your password": "Restablecer su contraseña",
+  "Please": "Por favor",
+  "now, and remember that this link will expire":
+    "ahora, y recuerde que este enlace expirará",
+  "Dashboard": "Tablero",
+  "This is your account page.": "Esta es la página de su cuenta.",
+  "API Key": "Clave API",
+  "Copy": "Dupdo",
+  "Log in &#124; <span class=\"notranslate\">Lad</span>":
+    "Entrar &#124; <span class=\"notranslate\">Lad</span>",
+  "Log in to your account": "Ingrese a su cuenta",
+  "My Account &#124; <span class=\"notranslate\">Lad</span>":
+    "My Account &#124; <span class=\"notranslate\">Lad</span>",
+  "View your account and manage your settings":
+    "View your account and manage your settings",
+  "Sign up &#124; <span class=\"notranslate\">Lad</span>":
+    "Sign up &#124; <span class=\"notranslate\">Lad</span>",
+  "Sign up for an account": "Sign up for an account",
+  "About &#124; <span class=\"notranslate\">Lad</span>":
+    "About &#124; <span class=\"notranslate\">Lad</span>",
+  "Learn more about Lad": "Learn more about Lad"
 }

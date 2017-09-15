@@ -127,5 +127,58 @@
   "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.":
     "Donec ID ELIT非MI PORTA孕妇在eget metus桑达congue。 Fusce dapibus，得力士交流的cursus commodo，tortor mauris condimentum NIBH，UT胡斯托发酵坐阿梅德risus。即使malesuada门沙拉软的性能。但是，直到讨厌值得的。",
   "This is a paragraph of placeholder text that will be automatically translated.":
-    "这是一个占位符文本的段落，将自动翻译。"
+    "这是一个占位符文本的段落，将自动翻译。",
+  "Sign Up Now": "立即注册",
+  "Hi there!": "你好！",
+  "Sign Up with Email": "用电子邮件注册",
+  "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>":
+    "注册后，即表示您同意我们的<a href=\"/es/terms\" class=\"card-link\">条款</a>",
+  "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>":
+    "已经有账户？ <a href=\"/es/login\" class=\"card-link\">登录</a>",
+  "Account": "帐户",
+  "My Account": "我的帐户",
+  "Admin": "管理员",
+  "Log out": "登出",
+  "Complete the form below to get in touch.": "填写下面的表格以联系。",
+  "Message": "信息",
+  "We'll be in contact with you!": "我们会和你联系！",
+  "Send Contact Request": "发送联系请求",
+  "Contact &#124; <span class=\"notranslate\">Lad</span>":
+    "联系&#124; <span class=\"notranslate\">Lad</span>",
+  "Contact Lad with your questions and comments": "联系Lad与您的问题和意见",
+  "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>":
+    "注册后，即表示您同意我们的<a href=\"/en/terms\" class=\"card-link\">条款</a>",
+  "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>":
+    "已经有账户？ <a href=\"/en/login\" class=\"card-link\">登录</a>",
+  "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>":
+    "没有帐号？ <a href=\"/en/signup\" class=\"card-link\">注册</a>",
+  "Forgot Password": "忘记密码",
+  "If you need to reset your password, then enter your email below.":
+    "如果您需要重置密码，请在下面输入您的电子邮件。",
+  "Send Password Reset Link": "发送密码重置链接",
+  "Remember your password?": "记住你的密码？",
+  "Log in now": "现在登录",
+  "thank you for signing up": "谢谢您注册",
+  "Hi": "你好",
+  "Welcome to our website!  Thank you for signing up.": "欢迎来到我们的网站！谢谢您注册。",
+  "reset your password": "重置你的密码",
+  "Please": "请",
+  "now, and remember that this link will expire": "现在，并记住这个链接会过期",
+  "Dashboard": "仪表板",
+  "This is your account page.": "这是您的帐户页面。",
+  "API Key": "API密钥",
+  "Copy": "复制",
+  "Log in &#124; <span class=\"notranslate\">Lad</span>":
+    "登录&#124; <span class=\"notranslate\">Lad</span>",
+  "Log in to your account": "登录到您的帐户",
+  "My Account &#124; <span class=\"notranslate\">Lad</span>":
+    "My Account &#124; <span class=\"notranslate\">Lad</span>",
+  "View your account and manage your settings":
+    "View your account and manage your settings",
+  "Sign up &#124; <span class=\"notranslate\">Lad</span>":
+    "Sign up &#124; <span class=\"notranslate\">Lad</span>",
+  "Sign up for an account": "Sign up for an account",
+  "About &#124; <span class=\"notranslate\">Lad</span>":
+    "About &#124; <span class=\"notranslate\">Lad</span>",
+  "Learn more about Lad": "Learn more about Lad"
 }
