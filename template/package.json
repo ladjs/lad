@@ -13,7 +13,7 @@
     "@ladjs/dotenv-extended": "^2.0.3",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/koa-better-static": "^1.0.5",
-    "@ladjs/logger": "^0.0.4",
+    "@ladjs/logger": "^0.0.5",
     "@ladjs/mongoose": "^0.0.3",
     "@ladjs/store-ip-address": "^0.0.2",
     "accounting": "^0.4.1",

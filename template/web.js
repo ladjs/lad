@@ -68,8 +68,8 @@ const redisStore = new RedisStore({
 // later on with `server.close()`
 let server;
 
-app.on('error', helpers.logger.contextError.bind(helpers.logger));
-app.on('log', helpers.logger.log.bind(helpers.logger));
+app.on('error', helpers.logger.contextError);
+app.on('log', helpers.logger.log);
 
 // inherit cache variable for cache-pug-templates
 app.cache = config.views.locals.cache;
