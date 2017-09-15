@@ -70,63 +70,62 @@
   "Home &#124; <span class=\"notranslate\">Lad</span>":
     "首页&#124; <span class=\"notranslate\">Lad</span>",
   "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.":
-    "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.",
-  "Use License": "Use License",
+    "访问本网站即表示您同意遵守这些网站使用条款和条件，所有适用的法律法规，并同意您遵守任何适用的当地法律。如果您不同意这些条款，您将被禁止使用或访问本网站。本网站所含材料受适用的版权和商标法保护。",
+  "Use License": "使用许可证",
   "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:":
-    "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",
-  "modify or copy the materials;": "modify or copy the materials;",
+    "授权允许在Lad网站上暂时下载一份资料（信息或软件）副本，用于个人，非商业性的短期观看。这是授予许可证，而不是转让所有权，根据此许可，您不得：",
+  "modify or copy the materials;": "修改或复制材料;",
   "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);":
-    "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);",
+    "使用这些材料用于任何商业目的，或用于任何公开展示（商业或非商业）;",
   "attempt to decompile or reverse engineer any software contained on Lad's web site;":
-    "attempt to decompile or reverse engineer any software contained on Lad's web site;",
+    "尝试反编译或反向设计Lad网站上包含的任何软件;",
   "remove any copyright or other proprietary notations from the materials; or":
-    "remove any copyright or other proprietary notations from the materials; or",
+    "从材料中删除任何版权或其他专有符号;要么",
   "transfer the materials to another person or \"mirror\" the materials on any other server.":
-    "transfer the materials to another person or \"mirror\" the materials on any other server.",
-  "use the materials or service for any illegal purposes":
-    "use the materials or service for any illegal purposes",
+    "将材料转移到另一个人或“镜像”任何其他服务器上的材料。",
+  "use the materials or service for any illegal purposes": "使用材料或服务的任何非法目的",
   "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.":
-    "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.",
-  "Disclaimer": "Disclaimer",
+    "如果您违反任何这些限制，并且随时可能会被终止，本许可证将自动终止。在终止您查看这些资料或终止本许可证后，您必须以电子或印刷格式销毁您拥有的任何下载的材料。",
+  "Disclaimer": "放弃",
   "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.":
-    "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.",
-  "Limitations": "Limitations",
+    "Lad网站上的资料“按原样”提供。 Lad不作任何明示或默示的保证，并且特此放弃和否定所有其他保证，包括但不限于默示保证或适销性条件，适用于特定目的，或不侵犯知识产权或其他侵犯权利。此外，Lad Lad。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。",
+  "Limitations": "限制",
   "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.":
-    "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.",
-  "Revisions and Errata": "Revisions and Errata",
+    "在任何情况下，Lad或其供应商对使用或无法使用Lad网站上的材料造成的任何损害（包括但不限于数据丢失或利润损失或由于业务中断造成的损失）负责，即使Lad或Lad授权代表已经通过口头或书面通知这种损害的可能性。由于某些司法管辖区不允许对隐含担保的限制，或间接或偶然损害的责任限制，这些限制可能不适用于您。",
+  "Revisions and Errata": "修订和勘误",
   "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.":
-    "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.",
-  "Links": "Links",
+    "Lad网站上出现的材料可能包括技术，印刷或摄影错误。 Lad不保证其网站上的任何材料是准确，完整或最新的。 Lad可以随时更改其网站上的材料，恕不另行通知。但是，Lad不承诺更新资料。",
+  "Links": "链接",
   "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.":
-    "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.",
-  "Site Terms of Use Modifications": "Site Terms of Use Modifications",
+    "Lad没有审查所有与其互联网网站相关的网站，对任何此类链接网站的内容概不负责。列入任何链接并不意味着该网站的认可。任何此类链接网站的使用由用户自己承担风险。",
+  "Site Terms of Use Modifications": "网站使用条款修改",
   "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.":
-    "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.",
-  "Governing Law": "Governing Law",
+    "Lad可随时修改其网站的使用条款，恕不另行通知。通过使用本网站，您同意受当前版本的这些使用条款和条件的约束。",
+  "Governing Law": "适用法律",
   "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.":
-    "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.",
+    "与Lad网站相关的任何索赔均受特拉华州法律管辖，不受其法律冲突规定的约束。",
   "General Terms and Conditions applicable to Use of a Web Site.":
-    "General Terms and Conditions applicable to Use of a Web Site.",
-  "About": "About",
-  "Server Error": "Server Error",
+    "适用于使用网站的一般条款和条件。",
+  "About": "关于",
+  "Server Error": "服务器错误",
   "A server error has unfortunately occurred.  If this error persists, please contact us.":
-    "A server error has unfortunately occurred.  If this error persists, please contact us.",
-  "Log In Now": "Log In Now",
-  "Welcome back!": "Welcome back!",
-  "Email address": "Email address",
-  "Password": "Password",
-  "Log In with Email": "Log In with Email",
-  "Forget your password?": "Forget your password?",
+    "服务器错误不幸发生。如果此错误仍然存​​在，请与我们联系。",
+  "Log In Now": "现在登录",
+  "Welcome back!": "欢迎回来！",
+  "Email address": "电子邮件地址",
+  "Password": "密码",
+  "Log In with Email": "用电子邮件登录",
+  "Forget your password?": "忘记密码？",
   "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>":
-    "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>",
+    "没有帐号？ <a href=\"/es/signup\" class=\"card-link\">注册</a>",
   "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.":
-    "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.",
-  "Hello, world!": "Hello, world!",
-  "Heading": "Heading",
-  "Learn more »": "Learn more »",
-  "View details »": "View details »",
+    "这是一个简单营销或信息网站的模板。它包括一个称为jumbotron的大标题和三个支持的内容。使用它作为创建更独特的东西的起点。",
+  "Hello, world!": "你好，世界！",
+  "Heading": "标题",
+  "Learn more »": "学到更多 ”",
+  "View details »": "查看详情 ”",
   "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.":
-    "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.",
+    "Donec ID ELIT非MI PORTA孕妇在eget metus桑达congue。 Fusce dapibus，得力士交流的cursus commodo，tortor mauris condimentum NIBH，UT胡斯托发酵坐阿梅德risus。即使malesuada门沙拉软的性能。但是，直到讨厌值得的。",
   "This is a paragraph of placeholder text that will be automatically translated.":
-    "This is a paragraph of placeholder text that will be automatically translated."
+    "这是一个占位符文本的段落，将自动翻译。"
 }
