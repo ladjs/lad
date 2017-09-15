@@ -196,7 +196,7 @@ app.use(helpers.passport.session());
 app.use(helpers.dynamicViewHelpers);
 
 // add support for SEO <title> and <meta name="description">
-app.use(meta.middleware.bind(meta));
+app.use(meta.middleware);
 
 // configure timeout
 app.use(async (ctx, next) => {

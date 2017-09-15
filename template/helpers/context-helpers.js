@@ -12,7 +12,6 @@ module.exports = function(ctx, next) {
 
   // TODO: this should automatically add
   // user and metadata to log meta object
-  // bind logger
   ctx.logger = logger;
 
   return next();

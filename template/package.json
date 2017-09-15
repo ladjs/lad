@@ -67,7 +67,7 @@
     "koa-livereload": "^0.2.0",
     "koa-logger": "^3.0.1",
     "koa-manifest-rev": "^0.3.0",
-    "koa-meta": "^0.0.2",
+    "koa-meta": "^0.0.3",
     "koa-methodoverride": "^2.0.0",
     "koa-no-trailing-slash": "^2.0.0",
     "koa-passport": "^4.0.0",
