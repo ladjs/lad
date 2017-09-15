@@ -14,13 +14,13 @@ const translate = promisify(googleTranslate.translate).bind(googleTranslate);
 
 module.exports = async function(job, done) {
   const defaultFields = _.zipObject(
-    _.values(config.i18n),
-    _.values(config.i18n)
+    _.values(config.i18n.phrases),
+    _.values(config.i18n.phrases)
   );
 
   const defaultLocaleFilePath = path.join(
-    config.localesDirectory,
-    `${config.defaultLocale}.json`
+    config.i18n.directory,
+    `${config.i18n.defaultLocale}.json`
   );
 
   let defaultLocaleFile;
@@ -32,10 +32,10 @@ module.exports = async function(job, done) {
 
   try {
     await Promise.all(
-      config.locales.map(locale => {
+      config.i18n.locales.map(locale => {
         logger.info(`checking locale of "${locale}"`);
         return new Promise(async (resolve, reject) => {
-          const filePath = path.join(config.localesDirectory, `${locale}.json`);
+          const filePath = path.join(config.i8n.directory, `${locale}.json`);
 
           // look up the file, and if it does not exist, then
           // create it with an empty object
@@ -51,20 +51,20 @@ module.exports = async function(job, done) {
 
           // if the locale is not the default
           // then check if translations need done
-          if (locale !== config.defaultLocale) {
+          if (locale !== config.i18n.defaultLocale) {
             const translationsRequired = _.intersection(
               _.uniq(
-                _.concat(_.values(config.i18n), _.values(defaultLocaleFile))
+                _.concat(
+                  _.values(config.i18n.phrases),
+                  _.values(defaultLocaleFile)
+                )
               ),
               _.values(file)
             );
 
             if (translationsRequired.length > 0)
-              logger.warn(
-                [
-                  `the following phrases need translated in ${locale}:`,
-                  ...translationsRequired
-                ].join('\n')
+              logger.info(
+                `translating (${translationsRequired.length}) phrases in ${locale}`
               );
 
             // attempt to translate all of these in the given language
@@ -79,7 +79,7 @@ module.exports = async function(job, done) {
               return Promise.race([
                 new Promise(resolve => {
                   setTimeout(() => {
-                    logger.info('google translate API did not respond in 4s');
+                    logger.warn('google translate API did not respond in 4s');
                     resolve();
                   }, 20000);
                 }),

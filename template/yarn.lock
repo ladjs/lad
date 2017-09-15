@@ -77,12 +77,36 @@
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@ladjs/dotenv/-/dotenv-4.0.2.tgz#d762562db502293cb9c85b8dbc93ac2187849a4c"
 
+"@ladjs/env@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/env/-/env-0.0.1.tgz#67d87ff92631ba3ef58a8b10bfaf7ed18fa08143"
+  dependencies:
+    "@ladjs/dotenv-extended" "^2.0.3"
+    dotenv-mustache "^1.0.0"
+    dotenv-parse-variables "^0.1.0"
+
 "@ladjs/graceful@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/graceful/-/graceful-0.0.1.tgz#7e7ecc58a3f60febc079c5190536a0f7ae852f6b"
   dependencies:
     debug "^3.0.1"
     stop-agenda "^0.0.5"
+
+"@ladjs/i18n@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-0.0.1.tgz#9506bf6db6349d200574e805c02d3f355e6bf671"
+  dependencies:
+    auto-bind "^1.1.0"
+    boom "^5.2.0"
+    country-language "^0.1.7"
+    i18n "^0.8.3"
+    i18n-locales "^0.0.1"
+    lodash.every "^4.6.0"
+    lodash.isempty "^4.4.0"
+    lodash.sortby "^4.7.0"
+    moment "^2.18.1"
+    qs "^6.5.1"
+    underscore.string "^3.3.4"
 
 "@ladjs/koa-better-static@^1.0.5":
   version "1.0.5"
@@ -99,10 +123,11 @@
     lodash "^4.17.4"
     underscore.string "^3.3.4"
 
-"@ladjs/logger@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.4.tgz#c28757b8e599780a22c7cf0bb2a586406af04811"
+"@ladjs/logger@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@ladjs/logger/-/logger-0.0.5.tgz#6c04066d027848433afd83f466641e56794719a6"
   dependencies:
+    auto-bind "^1.1.0"
     chalk "^2.1.0"
     debug "^3.0.1"
     lodash "^4.17.4"
@@ -5143,6 +5168,10 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
+i18n-locales@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/i18n-locales/-/i18n-locales-0.0.1.tgz#4a9e9a505e0d4c0bb2cdbe693569a718425fee57"
+
 i18n@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/i18n/-/i18n-0.8.3.tgz#2d8cf1c24722602c2041d01ba6ae5eaa51388f0e"
@@ -6251,9 +6280,9 @@ koa-manifest-rev@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/koa-manifest-rev/-/koa-manifest-rev-0.3.0.tgz#e043e26a2885c7419b2c8abbe49ed3657d03f48a"
 
-koa-meta@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/koa-meta/-/koa-meta-0.0.1.tgz#aa75d6d81efbe6c646aec54e44833f2ab0a9f898"
+koa-meta@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/koa-meta/-/koa-meta-0.0.2.tgz#d64f6b2b067699348b641fb770ad1a1eca35baac"
   dependencies:
     "@ladjs/logger" "^0.0.1"
     sanitize-html "^1.14.1"
@@ -6715,6 +6744,10 @@ lodash.escape@~2.4.1:
     lodash._reunescapedhtml "~2.4.1"
     lodash.keys "~2.4.1"
 
+lodash.every@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.every/-/lodash.every-4.6.0.tgz#eb89984bebc4364279bb3aefbbd1ca19bfa6c6a7"
+
 lodash.filter@^4.2.0, lodash.filter@^4.4.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.filter/-/lodash.filter-4.6.0.tgz#668b1d4981603ae1cc5a6fa760143e480b4c4ace"
@@ -6747,7 +6780,7 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
-lodash.isempty@^4.1.2:
+lodash.isempty@^4.1.2, lodash.isempty@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.isempty/-/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
 
@@ -6845,7 +6878,7 @@ lodash.some@^4.4.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.some/-/lodash.some-4.6.0.tgz#1bb9f314ef6b8baded13b549169b2a945eb68e4d"
 
-lodash.sortby@^4.5.0:
+lodash.sortby@^4.5.0, lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
 
@@ -9059,7 +9092,7 @@ qs@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-5.2.0.tgz#a9f31142af468cb72b25b30136ba2456834916be"
 
-qs@^6.2.0, qs@^6.4.0, qs@^6.5.0:
+qs@^6.2.0, qs@^6.4.0, qs@^6.5.0, qs@^6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 

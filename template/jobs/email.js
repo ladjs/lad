@@ -121,13 +121,13 @@ module.exports = async function(job, done) {
     // if there was a locale object passed
     if (
       _.isString(job.attrs.data.locals.locale) &&
-      _.includes(config.locales, job.attrs.data.locals.locale)
+      _.includes(config.i18n.locales, job.attrs.data.locals.locale)
     )
       i18n.setLocale(job.attrs.data.locals.locale);
     else if (
       _.isObject(job.attrs.data.locals.user) &&
       _.isString(job.attrs.data.locals.user.last_locale) &&
-      _.includes(config.locales, job.attrs.data.locals.user.last_locale)
+      _.includes(config.i18n.locales, job.attrs.data.locals.user.last_locale)
     )
       // else if the locale was not explicitly set
       // then check if there was a user object

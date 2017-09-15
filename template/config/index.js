@@ -3,24 +3,15 @@ const path = require('path');
 const strength = require('strength');
 const consolidate = require('consolidate');
 const _ = require('lodash');
-const dotenvExtended = require('@ladjs/dotenv-extended');
-const dotenvMustache = require('dotenv-mustache');
-const dotenvParseVariables = require('dotenv-parse-variables');
+const Logger = require('@ladjs/logger');
+const I18N = require('@ladjs/i18n');
+const env = require('@ladjs/env');
 
 const pkg = require('../../package');
 const environments = require('./environments');
-const locales = require('./locales');
 const utilities = require('./utilities');
-const i18n = require('./i18n');
+const phrases = require('./phrases');
 const meta = require('./meta');
-
-let env = dotenvExtended.load({
-  silent: false,
-  errorOnMissing: true,
-  errorOnExtra: true
-});
-env = dotenvMustache(env);
-env = dotenvParseVariables(env);
 
 const omitCommonFields = ['_id', '__v'];
 
@@ -37,9 +28,6 @@ const config = {
 
   // if we should send email or not
   sendEmail: env.SEND_EMAIL,
-
-  // default language/locale
-  defaultLocale: 'en',
 
   // package.json
   pkg,
@@ -101,9 +89,13 @@ const config = {
   },
   appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
   appName: env.APP_NAME,
-  i18nUpdateFiles: env.I18N_UPDATE_FILES,
-  i18nAutoReload: env.I18N_AUTO_RELOAD,
-  i18nSyncFiles: env.I18N_SYNC_FILES,
+  i18n: {
+    phrases
+    // see @ladjs/i18n for a list of defaults
+    // <https://github.com/ladjs/i18n>
+    // but for complete configuration reference please see:
+    // <https://github.com/mashpie/i18n-node#list-of-all-configuration-options>
+  },
   serveStatic: {
     // <https://github.com/niftylettuce/koa-better-static#options>
   },
@@ -146,9 +138,6 @@ const config = {
     'google_access_token',
     'google_refresh_token'
   ],
-
-  // localization
-  localesDirectory: path.join(__dirname, '..', 'locales'),
 
   // agenda
   agenda: {
@@ -197,7 +186,8 @@ const config = {
       cache: env.NODE_ENV !== 'development',
       // debug: env.NODE_ENV === 'development',
       // compileDebug: env.NODE_ENV === 'development',
-      ...utilities
+      ...utilities,
+      filters: {}
     }
   },
 
@@ -279,10 +269,6 @@ const config = {
   }
 };
 
-// localization support
-config.locales = locales;
-config.i18n = i18n;
-
 // merge environment configurations
 if (_.isObject(environments[env.NODE_ENV]))
   _.merge(config, environments[env.NODE_ENV]);
@@ -296,7 +282,18 @@ config.auth.hasThirdPartyProviders = _.some(
 // meta support for SEO
 config.meta = meta(config);
 
+// add i18n filter to views `:translate(locale)`
+const logger = new Logger(config.logger);
+const i18n = new I18N({
+  ...config.i18n,
+  logger
+});
+config.views.locals.filters.translate = function() {
+  return i18n.api.t(...arguments);
+};
+
 // add global `config` object to be used by views
+// TODO: whitelist keys here via `_.pick`
 config.views.locals.config = config;
 
 module.exports = config;
