@@ -31,7 +31,7 @@ const StoreIPAddress = require('@ladjs/store-ip-address');
 const isajax = require('koa-isajax');
 const cachePugTemplates = require('cache-pug-templates');
 const ip = require('ip');
-// const Meta = require('koa-meta');
+const Meta = require('koa-meta');
 const Timeout = require('koa-better-timeout');
 const Mongoose = require('@ladjs/mongoose');
 const Graceful = require('@ladjs/graceful');
@@ -41,7 +41,7 @@ const helpers = require('./helpers');
 const routes = require('./routes');
 
 const storeIPAddress = new StoreIPAddress({ logger: helpers.logger });
-// const meta = new Meta(config.meta);
+const meta = new Meta(config.meta);
 
 // initialize mongoose
 const mongoose = new Mongoose({
@@ -196,11 +196,7 @@ app.use(helpers.passport.session());
 app.use(helpers.dynamicViewHelpers);
 
 // add support for SEO <title> and <meta name="description">
-// app.use(meta.middleware.bind(meta));
-app.use((ctx, next) => {
-  ctx.state.meta = { title: '', description: '' };
-  return next();
-});
+app.use(meta.middleware.bind(meta));
 
 // configure timeout
 app.use(async (ctx, next) => {

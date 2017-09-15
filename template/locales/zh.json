@@ -10,25 +10,123 @@
   "Password strength was not strong enough.": "密码强度不够强。",
   "Invalid session secret.": "会话密码无效",
   "Invalid CSRF token.": "无效的CSRF令牌",
-  "Your message was invalid, as it was either blank or more than (500) characters.": "您的消息无效，因为它是空白或超过（500）个字符。",
+  "Your message was invalid, as it was either blank or more than (500) characters.":
+    "您的消息无效，因为它是空白或超过（500）个字符。",
   "File upload was invalid.": "文件上传无效。",
-  "We have sent you an email with a link to reset your password.": "我们向您发送了一封电子邮件，其中包含重置密码的链接。",
-  "You can only request a password reset every 30 minutes.  Please try again %s.": "您只能每30分钟要求重置一次密码。请再试一次％s。",
+  "We have sent you an email with a link to reset your password.":
+    "我们向您发送了一封电子邮件，其中包含重置密码的链接。",
+  "You can only request a password reset every 30 minutes.  Please try again %s.":
+    "您只能每30分钟要求重置一次密码。请再试一次％s。",
   "Hello %s world.": "你好％s的世界。",
   "You have successfully registered": "您已成功注册",
   "You have successfully reset your password.": "您已成功重置密码。",
-  "Thank you for contacting us.  We would love to hear more from you.  How can we help?": "感谢您与我们联系。我们很乐意听到您的更多信息。我们能帮你什么吗？",
-  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!": "您的联系请求已成功发送。你应该尽快收到我们的消息。谢谢！",
-  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.": "我们无法发送您的联系请求。我们已经收到这个问题的提醒。请再试一次。",
-  "You have reached the limit for sending contact requests.  Please try again.": "您已达到发送联系人请求的限制。请再试一次。",
-  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.": "对不起，您的请求已超时。我们已经收到这个问题的提醒。请再试一次。",
+  "Thank you for contacting us.  We would love to hear more from you.  How can we help?":
+    "感谢您与我们联系。我们很乐意听到您的更多信息。我们能帮你什么吗？",
+  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!":
+    "您的联系请求已成功发送。你应该尽快收到我们的消息。谢谢！",
+  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.":
+    "我们无法发送您的联系请求。我们已经收到这个问题的提醒。请再试一次。",
+  "You have reached the limit for sending contact requests.  Please try again.":
+    "您已达到发送联系人请求的限制。请再试一次。",
+  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.":
+    "对不起，您的请求已超时。我们已经收到这个问题的提醒。请再试一次。",
   "You have successfully signed in.": "您已成功登录",
   "You have successfully signed out.": "您已成功登出。",
-  "An unknown error has occurred. We have been alerted of this issue. Please try again.": "出现未知错误。我们已经收到这个问题的提醒。请再试一次。",
+  "An unknown error has occurred. We have been alerted of this issue. Please try again.":
+    "出现未知错误。我们已经收到这个问题的提醒。请再试一次。",
   "Please log in to view the page you requested.": "请登录查看您请求的页面。",
-  "An issue occurred while communicating with our payment provider. Please try again.": "与我们的付款提供商沟通时出现问题。请再试一次。",
-  "Please slightly change values to ensure slug uniqueness.": "请略微改变价值，以确保lug lug lug。。",
+  "An issue occurred while communicating with our payment provider. Please try again.":
+    "与我们的付款提供商沟通时出现问题。请再试一次。",
+  "Please slightly change values to ensure slug uniqueness.":
+    "请略微改变价值，以确保lug lug lug。。",
   "Invalid token": "令牌无效",
   "Invalid creds": "无效的信誉",
-  "You do not belong to the administrative user group": "您不属于管理用户组"
+  "You do not belong to the administrative user group": "您不属于管理用户组",
+  "Home &#124; Lad": "首页&#124;小伙子",
+  "Lad scaffolds a Koa webapp and API framework for Node.js":
+    "Lad支架用于Node.js的Koa webapp和API框架",
+  "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.":
+    "您使用的是<strong>过时的</strong>浏览器。请<a href=\"http://browsehappy.com/\">升级您的浏览器</a>以改善您的体验。",
+  "Help": "帮帮我",
+  "Chat": "聊",
+  "Docs": "文件",
+  "GitHub": "GitHub上",
+  "Twitter": "推特",
+  "Contact": "联系",
+  "Español": "西班牙语",
+  "Chinese": "中文",
+  "English": "英语",
+  "Log in": "登录",
+  "Sign up": "注册",
+  "All Rights Reserved.": "版权所有。",
+  "Terms": "条款",
+  "Success": "成功",
+  "Error": "错误",
+  "Info": "信息",
+  "Warning": "警告",
+  "Question": "题",
+  "中文 (zhōngwén)": "中文 (zhōngwén)",
+  "Spanish": "西班牙语",
+  "Home &#124; <span class=\"notranslate\">Lad</span>":
+    "首页&#124; <span class=\"notranslate\">Lad</span>",
+  "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.":
+    "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.",
+  "Use License": "Use License",
+  "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:":
+    "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",
+  "modify or copy the materials;": "modify or copy the materials;",
+  "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);":
+    "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);",
+  "attempt to decompile or reverse engineer any software contained on Lad's web site;":
+    "attempt to decompile or reverse engineer any software contained on Lad's web site;",
+  "remove any copyright or other proprietary notations from the materials; or":
+    "remove any copyright or other proprietary notations from the materials; or",
+  "transfer the materials to another person or \"mirror\" the materials on any other server.":
+    "transfer the materials to another person or \"mirror\" the materials on any other server.",
+  "use the materials or service for any illegal purposes":
+    "use the materials or service for any illegal purposes",
+  "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.":
+    "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.",
+  "Disclaimer": "Disclaimer",
+  "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.":
+    "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.",
+  "Limitations": "Limitations",
+  "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.":
+    "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.",
+  "Revisions and Errata": "Revisions and Errata",
+  "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.":
+    "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.",
+  "Links": "Links",
+  "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.":
+    "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.",
+  "Site Terms of Use Modifications": "Site Terms of Use Modifications",
+  "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.":
+    "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.",
+  "Governing Law": "Governing Law",
+  "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.":
+    "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.",
+  "General Terms and Conditions applicable to Use of a Web Site.":
+    "General Terms and Conditions applicable to Use of a Web Site.",
+  "About": "About",
+  "Server Error": "Server Error",
+  "A server error has unfortunately occurred.  If this error persists, please contact us.":
+    "A server error has unfortunately occurred.  If this error persists, please contact us.",
+  "Log In Now": "Log In Now",
+  "Welcome back!": "Welcome back!",
+  "Email address": "Email address",
+  "Password": "Password",
+  "Log In with Email": "Log In with Email",
+  "Forget your password?": "Forget your password?",
+  "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>":
+    "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>",
+  "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.":
+    "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.",
+  "Hello, world!": "Hello, world!",
+  "Heading": "Heading",
+  "Learn more »": "Learn more »",
+  "View details »": "View details »",
+  "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.":
+    "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.",
+  "This is a paragraph of placeholder text that will be automatically translated.":
+    "This is a paragraph of placeholder text that will be automatically translated."
 }

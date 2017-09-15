@@ -1,34 +1,140 @@
 {
-  "Chew apart your projects with speed.": "Mastique los proyectos con velocidad.",
+  "Chew apart your projects with speed.":
+    "Mastique los proyectos con velocidad.",
   "Good morning": "Buenos días",
   "Good afternoon": "Buenas tardes",
   "Good evening": "Buena noches",
-  "Email address was invalid.": "La dirección de correo electrónico no es válida.",
+  "Email address was invalid.":
+    "La dirección de correo electrónico no es válida.",
   "Password was invalid.": "La contraseña no es válida.",
-  "Reset token provided was invalid.": "El token de restablecimiento proporcionado no es válido.",
-  "Reset token and email were not valid together.": "El token de restablecimiento y el correo electrónico no eran válidos juntos.",
-  "Password strength was not strong enough.": "La fuerza de la contraseña no era lo suficientemente fuerte.",
+  "Reset token provided was invalid.":
+    "El token de restablecimiento proporcionado no es válido.",
+  "Reset token and email were not valid together.":
+    "El token de restablecimiento y el correo electrónico no eran válidos juntos.",
+  "Password strength was not strong enough.":
+    "La fuerza de la contraseña no era lo suficientemente fuerte.",
   "Invalid session secret.": "Secreto de sesión no válido.",
   "Invalid CSRF token.": "Símbolo CSRF no válido.",
-  "Your message was invalid, as it was either blank or more than (500) characters.": "Su mensaje no era válido, ya que estaba en blanco o más de (500) caracteres.",
+  "Your message was invalid, as it was either blank or more than (500) characters.":
+    "Su mensaje no era válido, ya que estaba en blanco o más de (500) caracteres.",
   "File upload was invalid.": "La subida de archivos no es válida.",
-  "We have sent you an email with a link to reset your password.": "Te hemos enviado un correo electrónico con un enlace para restablecer tu contraseña.",
-  "You can only request a password reset every 30 minutes.  Please try again %s.": "Sólo puede solicitar una contraseña restablecida cada 30 minutos. Inténtalo de nuevo% s.",
+  "We have sent you an email with a link to reset your password.":
+    "Te hemos enviado un correo electrónico con un enlace para restablecer tu contraseña.",
+  "You can only request a password reset every 30 minutes.  Please try again %s.":
+    "Sólo puede solicitar una contraseña restablecida cada 30 minutos. Inténtalo de nuevo% s.",
   "Hello %s world.": "Hola mundo.",
   "You have successfully registered": "Se ha registrado exitosamente",
-  "You have successfully reset your password.": "Ha restablecido correctamente su contraseña.",
-  "Thank you for contacting us.  We would love to hear more from you.  How can we help?": "Gracias por contactarnos. Nos encantaría escuchar más de usted. ¿Cómo podemos ayudar?",
-  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!": "Su solicitud de contacto se ha enviado correctamente. Usted debe tener noticias de nosotros pronto. ¡Gracias!",
-  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.": "No hemos podido enviar tu solicitud de contacto. Hemos sido alertados de este problema. Vuelve a intentarlo.",
-  "You have reached the limit for sending contact requests.  Please try again.": "Ha alcanzado el límite para enviar solicitudes de contacto. Vuelve a intentarlo.",
-  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.": "Lo sentimos, su solicitud ha caducado. Nos han alertado de este problema. Vuelve a intentarlo.",
+  "You have successfully reset your password.":
+    "Ha restablecido correctamente su contraseña.",
+  "Thank you for contacting us.  We would love to hear more from you.  How can we help?":
+    "Gracias por contactarnos. Nos encantaría escuchar más de usted. ¿Cómo podemos ayudar?",
+  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!":
+    "Su solicitud de contacto se ha enviado correctamente. Usted debe tener noticias de nosotros pronto. ¡Gracias!",
+  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.":
+    "No hemos podido enviar tu solicitud de contacto. Hemos sido alertados de este problema. Vuelve a intentarlo.",
+  "You have reached the limit for sending contact requests.  Please try again.":
+    "Ha alcanzado el límite para enviar solicitudes de contacto. Vuelve a intentarlo.",
+  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.":
+    "Lo sentimos, su solicitud ha caducado. Nos han alertado de este problema. Vuelve a intentarlo.",
   "You have successfully signed in.": "Has iniciado sesión correctamente.",
   "You have successfully signed out.": "Has salido con éxito.",
-  "An unknown error has occurred. We have been alerted of this issue. Please try again.": "Un error desconocido a ocurrido. Nos han alertado de este problema. Vuelve a intentarlo.",
-  "Please log in to view the page you requested.": "Inicie sesión para ver la página solicitada.",
-  "An issue occurred while communicating with our payment provider. Please try again.": "Se ha producido un problema al comunicarse con nuestro proveedor de pagos. Vuelve a intentarlo.",
-  "Please slightly change values to ensure slug uniqueness.": "Por favor, cambie ligeramente los valores para garantizar la unicidad de las babosas.",
+  "An unknown error has occurred. We have been alerted of this issue. Please try again.":
+    "Un error desconocido a ocurrido. Nos han alertado de este problema. Vuelve a intentarlo.",
+  "Please log in to view the page you requested.":
+    "Inicie sesión para ver la página solicitada.",
+  "An issue occurred while communicating with our payment provider. Please try again.":
+    "Se ha producido un problema al comunicarse con nuestro proveedor de pagos. Vuelve a intentarlo.",
+  "Please slightly change values to ensure slug uniqueness.":
+    "Por favor, cambie ligeramente los valores para garantizar la unicidad de las babosas.",
   "Invalid token": "Simbolo no valido",
   "Invalid creds": "Creds no válidas",
-  "You do not belong to the administrative user group": "No pertenece al grupo de usuarios administrativos"
+  "You do not belong to the administrative user group":
+    "No pertenece al grupo de usuarios administrativos",
+  "Home &#124; Lad": "Inicio &#124; Muchacho",
+  "Lad scaffolds a Koa webapp and API framework for Node.js":
+    "Lad implementa una aplicación Web de Koa y un framework API para Node.js",
+  "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.":
+    "Estás usando un navegador <strong>obsoleto</strong> . <a href=\"http://browsehappy.com/\">Actualice su navegador</a> para mejorar su experiencia.",
+  "Help": "Ayuda",
+  "Chat": "Charla",
+  "Docs": "Documentos",
+  "GitHub": "GitHub",
+  "Twitter": "Gorjeo",
+  "Contact": "Contacto",
+  "Español": "Español",
+  "Chinese": "chino",
+  "English": "Inglés",
+  "Log in": "Iniciar sesión",
+  "Sign up": "Regístrate",
+  "All Rights Reserved.": "Todos los derechos reservados.",
+  "Terms": "Condiciones",
+  "Success": "Éxito",
+  "Error": "Error",
+  "Info": "Información",
+  "Warning": "Advertencia",
+  "Question": "Pregunta",
+  "中文 (zhōngwén)": "Chino (zhōngwén)",
+  "Spanish": "Español",
+  "Home &#124; <span class=\"notranslate\">Lad</span>":
+    "Inicio &#124; <span class=\"notranslate\">Lad</span>",
+  "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.":
+    "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.",
+  "Use License": "Use License",
+  "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:":
+    "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",
+  "modify or copy the materials;": "modify or copy the materials;",
+  "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);":
+    "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);",
+  "attempt to decompile or reverse engineer any software contained on Lad's web site;":
+    "attempt to decompile or reverse engineer any software contained on Lad's web site;",
+  "remove any copyright or other proprietary notations from the materials; or":
+    "remove any copyright or other proprietary notations from the materials; or",
+  "transfer the materials to another person or \"mirror\" the materials on any other server.":
+    "transfer the materials to another person or \"mirror\" the materials on any other server.",
+  "use the materials or service for any illegal purposes":
+    "use the materials or service for any illegal purposes",
+  "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.":
+    "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.",
+  "Disclaimer": "Disclaimer",
+  "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.":
+    "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.",
+  "Limitations": "Limitations",
+  "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.":
+    "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.",
+  "Revisions and Errata": "Revisions and Errata",
+  "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.":
+    "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.",
+  "Links": "Links",
+  "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.":
+    "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.",
+  "Site Terms of Use Modifications": "Site Terms of Use Modifications",
+  "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.":
+    "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.",
+  "Governing Law": "Governing Law",
+  "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.":
+    "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.",
+  "General Terms and Conditions applicable to Use of a Web Site.":
+    "General Terms and Conditions applicable to Use of a Web Site.",
+  "About": "About",
+  "Server Error": "Server Error",
+  "A server error has unfortunately occurred.  If this error persists, please contact us.":
+    "A server error has unfortunately occurred.  If this error persists, please contact us.",
+  "Log In Now": "Log In Now",
+  "Welcome back!": "Welcome back!",
+  "Email address": "Email address",
+  "Password": "Password",
+  "Log In with Email": "Log In with Email",
+  "Forget your password?": "Forget your password?",
+  "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>":
+    "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>",
+  "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.":
+    "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.",
+  "Hello, world!": "Hello, world!",
+  "Heading": "Heading",
+  "Learn more »": "Learn more »",
+  "View details »": "View details »",
+  "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.":
+    "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.",
+  "This is a paragraph of placeholder text that will be automatically translated.":
+    "This is a paragraph of placeholder text that will be automatically translated."
 }

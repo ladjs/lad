@@ -22,7 +22,7 @@ module.exports = function(config) {
       // otherwise we'd have `| Lad` below, which is SEO standard
       // so instead we need to use `&#124;` which is the html entity
       // which gets decoded to a `|` in the helper.meta function
-      `Home &#124; ${config.appName}`,
+      `Home &#124; <span class="notranslate">${config.appName}</span>`,
       config.pkg.description
     ]
   };
