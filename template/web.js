@@ -219,7 +219,7 @@ app.use(async (ctx, next) => {
 app.use(helpers.i18n.redirect);
 
 // store the user's last ip address in the background
-app.use(storeIPAddress.middleware.bind(storeIPAddress));
+app.use(storeIPAddress.middleware);
 
 // mount the app's defined and nested routes
 app.use(routes.web.routes());
