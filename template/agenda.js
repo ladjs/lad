@@ -71,7 +71,7 @@ agenda.on('fail', (err, job) => {
   err.message = `job "${job.attrs.name}" failed: ${err.message}`;
   logger.error(err, { extra: { job } });
 });
-agenda.on('error', logger.error.bind(logger));
+agenda.on('error', logger.error);
 
 // handle process events and graceful restart
 const graceful = new Graceful({

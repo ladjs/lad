@@ -14,9 +14,9 @@ i18n.api = {};
 i18n.configure({
   directory: config.localesDirectory,
   locales: config.locales,
-  logDebugFn: logger.debug.bind(logger),
-  logWarnFn: logger.warn.bind(logger),
-  logErrorFn: logger.error.bind(logger),
+  logDebugFn: logger.debug,
+  logWarnFn: logger.warn,
+  logErrorFn: logger.error,
   cookiename: 'locale',
   indent: '  ',
   api: {
