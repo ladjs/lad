@@ -33,7 +33,7 @@ const mongoose = new Mongoose({
 // connect to redis
 const redisClient = redis.createClient(config.redis);
 redisClient.on('connect', () => helpers.logger.info('redis connected'));
-redisClient.on('error', helpers.logger.error.bind(helpers.logger));
+redisClient.on('error', helpers.logger.error);
 
 // initialize the app
 const app = new Koa();
@@ -43,8 +43,8 @@ const app = new Koa();
 // later on with `server.close()`
 let server;
 
-app.on('error', helpers.logger.contextError.bind(helpers.logger));
-app.on('log', helpers.logger.log.bind(helpers.logger));
+app.on('error', helpers.logger.contextError);
+app.on('log', helpers.logger.log);
 
 // setup localization
 app.use(helpers.i18n.middleware);
@@ -107,7 +107,7 @@ app.use(async (ctx, next) => {
 });
 
 // store the user's last ip address in the background
-app.use(storeIPAddress.middleware.bind(storeIPAddress));
+app.use(storeIPAddress.middleware);
 
 // mount the app's defined and nested routes
 app.use(routes.api.routes());
