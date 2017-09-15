@@ -35,7 +35,7 @@ module.exports = async function(job, done) {
       config.i18n.locales.map(locale => {
         logger.info(`checking locale of "${locale}"`);
         return new Promise(async (resolve, reject) => {
-          const filePath = path.join(config.i8n.directory, `${locale}.json`);
+          const filePath = path.join(config.i18n.directory, `${locale}.json`);
 
           // look up the file, and if it does not exist, then
           // create it with an empty object
