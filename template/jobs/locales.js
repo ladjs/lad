@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const GoogleTranslate = require('google-translate');
 const _ = require('lodash');
 
-const { logger } = require('../helpers');
+const { i18n, logger } = require('../helpers');
 const config = require('../config');
 
 // setup google translate with api key
@@ -14,13 +14,13 @@ const translate = promisify(googleTranslate.translate).bind(googleTranslate);
 
 module.exports = async function(job, done) {
   const defaultFields = _.zipObject(
-    _.values(config.i18n.phrases),
-    _.values(config.i18n.phrases)
+    _.values(i18n.config.phrases),
+    _.values(i18n.config.phrases)
   );
 
   const defaultLocaleFilePath = path.join(
-    config.i18n.directory,
-    `${config.i18n.defaultLocale}.json`
+    i18n.config.directory,
+    `${i18n.config.defaultLocale}.json`
   );
 
   let defaultLocaleFile;
@@ -32,10 +32,10 @@ module.exports = async function(job, done) {
 
   try {
     await Promise.all(
-      config.i18n.locales.map(locale => {
+      i18n.config.locales.map(locale => {
         logger.info(`checking locale of "${locale}"`);
         return new Promise(async (resolve, reject) => {
-          const filePath = path.join(config.i18n.directory, `${locale}.json`);
+          const filePath = path.join(i18n.config.directory, `${locale}.json`);
 
           // look up the file, and if it does not exist, then
           // create it with an empty object
@@ -51,11 +51,11 @@ module.exports = async function(job, done) {
 
           // if the locale is not the default
           // then check if translations need done
-          if (locale !== config.i18n.defaultLocale) {
+          if (locale !== i18n.config.defaultLocale) {
             const translationsRequired = _.intersection(
               _.uniq(
                 _.concat(
-                  _.values(config.i18n.phrases),
+                  _.values(i18n.config.phrases),
                   _.values(defaultLocaleFile)
                 )
               ),
