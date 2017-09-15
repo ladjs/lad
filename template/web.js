@@ -68,8 +68,8 @@ const redisStore = new RedisStore({
 // later on with `server.close()`
 let server;
 
-app.on('error', helpers.logger.contextError.bind(helpers.logger));
-app.on('log', helpers.logger.log.bind(helpers.logger));
+app.on('error', helpers.logger.contextError);
+app.on('log', helpers.logger.log);
 
 // inherit cache variable for cache-pug-templates
 app.cache = config.views.locals.cache;
@@ -215,7 +215,7 @@ app.use(async (ctx, next) => {
 app.use(helpers.i18n.redirect);
 
 // store the user's last ip address in the background
-app.use(storeIPAddress.middleware.bind(storeIPAddress));
+app.use(storeIPAddress.middleware);
 
 // mount the app's defined and nested routes
 app.use(routes.web.routes());
