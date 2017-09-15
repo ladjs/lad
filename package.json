@@ -5,6 +5,8 @@
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
   "bin": "cli.js",
   "ava": {
+    "failFast": true,
+    "verbose": true,
     "files": [
       "test.js",
       "test-*.js",
@@ -113,7 +115,7 @@
     "lint": "xo && remark . -qfo",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
-    "test-coverage": "cross-env NODE_ENV=test nyc ava --fail-fast --verbose"
+    "test-coverage": "cross-env NODE_ENV=test nyc ava"
   },
   "xo": {
     "extends": "prettier",
