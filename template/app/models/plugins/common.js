@@ -1,5 +1,6 @@
 const jsonSelect = require('mongoose-json-select');
 const beautifulValidation = require('mongoose-beautiful-unique-validation');
+const validationErrorTransform = require('mongoose-validation-error-transform');
 
 const config = require('../../../config');
 
@@ -49,6 +50,7 @@ function CommonPlugin(object) {
       config.omitCommonFields.map(field => `-${field}`).join(' ')
     );
     Schema.plugin(beautifulValidation);
+    Schema.plugin(validationErrorTransform);
 
     return Schema;
   };

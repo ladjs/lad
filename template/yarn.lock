@@ -6143,15 +6143,16 @@ koa-404-handler@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/koa-404-handler/-/koa-404-handler-0.0.1.tgz#c23f9578bbe99d2c3539e42bf9855766e79dde64"
 
-koa-better-error-handler@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/koa-better-error-handler/-/koa-better-error-handler-1.2.0.tgz#34c48711c64c318171b137d61d71893189f09734"
+koa-better-error-handler@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/koa-better-error-handler/-/koa-better-error-handler-1.3.0.tgz#903e28bb85b96dc6bac5bea9e6949f1921e90117"
   dependencies:
     babel-runtime "^6.23.0"
     boom "^5.1.0"
     co "^4.6.0"
-    debug "^2.6.8"
+    debug "^3.0.1"
     lodash "^4.17.4"
+    underscore.string "^3.3.4"
 
 koa-better-flash@0.0.3:
   version "0.0.3"
@@ -7494,6 +7495,13 @@ mongoose-json-select@^0.2.1:
   resolved "https://registry.yarnpkg.com/mongoose-json-select/-/mongoose-json-select-0.2.1.tgz#6c267e133dd00eca237eeec9a07030b3a7583a09"
   dependencies:
     clone "0.1.9"
+
+mongoose-validation-error-transform@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/mongoose-validation-error-transform/-/mongoose-validation-error-transform-0.0.2.tgz#918dbb0be5032ddfcf597067ab5a332069cd4989"
+  dependencies:
+    lodash "^4.17.4"
+    underscore.string "^3.3.4"
 
 mongoose@^4.11.10, mongoose@^4.11.11:
   version "4.11.11"
