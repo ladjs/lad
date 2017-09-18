@@ -6772,6 +6772,10 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
+lodash.isarray@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-4.0.0.tgz#2aca496b28c4ca6d726715313590c02e6ea34403"
+
 lodash.isempty@^4.1.2, lodash.isempty@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.isempty/-/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
@@ -6783,6 +6787,10 @@ lodash.isequal@^4.0.0, lodash.isequal@^4.4.0, lodash.isequal@^4.5.0:
 lodash.isfunction@^3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.8.tgz#4db709fc81bc4a8fd7127a458a5346c5cdce2c6b"
+
+lodash.isobject@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/lodash.isobject/-/lodash.isobject-3.0.2.tgz#3c8fb8d5b5bf4bf90ae06e14f2a530a4ed935e1d"
 
 lodash.isobject@~2.4.1:
   version "2.4.1"
@@ -7490,11 +7498,28 @@ mongoose-beautiful-unique-validation@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/mongoose-beautiful-unique-validation/-/mongoose-beautiful-unique-validation-7.0.0.tgz#24a7db461d0ad1d0ef2b802ed78777dc4266cc2a"
 
+mongoose-common-plugin@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/mongoose-common-plugin/-/mongoose-common-plugin-0.0.2.tgz#cf1e3befccd90ee15d74054527a7719e3d46ba4e"
+  dependencies:
+    lodash.isarray "^4.0.0"
+    lodash.isobject "^3.0.2"
+    mongoose-beautiful-unique-validation "^7.0.0"
+    mongoose-json-select "^0.2.1"
+    mongoose-omit-common-fields "^0.0.3"
+    mongoose-validation-error-transform "^0.0.2"
+
 mongoose-json-select@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/mongoose-json-select/-/mongoose-json-select-0.2.1.tgz#6c267e133dd00eca237eeec9a07030b3a7583a09"
   dependencies:
     clone "0.1.9"
+
+mongoose-omit-common-fields@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/mongoose-omit-common-fields/-/mongoose-omit-common-fields-0.0.3.tgz#a010c1624bb8f88fac35f91e811e7264f83973ac"
+  dependencies:
+    camelcase "^4.1.0"
 
 mongoose-validation-error-transform@^0.0.2:
   version "0.0.2"

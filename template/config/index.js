@@ -13,8 +13,6 @@ const utilities = require('./utilities');
 const phrases = require('./phrases');
 const meta = require('./meta');
 
-const omitCommonFields = ['_id', '__v'];
-
 const viewsDir = path.join(__dirname, '..', 'app', 'views');
 
 const config = {
@@ -117,27 +115,6 @@ const config = {
       url: env.DATABASE_URL
     }
   },
-
-  // mongoose security helpers
-  // (these fields get omitted when responses sent)
-  omitCommonFields,
-  omitUserFields: [
-    ...omitCommonFields,
-    'ip',
-    'last_ips',
-    'email',
-    'api_token',
-    'group',
-    'attempts',
-    'last',
-    'hash',
-    'salt',
-    'reset_token_expires_at',
-    'reset_token',
-    'google_profile_id',
-    'google_access_token',
-    'google_refresh_token'
-  ],
 
   // agenda
   agenda: {

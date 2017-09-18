@@ -401,6 +401,22 @@ cp .env.defaults .env
 [npm][]:
 
 ```sh
+npm start
+```
+
+[yarn][]:
+
+```sh
+yarn start
+```
+
+##### Debugging
+
+> As similar to running any other [node][] process, simply use the environment variable `DEBUG`:
+
+[npm][]:
+
+```sh
 DEBUG=* npm start
 ```
 
@@ -409,6 +425,8 @@ DEBUG=* npm start
 ```sh
 DEBUG=* yarn start
 ```
+
+You can also use `NODE_DEBUG` if desired to debug [node][] internal modules.
 
 #### Production
 

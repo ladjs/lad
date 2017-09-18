@@ -3,11 +3,10 @@ const _ = require('lodash');
 const s = require('underscore.string');
 const randomstring = require('randomstring-extended');
 const mongoose = require('mongoose');
-const jsonSelect = require('mongoose-json-select');
+const mongooseCommonPlugin = require('mongoose-common-plugin');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const config = require('../../config');
-const CommonPlugin = require('./plugins/common');
 
 const User = new mongoose.Schema({
   // passport-local-mongoose sets these for us on log in attempts
@@ -111,12 +110,7 @@ User.pre('validate', function(next) {
   next();
 });
 
-User.plugin(new CommonPlugin('user'));
-User.plugin(
-  jsonSelect,
-  config.omitUserFields.map(field => `-${field}`).join(' ')
-);
-
+User.plugin(mongooseCommonPlugin, { object: 'user' });
 User.plugin(passportLocalMongoose, config.auth.strategies.local);
 
 // https://github.com/saintedlama/passport-local-mongoose/issues/218
