@@ -548,6 +548,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 
    * Language: `JavaScript`
    * Node.js version: `8.3+` (latest)
+     > Note you can also add to `Setup` the script `nvm install latest` to install latest version if SemaphoreCI does not provide it from the drop-down
    * Setup: `npm install`
    * Job 1: `npm test`
    * After job: `npm run coverage`
@@ -659,7 +660,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
