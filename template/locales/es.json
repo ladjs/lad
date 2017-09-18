@@ -193,5 +193,15 @@
   "Sign up for an account": "Regístrese para obtener una cuenta",
   "About &#124; <span class=\"notranslate\">Lad</span>":
     "Acerca de &#124; <span class=\"notranslate\">Lad</span>",
-  "Learn more about Lad": "Más información sobre Lad"
+  "Learn more about Lad": "Más información sobre Lad",
+  "Information regarding your contact inquiry":
+    "Información sobre su consulta de contacto",
+  "Hello,": "Hola,",
+  "Below is a copy of your request submitted on ":
+    "A continuación se muestra una copia de su solicitud",
+  " at ": "a",
+  "We will review your submission and get back to you shortly!":
+    "¡Revisaremos su presentación y nos pondremos en contacto con usted en breve!",
+  "If you did not submit this contact request, then please let us know so we can further investigate.":
+    "Si no envió esta solicitud de contacto, háganoslo saber para poder investigar más a fondo."
 }

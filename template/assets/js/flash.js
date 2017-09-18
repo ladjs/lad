@@ -20,6 +20,6 @@ const _ = require('lodash');
       });
     });
 
-    if (steps.length > 0) swal.queue(steps).then();
+    if (steps.length > 0) swal.queue(steps);
   }
 })();

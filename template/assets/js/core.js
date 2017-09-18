@@ -264,7 +264,7 @@ const api = new Frisbee({
           // Hide the spinner
           spinner.hide();
           // Show message
-          await swal(window._types.success, res.body.message, 'success');
+          swal(window._types.success, res.body.message, 'success');
           // Reset the form
           $form.get(0).reset();
           // Redirect
@@ -274,7 +274,7 @@ const api = new Frisbee({
         // Hide the spinner
         spinner.hide();
         // Show message
-        await swal(window._types.success, res.body.message, 'success');
+        swal(window._types.success, res.body.message, 'success');
         // Reset the form
         $form.get(0).reset();
 

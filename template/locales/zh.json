@@ -179,5 +179,13 @@
   "Sign up for an account": "注册一个帐号",
   "About &#124; <span class=\"notranslate\">Lad</span>":
     "关于&#124; <span class=\"notranslate\">Lad</span>",
-  "Learn more about Lad": "了解更多关于拉德"
+  "Learn more about Lad": "了解更多关于拉德",
+  "Information regarding your contact inquiry": "有关您的联系查询的信息",
+  "Hello,": "你好，",
+  "Below is a copy of your request submitted on ": "以下是您提交的请求的副本",
+  " at ": "在",
+  "We will review your submission and get back to you shortly!":
+    "我们会审查您的提交，并尽快回复您！",
+  "If you did not submit this contact request, then please let us know so we can further investigate.":
+    "如果您没有提交此联系请求，请通知我们，以便我们进一步调查。"
 }
