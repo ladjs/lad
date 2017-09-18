@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const _ = require('lodash');
+const mongooseCommonPlugin = require('mongoose-common-plugin');
 
 const config = require('../../config');
-const CommonPlugin = require('./plugins/common');
 
 const Inquiry = new mongoose.Schema({
   ip: {
@@ -30,6 +30,6 @@ const Inquiry = new mongoose.Schema({
   }
 });
 
-Inquiry.plugin(new CommonPlugin('inquiry'));
+Inquiry.plugin(mongooseCommonPlugin, { object: 'inquiry' });
 
 module.exports = mongoose.model('Inquiry', Inquiry);

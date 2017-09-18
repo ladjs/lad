@@ -172,13 +172,12 @@
     "登录&#124; <span class=\"notranslate\">Lad</span>",
   "Log in to your account": "登录到您的帐户",
   "My Account &#124; <span class=\"notranslate\">Lad</span>":
-    "My Account &#124; <span class=\"notranslate\">Lad</span>",
-  "View your account and manage your settings":
-    "View your account and manage your settings",
+    "我的帐户&#124; <span class=\"notranslate\">Lad</span>",
+  "View your account and manage your settings": "查看您的帐户并管理您的设置",
   "Sign up &#124; <span class=\"notranslate\">Lad</span>":
-    "Sign up &#124; <span class=\"notranslate\">Lad</span>",
-  "Sign up for an account": "Sign up for an account",
+    "注册&#124; <span class=\"notranslate\">Lad</span>",
+  "Sign up for an account": "注册一个帐号",
   "About &#124; <span class=\"notranslate\">Lad</span>":
-    "About &#124; <span class=\"notranslate\">Lad</span>",
-  "Learn more about Lad": "Learn more about Lad"
+    "关于&#124; <span class=\"notranslate\">Lad</span>",
+  "Learn more about Lad": "了解更多关于拉德"
 }
