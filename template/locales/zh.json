@@ -187,5 +187,24 @@
   "We will review your submission and get back to you shortly!":
     "我们会审查您的提交，并尽快回复您！",
   "If you did not submit this contact request, then please let us know so we can further investigate.":
-    "如果您没有提交此联系请求，请通知我们，以便我们进一步调查。"
+    "如果您没有提交此联系请求，请通知我们，以便我们进一步调查。",
+  "Learn more": "学到更多",
+  "View details": "查看详情",
+  "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.":
+    "在下面的集合中，它的内容，创作者等等都是简短的和领先的。使它简短而甜美，但不要太短，所以人们不会完全跳过它。",
+  "Main call to action": "主要行动呼吁",
+  "Secondary action": "次要行动",
+  "Forgot password &#124; <span class=\"notranslate\">Lad</span>":
+    "忘记密码&#124; <span class=\"notranslate\">Lad</span>",
+  "Get access to your access by resetting your password": "通过重置密码访问您的访问权限",
+  "Page not found": "找不到网页",
+  "We're sorry, but the page you requested could not be found.":
+    "很抱歉，无法找到您要求的页面。",
+  "Admin &#124; <span class=\"notranslate\">Lad</span>":
+    "管理员&#124; <span class=\"notranslate\">Lad</span>",
+  "Admin dashboard for administrative management": "管理控制面板进行管理",
+  "Users": "用户",
+  "OK": "好",
+  "Cancel": "取消",
+  "Close this dialog": "关闭此对话框"
 }

@@ -201,5 +201,26 @@
   "We will review your submission and get back to you shortly!":
     "We will review your submission and get back to you shortly!",
   "If you did not submit this contact request, then please let us know so we can further investigate.":
-    "If you did not submit this contact request, then please let us know so we can further investigate."
+    "If you did not submit this contact request, then please let us know so we can further investigate.",
+  "Learn more": "Learn more",
+  "View details": "View details",
+  "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.":
+    "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.",
+  "Main call to action": "Main call to action",
+  "Secondary action": "Secondary action",
+  "Forgot password &#124; <span class=\"notranslate\">Lad</span>":
+    "Forgot password &#124; <span class=\"notranslate\">Lad</span>",
+  "Get access to your access by resetting your password":
+    "Get access to your access by resetting your password",
+  "Page not found": "Page not found",
+  "We're sorry, but the page you requested could not be found.":
+    "We're sorry, but the page you requested could not be found.",
+  "Admin &#124; <span class=\"notranslate\">Lad</span>":
+    "Admin &#124; <span class=\"notranslate\">Lad</span>",
+  "Admin dashboard for administrative management":
+    "Admin dashboard for administrative management",
+  "Users": "Users",
+  "OK": "OK",
+  "Cancel": "Cancel",
+  "Close this dialog": "Close this dialog"
 }

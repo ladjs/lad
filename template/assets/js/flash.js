@@ -1,5 +1,5 @@
-const swal = require('sweetalert2');
 const _ = require('lodash');
+const swal = require('./swal');
 
 (() => {
   if (!_.isEmpty(window._messages)) {

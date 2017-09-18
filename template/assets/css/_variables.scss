@@ -1,26 +1,9 @@
 $fa-font-path: '//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts';
 
-// bootstrap-social support for bootstrap 4.x
-// <https://github.com/lipis/bootstrap-social/issues/123>
-$btn-padding-y: 0.5rem;
-$btn-padding-y-lg: 0.75rem;
-$btn-padding-y-sm: 0.25rem;
-$btn-line-height: 1.25;
-$btn-padding-x: 1rem;
-$btn-padding-x-lg: 1.5rem;
-$btn-padding-x-sm: 0.5rem;
-$padding-base-horizontal: $btn-padding-y;
-$padding-large-horizontal: $btn-padding-y-lg;
-$padding-small-horizontal: $btn-padding-y-sm;
-$bs-height-base: floor($btn-line-height + $btn-padding-x * 2);
-$bs-height-lg: floor($btn-line-height + $btn-padding-x-lg * 2);
-$bs-height-sm: floor($btn-line-height + $btn-padding-x-sm * 2);
-$bs-height-xs: floor($btn-line-height + $btn-padding-x-sm * 2);
-
 // custom fonts using google webfont loader
-// with fonts defined in `src/assets/js/core.js`
-$font-family-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-  Roboto, 'Helvetica Neue', Arial, sans-serif !default;
+// with fonts defined in `assets/js/core.js`
+$font-family-sans-serif: 'Raleway', -apple-system, BlinkMacSystemFont,
+  'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !default;
 
 $font-family-serif: Georgia, 'Times New Roman', Times, serif !default;
 $font-family-monospace: 'Source Code Pro', Menlo, Monaco, Consolas,

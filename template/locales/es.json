@@ -203,5 +203,26 @@
   "We will review your submission and get back to you shortly!":
     "¡Revisaremos su presentación y nos pondremos en contacto con usted en breve!",
   "If you did not submit this contact request, then please let us know so we can further investigate.":
-    "Si no envió esta solicitud de contacto, háganoslo saber para poder investigar más a fondo."
+    "Si no envió esta solicitud de contacto, háganoslo saber para poder investigar más a fondo.",
+  "Learn more": "Aprende más",
+  "View details": "Ver detalles",
+  "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.":
+    "Algo corto y destacado sobre la colección de abajo, su contenido, el creador, etc. Que sea corto y dulce, pero no demasiado corto para que la gente no simplemente salte sobre él por completo.",
+  "Main call to action": "Llamada principal a la acción",
+  "Secondary action": "Acción secundaria",
+  "Forgot password &#124; <span class=\"notranslate\">Lad</span>":
+    "Olvidaste tu contraseña &#124; <span class=\"notranslate\">Lad</span>",
+  "Get access to your access by resetting your password":
+    "Acceda a su acceso restableciendo su contraseña",
+  "Page not found": "Página no encontrada",
+  "We're sorry, but the page you requested could not be found.":
+    "Lo sentimos, pero no se pudo encontrar la página que solicitó.",
+  "Admin &#124; <span class=\"notranslate\">Lad</span>":
+    "Admin &#124; <span class=\"notranslate\">Lad</span>",
+  "Admin dashboard for administrative management":
+    "Panel de administración para administración administrativa",
+  "Users": "Usuarios",
+  "OK": "DE ACUERDO",
+  "Cancel": "Cancelar",
+  "Close this dialog": "Cerrar este diálogo"
 }
