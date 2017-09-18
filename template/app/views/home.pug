@@ -19,7 +19,7 @@ block body
         :translate(locale)
           This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
       p
-        a.btn.btn-primary.btn-lg(href="#", role="button")= t('Learn more »')
+        a.btn.btn-primary.btn-lg(href="#", role="button")= `${t('Learn more')} »`
   .container
     //- Example row of columns
     .row
@@ -27,14 +27,14 @@ block body
         h2: :translate(locale) Heading
         p: :translate(locale) This is a paragraph of placeholder text that will be automatically translated.
         p
-          a.btn.btn-secondary(href="#", role="button")= t('View details »')
+          a.btn.btn-secondary(href="#", role="button")= `${t('View details')} »`
       .col-md-4
         h2: :translate(locale) Heading
         p: :translate(locale) This is a paragraph of placeholder text that will be automatically translated.
         p
-          a.btn.btn-secondary(href="#", role="button")= t('View details »')
+          a.btn.btn-secondary(href="#", role="button")= `${t('View details')} »`
       .col-md-4
         h2: :translate(locale) Heading
         p: :translate(locale) This is a paragraph of placeholder text that will be automatically translated.
         p
-          a.btn.btn-secondary(href="#", role="button")= t('View details »')
+          a.btn.btn-secondary(href="#", role="button")= `${t('View details')} »`

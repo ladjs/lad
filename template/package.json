@@ -23,7 +23,7 @@
     "basic-auth": "^1.1.0",
     "boom": "^5.2.0",
     "bootstrap": "^4.0.0-beta",
-    "bootstrap-social": "^5.1.1",
+    "bootstrap-social": "niftylettuce/bootstrap-social#gh-pages",
     "cache-pug-templates": "^0.0.5",
     "chalk": "^2.1.0",
     "chart.js": "^2.6.0",

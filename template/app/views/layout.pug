@@ -75,6 +75,11 @@ html(lang=locale)
         question: "#{ t('Question') }"
       };
       window._messages = !{json(flash(), null, null)};
+      window._swalDefaults = {
+        confirmButtonText: "#{ t('OK') }",
+        cancelButtonText: "#{ t('Cancel') }",
+        closeButtonAriaLabel: "#{ t('Close this dialog') }"
+      };
     //- TODO: add cabin client-side logging
 
     //- scripts

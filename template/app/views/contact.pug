@@ -6,13 +6,14 @@ block body
     .container
       h1.display-3= `${t('Contact')} ${config.appName}`
       p.lead= t('Complete the form below to get in touch.')
-      form.ajax-form(action=`/${locale}/contact`, method="POST")
-        input(type="hidden", name="_csrf", value=ctx.csrf)
-        .form-group
-          input#email.form-control(required="required", name="email", type="email", placeholder=t('Email address'))
-        .form-group
-          textarea#message.form-control(rows="3", maxlength=config.contactRequestMaxLength, name="message", placeholder=t('Message'))
-        button.btn.btn-block.btn-primary.btn-lg(type="submit", data-toggle="tooltip", data-placement="bottom", title=t(`We'll be in contact with you!`))
-          i.fa.fa-paper-plane
-          = ' '
-          = t('Send Contact Request')
+  .container.pb-3
+    form.ajax-form(action=`/${locale}/contact`, method="POST")
+      input(type="hidden", name="_csrf", value=ctx.csrf)
+      .form-group
+        input#email.form-control(required="required", name="email", type="email", placeholder=t('Email address'))
+      .form-group
+        textarea#message.form-control(rows="3", maxlength=config.contactRequestMaxLength, name="message", placeholder=t('Message'))
+      button.btn.btn-block.btn-primary.btn-lg(type="submit", data-toggle="tooltip", data-placement="bottom", title=t(`We'll be in contact with you!`))
+        i.fa.fa-paper-plane
+        = ' '
+        = t('Send Contact Request')

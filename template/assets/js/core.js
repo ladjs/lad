@@ -10,7 +10,6 @@ const qs = require('querystring');
 const url = require('url');
 const s = require('underscore.string');
 const _ = require('lodash');
-const swal = require('sweetalert2');
 const Frisbee = require('frisbee');
 const WebFont = require('webfontloader');
 const es6promise = require('es6-promise');
@@ -19,6 +18,7 @@ const History = require('html5-history-api');
 const jQuery = require('jquery');
 const Popper = require('popper.js');
 
+const swal = require('./swal');
 const Spinner = require('./spinner');
 
 // load jQuery and Bootstrap
@@ -61,7 +61,7 @@ es6promise.polyfill();
 
 // Google web fonts
 WebFont.load({
-  google: { families: ['Source+Code+Pro', 'Roboto:300,400', 'Montserrat'] }
+  google: { families: ['Source+Code+Pro', 'Raleway', 'Montserrat'] }
 });
 
 // Create a new instance of Frisbee

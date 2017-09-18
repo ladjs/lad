@@ -2,10 +2,10 @@
 extends layout
 
 block body
-  .container.pb-1
-    .row.mt-1
+  .container.py-3
+    .row
       if config.auth.hasThirdPartyProviders
-        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+        .col-xs-12.col-sm-12.col-md-6.col-lg-6.pb-3
           .card
             .card-body
               h1.card-title.h4= `Third-Party ${s.titleize(verb)}`
@@ -39,7 +39,7 @@ block body
                   i.fa.fa-fw.fa-cc-stripe
                   = ` ${s.titleize(verb)} with Stripe`
       if config.auth.local
-        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+        .col-xs-12.col-sm-12.col-md-6.col-lg-6
           .card
             .card-body
               - const h1 = `${s.titleize(verb)} Now`

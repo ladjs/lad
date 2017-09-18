@@ -2,11 +2,10 @@
 extends layout
 
 block body
-
-  .jumbotron.text-center
+  .jumbotron.text-center.pb-3
     .container
       h1.display-3= `${t('About')} ${config.appName}`
-      p.lead.text-muted Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.
+      p.lead.text-muted: :translate(locale) Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.
       ul.list-inline
-        li.list-inline-item: a.btn.btn-primary(href="#") Main call to action
-        li.list-inline-item: a.btn.btn-secondary(href="#") Secondary action
+        li.list-inline-item: a.btn.btn-primary(href="#"): :translate(locale) Main call to action
+        li.list-inline-item: a.btn.btn-secondary(href="#"): :translate(locale) Secondary action

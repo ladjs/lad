@@ -1316,20 +1316,16 @@ boom@^5.1.0, boom@^5.2.0:
   dependencies:
     hoek "4.x.x"
 
-bootstrap-social@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/bootstrap-social/-/bootstrap-social-5.1.1.tgz#7530c678adf56cf8fad3fa82c29d4d3e5d027501"
+bootstrap-social@niftylettuce/bootstrap-social#gh-pages:
+  version "6.0.0"
+  resolved "https://codeload.github.com/niftylettuce/bootstrap-social/tar.gz/d92e8f4cad407ef9454b0918e5103afdfdaad0bb"
   dependencies:
-    bootstrap "~3"
-    font-awesome "~4.7"
+    bootstrap "4.0.0-beta"
+    font-awesome "^4.7.0"
 
-bootstrap@^4.0.0-beta:
+bootstrap@4.0.0-beta, bootstrap@^4.0.0-beta:
   version "4.0.0-beta"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.tgz#dc5928175d2e71310bc668cf9e05a907211b72a6"
-
-bootstrap@~3:
-  version "3.3.7"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
 boxen@^1.0.0:
   version "1.2.1"
@@ -3977,7 +3973,7 @@ font-awesome-assets@0.0.8:
     svg2png "^4.0.0"
     svgfont2js "github:niftylettuce/svgfont2js"
 
-font-awesome@^4.6.3, font-awesome@~4.7:
+font-awesome@^4.6.3, font-awesome@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
 

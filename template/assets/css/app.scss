@@ -23,30 +23,7 @@ $question: theme-color('light');
 @import '../../node_modules/font-awesome/scss/font-awesome';
 
 // bootstrap-social
-// <https://github.com/lipis/bootstrap-social/issues/123>
-.btn-social {
-  > :first-child {
-    line-height: $btn-line-height !important;
-    padding-top: $btn-padding-y !important;
-    padding-bottom: $btn-padding-y !important;
-    font-size: inherit !important;
-  }
-
-  &.btn-lg {
-    > :first-child {
-      line-height: $btn-line-height !important;
-      padding-top: $btn-padding-y-lg !important;
-      padding-bottom: $btn-padding-y-lg !important;
-      font-size: inherit !important;
-    }
-  }
-}
-
 @import '../../node_modules/bootstrap-social/bootstrap-social.scss';
-
-.btn-stripe {
-  @include btn-social(#1275FF);
-}
 
 // sticky footer
 $footer-height: 60px;
