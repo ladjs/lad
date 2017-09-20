@@ -1,0 +1,21 @@
+swagger: '2.0'
+host: 'localhost:5000'
+basePath: /
+schemes:
+  - http
+paths:
+  /v1/account:
+    get:
+      description: Returns account details for current user
+      responses:
+        '200':
+          description: A user object.
+          schema:
+            type: String
+    put:
+      description: Returns all pets from the system that the user has access to
+      responses:
+        '200':
+          description: A list of pets.
+          schema:
+            type: String
