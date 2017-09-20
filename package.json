@@ -97,14 +97,23 @@
       "prettier --write --single-quote --trailing-comma none",
       "git add"
     ],
-    "*.md": ["remark . -qfo", "git add"]
+    "*.md": [
+      "remark . -qfo",
+      "git add"
+    ]
   },
   "main": "sao.js",
   "nyc": {
-    "reporter": ["lcov", "html", "text"]
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
   },
   "remarkConfig": {
-    "plugins": ["preset-github"]
+    "plugins": [
+      "preset-github"
+    ]
   },
   "repository": {
     "type": "git",
@@ -119,7 +128,9 @@
   },
   "xo": {
     "extends": "prettier",
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -144,18 +155,27 @@
       "no-warning-comments": "off"
     },
     "space": true,
-    "ignores": ["config.js"],
+    "ignores": [
+      "config.js"
+    ],
     "overrides": [
       {
-        "plugins": ["prettier", "compat"],
+        "plugins": [
+          "prettier",
+          "compat"
+        ],
         "settings": {
-          "polyfills": ["fetch"]
+          "polyfills": [
+            "fetch"
+          ]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "template/assets/js/**/*.js",
-        "envs": ["browser"],
+        "envs": [
+          "browser"
+        ],
         "rules": {
           "compat/compat": "error"
         }
