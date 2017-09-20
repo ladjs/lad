@@ -16,7 +16,7 @@
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/i18n": "^0.0.1",
     "@ladjs/koa-better-static": "^1.0.5",
-    "@ladjs/logger": "0.0.6",
+    "@ladjs/logger": "^0.0.6",
     "@ladjs/mongoose": "^0.0.3",
     "@ladjs/store-ip-address": "^0.0.3",
     "accounting": "^0.4.1",
