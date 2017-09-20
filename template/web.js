@@ -13,7 +13,7 @@ const compress = require('koa-compress');
 const responseTime = require('koa-response-time');
 const rateLimit = require('koa-simple-ratelimit');
 const views = require('koa-views');
-const logger = require('koa-logger');
+const koaLogger = require('koa-logger');
 const methodOverride = require('koa-methodoverride');
 const bodyParser = require('koa-bodyparser');
 const koa404Handler = require('koa-404-handler');
@@ -33,6 +33,7 @@ const cachePugTemplates = require('cache-pug-templates');
 const ip = require('ip');
 const Meta = require('koa-meta');
 const Timeout = require('koa-better-timeout');
+const Logger = require('@ladjs/logger');
 const Mongoose = require('@ladjs/mongoose');
 const Graceful = require('@ladjs/graceful');
 
@@ -40,13 +41,16 @@ const config = require('./config');
 const helpers = require('./helpers');
 const routes = require('./routes');
 
-const storeIPAddress = new StoreIPAddress({ logger: helpers.logger });
+const logger = new Logger({
+  ...helpers.logger.config
+});
+const storeIPAddress = new StoreIPAddress({ logger });
 const meta = new Meta(config.meta);
 
 // initialize mongoose
 const mongoose = new Mongoose({
   ...config.mongoose,
-  logger: helpers.logger
+  logger
 }).mongoose;
 
 // initialize the app
@@ -68,8 +72,8 @@ const redisStore = new RedisStore({
 // later on with `server.close()`
 let server;
 
-app.on('error', helpers.logger.contextError);
-app.on('log', helpers.logger.log);
+app.on('error', logger.contextError);
+app.on('log', logger.log);
 
 // inherit cache variable for cache-pug-templates
 app.cache = config.views.locals.cache;
@@ -110,7 +114,7 @@ app.use(responseTime());
 // add the logger for development environment only
 // TODO: there's a weird logger issue, see this GH issue
 // <https://github.com/koajs/logger/issues/49>
-if (config.env === 'development') app.use(logger());
+if (config.env === 'development') app.use(koaLogger());
 
 // rate limiting
 app.use(
@@ -226,13 +230,13 @@ else server = https.createServer(config.ssl.web, app.callback());
 
 if (!module.parent)
   server = server.listen(config.ports.web, () => {
-    helpers.logger.info(
+    logger.info(
       `web server listening on ${config.ports
         .web} (LAN: ${ip.address()}:${config.ports.web})`
     );
     cachePugTemplates(app, redisClient, config.views.root, (err, cached) => {
-      if (err) return helpers.logger.error(err);
-      helpers.logger.debug(`successfully cached ${cached.length} views`);
+      if (err) return logger.error(err);
+      logger.debug(`successfully cached ${cached.length} views`);
     });
   });
 
@@ -241,7 +245,7 @@ const graceful = new Graceful({
   mongoose,
   server,
   redisClient,
-  logger: helpers.logger
+  logger
 });
 graceful.listen();
 

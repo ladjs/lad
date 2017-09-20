@@ -4,7 +4,7 @@ const Koa = require('koa');
 const compress = require('koa-compress');
 const responseTime = require('koa-response-time');
 const rateLimit = require('koa-simple-ratelimit');
-const logger = require('koa-logger');
+const koaLogger = require('koa-logger');
 const bodyParser = require('koa-bodyparser');
 const koa404Handler = require('koa-404-handler');
 const json = require('koa-json');
@@ -14,6 +14,7 @@ const redis = require('redis');
 const StoreIPAddress = require('@ladjs/store-ip-address');
 const isajax = require('koa-isajax');
 const Timeout = require('koa-better-timeout');
+const Logger = require('@ladjs/logger');
 const Graceful = require('@ladjs/graceful');
 const Mongoose = require('@ladjs/mongoose');
 const ip = require('ip');
@@ -22,18 +23,21 @@ const helpers = require('./helpers');
 const config = require('./config');
 const routes = require('./routes');
 
-const storeIPAddress = new StoreIPAddress({ logger: helpers.logger });
+const logger = new Logger({
+  ...helpers.logger.config
+});
+const storeIPAddress = new StoreIPAddress({ logger });
 
 // initialize mongoose
 const mongoose = new Mongoose({
   ...config.mongoose,
-  logger: helpers.logger
+  logger
 }).mongoose;
 
 // connect to redis
 const redisClient = redis.createClient(config.redis);
-redisClient.on('connect', () => helpers.logger.info('redis connected'));
-redisClient.on('error', helpers.logger.error);
+redisClient.on('connect', () => logger.info('redis connected'));
+redisClient.on('error', logger.error);
 
 // initialize the app
 const app = new Koa();
@@ -43,8 +47,8 @@ const app = new Koa();
 // later on with `server.close()`
 let server;
 
-app.on('error', helpers.logger.contextError);
-app.on('log', helpers.logger.log);
+app.on('error', logger.contextError);
+app.on('log', logger.log);
 
 // setup localization
 app.use(helpers.i18n.middleware);
@@ -65,7 +69,7 @@ app.context.api = true;
 app.use(responseTime());
 
 // add the logger for development environment only
-if (config.env === 'development') app.use(logger());
+if (config.env === 'development') app.use(koaLogger());
 
 // rate limiting
 app.use(
@@ -121,7 +125,7 @@ else server = https.createServer(config.ssl.api, app.callback());
 
 if (!module.parent)
   server = server.listen(config.ports.api, () =>
-    helpers.logger.info(
+    logger.info(
       `api server listening on ${config.ports
         .api} (LAN: ${ip.address()}:${config.ports.api})`
     )
@@ -132,7 +136,7 @@ const graceful = new Graceful({
   server,
   redisClient,
   mongoose,
-  logger: helpers.logger
+  logger
 });
 graceful.listen();
 
