@@ -8,13 +8,15 @@
     "url": "<%= repo %>/issues",
     "email": "<%= email %>"
   },
-  "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
+  "contributors": [
+    "<%= author %> <<%= email %>> (<%= website%>)"
+  ],
   "dependencies": {
     "@ladjs/env": "^0.0.1",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/i18n": "^0.0.1",
     "@ladjs/koa-better-static": "^1.0.5",
-    "@ladjs/logger": "^0.0.5",
+    "@ladjs/logger": "0.0.6",
     "@ladjs/mongoose": "^0.0.3",
     "@ladjs/store-ip-address": "^0.0.3",
     "accounting": "^0.4.1",
@@ -99,6 +101,7 @@
     "spinkit": "^1.2.5",
     "stop-agenda": "^0.0.5",
     "strength": "^0.1.4",
+    "swagger-inline": "^0.0.8",
     "sweetalert2": "^6.6.10",
     "underscore.string": "^3.3.4",
     "uuid": "^3.1.0",
@@ -159,7 +162,11 @@
     "node": ">=8.3"
   },
   "homepage": "<%= repo %>",
-  "keywords": ["<%= this.slug(name) %>", "lad", "lass"],
+  "keywords": [
+    "<%= this.slug(name) %>",
+    "lad",
+    "lass"
+  ],
   "license": "Unlicensed",
   "lint-staged": {
     "gitDir": "../",
@@ -168,7 +175,10 @@
         "prettier --write --single-quote --trailing-comma none",
         "git add"
       ],
-      "*.md": ["remark . -qfo", "git add"]
+      "*.md": [
+        "remark . -qfo",
+        "git add"
+      ]
     }
   },
   "main": "index.js",
@@ -177,10 +187,16 @@
     "lines": 100,
     "functions": 100,
     "branches": 100,
-    "reporter": ["lcov", "html", "text"]
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
   },
   "remarkConfig": {
-    "plugins": ["preset-github"]
+    "plugins": [
+      "preset-github"
+    ]
   },
   "repository": {
     "type": "git",
@@ -194,16 +210,20 @@
     "test-coverage": "cross-env NODE_ENV=test nyc ava --fail-fast --verbose",
     "build": "gulp build",
     "publish-assets": "gulp publish",
-    "start":
-      "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
+    "start": "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
     "start-agenda": "nodemon agenda",
     "start-api": "nodemon api",
     "start-web": "nodemon web",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "swagger": "npm run swagger-api && npm run swagger-web",
+    "swagger-api": "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
+    "swagger-web": "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml"
   },
   "xo": {
     "extends": "prettier",
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -230,15 +250,22 @@
     "space": true,
     "overrides": [
       {
-        "plugins": ["prettier", "compat"],
+        "plugins": [
+          "prettier",
+          "compat"
+        ],
         "settings": {
-          "polyfills": ["fetch"]
+          "polyfills": [
+            "fetch"
+          ]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "assets/js/**/*.js",
-        "envs": ["browser"],
+        "envs": [
+          "browser"
+        ],
         "rules": {
           "compat/compat": "error"
         }
