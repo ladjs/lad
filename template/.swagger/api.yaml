@@ -1,0 +1,4 @@
+swagger: "2.0"
+host: "localhost:5000"
+basePath: "/"
+schemes: ['http']
