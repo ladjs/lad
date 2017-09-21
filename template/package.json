@@ -206,7 +206,8 @@
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "xo && remark . -qfo",
+    "lint": "xo && npm run lint-md",
+    "lint-md": "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
     "test-coverage": "cross-env NODE_ENV=test nyc ava --fail-fast --verbose",
