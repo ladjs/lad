@@ -51,7 +51,6 @@ async function signupOrLogin(ctx) {
 async function login(ctx, next) {
   try {
     await passport.authenticate('local', (err, user, info) => {
-      // TODO: what is `status` for? (it's an arg after `info`)
       return new Promise(async (resolve, reject) => {
         if (err) return reject(err);
 
