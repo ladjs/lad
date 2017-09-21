@@ -176,6 +176,10 @@ app.use((ctx, next) => {
   return next();
 });
 app.use(async (ctx, next) => {
+  if (config.env.startsWith('test')) {
+    return next();
+  }
+
   try {
     await new CSRF({
       ...config.csrf,
