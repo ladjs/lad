@@ -55,7 +55,6 @@ module.exports = async function(ctx) {
       ip: ctx.req.ip
     });
 
-    // TODO: this might be ctx.log instead?
     // TODO: ensure timestamp is shown on console and saved
     // we may want to use `console-stamp` package
     ctx.logger.info('created inquiry', inquiry);
