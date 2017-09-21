@@ -78,8 +78,8 @@ app.on('log', logger.log);
 // inherit cache variable for cache-pug-templates
 app.cache = config.views.locals.cache;
 
-// trust proxy
-app.proxy = true;
+// only trust proxy if enabled
+app.proxy = config.reverseProxy || false;
 
 // compress/gzip
 app.use(compress());
