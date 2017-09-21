@@ -102,6 +102,7 @@
     "spinkit": "^1.2.5",
     "stop-agenda": "^0.0.5",
     "strength": "^0.1.4",
+    "supertest": "^3.0.0",
     "swagger-inline": "^0.0.8",
     "sweetalert2": "^6.6.10",
     "underscore.string": "^3.3.4",
