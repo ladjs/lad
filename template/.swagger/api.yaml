@@ -1,4 +1,8 @@
 swagger: "2.0"
-host: "localhost:5000"
+host: "localhost:6000"
 basePath: "/"
 schemes: ['http']
+info:
+  version: 1.0.0
+  title: Ladjs
+  description: API for Ladjs project

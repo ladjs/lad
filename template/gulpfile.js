@@ -23,6 +23,7 @@ const sass = require('gulp-sass');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const reporter = require('postcss-reporter');
+const swagger = require('gulp-swagger-js-codegen');
 const ms = require('ms');
 const opn = require('opn');
 
@@ -220,5 +221,20 @@ gulp.task('static', () => {
     .src(staticAssets, {
       base: 'assets'
     })
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('swagger', () => {
+  return gulp
+    .src('swagger-api.yaml')
+    .pipe(
+      swagger({
+        type: 'node',
+        swaggerOptions: {
+          lint: false,
+          className: 'Lad'
+        }
+      })
+    )
     .pipe(gulp.dest('build'));
 });
