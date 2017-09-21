@@ -2,6 +2,9 @@
 /* eslint max-len: 0 */
 
 module.exports = {
+  mongoose: {
+    debug: false
+  },
   logger: {
     silent: true
   }
