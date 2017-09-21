@@ -82,11 +82,12 @@ function SlugPlugin(tmpl = '', ERROR_KEY = 'INVALID_SLUG') {
         const str = _.template(tmpl)(this);
 
         // set the slug if it is not already set
-        if (!_.isString(this.slug) || s.isBlank(this.slug))
+        if (!_.isString(this.slug) || s.isBlank(this.slug)) {
           this.slug = slug(str);
-        else
+        } else {
           // slugify the slug in case we set it manually and not in slug format
           this.slug = slug(this.slug);
+        }
 
         // ensure that the slug is unique
         this.slug = await getUniqueSlug(this.constructor, this._id, this.slug);

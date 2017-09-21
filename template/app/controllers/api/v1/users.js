@@ -1,12 +1,12 @@
 const _ = require('lodash');
 
-async function retrieve(ctx) {
+const retrieve = async ctx => {
   // since we already have the user object
   // just send it over as a response
   ctx.body = ctx.state.user;
-}
+};
 
-async function update(ctx) {
+const update = async ctx => {
   // set fields we allow to be updated
   const fields = [
     'email',
@@ -25,6 +25,6 @@ async function update(ctx) {
 
   // send the response
   ctx.body = ctx.state.user;
-}
+};
 
 module.exports = { retrieve, update };

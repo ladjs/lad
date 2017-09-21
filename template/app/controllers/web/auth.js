@@ -10,12 +10,12 @@ const { Users, Jobs } = require('../../models');
 const { logger, passport } = require('../../../helpers');
 const config = require('../../../config');
 
-async function logout(ctx) {
+const logout = async ctx => {
   ctx.logout();
   ctx.redirect(`/${ctx.req.locale}`);
-}
+};
 
-async function signupOrLogin(ctx) {
+const signupOrLogin = async ctx => {
   // if the user passed `?return_to` and it is not blank
   // then set it as the returnTo value for when we log in
   if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to)) {
@@ -46,9 +46,9 @@ async function signupOrLogin(ctx) {
       : 'log in';
 
   await ctx.render('signup-or-login');
-}
+};
 
-async function login(ctx, next) {
+const login = async (ctx, next) => {
   try {
     await passport.authenticate('local', (err, user, info) => {
       return new Promise(async (resolve, reject) => {
@@ -91,9 +91,9 @@ async function login(ctx, next) {
   } catch (err) {
     ctx.throw(Boom.badRequest(err.message));
   }
-}
+};
 
-async function register(ctx) {
+const register = async ctx => {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
@@ -146,9 +146,9 @@ async function register(ctx) {
   } catch (err) {
     ctx.throw(Boom.badRequest(err.message));
   }
-}
+};
 
-async function forgotPassword(ctx) {
+const forgotPassword = async ctx => {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
@@ -221,9 +221,9 @@ async function forgotPassword(ctx) {
   } catch (err) {
     ctx.logger.error(err);
   }
-}
+};
 
-async function resetPassword(ctx) {
+const resetPassword = async ctx => {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
@@ -245,8 +245,9 @@ async function resetPassword(ctx) {
     }
   });
 
-  if (!user)
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_RESET_PASSWORD')));
+  if (!user) {
+    ctx.throw(Boom.badRequest(ctx.translate('INVALID_RESET_PASSWORD')));
+  }
 
   user.reset_token = null;
   user.reset_at = null;
@@ -268,7 +269,7 @@ async function resetPassword(ctx) {
       ctx.redirect(`/${ctx.req.locale}`);
     }
   }
-}
+};
 
 module.exports = {
   logout,
