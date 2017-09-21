@@ -3,6 +3,10 @@ host: 'localhost:6000'
 basePath: /
 schemes:
   - http
+info:
+  version: 1.0.0
+  title: Ladjs
+  description: API for Ladjs project
 paths:
   /v1/account:
     get:
@@ -13,9 +17,9 @@ paths:
           schema:
             type: String
     put:
-      description: Returns all pets from the system that the user has access to
+      description: Replaces account details for current user
       responses:
         '200':
-          description: A list of pets.
+          description: A user object.
           schema:
             type: String
