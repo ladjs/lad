@@ -52,6 +52,9 @@ agenda.on('ready', () => {
       agenda.define(..._job);
     });
 
+    // every night at midnight run a backup of mongo/redis
+    if (config.isCactiEnabled) agenda.every('0 0 * * *', 'cacti');
+
     agenda.now('locales');
 
     agenda.start();

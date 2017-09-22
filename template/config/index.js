@@ -5,9 +5,9 @@ const consolidate = require('consolidate');
 const _ = require('lodash');
 const Logger = require('@ladjs/logger');
 const I18N = require('@ladjs/i18n');
-const env = require('@ladjs/env');
 
 const pkg = require('../../package');
+const env = require('./env');
 const environments = require('./environments');
 const utilities = require('./utilities');
 const phrases = require('./phrases');
@@ -72,9 +72,10 @@ const config = {
   },
   ga: env.GOOGLE_ANALYTICS,
   sessionKeys: env.SESSION_KEYS,
+  trustProxy: env.TRUST_PROXY,
+  isCactiEnabled: env.IS_CACTI_ENABLED,
   cors: {
     // <https://github.com/koajs/cors#corsoptions>
-    maxAge: (env.MAX_AGE / 1000) % 60
   },
   rateLimit: {
     duration: 60000,
@@ -88,11 +89,12 @@ const config = {
   appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
   appName: env.APP_NAME,
   i18n: {
-    phrases
     // see @ladjs/i18n for a list of defaults
     // <https://github.com/ladjs/i18n>
     // but for complete configuration reference please see:
     // <https://github.com/mashpie/i18n-node#list-of-all-configuration-options>
+    phrases,
+    directory: path.join(__dirname, '..', 'locales')
   },
   serveStatic: {
     // <https://github.com/niftylettuce/koa-better-static#options>

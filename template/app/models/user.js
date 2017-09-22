@@ -7,7 +7,8 @@ const mongooseCommonPlugin = require('mongoose-common-plugin');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const config = require('../../config');
-const { i18n } = require('../../helpers');
+
+const i18n = require('../../helpers/i18n');
 
 const User = new mongoose.Schema({
   // passport-local-mongoose sets these for us on log in attempts

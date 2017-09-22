@@ -8,16 +8,15 @@
     "url": "<%= repo %>/issues",
     "email": "<%= email %>"
   },
-  "contributors": [
-    "<%= author %> <<%= email %>> (<%= website%>)"
-  ],
+  "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
   "dependencies": {
-    "@ladjs/env": "^0.0.1",
+    "@ladjs/env": "^0.0.2",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/i18n": "^0.0.1",
     "@ladjs/koa-better-static": "^1.0.5",
     "@ladjs/logger": "^0.0.6",
     "@ladjs/mongoose": "^0.0.3",
+    "@ladjs/policies": "^0.0.1",
     "@ladjs/store-ip-address": "^0.0.3",
     "accounting": "^0.4.1",
     "agenda": "^1.0.0",
@@ -27,6 +26,7 @@
     "bootstrap": "^4.0.0-beta",
     "bootstrap-social": "niftylettuce/bootstrap-social#gh-pages",
     "cache-pug-templates": "^0.0.5",
+    "cacti": "^0.0.7",
     "chalk": "^2.1.0",
     "chart.js": "^2.6.0",
     "clipboard": "^1.7.1",
@@ -164,11 +164,7 @@
     "node": ">=8.3"
   },
   "homepage": "<%= repo %>",
-  "keywords": [
-    "<%= this.slug(name) %>",
-    "lad",
-    "lass"
-  ],
+  "keywords": ["<%= this.slug(name) %>", "lad", "lass"],
   "license": "Unlicensed",
   "lint-staged": {
     "gitDir": "../",
@@ -177,28 +173,12 @@
         "prettier --write --single-quote --trailing-comma none",
         "git add"
       ],
-      "*.md": [
-        "remark . -qfo",
-        "git add"
-      ]
+      "*.md": ["remark . -qfo", "git add"]
     }
   },
   "main": "index.js",
-  "nyc": {
-    "check-coverage": true,
-    "lines": 100,
-    "functions": 100,
-    "branches": 100,
-    "reporter": [
-      "lcov",
-      "html",
-      "text"
-    ]
-  },
   "remarkConfig": {
-    "plugins": [
-      "preset-github"
-    ]
+    "plugins": ["preset-github"]
   },
   "repository": {
     "type": "git",
@@ -207,27 +187,30 @@
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "xo && npm run lint-md",
-    "lint-md": "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
+    "lint-md":
+      "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
     "test-coverage": "cross-env NODE_ENV=test nyc ava --fail-fast --verbose",
     "build": "gulp build",
     "publish-assets": "gulp publish",
-    "start": "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
+    "start":
+      "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
     "start-agenda": "nodemon agenda",
     "start-api": "nodemon api",
     "start-web": "nodemon web",
     "watch": "gulp watch",
-    "swagger": "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
-    "swagger-api": "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
-    "swagger-web": "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
+    "swagger":
+      "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
+    "swagger-api":
+      "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
+    "swagger-web":
+      "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
     "swagger-gen": "gulp swagger"
   },
   "xo": {
     "extends": "prettier",
-    "plugins": [
-      "prettier"
-    ],
+    "plugins": ["prettier"],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -254,22 +237,15 @@
     "space": true,
     "overrides": [
       {
-        "plugins": [
-          "prettier",
-          "compat"
-        ],
+        "plugins": ["prettier", "compat"],
         "settings": {
-          "polyfills": [
-            "fetch"
-          ]
+          "polyfills": ["fetch"]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "assets/js/**/*.js",
-        "envs": [
-          "browser"
-        ],
+        "envs": ["browser"],
         "rules": {
           "compat/compat": "error"
         }
