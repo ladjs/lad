@@ -79,7 +79,7 @@ app.on('log', logger.log);
 app.cache = config.views.locals.cache;
 
 // only trust proxy if enabled
-app.proxy = config.reverseProxy || false;
+app.proxy = config.trustProxy;
 
 // compress/gzip
 app.use(compress());
@@ -176,9 +176,7 @@ app.use((ctx, next) => {
   return next();
 });
 app.use(async (ctx, next) => {
-  if (config.env.startsWith('test')) {
-    return next();
-  }
+  if (config.env.startsWith('test')) return next();
 
   try {
     await new CSRF({

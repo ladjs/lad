@@ -54,7 +54,7 @@ app.on('log', logger.log);
 app.use(helpers.i18n.middleware);
 
 // trust proxy
-app.proxy = true;
+app.proxy = config.trustProxy;
 
 // compress/gzip
 app.use(compress());
