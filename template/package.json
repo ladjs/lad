@@ -33,6 +33,7 @@
     "consolidate": "^0.14.5",
     "custom-fonts-in-emails": "^1.0.1",
     "dense": "^0.0.1",
+    "email-templates": "^3.0.1",
     "es6-promise": "^4.1.1",
     "font-awesome-assets": "^0.0.8",
     "frisbee": "^1.6.0",
@@ -50,7 +51,7 @@
     "jquery-lazy": "^1.7.5",
     "jquery-placeholder": "^2.3.1",
     "jquery.pointer-events-polyfill": "^0.2.4",
-    "juice": "^4.1.1",
+    "juice": "niftylettuce/juice",
     "kcors": "^2.2.1",
     "koa": "^2.3.0",
     "koa-404-handler": "^0.0.1",
@@ -109,7 +110,6 @@
     "uuid": "^3.1.0",
     "validator": "^8.2.0",
     "waypoints": "^4.0.1",
-    "web-resource-inliner": "niftylettuce/web-resource-inliner",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

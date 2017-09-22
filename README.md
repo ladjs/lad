@@ -119,7 +119,7 @@ Lad boasts dozens of features and is extremely configurable.
 
 ### Email Engine
 
-> Our beautiful email engine is built on top of [Nodemailer][] and designed by the creator of [email-templates][].
+> Our beautiful email engine uses [email-templates][] (which is also made by the creator of Lad)!
 
 * Test your emails locally with automatic browser-rendering on the fly
 * Automatically inlines CSS for cross-browser and cross-platform email client support
@@ -662,7 +662,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
