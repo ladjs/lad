@@ -69,7 +69,7 @@ const User = new mongoose.Schema({
   // last locale
   last_locale: {
     type: String,
-    default: i18n.defaultLocale
+    default: i18n.config.defaultLocale
   },
 
   // authentication
