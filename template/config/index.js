@@ -13,8 +13,6 @@ const utilities = require('./utilities');
 const phrases = require('./phrases');
 const meta = require('./meta');
 
-const viewsDir = path.join(__dirname, '..', 'app', 'views');
-
 const config = {
   emailFontPath: path.join(
     __dirname,
@@ -23,9 +21,6 @@ const config = {
     'fonts',
     'GoudyBookletter1911.otf'
   ),
-
-  // if we should send email or not
-  sendEmail: env.SEND_EMAIL,
 
   // package.json
   pkg,
@@ -60,9 +55,26 @@ const config = {
   contactRequestMaxLength: env.CONTACT_REQUEST_MAX_LENGTH,
   cookiesKey: env.COOKIES_KEY,
   email: {
-    from: env.EMAIL_DEFAULT_FROM,
-    attachments: [],
-    headers: {}
+    message: {
+      from: env.EMAIL_DEFAULT_FROM
+    },
+    send: env.SEND_EMAIL,
+    juiceResources: {
+      preserveImportant: true
+    },
+    base64ToS3: {
+      cloudFrontDomainName: env.AWS_CF_DOMAIN
+    },
+    transport: {
+      // you can use any transport here
+      // but we use postmarkapp.com by default
+      // <https://nodemailer.com/transports/>
+      service: 'postmark',
+      auth: {
+        user: env.POSTMARK_API_TOKEN,
+        pass: env.POSTMARK_API_TOKEN
+      }
+    }
   },
   livereload: {
     port: env.LIVERELOAD_PORT
@@ -98,15 +110,6 @@ const config = {
   },
   serveStatic: {
     // <https://github.com/niftylettuce/koa-better-static#options>
-  },
-
-  // postmarkapp.com
-  postmark: {
-    service: 'postmark',
-    auth: {
-      user: env.POSTMARK_API_TOKEN,
-      pass: env.POSTMARK_API_TOKEN
-    }
   },
 
   // mongoose
@@ -149,7 +152,7 @@ const config = {
   buildDir: path.join(__dirname, '..', 'build'),
   views: {
     // root is required by `koa-views`
-    root: viewsDir,
+    root: path.join(__dirname, '..', 'app', 'views'),
     // These are options passed to `koa-views`
     // <https://github.com/queckezz/koa-views>
     // They are also used by the email job rendering
@@ -274,5 +277,14 @@ config.views.locals.filters.translate = function() {
 // add global `config` object to be used by views
 // TODO: whitelist keys here via `_.pick`
 config.views.locals.config = config;
+
+// add `views` to `config.email`
+config.email.transport.logger = logger;
+// config.email.transport.debug = true;
+config.email.views = Object.assign({}, config.views);
+config.email.views.root = path.join(__dirname, '..', 'emails');
+config.email.i18n = config.i18n;
+config.email.juiceResources.webResources = { relativeTo: config.buildDir };
+config.email.base64ToS3.aws = config.aws;
 
 module.exports = config;
