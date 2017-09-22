@@ -99,7 +99,7 @@ Lad boasts dozens of features and is extremely configurable.
 * Passport-based authentication and group-based (Unix-like) permissioning
 * Stripe-inspired error handling with Boom
 * Mongoose and MongoDB with common database plugins
-* Email template engine with Nodemailer and local rendering
+* Email template engine with [Nodemailer][] and local rendering
 * Proxy eliminates need for Nginx reverse-proxy or Apache virtual hosts
 * Multilingual through i18n and i10n
 * Automatic phrase translation with Google Translate
@@ -662,7 +662,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 

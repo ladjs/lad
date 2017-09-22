@@ -99,7 +99,7 @@ Lad boasts dozens of features and is extremely configurable.
 * Passport-based authentication and group-based (Unix-like) permissioning
 * Stripe-inspired error handling with Boom
 * Mongoose and MongoDB with common database plugins
-* Email template engine with Nodemailer and local rendering
+* Email template engine with [Nodemailer][] and local rendering
 * Proxy eliminates need for Nginx reverse-proxy or Apache virtual hosts
 * Multilingual through i18n and i10n
 * Automatic phrase translation with Google Translate
@@ -119,7 +119,7 @@ Lad boasts dozens of features and is extremely configurable.
 
 ### Email Engine
 
-> Our beautiful email engine is built on top of [Nodemailer][] and designed by the creator of [email-templates][].
+> Our beautiful email engine uses [email-templates][] (which is also made by the creator of Lad)!
 
 * Test your emails locally with automatic browser-rendering on the fly
 * Automatically inlines CSS for cross-browser and cross-platform email client support
