@@ -4,7 +4,9 @@ const strength = require('strength');
 const consolidate = require('consolidate');
 const _ = require('lodash');
 const Logger = require('@ladjs/logger');
+const nodemailer = require('nodemailer');
 const I18N = require('@ladjs/i18n');
+const base64ToS3 = require('nodemailer-base64-to-s3');
 
 const pkg = require('../../package');
 const env = require('./env');
@@ -61,19 +63,6 @@ const config = {
     send: env.SEND_EMAIL,
     juiceResources: {
       preserveImportant: true
-    },
-    base64ToS3: {
-      cloudFrontDomainName: env.AWS_CF_DOMAIN
-    },
-    transport: {
-      // you can use any transport here
-      // but we use postmarkapp.com by default
-      // <https://nodemailer.com/transports/>
-      service: 'postmark',
-      auth: {
-        user: env.POSTMARK_API_TOKEN,
-        pass: env.POSTMARK_API_TOKEN
-      }
     }
   },
   livereload: {
@@ -279,12 +268,29 @@ config.views.locals.filters.translate = function() {
 config.views.locals.config = config;
 
 // add `views` to `config.email`
-config.email.transport.logger = logger;
+config.email.transport = nodemailer.createTransport({
+  // you can use any transport here
+  // but we use postmarkapp.com by default
+  // <https://nodemailer.com/transports/>
+  service: 'postmark',
+  auth: {
+    user: env.POSTMARK_API_TOKEN,
+    pass: env.POSTMARK_API_TOKEN
+  },
+  logger
+});
+config.email.transport.use(
+  'compile',
+  base64ToS3({
+    cloudFrontDomainName: env.AWS_CF_DOMAIN,
+    aws: config.aws
+  })
+);
+
 // config.email.transport.debug = true;
 config.email.views = Object.assign({}, config.views);
 config.email.views.root = path.join(__dirname, '..', 'emails');
 config.email.i18n = config.i18n;
 config.email.juiceResources.webResources = { relativeTo: config.buildDir };
-config.email.base64ToS3.aws = config.aws;
 
 module.exports = config;

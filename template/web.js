@@ -240,6 +240,10 @@ if (!module.parent)
       if (err) return logger.error(err);
       logger.debug(`successfully cached ${cached.length} views`);
     });
+    cachePugTemplates(redisClient, config.email.views.root, (err, cached) => {
+      if (err) return logger.error(err);
+      logger.debug(`successfully cached ${cached.length} views`);
+    });
   });
 
 // handle process events and graceful restart
