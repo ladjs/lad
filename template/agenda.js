@@ -69,7 +69,9 @@ agenda.on('complete', job => {
   // <https://github.com/rschmukler/agenda/issues/129#issuecomment-108057837>
   memwatch.gc();
 });
-agenda.on('success', job => logger.debug(`job "${job.attrs.name}" succeeded`));
+agenda.on('success', job => {
+  logger.debug(`job "${job.attrs.name}" succeeded`);
+});
 agenda.on('fail', (err, job) => {
   err.message = `job "${job.attrs.name}" failed: ${err.message}`;
   logger.error(err, { extra: { job } });
