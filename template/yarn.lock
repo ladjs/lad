@@ -6238,9 +6238,8 @@ juice-resources-promise@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/juice-resources-promise/-/juice-resources-promise-0.0.1.tgz#14a91706340356671de7bac55b1bba51c3f90043"
 
-"juice@github:niftylettuce/juice", juice@niftylettuce/juice:
+juice@niftylettuce/juice:
   version "4.1.1"
-  uid a870804e515275399af07526f6e26ac882db3bcb
   resolved "https://codeload.github.com/niftylettuce/juice/tar.gz/a870804e515275399af07526f6e26ac882db3bcb"
   dependencies:
     cheerio "^0.22.0"
@@ -6304,10 +6303,11 @@ koa-better-flash@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/koa-better-flash/-/koa-better-flash-0.0.3.tgz#4bfb1829f0f927e5a775770ea0ca0fa9440d8df0"
 
-koa-better-timeout@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/koa-better-timeout/-/koa-better-timeout-0.0.1.tgz#58237b680fd64ba9bd8073190864859b7a48d01e"
+koa-better-timeout@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/koa-better-timeout/-/koa-better-timeout-0.0.2.tgz#3aa887c71a38f5fcdd36589b76e714eb092014c8"
   dependencies:
+    auto-bind "^1.1.0"
     boom "^5.2.0"
 
 koa-bodyparser@^4.2.0:
@@ -9685,7 +9685,7 @@ remark-heading-gap@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/remark-heading-gap/-/remark-heading-gap-3.0.0.tgz#f52ac47a27995ef3248a59eb7544b5620b4736a6"
 
-"remark-license@github:niftylettuce/remark-license":
+remark-license@niftylettuce/remark-license:
   version "4.0.1"
   resolved "https://codeload.github.com/niftylettuce/remark-license/tar.gz/17ecb8f64f8f6082414d14f9267a12764e6ddbfb"
   dependencies:
