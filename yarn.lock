@@ -5140,9 +5140,9 @@ remark-parse@^4.0.0:
     vfile-location "^2.0.0"
     xtend "^4.0.1"
 
-remark-preset-github@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/remark-preset-github/-/remark-preset-github-0.0.6.tgz#48dc9574f2ae59a94ccaee1a63a8f4f0826b0275"
+remark-preset-github@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/remark-preset-github/-/remark-preset-github-0.0.7.tgz#4611fdf5451c2b142a7e2d9eadfb22b8acc3bade"
   dependencies:
     remark-comment-config "^5.0.0"
     remark-contributors "^3.1.0"
@@ -5191,7 +5191,7 @@ remark-preset-github@^0.0.6:
     remark-toc "^4.0.0"
     remark-validate-links "^7.0.0"
     retext-english "^3.0.0"
-    retext-preset-github "^0.0.3"
+    retext-preset-github "^0.0.4"
     unified "^6.0.0"
 
 remark-preset-lint-recommended@^3.0.1:
@@ -5434,9 +5434,9 @@ retext-indefinite-article@^1.1.0:
     unist-util-is "^2.0.0"
     unist-util-visit "^1.1.0"
 
-retext-preset-github@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/retext-preset-github/-/retext-preset-github-0.0.3.tgz#75c88efe6bad81a6c1246253f98c76f15e6d1e3f"
+retext-preset-github@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/retext-preset-github/-/retext-preset-github-0.0.4.tgz#9883f2f347dea3d1280885dddf50b530ee60dac5"
   dependencies:
     retext-contractions "^2.1.0"
     retext-diacritics "^1.2.0"
