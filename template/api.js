@@ -18,6 +18,10 @@ const Logger = require('@ladjs/logger');
 const Graceful = require('@ladjs/graceful');
 const Mongoose = require('@ladjs/mongoose');
 const ip = require('ip');
+const conditional = require('koa-conditional-get');
+const cors = require('kcors');
+const etag = require('koa-etag');
+const helmet = require('koa-helmet');
 
 const helpers = require('./helpers');
 const config = require('./config');
@@ -78,6 +82,21 @@ app.use(
     db: redisClient
   })
 );
+
+// conditional-get
+app.use(conditional());
+
+// etag
+app.use(etag());
+
+// cors
+app.use(cors(config.cors));
+
+// TODO: add `cors-gate`
+// <https://github.com/mixmaxhq/cors-gate/issues/6>
+
+// security
+app.use(helmet());
 
 // remove trailing slashes
 app.use(removeTrailingSlashes());
