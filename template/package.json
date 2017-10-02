@@ -189,7 +189,7 @@
       "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
-    "test-coverage": "cross-env NODE_ENV=test nyc ava --fail-fast --verbose",
+    "test-coverage": "cross-env NODE_ENV=test nyc ava --verbose",
     "build": "gulp build",
     "publish-assets": "gulp publish",
     "start":
