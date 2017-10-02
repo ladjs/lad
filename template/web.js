@@ -176,7 +176,8 @@ app.use((ctx, next) => {
   return next();
 });
 app.use(async (ctx, next) => {
-  if (config.env.startsWith('test')) {
+  if (config.env === 'test') {
+    logger.debug(`Skipping CSRF`);
     return next();
   }
 
