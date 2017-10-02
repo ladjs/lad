@@ -52,6 +52,9 @@ agenda.on('ready', () => {
       agenda.define(..._job);
     });
 
+    // every night at midnight run a backup of mongo/redis
+    if (config.isCactiEnabled) agenda.every('0 0 * * *', 'cacti');
+
     agenda.now('locales');
 
     agenda.start();
@@ -66,7 +69,9 @@ agenda.on('complete', job => {
   // <https://github.com/rschmukler/agenda/issues/129#issuecomment-108057837>
   memwatch.gc();
 });
-agenda.on('success', job => logger.debug(`job "${job.attrs.name}" succeeded`));
+agenda.on('success', job => {
+  logger.debug(`job "${job.attrs.name}" succeeded`);
+});
 agenda.on('fail', (err, job) => {
   err.message = `job "${job.attrs.name}" failed: ${err.message}`;
   logger.error(err, { extra: { job } });

@@ -3,8 +3,8 @@ const _ = require('lodash');
 const { OAuth2Strategy } = require('passport-google-oauth');
 
 const GoogleStrategy = OAuth2Strategy;
-const { Users } = require('../app/models');
 const config = require('../config');
+const { Users } = require('../app/models');
 
 passport.serializeUser((user, done) => {
   done(null, user.email);

@@ -4,16 +4,16 @@ const strength = require('strength');
 const consolidate = require('consolidate');
 const _ = require('lodash');
 const Logger = require('@ladjs/logger');
+const nodemailer = require('nodemailer');
 const I18N = require('@ladjs/i18n');
-const env = require('@ladjs/env');
+const base64ToS3 = require('nodemailer-base64-to-s3');
 
 const pkg = require('../../package');
+const env = require('./env');
 const environments = require('./environments');
 const utilities = require('./utilities');
 const phrases = require('./phrases');
 const meta = require('./meta');
-
-const viewsDir = path.join(__dirname, '..', 'app', 'views');
 
 const config = {
   emailFontPath: path.join(
@@ -23,9 +23,6 @@ const config = {
     'fonts',
     'GoudyBookletter1911.otf'
   ),
-
-  // if we should send email or not
-  sendEmail: env.SEND_EMAIL,
 
   // package.json
   pkg,
@@ -60,9 +57,13 @@ const config = {
   contactRequestMaxLength: env.CONTACT_REQUEST_MAX_LENGTH,
   cookiesKey: env.COOKIES_KEY,
   email: {
-    from: env.EMAIL_DEFAULT_FROM,
-    attachments: [],
-    headers: {}
+    message: {
+      from: env.EMAIL_DEFAULT_FROM
+    },
+    send: env.SEND_EMAIL,
+    juiceResources: {
+      preserveImportant: true
+    }
   },
   livereload: {
     port: env.LIVERELOAD_PORT
@@ -72,9 +73,10 @@ const config = {
   },
   ga: env.GOOGLE_ANALYTICS,
   sessionKeys: env.SESSION_KEYS,
+  trustProxy: env.TRUST_PROXY,
+  isCactiEnabled: env.IS_CACTI_ENABLED,
   cors: {
     // <https://github.com/koajs/cors#corsoptions>
-    maxAge: (env.MAX_AGE / 1000) % 60
   },
   rateLimit: {
     duration: 60000,
@@ -88,23 +90,15 @@ const config = {
   appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
   appName: env.APP_NAME,
   i18n: {
-    phrases
     // see @ladjs/i18n for a list of defaults
     // <https://github.com/ladjs/i18n>
     // but for complete configuration reference please see:
     // <https://github.com/mashpie/i18n-node#list-of-all-configuration-options>
+    phrases,
+    directory: path.join(__dirname, '..', 'locales')
   },
   serveStatic: {
     // <https://github.com/niftylettuce/koa-better-static#options>
-  },
-
-  // postmarkapp.com
-  postmark: {
-    service: 'postmark',
-    auth: {
-      user: env.POSTMARK_API_TOKEN,
-      pass: env.POSTMARK_API_TOKEN
-    }
   },
 
   // mongoose
@@ -147,7 +141,7 @@ const config = {
   buildDir: path.join(__dirname, '..', 'build'),
   views: {
     // root is required by `koa-views`
-    root: viewsDir,
+    root: path.join(__dirname, '..', 'app', 'views'),
     // These are options passed to `koa-views`
     // <https://github.com/queckezz/koa-views>
     // They are also used by the email job rendering
@@ -272,5 +266,31 @@ config.views.locals.filters.translate = function() {
 // add global `config` object to be used by views
 // TODO: whitelist keys here via `_.pick`
 config.views.locals.config = config;
+
+// add `views` to `config.email`
+config.email.transport = nodemailer.createTransport({
+  // you can use any transport here
+  // but we use postmarkapp.com by default
+  // <https://nodemailer.com/transports/>
+  service: 'postmark',
+  auth: {
+    user: env.POSTMARK_API_TOKEN,
+    pass: env.POSTMARK_API_TOKEN
+  },
+  logger
+});
+config.email.transport.use(
+  'compile',
+  base64ToS3({
+    cloudFrontDomainName: env.AWS_CF_DOMAIN,
+    aws: config.aws
+  })
+);
+
+// config.email.transport.debug = true;
+config.email.views = Object.assign({}, config.views);
+config.email.views.root = path.join(__dirname, '..', 'emails');
+config.email.i18n = config.i18n;
+config.email.juiceResources.webResources = { relativeTo: config.buildDir };
 
 module.exports = config;

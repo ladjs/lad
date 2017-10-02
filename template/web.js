@@ -79,7 +79,7 @@ app.on('log', logger.log);
 app.cache = config.views.locals.cache;
 
 // only trust proxy if enabled
-app.proxy = config.reverseProxy || false;
+app.proxy = config.trustProxy;
 
 // compress/gzip
 app.use(compress());
@@ -240,6 +240,10 @@ if (!module.parent)
         .web} (LAN: ${ip.address()}:${config.ports.web})`
     );
     cachePugTemplates(app, redisClient, config.views.root, (err, cached) => {
+      if (err) return logger.error(err);
+      logger.debug(`successfully cached ${cached.length} views`);
+    });
+    cachePugTemplates(redisClient, config.email.views.root, (err, cached) => {
       if (err) return logger.error(err);
       logger.debug(`successfully cached ${cached.length} views`);
     });
