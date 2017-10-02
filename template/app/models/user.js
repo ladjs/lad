@@ -8,6 +8,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const config = require('../../config');
 
+const i18n = require('../../helpers/i18n');
+
 const User = new mongoose.Schema({
   // passport-local-mongoose sets these for us on log in attempts
   attempts: Number,
@@ -67,7 +69,7 @@ const User = new mongoose.Schema({
   // last locale
   last_locale: {
     type: String,
-    default: config.i18n.defaultLocale
+    default: i18n.config.defaultLocale
   },
 
   // authentication

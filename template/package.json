@@ -8,40 +8,40 @@
     "url": "<%= repo %>/issues",
     "email": "<%= email %>"
   },
-  "contributors": [
-    "<%= author %> <<%= email %>> (<%= website%>)"
-  ],
+  "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
   "dependencies": {
-    "@ladjs/env": "^0.0.1",
+    "@ladjs/env": "^0.0.2",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/i18n": "^0.0.1",
     "@ladjs/koa-better-static": "^1.0.5",
     "@ladjs/logger": "^0.0.6",
     "@ladjs/mongoose": "^0.0.3",
+    "@ladjs/policies": "^0.0.1",
     "@ladjs/store-ip-address": "^0.0.3",
     "accounting": "^0.4.1",
     "agenda": "^1.0.0",
     "babel-polyfill": "^6.26.0",
-    "basic-auth": "^1.1.0",
+    "basic-auth": "^2.0.0",
     "boom": "^5.2.0",
     "bootstrap": "^4.0.0-beta",
     "bootstrap-social": "niftylettuce/bootstrap-social#gh-pages",
-    "cache-pug-templates": "^0.0.5",
+    "cache-pug-templates": "^0.0.6",
+    "cacti": "^0.0.8",
     "chalk": "^2.1.0",
-    "chart.js": "^2.6.0",
+    "chart.js": "^2.7.0",
     "clipboard": "^1.7.1",
     "consolidate": "^0.14.5",
     "custom-fonts-in-emails": "^1.0.1",
     "dense": "^0.0.1",
+    "email-templates": "^3.0.3",
     "es6-promise": "^4.1.1",
-    "font-awesome-assets": "0.0.8",
-    "frisbee": "^1.5.1",
-    "fs-extra": "^4.0.1",
+    "font-awesome-assets": "^0.0.8",
+    "frisbee": "^1.6.0",
+    "fs-extra": "^4.0.2",
     "gemoji": "^4.2.0",
     "google-translate": "^2.0.5",
     "gulp-swagger-js-codegen": "^1.0.0",
     "highlight.js": "^9.12.0",
-    "html-to-text": "^3.3.0",
     "html5-history-api": "^4.2.8",
     "i18n": "^0.8.3",
     "ip": "^1.1.5",
@@ -50,13 +50,13 @@
     "jquery-lazy": "^1.7.5",
     "jquery-placeholder": "^2.3.1",
     "jquery.pointer-events-polyfill": "^0.2.4",
-    "juice": "^4.1.1",
+    "juice": "niftylettuce/juice",
     "kcors": "^2.2.1",
     "koa": "^2.3.0",
     "koa-404-handler": "^0.0.1",
     "koa-better-error-handler": "^1.3.0",
-    "koa-better-flash": "0.0.3",
-    "koa-better-timeout": "^0.0.1",
+    "koa-better-flash": "^0.0.3",
+    "koa-better-timeout": "^0.0.2",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^2.0.0",
     "koa-conditional-get": "^2.0.0",
@@ -74,27 +74,26 @@
     "koa-methodoverride": "^2.0.0",
     "koa-no-trailing-slash": "^2.0.0",
     "koa-passport": "^4.0.0",
-    "koa-redis": "^3.0.0",
+    "koa-redis": "^3.1.1",
     "koa-response-time": "^2.0.0",
     "koa-router": "^7.2.1",
     "koa-simple-ratelimit": "^2.3.2",
-    "koa-views": "^6.0.2",
+    "koa-views": "^6.1.0",
     "koa-views-render": "^0.0.1",
     "lodash": "^4.17.4",
     "memwatch-next": "^0.3.0",
     "moment": "^2.18.1",
-    "mongoose": "^4.11.10",
+    "mongoose": "^4.11.12",
     "mongoose-common-plugin": "^0.0.2",
     "nodemailer": "^4.1.0",
-    "nodemailer-base64-to-s3": "0.0.2",
-    "nodemailer-html-to-text": "^2.1.0",
+    "nodemailer-base64-to-s3": "^0.0.3",
     "opn": "^5.1.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local-mongoose": "^4.2.1",
     "pluralize": "^7.0.0",
     "popper.js": "^1.12.5",
     "pug": "^2.0.0-rc.4",
-    "qs": "^6.5.0",
+    "qs": "^6.5.1",
     "randomstring-extended": "^1.0.0",
     "redis": "^2.8.0",
     "sanitize-html": "^1.14.1",
@@ -104,12 +103,11 @@
     "strength": "^0.1.4",
     "supertest": "^3.0.0",
     "swagger-inline": "^0.0.8",
-    "sweetalert2": "^6.6.10",
+    "sweetalert2": "^6.9.1",
     "underscore.string": "^3.3.4",
     "uuid": "^3.1.0",
-    "validator": "^8.1.0",
+    "validator": "^8.2.0",
     "waypoints": "^4.0.1",
-    "web-resource-inliner": "niftylettuce/web-resource-inliner",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
@@ -124,16 +122,16 @@
     "concurrently": "^3.5.0",
     "cross-env": "^5.0.5",
     "cssnano": "^3.10.0",
-    "eslint": "^4.6.1",
-    "eslint-config-prettier": "^2.4.0",
+    "eslint": "^4.7.2",
+    "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-compat": "^1.0.4",
-    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "event-stream": "^3.3.4",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-awspublish": "^3.3.0",
     "gulp-cli": "^1.4.0",
-    "gulp-cloudfront": "0.0.14",
+    "gulp-cloudfront": "^0.0.14",
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.3.0",
     "gulp-livereload": "^3.8.1",
@@ -147,15 +145,15 @@
     "gulp-xo": "^0.16.0",
     "husky": "^0.14.3",
     "imagemin-pngquant": "^5.0.1",
-    "lint-staged": "^4.1.3",
+    "lint-staged": "^4.2.2",
     "ms": "^2.0.0",
-    "nodemon": "^1.12.0",
+    "nodemon": "^1.12.1",
     "nyc": "^11.2.1",
     "postcss-reporter": "^5.0.0",
-    "prettier": "^1.6.1",
+    "prettier": "^1.7.0",
     "remark-cli": "^4.0.0",
     "remark-preset-github": "^0.0.6",
-    "run-sequence": "^2.1.0",
+    "run-sequence": "^2.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "xo": "^0.19.0"
@@ -164,11 +162,7 @@
     "node": ">=8.3"
   },
   "homepage": "<%= repo %>",
-  "keywords": [
-    "<%= this.slug(name) %>",
-    "lad",
-    "lass"
-  ],
+  "keywords": ["<%= this.slug(name) %>", "lad", "lass"],
   "license": "Unlicensed",
   "lint-staged": {
     "gitDir": "../",
@@ -177,28 +171,12 @@
         "prettier --write --single-quote --trailing-comma none",
         "git add"
       ],
-      "*.md": [
-        "remark . -qfo",
-        "git add"
-      ]
+      "*.md": ["remark . -qfo", "git add"]
     }
   },
   "main": "index.js",
-  "nyc": {
-    "check-coverage": true,
-    "lines": 100,
-    "functions": 100,
-    "branches": 100,
-    "reporter": [
-      "lcov",
-      "html",
-      "text"
-    ]
-  },
   "remarkConfig": {
-    "plugins": [
-      "preset-github"
-    ]
+    "plugins": ["preset-github"]
   },
   "repository": {
     "type": "git",
@@ -207,27 +185,30 @@
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "xo && npm run lint-md",
-    "lint-md": "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
+    "lint-md":
+      "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
     "test-coverage": "cross-env NODE_ENV=test nyc ava --fail-fast --verbose",
     "build": "gulp build",
     "publish-assets": "gulp publish",
-    "start": "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
+    "start":
+      "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
     "start-agenda": "nodemon agenda",
     "start-api": "nodemon api",
     "start-web": "nodemon web",
     "watch": "gulp watch",
-    "swagger": "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
-    "swagger-api": "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
-    "swagger-web": "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
+    "swagger":
+      "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
+    "swagger-api":
+      "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
+    "swagger-web":
+      "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
     "swagger-gen": "gulp swagger"
   },
   "xo": {
     "extends": "prettier",
-    "plugins": [
-      "prettier"
-    ],
+    "plugins": ["prettier"],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -254,22 +235,15 @@
     "space": true,
     "overrides": [
       {
-        "plugins": [
-          "prettier",
-          "compat"
-        ],
+        "plugins": ["prettier", "compat"],
         "settings": {
-          "polyfills": [
-            "fetch"
-          ]
+          "polyfills": ["fetch"]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "assets/js/**/*.js",
-        "envs": [
-          "browser"
-        ],
+        "envs": ["browser"],
         "rules": {
           "compat/compat": "error"
         }

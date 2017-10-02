@@ -99,7 +99,7 @@ Lad boasts dozens of features and is extremely configurable.
 * Passport-based authentication and group-based (Unix-like) permissioning
 * Stripe-inspired error handling with Boom
 * Mongoose and MongoDB with common database plugins
-* Email template engine with Nodemailer and local rendering
+* Email template engine with [Nodemailer][] and local rendering
 * Proxy eliminates need for Nginx reverse-proxy or Apache virtual hosts
 * Multilingual through i18n and i10n
 * Automatic phrase translation with Google Translate
@@ -119,7 +119,7 @@ Lad boasts dozens of features and is extremely configurable.
 
 ### Email Engine
 
-> Our beautiful email engine is built on top of [Nodemailer][] and designed by the creator of [email-templates][].
+> Our beautiful email engine uses [email-templates][] (which is also made by the creator of Lad)!
 
 * Test your emails locally with automatic browser-rendering on the fly
 * Automatically inlines CSS for cross-browser and cross-platform email client support
@@ -446,6 +446,8 @@ You can also use `NODE_DEBUG` if desired to debug [node][] internal modules.
 
 5. If you specify the environment variables `AWS_CF_DOMAIN` then your assets will need to be published to Amazon S3/Cloudfront. To do so run `npm run publish-assets` (or with yarn as `yarn publish-assets`).
 
+6. You may also want to turn on automated backups to S3 using [cacti][]. To do so simply add `IS_CACTI_ENABLED=true` to your production `.env` file.
+
 #### Tests
 
 > We use [ava][] and [nyc][] for testing and code coverage.
@@ -548,6 +550,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 
    * Language: `JavaScript`
    * Node.js version: `8.3+` (latest)
+     > Note you can also add to `Setup` the script `nvm install latest` to install latest version if SemaphoreCI does not provide it from the drop-down
    * Setup: `npm install`
    * Job 1: `npm test`
    * After job: `npm run coverage`
@@ -750,3 +753,5 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [koa-better-error-handler]: https://github.com/niftylettuce/koa-better-error-handler
 
 [koa-manifest-rev]: https://github.com/niftylettuce/koa-manifest-rev
+
+[cacti]: https://github.com/niftylettuce/cacti
