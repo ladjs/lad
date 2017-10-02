@@ -241,11 +241,11 @@ if (!module.parent)
     );
     cachePugTemplates(app, redisClient, config.views.root, (err, cached) => {
       if (err) return logger.error(err);
-      logger.debug(`successfully cached ${cached.length} views`);
+      logger.debug(`successfully cached ${cached.length} app views`);
     });
     cachePugTemplates(redisClient, config.email.views.root, (err, cached) => {
       if (err) return logger.error(err);
-      logger.debug(`successfully cached ${cached.length} views`);
+      logger.debug(`successfully cached ${cached.length} email views`);
     });
   });
 
