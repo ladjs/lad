@@ -5,6 +5,7 @@ test('returns JSON with 2 spaces', t => {
   t.snapshot(json({ ok: 'hey' }));
 });
 
-test('returns correct emoji', t => {
+test('returns valid emoji or empty string', t => {
   t.is(emoji('cat'), '🐱');
+  t.is(emoji('invalid_emoji'), '');
 });
