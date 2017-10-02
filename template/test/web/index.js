@@ -2,14 +2,25 @@ const test = require('ava');
 const app = require('../../web');
 const { koaRequest } = require('../helpers');
 
-test('returns 302', async t => {
+test('redirects to correct locale', async t => {
   const res = await koaRequest(app).get('/');
 
-  t.is(302, res.status);
+  t.is(res.status, 302);
+  t.is(res.headers.location, '/en/');
 });
 
-test('returns 200', async t => {
-  const res = await koaRequest(app).get('/en');
+test('returns English homepage', async t => {
+  const res = await koaRequest(app)
+    .get('/en')
+    .set('Accept', 'text/html');
 
-  t.is(200, res.status);
+  t.snapshot(res.text);
+});
+
+test('returns Spanish homepage', async t => {
+  const res = await koaRequest(app)
+    .get('/es')
+    .set('Accept', 'text/html');
+
+  t.snapshot(res.text);
 });
