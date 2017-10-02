@@ -93,7 +93,7 @@ function SlugPlugin(tmpl = '', ERROR_KEY = 'INVALID_SLUG') {
         this.slug = await getUniqueSlug(this.constructor, this._id, this.slug);
 
         // create slug history if it does not exist yet
-        if (!_.isArray(this.slug_history)) this.slug_history = [];
+        if (!Array.isArray(this.slug_history)) this.slug_history = [];
 
         // add the slug to the slug_history
         this.slug_history.push(this.slug);
