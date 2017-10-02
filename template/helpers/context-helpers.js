@@ -1,9 +1,8 @@
 const _ = require('lodash');
 const Logger = require('@ladjs/logger');
-
 const config = require('../config');
 
-const logger = new Logger();
+const logger = new Logger(config.logger);
 
 module.exports = function(ctx, next) {
   // fix the IP if we're working locally
