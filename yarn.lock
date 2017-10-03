@@ -44,40 +44,6 @@
   dependencies:
     arrify "^1.0.1"
 
-"@ladjs/dotenv-extended@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@ladjs/dotenv-extended/-/dotenv-extended-2.0.3.tgz#4355daa146c2125b56c7deb6ce1c093b55c84f10"
-  dependencies:
-    "@ladjs/dotenv" "^4.0.2"
-    "@types/dotenv" "^4.0.0"
-    auto-parse "^1.3.0"
-    camelcase "^4.1.0"
-    cross-spawn "^5.1.0"
-    is-windows "^1.0.0"
-    lodash "^4.3.0"
-
-"@ladjs/dotenv@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@ladjs/dotenv/-/dotenv-4.0.2.tgz#d762562db502293cb9c85b8dbc93ac2187849a4c"
-
-"@ladjs/env@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@ladjs/env/-/env-0.0.2.tgz#80984f4aa31f0b21bc34c3cd19e0acde66116058"
-  dependencies:
-    "@ladjs/dotenv-extended" "^2.0.3"
-    dotenv-mustache "^1.0.0"
-    dotenv-parse-variables "^0.1.0"
-
-"@types/dotenv@^4.0.0":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-4.0.1.tgz#a0db2a2d25b5c01ff387f07c4f1e002d592873e8"
-  dependencies:
-    "@types/node" "*"
-
-"@types/node@*":
-  version "8.0.30"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.30.tgz#aa3c42946fc6357737eb215349fe728b38679d05"
-
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -297,13 +263,6 @@ author-regex@^1.0.0:
 auto-bind@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-1.1.0.tgz#93b864dc7ee01a326281775d5c75ca0a751e5961"
-
-auto-parse@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/auto-parse/-/auto-parse-1.3.0.tgz#c3450c3147a2a4a94bfa1d07011cbcf0d8d22003"
-  dependencies:
-    lodash "^4.16.3"
-    typpy "^2.3.6"
 
 ava-init@^0.2.0:
   version "0.2.1"
@@ -1512,23 +1471,6 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
-dotenv-mustache@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv-mustache/-/dotenv-mustache-1.0.0.tgz#c04b33b3233aa9a0b93508bd45721e8dde11e480"
-  dependencies:
-    dotenv "^2.0.0"
-    mustache "^2.2.1"
-
-dotenv-parse-variables@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/dotenv-parse-variables/-/dotenv-parse-variables-0.1.0.tgz#0a70772c2008aad47ff546236f940a60c9b5cf40"
-  dependencies:
-    debug "^2.2.0"
-
-dotenv@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
-
 download-git-repo@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/download-git-repo/-/download-git-repo-1.0.1.tgz#d62b07abe829431e9fec90d5543597664228f305"
@@ -2264,12 +2206,6 @@ function-bind@^1.0.2:
 function-name-support@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/function-name-support/-/function-name-support-0.2.0.tgz#55d3bfaa6eafd505a50f9bc81fdf57564a0bb071"
-
-function.name@^1.0.3:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/function.name/-/function.name-1.0.9.tgz#91c45c8f91f2002bc68086c673872b607dd873c3"
-  dependencies:
-    noop6 "^1.0.1"
 
 functional-red-black-tree@^1.0.1:
   version "1.0.1"
@@ -3551,7 +3487,7 @@ lodash@3.7.x:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.7.0.tgz#3678bd8ab995057c07ade836ed2ef087da811d45"
 
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.16.3, lodash@^4.17.4, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3837,7 +3773,7 @@ multipipe@^0.1.2:
   dependencies:
     duplexer2 "0.0.2"
 
-mustache@^2.0.0, mustache@^2.2.1:
+mustache@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/mustache/-/mustache-2.3.0.tgz#4028f7778b17708a489930a6e52ac3bca0da41d0"
 
@@ -3895,10 +3831,6 @@ node-pre-gyp@^0.6.36:
     semver "^5.3.0"
     tar "^2.2.1"
     tar-pack "^3.4.0"
-
-noop6@^1.0.1:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/noop6/-/noop6-1.0.7.tgz#96767bf2058ba59ca8cb91559347ddc80239fa8e"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -4673,7 +4605,7 @@ remark-heading-gap@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/remark-heading-gap/-/remark-heading-gap-3.0.0.tgz#f52ac47a27995ef3248a59eb7544b5620b4736a6"
 
-"remark-license@github:niftylettuce/remark-license":
+remark-license@niftylettuce/remark-license:
   version "4.0.1"
   resolved "https://codeload.github.com/niftylettuce/remark-license/tar.gz/17ecb8f64f8f6082414d14f9267a12764e6ddbfb"
   dependencies:
@@ -6109,12 +6041,6 @@ type-check@~0.3.2:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
-
-typpy@^2.3.6:
-  version "2.3.9"
-  resolved "https://registry.yarnpkg.com/typpy/-/typpy-2.3.9.tgz#28664fda5ea71dd718724f89d00060af1f09c38e"
-  dependencies:
-    function.name "^1.0.3"
 
 uglify-js@^2.6:
   version "2.8.29"
