@@ -28,7 +28,6 @@
     "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)"
   ],
   "dependencies": {
-    "@ladjs/env": "^0.0.2",
     "cac": "^4.2.2",
     "camelcase": "^4.1.0",
     "github-username-regex": "^1.0.0",

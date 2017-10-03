@@ -29,9 +29,6 @@ const opn = require('opn');
 
 const config = require('./config');
 
-// create a new publisher
-const publisher = awspublish.create(config.aws);
-
 // define custom headers
 const headers = {
   'Cache-Control': `public, max-age=${ms('1yr')}`
@@ -72,6 +69,8 @@ gulp.task('build', done => {
 });
 
 gulp.task('publish', () => {
+  // create a new publisher
+  const publisher = awspublish.create(config.aws);
   return (
     gulp
       .src(['build/**/*', '!build/rev-manifest.json'])
@@ -179,8 +178,6 @@ gulp.task('js', ['lint'], done => {
           .transform(babelify)
           .bundle()
           .on('error', function(err) {
-            console.log('err', err);
-            console.log('oh knoez!');
             gutil.log(err.message);
             this.emit('end');
           })
