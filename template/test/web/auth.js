@@ -47,17 +47,51 @@ test('fails registering invalid email', async t => {
 });
 
 test(`doesn't leak used email`, async t => {
+  const email = 'test2@example.com';
+  const password = '!@K#NLK!#N';
+
   await koaRequest(app)
     .post('/en/signup')
     .set('Accept', 'application/json')
-    .send({ email: 'test2@example.com' })
-    .send({ password: 'password' });
+    .send({ email })
+    .send({ password });
 
   const res = await koaRequest(app)
     .post('/en/signup')
     .set('Accept', 'application/json')
-    .send({ email: 'test2@example.com' })
+    .send({ email })
     .send({ password: 'wrongpassword' });
 
   t.is(res.status, 400);
+  t.is(
+    res.body.message,
+    'A user with the given username is already registered'
+  );
+});
+
+test(`allows password reset for valid email`, async t => {
+  await koaRequest(app)
+    .post('/en/signup')
+    .set('Accept', 'application/json')
+    .send({ email: 'test3@example.com' })
+    .send({ password: 'password' });
+
+  const htmlRes = await koaRequest(app)
+    .post('/en/forgot-password')
+    .set('Accept', 'text/html')
+    .send({ email: 'test2@example.com' });
+
+  t.is(htmlRes.status, 302);
+  t.snapshot(htmlRes.text);
+
+  const jsonRes = await koaRequest(app)
+    .post('/en/forgot-password')
+    .set('Accept', 'application/json')
+    .send({ email: 'test2@example.com' });
+
+  t.is(jsonRes.status, 200);
+  t.is(
+    jsonRes.body.message,
+    'We have sent you an email with a link to reset your password.'
+  );
 });
