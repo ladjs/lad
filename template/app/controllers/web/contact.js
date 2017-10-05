@@ -11,6 +11,9 @@ const config = require('../../../config');
 module.exports = async function(ctx) {
   let { body } = ctx.request;
 
+  // @TODO: Remove this once store ip is fixed
+  if (config.env === 'test') ctx.req.ip = ctx.req.ip || '127.0.0.1';
+
   body = _.pick(body, ['email', 'message']);
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
