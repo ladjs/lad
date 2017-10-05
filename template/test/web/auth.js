@@ -284,7 +284,7 @@ test(`fails resetting password with invalid email + reset_token match`, async t 
     .exec();
 
   const res = await koaRequest(app)
-    .post(`/en/reset-password/${user.token}`)
+    .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
     .send({ email: 'wrongemail@example.com' })
     .send({ password });
