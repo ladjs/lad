@@ -27,7 +27,7 @@ test('creates inquiry', async t => {
   );
 });
 
-test('fails creating inquiry if last inquiry was within last 24 hours', async t => {
+test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', async t => {
   await koaRequest(app)
     .post('/en/contact')
     .set('Accept', 'application/json')
@@ -36,8 +36,25 @@ test('fails creating inquiry if last inquiry was within last 24 hours', async t 
 
   const res = await koaRequest(app)
     .post('/en/contact')
-    .set('Accept', 'application/json')
+    .set('Accept', 'text/html')
     .send({ email: 'test2@example.com' })
+    .send({ message: 'Test message!' });
+
+  t.is(res.status, 400);
+  t.snapshot(res.text);
+});
+
+test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', async t => {
+  await koaRequest(app)
+    .post('/en/contact')
+    .set('Accept', 'application/json')
+    .send({ email: 'test3@example.com' })
+    .send({ message: 'Test message!' });
+
+  const res = await koaRequest(app)
+    .post('/en/contact')
+    .set('Accept', 'application/json')
+    .send({ email: 'test3@example.com' })
     .send({ message: 'Test message!' });
 
   t.is(res.status, 400);
