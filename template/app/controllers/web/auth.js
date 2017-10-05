@@ -69,7 +69,7 @@ const login = async (ctx, next) => {
             return reject(err);
           }
 
-          if (ctx.is('json')) {
+          if (ctx.accepts('json')) {
             ctx.body = {
               message: ctx.translate('LOGGED_IN'),
               redirectTo,
@@ -122,7 +122,7 @@ const register = async ctx => {
       delete ctx.session.returnTo;
     }
 
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = {
         message: ctx.translate('REGISTERED'),
         redirectTo
@@ -164,7 +164,7 @@ const forgotPassword = async ctx => {
   // we always say "a password reset request has been sent to your email"
   // and if the email didn't exist in our system then we simply don't send it
   if (!user) {
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = {
         message: ctx.translate('PASSWORD_RESET_SENT')
       };
@@ -198,7 +198,7 @@ const forgotPassword = async ctx => {
 
   await user.save();
 
-  if (ctx.is('json')) {
+  if (ctx.accepts('json')) {
     ctx.body = {
       message: ctx.translate('PASSWORD_RESET_SENT')
     };
@@ -262,7 +262,7 @@ const resetPassword = async ctx => {
   } finally {
     await user.save();
     await util.promisify(ctx.login).bind(ctx.req)(user);
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = {
         message: ctx.translate('RESET_PASSWORD'),
         redirectTo: `/${ctx.req.locale}`

@@ -75,7 +75,7 @@ module.exports = async function(ctx) {
     ctx.logger.info('queued inquiry email', job);
 
     const message = ctx.translate('CONTACT_REQUEST_SENT');
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = { message };
     } else {
       ctx.flash('success', message);
