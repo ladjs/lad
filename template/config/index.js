@@ -69,7 +69,8 @@ const config = {
     port: env.LIVERELOAD_PORT
   },
   logger: {
-    showStack: env.SHOW_STACK
+    showStack: env.SHOW_STACK,
+    appName: env.APP_NAME
   },
   ga: env.GOOGLE_ANALYTICS,
   sessionKeys: env.SESSION_KEYS,
