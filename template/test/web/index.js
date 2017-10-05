@@ -24,3 +24,19 @@ test('returns Spanish homepage', async t => {
 
   t.snapshot(res.text);
 });
+
+test('returns English ToS', async t => {
+  const res = await koaRequest(app)
+    .get('/en/terms')
+    .set('Accept', 'text/html');
+
+  t.snapshot(res.text);
+});
+
+test('returns Spanish ToS', async t => {
+  const res = await koaRequest(app)
+    .get('/es/terms')
+    .set('Accept', 'text/html');
+
+  t.snapshot(res.text);
+});
