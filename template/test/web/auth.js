@@ -111,8 +111,37 @@ test(`allows password reset for valid email (JSON)`, async t => {
   );
 });
 
-test(`resets password with valid email and token (JSON)`, async t => {
+test(`resets password with valid email and token (HTML)`, async t => {
   const email = 'test5@example.com';
+  const password = '!@K#NLK!#N';
+
+  await koaRequest(app)
+    .post('/en/signup')
+    .set('Accept', 'application/json')
+    .send({ email })
+    .send({ password });
+
+  await koaRequest(app)
+    .post('/en/forgot-password')
+    .set('Accept', 'application/json')
+    .send({ email });
+
+  const user = await Users.findOne({ email })
+    .select('reset_token')
+    .exec();
+
+  const res = await koaRequest(app)
+    .post(`/en/reset-password/${user.reset_token}`)
+    .set('Accept', 'text/html')
+    .send({ email })
+    .send({ password });
+
+  t.is(res.status, 302);
+  t.snapshot(res.text);
+});
+
+test(`resets password with valid email and token (JSON)`, async t => {
+  const email = 'test6@example.com';
   const password = '!@K#NLK!#N';
 
   await koaRequest(app)
@@ -139,3 +168,44 @@ test(`resets password with valid email and token (JSON)`, async t => {
   t.is(res.status, 200);
   t.is(res.body.message, 'You have successfully reset your password.');
 });
+
+test(`fails resetting password for non-existant user`, async t => {
+  const email = 'test7@example.com';
+  const password = '!@K#NLK!#N';
+
+  const res = await koaRequest(app)
+    .post(`/en/reset-password/randomtoken`)
+    .set('Accept', 'application/json')
+    .send({ email })
+    .send({ password });
+
+  t.is(res.status, 400);
+  t.is(res.body.message, 'Reset token and email were not valid together.');
+});
+
+test(`fails resetting password with invalid token`, async t => {
+  const email = 'test8@example.com';
+  const password = '!@K#NLK!#N';
+
+  await koaRequest(app)
+    .post('/en/signup')
+    .set('Accept', 'application/json')
+    .send({ email })
+    .send({ password });
+
+  await koaRequest(app)
+    .post('/en/forgot-password')
+    .set('Accept', 'application/json')
+    .send({ email });
+
+  const res = await koaRequest(app)
+    .post(`/en/reset-password/wrongtoken`)
+    .set('Accept', 'application/json')
+    .send({ email })
+    .send({ password });
+
+  t.is(res.status, 400);
+  t.is(res.body.message, 'Reset token and email were not valid together.');
+});
+
+// @TODO: Add test for each provider
