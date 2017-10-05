@@ -8,7 +8,9 @@
     "url": "<%= repo %>/issues",
     "email": "<%= email %>"
   },
-  "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
+  "contributors": [
+    "<%= author %> <<%= email %>> (<%= website%>)"
+  ],
   "dependencies": {
     "@ladjs/env": "^0.0.2",
     "@ladjs/graceful": "^0.0.1",
@@ -22,7 +24,7 @@
     "agenda": "^1.0.0",
     "babel-polyfill": "^6.26.0",
     "basic-auth": "^2.0.0",
-    "boom": "^5.2.0",
+    "boom": "^6.0.0",
     "bootstrap": "^4.0.0-beta",
     "bootstrap-social": "niftylettuce/bootstrap-social#gh-pages",
     "cache-pug-templates": "^0.0.6",
@@ -106,7 +108,7 @@
     "sweetalert2": "^6.9.1",
     "underscore.string": "^3.3.4",
     "uuid": "^3.1.0",
-    "validator": "^8.2.0",
+    "validator": "^9.0.0",
     "waypoints": "^4.0.1",
     "webfontloader": "^1.6.28"
   },
@@ -124,7 +126,7 @@
     "cssnano": "^3.10.0",
     "eslint": "^4.7.2",
     "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-compat": "^1.0.4",
+    "eslint-plugin-compat": "^2.0.0",
     "eslint-plugin-prettier": "^2.3.1",
     "event-stream": "^3.3.4",
     "glob": "^7.1.2",
@@ -152,7 +154,7 @@
     "postcss-reporter": "^5.0.0",
     "prettier": "^1.7.0",
     "remark-cli": "^4.0.0",
-    "remark-preset-github": "^0.0.6",
+    "remark-preset-github": "^0.0.7",
     "run-sequence": "^2.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
@@ -162,7 +164,11 @@
     "node": ">=8.3"
   },
   "homepage": "<%= repo %>",
-  "keywords": ["<%= this.slug(name) %>", "lad", "lass"],
+  "keywords": [
+    "<%= this.slug(name) %>",
+    "lad",
+    "lass"
+  ],
   "license": "Unlicensed",
   "lint-staged": {
     "gitDir": "../",
@@ -171,12 +177,17 @@
         "prettier --write --single-quote --trailing-comma none",
         "git add"
       ],
-      "*.md": ["remark . -qfo", "git add"]
+      "*.md": [
+        "remark . -qfo",
+        "git add"
+      ]
     }
   },
   "main": "index.js",
   "remarkConfig": {
-    "plugins": ["preset-github"]
+    "plugins": [
+      "preset-github"
+    ]
   },
   "repository": {
     "type": "git",
@@ -185,30 +196,27 @@
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "xo && npm run lint-md",
-    "lint-md":
-      "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
+    "lint-md": "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
     "test-coverage": "cross-env NODE_ENV=test nyc ava --verbose",
     "build": "gulp build",
     "publish-assets": "gulp publish",
-    "start":
-      "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
+    "start": "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
     "start-agenda": "nodemon agenda",
     "start-api": "nodemon api",
     "start-web": "nodemon web",
     "watch": "gulp watch",
-    "swagger":
-      "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
-    "swagger-api":
-      "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
-    "swagger-web":
-      "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
+    "swagger": "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
+    "swagger-api": "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
+    "swagger-web": "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
     "swagger-gen": "gulp swagger"
   },
   "xo": {
     "extends": "prettier",
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -235,15 +243,22 @@
     "space": true,
     "overrides": [
       {
-        "plugins": ["prettier", "compat"],
+        "plugins": [
+          "prettier",
+          "compat"
+        ],
         "settings": {
-          "polyfills": ["fetch"]
+          "polyfills": [
+            "fetch"
+          ]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "assets/js/**/*.js",
-        "envs": ["browser"],
+        "envs": [
+          "browser"
+        ],
         "rules": {
           "compat/compat": "error"
         }
