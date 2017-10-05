@@ -1,4 +1,5 @@
 const test = require('ava');
+const { Users } = require('../../app/models');
 const app = require('../../web');
 const {
   before,
@@ -29,7 +30,7 @@ test(`fails registering with easy password`, async t => {
   const res = await koaRequest(app)
     .post('/en/signup')
     .set('Accept', 'application/json')
-    .send({ email: 'test2@example.com' })
+    .send({ email: 'test1@example.com' })
     .send({ password: 'password' });
 
   t.is(res.body.message, `Password not strong enough`);
@@ -69,29 +70,72 @@ test(`doesn't leak used email`, async t => {
   );
 });
 
-test(`allows password reset for valid email`, async t => {
+test(`allows password reset for valid email (HTML)`, async t => {
+  const email = 'test3@example.com';
+  const password = '!@K#NLK!#N';
+
   await koaRequest(app)
     .post('/en/signup')
     .set('Accept', 'application/json')
-    .send({ email: 'test3@example.com' })
-    .send({ password: 'password' });
+    .send({ email })
+    .send({ password });
 
-  const htmlRes = await koaRequest(app)
+  const res = await koaRequest(app)
     .post('/en/forgot-password')
     .set('Accept', 'text/html')
-    .send({ email: 'test2@example.com' });
+    .send({ email });
 
-  t.is(htmlRes.status, 302);
-  t.snapshot(htmlRes.text);
+  t.is(res.status, 302);
+  t.snapshot(res.text);
+});
 
-  const jsonRes = await koaRequest(app)
+test(`allows password reset for valid email (JSON)`, async t => {
+  const email = 'test4@example.com';
+  const password = '!@K#NLK!#N';
+
+  await koaRequest(app)
+    .post('/en/signup')
+    .set('Accept', 'application/json')
+    .send({ email })
+    .send({ password });
+
+  const res = await koaRequest(app)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
-    .send({ email: 'test2@example.com' });
+    .send({ email });
 
-  t.is(jsonRes.status, 200);
+  t.is(res.status, 200);
   t.is(
-    jsonRes.body.message,
+    res.body.message,
     'We have sent you an email with a link to reset your password.'
   );
+});
+
+test(`resets password with valid email and token (JSON)`, async t => {
+  const email = 'test5@example.com';
+  const password = '!@K#NLK!#N';
+
+  await koaRequest(app)
+    .post('/en/signup')
+    .set('Accept', 'application/json')
+    .send({ email })
+    .send({ password });
+
+  await koaRequest(app)
+    .post('/en/forgot-password')
+    .set('Accept', 'application/json')
+    .send({ email });
+
+  const user = await Users.findOne({ email })
+    .select('reset_token')
+    .exec();
+
+  const res = await koaRequest(app)
+    .post(`/en/reset-password/${user.reset_token}`)
+    .set('Accept', 'application/json')
+    .send({ email })
+    .send({ password });
+
+  t.is(res.status, 200);
+  t.is(res.body.message, 'You have successfully reset your password.');
 });
