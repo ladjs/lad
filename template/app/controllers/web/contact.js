@@ -36,9 +36,16 @@ module.exports = async function(ctx) {
   }
 
   // check if we already sent a contact request in the past day
-  // with this given ip address, otherwise create and email
+  // with this given ip address or email, otherwise create and email
   const count = await Inquiries.count({
-    ip: ctx.req.ip,
+    $or: [
+      {
+        ip: ctx.req.ip
+      },
+      {
+        email: body.email
+      }
+    ],
     created_at: {
       $gte: moment()
         .subtract(1, 'day')
