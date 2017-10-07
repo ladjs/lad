@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer');
 const I18N = require('@ladjs/i18n');
 const base64ToS3 = require('nodemailer-base64-to-s3');
 
-const pkg = require('../../package');
+const pkg = require('../package');
 const env = require('./env');
 const environments = require('./environments');
 const utilities = require('./utilities');
