@@ -3446,8 +3446,8 @@ eslint-plugin-ava@^4.2.0:
     pkg-up "^2.0.0"
 
 eslint-plugin-compat@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-2.0.0.tgz#b91bdfc6e7f5e79432ea7a88e274ce31f218bb15"
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-2.0.1.tgz#4912e5447d3095f10e7cb785b2af2a55cd12ef8b"
   dependencies:
     babel-runtime "^6.26.0"
     browserslist "^2.4.0"
@@ -9670,7 +9670,7 @@ remark-heading-gap@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/remark-heading-gap/-/remark-heading-gap-3.0.0.tgz#f52ac47a27995ef3248a59eb7544b5620b4736a6"
 
-"remark-license@github:niftylettuce/remark-license":
+remark-license@niftylettuce/remark-license:
   version "4.0.1"
   resolved "https://codeload.github.com/niftylettuce/remark-license/tar.gz/17ecb8f64f8f6082414d14f9267a12764e6ddbfb"
   dependencies:
