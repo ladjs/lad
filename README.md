@@ -444,7 +444,7 @@ You can also use `NODE_DEBUG` if desired to debug [node][] internal modules.
 
 4. See the [Continuous Integration and Code Coverage](#continuous-integration-and-code-coverage) and [Tutorials](#tutorials) sections below for instructions on how to setup continuous integration, code coverage, and deployment.
 
-5. If you specify the environment variables `AWS_CF_DOMAIN` then your assets will need to be published to Amazon S3/Cloudfront. To do so run `npm run publish-assets` (or with yarn as `yarn publish-assets`).
+5. If you specify an environment variable value for `AWS_CF_DOMAIN` and `NODE_ENV=production` is set then your assets will need to be published to Amazon S3/Cloudfront. To do so run `npm run publish-assets` (or with yarn as `yarn publish-assets`).  This command automatically sets `NODE_ENV=production` for you as well via `cross-env`.
 
 6. You may also want to turn on automated backups to S3 using [cacti][]. To do so simply add `IS_CACTI_ENABLED=true` to your production `.env` file.
 
