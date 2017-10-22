@@ -169,11 +169,11 @@ See [koa-better-error-handler][] for a complete reference.
 > The following bash output is the directory structure and organization of Lad:
 
 ```sh
-tree template -I "build|node_modules|coverage"
+tree template -I "build|node_modules|coverage|test"
 ```
 
 ```sh
-.
+template
 ├── LICENSE
 ├── README
 ├── agenda.js
@@ -195,7 +195,6 @@ tree template -I "build|node_modules|coverage"
 │   │   ├── inquiry.js
 │   │   ├── job.js
 │   │   ├── plugins
-│   │   │   ├── common.js
 │   │   │   ├── index.js
 │   │   │   └── slug.js
 │   │   └── user.js
@@ -251,19 +250,20 @@ tree template -I "build|node_modules|coverage"
 │   │   │   └── dashboard.js
 │   │   ├── core.js
 │   │   ├── flash.js
-│   │   └── spinner.js
+│   │   ├── spinner.js
+│   │   └── swal.js
 │   └── manifest.json
 ├── config
+│   ├── env.js
 │   ├── environments
 │   │   ├── development.js
 │   │   ├── index.js
 │   │   ├── production.js
 │   │   ├── staging.js
 │   │   └── test.js
-│   ├── i18n.js
 │   ├── index.js
-│   ├── locales.js
 │   ├── meta.js
+│   ├── phrases.js
 │   └── utilities.js
 ├── ecosystem.json
 ├── emails
@@ -284,23 +284,16 @@ tree template -I "build|node_modules|coverage"
 ├── gitignore
 ├── gulpfile.js
 ├── helpers
-│   ├── _404-handler.js
 │   ├── context-helpers.js
 │   ├── dynamic-view-helpers.js
-│   ├── graceful.js
 │   ├── i18n.js
 │   ├── index.js
 │   ├── logger.js
-│   ├── meta.js
-│   ├── mongoose.js
 │   ├── passport.js
-│   ├── policies.js
-│   ├── render-page.js
-│   ├── stop-agenda.js
-│   ├── store-ip-address.js
-│   └── timeout.js
+│   └── policies.js
 ├── index.js
 ├── jobs
+│   ├── backup.js
 │   ├── email.js
 │   ├── index.js
 │   └── locales.js
@@ -322,6 +315,8 @@ tree template -I "build|node_modules|coverage"
 │       ├── admin.js
 │       ├── auth.js
 │       └── index.js
+├── swagger-api.yaml
+├── swagger-web.yaml
 ├── web.js
 └── yarn.lock
 ```
@@ -662,7 +657,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
