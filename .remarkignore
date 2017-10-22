@@ -1,3 +1,5 @@
 test/snapshots/**/*.md
+template/test/snapshots/**/*.md
+template/test/**/snapshots/**/*.md
 template/README.md
 template/locales/README.md

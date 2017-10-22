@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const http = require('http');
 const https = require('https');
 const Koa = require('koa');
@@ -145,8 +146,7 @@ else server = https.createServer(config.ssl.api, app.callback());
 if (!module.parent)
   server = server.listen(config.ports.api, () =>
     logger.info(
-      `api server listening on ${config.ports
-        .api} (LAN: ${ip.address()}:${config.ports.api})`
+      `api server listening on ${config.ports.api} (LAN: ${ip.address()}:${config.ports.api})`
     )
   );
 

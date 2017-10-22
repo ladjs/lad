@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const http = require('http');
 const https = require('https');
 const _ = require('lodash');
@@ -98,9 +99,7 @@ app.use(koaManifestRev(config.koaManifestRev));
 app.use(helpers.i18n.middleware);
 
 // set template rendering engine
-app.use(
-  views(config.views.root, _.extend(config.views.options, config.views.locals))
-);
+app.use(views(config.views.root, _.extend(config.views.options, config.views.locals)));
 
 // livereload if we're in dev mode
 if (config.env === 'development') app.use(livereload(config.livereload));
@@ -176,7 +175,10 @@ app.use((ctx, next) => {
   return next();
 });
 app.use(async (ctx, next) => {
-  if (config.env === 'test') return next();
+  if (config.env === 'test') {
+    logger.debug(`Skipping CSRF`);
+    return next();
+  }
 
   try {
     await new CSRF({
@@ -233,16 +235,15 @@ else server = https.createServer(config.ssl.web, app.callback());
 if (!module.parent)
   server = server.listen(config.ports.web, () => {
     logger.info(
-      `web server listening on ${config.ports
-        .web} (LAN: ${ip.address()}:${config.ports.web})`
+      `web server listening on ${config.ports.web} (LAN: ${ip.address()}:${config.ports.web})`
     );
     cachePugTemplates(app, redisClient, config.views.root, (err, cached) => {
       if (err) return logger.error(err);
-      logger.debug(`successfully cached ${cached.length} views`);
+      logger.debug(`successfully cached ${cached.length} app views`);
     });
     cachePugTemplates(redisClient, config.email.views.root, (err, cached) => {
       if (err) return logger.error(err);
-      logger.debug(`successfully cached ${cached.length} views`);
+      logger.debug(`successfully cached ${cached.length} email views`);
     });
   });
 

@@ -12,7 +12,7 @@
   "dependencies": {
     "@ladjs/env": "^0.0.2",
     "@ladjs/graceful": "^0.0.1",
-    "@ladjs/i18n": "^0.0.1",
+    "@ladjs/i18n": "^0.0.5",
     "@ladjs/koa-better-static": "^1.0.5",
     "@ladjs/logger": "^0.0.6",
     "@ladjs/mongoose": "^0.0.3",
@@ -22,7 +22,7 @@
     "agenda": "^1.0.0",
     "babel-polyfill": "^6.26.0",
     "basic-auth": "^2.0.0",
-    "boom": "^5.2.0",
+    "boom": "^6.0.0",
     "bootstrap": "^4.0.0-beta",
     "bootstrap-social": "niftylettuce/bootstrap-social#gh-pages",
     "cache-pug-templates": "^0.0.6",
@@ -85,7 +85,7 @@
     "mongoose": "^4.11.12",
     "mongoose-common-plugin": "^0.0.2",
     "nodemailer": "^4.1.0",
-    "nodemailer-base64-to-s3": "^0.0.3",
+    "nodemailer-base64-to-s3": "^0.0.4",
     "opn": "^5.1.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local-mongoose": "^4.2.1",
@@ -105,9 +105,20 @@
     "sweetalert2": "^6.9.1",
     "underscore.string": "^3.3.4",
     "uuid": "^3.1.0",
-    "validator": "^8.2.0",
+    "validator": "^9.0.0",
     "waypoints": "^4.0.1",
     "webfontloader": "^1.6.28"
+  },
+  "prettier": {
+    "parser": "babylon",
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "none"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
@@ -123,7 +134,7 @@
     "cssnano": "^3.10.0",
     "eslint": "^4.7.2",
     "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-compat": "^1.0.4",
+    "eslint-plugin-compat": "^2.0.0",
     "eslint-plugin-prettier": "^2.3.1",
     "event-stream": "^3.3.4",
     "glob": "^7.1.2",
@@ -151,7 +162,7 @@
     "postcss-reporter": "^5.0.0",
     "prettier": "^1.7.0",
     "remark-cli": "^4.0.0",
-    "remark-preset-github": "^0.0.6",
+    "remark-preset-github": "^0.0.7",
     "run-sequence": "^2.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
@@ -166,11 +177,11 @@
   "lint-staged": {
     "gitDir": "../",
     "linters": {
-      "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
-        "prettier --write --single-quote --trailing-comma none",
-        "git add"
-      ],
-      "*.md": ["remark . -qfo", "git add"]
+      "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": ["prettier --write", "git add"],
+      "*.md": ["git add"],
+      "*.md,!test/snapshots/**/*.md,!test/**/snapshots/**/*.md,!locales/README.md": [
+        "remark . -qfo"
+      ]
     }
   },
   "main": "index.js",
@@ -185,10 +196,10 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "xo && npm run lint-md",
     "lint-md":
-      "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
+      "node -e \"require('shelljs').echo('# Temp\\n').to('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
-    "test-coverage": "cross-env NODE_ENV=test nyc ava --fail-fast --verbose",
+    "test-coverage": "cross-env NODE_ENV=test nyc ava --verbose",
     "build": "gulp build",
     "publish-assets": "gulp publish",
     "start":
@@ -197,8 +208,7 @@
     "start-api": "nodemon api",
     "start-web": "nodemon web",
     "watch": "gulp watch",
-    "swagger":
-      "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
+    "swagger": "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
     "swagger-api":
       "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
     "swagger-web":
@@ -223,7 +233,7 @@
       "max-len": [
         "error",
         {
-          "code": 120,
+          "code": 100,
           "ignoreUrls": true
         }
       ],

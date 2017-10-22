@@ -11,13 +11,15 @@ const config = require('../../../config');
 module.exports = async function(ctx) {
   let { body } = ctx.request;
 
+  // @TODO: Remove this once store ip is fixed
+  if (config.env === 'test') ctx.req.ip = ctx.req.ip || '127.0.0.1';
+
   body = _.pick(body, ['email', 'message']);
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
-  if (!_.isUndefined(body.message) && !_.isString(body.message))
-    delete body.message;
+  if (!_.isUndefined(body.message) && !_.isString(body.message)) delete body.message;
 
   if (body.message)
     body.message = sanitize(body.message, {
@@ -36,9 +38,16 @@ module.exports = async function(ctx) {
   }
 
   // check if we already sent a contact request in the past day
-  // with this given ip address, otherwise create and email
+  // with this given ip address or email, otherwise create and email
   const count = await Inquiries.count({
-    ip: ctx.req.ip,
+    $or: [
+      {
+        ip: ctx.req.ip
+      },
+      {
+        email: body.email
+      }
+    ],
     created_at: {
       $gte: moment()
         .subtract(1, 'day')
@@ -75,7 +84,7 @@ module.exports = async function(ctx) {
     ctx.logger.info('queued inquiry email', job);
 
     const message = ctx.translate('CONTACT_REQUEST_SENT');
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = { message };
     } else {
       ctx.flash('success', message);

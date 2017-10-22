@@ -8,13 +8,7 @@ const retrieve = async ctx => {
 
 const update = async ctx => {
   // set fields we allow to be updated
-  const fields = [
-    'email',
-    'display_name',
-    'given_name',
-    'family_name',
-    'avatar_url'
-  ];
+  const fields = ['email', 'display_name', 'given_name', 'family_name', 'avatar_url'];
 
   // extend the user object
   // (basically overwrites or "extends" the existing fields)

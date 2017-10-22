@@ -7,5 +7,7 @@ module.exports = {
   },
   logger: {
     silent: true
-  }
+  },
+  // This needs to be this high otherwise some tests may fail
+  webRequestTimeoutMs: 20000
 };

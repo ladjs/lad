@@ -29,32 +29,17 @@ module.exports = function(config) {
     ],
     '/about': [`About ${lad}`, `Learn more about ${config.appName}`],
     '/terms': [`Terms ${lad}`, 'Read our terms and conditions of use'],
-    '/contact': [
-      `Contact ${lad}`,
-      `Contact ${config.appName} with your questions and comments`
-    ],
+    '/contact': [`Contact ${lad}`, `Contact ${config.appName} with your questions and comments`],
     '/login': [`Log in ${lad}`, 'Log in to your account'],
     '/signup': [`Sign up ${lad}`, 'Sign up for an account'],
-    '/my-account': [
-      `My Account ${lad}`,
-      'View your account and manage your settings'
-    ],
+    '/my-account': [`My Account ${lad}`, 'View your account and manage your settings'],
     '/admin': [`Admin ${lad}`, 'Admin dashboard for administrative management'],
     '/forgot-password': [
       `Forgot password ${lad}`,
       'Get access to your access by resetting your password'
     ],
-    '/404': [
-      `Page not found ${lad}`,
-      'The page you requested could not be found'
-    ],
-    '/500': [
-      `Server error ${lad}`,
-      'A server error has unfortunately occurred'
-    ],
-    '/reset-password': [
-      `Reset password ${lad}`,
-      'Confirm your password reset token'
-    ]
+    '/404': [`Page not found ${lad}`, 'The page you requested could not be found'],
+    '/500': [`Server error ${lad}`, 'A server error has unfortunately occurred'],
+    '/reset-password': [`Reset password ${lad}`, 'Confirm your password reset token']
   };
 };

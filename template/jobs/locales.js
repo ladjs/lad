@@ -13,10 +13,7 @@ const googleTranslate = new GoogleTranslate(config.googleTranslateKey);
 const translate = promisify(googleTranslate.translate).bind(googleTranslate);
 
 module.exports = async function(job, done) {
-  const defaultFields = _.zipObject(
-    _.values(i18n.config.phrases),
-    _.values(i18n.config.phrases)
-  );
+  const defaultFields = _.zipObject(_.values(i18n.config.phrases), _.values(i18n.config.phrases));
 
   const defaultLocaleFilePath = path.join(
     i18n.config.directory,
@@ -53,19 +50,12 @@ module.exports = async function(job, done) {
           // then check if translations need done
           if (locale !== i18n.config.defaultLocale) {
             const translationsRequired = _.intersection(
-              _.uniq(
-                _.concat(
-                  _.values(i18n.config.phrases),
-                  _.values(defaultLocaleFile)
-                )
-              ),
+              _.uniq(_.concat(_.values(i18n.config.phrases), _.values(defaultLocaleFile))),
               _.values(file)
             );
 
             if (translationsRequired.length > 0)
-              logger.info(
-                `translating (${translationsRequired.length}) phrases in ${locale}`
-              );
+              logger.info(`translating (${translationsRequired.length}) phrases in ${locale}`);
 
             // attempt to translate all of these in the given language
             const promises = _.map(translationsRequired, phrase => {
@@ -95,10 +85,7 @@ module.exports = async function(job, done) {
                 // interpret as ranged interval
                 // <https://github.com/mashpie/i18n-node/issues/274>
                 // TODO: maybe we should use `he` package to re-encode entities
-                file[result.originalText] = result.translatedText.replace(
-                  /\|/g,
-                  '&#124;'
-                );
+                file[result.originalText] = result.translatedText.replace(/\|/g, '&#124;');
               });
             } catch (err) {
               logger.error(err);
