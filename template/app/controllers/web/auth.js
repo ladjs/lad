@@ -20,10 +20,7 @@ const signupOrLogin = async ctx => {
   // then set it as the returnTo value for when we log in
   if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to)) {
     ctx.session.returnTo = ctx.query.return_to;
-  } else if (
-    _.isString(ctx.query.redirect_to) &&
-    !s.isBlank(ctx.query.redirect_to)
-  ) {
+  } else if (_.isString(ctx.query.redirect_to) && !s.isBlank(ctx.query.redirect_to)) {
     // in case people had a typo, we should support redirect_to as well
     ctx.session.returnTo = ctx.query.redirect_to;
   }
@@ -34,16 +31,11 @@ const signupOrLogin = async ctx => {
     ctx.session.returnTo.indexOf('://') !== -1 &&
     ctx.session.returnTo.indexOf(config.urls.web) !== 0
   ) {
-    logger.warn(
-      `Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`
-    );
+    logger.warn(`Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`);
     ctx.session.returnTo = null;
   }
 
-  ctx.state.verb =
-    ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup'
-      ? 'sign up'
-      : 'log in';
+  ctx.state.verb = ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup' ? 'sign up' : 'log in';
 
   await ctx.render('signup-or-login');
 };
@@ -54,8 +46,7 @@ const login = async (ctx, next) => {
       return new Promise(async (resolve, reject) => {
         if (err) return reject(err);
 
-        let redirectTo = `/${ctx.req.locale}${config.auth.callbackOpts
-          .successReturnToOrRedirect}`;
+        let redirectTo = `/${ctx.req.locale}${config.auth.callbackOpts.successReturnToOrRedirect}`;
 
         if (ctx.session && ctx.session.returnTo) {
           redirectTo = ctx.session.returnTo;
@@ -183,10 +174,7 @@ const forgotPassword = async ctx => {
   )
     return ctx.throw(
       Boom.badRequest(
-        ctx.translate(
-          'PASSWORD_RESET_LIMIT',
-          moment(user.reset_token_expires_at).fromNow()
-        )
+        ctx.translate('PASSWORD_RESET_LIMIT', moment(user.reset_token_expires_at).fromNow())
       )
     );
 

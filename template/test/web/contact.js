@@ -1,12 +1,6 @@
 const test = require('ava');
 const app = require('../../web');
-const {
-  before,
-  beforeEach,
-  afterEach,
-  after,
-  koaRequest
-} = require('../helpers');
+const { before, beforeEach, afterEach, after, koaRequest } = require('../helpers');
 
 test.before(before);
 test.beforeEach(beforeEach);

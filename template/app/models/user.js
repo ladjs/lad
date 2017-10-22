@@ -102,10 +102,7 @@ User.pre('validate', function(next) {
   if (!_.isString(this.api_token) || s.isBlank(this.api_token))
     this.api_token = randomstring.token(24);
 
-  if (
-    _.isString(this.email) &&
-    (!_.isString(this.display_name) || s.isBlank(this.display_name))
-  )
+  if (_.isString(this.email) && (!_.isString(this.display_name) || s.isBlank(this.display_name)))
     this.display_name = this.email.split('@')[0];
 
   next();

@@ -92,22 +92,6 @@
     debug "^3.0.1"
     stop-agenda "^0.0.5"
 
-"@ladjs/i18n@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-0.0.1.tgz#9506bf6db6349d200574e805c02d3f355e6bf671"
-  dependencies:
-    auto-bind "^1.1.0"
-    boom "^5.2.0"
-    country-language "^0.1.7"
-    i18n "^0.8.3"
-    i18n-locales "^0.0.1"
-    lodash.every "^4.6.0"
-    lodash.isempty "^4.4.0"
-    lodash.sortby "^4.7.0"
-    moment "^2.18.1"
-    qs "^6.5.1"
-    underscore.string "^3.3.4"
-
 "@ladjs/i18n@^0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-0.0.5.tgz#fb0354a62b257915ec825fd2648df3304bc9b688"
@@ -5292,10 +5276,6 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-i18n-locales@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/i18n-locales/-/i18n-locales-0.0.1.tgz#4a9e9a505e0d4c0bb2cdbe693569a718425fee57"
-
 i18n-locales@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/i18n-locales/-/i18n-locales-0.0.2.tgz#12e56046f1fa260e11658f4ac62f60b363479ff9"
@@ -7919,14 +7899,13 @@ node-version@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/node-version/-/node-version-1.1.0.tgz#f437d7ba407e65e2c4eaef8887b1718ba523d4f0"
 
-nodemailer-base64-to-s3@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/nodemailer-base64-to-s3/-/nodemailer-base64-to-s3-0.0.3.tgz#fc74381e19116617a0b052ed18423eeca7ac5061"
+nodemailer-base64-to-s3@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/nodemailer-base64-to-s3/-/nodemailer-base64-to-s3-0.0.4.tgz#d4a25ad713b41245ed9d5205c65531090383b893"
   dependencies:
     aws-sdk "^2.122.0"
     lodash "^4.17.4"
-    sharp "^0.18.4"
-    uuid "^3.1.0"
+    rev-hash "^2.0.0"
 
 nodemailer@^4.1.0, nodemailer@^4.1.3, nodemailer@^4.2.0:
   version "4.2.0"
@@ -10785,7 +10764,7 @@ sha.js@^2.4.0, sha.js@^2.4.8, sha.js@~2.4.4:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-sharp@^0.18.2, sharp@^0.18.4:
+sharp@^0.18.2:
   version "0.18.4"
   resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.18.4.tgz#fe329c0f06896c28aa24376df1fff02ae57f2d34"
   dependencies:

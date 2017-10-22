@@ -10,9 +10,7 @@ const swal = require('./swal');
       const html =
         messages.length === 1
           ? messages[0]
-          : `<ul class="m-a-0 text-left"><li>${messages.join(
-              '</li><li>'
-            )}</li></ul>`;
+          : `<ul class="m-a-0 text-left"><li>${messages.join('</li><li>')}</li></ul>`;
       steps.push({
         title: window._types[type],
         html,

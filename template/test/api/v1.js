@@ -11,7 +11,7 @@ test(`fails when no creds are presented`, async t => {
 
 // @TODO This won't work as we need the session to stay within the
 //       supertest context as we're using two different apps(web/api)
-//       Maybe we need to add a helper to work with register/login when testing the api.
+//       Maybe we need to add a helper to work with register/login w/api tests
 test.failing(`returns current user's account`, async t => {
   const user = { email: 'test10@example.com', password: '!@#$%^&*$#@!^&^$#@!' };
 
