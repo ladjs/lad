@@ -20,13 +20,22 @@
       "template/**/*.test.js"
     ]
   },
+  "prettier": {
+    "parser": "babylon",
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "none"
+  },
   "bugs": {
     "url": "https://github.com/ladjs/lad/issues",
     "email": "niftylettuce@gmail.com"
   },
-  "contributors": [
-    "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)"
-  ],
+  "contributors": ["Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)"],
   "dependencies": {
     "cac": "^4.2.2",
     "camelcase": "^4.1.0",
@@ -35,26 +44,26 @@
     "is-url": "^1.2.2",
     "is-valid-npm-name": "^0.0.4",
     "npm-conf": "^1.1.2",
-    "sao": "^0.22.2",
+    "sao": "^0.22.3",
     "semver": "^5.4.1",
     "speakingurl": "^14.0.1",
-    "superb": "^1.3.0",
-    "update-notifier": "^2.2.0",
+    "superb": "^2.0.0",
+    "update-notifier": "^2.3.0",
     "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {
     "ava": "^0.22.0",
     "codecov": "^2.3.0",
     "cross-env": "^5.0.5",
-    "eslint": "^4.7.2",
+    "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-compat": "^1.0.4",
+    "eslint-plugin-compat": "^2.0.1",
     "eslint-plugin-prettier": "^2.3.1",
     "gulp-swagger-js-codegen": "^1.0.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.2.2",
+    "lint-staged": "^4.2.3",
     "nyc": "^11.2.1",
-    "prettier": "^1.7.0",
+    "prettier": "^1.7.4",
     "remark-cli": "^4.0.0",
     "remark-preset-github": "^0.0.7",
     "supertest": "^3.0.0",
@@ -95,11 +104,11 @@
   ],
   "license": "MIT",
   "lint-staged": {
-    "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
-      "prettier --write --single-quote --trailing-comma none",
-      "git add"
-    ],
-    "*.md": ["remark . -qfo", "git add"]
+    "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": ["prettier --write", "git add"],
+    "*.md": ["git add"],
+    "*.md,!test/snapshots/**/*.md,!template/test/snapshots/**/*.md,!template/test/**/*snapshots/**/*.md,!template/README.md,!template/locales/README.md": [
+      "remark . -qfo"
+    ]
   },
   "main": "sao.js",
   "nyc": {
@@ -137,7 +146,7 @@
       "max-len": [
         "error",
         {
-          "code": 120,
+          "code": 100,
           "ignoreUrls": true
         }
       ],

@@ -16,13 +16,7 @@ const phrases = require('./phrases');
 const meta = require('./meta');
 
 const config = {
-  emailFontPath: path.join(
-    __dirname,
-    '..',
-    'assets',
-    'fonts',
-    'GoudyBookletter1911.otf'
-  ),
+  emailFontPath: path.join(__dirname, '..', 'assets', 'fonts', 'GoudyBookletter1911.otf'),
 
   // package.json
   pkg,
@@ -69,7 +63,8 @@ const config = {
     port: env.LIVERELOAD_PORT
   },
   logger: {
-    showStack: env.SHOW_STACK
+    showStack: env.SHOW_STACK,
+    appName: env.APP_NAME
   },
   ga: env.GOOGLE_ANALYTICS,
   sessionKeys: env.SESSION_KEYS,
@@ -211,8 +206,7 @@ const config = {
       try {
         await next();
       } catch (err) {
-        if (err.message === 'Consent required')
-          return ctx.redirect('/auth/google/consent');
+        if (err.message === 'Consent required') return ctx.redirect('/auth/google/consent');
         ctx.flash('error', err.message);
         ctx.redirect('/login');
       }
@@ -241,14 +235,10 @@ const config = {
 };
 
 // merge environment configurations
-if (_.isObject(environments[env.NODE_ENV]))
-  _.merge(config, environments[env.NODE_ENV]);
+if (_.isObject(environments[env.NODE_ENV])) _.merge(config, environments[env.NODE_ENV]);
 
 // check if we have third party providers enabled
-config.auth.hasThirdPartyProviders = _.some(
-  config.auth.providers,
-  bool => bool
-);
+config.auth.hasThirdPartyProviders = _.some(config.auth.providers, bool => bool);
 
 // meta support for SEO
 config.meta = meta(config);

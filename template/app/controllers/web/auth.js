@@ -20,10 +20,7 @@ const signupOrLogin = async ctx => {
   // then set it as the returnTo value for when we log in
   if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to)) {
     ctx.session.returnTo = ctx.query.return_to;
-  } else if (
-    _.isString(ctx.query.redirect_to) &&
-    !s.isBlank(ctx.query.redirect_to)
-  ) {
+  } else if (_.isString(ctx.query.redirect_to) && !s.isBlank(ctx.query.redirect_to)) {
     // in case people had a typo, we should support redirect_to as well
     ctx.session.returnTo = ctx.query.redirect_to;
   }
@@ -34,16 +31,11 @@ const signupOrLogin = async ctx => {
     ctx.session.returnTo.indexOf('://') !== -1 &&
     ctx.session.returnTo.indexOf(config.urls.web) !== 0
   ) {
-    logger.warn(
-      `Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`
-    );
+    logger.warn(`Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`);
     ctx.session.returnTo = null;
   }
 
-  ctx.state.verb =
-    ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup'
-      ? 'sign up'
-      : 'log in';
+  ctx.state.verb = ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup' ? 'sign up' : 'log in';
 
   await ctx.render('signup-or-login');
 };
@@ -54,8 +46,7 @@ const login = async (ctx, next) => {
       return new Promise(async (resolve, reject) => {
         if (err) return reject(err);
 
-        let redirectTo = `/${ctx.req.locale}${config.auth.callbackOpts
-          .successReturnToOrRedirect}`;
+        let redirectTo = `/${ctx.req.locale}${config.auth.callbackOpts.successReturnToOrRedirect}`;
 
         if (ctx.session && ctx.session.returnTo) {
           redirectTo = ctx.session.returnTo;
@@ -69,7 +60,7 @@ const login = async (ctx, next) => {
             return reject(err);
           }
 
-          if (ctx.is('json')) {
+          if (ctx.accepts('json')) {
             ctx.body = {
               message: ctx.translate('LOGGED_IN'),
               redirectTo,
@@ -96,6 +87,9 @@ const login = async (ctx, next) => {
 const register = async ctx => {
   const { body } = ctx.request;
 
+  if (Object.keys(body).length === 0)
+    return ctx.throw(Boom.badData(ctx.translate('MISSING_REGISTER_FIELDS')));
+
   if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
@@ -119,7 +113,7 @@ const register = async ctx => {
       delete ctx.session.returnTo;
     }
 
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = {
         message: ctx.translate('REGISTERED'),
         redirectTo
@@ -161,7 +155,7 @@ const forgotPassword = async ctx => {
   // we always say "a password reset request has been sent to your email"
   // and if the email didn't exist in our system then we simply don't send it
   if (!user) {
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = {
         message: ctx.translate('PASSWORD_RESET_SENT')
       };
@@ -180,10 +174,7 @@ const forgotPassword = async ctx => {
   )
     return ctx.throw(
       Boom.badRequest(
-        ctx.translate(
-          'PASSWORD_RESET_LIMIT',
-          moment(user.reset_token_expires_at).fromNow()
-        )
+        ctx.translate('PASSWORD_RESET_LIMIT', moment(user.reset_token_expires_at).fromNow())
       )
     );
 
@@ -195,7 +186,7 @@ const forgotPassword = async ctx => {
 
   await user.save();
 
-  if (ctx.is('json')) {
+  if (ctx.accepts('json')) {
     ctx.body = {
       message: ctx.translate('PASSWORD_RESET_SENT')
     };
@@ -259,7 +250,7 @@ const resetPassword = async ctx => {
   } finally {
     await user.save();
     await util.promisify(ctx.login).bind(ctx.req)(user);
-    if (ctx.is('json')) {
+    if (ctx.accepts('json')) {
       ctx.body = {
         message: ctx.translate('RESET_PASSWORD'),
         redirectTo: `/${ctx.req.locale}`

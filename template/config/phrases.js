@@ -20,8 +20,7 @@ module.exports = {
   INVALID_TOKEN: 'Invalid CSRF token.',
   INVALID_MESSAGE: `Your message was invalid, as it was either blank or more than (${env.CONTACT_REQUEST_MAX_LENGTH}) characters.`,
   INVALID_FILE: 'File upload was invalid.',
-  PASSWORD_RESET_SENT:
-    'We have sent you an email with a link to reset your password.',
+  PASSWORD_RESET_SENT: 'We have sent you an email with a link to reset your password.',
   PASSWORD_RESET_LIMIT:
     'You can only request a password reset every 30 minutes.  Please try again %s.',
   HELLO_WORLD: 'Hello %s world.',

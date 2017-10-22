@@ -60,15 +60,12 @@ module.exports = {
       message: 'What is your GitHub username or organization',
       default: ':gitUser:',
       store: true,
-      validate: val =>
-        githubUsernameRegex.test(val) ? true : 'Invalid GitHub username'
+      validate: val => (githubUsernameRegex.test(val) ? true : 'Invalid GitHub username')
     },
     repo: {
       message: "What is your GitHub repository's URL",
       default(answers) {
-        return `https://github.com/${slug(answers.username)}/${slug(
-          slug(answers.name)
-        )}`;
+        return `https://github.com/${slug(answers.username)}/${slug(slug(answers.name))}`;
       },
       validate: val =>
         isURL(val) &&
