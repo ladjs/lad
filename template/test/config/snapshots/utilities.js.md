@@ -1,4 +1,4 @@
-# Snapshot report for `template/test/config/utilities.js`
+# Snapshot report for `test/config/utilities.js`
 
 The actual snapshot is saved in `utilities.js.snap`.
 

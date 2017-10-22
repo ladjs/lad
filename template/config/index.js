@@ -80,7 +80,7 @@ const config = {
   },
   koaManifestRev: {
     manifest: path.join(__dirname, '..', 'build', 'rev-manifest.json'),
-    prepend: env.AWS_CF_DOMAIN ? `//${env.AWS_CF_DOMAIN}/` : '/'
+    prepend: env.AWS_CF_DOMAIN && env.NODE_ENV === 'production' ? `//${env.AWS_CF_DOMAIN}/` : '/'
   },
   appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
   appName: env.APP_NAME,
