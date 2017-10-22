@@ -10,35 +10,21 @@ const router = new Router({
 
 router
   .param('provider', (provider, ctx, next) => {
-    if (!config.auth.providers[provider])
-      return ctx.throw(Boom.badRequest('Invalid provider'));
+    if (!config.auth.providers[provider]) return ctx.throw(Boom.badRequest('Invalid provider'));
     return next();
   })
-  .get(
-    '/:provider',
-    policies.ensureLoggedOut,
-    config.auth.catchError,
-    (ctx, next) =>
-      passport.authenticate(
-        ctx.params.provider,
-        config.auth[ctx.params.provider]
-      )(ctx, next)
+  .get('/:provider', policies.ensureLoggedOut, config.auth.catchError, (ctx, next) =>
+    passport.authenticate(ctx.params.provider, config.auth[ctx.params.provider])(ctx, next)
   )
-  .get(
-    '/:provider/ok',
-    policies.ensureLoggedOut,
-    config.auth.catchError,
-    (ctx, next) => {
-      const redirect = ctx.session.returnTo
-        ? ctx.session.returnTo
-        : `/${ctx.req.locale}${config.auth.callbackOpts
-            .successReturnToOrRedirect}`;
-      return passport.authenticate(ctx.params.provider, {
-        ...config.auth.callbackOpts,
-        successReturnToOrRedirect: redirect
-      })(ctx, next);
-    }
-  );
+  .get('/:provider/ok', policies.ensureLoggedOut, config.auth.catchError, (ctx, next) => {
+    const redirect = ctx.session.returnTo
+      ? ctx.session.returnTo
+      : `/${ctx.req.locale}${config.auth.callbackOpts.successReturnToOrRedirect}`;
+    return passport.authenticate(ctx.params.provider, {
+      ...config.auth.callbackOpts,
+      successReturnToOrRedirect: redirect
+    })(ctx, next);
+  });
 
 if (config.auth.providers.google)
   router.get(

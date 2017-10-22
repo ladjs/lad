@@ -13,8 +13,7 @@
   "Your message was invalid, as it was either blank or more than (500) characters.":
     "您的消息无效，因为它是空白或超过（500）个字符。",
   "File upload was invalid.": "文件上传无效。",
-  "We have sent you an email with a link to reset your password.":
-    "我们向您发送了一封电子邮件，其中包含重置密码的链接。",
+  "We have sent you an email with a link to reset your password.": "我们向您发送了一封电子邮件，其中包含重置密码的链接。",
   "You can only request a password reset every 30 minutes.  Please try again %s.":
     "您只能每30分钟要求重置一次密码。请再试一次％s。",
   "Hello %s world.": "你好％s的世界。",
@@ -37,14 +36,12 @@
   "Please log in to view the page you requested.": "请登录查看您请求的页面。",
   "An issue occurred while communicating with our payment provider. Please try again.":
     "与我们的付款提供商沟通时出现问题。请再试一次。",
-  "Please slightly change values to ensure slug uniqueness.":
-    "请略微改变价值，以确保lug lug lug。。",
+  "Please slightly change values to ensure slug uniqueness.": "请略微改变价值，以确保lug lug lug。。",
   "Invalid token": "令牌无效",
   "Invalid creds": "无效的信誉",
   "You do not belong to the administrative user group": "您不属于管理用户组",
   "Home &#124; Lad": "首页&#124;小伙子",
-  "Lad scaffolds a Koa webapp and API framework for Node.js":
-    "Lad支架用于Node.js的Koa webapp和API框架",
+  "Lad scaffolds a Koa webapp and API framework for Node.js": "Lad支架用于Node.js的Koa webapp和API框架",
   "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.":
     "您使用的是<strong>过时的</strong>浏览器。请<a href=\"http://browsehappy.com/\">升级您的浏览器</a>以改善您的体验。",
   "Help": "帮帮我",
@@ -104,8 +101,7 @@
   "Governing Law": "适用法律",
   "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.":
     "与Lad网站相关的任何索赔均受特拉华州法律管辖，不受其法律冲突规定的约束。",
-  "General Terms and Conditions applicable to Use of a Web Site.":
-    "适用于使用网站的一般条款和条件。",
+  "General Terms and Conditions applicable to Use of a Web Site.": "适用于使用网站的一般条款和条件。",
   "About": "关于",
   "Server Error": "服务器错误",
   "A server error has unfortunately occurred.  If this error persists, please contact us.":
@@ -153,8 +149,7 @@
   "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>":
     "没有帐号？ <a href=\"/en/signup\" class=\"card-link\">注册</a>",
   "Forgot Password": "忘记密码",
-  "If you need to reset your password, then enter your email below.":
-    "如果您需要重置密码，请在下面输入您的电子邮件。",
+  "If you need to reset your password, then enter your email below.": "如果您需要重置密码，请在下面输入您的电子邮件。",
   "Send Password Reset Link": "发送密码重置链接",
   "Remember your password?": "记住你的密码？",
   "Log in now": "现在登录",
@@ -184,8 +179,7 @@
   "Hello,": "你好，",
   "Below is a copy of your request submitted on ": "以下是您提交的请求的副本",
   " at ": "在",
-  "We will review your submission and get back to you shortly!":
-    "我们会审查您的提交，并尽快回复您！",
+  "We will review your submission and get back to you shortly!": "我们会审查您的提交，并尽快回复您！",
   "If you did not submit this contact request, then please let us know so we can further investigate.":
     "如果您没有提交此联系请求，请通知我们，以便我们进一步调查。",
   "Learn more": "学到更多",
@@ -198,8 +192,7 @@
     "忘记密码&#124; <span class=\"notranslate\">Lad</span>",
   "Get access to your access by resetting your password": "通过重置密码访问您的访问权限",
   "Page not found": "找不到网页",
-  "We're sorry, but the page you requested could not be found.":
-    "很抱歉，无法找到您要求的页面。",
+  "We're sorry, but the page you requested could not be found.": "很抱歉，无法找到您要求的页面。",
   "Admin &#124; <span class=\"notranslate\">Lad</span>":
     "管理员&#124; <span class=\"notranslate\">Lad</span>",
   "Admin dashboard for administrative management": "管理控制面板进行管理",
@@ -209,5 +202,6 @@
   "Close this dialog": "关闭此对话框",
   "Terms &#124; <span class=\"notranslate\">Lad</span>":
     "条款&#124; <span class=\"notranslate\">Lad</span>",
-  "Read our terms and conditions of use": "阅读我们的使用条款和条件"
+  "Read our terms and conditions of use": "阅读我们的使用条款和条件",
+  "<%= description %>": "<%= description %>"
 }

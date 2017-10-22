@@ -1,14 +1,11 @@
 {
-  "Chew apart your projects with speed.":
-    "Mastique los proyectos con velocidad.",
+  "Chew apart your projects with speed.": "Mastique los proyectos con velocidad.",
   "Good morning": "Buenos días",
   "Good afternoon": "Buenas tardes",
   "Good evening": "Buena noches",
-  "Email address was invalid.":
-    "La dirección de correo electrónico no es válida.",
+  "Email address was invalid.": "La dirección de correo electrónico no es válida.",
   "Password was invalid.": "La contraseña no es válida.",
-  "Reset token provided was invalid.":
-    "El token de restablecimiento proporcionado no es válido.",
+  "Reset token provided was invalid.": "El token de restablecimiento proporcionado no es válido.",
   "Reset token and email were not valid together.":
     "El token de restablecimiento y el correo electrónico no eran válidos juntos.",
   "Password strength was not strong enough.":
@@ -24,8 +21,7 @@
     "Sólo puede solicitar una contraseña restablecida cada 30 minutos. Inténtalo de nuevo% s.",
   "Hello %s world.": "Hola mundo.",
   "You have successfully registered": "Se ha registrado exitosamente",
-  "You have successfully reset your password.":
-    "Ha restablecido correctamente su contraseña.",
+  "You have successfully reset your password.": "Ha restablecido correctamente su contraseña.",
   "Thank you for contacting us.  We would love to hear more from you.  How can we help?":
     "Gracias por contactarnos. Nos encantaría escuchar más de usted. ¿Cómo podemos ayudar?",
   "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!":
@@ -40,8 +36,7 @@
   "You have successfully signed out.": "Has salido con éxito.",
   "An unknown error has occurred. We have been alerted of this issue. Please try again.":
     "Un error desconocido a ocurrido. Nos han alertado de este problema. Vuelve a intentarlo.",
-  "Please log in to view the page you requested.":
-    "Inicie sesión para ver la página solicitada.",
+  "Please log in to view the page you requested.": "Inicie sesión para ver la página solicitada.",
   "An issue occurred while communicating with our payment provider. Please try again.":
     "Se ha producido un problema al comunicarse con nuestro proveedor de pagos. Vuelve a intentarlo.",
   "Please slightly change values to ensure slug uniqueness.":
@@ -155,8 +150,7 @@
   "Send Contact Request": "Enviar solicitud de contacto",
   "Contact &#124; <span class=\"notranslate\">Lad</span>":
     "Contacto &#124; <span class=\"notranslate\">Lad</span>",
-  "Contact Lad with your questions and comments":
-    "Contacto Lad con sus preguntas y comentarios",
+  "Contact Lad with your questions and comments": "Contacto Lad con sus preguntas y comentarios",
   "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>":
     "Al registrarse, usted acepta nuestros <a href=\"/en/terms\" class=\"card-link\">Términos</a>",
   "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>":
@@ -175,8 +169,7 @@
     "¡Bienvenido a nuestro sitio web! Gracias por registrarte.",
   "reset your password": "Restablecer su contraseña",
   "Please": "Por favor",
-  "now, and remember that this link will expire":
-    "ahora, y recuerde que este enlace expirará",
+  "now, and remember that this link will expire": "ahora, y recuerde que este enlace expirará",
   "Dashboard": "Tablero",
   "This is your account page.": "Esta es la página de su cuenta.",
   "API Key": "Clave API",
@@ -186,16 +179,14 @@
   "Log in to your account": "Ingrese a su cuenta",
   "My Account &#124; <span class=\"notranslate\">Lad</span>":
     "Mi Cuenta &#124; <span class=\"notranslate\">Lad</span>",
-  "View your account and manage your settings":
-    "Ver su cuenta y administrar su configuración",
+  "View your account and manage your settings": "Ver su cuenta y administrar su configuración",
   "Sign up &#124; <span class=\"notranslate\">Lad</span>":
     "Registrarse &#124; <span class=\"notranslate\">Lad</span>",
   "Sign up for an account": "Regístrese para obtener una cuenta",
   "About &#124; <span class=\"notranslate\">Lad</span>":
     "Acerca de &#124; <span class=\"notranslate\">Lad</span>",
   "Learn more about Lad": "Más información sobre Lad",
-  "Information regarding your contact inquiry":
-    "Información sobre su consulta de contacto",
+  "Information regarding your contact inquiry": "Información sobre su consulta de contacto",
   "Hello,": "Hola,",
   "Below is a copy of your request submitted on ":
     "A continuación se muestra una copia de su solicitud",
@@ -227,6 +218,6 @@
   "Close this dialog": "Cerrar este diálogo",
   "Terms &#124; <span class=\"notranslate\">Lad</span>":
     "Términos y Condiciones &#124; <span class=\"notranslate\">Lad</span>",
-  "Read our terms and conditions of use":
-    "Lea nuestros términos y condiciones de uso"
+  "Read our terms and conditions of use": "Lea nuestros términos y condiciones de uso",
+  "<%= description %>": "<%= description %>"
 }

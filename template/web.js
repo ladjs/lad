@@ -99,9 +99,7 @@ app.use(koaManifestRev(config.koaManifestRev));
 app.use(helpers.i18n.middleware);
 
 // set template rendering engine
-app.use(
-  views(config.views.root, _.extend(config.views.options, config.views.locals))
-);
+app.use(views(config.views.root, _.extend(config.views.options, config.views.locals)));
 
 // livereload if we're in dev mode
 if (config.env === 'development') app.use(livereload(config.livereload));
@@ -237,8 +235,7 @@ else server = https.createServer(config.ssl.web, app.callback());
 if (!module.parent)
   server = server.listen(config.ports.web, () => {
     logger.info(
-      `web server listening on ${config.ports
-        .web} (LAN: ${ip.address()}:${config.ports.web})`
+      `web server listening on ${config.ports.web} (LAN: ${ip.address()}:${config.ports.web})`
     );
     cachePugTemplates(app, redisClient, config.views.root, (err, cached) => {
       if (err) return logger.error(err);

@@ -8,13 +8,11 @@
     "url": "<%= repo %>/issues",
     "email": "<%= email %>"
   },
-  "contributors": [
-    "<%= author %> <<%= email %>> (<%= website%>)"
-  ],
+  "contributors": ["<%= author %> <<%= email %>> (<%= website%>)"],
   "dependencies": {
     "@ladjs/env": "^0.0.2",
     "@ladjs/graceful": "^0.0.1",
-    "@ladjs/i18n": "^0.0.1",
+    "@ladjs/i18n": "^0.0.5",
     "@ladjs/koa-better-static": "^1.0.5",
     "@ladjs/logger": "^0.0.6",
     "@ladjs/mongoose": "^0.0.3",
@@ -87,7 +85,7 @@
     "mongoose": "^4.11.12",
     "mongoose-common-plugin": "^0.0.2",
     "nodemailer": "^4.1.0",
-    "nodemailer-base64-to-s3": "^0.0.3",
+    "nodemailer-base64-to-s3": "^0.0.4",
     "opn": "^5.1.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local-mongoose": "^4.2.1",
@@ -110,6 +108,17 @@
     "validator": "^9.0.0",
     "waypoints": "^4.0.1",
     "webfontloader": "^1.6.28"
+  },
+  "prettier": {
+    "parser": "babylon",
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "none"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
@@ -163,30 +172,21 @@
     "node": ">=8.3"
   },
   "homepage": "<%= repo %>",
-  "keywords": [
-    "<%= this.slug(name) %>",
-    "lad",
-    "lass"
-  ],
+  "keywords": ["<%= this.slug(name) %>", "lad", "lass"],
   "license": "Unlicensed",
   "lint-staged": {
     "gitDir": "../",
     "linters": {
-      "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
-        "prettier --write --single-quote --trailing-comma none",
-        "git add"
-      ],
-      "*.md": [
-        "remark . -qfo",
-        "git add"
+      "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": ["prettier --write", "git add"],
+      "*.md": ["git add"],
+      "*.md,!test/snapshots/**/*.md,!test/**/snapshots/**/*.md,!locales/README.md": [
+        "remark . -qfo"
       ]
     }
   },
   "main": "index.js",
   "remarkConfig": {
-    "plugins": [
-      "preset-github"
-    ]
+    "plugins": ["preset-github"]
   },
   "repository": {
     "type": "git",
@@ -195,27 +195,29 @@
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "xo && npm run lint-md",
-    "lint-md": "node -e \"require('shelljs').touch('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
+    "lint-md":
+      "node -e \"require('shelljs').echo('# Temp\\n').to('./temp.md')\" && remark . -qfo && node -e \"require('shelljs').rm('./temp.md')\"",
     "precommit": "lint-staged && npm test",
     "test": "npm run lint && npm run test-coverage",
     "test-coverage": "cross-env NODE_ENV=test nyc ava --verbose",
     "build": "gulp build",
     "publish-assets": "gulp publish",
-    "start": "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
+    "start":
+      "concurrently -p \"[{name}]\" -n \"WATCH,API,WEB,AGENDA\" -c \"bgCyan.bold,bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"npm run watch\" \"npm run start-api\" \"npm run start-web\" \"npm run start-agenda\"",
     "start-agenda": "nodemon agenda",
     "start-api": "nodemon api",
     "start-web": "nodemon web",
     "watch": "gulp watch",
     "swagger": "npm run swagger-api && npm run swagger-web && npm run swagger-gen",
-    "swagger-api": "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
-    "swagger-web": "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
+    "swagger-api":
+      "swagger-inline './routes/api/**/*.js' --base './.swagger/api.yaml' --out swagger-api.yaml",
+    "swagger-web":
+      "swagger-inline './routes/web/**/*.js' --base './.swagger/web.yaml' --out swagger-web.yaml",
     "swagger-gen": "gulp swagger"
   },
   "xo": {
     "extends": "prettier",
-    "plugins": [
-      "prettier"
-    ],
+    "plugins": ["prettier"],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -231,7 +233,7 @@
       "max-len": [
         "error",
         {
-          "code": 120,
+          "code": 100,
           "ignoreUrls": true
         }
       ],
@@ -242,22 +244,15 @@
     "space": true,
     "overrides": [
       {
-        "plugins": [
-          "prettier",
-          "compat"
-        ],
+        "plugins": ["prettier", "compat"],
         "settings": {
-          "polyfills": [
-            "fetch"
-          ]
+          "polyfills": ["fetch"]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "assets/js/**/*.js",
-        "envs": [
-          "browser"
-        ],
+        "envs": ["browser"],
         "rules": {
           "compat/compat": "error"
         }

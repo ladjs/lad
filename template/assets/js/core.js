@@ -110,12 +110,7 @@ const api = new Frisbee({
   const obj = url.parse(window.location.href, {
     parseQueryString: true
   });
-  if (
-    !_.isObject(obj.query) ||
-    !_.isString(obj.query.hash) ||
-    s.isBlank(obj.query.hash)
-  )
-    return;
+  if (!_.isObject(obj.query) || !_.isString(obj.query.hash) || s.isBlank(obj.query.hash)) return;
   obj.hash = obj.query.hash;
   delete obj.query.hash;
   obj.search = undefined;
@@ -142,8 +137,7 @@ const api = new Frisbee({
     // If the form requires Stripe checkout token
     // then return early and open Stripe checkout
     if ($form.hasClass('stripe-checkout')) {
-      if (!window.StripeCheckout)
-        return console.error('Stripe checkout missing');
+      if (!window.StripeCheckout) return console.error('Stripe checkout missing');
 
       // Lookup email input for later
       const $email = $form.find('input[name="stripe_email"]');
@@ -151,8 +145,7 @@ const api = new Frisbee({
       // If there is already a token then continue
       const $token = $form.find('input[name="stripe_token"]');
 
-      if ($token.length === 0)
-        return console.error('Missing Stripe token field');
+      if ($token.length === 0) return console.error('Missing Stripe token field');
 
       if ($token.val() === '') {
         // Fetch token for the user
@@ -246,11 +239,7 @@ const api = new Frisbee({
         // Hide the spinner
         spinner.hide();
         // Show message
-        swal(
-          window._types.error,
-          'Invalid response, please try again',
-          'error'
-        );
+        swal(window._types.error, 'Invalid response, please try again', 'error');
       } else if (_.isString(res.body.redirectTo)) {
         if (
           !_.isString(res.body.message) ||
@@ -279,17 +268,12 @@ const api = new Frisbee({
         $form.get(0).reset();
 
         // Reload page
-        if (_.isBoolean(res.body.reloadPage) && res.body.reloadPage)
-          window.location.reload();
+        if (_.isBoolean(res.body.reloadPage) && res.body.reloadPage) window.location.reload();
       } else {
         // Hide the spinner
         spinner.hide();
         // Show message
-        swal(
-          window._types.success,
-          JSON.stringify(res.body, null, 2),
-          'success'
-        );
+        swal(window._types.success, JSON.stringify(res.body, null, 2), 'success');
         // Reset the form
         $form.get(0).reset();
       }
@@ -367,20 +351,15 @@ const api = new Frisbee({
         );
 
       const $navbarFixedTop = $('.navbar.fixed-top');
-      const extraHeight = $navbarFixedTop.length
-        ? $navbarFixedTop.outerHeight()
-        : 0;
-      const $target =
-        window.location.hash === '' ? null : $(window.location.hash);
+      const extraHeight = $navbarFixedTop.length ? $navbarFixedTop.outerHeight() : 0;
+      const $target = window.location.hash === '' ? null : $(window.location.hash);
 
       $(':header[id]')
         .not($target)
         .each(function() {
-          const beginsBeforeTop =
-            $(this).offset().top < window.pageYOffset + extraHeight;
+          const beginsBeforeTop = $(this).offset().top < window.pageYOffset + extraHeight;
           const endsInVisibleArea =
-            $(this).offset().top + $(this).height() >
-            window.pageYOffset + extraHeight;
+            $(this).offset().top + $(this).height() > window.pageYOffset + extraHeight;
           if (!beginsBeforeTop || !endsInVisibleArea) return;
           // Remove id and then add it back to prevent scroll
           // <https://stackoverflow.com/a/1489802>
@@ -426,8 +405,7 @@ const api = new Frisbee({
       let offsetTop = $target.offset().top;
       offsetTop -= Number($target.css('marginTop'));
       offsetTop -= Number($target.css('paddingTop'));
-      if ($('.navbar.fixed-top').length > 0)
-        offsetTop -= $('.navbar.fixed-top').outerHeight();
+      if ($('.navbar.fixed-top').length > 0) offsetTop -= $('.navbar.fixed-top').outerHeight();
       window.scrollTo(0, offsetTop);
     }
 
@@ -436,43 +414,34 @@ const api = new Frisbee({
     $('[data-toggle="popover"]').popover();
 
     // Handle custom file inputs
-    $('body').on(
-      'change',
-      'input[type="file"][data-toggle="custom-file"]',
-      function() {
-        const $input = $(this);
-        const target = $input.data('target');
-        const $target = $(target);
+    $('body').on('change', 'input[type="file"][data-toggle="custom-file"]', function() {
+      const $input = $(this);
+      const target = $input.data('target');
+      const $target = $(target);
 
-        if ($target.length === 0)
-          return console.error('Invalid target for custom file', $input);
+      if ($target.length === 0) return console.error('Invalid target for custom file', $input);
 
-        if (!$target.attr('data-content'))
-          return console.error(
-            'Invalid `data-content` for custom file target',
-            $input
-          );
+      if (!$target.attr('data-content'))
+        return console.error('Invalid `data-content` for custom file target', $input);
 
-        // Set original content so we can revert if user deselects file
-        if (!$target.attr('data-original-content'))
-          $target.attr('data-original-content', $target.attr('data-content'));
+      // Set original content so we can revert if user deselects file
+      if (!$target.attr('data-original-content'))
+        $target.attr('data-original-content', $target.attr('data-content'));
 
-        const input = $input.get(0);
+      const input = $input.get(0);
 
-        let name =
-          _.isObject(input) &&
-          _.isObject(input.files) &&
-          _.isObject(input.files[0]) &&
-          _.isString(input.files[0].name)
-            ? input.files[0].name
-            : $input.val();
+      let name =
+        _.isObject(input) &&
+        _.isObject(input.files) &&
+        _.isObject(input.files[0]) &&
+        _.isString(input.files[0].name)
+          ? input.files[0].name
+          : $input.val();
 
-        if (_.isNull(name) || name === '')
-          name = $target.attr('data-original-content');
+      if (_.isNull(name) || name === '') name = $target.attr('data-original-content');
 
-        $target.attr('data-content', name);
-      }
-    );
+      $target.attr('data-content', name);
+    });
 
     // Handle clipboard copy helper buttons
     if (Clipboard.isSupported()) {
@@ -492,8 +461,7 @@ const api = new Frisbee({
       clipboard.on('error', ev => {
         const key = ev.action === 'cut' ? 'X' : 'C';
         let title = `Press <kbd>CTRL-${key}</kbd> to ${ev.action}`;
-        if (/iPhone|iPad/i.test(navigator.userAgent))
-          title = 'No clipboard support, sorry!';
+        if (/iPhone|iPad/i.test(navigator.userAgent)) title = 'No clipboard support, sorry!';
         else if (/Mac/i.test(navigator.userAgent))
           title = `Press <kbd>⌘-${key}</kbd> to ${ev.action}`;
         $(ev.trigger)

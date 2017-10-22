@@ -83,8 +83,5 @@ test('invalid repo', async t => {
       })
     )
   );
-  t.regex(
-    error.message,
-    /Please include a valid GitHub.com URL without a trailing slash/
-  );
+  t.regex(error.message, /Please include a valid GitHub.com URL without a trailing slash/);
 });

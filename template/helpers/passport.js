@@ -58,10 +58,7 @@ if (config.auth.providers.google)
               google_refresh_token: refreshToken
             };
 
-            if (
-              _.isObject(profile._json.image) &&
-              _.isString(profile._json.image.url)
-            ) {
+            if (_.isObject(profile._json.image) && _.isString(profile._json.image.url)) {
               obj.avatar_url = profile._json.image.url;
               // we don't want ?sz= in the image URL
               obj.avatar_url = obj.avatar_url.split('?sz=')[0];

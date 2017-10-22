@@ -19,8 +19,7 @@ module.exports = async function(ctx) {
   if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
-  if (!_.isUndefined(body.message) && !_.isString(body.message))
-    delete body.message;
+  if (!_.isUndefined(body.message) && !_.isString(body.message)) delete body.message;
 
   if (body.message)
     body.message = sanitize(body.message, {

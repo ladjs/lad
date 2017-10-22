@@ -1,13 +1,7 @@
 const test = require('ava');
 const { Users } = require('../../app/models');
 const app = require('../../web');
-const {
-  before,
-  beforeEach,
-  afterEach,
-  after,
-  koaRequest
-} = require('../helpers');
+const { before, beforeEach, afterEach, after, koaRequest } = require('../helpers');
 
 test.before(before);
 test.beforeEach(beforeEach);
@@ -64,10 +58,7 @@ test(`doesn't leak used email`, async t => {
     .send({ password: 'wrongpassword' });
 
   t.is(res.status, 400);
-  t.is(
-    res.body.message,
-    'A user with the given username is already registered'
-  );
+  t.is(res.body.message, 'A user with the given username is already registered');
 });
 
 test(`allows password reset for valid email (HTML)`, async t => {
@@ -105,10 +96,7 @@ test(`allows password reset for valid email (JSON)`, async t => {
     .send({ email });
 
   t.is(res.status, 200);
-  t.is(
-    res.body.message,
-    'We have sent you an email with a link to reset your password.'
-  );
+  t.is(res.body.message, 'We have sent you an email with a link to reset your password.');
 });
 
 test(`resets password with valid email and token (HTML)`, async t => {
