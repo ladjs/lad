@@ -386,7 +386,6 @@ yarn global add lad
 ```sh
 lad new-project
 cd new-project
-cp .env.defaults .env
 ```
 
 #### Development
@@ -657,7 +656,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 

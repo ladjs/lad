@@ -1,4 +1,4 @@
-# Snapshot report for `test/web/auth.js`
+# Snapshot report for `template/test/web/auth.js`
 
 The actual snapshot is saved in `auth.js.snap`.
 
