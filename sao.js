@@ -92,7 +92,8 @@ module.exports = {
     // Because when it's published to npm
     // `.gitignore` file will be ignored!
     gitignore: '.gitignore',
-    README: 'README.md'
+    README: 'README.md',
+    env: '.env'
   },
   post: async ctx => {
     ctx.gitInit();
