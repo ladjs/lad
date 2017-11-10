@@ -18,7 +18,9 @@ module.exports = {
   INVALID_PASSWORD_STRENGTH: 'Password strength was not strong enough.',
   INVALID_SESSION_SECRET: 'Invalid session secret.',
   INVALID_TOKEN: 'Invalid CSRF token.',
-  INVALID_MESSAGE: `Your message was invalid, as it was either blank or more than (${env.CONTACT_REQUEST_MAX_LENGTH}) characters.`,
+  INVALID_MESSAGE: `Your message was invalid, as it was either blank or more than (${
+    env.CONTACT_REQUEST_MAX_LENGTH
+  }) characters.`,
   INVALID_FILE: 'File upload was invalid.',
   PASSWORD_RESET_SENT: 'We have sent you an email with a link to reset your password.',
   PASSWORD_RESET_LIMIT:

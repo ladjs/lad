@@ -337,7 +337,7 @@ Please ensure your operating system has the following software installed:
   * Mac (via [brew][]): `brew install homebrew/science/vips --with-webp --with-graphicsmagick` (as of [sharp][] v0.18.2 this is required)
   * Ubuntu/Windows - should work out of the box
 
-* [Node.js][node] (v8.3+) - use [nvm][] to install it on any OS
+* [Node.js][node] (v8.9.0+) - use [nvm][] to install it on any OS
 
   * After installing `nvm` you will need to run `nvm install node`
   * We also recommend you install [yarn][], which is an alternative to [npm][]
@@ -428,7 +428,7 @@ You can also use `NODE_DEBUG` if desired to debug [node][] internal modules.
 
 1. We've provided you with a preconfigured [ecosystem.json](template/ecosystem.json) [deployment file](http://pm2.keymetrics.io/docs/usage/deployment/). You will need to modify this file with your server's IP, hostname, and other metadata if needed.
 
-2. Make sure that your project's assets are built with `NODE_ENV=production` flag, e.g. `NODE_ENV=production npm run build` (this creates a `build/rev-manifest.json` file per [koa-manifest-rev][]).
+2. Make sure that your project's assets are built with `NODE_ENV=production` flag, e.g. `NODE_ENV=production npm run build` (or with yarn as `yarn build`);this creates a `build/rev-manifest.json` file per [koa-manifest-rev][].
 
 3. You can test this locally by installing [PM2][] globally with [npm][] or [yarn][], and then running the following command:
 
@@ -543,7 +543,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
    > Replace `npm` with `yarn` if you're using [yarn][] as your package manager
 
    * Language: `JavaScript`
-   * Node.js version: `8.3+` (latest)
+   * Node.js version: `8.9.0+` (latest LTS)
      > Note you can also add to `Setup` the script `nvm install latest` to install latest version if SemaphoreCI does not provide it from the drop-down
    * Setup: `npm install`
    * Job 1: `npm test`
@@ -629,7 +629,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 If you'd like to preview changes to the `README.md` file, you can use `docute`.
 
 ```sh
-yarn global add docute
+yarn global add docute-cli
 cd lad
 docute ./
 ```
@@ -656,7 +656,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 

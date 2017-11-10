@@ -58,7 +58,7 @@
         "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
       "path": "/var/www/production",
       "post-deploy":
-        "yarn && NODE_ENV=production yarn run build && yarn publish-assets && pm2 startOrGracefulReload ecosystem.json --env production"
+        "yarn && NODE_ENV=production yarn build && yarn publish-assets && pm2 startOrGracefulReload ecosystem.json --env production"
     }
   }
 }
