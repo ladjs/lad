@@ -6,49 +6,34 @@
   "Email address was invalid.": "Email address was invalid.",
   "Password was invalid.": "Password was invalid.",
   "Reset token provided was invalid.": "Reset token provided was invalid.",
-  "Reset token and email were not valid together.":
-    "Reset token and email were not valid together.",
+  "Reset token and email were not valid together.": "Reset token and email were not valid together.",
   "Password strength was not strong enough.": "Password strength was not strong enough.",
   "Invalid session secret.": "Invalid session secret.",
   "Invalid CSRF token.": "Invalid CSRF token.",
-  "Your message was invalid, as it was either blank or more than (500) characters.":
-    "Your message was invalid, as it was either blank or more than (500) characters.",
+  "Your message was invalid, as it was either blank or more than (500) characters.": "Your message was invalid, as it was either blank or more than (500) characters.",
   "File upload was invalid.": "File upload was invalid.",
-  "We have sent you an email with a link to reset your password.":
-    "We have sent you an email with a link to reset your password.",
-  "You can only request a password reset every 30 minutes.  Please try again %s.":
-    "You can only request a password reset every 30 minutes.  Please try again %s.",
+  "We have sent you an email with a link to reset your password.": "We have sent you an email with a link to reset your password.",
+  "You can only request a password reset every 30 minutes.  Please try again %s.": "You can only request a password reset every 30 minutes.  Please try again %s.",
   "Hello %s world.": "Hello %s world.",
   "You have successfully registered": "You have successfully registered",
   "You have successfully reset your password.": "You have successfully reset your password.",
-  "Thank you for contacting us.  We would love to hear more from you.  How can we help?":
-    "Thank you for contacting us.  We would love to hear more from you.  How can we help?",
-  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!":
-    "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!",
-  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.":
-    "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.",
-  "You have reached the limit for sending contact requests.  Please try again.":
-    "You have reached the limit for sending contact requests.  Please try again.",
-  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.":
-    "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.",
+  "Thank you for contacting us.  We would love to hear more from you.  How can we help?": "Thank you for contacting us.  We would love to hear more from you.  How can we help?",
+  "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!": "Your contact request has been sent successfully.  You should hear from us soon.  Thank you!",
+  "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.": "We were unable to send your contact request.  We have been alerted of this problem.  Please try again.",
+  "You have reached the limit for sending contact requests.  Please try again.": "You have reached the limit for sending contact requests.  Please try again.",
+  "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.": "Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.",
   "You have successfully signed in.": "You have successfully signed in.",
   "You have successfully signed out.": "You have successfully signed out.",
-  "An unknown error has occurred. We have been alerted of this issue. Please try again.":
-    "An unknown error has occurred. We have been alerted of this issue. Please try again.",
+  "An unknown error has occurred. We have been alerted of this issue. Please try again.": "An unknown error has occurred. We have been alerted of this issue. Please try again.",
   "Please log in to view the page you requested.": "Please log in to view the page you requested.",
-  "An issue occurred while communicating with our payment provider. Please try again.":
-    "An issue occurred while communicating with our payment provider. Please try again.",
-  "Please slightly change values to ensure slug uniqueness.":
-    "Please slightly change values to ensure slug uniqueness.",
+  "An issue occurred while communicating with our payment provider. Please try again.": "An issue occurred while communicating with our payment provider. Please try again.",
+  "Please slightly change values to ensure slug uniqueness.": "Please slightly change values to ensure slug uniqueness.",
   "Invalid token": "Invalid token",
   "Invalid creds": "Invalid creds",
-  "You do not belong to the administrative user group":
-    "You do not belong to the administrative user group",
+  "You do not belong to the administrative user group": "You do not belong to the administrative user group",
   "Home &#124; Lad": "Home &#124; Lad",
-  "Lad scaffolds a Koa webapp and API framework for Node.js":
-    "Lad scaffolds a Koa webapp and API framework for Node.js",
-  "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.":
-    "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.",
+  "Lad scaffolds a Koa webapp and API framework for Node.js": "Lad scaffolds a Koa webapp and API framework for Node.js",
+  "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.",
   "Help": "Help",
   "Chat": "Chat",
   "Docs": "Docs",
@@ -69,75 +54,52 @@
   "Question": "Question",
   "中文 (zhōngwén)": "中文 (zhōngwén)",
   "Spanish": "Spanish",
-  "Home &#124; <span class=\"notranslate\">Lad</span>":
-    "Home &#124; <span class=\"notranslate\">Lad</span>",
-  "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.":
-    "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.",
+  "Home &#124; <span class=\"notranslate\">Lad</span>": "Home &#124; <span class=\"notranslate\">Lad</span>",
+  "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.": "By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.",
   "Use License": "Use License",
-  "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:":
-    "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",
+  "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:": "Permission is granted to temporarily download one copy of the materials (information or software) on Lad's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",
   "modify or copy the materials;": "modify or copy the materials;",
-  "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);":
-    "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);",
-  "attempt to decompile or reverse engineer any software contained on Lad's web site;":
-    "attempt to decompile or reverse engineer any software contained on Lad's web site;",
-  "remove any copyright or other proprietary notations from the materials; or":
-    "remove any copyright or other proprietary notations from the materials; or",
-  "transfer the materials to another person or \"mirror\" the materials on any other server.":
-    "transfer the materials to another person or \"mirror\" the materials on any other server.",
-  "use the materials or service for any illegal purposes":
-    "use the materials or service for any illegal purposes",
-  "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.":
-    "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.",
+  "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);": "use the materials for any commercial purpose, or for any public display (commercial or non-commercial);",
+  "attempt to decompile or reverse engineer any software contained on Lad's web site;": "attempt to decompile or reverse engineer any software contained on Lad's web site;",
+  "remove any copyright or other proprietary notations from the materials; or": "remove any copyright or other proprietary notations from the materials; or",
+  "transfer the materials to another person or \"mirror\" the materials on any other server.": "transfer the materials to another person or \"mirror\" the materials on any other server.",
+  "use the materials or service for any illegal purposes": "use the materials or service for any illegal purposes",
+  "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.": "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Lad at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.",
   "Disclaimer": "Disclaimer",
-  "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.":
-    "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.",
+  "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.": "The materials on Lad's web site are provided \"as is\". Lad makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Lad does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.",
   "Limitations": "Limitations",
-  "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.":
-    "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.",
+  "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.": "In no event shall Lad or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Lad's Internet site, even if Lad or a Lad authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.",
   "Revisions and Errata": "Revisions and Errata",
-  "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.":
-    "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.",
+  "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.": "The materials appearing on Lad's web site could include technical, typographical, or photographic errors. Lad does not warrant that any of the materials on its web site are accurate, complete, or current. Lad may make changes to the materials contained on its web site at any time without notice. Lad does not, however, make any commitment to update the materials.",
   "Links": "Links",
-  "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.":
-    "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.",
+  "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.": "Lad has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Lad of the site. Use of any such linked web site is at the user's own risk.",
   "Site Terms of Use Modifications": "Site Terms of Use Modifications",
-  "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.":
-    "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.",
+  "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.": "Lad may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.",
   "Governing Law": "Governing Law",
-  "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.":
-    "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.",
-  "General Terms and Conditions applicable to Use of a Web Site.":
-    "General Terms and Conditions applicable to Use of a Web Site.",
+  "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.": "Any claim relating to Lad's web site shall be governed by the laws of the State of Delaware without regard to its conflict of law provisions.",
+  "General Terms and Conditions applicable to Use of a Web Site.": "General Terms and Conditions applicable to Use of a Web Site.",
   "About": "About",
   "Server Error": "Server Error",
-  "A server error has unfortunately occurred.  If this error persists, please contact us.":
-    "A server error has unfortunately occurred.  If this error persists, please contact us.",
+  "A server error has unfortunately occurred.  If this error persists, please contact us.": "A server error has unfortunately occurred.  If this error persists, please contact us.",
   "Log In Now": "Log In Now",
   "Welcome back!": "Welcome back!",
   "Email address": "Email address",
   "Password": "Password",
   "Log In with Email": "Log In with Email",
   "Forget your password?": "Forget your password?",
-  "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>":
-    "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>",
-  "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.":
-    "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.",
+  "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>": "Don't have an account? <a href=\"/es/signup\" class=\"card-link\">Sign Up</a>",
+  "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.": "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.",
   "Hello, world!": "Hello, world!",
   "Heading": "Heading",
   "Learn more »": "Learn more »",
   "View details »": "View details »",
-  "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.":
-    "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.",
-  "This is a paragraph of placeholder text that will be automatically translated.":
-    "This is a paragraph of placeholder text that will be automatically translated.",
+  "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.",
+  "This is a paragraph of placeholder text that will be automatically translated.": "This is a paragraph of placeholder text that will be automatically translated.",
   "Sign Up Now": "Sign Up Now",
   "Hi there!": "Hi there!",
   "Sign Up with Email": "Sign Up with Email",
-  "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>":
-    "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>",
-  "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>":
-    "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>",
+  "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>": "By signing up, you agree to our <a href=\"/es/terms\" class=\"card-link\">Terms</a>",
+  "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>": "Already have an account? <a href=\"/es/login\" class=\"card-link\">Log In</a>",
   "Account": "Account",
   "My Account": "My Account",
   "Admin": "Admin",
@@ -146,25 +108,19 @@
   "Message": "Message",
   "We'll be in contact with you!": "We'll be in contact with you!",
   "Send Contact Request": "Send Contact Request",
-  "Contact &#124; <span class=\"notranslate\">Lad</span>":
-    "Contact &#124; <span class=\"notranslate\">Lad</span>",
+  "Contact &#124; <span class=\"notranslate\">Lad</span>": "Contact &#124; <span class=\"notranslate\">Lad</span>",
   "Contact Lad with your questions and comments": "Contact Lad with your questions and comments",
-  "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>":
-    "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>",
-  "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>":
-    "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>",
-  "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>":
-    "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>",
+  "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>": "By signing up, you agree to our <a href=\"/en/terms\" class=\"card-link\">Terms</a>",
+  "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>": "Already have an account? <a href=\"/en/login\" class=\"card-link\">Log In</a>",
+  "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>": "Don't have an account? <a href=\"/en/signup\" class=\"card-link\">Sign Up</a>",
   "Forgot Password": "Forgot Password",
-  "If you need to reset your password, then enter your email below.":
-    "If you need to reset your password, then enter your email below.",
+  "If you need to reset your password, then enter your email below.": "If you need to reset your password, then enter your email below.",
   "Send Password Reset Link": "Send Password Reset Link",
   "Remember your password?": "Remember your password?",
   "Log in now": "Log in now",
   "thank you for signing up": "thank you for signing up",
   "Hi": "Hi",
-  "Welcome to our website!  Thank you for signing up.":
-    "Welcome to our website!  Thank you for signing up.",
+  "Welcome to our website!  Thank you for signing up.": "Welcome to our website!  Thank you for signing up.",
   "reset your password": "reset your password",
   "Please": "Please",
   "now, and remember that this link will expire": "now, and remember that this link will expire",
@@ -172,48 +128,36 @@
   "This is your account page.": "This is your account page.",
   "API Key": "API Key",
   "Copy": "Copy",
-  "Log in &#124; <span class=\"notranslate\">Lad</span>":
-    "Log in &#124; <span class=\"notranslate\">Lad</span>",
+  "Log in &#124; <span class=\"notranslate\">Lad</span>": "Log in &#124; <span class=\"notranslate\">Lad</span>",
   "Log in to your account": "Log in to your account",
-  "My Account &#124; <span class=\"notranslate\">Lad</span>":
-    "My Account &#124; <span class=\"notranslate\">Lad</span>",
+  "My Account &#124; <span class=\"notranslate\">Lad</span>": "My Account &#124; <span class=\"notranslate\">Lad</span>",
   "View your account and manage your settings": "View your account and manage your settings",
-  "Sign up &#124; <span class=\"notranslate\">Lad</span>":
-    "Sign up &#124; <span class=\"notranslate\">Lad</span>",
+  "Sign up &#124; <span class=\"notranslate\">Lad</span>": "Sign up &#124; <span class=\"notranslate\">Lad</span>",
   "Sign up for an account": "Sign up for an account",
-  "About &#124; <span class=\"notranslate\">Lad</span>":
-    "About &#124; <span class=\"notranslate\">Lad</span>",
+  "About &#124; <span class=\"notranslate\">Lad</span>": "About &#124; <span class=\"notranslate\">Lad</span>",
   "Learn more about Lad": "Learn more about Lad",
   "Information regarding your contact inquiry": "Information regarding your contact inquiry",
   "Hello,": "Hello,",
   "Below is a copy of your request submitted on ": "Below is a copy of your request submitted on ",
   " at ": " at ",
-  "We will review your submission and get back to you shortly!":
-    "We will review your submission and get back to you shortly!",
-  "If you did not submit this contact request, then please let us know so we can further investigate.":
-    "If you did not submit this contact request, then please let us know so we can further investigate.",
+  "We will review your submission and get back to you shortly!": "We will review your submission and get back to you shortly!",
+  "If you did not submit this contact request, then please let us know so we can further investigate.": "If you did not submit this contact request, then please let us know so we can further investigate.",
   "Learn more": "Learn more",
   "View details": "View details",
-  "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.":
-    "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.",
+  "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.": "Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.",
   "Main call to action": "Main call to action",
   "Secondary action": "Secondary action",
-  "Forgot password &#124; <span class=\"notranslate\">Lad</span>":
-    "Forgot password &#124; <span class=\"notranslate\">Lad</span>",
-  "Get access to your access by resetting your password":
-    "Get access to your access by resetting your password",
+  "Forgot password &#124; <span class=\"notranslate\">Lad</span>": "Forgot password &#124; <span class=\"notranslate\">Lad</span>",
+  "Get access to your access by resetting your password": "Get access to your access by resetting your password",
   "Page not found": "Page not found",
-  "We're sorry, but the page you requested could not be found.":
-    "We're sorry, but the page you requested could not be found.",
-  "Admin &#124; <span class=\"notranslate\">Lad</span>":
-    "Admin &#124; <span class=\"notranslate\">Lad</span>",
+  "We're sorry, but the page you requested could not be found.": "We're sorry, but the page you requested could not be found.",
+  "Admin &#124; <span class=\"notranslate\">Lad</span>": "Admin &#124; <span class=\"notranslate\">Lad</span>",
   "Admin dashboard for administrative management": "Admin dashboard for administrative management",
   "Users": "Users",
   "OK": "OK",
   "Cancel": "Cancel",
   "Close this dialog": "Close this dialog",
-  "Terms &#124; <span class=\"notranslate\">Lad</span>":
-    "Terms &#124; <span class=\"notranslate\">Lad</span>",
+  "Terms &#124; <span class=\"notranslate\">Lad</span>": "Terms &#124; <span class=\"notranslate\">Lad</span>",
   "Read our terms and conditions of use": "Read our terms and conditions of use",
   "<%= description %>": "<%= description %>"
 }
