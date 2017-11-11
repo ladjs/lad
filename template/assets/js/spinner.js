@@ -1,15 +1,16 @@
+const $ = require('jquery');
+
 class Spinner {
-  constructor($, selector) {
-    this.$ = $;
+  constructor(selector) {
     this.selector = selector || '#spinner';
   }
 
   show() {
-    this.$(this.selector).addClass('in d-block');
+    $(this.selector).addClass('in d-block');
   }
 
   hide() {
-    this.$(this.selector).removeClass('in d-block');
+    $(this.selector).removeClass('in d-block');
   }
 }
 
