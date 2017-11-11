@@ -1,11 +1,6 @@
 // eslint-disable-next-line import/no-unassigned-import
 require('babel-polyfill');
 
-// add required support for global `fetch` method
-// *this must always come before `frisbee` is imported*
-// eslint-disable-next-line import/no-unassigned-import
-require('isomorphic-fetch');
-
 const qs = require('querystring');
 const url = require('url');
 const s = require('underscore.string');
