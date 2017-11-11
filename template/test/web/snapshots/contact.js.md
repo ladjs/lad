@@ -1,4 +1,4 @@
-# Snapshot report for `template/test/web/contact.js`
+# Snapshot report for `test/web/contact.js`
 
 The actual snapshot is saved in `contact.js.snap`.
 

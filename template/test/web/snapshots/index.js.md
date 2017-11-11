@@ -1,4 +1,4 @@
-# Snapshot report for `template/test/web/index.js`
+# Snapshot report for `test/web/index.js`
 
 The actual snapshot is saved in `index.js.snap`.
 
