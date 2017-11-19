@@ -111,8 +111,6 @@ app.context.onerror = errorHandler;
 app.use(responseTime());
 
 // add the logger for development environment only
-// TODO: there's a weird logger issue, see this GH issue
-// <https://github.com/koajs/logger/issues/49>
 if (config.env === 'development') app.use(koaLogger());
 
 // rate limiting
