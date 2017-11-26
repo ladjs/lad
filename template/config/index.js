@@ -1,6 +1,5 @@
 const os = require('os');
 const path = require('path');
-const strength = require('strength');
 const consolidate = require('consolidate');
 const _ = require('lodash');
 const Logger = require('@ladjs/logger');
@@ -22,26 +21,10 @@ const config = {
   pkg,
 
   // server
-  protocols: {
-    web: env.WEB_PROTOCOL,
-    api: env.API_PROTOCOL
-  },
-  ports: {
-    web: env.WEB_PORT,
-    api: env.API_PORT
-  },
-  hosts: {
-    web: env.WEB_HOST,
-    api: env.API_HOST
-  },
   env: env.NODE_ENV,
   urls: {
     web: env.WEB_URL,
     api: env.API_URL
-  },
-  ssl: {
-    web: {},
-    api: {}
   },
 
   // app
@@ -59,30 +42,13 @@ const config = {
       preserveImportant: true
     }
   },
-  livereload: {
-    port: env.LIVERELOAD_PORT
-  },
   logger: {
     showStack: env.SHOW_STACK,
     appName: env.APP_NAME
   },
   ga: env.GOOGLE_ANALYTICS,
   sessionKeys: env.SESSION_KEYS,
-  trustProxy: env.TRUST_PROXY,
   isCactiEnabled: env.IS_CACTI_ENABLED,
-  cors: {
-    // <https://github.com/koajs/cors#corsoptions>
-  },
-  rateLimit: {
-    duration: 60000,
-    max: env.NODE_ENV === 'production' ? 100 : 1000,
-    id: ctx => ctx.ip
-  },
-  koaManifestRev: {
-    manifest: path.join(__dirname, '..', 'build', 'rev-manifest.json'),
-    prepend: env.AWS_CF_DOMAIN && env.NODE_ENV === 'production' ? `//${env.AWS_CF_DOMAIN}/` : '/'
-  },
-  appFavicon: path.join(__dirname, '..', 'assets', 'img', 'favicon.ico'),
   appName: env.APP_NAME,
   i18n: {
     // see @ladjs/i18n for a list of defaults
@@ -91,9 +57,6 @@ const config = {
     // <https://github.com/mashpie/i18n-node#list-of-all-configuration-options>
     phrases,
     directory: path.join(__dirname, '..', 'locales')
-  },
-  serveStatic: {
-    // <https://github.com/niftylettuce/koa-better-static#options>
   },
 
   // mongoose
@@ -129,11 +92,7 @@ const config = {
     }
   },
 
-  // redis
-  redis: env.REDIS_URL,
-
   // templating
-  buildDir: path.join(__dirname, '..', 'build'),
   views: {
     // root is required by `koa-views`
     root: path.join(__dirname, '..', 'app', 'views'),
@@ -148,82 +107,15 @@ const config = {
     // A complete reference of options for Pug (default):
     // <https://pugjs.org/api/reference.html>
     locals: {
+      // Even though pug deprecates this, we've added `pretty`
+      // in `koa-views` package, so this option STILL works
+      // <https://github.com/queckezz/koa-views/pull/111>
       pretty: true,
       cache: env.NODE_ENV !== 'development',
       // debug: env.NODE_ENV === 'development',
       // compileDebug: env.NODE_ENV === 'development',
       ...utilities,
       filters: {}
-    }
-  },
-
-  // csrf
-  csrf: {},
-
-  // authentication
-  auth: {
-    local: env.AUTH_LOCAL_ENABLED,
-    providers: {
-      facebook: env.AUTH_FACEBOOK_ENABLED,
-      twitter: env.AUTH_TWITTER_ENABLED,
-      google: env.AUTH_GOOGLE_ENABLED,
-      github: env.AUTH_GITHUB_ENABLED,
-      linkedin: env.AUTH_LINKEDIN_ENABLED,
-      instagram: env.AUTH_INSTAGRAM_ENABLED,
-      stripe: env.AUTH_STRIPE_ENABLED
-    },
-    strategies: {
-      local: {
-        usernameField: 'email',
-        passwordField: 'password',
-        usernameLowerCase: true,
-        limitAttempts: true,
-        maxAttempts: env.NODE_ENV === 'development' ? Number.MAX_VALUE : 5,
-        digestAlgorithm: 'sha256',
-        encoding: 'hex',
-        saltlen: 32,
-        iterations: 25000,
-        keylen: 512,
-        passwordValidator: (password, cb) => {
-          if (env.NODE_ENV === 'development') return cb();
-          const howStrong = strength(password);
-          cb(howStrong < 3 ? new Error('Password not strong enough') : null);
-        }
-      },
-      google: {
-        clientID: env.GOOGLE_CLIENT_ID,
-        clientSecret: env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `${env.WEB_URL}/auth/google/ok`
-      }
-      // facebook: {},
-      // twitter: {},
-      // github: {},
-      // linkedin: {},
-      // instagram: {},
-      // stripe: {}
-    },
-    catchError: async (ctx, next) => {
-      try {
-        await next();
-      } catch (err) {
-        if (err.message === 'Consent required') return ctx.redirect('/auth/google/consent');
-        ctx.flash('error', err.message);
-        ctx.redirect('/login');
-      }
-    },
-    callbackOpts: {
-      successReturnToOrRedirect: '/',
-      failureRedirect: '/login',
-      successFlash: true,
-      failureFlash: true
-    },
-    google: {
-      accessType: 'offline',
-      approvalPrompt: 'force',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile'
-      ]
     }
   },
 
@@ -236,9 +128,6 @@ const config = {
 
 // merge environment configurations
 if (_.isObject(environments[env.NODE_ENV])) _.merge(config, environments[env.NODE_ENV]);
-
-// check if we have third party providers enabled
-config.auth.hasThirdPartyProviders = _.some(config.auth.providers, bool => bool);
 
 // meta support for SEO
 config.meta = meta(config);

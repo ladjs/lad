@@ -73,6 +73,21 @@ module.exports = {
         val.lastIndexOf('/') !== val.length - 1
           ? true
           : 'Please include a valid GitHub.com URL without a trailing slash'
+    },
+    web: {
+      message: 'Do you want a web server',
+      type: 'confirm',
+      default: true
+    },
+    api: {
+      message: 'Do you want an API server',
+      type: 'confirm',
+      default: true
+    },
+    agenda: {
+      message: 'Do you want a job scheduler',
+      type: 'confirm',
+      default: true
     }
   },
   filters: {

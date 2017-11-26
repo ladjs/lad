@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 const mongooseCommonPlugin = require('mongoose-common-plugin');
 const passportLocalMongoose = require('passport-local-mongoose');
 
-const config = require('../../config');
-
 const i18n = require('../../helpers/i18n');
 
 const User = new mongoose.Schema({
@@ -109,7 +107,7 @@ User.pre('validate', function(next) {
 });
 
 User.plugin(mongooseCommonPlugin, { object: 'user' });
-User.plugin(passportLocalMongoose, config.auth.strategies.local);
+User.plugin(passportLocalMongoose, {});
 
 // https://github.com/saintedlama/passport-local-mongoose/issues/218
 User.statics.registerAsync = function(data, password) {
@@ -120,7 +118,5 @@ User.statics.registerAsync = function(data, password) {
     });
   });
 };
-
-User.statics.findByEmail = User.statics.findByUsername;
 
 module.exports = mongoose.model('User', User);

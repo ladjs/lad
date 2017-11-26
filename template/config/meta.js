@@ -36,7 +36,7 @@ module.exports = function(config) {
     '/admin': [`Admin ${lad}`, 'Admin dashboard for administrative management'],
     '/forgot-password': [
       `Forgot password ${lad}`,
-      'Get access to your access by resetting your password'
+      'Get access to your account by resetting your password'
     ],
     '/404': [`Page not found ${lad}`, 'The page you requested could not be found'],
     '/500': [`Server error ${lad}`, 'A server error has unfortunately occurred'],

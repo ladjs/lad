@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const Agenda = require('agenda');
 const _ = require('lodash');
 const memwatch = require('memwatch-next');

@@ -12,7 +12,7 @@
 </div>
 <br />
 <div align="center">
-  Lad scaffolds a <a href="http://koajs.com/">Koa</a> webapp and API framework for <a href="https://nodejs.org">Node</a>
+  Lad scaffolds a <a href="http://koajs.com/">Koa</a> webapp and API framework for <a href="https://nodejs.org">Node.js</a>
 </div>
 <div align="center">
   <sub>
@@ -332,11 +332,6 @@ Please ensure your operating system has the following software installed:
 
 * [Git][] - see [GitHub's tutorial][github-git] for installation
 
-* [Sharp][] - we use this for image transformation (e.g. an avatar file upload needs resized)
-
-  * Mac (via [brew][]): `brew install homebrew/science/vips --with-webp --with-graphicsmagick` (as of [sharp][] v0.18.2 this is required)
-  * Ubuntu/Windows - should work out of the box
-
 * [Node.js][node] (v8.9.0+) - use [nvm][] to install it on any OS
 
   * After installing `nvm` you will need to run `nvm install node`
@@ -608,6 +603,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 ## Related
 
 * [lass][] - Scaffold a modern boilerplate for [Node.js][node]
+* [cabin][] - Logging and analytics solution for [Node.js][node], [Lad][], [Koa][], and [Express][]
 
 
 ## Contributing
@@ -646,7 +642,7 @@ Then visit <http://localhost:8080> in your browser.
 
 ## Trademark Notice
 
-Lad, Lass, and their respective logos are trademarks of Niftylettuce LLC.
+Lad, Lass, Cabin, and their respective logos are trademarks of Niftylettuce LLC.
 These trademarks may not be reproduced, distributed, transmitted, or otherwise used, except with the prior written permission of Niftylettuce LLC.
 If you are seeking permission to use these trademarks, then please [contact us](mailto:niftylettuce@gmail.com).
 
@@ -656,7 +652,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -687,8 +683,6 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [redis]: https://redis.io/
 
 [github-git]: https://help.github.com/articles/set-up-git/
-
-[sharp]: http://sharp.dimens.io/en/stable/
 
 [git]: https://git-scm.com/
 
@@ -749,3 +743,5 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [koa-manifest-rev]: https://github.com/niftylettuce/koa-manifest-rev
 
 [cacti]: https://github.com/niftylettuce/cacti
+
+[cabin]: http://cabinjs.com
