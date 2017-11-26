@@ -652,7 +652,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -745,3 +745,9 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [cacti]: https://github.com/niftylettuce/cacti
 
 [cabin]: http://cabinjs.com
+
+[express]: https://expressjs.com/
+
+[lad]: https://lad.js.org
+
+[koa]: http://koajs.com/
