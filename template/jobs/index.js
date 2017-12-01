@@ -7,5 +7,5 @@ module.exports = [
   ['locales', {}, locales],
   ['backup', {}, backup]
   // ...
-  // [ name, agendaOptions, function ]
+  // [ name, options, function ]
 ];

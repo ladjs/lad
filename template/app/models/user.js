@@ -14,6 +14,7 @@ const User = new mongoose.Schema({
   last: Date,
   hash: String,
   salt: String,
+
   group: {
     type: String,
     default: 'user',

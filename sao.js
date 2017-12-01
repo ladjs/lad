@@ -75,17 +75,22 @@ module.exports = {
           : 'Please include a valid GitHub.com URL without a trailing slash'
     },
     web: {
-      message: 'Do you want a web server',
+      message: 'Do you want a web server (uses Koa)',
       type: 'confirm',
       default: true
     },
     api: {
-      message: 'Do you want an API server',
+      message: 'Do you want an API server (uses Koa)',
       type: 'confirm',
       default: true
     },
     agenda: {
-      message: 'Do you want a job scheduler',
+      message: 'Do you want a job scheduler (backed by Agenda)',
+      type: 'confirm',
+      default: true
+    },
+    proxy: {
+      message: 'Do you want a reverse-proxy (e.g. http => https redirect)',
       type: 'confirm',
       default: true
     }
@@ -100,7 +105,11 @@ module.exports = {
     'coverage/**': false,
     'build/**': false,
     '.nyc_output/**': false,
-    '*.log': false
+    '*.log': false,
+    'web.js': 'web === true',
+    'api.js': 'api === true',
+    'agenda.js': 'agenda === true',
+    'proxy.js': 'proxy === true'
   },
   move: {
     // We keep `.gitignore` as `gitignore` in the project
@@ -112,6 +121,8 @@ module.exports = {
   },
   post: async ctx => {
     ctx.gitInit();
+
+    console.log('TODO: remove agenda, web, and api as necessary + config');
 
     if (ctx.answers.pm === 'yarn') {
       ctx.yarnInstall();

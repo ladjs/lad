@@ -1,6 +1,5 @@
+const os = require('os');
 const mongoose = require('mongoose');
-
-const config = require('../../config');
 
 const Job = new mongoose.Schema({
   name: {
@@ -28,7 +27,7 @@ const Job = new mongoose.Schema({
   },
   lastModifiedBy: {
     type: String,
-    default: config.agenda.name
+    default: process.env.AGENDA_NAME || `${os.hostname()}_${process.pid}`
   },
   lockedAt: {
     type: Date,
