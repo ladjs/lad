@@ -28,7 +28,7 @@
 
 ## Table of Contents
 
-* [Philosophy](#philosophy)
+* [Principles](#principles)
 * [Features](#features)
   * [Microservices](#microservices)
   * [Frontend](#frontend)
@@ -53,9 +53,9 @@
 * [License](#license)
 
 
-## Philosophy
+## Principles
 
-> Lad is designed according to three core beliefs.
+> Lad is designed according to these principles:
 
 1. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor] principles
 2. Design for a scrappy, bootstrapped, and [ramen-profitable][] hacker
@@ -72,7 +72,7 @@ Lad boasts dozens of features and is extremely configurable.
 
 * Webapp server → [web.js](template/web.js)
 * API server → [api.js](template/api.js)
-* Job server → [agenda.js](template/agenda.js)
+* Job scheduler → [agenda.js](template/agenda.js)
 * Proxy server → [proxy.js](template/proxy.js)
 
 ### Frontend
@@ -95,7 +95,7 @@ Lad boasts dozens of features and is extremely configurable.
 * Redis, sessions, and flash messaging
 * Koa-based webapp and API servers
 * RESTful API with BasicAuth and versioning
-* Agenda-based job scheduler with cron and human-readable syntax
+* Automated job scheduler with cron and human-readable syntax (backed by [Mongoose][] and [Agenda][])
 * Passport-based authentication and group-based (Unix-like) permissioning
 * Stripe-inspired error handling with Boom
 * Mongoose and MongoDB with common database plugins
@@ -173,152 +173,7 @@ tree template -I "build|node_modules|coverage|test"
 ```
 
 ```sh
-template
-├── LICENSE
-├── README
-├── agenda.js
-├── api.js
-├── app
-│   ├── controllers
-│   │   ├── api
-│   │   │   ├── index.js
-│   │   │   └── v1
-│   │   │       ├── index.js
-│   │   │       └── users.js
-│   │   ├── index.js
-│   │   └── web
-│   │       ├── auth.js
-│   │       ├── contact.js
-│   │       └── index.js
-│   ├── models
-│   │   ├── index.js
-│   │   ├── inquiry.js
-│   │   ├── job.js
-│   │   ├── plugins
-│   │   │   ├── index.js
-│   │   │   └── slug.js
-│   │   └── user.js
-│   └── views
-│       ├── 404.pug
-│       ├── 500.pug
-│       ├── _footer.pug
-│       ├── _nav.pug
-│       ├── _pagination.pug
-│       ├── about.pug
-│       ├── admin.pug
-│       ├── contact.pug
-│       ├── forgot-password.pug
-│       ├── home.pug
-│       ├── layout.pug
-│       ├── my-account.pug
-│       ├── reset-password.pug
-│       ├── signup-or-login.pug
-│       ├── spinner
-│       │   ├── 1.pug
-│       │   ├── 10.pug
-│       │   ├── 11.pug
-│       │   ├── 2.pug
-│       │   ├── 3.pug
-│       │   ├── 4.pug
-│       │   ├── 5.pug
-│       │   ├── 6.pug
-│       │   ├── 7.pug
-│       │   ├── 8.pug
-│       │   ├── 9.pug
-│       │   └── spinner.pug
-│       └── terms.pug
-├── assets
-│   ├── browserconfig.xml
-│   ├── css
-│   │   ├── _custom.scss
-│   │   ├── _email.scss
-│   │   ├── _hljs-github.scss
-│   │   ├── _variables.scss
-│   │   └── app.scss
-│   ├── fonts
-│   │   └── GoudyBookletter1911.otf
-│   ├── img
-│   │   ├── android-chrome-192x192.png
-│   │   ├── android-chrome-384x384.png
-│   │   ├── apple-touch-icon.png
-│   │   ├── favicon-16x16.png
-│   │   ├── favicon-32x32.png
-│   │   ├── favicon.ico
-│   │   └── mstile-150x150.png
-│   ├── js
-│   │   ├── admin
-│   │   │   └── dashboard.js
-│   │   ├── core.js
-│   │   ├── flash.js
-│   │   ├── spinner.js
-│   │   └── swal.js
-│   └── manifest.json
-├── config
-│   ├── env.js
-│   ├── environments
-│   │   ├── development.js
-│   │   ├── index.js
-│   │   ├── production.js
-│   │   ├── staging.js
-│   │   └── test.js
-│   ├── index.js
-│   ├── meta.js
-│   ├── phrases.js
-│   └── utilities.js
-├── ecosystem.json
-├── emails
-│   ├── _content.pug
-│   ├── _footer.pug
-│   ├── _header.pug
-│   ├── _nav.pug
-│   ├── inquiry
-│   │   ├── html.pug
-│   │   └── subject.pug
-│   ├── layout.pug
-│   ├── reset-password
-│   │   ├── html.pug
-│   │   └── subject.pug
-│   └── welcome
-│       ├── html.pug
-│       └── subject.pug
-├── gitignore
-├── gulpfile.js
-├── helpers
-│   ├── context-helpers.js
-│   ├── dynamic-view-helpers.js
-│   ├── i18n.js
-│   ├── index.js
-│   ├── logger.js
-│   ├── passport.js
-│   └── policies.js
-├── index.js
-├── jobs
-│   ├── backup.js
-│   ├── email.js
-│   ├── index.js
-│   └── locales.js
-├── locales
-│   ├── README.md
-│   ├── en.json
-│   ├── es.json
-│   └── zh.json
-├── nodemon.json
-├── package.json
-├── proxy.js
-├── routes
-│   ├── api
-│   │   ├── index.js
-│   │   └── v1
-│   │       └── index.js
-│   ├── index.js
-│   └── web
-│       ├── admin.js
-│       ├── auth.js
-│       └── index.js
-├── swagger-api.yaml
-├── swagger-web.yaml
-├── web.js
-└── yarn.lock
+
 ```
 
 
@@ -597,7 +452,6 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 * [Subscribe to our Twitch channel][twitch]
 * [Visit Koa's Community section](https://github.com/koajs/koa#community).
 * [Join Mongoose's Slack channel][mongoose-slack]
-* [Join Agenda's Slack channel][agenda-slack]
 
 
 ## Related
@@ -638,6 +492,10 @@ Then visit <http://localhost:8080> in your browser.
 | Name           | Website                   |
 | -------------- | ------------------------- |
 | **Nick Baugh** | <http://niftylettuce.com> |
+
+\|  \|
+\|  \|
+\|  \|
 
 
 ## Trademark Notice
@@ -714,8 +572,6 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [mongoose-slack]: http://slack.mongoosejs.io/
 
-[agenda-slack]: https://slackin-ekwifvcwbr.now.sh/
-
 [codecov]: https://codecov.io/gh
 
 [nodemailer-base64-to-s3]: https://github.com/crocodilejs/nodemailer-base64-to-s3
@@ -751,3 +607,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [lad]: https://lad.js.org
 
 [koa]: http://koajs.com/
+
+[mongoose]: http://mongoosejs.com
+
+[agenda]: http://agendajs.com

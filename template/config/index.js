@@ -1,4 +1,3 @@
-const os = require('os');
 const path = require('path');
 const consolidate = require('consolidate');
 const _ = require('lodash');
@@ -59,26 +58,10 @@ const config = {
     directory: path.join(__dirname, '..', 'locales')
   },
 
-  // mongoose
-  mongoose: {
-    debug: env.MONGOOSE_DEBUG,
-    Promise: global.Promise,
-    mongo: {
-      url: env.DATABASE_URL
-    }
-  },
-
-  // agenda
-  agenda: {
-    name: `${os.hostname()}_${process.pid}`,
-    maxConcurrency: env.AGENDA_MAX_CONCURRENCY
-  },
-  agendaCollectionName: env.AGENDA_COLLECTION_NAME,
-  // these get automatically invoked to `agenda.every`
-  // e.g. `agenda.every('5 minutes', 'locales')`
-  // and you define them as [ interval, job name ]
-  // you need to define them here for graceful handling
+  // lad's agenda configuration
+  // <https://github.com/ladjs/agenda>
   agendaRecurringJobs: [],
+  agendaBootJobs: [],
 
   aws: {
     key: env.AWS_IAM_KEY,

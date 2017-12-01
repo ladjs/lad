@@ -52,7 +52,7 @@
     "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {
-    "ava": "^0.23.0",
+    "ava": "^0.24.0",
     "codecov": "^3.0.0",
     "cross-env": "^5.1.1",
     "eslint": "^4.10.0",
@@ -61,7 +61,7 @@
     "eslint-plugin-prettier": "^2.3.1",
     "gulp-swagger-js-codegen": "^1.0.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.3.0",
+    "lint-staged": "^6.0.0",
     "nyc": "^11.3.0",
     "prettier": "^1.8.2",
     "remark-cli": "^4.0.0",
