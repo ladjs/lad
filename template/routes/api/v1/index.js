@@ -8,6 +8,17 @@ const router = new Router({
 });
 
 /*
+ * @api [post] /v1/account
+ * description: "Creates an account for a user"
+ * responses:
+ *   "200":
+ *     description: "A user object."
+ *     schema:
+ *       type: "String"
+ */
+router.post('/account', api.v1.users.create);
+
+/*
  * @api [get] /v1/account
  * description: "Returns account details for current user"
  * responses:

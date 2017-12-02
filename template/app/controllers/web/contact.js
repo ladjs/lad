@@ -66,7 +66,7 @@ module.exports = async function(ctx) {
 
     // TODO: ensure timestamp is shown on console and saved
     // we may want to use `console-stamp` package
-    ctx.logger.info('created inquiry', inquiry);
+    ctx.logger.debug('created inquiry', inquiry);
 
     const job = await Jobs.create({
       name: 'email',
@@ -81,7 +81,7 @@ module.exports = async function(ctx) {
       }
     });
 
-    ctx.logger.info('queued inquiry email', job);
+    ctx.logger.debug('queued inquiry email', job);
 
     const message = ctx.translate('CONTACT_REQUEST_SENT');
     if (ctx.accepts('json')) {

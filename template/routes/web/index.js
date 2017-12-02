@@ -32,7 +32,7 @@ router
     policies.ensureLoggedOut,
     web.auth.register
     // we handle `ctx.login` in the previous middleware
-    // passport.authenticate('local', config.auth.callbackOpts)
+    // passport.authenticate('local', config.passportCallbackOptions)
   );
 
 router.use(auth.routes());

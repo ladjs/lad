@@ -1,14 +1,16 @@
 const test = require('ava');
-const app = require('../../web');
-const { before, beforeEach, afterEach, after, koaRequest } = require('../helpers');
+const request = require('supertest');
 
-test.before(before);
-test.beforeEach(beforeEach);
-test.afterEach(afterEach);
-test.after.always(after);
+const mongoose = require('../helpers/mongoose');
+const web = require('../helpers/web');
+
+test.before(mongoose.before);
+test.beforeEach(web.beforeEach);
+test.afterEach(web.afterEach);
+test.after.always(mongoose.after);
 
 test('creates inquiry', async t => {
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/contact')
     .set('Accept', 'application/json')
     .send({ email: 'test@example.com' })
@@ -22,13 +24,13 @@ test('creates inquiry', async t => {
 });
 
 test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', async t => {
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/contact')
     .set('Accept', 'application/json')
     .send({ email: 'test2@example.com' })
     .send({ message: 'Test message!' });
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/contact')
     .set('Accept', 'text/html')
     .send({ email: 'test2@example.com' })
@@ -39,13 +41,13 @@ test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', a
 });
 
 test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', async t => {
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/contact')
     .set('Accept', 'application/json')
     .send({ email: 'test3@example.com' })
     .send({ message: 'Test message!' });
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/contact')
     .set('Accept', 'application/json')
     .send({ email: 'test3@example.com' })

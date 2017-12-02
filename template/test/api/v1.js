@@ -1,26 +1,33 @@
 const test = require('ava');
-const web = require('../../web');
-const app = require('../../api');
-const { koaRequest } = require('../helpers');
+const request = require('supertest');
+
+const mongoose = require('../helpers/mongoose');
+const api = require('../helpers/api');
+
+test.before(mongoose.before);
+test.beforeEach(api.beforeEach);
+test.afterEach(api.afterEach);
+test.after.always(mongoose.after);
 
 test(`fails when no creds are presented`, async t => {
-  const res = await koaRequest(app).get('/v1/account');
-
+  const res = await request(t.context.api)
+    .get('/v1/account')
+    .set('Accept', 'application/json');
   t.is(401, res.status);
 });
 
-// @TODO This won't work as we need the session to stay within the
-//       supertest context as we're using two different apps(web/api)
-//       Maybe we need to add a helper to work with register/login w/api tests
-test.failing(`returns current user's account`, async t => {
-  const user = { email: 'test10@example.com', password: '!@#$%^&*$#@!^&^$#@!' };
+test(`returns current user's account`, async t => {
+  const user = { email: 'testapi@example.com', password: 'FKOZa3kP0TxSCA' };
 
-  await koaRequest(web)
-    .post('/signup')
-    .set(user);
-
-  const res = await koaRequest(app).get('/v1/account');
-
+  let res = await request(t.context.api)
+    .post('/v1/account')
+    .set('Accept', 'application/json')
+    .send(user);
   t.is(200, res.status);
-  t.is(res, {});
+
+  res = await request(t.context.api)
+    .get('/v1/account')
+    .set('Accept', 'application/json')
+    .auth(res.body.api_token);
+  t.is(200, res.status);
 });

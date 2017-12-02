@@ -32,9 +32,9 @@ router
   .get('/:provider/ok', policies.ensureLoggedOut, catchError, (ctx, next) => {
     const redirect = ctx.session.returnTo
       ? ctx.session.returnTo
-      : `/${ctx.req.locale}${config.auth.callbackOpts.successReturnToOrRedirect}`;
+      : `/${ctx.req.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
     return passport.authenticate(ctx.params.provider, {
-      ...config.auth.callbackOpts,
+      ...config.passportCallbackOptions,
       successReturnToOrRedirect: redirect
     })(ctx, next);
   });

@@ -1,15 +1,18 @@
 const test = require('ava');
-const { Users } = require('../../app/models');
-const app = require('../../web');
-const { before, beforeEach, afterEach, after, koaRequest } = require('../helpers');
+const request = require('supertest');
 
-test.before(before);
-test.beforeEach(beforeEach);
-test.afterEach(afterEach);
-test.after.always(after);
+const { Users } = require('../../app/models');
+
+const mongoose = require('../helpers/mongoose');
+const web = require('../helpers/web');
+
+test.before(mongoose.before);
+test.beforeEach(web.beforeEach);
+test.afterEach(web.afterEach);
+test.after.always(mongoose.after);
 
 test('creates new user', async t => {
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email: 'test@example.com' })
@@ -21,7 +24,7 @@ test('creates new user', async t => {
 });
 
 test(`fails registering with easy password`, async t => {
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email: 'test1@example.com' })
@@ -32,7 +35,7 @@ test(`fails registering with easy password`, async t => {
 });
 
 test('fails registering invalid email', async t => {
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email: 'test123' })
@@ -45,13 +48,13 @@ test(`doesn't leak used email`, async t => {
   const email = 'test2@example.com';
   const password = '!@K#NLK!#NSADKMSAD:K';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
@@ -65,13 +68,13 @@ test(`allows password reset for valid email (HTML)`, async t => {
   const email = 'test3@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'text/html')
     .send({ email });
@@ -84,13 +87,13 @@ test(`allows password reset for valid email (JSON)`, async t => {
   const email = 'test4@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
@@ -103,13 +106,13 @@ test(`resets password with valid email and token (HTML)`, async t => {
   const email = 'test5@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
@@ -118,7 +121,7 @@ test(`resets password with valid email and token (HTML)`, async t => {
     .select('reset_token')
     .exec();
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'text/html')
     .send({ email })
@@ -132,13 +135,13 @@ test(`resets password with valid email and token (JSON)`, async t => {
   const email = 'test6@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
@@ -147,7 +150,7 @@ test(`resets password with valid email and token (JSON)`, async t => {
     .select('reset_token')
     .exec();
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
     .send({ email })
@@ -161,7 +164,7 @@ test(`fails resetting password for non-existant user`, async t => {
   const email = 'test7@example.com';
   const password = '!@K#NLK!#N';
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/randomtoken`)
     .set('Accept', 'application/json')
     .send({ email })
@@ -175,18 +178,18 @@ test(`fails resetting password with invalid reset_token`, async t => {
   const email = 'test8@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/wrongtoken`)
     .set('Accept', 'application/json')
     .send({ email })
@@ -200,13 +203,13 @@ test(`fails resetting password with missing new password`, async t => {
   const email = 'test9@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
@@ -215,7 +218,7 @@ test(`fails resetting password with missing new password`, async t => {
     .select('reset_token')
     .exec();
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
     .send({ email });
@@ -228,13 +231,13 @@ test(`fails resetting password with invalid email`, async t => {
   const email = 'test10@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
@@ -243,7 +246,7 @@ test(`fails resetting password with invalid email`, async t => {
     .select('reset_token')
     .exec();
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
     .send({ email: 'wrongemail' });
@@ -256,13 +259,13 @@ test(`fails resetting password with invalid email + reset_token match`, async t 
   const email = 'test11@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
@@ -271,7 +274,7 @@ test(`fails resetting password with invalid email + reset_token match`, async t 
     .select('reset_token')
     .exec();
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
     .send({ email: 'wrongemail@example.com' })
@@ -285,13 +288,13 @@ test(`fails resetting password if new password is too weak`, async t => {
   const email = 'test12@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
@@ -300,7 +303,7 @@ test(`fails resetting password if new password is too weak`, async t => {
     .select('reset_token')
     .exec();
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
     .send({ email })
@@ -314,18 +317,18 @@ test(`fails resetting password if reset was already tried in the last 30 mins`, 
   const email = 'test12@example.com';
   const password = '!@K#NLK!#N';
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/signup')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
-  await koaRequest(app)
+  await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
 
-  const res = await koaRequest(app)
+  const res = await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });

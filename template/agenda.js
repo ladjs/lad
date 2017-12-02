@@ -15,23 +15,26 @@ agenda.configure({
   agendaBootJobs: config.agendaBootJobs
 });
 
-mongoose.configure({
-  ...config.mongoose,
-  logger,
-  agenda
-});
+if (!module.parent) {
+  mongoose.configure({
+    ...config.mongoose,
+    logger,
+    agenda
+  });
 
-mongoose
-  .connect()
-  .then(() => {
-    agenda.start();
-  })
-  .catch(logger.error);
+  mongoose
+    .connect()
+    .then(() => {
+      agenda.start();
+    })
+    .catch(logger.error);
 
-const graceful = new Graceful({
-  mongoose,
-  agenda,
-  logger
-});
+  const graceful = new Graceful({
+    mongoose,
+    agenda,
+    logger
+  });
+  graceful.listen();
+}
 
-graceful.listen();
+module.exports = agenda;

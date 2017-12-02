@@ -6,15 +6,10 @@ const mongoose = require('mongoose');
 const mongooseCommonPlugin = require('mongoose-common-plugin');
 const passportLocalMongoose = require('passport-local-mongoose');
 
+const config = require('../../config');
 const i18n = require('../../helpers/i18n');
 
 const User = new mongoose.Schema({
-  // passport-local-mongoose sets these for us on log in attempts
-  attempts: Number,
-  last: Date,
-  hash: String,
-  salt: String,
-
   group: {
     type: String,
     default: 'user',
@@ -108,7 +103,7 @@ User.pre('validate', function(next) {
 });
 
 User.plugin(mongooseCommonPlugin, { object: 'user' });
-User.plugin(passportLocalMongoose, {});
+User.plugin(passportLocalMongoose, config.passportLocalMongoose);
 
 // https://github.com/saintedlama/passport-local-mongoose/issues/218
 User.statics.registerAsync = function(data, password) {

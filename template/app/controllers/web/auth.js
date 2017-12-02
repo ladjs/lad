@@ -46,7 +46,9 @@ const login = async (ctx, next) => {
       return new Promise(async (resolve, reject) => {
         if (err) return reject(err);
 
-        let redirectTo = `/${ctx.req.locale}${config.auth.callbackOpts.successReturnToOrRedirect}`;
+        let redirectTo = `/${ctx.req.locale}${
+          config.passportCallbackOptions.successReturnToOrRedirect
+        }`;
 
         if (ctx.session && ctx.session.returnTo) {
           redirectTo = ctx.session.returnTo;
@@ -106,7 +108,7 @@ const register = async ctx => {
 
     await ctx.login(user);
 
-    let redirectTo = config.auth.callbackOpts.successReturnToOrRedirect;
+    let redirectTo = config.passportCallbackOptions.successReturnToOrRedirect;
 
     if (ctx.session && ctx.session.returnTo) {
       redirectTo = ctx.session.returnTo;
@@ -133,7 +135,7 @@ const register = async ctx => {
           locals: { user }
         }
       });
-      ctx.logger.info('queued welcome email', job);
+      ctx.logger.debug('queued welcome email', job);
     } catch (err) {
       ctx.logger.error(err);
     }
@@ -208,7 +210,7 @@ const forgotPassword = async ctx => {
         }
       }
     });
-    ctx.logger.info('Queued reset password email', job);
+    ctx.logger.debug('Queued reset password email', job);
   } catch (err) {
     ctx.logger.error(err);
   }
