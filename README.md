@@ -300,8 +300,6 @@ MONGOOSE_DEBUG=true ...
 
 5. If you specify an environment variable value for `AWS_CF_DOMAIN` and `NODE_ENV=production` is set then your assets will need to be published to Amazon S3/Cloudfront. To do so run `npm run publish-assets` (or with yarn as `yarn publish-assets`).  This command automatically sets `NODE_ENV=production` for you as well via `cross-env`.
 
-6. You may also want to turn on automated backups to S3 using [cacti][]. To do so simply add `IS_CACTI_ENABLED=true` to your production `.env` file.
-
 #### Tests
 
 > We use [ava][] and [nyc][] for testing and code coverage.
@@ -603,8 +601,6 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [koa-better-error-handler]: https://github.com/niftylettuce/koa-better-error-handler
 
 [koa-manifest-rev]: https://github.com/niftylettuce/koa-manifest-rev
-
-[cacti]: https://github.com/niftylettuce/cacti
 
 [cabin]: http://cabinjs.com
 

@@ -75,22 +75,28 @@ module.exports = {
           : 'Please include a valid GitHub.com URL without a trailing slash'
     },
     web: {
-      message: 'Do you want a web server (uses Koa)',
+      message: 'Do you need a web server',
       type: 'confirm',
       default: true
     },
+    i18n: {
+      message: 'Do you need automatic multi-lingual support',
+      type: 'confirm',
+      default: true,
+      when: answers => answers.web
+    },
     api: {
-      message: 'Do you want an API server (uses Koa)',
+      message: 'Do you need an API server',
       type: 'confirm',
       default: true
     },
     agenda: {
-      message: 'Do you want a job scheduler (backed by Agenda)',
+      message: 'Do you need a job scheduler',
       type: 'confirm',
       default: true
     },
     proxy: {
-      message: 'Do you want a reverse-proxy (e.g. http => https redirect)',
+      message: 'Do you need a proxy (http => https redirect)',
       type: 'confirm',
       default: true
     }
@@ -122,7 +128,29 @@ module.exports = {
   post: async ctx => {
     ctx.gitInit();
 
-    console.log('TODO: remove agenda, web, and api files, config, tests');
+    // TODO: ctx.answers.agenda
+    // - remove `agenda.js`
+    // - remove from pkg
+    // - remove config
+    // - remove tests
+
+    // TODO: ctx.answers.web
+    // - remove `web.js`
+    // - remove from pkg
+    // - remove config
+    // - remove tests
+
+    // TODO: ctx.answers.i18n
+    // - remove jobs/locales
+    // - remove from pkg
+    // - remove config
+    // - remove tests
+
+    // TODO: ctx.answers.api
+    // - remove `api.js`
+    // - remove from pkg
+    // - remove config
+    // - remove tests
 
     if (ctx.answers.pm === 'yarn') {
       ctx.yarnInstall();
