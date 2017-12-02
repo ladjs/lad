@@ -1,4 +1,5 @@
 const test = require('ava');
+
 const { json, emoji } = require('../../config/utilities');
 
 test('returns JSON with 2 spaces', t => {

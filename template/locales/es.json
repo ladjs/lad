@@ -219,5 +219,10 @@
   "Terms &#124; <span class=\"notranslate\">Lad</span>":
     "Términos y Condiciones &#124; <span class=\"notranslate\">Lad</span>",
   "Read our terms and conditions of use": "Lea nuestros términos y condiciones de uso",
-  "<%= description %>": "<%= description %>"
+  "<%= description %>": "<%= description %>",
+  "Reset password &#124; <span class=\"notranslate\">Lad</span>":
+    "Reset password &#124; <span class=\"notranslate\">Lad</span>",
+  "Confirm your password reset token": "Confirm your password reset token",
+  "Get access to your account by resetting your password":
+    "Get access to your account by resetting your password"
 }

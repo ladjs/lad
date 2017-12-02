@@ -1,4 +1,36 @@
+const Boom = require('boom');
+const s = require('underscore.string');
+const validator = require('validator');
 const _ = require('lodash');
+const { select } = require('mongoose-json-select');
+
+const { Users } = require('../../../models');
+
+const create = async ctx => {
+  const { body } = ctx.request;
+
+  if (Object.keys(body).length === 0)
+    return ctx.throw(Boom.badData(ctx.translate('MISSING_REGISTER_FIELDS')));
+
+  if (!_.isString(body.email) || !validator.isEmail(body.email))
+    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
+
+  if (!_.isString(body.password) || s.isBlank(body.password))
+    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD')));
+
+  // register the user
+  try {
+    const user = await Users.registerAsync({ email: body.email }, body.password);
+
+    // send the response
+    ctx.body = {
+      ...select(user.toObject(), Users.schema.options.toJSON.select),
+      api_token: user.api_token
+    };
+  } catch (err) {
+    ctx.throw(Boom.badRequest(err.message));
+  }
+};
 
 const retrieve = async ctx => {
   // since we already have the user object
@@ -21,4 +53,4 @@ const update = async ctx => {
   ctx.body = ctx.state.user;
 };
 
-module.exports = { retrieve, update };
+module.exports = { create, retrieve, update };

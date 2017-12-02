@@ -57,9 +57,9 @@
 
 > Lad is designed according to these principles:
 
-1. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor] principles
-2. Design for a scrappy, bootstrapped, and [ramen-profitable][] hacker
-3. Stay simple, modern, lightweight, stellar, highly-configurable, and developer-friendly
+1. Always be developer-friendly
+1. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor]
+2. Target the scrappy, bootstrapped, and [ramen-profitable][] hacker
 
 
 ## Features
@@ -271,6 +271,16 @@ DEBUG=* yarn start
 ```
 
 You can also use `NODE_DEBUG` if desired to debug [node][] internal modules.
+
+```sh
+NODE_DEBUG=* ...
+```
+
+And also `MONGOOSE_DEBUG` if you'd like Mongoose raw database operation output.
+
+```sh
+MONGOOSE_DEBUG=true ...
+```
 
 #### Production
 
@@ -510,7 +520,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 

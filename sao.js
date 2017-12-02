@@ -122,7 +122,7 @@ module.exports = {
   post: async ctx => {
     ctx.gitInit();
 
-    console.log('TODO: remove agenda, web, and api as necessary + config');
+    console.log('TODO: remove agenda, web, and api files, config, tests');
 
     if (ctx.answers.pm === 'yarn') {
       ctx.yarnInstall();

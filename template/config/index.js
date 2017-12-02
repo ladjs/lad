@@ -5,6 +5,7 @@ const Logger = require('@ladjs/logger');
 const nodemailer = require('nodemailer');
 const I18N = require('@ladjs/i18n');
 const base64ToS3 = require('nodemailer-base64-to-s3');
+const strength = require('strength');
 
 const pkg = require('../package');
 const env = require('./env');
@@ -100,6 +101,36 @@ const config = {
       ...utilities,
       filters: {}
     }
+  },
+
+  // passport-local-mongoose options
+  // <https://github.com/saintedlama/passport-local-mongoose>
+  passportLocalMongoose: {
+    usernameField: 'email',
+    passwordField: 'password',
+    attemptsField: 'login_attempts',
+    lastLoginField: 'last_login_at',
+    usernameLowerCase: true,
+    limitAttempts: true,
+    maxAttempts: process.env.NODE_ENV === 'development' ? Number.MAX_VALUE : 5,
+    digestAlgorithm: 'sha256',
+    encoding: 'hex',
+    saltlen: 32,
+    iterations: 25000,
+    keylen: 512,
+    passwordValidator: (password, cb) => {
+      if (process.env.NODE_ENV === 'development') return cb();
+      const howStrong = strength(password);
+      cb(howStrong < 3 ? new Error('Password not strong enough') : null);
+    }
+  },
+
+  // passport callback options
+  passportCallbackOptions: {
+    successReturnToOrRedirect: '/',
+    failureRedirect: '/login',
+    successFlash: true,
+    failureFlash: true
   },
 
   // stripe
