@@ -58,8 +58,8 @@
 > Lad is designed according to these principles:
 
 1. Always be developer-friendly
-1. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor]
-2. Target the scrappy, bootstrapped, and [ramen-profitable][] hacker
+2. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor]
+3. Target the scrappy, bootstrapped, and [ramen-profitable][] hacker
 
 
 ## Features
@@ -502,10 +502,6 @@ Then visit <http://localhost:8080> in your browser.
 | Name           | Website                   |
 | -------------- | ------------------------- |
 | **Nick Baugh** | <http://niftylettuce.com> |
-
-\|  \|
-\|  \|
-\|  \|
 
 
 ## Trademark Notice
