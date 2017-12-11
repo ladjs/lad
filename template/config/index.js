@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const I18N = require('@ladjs/i18n');
 const base64ToS3 = require('nodemailer-base64-to-s3');
 const strength = require('strength');
+const boolean = require('boolean');
 
 const pkg = require('../package');
 const env = require('./env');
@@ -28,7 +29,7 @@ const config = {
   },
 
   // app
-  googleTranslateKey: env.GOOGLE_TRANSLATE_KEY,
+  // TODO: remove these values and others as needed
   webRequestTimeoutMs: env.WEB_REQUEST_TIMEOUT_MS,
   apiRequestTimeoutMs: env.API_REQUEST_TIMEOUT_MS,
   contactRequestMaxLength: env.CONTACT_REQUEST_MAX_LENGTH,
@@ -48,7 +49,6 @@ const config = {
   },
   ga: env.GOOGLE_ANALYTICS,
   sessionKeys: env.SESSION_KEYS,
-  isCactiEnabled: env.IS_CACTI_ENABLED,
   appName: env.APP_NAME,
   i18n: {
     // see @ladjs/i18n for a list of defaults
@@ -62,7 +62,7 @@ const config = {
   // lad's agenda configuration
   // <https://github.com/ladjs/agenda>
   agendaRecurringJobs: [],
-  agendaBootJobs: [],
+  agendaBootJobs: ['mandarin'],
 
   aws: {
     key: env.AWS_IAM_KEY,
@@ -170,7 +170,8 @@ config.email.transport = nodemailer.createTransport({
     user: env.POSTMARK_API_TOKEN,
     pass: env.POSTMARK_API_TOKEN
   },
-  logger
+  logger,
+  debug: boolean(process.env.TRANSPORT_DEBUG)
 });
 config.email.transport.use(
   'compile',
@@ -180,7 +181,6 @@ config.email.transport.use(
   })
 );
 
-// config.email.transport.debug = true;
 config.email.views = Object.assign({}, config.views);
 config.email.views.root = path.join(__dirname, '..', 'emails');
 config.email.i18n = config.i18n;
