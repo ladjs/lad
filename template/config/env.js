@@ -1,4 +1,5 @@
 const path = require('path');
+
 // note that we had to specify absolute paths here
 // because otherwise tests run from the lad repo
 // root folder would not work properly and pick this up

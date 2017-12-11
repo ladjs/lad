@@ -1,5 +1,4 @@
 const validator = require('validator');
-const _ = require('lodash');
 const s = require('underscore.string');
 const randomstring = require('randomstring-extended');
 const mongoose = require('mongoose');
@@ -10,6 +9,7 @@ const config = require('../../config');
 const i18n = require('../../helpers/i18n');
 
 const User = new mongoose.Schema({
+  // group permissions
   group: {
     type: String,
     default: 'user',
@@ -17,6 +17,9 @@ const User = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
+
+  // TODO: we should configure this with passport-local-mongoose
+  // username field so that it is consistent when passed along
   email: {
     type: String,
     required: true,
@@ -26,6 +29,8 @@ const User = new mongoose.Schema({
     unique: true,
     validate: val => validator.isEmail(val)
   },
+
+  // TODO: these keys should get passed along to @ladjs/auth
   display_name: {
     type: String,
     required: true,
@@ -47,6 +52,8 @@ const User = new mongoose.Schema({
     trim: true,
     validate: val => validator.isURL(val)
   },
+
+  // api token for basic auth
   api_token: {
     type: String,
     required: true,
@@ -69,6 +76,8 @@ const User = new mongoose.Schema({
   // authentication
 
   // google
+  // TODO: these keys should get stored in a plugin
+  // and also passed along to @ladjs/auth for the naming convention
   google_profile_id: {
     type: String,
     index: true
@@ -77,6 +86,7 @@ const User = new mongoose.Schema({
   google_refresh_token: String,
 
   // last ip information
+  // TODO: this should be part of store-ip-address package
   last_ips: [
     {
       type: String,
@@ -93,11 +103,13 @@ const User = new mongoose.Schema({
 
 User.pre('validate', function(next) {
   // create api token if doesn't exist
-  if (!_.isString(this.api_token) || s.isBlank(this.api_token))
-    this.api_token = randomstring.token(24);
+  if (s.isBlank(this.api_token)) this.api_token = randomstring.token(24);
 
-  if (_.isString(this.email) && (!_.isString(this.display_name) || s.isBlank(this.display_name)))
-    this.display_name = this.email.split('@')[0];
+  // set the user's display name to their email address
+  // but if they have a name or surname set then use that
+  this.display_name = this.email;
+  if (!s.isBlank(this.given_name) || !s.isBlank(this.family_name))
+    this.display_name = `${this.given_name || ''} ${this.family_name || ''}`;
 
   next();
 });
