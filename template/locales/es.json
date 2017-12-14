@@ -224,5 +224,9 @@
     "Reset password &#124; <span class=\"notranslate\">Lad</span>",
   "Confirm your password reset token": "Confirm your password reset token",
   "Get access to your account by resetting your password":
-    "Get access to your account by resetting your password"
+    "Get access to your account by resetting your password",
+  "Auth &#124; <span class=\"notranslate\">Lad</span>":
+    "Auth &#124; <span class=\"notranslate\">Lad</span>",
+  "Authenticate yourself to log in": "Authenticate yourself to log in",
+  "Password or username is incorrect": "Password or username is incorrect"
 }

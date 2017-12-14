@@ -121,6 +121,8 @@ test(`resets password with valid email and token (HTML)`, async t => {
     .select('reset_token')
     .exec();
 
+  if (!user) throw new Error('User does not exist');
+
   const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'text/html')
@@ -149,6 +151,8 @@ test(`resets password with valid email and token (JSON)`, async t => {
   const user = await Users.findOne({ email })
     .select('reset_token')
     .exec();
+
+  if (!user) throw new Error('User does not exist');
 
   const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
@@ -218,6 +222,8 @@ test(`fails resetting password with missing new password`, async t => {
     .select('reset_token')
     .exec();
 
+  if (!user) throw new Error('User does not exist');
+
   const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
@@ -245,6 +251,8 @@ test(`fails resetting password with invalid email`, async t => {
   const user = await Users.findOne({ email })
     .select('reset_token')
     .exec();
+
+  if (!user) throw new Error('User does not exist');
 
   const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
@@ -274,6 +282,8 @@ test(`fails resetting password with invalid email + reset_token match`, async t 
     .select('reset_token')
     .exec();
 
+  if (!user) throw new Error('User does not exist');
+
   const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
@@ -302,6 +312,8 @@ test(`fails resetting password if new password is too weak`, async t => {
   const user = await Users.findOne({ email })
     .select('reset_token')
     .exec();
+
+  if (!user) throw new Error('User does not exist');
 
   const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
@@ -339,5 +351,3 @@ test(`fails resetting password if reset was already tried in the last 30 mins`, 
     'You can only request a password reset every 30 minutes.  Please try again in 30 minutes.'
   );
 });
-
-// @TODO: Add test for each provider

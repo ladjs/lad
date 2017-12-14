@@ -3,7 +3,6 @@ const env = require('./env');
 // turn off max length eslint rule since this is a config file with long strs
 /* eslint max-len: 0 */
 
-// TODO: ensure no strings here are unused
 module.exports = {
   INVALID_API_TOKEN: 'Invalid token',
   INVALID_API_CREDENTIALS: 'Invalid creds',

@@ -2,10 +2,13 @@
 const Agenda = require('@ladjs/agenda');
 const mongoose = require('@ladjs/mongoose');
 const Graceful = require('@ladjs/graceful');
+const maxListenersExceededWarning = require('max-listeners-exceeded-warning');
 
 const jobs = require('./jobs');
 const { logger } = require('./helpers');
 const config = require('./config');
+
+if (process.env.NODE_ENV !== 'production') maxListenersExceededWarning();
 
 const agenda = new Agenda();
 agenda.configure({

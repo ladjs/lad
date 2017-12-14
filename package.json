@@ -5,8 +5,8 @@
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
   "bin": "cli.js",
   "ava": {
+    "serial": true,
     "failFast": true,
-    "verbose": true,
     "files": [
       "test.js",
       "test-*.js",

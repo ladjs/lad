@@ -29,11 +29,7 @@ const config = {
   },
 
   // app
-  // TODO: remove these values and others as needed
-  webRequestTimeoutMs: env.WEB_REQUEST_TIMEOUT_MS,
-  apiRequestTimeoutMs: env.API_REQUEST_TIMEOUT_MS,
   contactRequestMaxLength: env.CONTACT_REQUEST_MAX_LENGTH,
-  cookiesKey: env.COOKIES_KEY,
   email: {
     message: {
       from: env.EMAIL_DEFAULT_FROM
@@ -48,7 +44,6 @@ const config = {
     appName: env.APP_NAME
   },
   ga: env.GOOGLE_ANALYTICS,
-  sessionKeys: env.SESSION_KEYS,
   appName: env.APP_NAME,
   i18n: {
     // see @ladjs/i18n for a list of defaults
@@ -157,7 +152,6 @@ config.views.locals.filters.translate = function() {
 };
 
 // add global `config` object to be used by views
-// TODO: whitelist keys here via `_.pick`
 config.views.locals.config = config;
 
 // add `views` to `config.email`

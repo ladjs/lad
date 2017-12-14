@@ -1,8 +1,9 @@
 const Boom = require('boom');
 const Router = require('koa-router');
 const boolean = require('boolean');
+const passport = require('passport');
 
-const { policies, passport } = require('../../helpers');
+const { policies } = require('../../helpers');
 const config = require('../../config');
 
 const router = new Router({

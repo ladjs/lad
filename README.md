@@ -157,7 +157,7 @@ See [koa-better-error-handler][] for a complete reference.
 
 * Database security plugins and helpers
 * Automated tests and code coverage
-* CORS, CSRF, XSS, and rate limited protection
+* CORS, SameSite set to "lax" ([an alternative to CSRF][csrf-alternative]), CSRF (since [not all browsers][csrf-caniuse] support SameSite yet) XSS, and rate limited protection
 * Dotenv support for environment-based configurations
 * App, user, and request-based logging
 * SSL-ready (see [instructions below](#ssl-configuration))
@@ -240,7 +240,7 @@ cd new-project
 
 #### Development
 
-> The `start` script will spawn, watch, and re-compile all of the [microservices](#microservices) mentioned above.
+> The `start` script will spawn, watch, and re-compile all of the [microservices](#microservices) mentioned above.  It will also open the browser for you to <http://localhost:3000> automatically for testing the web front-end.
 
 [npm][]:
 
@@ -344,19 +344,23 @@ Take a look at the [config](template/config) folder contents and also at the def
 
 #### SSL Configuration
 
-To configure SSL for the web or API server simply pass environment variables or set them in your `.env` file:
+To configure SSL for the web or API server simply set them in your `.env` file or pass them as environment variables.
 
 > Web server:
 
-* `WEB_SSL_KEY_PATH` - file path to your SSL key file (e.g. `~/web-key.pem`)
-* `WEB_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `~/web-cert.pem`)
-* `WEB_SSL_CA_PATH` (optional) - file path to your SSL certificate authority file (e.g. `~/web-ca-cert.pem`)
+* `WEB_PORT` - you must set this to `443`
+* `WEB_PROTOCOL` - you must set this to `https`
+* `WEB_SSL_KEY_PATH` - file path to your SSL key file (e.g. `/home/deploy/.ssl/web-key.pem`)
+* `WEB_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `/home/deploy/.ssl/web-cert.pem`)
+* `WEB_SSL_CA_PATH` (optional) - file path to your SSL certificate authority file (e.g. `/home/deploy/.ssl/web-ca-cert.pem`)
 
 > API server:
 
-* `API_SSL_KEY_PATH` - file path to your SSL key file (e.g. `~/api-key.pem`)
-* `API_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `~/api-cert.pem`)
-* `API_SSL_CA_PATH` (optional) - file path to your SSL certificate authority file (e.g. `~/api-ca-cert.pem`)
+* `API_PORT` - you must set this to `443`
+* `API_PROTOCOL` - you must set this to `https`
+* `API_SSL_KEY_PATH` - file path to your SSL key file (e.g. `/home/deploy/.ssl/api-key.pem`)
+* `API_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `/home/deploy/.ssl/api-cert.pem`)
+* `API_SSL_CA_PATH` (optional) - file path to your SSL certificate authority file (e.g. `/home/deploy/.ssl/api-ca-cert.pem`)
 
 #### Outbound Email Configuration
 
@@ -384,6 +388,8 @@ You can customize the favicon and touch icons – just generate a new set at <ht
 Just make sure that any relative paths match up in the `assets/browserconfig.xml` and `assets/manifest.json` files.
 
 #### Authentication Methods
+
+> We use Lad's auth package under the hood; so if you want to configure authentication providers you'll want to read more or contribute to [@ladjs/auth][ladjs-auth].
 
 ##### Google Auth
 
@@ -530,7 +536,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -629,3 +635,9 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [mongoose]: http://mongoosejs.com
 
 [agenda]: http://agendajs.com
+
+[ladjs-auth]: https://github.com/ladjs/auth
+
+[csrf-alternative]: https://scotthelme.co.uk/csrf-is-dead/
+
+[csrf-caniuse]: https://caniuse.com/#search=SameSite

@@ -5,9 +5,10 @@ const randomstring = require('randomstring-extended');
 const Boom = require('boom');
 const _ = require('lodash');
 const validator = require('validator');
+const passport = require('passport');
 
 const { Users, Jobs } = require('../../models');
-const { logger, passport } = require('../../../helpers');
+const { logger } = require('../../../helpers');
 const config = require('../../../config');
 
 const logout = async ctx => {
@@ -82,7 +83,14 @@ const login = async (ctx, next) => {
       });
     })(ctx, next);
   } catch (err) {
-    ctx.throw(Boom.badRequest(err.message));
+    // passport-local-mongoose error detection
+    // so that we can do a proper error status code
+    // and also translate the error to the user's locale
+    if (err.name && err.message) {
+      ctx.throw(Boom.badRequest(ctx.req.t(err.message)));
+    } else {
+      ctx.throw(err);
+    }
   }
 };
 

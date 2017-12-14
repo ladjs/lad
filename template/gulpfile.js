@@ -23,7 +23,6 @@ const sass = require('gulp-sass');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const reporter = require('postcss-reporter');
-const swagger = require('gulp-swagger-js-codegen');
 const ms = require('ms');
 const opn = require('opn');
 
@@ -55,9 +54,6 @@ const staticAssets = [
 gulp.task('default', ['build']);
 
 gulp.task('build', done => {
-  // TODO: add `rimraf dist`
-  // TODO: add remark-cli with -qfo options
-  // TODO: ensure depcheck, xo, pug-lint, remark lint called in lint task
   runSequence('lint', 'css', ['img', 'js', 'static'], async () => {
     if (config.env === 'development') {
       if (config.openInBrowser) {
@@ -218,20 +214,5 @@ gulp.task('static', () => {
     .src(staticAssets, {
       base: 'assets'
     })
-    .pipe(gulp.dest('build'));
-});
-
-gulp.task('swagger', () => {
-  return gulp
-    .src('swagger-api.yaml')
-    .pipe(
-      swagger({
-        type: 'node',
-        swaggerOptions: {
-          lint: false,
-          className: 'Lad'
-        }
-      })
-    )
     .pipe(gulp.dest('build'));
 });
