@@ -160,7 +160,7 @@ See [koa-better-error-handler][] for a complete reference.
 * CORS, CSRF, XSS, and rate limited protection
 * Dotenv support for environment-based configurations
 * App, user, and request-based logging
-* SSL-ready
+* SSL-ready (see [instructions below](#ssl-configuration))
 * …
 
 
@@ -342,6 +342,22 @@ Basically [dotenv][] won't set an environment variable if it already detects it 
 
 Take a look at the [config](template/config) folder contents and also at the defaults at [.env.defaults](template/.env.defaults).
 
+#### SSL Configuration
+
+To configure SSL for the web or API server simply pass environment variables or set them in your `.env` file:
+
+> Web server:
+
+* `WEB_SSL_KEY_PATH` - file path to your SSL key file (e.g. `~/web-key.pem`)
+* `WEB_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `~/web-cert.pem`)
+* `WEB_SSL_CA_PATH` (optional) - file path to your SSL certificate authority file (e.g. `~/web-ca-cert.pem`)
+
+> API server:
+
+* `API_SSL_KEY_PATH` - file path to your SSL key file (e.g. `~/api-key.pem`)
+* `API_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `~/api-cert.pem`)
+* `API_SSL_CA_PATH` (optional) - file path to your SSL certificate authority file (e.g. `~/api-ca-cert.pem`)
+
 #### Outbound Email Configuration
 
 > By default in the development environment we simply render the email in your browser.
@@ -514,7 +530,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
