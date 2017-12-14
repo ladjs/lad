@@ -32,7 +32,7 @@
   * [Microservices](#microservices)
   * [Frontend](#frontend)
   * [Backend](#backend)
-  * [Localization](#localization)
+  * [Translation](#translation)
   * [Email Engine](#email-engine)
   * [Error Handling](#error-handling)
   * [Performance](#performance)
@@ -92,20 +92,21 @@ Lad boasts dozens of features and is extremely configurable.
 * Mongoose and MongoDB with common database plugins
 * Email template engine with [Nodemailer][] and local rendering
 * Proxy eliminates need for Nginx reverse-proxy or Apache virtual hosts
-* Multilingual through i18n and i10n
+* Multilingual through built-in i18n translation support
 * Automatic phrase translation with Google Translate
 * Sitemap generator for simple SEO
 * …
 
-### Localization
+### Translation
 
-> Finally a framework that solves i18n and i10n everywhere; complete with automatic translation.
+> Finally a framework that solves i18n everywhere; complete with automatic translation.
 
-* Webapp messages and templates are localized
-* Emails are localized
-* API responses are localized
-* Database errors are localized
-* Authentication errors are localized
+* Translation constants built-in so you [don't repeat yourself][dry]
+* Webapp error messages and templates are translated
+* Emails are translated
+* API responses are translated
+* Database errors are translated
+* Authentication errors are translated
 * …
 
 ### Email Engine
@@ -622,14 +623,15 @@ template
 > Lad is designed according to these principles:
 
 1. Always be developer-friendly
-2. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor]
+2. Adhere to [MVC][], [Unix][], [KISS][], [DRY][], [YAGNI][] and [Twelve Factor][twelve-factor]
 3. Target the scrappy, bootstrapped, and [ramen-profitable][] hacker
 
 
 ## Related
 
-* [lass][] - Scaffold a modern boilerplate for [Node.js][node]
+* [lipo][] - Free image manipulation API service built on top of [Sharp][]
 * [cabin][] - Logging and analytics solution for [Node.js][node], [Lad][], [Koa][], and [Express][]
+* [lass][] - Scaffold a modern boilerplate for [Node.js][node]
 
 
 ## Contributing
@@ -668,7 +670,7 @@ Then visit <http://localhost:8080> in your browser.
 
 ## Trademark Notice
 
-Lad, Lass, Cabin, and their respective logos are trademarks of Niftylettuce LLC.
+Lad, Lass, Cabin, Lipo, and their respective logos are trademarks of Niftylettuce LLC.
 These trademarks may not be reproduced, distributed, transmitted, or otherwise used, except with the prior written permission of Niftylettuce LLC.
 If you are seeking permission to use these trademarks, then please [contact us](mailto:niftylettuce@gmail.com).
 
@@ -678,7 +680,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -768,8 +770,6 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [cabin]: http://cabinjs.com
 
-[express]: https://expressjs.com/
-
 [lad]: https://lad.js.org
 
 [koa]: http://koajs.com/
@@ -783,3 +783,11 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [csrf-alternative]: https://scotthelme.co.uk/csrf-is-dead/
 
 [csrf-caniuse]: https://caniuse.com/#search=SameSite
+
+[dry]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+
+[lipo]: https://lipo.io
+
+[sharp]: http://sharp.dimens.io/
+
+[express]: https://expressjs.com
