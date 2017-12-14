@@ -548,7 +548,7 @@ template
 │   │   ├── clipboard.js
 │   │   ├── core.js
 │   │   ├── custom-file-input.js
-│   │   ├── fixes.js
+│   │   ├── facebook-hash-fix.js
 │   │   ├── flash.js
 │   │   ├── jump-to.js
 │   │   ├── return-to.js
