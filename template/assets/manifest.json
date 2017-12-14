@@ -1,6 +1,6 @@
 {
   "name": "<%= name %>",
   "icons": [],
-  "theme_color": "#ffffff",
+  "theme_color": "#94CC27",
   "display": "standalone"
 }

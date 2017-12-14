@@ -11,7 +11,6 @@ const config = require('../../../config');
 module.exports = async function(ctx) {
   let { body } = ctx.request;
 
-  // @TODO: Remove this once store ip is fixed
   if (config.env === 'test') ctx.req.ip = ctx.req.ip || '127.0.0.1';
 
   body = _.pick(body, ['email', 'message']);
@@ -64,8 +63,6 @@ module.exports = async function(ctx) {
       ip: ctx.req.ip
     });
 
-    // TODO: ensure timestamp is shown on console and saved
-    // we may want to use `console-stamp` package
     ctx.logger.debug('created inquiry', inquiry);
 
     const job = await Jobs.create({
@@ -91,13 +88,7 @@ module.exports = async function(ctx) {
       ctx.redirect('back');
     }
   } catch (err) {
-    // TODO: this should have a `user` object prop
-    ctx.logger.error(err, {
-      ip: ctx.req.ip,
-      message: body.message,
-      email: body.email
-    });
-
+    ctx.logger.error(err, { body });
     ctx.throw(ctx.translate('CONTACT_REQUEST_ERROR'));
   }
 };

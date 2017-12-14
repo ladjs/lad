@@ -18,7 +18,8 @@ html(lang=locale)
       link(rel="icon", type="image/png", href=manifest('img/favicon-32x32.png'), sizes="32x32")
       link(rel="icon", type="image/png", href=manifest('img/favicon-16x16.png'), sizes="16x16")
       link(rel="manifest", href="/manifest.json")
-      //- TODO: add mask-icon
+      //- add mask-icon
+      //- <https://goo.gl/PMBfKu>
       //- link(rel="mask-icon", href=manifest('img/safari-pinned-tab.svg'), color=config.appColor)
       meta(name="apple-mobile-web-app-title", content=config.appName)
       meta(name="application-name", content=config.appName)
@@ -27,20 +28,18 @@ html(lang=locale)
       meta(name="csrf-token", content=ctx.csrf)
       script.
         window._csrf = "#{ctx.csrf}";
-      //- add opengraph tags to your structured data pages #}
+      //- add opengraph tags to your structured data pages
       block opengraph
-        //- TODO: finish this
-        //.
-          <link rel="image_src" type="image/png" href="https://stripe.com/img/v3/home/social.png">
-          <meta property="og:title" content="Checkout Reference">
-          <meta property="og:url" content="https://stripe.com/docs/checkout">
-          <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
-          <meta property="og:image" content="https://stripe.com/img/v3/home/social.png">
-          <meta name="twitter:card" content="summary_large_image">
-          <meta name="twitter:site" content="@stripe">
-          <meta name="twitter:title" content="Checkout Reference">
-          <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
-          <meta name="twitter:image:src" content="https://stripe.com/img/v3/home/social.png">
+        link(rel='image_src', type='image/png', href=manifest('img/social.png'))
+        meta(property='og:title', content=meta.title)
+        meta(property='og:url', content=ctx.url)
+        meta(property='og:description', content=meta.description)
+        meta(property='og:image', content=manifest('img/social.png'))
+        meta(name='twitter:card', content='summary_large_image')
+        meta(name='twitter:site', content=config.twitter)
+        meta(name='twitter:title', content=meta.title)
+        meta(name='twitter:description', content=meta.description)
+        meta(name='twitter:image:src', content=manifest('img/social.png'))
       //- css file
       link(rel="stylesheet", href=manifest('css/app.css'))
 
@@ -80,7 +79,6 @@ html(lang=locale)
         cancelButtonText: "#{ t('Cancel') }",
         closeButtonAriaLabel: "#{ t('Close this dialog') }"
       };
-    //- TODO: add cabin client-side logging
 
     //- scripts
     block scripts

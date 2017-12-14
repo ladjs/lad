@@ -9,6 +9,6 @@ block content
     = ' '
     a(href=link)= t('reset your password')
     = ' '
-    = t('now, and remember that this link will expire')
+    = t('now, and remember that this link will expire ')
     = moment(user.reset_token_expires_at).fromNow()
     = '.'

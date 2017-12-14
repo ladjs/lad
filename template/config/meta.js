@@ -40,6 +40,7 @@ module.exports = function(config) {
     ],
     '/404': [`Page not found ${lad}`, 'The page you requested could not be found'],
     '/500': [`Server error ${lad}`, 'A server error has unfortunately occurred'],
-    '/reset-password': [`Reset password ${lad}`, 'Confirm your password reset token']
+    '/reset-password': [`Reset password ${lad}`, 'Confirm your password reset token'],
+    '/auth': [`Auth ${lad}`, 'Authenticate yourself to log in']
   };
 };
