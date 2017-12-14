@@ -118,10 +118,10 @@ const config = {
     saltlen: 32,
     iterations: 25000,
     keylen: 512,
-    passwordValidator: (password, cb) => {
-      if (process.env.NODE_ENV === 'development') return cb();
+    passwordValidator: (password, fn) => {
+      if (process.env.NODE_ENV === 'development') return fn();
       const howStrong = strength(password);
-      cb(howStrong < 3 ? new Error('Password not strong enough') : null);
+      fn(howStrong < 3 ? new Error('Password not strong enough') : null);
     }
   },
 
