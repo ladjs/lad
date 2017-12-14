@@ -105,17 +105,21 @@ module.exports = {
     // until this issue is resolved we need this line:
     // <https://github.com/saojs/sao/issues/59>
     'node_modules/**': false,
+
     // never copy env file
     '.env': false,
-    // ignore build and coverage folder
+
+    // ignore standard dev files
     'coverage/**': false,
     'build/**': false,
     '.nyc_output/**': false,
     '*.log': false,
+
     'web.js': 'web === true',
     'api.js': 'api === true',
     'agenda.js': 'agenda === true',
-    'proxy.js': 'proxy === true'
+    'proxy.js': 'proxy === true',
+    'jobs/**': 'agenda === true'
   },
   move: {
     // We keep `.gitignore` as `gitignore` in the project
@@ -129,25 +133,21 @@ module.exports = {
     ctx.gitInit();
 
     // TODO: ctx.answers.agenda
-    // - remove `agenda.js`
     // - remove from pkg
     // - remove config
     // - remove tests
 
     // TODO: ctx.answers.web
-    // - remove `web.js`
     // - remove from pkg
     // - remove config
     // - remove tests
 
     // TODO: ctx.answers.i18n
-    // - remove jobs/locales
     // - remove from pkg
     // - remove config
     // - remove tests
 
     // TODO: ctx.answers.api
-    // - remove `api.js`
     // - remove from pkg
     // - remove config
     // - remove tests
