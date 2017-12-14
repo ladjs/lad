@@ -53,15 +53,6 @@
 * [License](#license)
 
 
-## Principles
-
-> Lad is designed according to these principles:
-
-1. Always be developer-friendly
-2. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor]
-3. Target the scrappy, bootstrapped, and [ramen-profitable][] hacker
-
-
 ## Features
 
 Lad boasts dozens of features and is extremely configurable.
@@ -162,19 +153,6 @@ See [koa-better-error-handler][] for a complete reference.
 * App, user, and request-based logging
 * SSL-ready (see [instructions below](#ssl-configuration))
 * …
-
-
-## Architecture
-
-> The following bash output is the directory structure and organization of Lad:
-
-```sh
-tree template -I "build|node_modules|coverage|test"
-```
-
-```sh
-
-```
 
 
 ## Get Started
@@ -483,6 +461,169 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 * [Visit Koa's Community section](https://github.com/koajs/koa#community).
 * [Join Mongoose's Slack channel][mongoose-slack]
 
+## Architecture
+
+> The following bash output is the directory structure and organization of Lad:
+
+```sh
+tree template -I "build|node_modules|coverage|test"
+```
+
+```sh
+template
+├── LICENSE
+├── README
+├── agenda.js
+├── api.js
+├── app
+│   ├── controllers
+│   │   ├── api
+│   │   │   ├── index.js
+│   │   │   └── v1
+│   │   │       ├── index.js
+│   │   │       └── users.js
+│   │   ├── index.js
+│   │   └── web
+│   │       ├── auth.js
+│   │       ├── contact.js
+│   │       └── index.js
+│   ├── models
+│   │   ├── index.js
+│   │   ├── inquiry.js
+│   │   └── user.js
+│   └── views
+│       ├── 404.pug
+│       ├── 500.pug
+│       ├── _footer.pug
+│       ├── _nav.pug
+│       ├── _pagination.pug
+│       ├── about.pug
+│       ├── admin.pug
+│       ├── contact.pug
+│       ├── forgot-password.pug
+│       ├── home.pug
+│       ├── layout.pug
+│       ├── my-account.pug
+│       ├── reset-password.pug
+│       ├── signup-or-login.pug
+│       ├── spinner
+│       │   ├── 1.pug
+│       │   ├── 10.pug
+│       │   ├── 11.pug
+│       │   ├── 2.pug
+│       │   ├── 3.pug
+│       │   ├── 4.pug
+│       │   ├── 5.pug
+│       │   ├── 6.pug
+│       │   ├── 7.pug
+│       │   ├── 8.pug
+│       │   ├── 9.pug
+│       │   └── spinner.pug
+│       └── terms.pug
+├── assets
+│   ├── browserconfig.xml
+│   ├── css
+│   │   ├── _custom.scss
+│   │   ├── _email.scss
+│   │   ├── _hljs-github.scss
+│   │   ├── _variables.scss
+│   │   └── app.scss
+│   ├── fonts
+│   │   └── GoudyBookletter1911.otf
+│   ├── img
+│   │   ├── android-chrome-192x192.png
+│   │   ├── android-chrome-384x384.png
+│   │   ├── apple-touch-icon.png
+│   │   ├── favicon-16x16.png
+│   │   ├── favicon-32x32.png
+│   │   ├── favicon.ico
+│   │   ├── mstile-150x150.png
+│   │   └── social.png
+│   ├── js
+│   │   ├── admin
+│   │   │   └── dashboard.js
+│   │   ├── ajax-form.js
+│   │   ├── change-hash-on-scroll.js
+│   │   ├── clipboard.js
+│   │   ├── core.js
+│   │   ├── custom-file-input.js
+│   │   ├── fixes.js
+│   │   ├── flash.js
+│   │   ├── jump-to.js
+│   │   ├── return-to.js
+│   │   ├── spinner.js
+│   │   └── swal.js
+│   └── manifest.json
+├── config
+│   ├── env.js
+│   ├── environments
+│   │   ├── development.js
+│   │   ├── index.js
+│   │   ├── production.js
+│   │   ├── staging.js
+│   │   └── test.js
+│   ├── index.js
+│   ├── meta.js
+│   ├── phrases.js
+│   └── utilities.js
+├── ecosystem.json
+├── emails
+│   ├── _content.pug
+│   ├── _footer.pug
+│   ├── _header.pug
+│   ├── _nav.pug
+│   ├── inquiry
+│   │   ├── html.pug
+│   │   └── subject.pug
+│   ├── layout.pug
+│   ├── reset-password
+│   │   ├── html.pug
+│   │   └── subject.pug
+│   └── welcome
+│       ├── html.pug
+│       └── subject.pug
+├── env
+├── gitignore
+├── gulpfile.js
+├── helpers
+│   ├── i18n.js
+│   ├── index.js
+│   ├── logger.js
+│   └── policies.js
+├── jobs
+│   ├── email.js
+│   └── index.js
+├── locales
+│   ├── README.md
+│   ├── en.json
+│   ├── es.json
+│   └── zh.json
+├── nodemon.json
+├── package.json
+├── proxy.js
+├── routes
+│   ├── api
+│   │   ├── index.js
+│   │   └── v1
+│   │       └── index.js
+│   ├── index.js
+│   └── web
+│       ├── admin.js
+│       ├── auth.js
+│       └── index.js
+├── web.js
+└── yarn.lock
+```
+
+
+## Principles
+
+> Lad is designed according to these principles:
+
+1. Always be developer-friendly
+2. Adhere to [MVC][], [Unix][], [KISS][], [YAGNI][] and [Twelve Factor][twelve-factor]
+3. Target the scrappy, bootstrapped, and [ramen-profitable][] hacker
+
 
 ## Related
 
@@ -536,7 +677,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
