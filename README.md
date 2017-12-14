@@ -28,7 +28,6 @@
 
 ## Table of Contents
 
-* [Principles](#principles)
 * [Features](#features)
   * [Microservices](#microservices)
   * [Frontend](#frontend)
@@ -38,7 +37,6 @@
   * [Error Handling](#error-handling)
   * [Performance](#performance)
   * [Security](#security)
-* [Architecture](#architecture)
 * [Get Started](#get-started)
   * [Requirements](#requirements)
   * [Install](#install)
@@ -46,6 +44,8 @@
   * [Configuration](#configuration)
   * [Tutorials](#tutorials)
   * [Community](#community)
+* [Architecture](#architecture)
+* [Principles](#principles)
 * [Related](#related)
 * [Contributing](#contributing)
 * [Contributors](#contributors)
@@ -460,6 +460,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 * [Subscribe to our Twitch channel][twitch]
 * [Visit Koa's Community section](https://github.com/koajs/koa#community).
 * [Join Mongoose's Slack channel][mongoose-slack]
+
 
 ## Architecture
 
