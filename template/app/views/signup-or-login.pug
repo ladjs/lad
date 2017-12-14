@@ -9,25 +9,25 @@ block body
           .card-body
             h1.card-title.h4= `Third-Party ${s.titleize(verb)}`
             p.card-text= `One-click, it's easy! ${emoji("sparkles")}`
-            a.btn.btn-block.btn-social.btn-facebook(href=`/${locale}/auth/facebook`, role="button")
+            a.btn.btn-block.btn-social.btn-facebook(href='/auth/facebook', role="button")
               i.fa.fa-fw.fa-facebook
               = ` ${s.titleize(verb)} with Facebook`
-            a.btn.btn-block.btn-social.btn-twitter(href=`/${locale}/auth/twitter`, role="button")
+            a.btn.btn-block.btn-social.btn-twitter(href='/auth/twitter', role="button")
               i.fa.fa-fw.fa-twitter
               = ` ${s.titleize(verb)} with Twitter`
-            a.btn.btn-block.btn-social.btn-google(href=`/${locale}/auth/google`, role="button")
+            a.btn.btn-block.btn-social.btn-google(href='/auth/google', role="button")
               i.fa.fa-fw.fa-google-plus
               = ` ${s.titleize(verb)} with Google`
-            a.btn.btn-block.btn-social.btn-github(href=`/${locale}/auth/github`, role="button")
+            a.btn.btn-block.btn-social.btn-github(href='/auth/github', role="button")
               i.fa.fa-fw.fa-github
               = ` ${s.titleize(verb)} with GitHub`
-            a.btn.btn-block.btn-social.btn-linkedin(href=`/${locale}/auth/linkedin`, role="button")
+            a.btn.btn-block.btn-social.btn-linkedin(href='/auth/linkedin', role="button")
               i.fa.fa-fw.fa-linkedin
               = ` ${s.titleize(verb)} with LinkedIn`
-            a.btn.btn-block.btn-social.btn-instagram(href=`/${locale}/auth/instagram`, role="button")
+            a.btn.btn-block.btn-social.btn-instagram(href='/auth/instagram', role="button")
               i.fa.fa-fw.fa-instagram
               = ` ${s.titleize(verb)} with Instagram`
-            a.btn.btn-block.btn-social.btn-stripe(href=`/${locale}/auth/stripe`, role="button")
+            a.btn.btn-block.btn-social.btn-stripe(href='/auth/stripe', role="button")
               i.fa.fa-fw.fa-cc-stripe
               = ` ${s.titleize(verb)} with Stripe`
       .col-xs-12.col-sm-12.col-md-6.col-lg-6
@@ -59,12 +59,12 @@ block body
             p.text-center.text-muted.mt-1
               small
                 if verb === 'sign up'
-                  != t(`By signing up, you agree to our <a href="/${locale}/terms" class="card-link">Terms</a>`)
+                  != t(`By signing up, you agree to our <a href="${l('/terms')}" class="card-link">Terms</a>`)
                 else
-                  a.card-link(href=`/${locale}/forgot-password`)= t('Forget your password?')
+                  a.card-link(href=l('/forgot-password'))= t('Forget your password?')
           if verb === 'sign up'
             .card-footer.text-center
-              != t(`Already have an account? <a href="/${locale}/login" class="card-link">Log In</a>`)
+              != t(`Already have an account? <a href="${l('/login')}" class="card-link">Log In</a>`)
           else
             .card-footer.text-center
-              != t(`Don't have an account? <a href="/${locale}/signup" class="card-link">Sign Up</a>`)
+              != t(`Don't have an account? <a href="${l('/signup')}" class="card-link">Sign Up</a>`)

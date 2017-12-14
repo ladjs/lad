@@ -228,5 +228,8 @@
   "Auth &#124; <span class=\"notranslate\">Lad</span>":
     "Auth &#124; <span class=\"notranslate\">Lad</span>",
   "Authenticate yourself to log in": "Authenticate yourself to log in",
-  "Password or username is incorrect": "Password or username is incorrect"
+  "Password or username is incorrect": "Password or username is incorrect",
+  "Log out of &#124; <span class=\"notranslate\">Lad</span>":
+    "Log out of &#124; <span class=\"notranslate\">Lad</span>",
+  "Log out of your account": "Log out of your account"
 }
