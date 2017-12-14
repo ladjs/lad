@@ -680,7 +680,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -744,11 +744,11 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [codecov]: https://codecov.io/gh
 
-[nodemailer-base64-to-s3]: https://github.com/crocodilejs/nodemailer-base64-to-s3
+[nodemailer-base64-to-s3]: https://github.com/ladjs/nodemailer-base64-to-s3
 
-[custom-fonts-in-emails]: https://github.com/crocodilejs/custom-fonts-in-emails
+[custom-fonts-in-emails]: https://github.com/ladjs/custom-fonts-in-emails
 
-[font-awesome-assets]: https://github.com/crocodilejs/font-awesome-assets
+[font-awesome-assets]: https://github.com/ladjs/font-awesome-assets
 
 [nodemailer]: https://nodemailer.com/
 
