@@ -69,13 +69,13 @@
     memwatch-next "^0.3.0"
     stop-agenda "^0.0.6"
 
-"@ladjs/api@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.0.7.tgz#bb57ec0953e540868d23b6ae4d00c0a4ab1d80ee"
+"@ladjs/api@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.0.8.tgz#f06976ef28c627195e7527403112da1f59280dac"
   dependencies:
     "@ladjs/auth" "^0.0.5"
-    "@ladjs/i18n" "^0.0.8"
-    "@ladjs/store-ip-address" "^0.0.3"
+    "@ladjs/i18n" "^0.1.0"
+    "@ladjs/store-ip-address" "^0.0.4"
     boolean "^0.1.3"
     cabin "^1.0.0"
     ip "^1.1.5"
@@ -152,6 +152,22 @@
     qs "^6.5.1"
     underscore.string "^3.3.4"
 
+"@ladjs/i18n@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-0.1.0.tgz#f07c39656e4950e3f1e8d93dd1a9cbd72dfd23aa"
+  dependencies:
+    auto-bind "^1.1.0"
+    boom "^7.1.1"
+    country-language "^0.1.7"
+    i18n "^0.8.3"
+    i18n-locales "^0.0.2"
+    lodash.every "^4.6.0"
+    lodash.isempty "^4.4.0"
+    lodash.sortby "^4.7.0"
+    moment "^2.18.1"
+    qs "^6.5.1"
+    underscore.string "^3.3.4"
+
 "@ladjs/koa-better-static@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@ladjs/koa-better-static/-/koa-better-static-1.0.5.tgz#2353d00b6dcda721535d6fb9ce84f0f615557f91"
@@ -194,22 +210,22 @@
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/state-helper/-/state-helper-0.0.1.tgz#9bca27213209c3e472003c766aa9bf6ef7ceac33"
 
-"@ladjs/store-ip-address@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@ladjs/store-ip-address/-/store-ip-address-0.0.3.tgz#fa0a6a918ca60f217f0d7174580c59b98d3f2e52"
+"@ladjs/store-ip-address@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@ladjs/store-ip-address/-/store-ip-address-0.0.4.tgz#5f57d3ab14a42b73fd6a89f2cb46377694537d5f"
   dependencies:
     auto-bind "^1.1.0"
-    debug "^3.0.1"
+    debug "^3.1.0"
 
-"@ladjs/web@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.1.3.tgz#cc141c7084c67d9b432195b5db45aa7680ded3e7"
+"@ladjs/web@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.1.4.tgz#8fe33c0a75591505aa520024b3609a0823036ea7"
   dependencies:
     "@ladjs/auth" "^0.0.5"
-    "@ladjs/i18n" "^0.0.8"
+    "@ladjs/i18n" "^0.1.0"
     "@ladjs/koa-better-static" "^1.0.5"
     "@ladjs/state-helper" "^0.0.1"
-    "@ladjs/store-ip-address" "^0.0.3"
+    "@ladjs/store-ip-address" "^0.0.4"
     auto-bind "^1.1.0"
     boolean "^0.1.3"
     boom "^7.1.1"

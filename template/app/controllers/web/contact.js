@@ -11,7 +11,7 @@ const config = require('../../../config');
 module.exports = async function(ctx) {
   let { body } = ctx.request;
 
-  if (config.env === 'test') ctx.req.ip = ctx.req.ip || '127.0.0.1';
+  if (config.env === 'test') ctx.ip = ctx.ip || '127.0.0.1';
 
   body = _.pick(body, ['email', 'message']);
 
@@ -41,7 +41,7 @@ module.exports = async function(ctx) {
   const count = await Inquiries.count({
     $or: [
       {
-        ip: ctx.req.ip
+        ip: ctx.ip
       },
       {
         email: body.email
@@ -60,7 +60,7 @@ module.exports = async function(ctx) {
   try {
     const inquiry = await Inquiries.create({
       ...body,
-      ip: ctx.req.ip
+      ip: ctx.ip
     });
 
     ctx.logger.debug('created inquiry', inquiry);

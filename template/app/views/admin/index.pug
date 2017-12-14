@@ -1,0 +1,16 @@
+
+extends ../layout
+
+append scripts
+  script(src=manifest('js/admin/dashboard.js'))
+
+block body
+  .container-fluid.py-3
+    .row.mt-1
+      .col-md-4.col-lg-2
+        nav.nav.nav-pills.flex-column.flex-row
+          a.nav-link.flex-fill.active(href="/admin/")= t('Dashboard')
+          a.nav-link.flex-fill(href="#")= t('Users')
+      .col-md-8.col-lg-10
+        h1.h6.text-uppercase.text-muted= t('Admin')
+        h2= t('Dashboard')

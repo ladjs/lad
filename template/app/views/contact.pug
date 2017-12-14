@@ -7,7 +7,7 @@ block body
       h1.display-3= `${t('Contact')} ${config.appName}`
       p.lead= t('Complete the form below to get in touch.')
   .container.pb-3
-    form.ajax-form(action=`/${locale}/contact`, method="POST")
+    form.ajax-form(action=ctx.path, method="POST")
       input(type="hidden", name="_csrf", value=ctx.csrf)
       .form-group
         input#email.form-control(required="required", name="email", type="email", placeholder=t('Email address'))

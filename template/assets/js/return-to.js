@@ -22,7 +22,7 @@ const s = require('underscore.string');
 //
 // <https://nodejs.org/api/url.html#url_url_format_urlobject>
 //
-(() => {
+module.exports = () => {
   const obj = url.parse(window.location.href, {
     parseQueryString: true
   });
@@ -31,4 +31,4 @@ const s = require('underscore.string');
   delete obj.query.hash;
   obj.search = undefined;
   window.location = url.format(obj);
-})();
+};

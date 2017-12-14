@@ -31,6 +31,7 @@ module.exports = function(config) {
     '/terms': [`Terms ${lad}`, 'Read our terms and conditions of use'],
     '/contact': [`Contact ${lad}`, `Contact ${config.appName} with your questions and comments`],
     '/login': [`Log in ${lad}`, 'Log in to your account'],
+    '/logout': [`Log out of ${lad}`, 'Log out of your account'],
     '/signup': [`Sign up ${lad}`, 'Sign up for an account'],
     '/my-account': [`My Account ${lad}`, 'View your account and manage your settings'],
     '/admin': [`Admin ${lad}`, 'Admin dashboard for administrative management'],

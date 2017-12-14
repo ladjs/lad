@@ -1,5 +1,5 @@
 
-extends layout
+extends ../layout
 
 block body
   .container-fluid.py-3
@@ -8,7 +8,7 @@ block body
         h1.h6.text-uppercase.text-muted= t('My Account')
         h2= t('Dashboard')
         hr
-        h3
+        .alert.alert-secondary
           if moment().format('HH') >= 12 && moment().format('HH') <= 17
             = t('Good afternoon')
           else if moment().format('HH') >= 17

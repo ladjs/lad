@@ -7,6 +7,9 @@ const History = require('html5-history-api');
 const jQuery = require('jquery');
 const Popper = require('popper.js');
 
+const clipboard = require('./clipboard');
+const returnTo = require('./return-to');
+const facebookHashFix = require('./facebook-hash-fix');
 const changeHashOnScroll = require('./change-hash-on-scroll');
 const customFileInput = require('./custom-file-input');
 const ajaxForm = require('./ajax-form');
@@ -55,11 +58,11 @@ WebFont.load({
   google: { families: ['Source+Code+Pro', 'Raleway', 'Montserrat'] }
 });
 
-// eslint-disable-next-line import/no-unassigned-import
-require('./fixes');
+// Fix Facebook's appended hash bug
+facebookHashFix();
 
-// eslint-disable-next-line import/no-unassigned-import
-require('./return-to');
+// Allow ?return_to=/some/path
+returnTo();
 
 ($ => {
   // Add pointer events polyfill
@@ -145,8 +148,8 @@ require('./return-to');
     // Handle custom file inputs
     $('body').on('change', 'input[type="file"][data-toggle="custom-file"]', customFileInput);
 
-    // eslint-disable-next-line import/no-unassigned-import
-    require('./clipboard');
+    // Handle clipboard copy event
+    clipboard();
 
     // Bind ajax form submission
     $('body').on('submit', 'form.ajax-form', ajaxForm);
