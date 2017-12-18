@@ -5,18 +5,8 @@
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
   "bin": "cli.js",
   "ava": {
-    "serial": true,
     "files": [
-      "test.js",
-      "test-*.js",
-      "test/**/*.js",
-      "**/__tests__/**/*.js",
-      "**/*.test.js",
-      "template/test.js",
-      "template/test-*.js",
-      "template/test/**/*.js",
-      "template/**/__tests__/**/*.js",
-      "template/**/*.test.js"
+      "test/**/*.js"
     ]
   },
   "prettier": {
@@ -124,7 +114,7 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "xo && remark . -qfo",
     "precommit": "lint-staged && npm test",
-    "test": "npm run lint && npm run test-coverage",
+    "test": "npm run lint && npm run test-coverage && cd template && npm run test",
     "test-coverage": "cross-env NODE_ENV=test nyc ava"
   },
   "xo": {
@@ -151,7 +141,8 @@
       ],
       "capitalized-comments": "off",
       "camelcase": "off",
-      "no-warning-comments": "off"
+      "no-warning-comments": "off",
+      "ava/no-ignored-test-files": "off"
     },
     "space": true,
     "ignores": ["config.js"],
