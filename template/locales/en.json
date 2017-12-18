@@ -76,5 +76,21 @@
   "Reset token and email were not valid together.": "Reset token and email were not valid together.",
   "Password was invalid.": "Password was invalid.",
   "Password strength was not strong enough.": "Password strength was not strong enough.",
-  "You can only request a password reset every 30 minutes.  Please try again %s.": "You can only request a password reset every 30 minutes.  Please try again %s."
+  "You can only request a password reset every 30 minutes.  Please try again %s.": "You can only request a password reset every 30 minutes.  Please try again %s.",
+  "Invalid token": "Invalid token",
+  "Invalid session secret.": "Invalid session secret.",
+  "Invalid CSRF token.": "Invalid CSRF token.",
+  "Sign in &#124; <span class=\"notranslate\">Lad</span>": "Sign in &#124; <span class=\"notranslate\">Lad</span>",
+  "Sign in to your account": "Sign in to your account",
+  "Sign up": "Sign up",
+  "Welcome back!": "Welcome back!",
+  "Email address": "Email address",
+  "Password": "Password",
+  "Forget your password?": "Forget your password?",
+  "Don't have an account? <a href=\"/en/register\" class=\"card-link\">Sign up</a>": "Don't have an account? <a href=\"/en/register\" class=\"card-link\">Sign up</a>",
+  "Forgot Password": "Forgot Password",
+  "Enter your email to reset your password.": "Enter your email to reset your password.",
+  "Send Password Reset Link": "Send Password Reset Link",
+  "Remember your password?": "Remember your password?",
+  "Log in now": "Log in now"
 }
