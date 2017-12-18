@@ -1,0 +1,4 @@
+nav.nav.nav-pills.flex-md-column.justify-content-center.mb-3
+  a.nav-link(href=l('/admin'), class=ctx.pathWithoutLocale === '/admin' ? 'active': '')= t('Dashboard')
+  a.nav-link(href=l('/admin/users'), class=ctx.pathWithoutLocale === '/admin/users' ? 'active' : '')= t('Users')
+hr.d-md-none

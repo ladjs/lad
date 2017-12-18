@@ -18,7 +18,7 @@ const s = require('underscore.string');
 // as a querystring parameter, therefore if there is a qs
 // parameter of `hash=` then we must convert it to location
 //
-// For more information see function `signupOrLogin` in the auth controller
+// For more information see function `registerOrLogin` in the auth controller
 //
 // <https://nodejs.org/api/url.html#url_url_format_urlobject>
 //

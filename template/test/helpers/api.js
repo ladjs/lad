@@ -3,7 +3,7 @@ const { promisify } = require('util');
 const api = require('../../api');
 
 const beforeEach = t => {
-  t.context.api = api.listen();
+  t.context.api = api.app.listen();
 };
 
 const afterEach = t => {

@@ -6,11 +6,11 @@ class Spinner {
   }
 
   show() {
-    $(this.selector).addClass('in d-block');
+    $(this.selector).addClass('show d-block');
   }
 
   hide() {
-    $(this.selector).removeClass('in d-block');
+    $(this.selector).removeClass('show d-block');
   }
 }
 

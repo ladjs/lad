@@ -1,0 +1,26 @@
+
+extends layout
+
+block body
+  .jumbotron.rounded-0.text-center
+    .container
+      h1.display-3= t('Need help?')
+  .container.pb-3
+    p.lead.text-center!= t(`Complete the form below or email <a href="mailto:${config.pkg.bugs.email}" target='_blank'>${config.pkg.bugs.email}</a>`)
+    .row
+      .col-sm-12.col-md-8.offset-md-2.col-lg-6.offset-lg-3
+        form.ajax-form.confirm-prompt(action=ctx.path, method="POST")
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          .card.card-bg-light
+            h4.card-header.text-center= t('Contact Us')
+            .card-body
+              .form-group.row
+                label.control-label.col-md-4.col-form-label.text-md-right= t('Email address')
+                .col-md-8
+                  input#email.form-control(required, name="email", type="email", value=user ? user.email : '')
+              .form-group.row
+                label.control-label.col-md-4.col-form-label.text-md-right= t('Message')
+                .col-md-8
+                  textarea#message.form-control(rows="3", maxlength=config.supportRequestMaxLength, name="message")
+            .card-footer
+              button.btn.btn-block.btn-success.btn-lg(type="submit", data-toggle="tooltip", data-placement="bottom", title=t(`We'll be in contact with you!`))= t('Send message')

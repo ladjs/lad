@@ -69,12 +69,11 @@
     memwatch-next "^0.3.0"
     stop-agenda "^0.0.6"
 
-"@ladjs/api@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.0.8.tgz#f06976ef28c627195e7527403112da1f59280dac"
+"@ladjs/api@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.1.1.tgz#cca70c60090f6991626f1b0b6fe92ba35f3799dd"
   dependencies:
-    "@ladjs/auth" "^0.0.5"
-    "@ladjs/i18n" "^0.1.0"
+    "@ladjs/i18n" "^0.1.2"
     "@ladjs/store-ip-address" "^0.0.4"
     boolean "^0.1.3"
     cabin "^1.0.0"
@@ -95,15 +94,6 @@
     koa-simple-ratelimit "^2.3.3"
     lodash "^4.17.4"
     redis "^2.8.0"
-
-"@ladjs/auth@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@ladjs/auth/-/auth-0.0.5.tgz#a9c3507cc7ff615d21edd5ccaf2592122860a1e0"
-  dependencies:
-    boolean "^0.1.3"
-    koa-passport "^4.0.1"
-    lodash "^4.17.4"
-    passport-google-oauth "^1.0.0"
 
 "@ladjs/dotenv-extended@^2.0.3":
   version "2.0.3"
@@ -152,18 +142,16 @@
     qs "^6.5.1"
     underscore.string "^3.3.4"
 
-"@ladjs/i18n@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-0.1.0.tgz#f07c39656e4950e3f1e8d93dd1a9cbd72dfd23aa"
+"@ladjs/i18n@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-0.1.2.tgz#88bf50642331ce481820062a4619d2b504c037ce"
   dependencies:
     auto-bind "^1.1.0"
     boom "^7.1.1"
     country-language "^0.1.7"
     i18n "^0.8.3"
     i18n-locales "^0.0.2"
-    lodash.every "^4.6.0"
-    lodash.isempty "^4.4.0"
-    lodash.sortby "^4.7.0"
+    lodash "^4.17.4"
     moment "^2.18.1"
     qs "^6.5.1"
     underscore.string "^3.3.4"
@@ -194,6 +182,15 @@
     delay "^2.0.0"
     mongoose "^4.13.5"
 
+"@ladjs/passport@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/passport/-/passport-0.0.1.tgz#4a67ff08408265e4b6894611f79702e8201c6490"
+  dependencies:
+    boolean "^0.1.3"
+    koa-passport "^4.0.1"
+    lodash "^4.17.4"
+    passport-google-oauth "^1.0.0"
+
 "@ladjs/policies@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/policies/-/policies-0.0.1.tgz#792bd1432042cd34bcf6e8f16e7d20f0dd99f572"
@@ -206,9 +203,11 @@
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/proxy/-/proxy-0.0.1.tgz#e1df1baee337abde427bf66277694f7282ae5951"
 
-"@ladjs/state-helper@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@ladjs/state-helper/-/state-helper-0.0.1.tgz#9bca27213209c3e472003c766aa9bf6ef7ceac33"
+"@ladjs/state-helper@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@ladjs/state-helper/-/state-helper-0.0.2.tgz#e25300ab24824304c2fdfb9d0f0380f55582d700"
+  dependencies:
+    lodash "^4.17.4"
 
 "@ladjs/store-ip-address@^0.0.4":
   version "0.0.4"
@@ -217,14 +216,13 @@
     auto-bind "^1.1.0"
     debug "^3.1.0"
 
-"@ladjs/web@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.1.4.tgz#8fe33c0a75591505aa520024b3609a0823036ea7"
+"@ladjs/web@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.1.8.tgz#24deb437b4f08867c1aa3d46df0437bcaa0c120a"
   dependencies:
-    "@ladjs/auth" "^0.0.5"
-    "@ladjs/i18n" "^0.1.0"
+    "@ladjs/i18n" "^0.1.2"
     "@ladjs/koa-better-static" "^1.0.5"
-    "@ladjs/state-helper" "^0.0.1"
+    "@ladjs/state-helper" "^0.0.2"
     "@ladjs/store-ip-address" "^0.0.4"
     auto-bind "^1.1.0"
     boolean "^0.1.3"
@@ -250,7 +248,7 @@
     koa-livereload "^0.2.0"
     koa-logger "^3.1.0"
     koa-manifest-rev "^0.3.0"
-    koa-meta "^0.0.8"
+    koa-meta "^0.0.9"
     koa-methodoverride "^2.0.0"
     koa-no-trailing-slash "^2.1.0"
     koa-redis "^3.1.1"
@@ -259,6 +257,12 @@
     koa-views "^6.1.3"
     lodash "^4.17.4"
     redis "^2.8.0"
+
+"@remy/pstree@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@remy/pstree/-/pstree-1.1.0.tgz#414045d4fec60946604f3718023052aaf49bd8d3"
+  dependencies:
+    ps-tree "^1.1.0"
 
 "@types/dotenv@^4.0.0":
   version "4.0.2"
@@ -1441,6 +1445,10 @@ bindings@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.2.1.tgz#14ad6113812d2d37d72e67b4cacb4bb726505f11"
 
+bitter-font@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/bitter-font/-/bitter-font-0.0.1.tgz#adc610426a491225c2685a41014f46794d90ded5"
+
 bl@^0.9.1:
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/bl/-/bl-0.9.5.tgz#c06b797af085ea00bc527afc8efcf11de2232054"
@@ -2003,26 +2011,6 @@ chardet@^0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
 
-chart.js@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.1.tgz#ae90b4aa4ff1f02decd6b1a2a8dabfd73c9f9886"
-  dependencies:
-    chartjs-color "~2.2.0"
-    moment "~2.18.0"
-
-chartjs-color-string@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.5.0.tgz#8d3752d8581d86687c35bfe2cb80ac5213ceb8c1"
-  dependencies:
-    color-name "^1.0.0"
-
-chartjs-color@~2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.2.0.tgz#84a2fb755787ed85c39dd6dd8c7b1d88429baeae"
-  dependencies:
-    chartjs-color-string "^0.5.0"
-    color-convert "^0.5.3"
-
 cheerio@^0.22.0:
   version "0.22.0"
   resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-0.22.0.tgz#a9baa860a3f9b595a6b81b1a86873121ed3a269e"
@@ -2308,10 +2296,6 @@ collection-visit@^1.0.0:
   dependencies:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
-
-color-convert@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
 
 color-convert@^1.3.0, color-convert@^1.9.0, color-convert@^1.9.1:
   version "1.9.1"
@@ -3729,9 +3713,9 @@ eslint-plugin-no-use-extend-native@^0.3.2:
     is-obj-prop "^1.0.0"
     is-proto-prop "^1.0.0"
 
-eslint-plugin-prettier@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-2.3.1.tgz#e7a746c67e716f335274b88295a9ead9f544e44d"
+eslint-plugin-prettier@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-2.4.0.tgz#85cab0775c6d5e3344ef01e78d960f166fb93aae"
   dependencies:
     fast-diff "^1.1.1"
     jest-docblock "^21.0.0"
@@ -6680,6 +6664,12 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jstransformer-markdown-it@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/jstransformer-markdown-it/-/jstransformer-markdown-it-2.0.0.tgz#8b44aedbc9465dc935d280be90339b671c16ceb8"
+  dependencies:
+    markdown-it "^8.0.0"
+
 jstransformer@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/jstransformer/-/jstransformer-1.0.0.tgz#ed8bf0921e2f3f1ed4d5c1a44f68709ed24722c3"
@@ -6814,6 +6804,15 @@ koa-csrf@^3.0.6:
   dependencies:
     csrf "^3.0.3"
 
+koa-ctx-paginate@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/koa-ctx-paginate/-/koa-ctx-paginate-0.0.2.tgz#9ee55e8cfa6280ca999ecd1242096b2216b3178a"
+  dependencies:
+    lodash.assign "^4.2.0"
+    lodash.clone "^4.5.0"
+    lodash.isobject "^3.0.2"
+    querystring "^0.2.0"
+
 koa-etag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/koa-etag/-/koa-etag-3.0.0.tgz#9ef7382ddd5a82ab0deb153415c915836f771d3f"
@@ -6878,9 +6877,9 @@ koa-manifest-rev@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/koa-manifest-rev/-/koa-manifest-rev-0.3.0.tgz#e043e26a2885c7419b2c8abbe49ed3657d03f48a"
 
-koa-meta@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/koa-meta/-/koa-meta-0.0.8.tgz#b6c72f716e882a83ecb3dcde5981da7ca87f6959"
+koa-meta@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/koa-meta/-/koa-meta-0.0.9.tgz#2767a43bcf4aef9f64dff1deedb3b457a424cb78"
   dependencies:
     auto-bind "^1.1.0"
     sanitize-html "^1.16.1"
@@ -7076,6 +7075,12 @@ liftoff@^2.1.0, liftoff@^2.3.0:
     object.map "^1.0.0"
     rechoir "^0.6.2"
     resolve "^1.1.7"
+
+linkify-it@^2.0.0:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-2.0.3.tgz#d94a4648f9b1c179d64fa97291268bdb6ce9434f"
+  dependencies:
+    uc.micro "^1.0.1"
 
 lint-staged@^6.0.0:
   version "6.0.0"
@@ -7304,6 +7309,10 @@ lodash.bind@^4.1.4:
 lodash.camelcase@^4.1.1:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
+
+lodash.clone@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clone/-/lodash.clone-4.5.0.tgz#195870450f5a13192478df4bc3d23d2dea1907b6"
 
 lodash.clonedeep@^4.3.2, lodash.clonedeep@^4.5.0:
   version "4.5.0"
@@ -7734,6 +7743,16 @@ markdown-extensions@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/markdown-extensions/-/markdown-extensions-1.1.0.tgz#fba0f1a2ebb4f4123d25b7a93bc35792c11f504e"
 
+markdown-it@^8.0.0:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.0.tgz#e2400881bf171f7018ed1bd9da441dac8af6306d"
+  dependencies:
+    argparse "^1.0.7"
+    entities "~1.1.1"
+    linkify-it "^2.0.0"
+    mdurl "^1.0.1"
+    uc.micro "^1.0.3"
+
 markdown-table@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-1.1.1.tgz#4b3dd3a133d1518b8ef0dbc709bf2a1b4824bc8c"
@@ -7862,6 +7881,10 @@ mdast-util-toc@^2.0.0:
 mdn-data@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-1.0.0.tgz#a69d9da76847b4d5834c1465ea25c0653a1fbf66"
+
+mdurl@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -8172,13 +8195,13 @@ moment-timezone@^0.5.x, moment-timezone@~0.5.0:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.18.1, moment@^2.19.4:
+"moment@>= 2.9.0", moment@^2.18.1:
   version "2.19.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.4.tgz#17e5e2c6ead8819c8ecfad83a0acccb312e94682"
 
-moment@~2.18.0:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+moment@^2.20.0:
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.0.tgz#53396358994dd3a551e966a66af715ecb6c30ad0"
 
 mongodb-core@2.1.17:
   version "2.1.17"
@@ -8493,17 +8516,17 @@ nodemailer@^4.2.0, nodemailer@^4.4.0, nodemailer@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.4.1.tgz#ce480eb3db7b949b3366e301b8f0af1c1248025e"
 
-nodemon@^1.12.7:
-  version "1.12.7"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.12.7.tgz#4d0fa8386291c4f532f583cc102c05350722f647"
+nodemon@^1.13.3:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.13.3.tgz#92d23e6b91dca351215a4b8a50d2bd838cd0f9e3"
   dependencies:
+    "@remy/pstree" "^1.1.0"
     chokidar "^1.7.0"
     debug "^2.6.8"
     es6-promise "^3.3.1"
     ignore-by-default "^1.0.1"
     lodash.defaults "^3.1.2"
     minimatch "^3.0.4"
-    ps-tree "^1.1.0"
     touch "^3.1.0"
     undefsafe "0.0.3"
     update-notifier "^2.3.0"
@@ -9955,7 +9978,7 @@ querystring-es3@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
 
-querystring@0.2.0:
+querystring@0.2.0, querystring@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
@@ -12230,9 +12253,9 @@ svgpath@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/svgpath/-/svgpath-1.0.7.tgz#e554212b87e5d0469141a284c020c87f5c9a4ed0"
 
-sweetalert2@^7.0.9:
-  version "7.0.9"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.0.9.tgz#04ec97379d7d5c6d210b27f25453d650e5492b27"
+sweetalert2@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.1.0.tgz#596c1db922c3761f7c21ca973e4fe431c14e4a15"
 
 symbol-observable@1.0.1:
   version "1.0.1"
@@ -12760,6 +12783,10 @@ typpy@^2.3.6:
   resolved "https://registry.yarnpkg.com/typpy/-/typpy-2.3.9.tgz#28664fda5ea71dd718724f89d00060af1f09c38e"
   dependencies:
     function.name "^1.0.3"
+
+uc.micro@^1.0.1, uc.micro@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.3.tgz#7ed50d5e0f9a9fb0a573379259f2a77458d50192"
 
 uglify-js@^2.6, uglify-js@^2.6.1:
   version "2.8.29"

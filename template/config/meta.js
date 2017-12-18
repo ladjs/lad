@@ -16,32 +16,34 @@
 //
 
 module.exports = function(config) {
+  // currently we cannot use the `|` pipe character due to this issue
+  // <https://github.com/mashpie/i18n-node/issues/274>
+  // otherwise we'd have `| Lad` below, which is SEO standard
+  // so instead we need to use `&#124;` which is the html entity
+  // which gets decoded to a `|` in the helper.meta function
   const lad = `&#124; <span class="notranslate">${config.appName}</span>`;
   return {
-    '/': [
-      // currently we cannot use the `|` pipe character due to this issue
-      // <https://github.com/mashpie/i18n-node/issues/274>
-      // otherwise we'd have `| Lad` below, which is SEO standard
-      // so instead we need to use `&#124;` which is the html entity
-      // which gets decoded to a `|` in the helper.meta function
-      `Home ${lad}`,
-      config.pkg.description
-    ],
+    // note that we don't do `Home ${lad}` because if we forget to define
+    // meta for a specific route it'd be confusing to see Home
+    // in the title bar in the user's browser
+    '/': [config.appName, config.pkg.description],
     '/about': [`About ${lad}`, `Learn more about ${config.appName}`],
     '/terms': [`Terms ${lad}`, 'Read our terms and conditions of use'],
-    '/contact': [`Contact ${lad}`, `Contact ${config.appName} with your questions and comments`],
-    '/login': [`Log in ${lad}`, 'Log in to your account'],
-    '/logout': [`Log out of ${lad}`, 'Log out of your account'],
-    '/signup': [`Sign up ${lad}`, 'Sign up for an account'],
-    '/my-account': [`My Account ${lad}`, 'View your account and manage your settings'],
+    '/privacy': [`Privacy Policy ${lad}`, 'Read our privacy policy'],
+    '/support': [`Support ${lad}`, `Ask ${config.appName} your questions or leave comments`],
+    '/login': [`Sign in ${lad}`, 'Sign in to your account'],
+    '/logout': [`Sign out of ${lad}`, 'Sign out of your account'],
+    '/register': [`Sign up ${lad}`, `Create a ${config.appName} account`],
+    '/my-account': [`Profile ${lad}`, `Manage your ${config.appName} profile`],
+    '/my-account/api': [`API Credentials ${lad}`, 'Manage your API credentials'],
+    '/my-account/security': [`Account Security - ${lad}`, `Secure your ${config.appName} account`],
+    '/dashboard': [`Dashboard ${lad}`, `Access your ${config.appName} dashboard`],
     '/admin': [`Admin ${lad}`, 'Admin dashboard for administrative management'],
-    '/forgot-password': [
-      `Forgot password ${lad}`,
-      'Get access to your account by resetting your password'
-    ],
-    '/404': [`Page not found ${lad}`, 'The page you requested could not be found'],
-    '/500': [`Server error ${lad}`, 'A server error has unfortunately occurred'],
+    '/admin/users': [`Users ${lad}`, 'View and manage users'],
+    '/forgot-password': [`Forgot password ${lad}`, 'Reset your account password'],
     '/reset-password': [`Reset password ${lad}`, 'Confirm your password reset token'],
-    '/auth': [`Auth ${lad}`, 'Authenticate yourself to log in']
+    '/auth': [`Auth ${lad}`, 'Authenticate yourself to log in'],
+    '/404': [`Page not found ${lad}`, 'The page you requested could not be found'],
+    '/500': [`Server error ${lad}`, 'A server error has unfortunately occurred']
   };
 };

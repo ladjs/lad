@@ -1,0 +1,60 @@
+
+extends layout
+
+block body
+  .container.py-3
+    .text-center
+      h1.my-3.py-3
+        if verb === 'sign up'
+          = t('Sign up now')
+          = ' '
+          = emoji('sparkles')
+        else
+          = t('Welcome back!')
+          = ' '
+          = emoji('beers')
+    .col-sm-12.col-md-8.offset-md-2.col-lg-6.offset-lg-3
+      if boolean(process.env.AUTH_FACEBOOK_ENABLED)
+        a.btn.btn-block.btn-lg.btn-social.btn-facebook(href='/auth/facebook', role="button")
+          i.fa.fa-fw.fa-facebook
+          = ` ${s.capitalize(verb)} ${t('with Facebook')}`
+      if boolean(process.env.AUTH_TWITTER_ENABLED)
+        a.btn.btn-block.btn-lg.btn-social.btn-twitter(href='/auth/twitter', role="button")
+          i.fa.fa-fw.fa-twitter
+          = ` ${s.capitalize(verb)} ${t('with Twitter')}`
+      if boolean(process.env.AUTH_GOOGLE_ENABLED)
+        a.btn.btn-block.btn-lg.btn-social.btn-google(href='/auth/google', role="button")
+          i.fa.fa-fw.fa-google-plus
+          = ` ${s.capitalize(verb)} ${t('with Google')}`
+      if boolean(process.env.AUTH_GITHUB_ENABLED)
+        a.btn.btn-block.btn-lg.btn-social.btn-github(href='/auth/github', role="button")
+          i.fa.fa-fw.fa-github
+          = ` ${s.capitalize(verb)} ${t('with GitHub')}`
+      if boolean(process.env.AUTH_LINKEDIN_ENABLED)
+        a.btn.btn-block.btn-lg.btn-social.btn-linkedin(href='/auth/linkedin', role="button")
+          i.fa.fa-fw.fa-linkedin
+          = ` ${s.capitalize(verb)} ${t('with LinkedIn')}`
+      if boolean(process.env.AUTH_INSTAGRAM_ENABLED)
+        a.btn.btn-block.btn-lg.btn-social.btn-instagram(href='/auth/instagram', role="button")
+          i.fa.fa-fw.fa-instagram
+          = ` ${s.capitalize(verb)} ${t('with Instagram')}`
+      if boolean(process.env.AUTH_STRIPE_ENABLED)
+        a.btn.btn-block.btn-lg.btn-social.btn-stripe(href='/auth/stripe', role="button")
+          i.fa.fa-fw.fa-cc-stripe
+          = ` ${s.capitalize(verb)} ${t('with Stripe')}`
+      if boolean(process.env.AUTH_FACEBOOK_ENABLED) || boolean(process.env.AUTH_TWITTER_ENABLED) || boolean(process.env.AUTH_GOOGLE_ENABLED) || boolean(process.env.AUTH_GITHUB_ENABLED) || boolean(process.env.AUTH_LINKEDIN_ENABLED) || boolean(process.env.AUTH_INSTAGRAM_ENABLED) || boolean(process.env.AUTH_STRIPE_ENABLED)
+        .hr-text.d-flex.text-secondary.align-items-center or
+      form.ajax-form(action=ctx.session.redirectTo ? ctx.path : `${ctx.path}?redirect_to=${l(config.passportCallbackOptions.successReturnToOrRedirect)}`, method="POST")
+        input(type="hidden", name="_csrf", value=ctx.csrf)
+        .form-group
+          input#input-email.form-control.form-control-lg(type="email", required, name="email", placeholder=t('Email address'))
+        .form-group
+          input#input-password.form-control.form-control-lg(type="password", required, name="password", placeholder=t('Password'))
+          if verb === 'sign in'
+            small.form-text.text-right: a(href=l('/forgot-password')).text-secondary= t('Forget your password?')
+        button.btn.btn-success.btn-lg.btn-block(type="submit")= s.capitalize(verb)
+      .alert.alert-light.border.mt-3.text-center
+        if verb === 'sign up'
+          != t(`Already have an account? <a href="${l('/login')}" class="card-link">${t('Sign in')}</a>`)
+        else
+          != t(`Don't have an account? <a href="${l('/register')}" class="card-link">${t('Sign up')}</a>`)

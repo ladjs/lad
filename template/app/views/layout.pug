@@ -10,9 +10,9 @@ html(lang=locale)
       //- languages supported
       //- <https://support.google.com/webmasters/answer/189077?hl=en>
       //- <https://support.google.com/webmasters/answer/182192?hl=en>
-      link(rel="alternate", href=config.urls.web, hreflang="x-default")
+      link(rel="alternate", href=`${config.urls.web}${ctx.pathWithoutLocale}`, hreflang="x-default")
       each language in availableLanguages
-        link(rel="alternate", href=`${config.urls.web}/${language.locale}`, hreflang=language.locale)
+        link(rel="alternate", href=`${config.urls.web}/${language.locale}${ctx.pathWithoutLocale}`, hreflang=language.locale)
       //- generated with https://realfavicongenerator.net
       link(rel="apple-touch-icon", sizes="152x152", href=manifest('img/apple-touch-icon.png'))
       link(rel="icon", type="image/png", href=manifest('img/favicon-32x32.png'), sizes="32x32")
@@ -32,18 +32,18 @@ html(lang=locale)
       block opengraph
         link(rel='image_src', type='image/png', href=manifest('img/social.png'))
         meta(property='og:title', content=meta.title)
-        meta(property='og:url', content=ctx.url)
+        meta(property='og:url', content=`${config.urls.web}${ctx.pathWithoutLocale}`)
         meta(property='og:description', content=meta.description)
-        meta(property='og:image', content=manifest('img/social.png'))
+        meta(property='og:image', content=`${config.urls.web}/img/social.png`)
         meta(name='twitter:card', content='summary_large_image')
         meta(name='twitter:site', content=config.twitter)
         meta(name='twitter:title', content=meta.title)
         meta(name='twitter:description', content=meta.description)
-        meta(name='twitter:image:src', content=manifest('img/social.png'))
+        meta(name='twitter:image:src', content=`${config.urls.web}/img/twitter.png`)
       //- css file
       link(rel="stylesheet", href=manifest('css/app.css'))
 
-  body(role='document')
+  body(role='document', class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'pt-0' : '')
 
     //- spinner
     block spinner
@@ -64,7 +64,7 @@ html(lang=locale)
     block footer
       include _footer
 
-    //- sweetalert2 flash messaging (with koa-better-flash)
+    //- flash messaging (with koa-better-flash and sweetalert2)
     script.
       window._types = {
         success: "#{ t('Success') }",
@@ -74,16 +74,33 @@ html(lang=locale)
         question: "#{ t('Question') }"
       };
       window._messages = !{json(flash(), null, null)};
+
+    //- set defaults for sweetalert2
+    //- <https://github.com/limonte/sweetalert2/issues/763>
+    script.
       window._swalDefaults = {
         confirmButtonText: "#{ t('OK') }",
         cancelButtonText: "#{ t('Cancel') }",
-        closeButtonAriaLabel: "#{ t('Close this dialog') }"
+        closeButtonAriaLabel: "#{ t('Close this dialog') }",
+        reverseButtons: true
       };
+
+    //- set defaults for confirm prompt sweetalert2 modal
+    script.
+      window._confirmPromptTitle = "#{ t('Are you sure?') }";
+      window._confirmPromptHTML = "#{ t('Please confirm if you wish to continue.') }";
 
     //- scripts
     block scripts
       script(src=manifest('js/core.js'))
       script(src=manifest('js/flash.js'))
+
+    //- Stripe support
+    //- https://stripe.com/docs/checkout#integration-custom
+    if config.stripe && config.stripe.publishableKey
+      script(src="https://checkout.stripe.com/checkout.js")
+      script.
+        window.STRIPE_PUBLISHABLE_KEY = "#{config.stripe.publishableKey}";
 
     //- google analytics
     if config.env === 'production' && config.ga

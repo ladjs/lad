@@ -9,9 +9,6 @@ const { Users } = require('../../../models');
 const create = async ctx => {
   const { body } = ctx.request;
 
-  if (Object.keys(body).length === 0)
-    return ctx.throw(Boom.badData(ctx.translate('MISSING_REGISTER_FIELDS')));
-
   if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 

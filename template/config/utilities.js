@@ -7,6 +7,7 @@ const fa = require('font-awesome-assets');
 const pluralize = require('pluralize');
 const customFonts = require('custom-fonts-in-emails');
 const gemoji = require('gemoji');
+const boolean = require('boolean');
 
 function json(str, replacer = null, space = 2) {
   return JSON.stringify(str, replacer, space);
@@ -26,5 +27,6 @@ module.exports = {
   pluralize,
   json,
   emoji,
+  boolean,
   ...customFonts
 };

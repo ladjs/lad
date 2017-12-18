@@ -2,7 +2,7 @@ $fa-font-path: '//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts';
 
 // custom fonts using google webfont loader
 // with fonts defined in `assets/js/core.js`
-$font-family-sans-serif: 'Raleway', -apple-system, BlinkMacSystemFont,
+$font-family-sans-serif: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
   'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !default;
 
 $font-family-serif: Georgia, 'Times New Roman', Times, serif !default;
@@ -10,4 +10,4 @@ $font-family-monospace: 'Source Code Pro', Menlo, Monaco, Consolas,
   'Liberation Mono', 'Courier New', monospace !default;
 
 $font-family-base: $font-family-sans-serif !default;
-$headings-font-family: 'Montserrat', $font-family-sans-serif;
+$headings-font-family: 'Bitter', $font-family-sans-serif;

@@ -1,0 +1,32 @@
+
+extends ../layout
+
+block body
+  .container-fluid.py-3
+    .row.mt-1
+      .col-md-3.col-lg-2
+        include ../_sidebar
+      .col-md-9.col-lg-10
+        .text-center.text-md-left
+           h1.h6.text-muted= t('My Account')
+           h2= t('API')
+        hr
+        .card.card-bg-light
+          h4.card-header= t('Credentials')
+          .card-body
+            .form-group.row
+              label.control-label.col-md-4.col-form-label.text-md-right= t('API token')
+              .col-md-8
+                .input-group
+                  input(type='text', readonly, value=user.api_token).form-control#api-token
+                  span.input-group-btn
+                    button(type='button', data-toggle="clipboard", data-clipboard-target="#api-token").btn.btn-primary.btn-sm
+                      i.fa.fa-clipboard
+                      = ' '
+                      = t('Copy')
+                small.form-text.text-muted Keep your token secure and never share it publicly
+          .card-footer.text-right
+            form(action=ctx.path, method='POST').ajax-form.confirm-prompt
+              input(type='hidden', name='_method', value='DELETE')
+              input(type="hidden", name="_csrf", value=ctx.csrf)
+              button(type='submit').btn.btn-danger= t('Reset API Key')

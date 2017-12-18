@@ -2,19 +2,29 @@ const qs = require('querystring');
 const $ = require('jquery');
 const _ = require('lodash');
 const Frisbee = require('frisbee');
+const swal = require('sweetalert2');
+const s = require('underscore.string');
 
-const swal = require('./swal');
 const Spinner = require('./spinner');
 
 // Ajax form submission with frisbee
 // and sweetalert2 message response
 // and built-in support for Stripe Checkout
-const ajaxForm = async ev => {
+// eslint-disable-next-line complexity
+const ajaxForm = async function(ev) {
   // Prevent default form submission
   ev.preventDefault();
 
   // Get the form
   const $form = $(ev.currentTarget);
+
+  // Return early if we're using `confirm-prompt` plugin
+  // and it has not yet been confirmed
+  if (
+    ($form.hasClass('confirm-prompt') || $form.data('toggle') === 'confirm-prompt') &&
+    !$form.data('confirmed')
+  )
+    return false;
 
   // Initialize spinner
   const spinner = new Spinner();
@@ -96,6 +106,9 @@ const ajaxForm = async ev => {
   if (method === 'POST' && $form.find('input[name="_method"]').length > 0)
     method = $form.find('input[name="_method"]').val();
 
+  // Consider that DELETE needs to be mapped to DEL since fetch uses `.del`
+  if (method === 'DELETE') method = 'DEL';
+
   try {
     // Set default headers
     const headers = {
@@ -108,11 +121,19 @@ const ajaxForm = async ev => {
 
     if ($form.find('input[type="file"]').length > 0) {
       body = new FormData(this);
+      // delete _csrf and _method from the body
+      // since they are defined in headers and http method
+      body.delete('_csrf');
+      body.delete('_method');
       // remove content-type header so boundary is added for multipart forms
       // http://stackoverflow.com/a/35799817
       headers['Content-Type'] = undefined;
     } else {
       body = qs.parse($form.serialize());
+      // delete _csrf and _method from the body
+      // since they are defined in headers and http method
+      delete body._csrf;
+      delete body._method;
     }
 
     const opts = {
@@ -136,10 +157,10 @@ const ajaxForm = async ev => {
       spinner.hide();
       // Show message
       swal(window._types.error, 'Invalid response, please try again', 'error');
-    } else if (_.isString(res.body.redirectTo)) {
+    } else if (!s.isBlank(res.body.redirectTo)) {
       if (
-        !_.isString(res.body.message) ||
-        (_.isBoolean(res.body.autoRedirect) && res.body.autoRedirect)
+        (_.isBoolean(res.body.autoRedirect) && res.body.autoRedirect) ||
+        (s.isBlank(res.body.message) && !_.isObject(res.body.swal))
       ) {
         // Reset the form
         $form.get(0).reset();
@@ -148,30 +169,45 @@ const ajaxForm = async ev => {
       } else {
         // Hide the spinner
         spinner.hide();
-        // Show message
-        swal(window._types.success, res.body.message, 'success');
         // Reset the form
         $form.get(0).reset();
-        // Redirect
-        window.location = res.body.redirectTo;
+        let config = {};
+        if (_.isObject(res.body.swal)) config = res.body.swal;
+        else
+          config = {
+            title: s.isBlank(res.body.title) ? window._types.success : res.body.title,
+            type: 'success',
+            html: res.body.message
+          };
+        // Show message
+        swal(config).then(() => {
+          // Redirect
+          window.location = res.body.redirectTo;
+        });
       }
-    } else if (_.isString(res.body.message)) {
+    } else if (_.isObject(res.body.swal)) {
       // Hide the spinner
       spinner.hide();
       // Show message
-      swal(window._types.success, res.body.message, 'success');
+      swal(res.body.swal);
       // Reset the form
       $form.get(0).reset();
-
-      // Reload page
-      if (_.isBoolean(res.body.reloadPage) && res.body.reloadPage) window.location.reload();
-    } else {
+    } else if (s.isBlank(res.body.message)) {
       // Hide the spinner
       spinner.hide();
       // Show message
       swal(window._types.success, JSON.stringify(res.body, null, 2), 'success');
       // Reset the form
       $form.get(0).reset();
+    } else {
+      // Hide the spinner
+      spinner.hide();
+      // Show message
+      swal(window._types.success, res.body.message, 'success');
+      // Reset the form
+      $form.get(0).reset();
+      // Reload page
+      if (_.isBoolean(res.body.reloadPage) && res.body.reloadPage) window.location.reload();
     }
   } catch (err) {
     // Hide the spinner

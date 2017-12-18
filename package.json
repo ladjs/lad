@@ -6,7 +6,6 @@
   "bin": "cli.js",
   "ava": {
     "serial": true,
-    "failFast": true,
     "files": [
       "test.js",
       "test-*.js",

@@ -51,16 +51,19 @@ const staticAssets = [
   'assets/fonts/**/*'
 ];
 
+const pugTask = (reload = false, src = ['app/views/**/*.pug', 'emails/**/*.pug']) => {
+  return gulp
+    .src(src)
+    .pipe(puglint())
+    .pipe(gulpif(reload, livereload(config.livereload)));
+};
+
 gulp.task('default', ['build']);
 
 gulp.task('build', done => {
   runSequence('lint', 'css', ['img', 'js', 'static'], async () => {
-    if (config.env === 'development') {
-      if (config.openInBrowser) {
-        await opn(config.urls.web, { wait: false });
-      }
-      done();
-    }
+    if (config.env === 'development') await opn(config.urls.web, { wait: false });
+    done();
   });
 });
 
@@ -83,20 +86,14 @@ gulp.task('publish', () => {
       .pipe(cloudfront(config.aws))
   );
 });
+gulp.task('pug', pugTask);
+gulp.task('livereload', () => livereload.listen(config.livereload));
 
-gulp.task('pug', () => {
-  return gulp
-    .src(['app/views/**/*.pug', 'emails/**/*.pug'])
-    .pipe(puglint())
-    .pipe(gulpif(!PROD, livereload(config.livereload)));
-});
-
-gulp.task('watch', ['build'], () => {
-  livereload.listen(config.livereload);
+gulp.task('watch', ['livereload', 'build'], () => {
   gulp.watch('assets/img/**/*', ['img']);
   gulp.watch('assets/css/**/*.scss', ['css']);
   gulp.watch('assets/js/**/*.js', ['js']);
-  gulp.watch('app/views/**/*.pug', ['pug']);
+  gulp.watch('app/views/**/*.pug', event => pugTask(true, [event.path]));
 });
 
 gulp.task('img', () => {
