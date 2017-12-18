@@ -91,8 +91,8 @@ body {
   background-attachment: fixed;
 
   // override spinkit variables just for this
-  $spinkit-size: 40px;
-  $spinkit-spinner-margin: 180px auto;
+  $spinkit-size: 60px;
+  $spinkit-spinner-margin: 100px auto;
   $spinkit-spinner-color: white;
 
   // spinkit
@@ -154,8 +154,46 @@ h6 {
 
 // bootstrap 4 alpha 6 removed cursor pointer
 // <https://github.com/twbs/bootstrap/pull/21812>
-.btn {
+.btn, .close {
   cursor: pointer;
+}
+
+// since .dropdown-menu-right is not responsive
+// we need to make sure that the language dropdown
+// is right aligned on < md screen sizes
+// <https://github.com/twbs/bootstrap/issues/25019>
+// <https://github.com/twbs/bootstrap/blob/34d745540d690086cdfc4ce648963f9acdc56bdb/scss/_navbar.scss#L160-L163>
+#navbar-dropdown-language-ul {
+  right: 0;
+  left: auto; // Reset the default from `.dropdown-menu`
+}
+@include media-breakpoint-up(md) {
+  #navbar-dropdown-language-ul {
+    left: 0;
+    right: auto; // Reset the default from `.dropdown-menu`
+  }
+}
+
+// used on the register-or-login view to provide a horizontal rule
+// with the text "or" in between the horizontal rule line
+// (e.g. "------ or ------" that stretches full width)
+.hr-text {
+  margin: 1rem 0;
+  &:before {
+    margin-right: 0.5rem;
+  }
+  &:after {
+    margin-left: 0.5rem;
+  }
+  &:before,
+  &:after {
+    content: "";
+    flex-grow: 1;
+    background: $gray-300;
+    height: 1px;
+    font-size: 0;
+    line-height: 0;
+  }
 }
 
 @import '_email';

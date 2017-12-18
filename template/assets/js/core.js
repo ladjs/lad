@@ -12,6 +12,7 @@ const returnTo = require('./return-to');
 const facebookHashFix = require('./facebook-hash-fix');
 const changeHashOnScroll = require('./change-hash-on-scroll');
 const customFileInput = require('./custom-file-input');
+const confirmPrompt = require('./confirm-prompt');
 const ajaxForm = require('./ajax-form');
 const jumpTo = require('./jump-to');
 
@@ -55,7 +56,7 @@ es6promise.polyfill();
 
 // Google web fonts
 WebFont.load({
-  google: { families: ['Source+Code+Pro', 'Raleway', 'Montserrat'] }
+  google: { families: ['Source+Code+Pro', 'Source+Sans+Pro', 'Bitter'] }
 });
 
 // Fix Facebook's appended hash bug
@@ -136,7 +137,7 @@ returnTo();
     }
 
     // Handle hash change when user clicks on links
-    $('body').on('click', "a[href^='#']", ev => {
+    $('body').on('click.handleHashChange', "a[href^='#']", ev => {
       ev.preventDefault();
       jumpTo($(ev.currentTarget).attr('href'));
     });
@@ -146,12 +147,28 @@ returnTo();
     $('[data-toggle="popover"]').popover();
 
     // Handle custom file inputs
-    $('body').on('change', 'input[type="file"][data-toggle="custom-file"]', customFileInput);
+    $('body').on(
+      'change.customFileInput',
+      'input[type="file"][data-toggle="custom-file"]',
+      customFileInput
+    );
 
     // Handle clipboard copy event
     clipboard();
 
+    // Bind confirm prompt event for clicks and form submissions
+    $('body').on(
+      'submit.confirmPrompt',
+      'form.confirm-prompt, form[data-toggle="confirm-prompt"]',
+      confirmPrompt
+    );
+    $('body').on(
+      'click.confirmPrompt',
+      'button.confirm-prompt, input.confirm-prompt',
+      confirmPrompt
+    );
+
     // Bind ajax form submission
-    $('body').on('submit', 'form.ajax-form', ajaxForm);
+    $('body').on('submit.ajaxForm', 'form.ajax-form', ajaxForm);
   });
 })(window.$);

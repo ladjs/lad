@@ -1,25 +1,16 @@
 
 extends layout
 
-//- Uncomment this to add Stripe support
-//-.
-  append scripts
-    //- https://stripe.com/docs/checkout#integration-custom
-    script(src="https://checkout.stripe.com/checkout.js")
-    script.
-      window.STRIPE_PUBLISHABLE_KEY = "#{config.stripe.publishableKey}";
-
 block body
-
   //- Main jumbotron for a primary marketing message or call to action
-  .jumbotron
+  .jumbotron.rounded-0
     .container
       h1.display-3: :translate(locale) Hello, world!
       p
         :translate(locale)
           This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
       p
-        a.btn.btn-primary.btn-lg(href="#", role="button")= `${t('Learn more')} »`
+        a.btn.btn-success.btn-lg(href="/register", role="button")= `${t('Create an account')} »`
   .container
     //- Example row of columns
     .row

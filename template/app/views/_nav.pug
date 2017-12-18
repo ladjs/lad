@@ -1,86 +1,51 @@
 
-nav.navbar.navbar-expand-md.fixed-top.navbar-dark.bg-dark
-  button.navbar-toggler.navbar-toggler-right.bg-dark.hidden-lg-up(type="button", data-toggle="collapse", data-target="#navbar-header", aria-controls="navbar-header", aria-expanded="false", aria-label="Toggle navigation")
+nav(class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'bg-white' : 'fixed-top bg-light border border-top-0 border-left-0 border-right-0').navbar.navbar-expand-md.navbar-light
+  button.navbar-toggler.bg-light.hidden-lg-up(type="button", data-toggle="collapse", data-target="#navbar-header", aria-controls="navbar-header", aria-expanded="false", aria-label="Toggle navigation")
     span.navbar-toggler-icon
-  a.navbar-brand(href=l())= config.appName
-  #navbar-header.collapse.navbar-collapse
-    ul.navbar-nav.ml-auto
-      li.nav-item
-        a(href=l('/about')).nav-link= t('About')
+  a.navbar-brand(href=user ? l(config.passportCallbackOptions.successReturnToOrRedirect) : l()).h1.mb-0
+    img(src=manifest('img/logo-square.svg'), width=30, height=30, alt="").d-inline-block.align-top
+    = ' '
+    = config.appName
+  .navbar-expand
+    ul.navbar-nav
       li.nav-item.dropdown
-        a#navbar-dropdown-more-links.nav-link.dropdown-toggle(href="#", role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
-          i.fa.fa-fw.fa-life-ring
-          = ' '
-          = t('Help')
-        ul.dropdown-menu(aria-labelledby="navbar-dropdown-more-links")
-          li
-            a.dropdown-item(target="_blank", href="http://slack.crocodilejs.com")
-              i.fa.fa-fw.fa-slack
-              = ' '
-              = t('Chat')
-          li
-            a.dropdown-item(target="_blank", href="https://ladjs.github.io/lad")
-              i.fa.fa-fw.fa-book
-              = ' '
-              = t('Docs')
-          li
-            a.dropdown-item(target="_blank", href="https://github.com/ladjs/lad")
-              i.fa.fa-fw.fa-github
-              = ' '
-              = t('GitHub')
-          li
-            a.dropdown-item(target="_blank", href="https://twitter.com/niftylettuce")
-              i.fa.fa-fw.fa-twitter
-              = ' '
-              = t('Twitter')
-          li
-            a.dropdown-item(href=l('/contact'))
-              i.fa.fa-fw.fa-envelope
-              = ' '
-              = t('Contact')
-      li.nav-item.dropdown
-        a#navbar-dropdown-language.nav-link.dropdown-toggle(href="#", role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
-          i.fa.fa-fw.fa-language
-          = ' '
-          = s.titleize(t(currentLanguage))
-        ul.dropdown-menu(aria-labelledby="navbar-dropdown-language")
+        a(href=ctx.url, role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")#navbar-dropdown-language-btn.btn.btn-outline-secondary.btn-sm.dropdown-toggle
+          = `${s.titleize(t(currentLanguage))} ${ctx.locale !== 'en' && currentLanguage !== s.titleize(currentLanguage) ? `(${s.titleize(currentLanguage)})` : ''}`
+        ul#navbar-dropdown-language-ul.dropdown-menu(aria-labelledby="navbar-dropdown-language-btn")
           each language in availableLanguages
             if language.locale !== locale
-              li: a.dropdown-item(href=language.url)= s.titleize(t(language.name))
+              li: a.dropdown-item(href=language.url)= `${s.titleize(t(language.name))} ${ctx.locale !== 'en' ? `(${s.titleize(language.name)})` : ''}`
+  //- once we have responsive border utilities added to bootstrap
+  //- then we can apply them to the anchor tags inside the navbar
+  //- so that on mobile devices there is no border around the links
+  //- <https://github.com/twbs/bootstrap/issues/25030>
+  #navbar-header.collapse.navbar-collapse
+    ul.navbar-nav.ml-auto
       //- links that show only if you're logged in
       if user
-        li.nav-item.dropdown
-          a#navbar-dropdown-my-account.nav-link.dropdown-toggle(href=l('/my-account'), role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
-            i.fa.fa-fw.fa-user
-            = ' '
-            = t('Account')
-          ul.dropdown-menu.dropdown-menu-right(aria-labelledby="navbar-dropdown-my-account")
-            li
-              a.dropdown-item(href=l('/my-account'))
-                i.fa.fa-fw.fa-gears
-                = ' '
-                = t('Dashboard')
-            //- links that show if you're an admin
-            if user.group === 'admin'
-              li
-                a.dropdown-item(href=l('/admin'))
-                  i.fa.fa-fw.fa-user-secret
-                  = ' '
-                  = t('Admin')
-            li
-              a.dropdown-item(href=l('/logout'))
-                i.fa.fa-fw.fa-sign-out
-                = ' '
-                = t('Log out')
+        li.nav-item.ml-md-1.mt-3.mt-md-0
+          a.btn.d-block.text-left.text-md-center(href=l('/dashboard'), class=ctx.pathWithoutLocale.startsWith('/dashboard') ? 'btn-dark' : 'btn-outline-dark')
+            = t('Dashboard')
+        li.nav-item.ml-md-1.mt-1.mt-md-0
+          a.btn.d-block.text-left.text-md-center(href=l('/my-account'), class=ctx.pathWithoutLocale.startsWith('/my-account') ? 'btn-dark' : 'btn-outline-dark')
+            = t('My Account')
+        //- links that show if you're an admin
+        if user.group === 'admin'
+          li.nav-item.ml-md-1.mt-1.mt-md-0
+            a.btn.d-block.text-left.text-md-center(href=l('/admin'), class=ctx.pathWithoutLocale.startsWith('/admin') ? 'btn-dark' : 'btn-outline-dark')
+              = t('Admin')
+      li(class=user ? 'mt-1' : 'mt-3').nav-item.ml-md-1.mt-md-0
+        a.btn.d-block.text-left.text-md-center(href=l('/support'), class=ctx.pathWithoutLocale === '/support' ? 'btn-dark' : 'btn-outline-dark')= t('Support')
+      if user
+        li.nav-item.ml-md-1.mt-1.mt-md-0
+          a.btn.btn-outline-secondary.d-block.text-left.text-md-center(href=l('/logout'))
+            = t('Log out')
       //- links that show only if you're logged out
       else
-        li.nav-item
-          a.nav-link(href=l('/login'))
-            i.fa.fa-fw.fa-sign-in
-            = ' '
-            = t('Log in')
-        li.nav-item
-          a.nav-link(href=l('/signup'))
-            i.fa.fa-fw.fa-user-plus
-            = ' '
-            = t('Sign up')
+        li.nav-item.ml-md-1.mt-1.mt-md-0
+          if ctx.pathWithoutLocale === '/login'
+            a.btn.d-block.text-left.text-md-center(href=l('/register'), class=ctx.pathWithoutLocale === '/register' ? 'btn-success' : 'btn-outline-success')
+              = t('Sign up')
+          else
+            a.btn.d-block.text-left.text-md-center(href=l('/login'), class=ctx.pathWithoutLocale === '/login' ? 'btn-success' : 'btn-outline-success')
+              = t('Sign in')

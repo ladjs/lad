@@ -2,25 +2,57 @@
 extends ../layout
 
 block body
+  #modal-change-password(tabindex='-1', role='dialog').modal
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header.d-block.text-center
+          h5.modal-title= t('Change password')
+        form(action=ctx.path, method='POST').ajax-form.confirm-prompt.mt-3
+          input(type='hidden', name='_method', value='PUT')
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          .modal-body
+            .form-group.row
+              label.control-label.col-md-4.col-form-label.text-md-right= t('Old password')
+              .col-md-8
+                input(type='password', name='old_password', required).form-control
+            .form-group.row
+              label.control-label.col-md-4.col-form-label.text-md-right= t('New password')
+              .col-md-8
+                input(type='password', name='new_password', required).form-control
+          .modal-footer.text-right
+            button(type='button', data-dismiss='modal', aria-label='Cancel').btn.btn-secondary= t('Cancel')
+            button(type='submit').btn.btn-primary= t('Change password')
   .container-fluid.py-3
-    .row
-      .col-md-12
-        h1.h6.text-uppercase.text-muted= t('My Account')
-        h2= t('Dashboard')
+    .row.mt-1
+      .col-md-3.col-lg-2
+        include ../_sidebar
+      .col-md-9.col-lg-10
+        .text-center.text-md-left
+          h1.h6.text-muted= t('My Account')
+          h2= t('Profile')
         hr
-        .alert.alert-secondary
-          if moment().format('HH') >= 12 && moment().format('HH') <= 17
-            = t('Good afternoon')
-          else if moment().format('HH') >= 17
-            = t('Good evening')
-          else
-            = t('Good morning')
-          = ' '
-          = user.display_name
-        p= t('This is your account page.')
-        h2= t('API Key')
-        code#api-key= user.api_token
-        button.btn.btn-secondary.btn-sm(data-toggle="clipboard", data-clipboard-target="#api-key")
-          i.fa.fa-clipboard
-          = ' '
-          = t('Copy')
+        form(action=ctx.path, method='POST').ajax-form.confirm-prompt
+          input(type='hidden', name='_method', value='PUT')
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          .card.card-bg-light
+            h4.card-header= t('Update Profile')
+            .card-body
+              .form-group.row
+                label.control-label.col-md-4.col-form-label.text-md-right= t('First name')
+                .col-md-8
+                  input(type='text', name='given_name', value=user.given_name).form-control
+              .form-group.row
+                label.control-label.col-md-4.col-form-label.text-md-right= t('Last name')
+                .col-md-8
+                  input(type='text', name='family_name', value=user.family_name).form-control
+              .form-group.row
+                label.control-label.col-md-4.col-form-label.text-md-right= t('Email address')
+                .col-md-8
+                  input(type='email', required, name='email', value=user.email).form-control
+              .form-group.row
+                label.control-label.col-md-4.col-form-label.text-md-right= t('Password')
+                .col-md-8.my-auto
+                  button(data-toggle='modal', data-target='#modal-change-password', type='button').btn.btn-secondary.btn-sm= t('Change password')
+            .card-footer.text-right
+              button(type='reset').btn.btn-secondary= t('Reset')
+              button(type='submit').btn.btn-primary= t('Save')

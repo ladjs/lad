@@ -30,8 +30,8 @@
 
 * [Features](#features)
   * [Microservices](#microservices)
-  * [Frontend](#frontend)
-  * [Backend](#backend)
+  * [Front-end](#front-end)
+  * [Back-end](#back-end)
   * [Translation](#translation)
   * [Email Engine](#email-engine)
   * [Error Handling](#error-handling)
@@ -66,7 +66,7 @@ Lad boasts dozens of features and is extremely configurable.
 * Job scheduler → [agenda.js](template/agenda.js)
 * Proxy server → [proxy.js](template/proxy.js)
 
-### Frontend
+### Front-end
 
 > You can easily add [Moon][], [Vue][], [React][], or [Angular][], though typically [you aren't going to need it][yagni].
 
@@ -81,10 +81,11 @@ Lad boasts dozens of features and is extremely configurable.
 * Frisbee
 * …
 
-### Backend
+### Back-end
 
-* Redis, sessions, and flash messaging
+* Redis, sessions, and flash messages (both toast and modal messages thanks to [SweetAlert2][])
 * Koa-based webapp and API servers
+* Pagination built-in (using [ctx-paginate][])
 * RESTful API with BasicAuth and versioning
 * Automated job scheduler with cron and human-readable syntax (backed by [Mongoose][] and [Agenda][])
 * Passport-based authentication and group-based (Unix-like) permissioning
@@ -667,6 +668,10 @@ Then visit <http://localhost:8080> in your browser.
 | -------------- | ------------------------- |
 | **Nick Baugh** | <http://niftylettuce.com> |
 
+\|  \|
+\|  \|
+\|  \|
+
 
 ## Trademark Notice
 
@@ -680,7 +685,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -791,3 +796,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [sharp]: http://sharp.dimens.io/
 
 [express]: https://expressjs.com
+
+[ctx-paginate]: https://github.com/koajs/ctx-paginate
+
+[sweetalert2]: https://limonte.github.io/sweetalert2/

@@ -5,18 +5,34 @@ const randomstring = require('randomstring-extended');
 const Boom = require('boom');
 const _ = require('lodash');
 const validator = require('validator');
-const passport = require('passport');
+const { select } = require('mongoose-json-select');
+const sanitizeHtml = require('sanitize-html');
 
 const { Users, Jobs } = require('../../models');
-const { logger } = require('../../../helpers');
+const { passport } = require('../../../helpers');
 const config = require('../../../config');
+
+const sanitize = str =>
+  sanitizeHtml(str, {
+    allowedTags: [],
+    allowedAttributes: []
+  });
 
 const logout = async ctx => {
   ctx.logout();
-  ctx.redirect(`/${ctx.req.locale}`);
+  ctx.flash('custom', {
+    title: ctx.req.t('Logged out!'),
+    text: ctx.req.t('You have logged out.'),
+    type: 'success',
+    toast: true,
+    showConfirmButton: false,
+    timer: 3000,
+    position: 'top'
+  });
+  ctx.redirect(`/${ctx.locale}`);
 };
 
-const signupOrLogin = async ctx => {
+const registerOrLogin = async ctx => {
   // if the user passed `?return_to` and it is not blank
   // then set it as the returnTo value for when we log in
   if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to)) {
@@ -32,13 +48,27 @@ const signupOrLogin = async ctx => {
     ctx.session.returnTo.indexOf('://') !== -1 &&
     ctx.session.returnTo.indexOf(config.urls.web) !== 0
   ) {
-    logger.warn(`Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`);
+    ctx.logger.warn(`Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`);
     ctx.session.returnTo = null;
   }
 
-  ctx.state.verb = ctx.path.replace(`/${ctx.req.locale}`, '') === '/signup' ? 'sign up' : 'log in';
+  ctx.state.verb = ctx.pathWithoutLocale === '/register' ? 'sign up' : 'sign in';
 
-  await ctx.render('signup-or-login');
+  await ctx.render('register-or-login');
+};
+
+const homeOrDashboard = async ctx => {
+  // If the user is logged in then take them to their dashboard
+  if (ctx.isAuthenticated())
+    return ctx.redirect(
+      `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`
+    );
+  // Manually set page title since we don't define Home route in config/meta
+  ctx.state.meta = {
+    title: sanitize(ctx.req.t(`Home &#124; <span class="notranslate">${config.appName}</span>`)),
+    description: sanitize(ctx.req.t(config.pkg.description))
+  };
+  await ctx.render('home');
 };
 
 const login = async (ctx, next) => {
@@ -47,7 +77,14 @@ const login = async (ctx, next) => {
       return new Promise(async (resolve, reject) => {
         if (err) return reject(err);
 
-        let redirectTo = `/${ctx.req.locale}${
+        // redirect user to their last locale they were using
+        if (!s.isBlank(user.last_locale) && user.last_locale !== ctx.locale) {
+          ctx.state.locale = user.last_locale;
+          ctx.req.locale = ctx.state.locale;
+          ctx.locale = ctx.req.locale;
+        }
+
+        let redirectTo = `/${ctx.locale}${
           config.passportCallbackOptions.successReturnToOrRedirect
         }`;
 
@@ -63,14 +100,26 @@ const login = async (ctx, next) => {
             return reject(err);
           }
 
+          let text = '';
+          if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
+            text += ctx.req.t('Good afternoon');
+          else if (moment().format('HH') >= 17) text += ctx.req.t('Good evening');
+          else text += ctx.req.t('Good morning');
+          text += ` ${user.display_name}.`;
+
+          ctx.flash('custom', {
+            title: ctx.req.t('Welcome!'),
+            text,
+            type: 'success',
+            toast: true,
+            showConfirmButton: false,
+            timer: 3000,
+            position: 'top'
+          });
+
           if (ctx.accepts('json')) {
-            ctx.body = {
-              message: ctx.translate('LOGGED_IN'),
-              redirectTo,
-              autoRedirect: true
-            };
+            ctx.body = { redirectTo };
           } else {
-            ctx.flash('success', ctx.translate('LOGGED_IN'));
             ctx.redirect(redirectTo);
           }
 
@@ -97,9 +146,6 @@ const login = async (ctx, next) => {
 const register = async ctx => {
   const { body } = ctx.request;
 
-  if (Object.keys(body).length === 0)
-    return ctx.throw(Boom.badData(ctx.translate('MISSING_REGISTER_FIELDS')));
-
   if (!_.isString(body.email) || !validator.isEmail(body.email))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
 
@@ -116,20 +162,26 @@ const register = async ctx => {
 
     await ctx.login(user);
 
-    let redirectTo = config.passportCallbackOptions.successReturnToOrRedirect;
+    let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
 
     if (ctx.session && ctx.session.returnTo) {
       redirectTo = ctx.session.returnTo;
       delete ctx.session.returnTo;
     }
 
+    ctx.flash('custom', {
+      title: ctx.req.t('Thanks!'),
+      text: ctx.translate('REGISTERED'),
+      type: 'success',
+      toast: true,
+      showConfirmButton: false,
+      timer: 3000,
+      position: 'top'
+    });
+
     if (ctx.accepts('json')) {
-      ctx.body = {
-        message: ctx.translate('REGISTERED'),
-        redirectTo
-      };
+      ctx.body = { redirectTo };
     } else {
-      ctx.flash('success', ctx.translate('REGISTERED'));
       ctx.redirect(redirectTo);
     }
 
@@ -140,7 +192,9 @@ const register = async ctx => {
         data: {
           template: 'welcome',
           to: user.email,
-          locals: { user }
+          locals: {
+            user: select(user.toObject(), Users.schema.options.toJSON.select)
+          }
         }
       });
       ctx.logger.debug('queued welcome email', job);
@@ -263,18 +317,19 @@ const resetPassword = async ctx => {
     if (ctx.accepts('json')) {
       ctx.body = {
         message: ctx.translate('RESET_PASSWORD'),
-        redirectTo: `/${ctx.req.locale}`
+        redirectTo: `/${ctx.locale}`
       };
     } else {
       ctx.flash('success', ctx.translate('RESET_PASSWORD'));
-      ctx.redirect(`/${ctx.req.locale}`);
+      ctx.redirect(`/${ctx.locale}`);
     }
   }
 };
 
 module.exports = {
   logout,
-  signupOrLogin,
+  registerOrLogin,
+  homeOrDashboard,
   login,
   register,
   forgotPassword,

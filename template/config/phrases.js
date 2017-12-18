@@ -18,7 +18,7 @@ module.exports = {
   INVALID_SESSION_SECRET: 'Invalid session secret.',
   INVALID_TOKEN: 'Invalid CSRF token.',
   INVALID_MESSAGE: `Your message was invalid, as it was either blank or more than (${
-    env.CONTACT_REQUEST_MAX_LENGTH
+    env.SUPPORT_REQUEST_MAX_LENGTH
   }) characters.`,
   INVALID_FILE: 'File upload was invalid.',
   PASSWORD_RESET_SENT: 'We have sent you an email with a link to reset your password.',
@@ -27,17 +27,16 @@ module.exports = {
   HELLO_WORLD: 'Hello %s world.',
   REGISTERED: 'You have successfully registered',
   RESET_PASSWORD: 'You have successfully reset your password.',
-  CONTACT_REQUEST_MESSAGE:
+  SUPPORT_REQUEST_MESSAGE:
     'Thank you for contacting us.  We would love to hear more from you.  How can we help?',
-  CONTACT_REQUEST_SENT:
-    'Your contact request has been sent successfully.  You should hear from us soon.  Thank you!',
-  CONTACT_REQUEST_ERROR:
-    'We were unable to send your contact request.  We have been alerted of this problem.  Please try again.',
-  CONTACT_REQUEST_LIMIT:
-    'You have reached the limit for sending contact requests.  Please try again.',
+  SUPPORT_REQUEST_SENT:
+    'Your support request has been sent successfully.  You should hear from us soon.  Thank you!',
+  SUPPORT_REQUEST_ERROR:
+    'We were unable to send your support request.  We have been alerted of this problem.  Please try again.',
+  SUPPORT_REQUEST_LIMIT:
+    'You have reached the limit for sending support requests.  Please try again.',
   REQUEST_TIMED_OUT:
     'Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.',
-  LOGGED_IN: 'You have successfully signed in.',
   SIGNED_OUT: 'You have successfully signed out.',
   UNKNOWN_ERROR:
     'An unknown error has occurred. We have been alerted of this issue. Please try again.',

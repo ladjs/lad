@@ -13,19 +13,18 @@ test.after.always(mongoose.after);
 
 test('creates new user', async t => {
   const res = await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email: 'test@example.com' })
     .send({ password: '@!#SAL:DMA:SKLM!@' });
-
-  t.is(res.body.message, `You have successfully registered`);
+  t.regex(res.body.redirectTo, /\/dashboard/);
   // Should be 201 for success on create
   t.is(res.status, 200);
 });
 
 test(`fails registering with easy password`, async t => {
   const res = await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email: 'test1@example.com' })
     .send({ password: 'password' });
@@ -36,7 +35,7 @@ test(`fails registering with easy password`, async t => {
 
 test('fails registering invalid email', async t => {
   const res = await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email: 'test123' })
     .send({ password: 'testpassword' });
@@ -49,13 +48,13 @@ test(`doesn't leak used email`, async t => {
   const password = '!@K#NLK!#NSADKMSAD:K';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
 
   const res = await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password: 'wrongpassword' });
@@ -69,7 +68,7 @@ test(`allows password reset for valid email (HTML)`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
@@ -88,7 +87,7 @@ test(`allows password reset for valid email (JSON)`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
@@ -107,10 +106,9 @@ test(`resets password with valid email and token (HTML)`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
-    .send({ email })
-    .send({ password });
+    .send({ email, password });
 
   await request(t.context.web)
     .post('/en/forgot-password')
@@ -138,7 +136,7 @@ test(`resets password with valid email and token (JSON)`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
@@ -183,7 +181,7 @@ test(`fails resetting password with invalid reset_token`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
@@ -208,7 +206,7 @@ test(`fails resetting password with missing new password`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
@@ -238,10 +236,9 @@ test(`fails resetting password with invalid email`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
-    .send({ email })
-    .send({ password });
+    .send({ email, password });
 
   await request(t.context.web)
     .post('/en/forgot-password')
@@ -268,27 +265,23 @@ test(`fails resetting password with invalid email + reset_token match`, async t 
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
-    .send({ email })
-    .send({ password });
+    .send({ email, password });
 
   await request(t.context.web)
     .post('/en/forgot-password')
     .set('Accept', 'application/json')
     .send({ email });
 
-  const user = await Users.findOne({ email })
-    .select('reset_token')
-    .exec();
+  const user = await Users.findOne({ email }).exec();
 
   if (!user) throw new Error('User does not exist');
 
   const res = await request(t.context.web)
     .post(`/en/reset-password/${user.reset_token}`)
     .set('Accept', 'application/json')
-    .send({ email: 'wrongemail@example.com' })
-    .send({ password });
+    .send({ email: 'wrongemail@example.com', password });
 
   t.is(res.status, 400);
   t.is(res.body.message, 'Reset token and email were not valid together.');
@@ -299,7 +292,7 @@ test(`fails resetting password if new password is too weak`, async t => {
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });
@@ -330,7 +323,7 @@ test(`fails resetting password if reset was already tried in the last 30 mins`, 
   const password = '!@K#NLK!#N';
 
   await request(t.context.web)
-    .post('/en/signup')
+    .post('/en/register')
     .set('Accept', 'application/json')
     .send({ email })
     .send({ password });

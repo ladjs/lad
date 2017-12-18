@@ -3,12 +3,12 @@ footer.footer
   .container.text-center
     small.text-muted
       ul.m-0.p-0
-        li.d-inline
-          | &copy;
-          = ' '
-          = moment().format('YYYY')
-          = ' '
-          = config.appName
-        li.d-inline= t('All Rights Reserved.')
-        li.d-inline
-          a(href="/terms")= t('Terms')
+        li.d-inline!= `&copy; ${moment().format('YYYY')} ${config.appName}`
+        li.d-inline.mx-1 &bull;
+        li.d-inline= t('All Rights Reserved')
+        li.d-inline.mx-1 &bull;
+        li.d-inline: a(href=l('/about'))= t('About')
+        li.d-inline.mx-1 &bull;
+        li.d-inline: a(href=l('/privacy'))= t('Privacy')
+        li.d-inline.mx-1 &bull;
+        li.d-inline: a(href=l('/terms'))= t('Terms')

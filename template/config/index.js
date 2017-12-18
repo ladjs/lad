@@ -15,8 +15,17 @@ const utilities = require('./utilities');
 const phrases = require('./phrases');
 const meta = require('./meta');
 
+const bitter = path.join(__dirname, '..', 'node_modules', 'bitter-font', 'fonts');
+
 const config = {
-  emailFontPath: path.join(__dirname, '..', 'assets', 'fonts', 'GoudyBookletter1911.otf'),
+  fonts: {
+    bitter: {
+      bold: path.join(bitter, 'Bold', 'Bitter-Bold.ttf'),
+      boldItalic: path.join(bitter, 'BoldItalic', 'Bitter-BoldItalic.ttf'),
+      italic: path.join(bitter, 'Italic', 'Bitter-Italic.ttf'),
+      regular: path.join(bitter, 'Regular', 'Bitter-Regular.ttf')
+    }
+  },
 
   // package.json
   pkg,
@@ -29,7 +38,7 @@ const config = {
   },
 
   // app
-  contactRequestMaxLength: env.CONTACT_REQUEST_MAX_LENGTH,
+  supportRequestMaxLength: env.SUPPORT_REQUEST_MAX_LENGTH,
   email: {
     message: {
       from: env.EMAIL_DEFAULT_FROM
@@ -43,8 +52,13 @@ const config = {
     showStack: env.SHOW_STACK,
     appName: env.APP_NAME
   },
+  livereload: {
+    port: env.LIVERELOAD_PORT
+  },
   ga: env.GOOGLE_ANALYTICS,
   appName: env.APP_NAME,
+  appColor: env.APP_COLOR,
+  twitter: env.TWITTER,
   i18n: {
     // see @ladjs/i18n for a list of defaults
     // <https://github.com/ladjs/i18n>
@@ -98,6 +112,10 @@ const config = {
     }
   },
 
+  // @ladjs/passport configuration (see defaults in package)
+  // <https://github.com/ladjs/passport>
+  passport: {},
+
   // passport-local-mongoose options
   // <https://github.com/saintedlama/passport-local-mongoose>
   passportLocalMongoose: {
@@ -122,7 +140,7 @@ const config = {
 
   // passport callback options
   passportCallbackOptions: {
-    successReturnToOrRedirect: '/',
+    successReturnToOrRedirect: '/dashboard',
     failureRedirect: '/login',
     successFlash: true,
     failureFlash: true

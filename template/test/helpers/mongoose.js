@@ -7,8 +7,8 @@ const before = async () => {
   await promisify(mongoose.connection.db.dropDatabase).bind(mongoose.connection.db)();
 };
 
-const after = () => {
-  return promisify(mongoose.connection.db.dropDatabase).bind(mongoose.connection.db)();
+const after = async () => {
+  await promisify(mongoose.connection.db.dropDatabase).bind(mongoose.connection.db)();
 };
 
 module.exports = { before, after };

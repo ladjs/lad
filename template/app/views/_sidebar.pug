@@ -1,0 +1,5 @@
+nav.nav.nav-pills.flex-md-column.justify-content-center.mb-3
+  a.nav-link(class=ctx.pathWithoutLocale === '/dashboard' ? 'active' : '', href='/dashboard')= t('Dashboard')
+  a.nav-link(class=ctx.pathWithoutLocale === '/my-account' ? 'active' : '', href='/my-account')= t('Profile')
+  a.nav-link(class=ctx.pathWithoutLocale === '/my-account/api' ? 'active' : '', href='/my-account/api')= t('API')
+hr.d-md-none

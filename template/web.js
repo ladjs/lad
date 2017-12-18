@@ -6,18 +6,17 @@ const maxListenersExceededWarning = require('max-listeners-exceeded-warning');
 
 const config = require('./config');
 const routes = require('./routes');
-const { i18n, logger } = require('./helpers');
-const { Users } = require('./app/models');
+const { i18n, logger, passport } = require('./helpers');
 
 if (process.env.NODE_ENV !== 'production') maxListenersExceededWarning();
 
 const server = new Server({
-  Users,
   routes: routes.web,
   logger,
   i18n,
   meta: config.meta,
-  views: config.views
+  views: config.views,
+  passport
 });
 
 if (!module.parent) {

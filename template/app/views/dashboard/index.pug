@@ -1,0 +1,14 @@
+
+extends ../layout
+
+block body
+  .container-fluid.py-3
+    .row.mt-1
+      .col-md-3.col-lg-2
+        include ../_sidebar
+      .col-md-9.col-lg-10
+        .text-center.text-md-left
+          h1.h6.text-muted= t('Dashboard')
+          h2= t('Welcome')
+        hr
+        p.lead= t('Coming soon')

@@ -1,14 +1,11 @@
 const Boom = require('boom');
 const Router = require('koa-router');
 const boolean = require('boolean');
-const passport = require('passport');
 
-const { policies } = require('../../helpers');
+const { passport, policies } = require('../../helpers');
 const config = require('../../config');
 
-const router = new Router({
-  prefix: '/auth'
-});
+const router = new Router({ prefix: '/auth' });
 
 const catchError = async (ctx, next) => {
   try {
@@ -33,7 +30,7 @@ router
   .get('/:provider/ok', policies.ensureLoggedOut, catchError, (ctx, next) => {
     const redirect = ctx.session.returnTo
       ? ctx.session.returnTo
-      : `/${ctx.req.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+      : `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
     return passport.authenticate(ctx.params.provider, {
       ...config.passportCallbackOptions,
       successReturnToOrRedirect: redirect

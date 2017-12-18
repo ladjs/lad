@@ -2,5 +2,21 @@
 extends ../layout
 
 block content
-  p= `${t('Hi')} ${user.display_name}`
-  p= t('Welcome to our website!  Thank you for signing up.')
+  .jumbotron.jumbotron-fluid
+    .container
+      != png2x({ text: `${t('Hey')} ${user.display_name}`, fontSize: 40, backgroundColor: '#e9ecef', fontNameOrPath: config.fonts.bitter.regular })
+      p.lead.mt-2
+        :translate(locale)
+          Visit our website for complete documentation and tutorials.
+          If you need a quick install guide, then see below.
+      p
+        a.btn.btn-lg.btn-success(href=config.urls.web, role="button")= t('Visit Website')
+  .container
+    p
+      :markdown-it(langPrefix='hljs ')
+        ```sh
+        npm install -g lad
+        lad new-project
+        cd new-project
+        npm start
+        ```

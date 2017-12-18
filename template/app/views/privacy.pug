@@ -1,0 +1,39 @@
+
+extends layout
+
+block body
+  .container.py-3
+    .jumbotron
+      h1= t('Privacy Policy')
+      p= t(`This privacy policy ("Policy") describes how ${config.appName} and its related companies ("Company") collect, use and share personal information of consumer users of this website, ${config.urls.web} (the "Site"). This Policy also applies to any of our other websites that post this Policy. This Policy does not apply to websites that post different statements.`)
+      h2= t('What We Collect')
+      p= t('We get information about you in a range of ways.')
+      h3= t('Information You Give Us')
+      p= t('We collect your email address, and other information you directly give us on our site.')
+      h3= t('Information Automatically Collected')
+      p= t('We automatically log information about you and your computer. For example, when visiting our Site, we log your computer operating system type, browser type, browser language, the website you visited before browsing to our Site, pages you viewed, how long you spent on a page, access times, Internet protocol (IP) address and information about your use of and actions on our Site.')
+      h3= t('Cookies')
+      p= t('We may log information using "cookies." Cookies are small data files stored on your hard drive by a website. Cookies help us make our Site and your visit better. We use cookies to see which parts of our Site people use and like and to count visits to our Site.')
+      h2= t('Use of Personal Information')
+      p= t('We use your personal information as follows:')
+      ul
+        li= t('We use your personal information to protect, investigate, and deter against fraudulent, unauthorized, or illegal activity.')
+      h2= t('Sharing of Personal Information')
+      p= t('We may share personal information as follows:')
+      ul
+        li
+          = t('We may share personal information for legal, protection, and safety purposes.')
+          ul
+            li= t('We may share information to comply with laws.')
+            li= t('We may share information to respond to lawful requests and legal process.')
+            li= t(`We may share information to protect the rights and property of ${config.appName}, our agents, customers, and others. This includes enforcing our agreements, policies, and terms of use.`)
+            li= t('We may share information in an emergency. This includes protecting the safety of our employees and agents, our customers, or any person.')
+      h2= t('Information Choices and Changes')
+      p= t('You can typically remove and reject cookies from our Site with your browser settings. Many browsers are set to accept cookies until you change your settings. If you remove or reject our cookies, it could affect how our Site works for you.')
+      h2= t('Security of Your Personal Information')
+      p= t('We take steps to help protect personal information. No company can fully prevent security risks, however.  Mistakes may happen. Bad actors may defeat even the best safeguards.')
+      h2= t('Contact Information')
+      p!= t(`We welcome your comments or questions about this Privacy Policy.  You may also contact us by email at <a href="mailto:${config.pkg.bugs.email}" target="_blank">${config.pkg.bugs.email}</a>.`)
+      h2= t('Changes to this Privacy Policy')
+      p= t('We may change this Privacy Policy. If we make any changes, we will change the "last updated" date below.')
+      p= t(`This Privacy Policy was last updated on 12/18/2017 and was first published on 12/18/2017.`)

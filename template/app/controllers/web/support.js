@@ -20,23 +20,23 @@ module.exports = async function(ctx) {
 
   if (!_.isUndefined(body.message) && !_.isString(body.message)) delete body.message;
 
-  if (body.message)
+  if (_.isString(body.message))
     body.message = sanitize(body.message, {
       allowedTags: [],
       allowedAttributes: []
     });
 
-  if (body.message && s.isBlank(body.message))
+  if (_.isString(body.message) && s.isBlank(body.message))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_MESSAGE')));
 
-  if (!body.message) {
-    body.message = ctx.translate('CONTACT_REQUEST_MESSAGE');
+  if (!_.isString(body.message)) {
+    body.message = ctx.translate('SUPPORT_REQUEST_MESSAGE');
     body.is_email_only = true;
-  } else if (body.message.length > config.contactRequestMaxLength) {
+  } else if (body.message.length > config.supportRequestMaxLength) {
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_MESSAGE')));
   }
 
-  // check if we already sent a contact request in the past day
+  // check if we already sent a support request in the past day
   // with this given ip address or email, otherwise create and email
   const count = await Inquiries.count({
     $or: [
@@ -55,7 +55,7 @@ module.exports = async function(ctx) {
   });
 
   if (count > 0 && config.env !== 'development')
-    return ctx.throw(Boom.badRequest(ctx.translate('CONTACT_REQUEST_LIMIT')));
+    return ctx.throw(Boom.badRequest(ctx.translate('SUPPORT_REQUEST_LIMIT')));
 
   try {
     const inquiry = await Inquiries.create({
@@ -72,7 +72,7 @@ module.exports = async function(ctx) {
         to: body.email,
         cc: config.email.from,
         locals: {
-          locale: ctx.req.locale,
+          locale: ctx.locale,
           inquiry
         }
       }
@@ -80,7 +80,7 @@ module.exports = async function(ctx) {
 
     ctx.logger.debug('queued inquiry email', job);
 
-    const message = ctx.translate('CONTACT_REQUEST_SENT');
+    const message = ctx.translate('SUPPORT_REQUEST_SENT');
     if (ctx.accepts('json')) {
       ctx.body = { message };
     } else {
@@ -89,6 +89,6 @@ module.exports = async function(ctx) {
     }
   } catch (err) {
     ctx.logger.error(err, { body });
-    ctx.throw(ctx.translate('CONTACT_REQUEST_ERROR'));
+    ctx.throw(ctx.translate('SUPPORT_REQUEST_ERROR'));
   }
 };
