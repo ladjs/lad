@@ -25,6 +25,7 @@
   "dependencies": {
     "@ladjs/agenda": "^0.0.4",
     "@ladjs/api": "^0.1.1",
+    "@ladjs/bootstrap-social": "^7.0.0",
     "@ladjs/env": "^0.0.2",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/i18n": "^0.1.2",
@@ -41,7 +42,6 @@
     "boolean": "^0.1.3",
     "boom": "^7.1.1",
     "bootstrap": "^4.0.0-beta",
-    "bootstrap-social": "niftylettuce/bootstrap-social#gh-pages",
     "clipboard": "^1.7.1",
     "consolidate": "^0.15.0",
     "custom-fonts-in-emails": "^1.0.1",

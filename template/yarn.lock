@@ -95,6 +95,13 @@
     lodash "^4.17.4"
     redis "^2.8.0"
 
+"@ladjs/bootstrap-social@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@ladjs/bootstrap-social/-/bootstrap-social-7.0.0.tgz#d708923d8968b8f08098e399c16fcac363bf14f8"
+  dependencies:
+    bootstrap "4.0.0-beta"
+    font-awesome "^4.7.0"
+
 "@ladjs/dotenv-extended@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@ladjs/dotenv-extended/-/dotenv-extended-2.0.3.tgz#4355daa146c2125b56c7deb6ce1c093b55c84f10"
@@ -1525,13 +1532,6 @@ boom@^7.1.1:
   resolved "https://registry.yarnpkg.com/boom/-/boom-7.1.1.tgz#50392a4e3417e971f1ad28622c20e832275260bb"
   dependencies:
     hoek "5.x.x"
-
-bootstrap-social@niftylettuce/bootstrap-social#gh-pages:
-  version "6.0.0"
-  resolved "https://codeload.github.com/niftylettuce/bootstrap-social/tar.gz/eab704edb79ad1c88e0566b41ebc4ded5880adfd"
-  dependencies:
-    bootstrap "4.0.0-beta"
-    font-awesome "^4.7.0"
 
 bootstrap@4.0.0-beta:
   version "4.0.0-beta"
