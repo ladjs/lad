@@ -1,3 +1,4 @@
+const path = require('path');
 const puglint = require('gulp-pug-lint');
 const gutil = require('gulp-util');
 const awspublish = require('gulp-awspublish');
@@ -14,8 +15,8 @@ const uglify = require('gulp-uglify');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
 const rev = require('gulp-rev');
-const glob = require('glob');
-const es = require('event-stream');
+const changed = require('gulp-changed');
+const flatMap = require('gulp-flatmap');
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
 const postcss = require('gulp-postcss');
@@ -101,6 +102,7 @@ gulp.task('img', () => {
     .src('assets/img/**/*', {
       base: 'assets'
     })
+    .pipe(changed('build'))
     .pipe(
       imagemin({
         progressive: true,
@@ -126,6 +128,7 @@ gulp.task('css', () => {
     .src('assets/css/**/*.scss', {
       base: 'assets'
     })
+    .pipe(changed('build'))
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss(processors))
@@ -153,20 +156,20 @@ gulp.task('lint', () => {
     .pipe(xo.failAfterError());
 });
 
-gulp.task('js', ['lint'], done => {
-  glob(
-    'js/**/*.js',
-    {
-      cwd: 'assets'
-    },
-    (err, files) => {
-      if (err) return done(err);
-
-      const tasks = files.map(entry => {
+gulp.task('js', ['lint'], () => {
+  return gulp
+    .src(['assets/js/**/*.js'], {
+      base: 'assets',
+      read: false
+    })
+    .pipe(changed('build'))
+    .pipe(
+      flatMap((stream, file) => {
+        const cleanPath = file.path.replace(path.join(process.cwd(), 'assets/'), '');
+        console.log('changed: ' + file.path.replace(process.cwd() + '/', ''));
         return browserify({
-          entries: entry,
-          debug: false,
-          basedir: 'assets'
+          entries: file.path,
+          debug: true
         })
           .transform(babelify)
           .bundle()
@@ -174,36 +177,25 @@ gulp.task('js', ['lint'], done => {
             gutil.log(err.message);
             this.emit('end');
           })
-          .pipe(source(entry))
+          .pipe(source(cleanPath))
           .pipe(buffer())
-          .pipe(
-            sourcemaps.init({
-              // loads map from browserify file
-              loadMaps: true
-            })
-          )
-          .pipe(gulpif(PROD, uglify()))
-          .pipe(gulpif(PROD, rev()))
+          .pipe(sourcemaps.init({ loadMaps: true }))
+          .pipe(uglify())
           .pipe(sourcemaps.write('./'))
           .pipe(gulp.dest('build'))
-          .pipe(gulpif(!PROD, livereload(config.livereload)));
-      });
-
-      const taskStream = es.merge(tasks);
-
-      if (PROD)
-        taskStream
-          .pipe(
-            rev.manifest('build/rev-manifest.json', {
-              merge: true,
-              base: 'build'
-            })
-          )
-          .pipe(gulp.dest('build'));
-
-      taskStream.on('end', done);
-    }
-  );
+          .pipe(gulpif(!PROD, livereload({ port: 35729 })));
+      })
+    )
+    .pipe(
+      gulpif(
+        PROD,
+        rev.manifest('build/rev-manifest.json', {
+          merge: true,
+          base: 'build'
+        })
+      )
+    )
+    .pipe(gulpif(PROD, gulp.dest('build')));
 });
 
 gulp.task('static', () => {
@@ -211,5 +203,6 @@ gulp.task('static', () => {
     .src(staticAssets, {
       base: 'assets'
     })
+    .pipe(changed('build'))
     .pipe(gulp.dest('build'));
 });

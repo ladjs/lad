@@ -4896,6 +4896,14 @@ gulp-awspublish@^3.3.0:
     xml-nodes "^0.1.5"
     xml-objects "^1.0.1"
 
+gulp-changed@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/gulp-changed/-/gulp-changed-3.1.1.tgz#7cdd5621bacd29c9da151e27a70a8865dffc4415"
+  dependencies:
+    gulp-util "^3.0.0"
+    pify "^3.0.0"
+    through2 "^2.0.0"
+
 gulp-cli@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/gulp-cli/-/gulp-cli-1.4.0.tgz#6f5bbe2cd0bdb4849d12cf9e1246a5861f8b4f88"
@@ -4950,6 +4958,13 @@ gulp-eslint@^4.0.0:
   dependencies:
     eslint "^4.0.0"
     gulp-util "^3.0.8"
+
+gulp-flatmap@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gulp-flatmap/-/gulp-flatmap-1.0.0.tgz#e634e03cffb263aebacfdc22dd8ce2f3d76ffe97"
+  dependencies:
+    gulp-util "~2.2.14"
+    through2 "~0.6.3"
 
 gulp-if@^2.0.2:
   version "2.0.2"
@@ -5118,7 +5133,7 @@ gulp-util@3.0.7:
     through2 "^2.0.0"
     vinyl "^0.5.0"
 
-gulp-util@^2.2.0, gulp-util@^2.2.5, gulp-util@~2.2.0:
+gulp-util@^2.2.0, gulp-util@^2.2.5, gulp-util@~2.2.0, gulp-util@~2.2.14:
   version "2.2.20"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-2.2.20.tgz#d7146e5728910bd8f047a6b0b1e549bc22dbd64c"
   dependencies:
@@ -12422,7 +12437,7 @@ through2@^0.5.0:
     readable-stream "~1.0.17"
     xtend "~3.0.0"
 
-through2@^0.6.0, through2@^0.6.1:
+through2@^0.6.0, through2@^0.6.1, through2@~0.6.3:
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-0.6.5.tgz#41ab9c67b29d57209071410e1d7a7a968cd3ad48"
   dependencies:
