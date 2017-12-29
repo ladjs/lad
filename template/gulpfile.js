@@ -28,10 +28,6 @@ const opn = require('opn');
 
 const config = require('./config');
 
-// Allows gulp to exit after all tasks are finished
-// eslint-disable-next-line unicorn/no-process-exit
-gulp.doneCallback = err => process.exit(err ? 1 : 0);
-
 // define custom headers
 const headers = {
   'Cache-Control': `public, max-age=${ms('1yr')}`
