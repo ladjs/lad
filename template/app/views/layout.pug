@@ -90,10 +90,13 @@ html(lang=locale)
       window._confirmPromptTitle = "#{ t('Are you sure?') }";
       window._confirmPromptHTML = "#{ t('Please confirm if you wish to continue.') }";
 
+    //- set the locale to be used by front-end assets such as STripe
+    script.
+      window.LOCALE = "#{locale}";
+
     //- scripts
     block scripts
       script(src=manifest('js/core.js'))
-      script(src=manifest('js/flash.js'))
 
     //- Stripe support
     //- https://stripe.com/docs/checkout#integration-custom
@@ -101,6 +104,7 @@ html(lang=locale)
       script(src="https://checkout.stripe.com/checkout.js")
       script.
         window.STRIPE_PUBLISHABLE_KEY = "#{config.stripe.publishableKey}";
+        window.STRIPE_CHECKOUT_IMAGE_URL = "#{config.stripe.checkoutImageURL}";
 
     //- google analytics
     if config.env === 'production' && config.ga

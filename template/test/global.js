@@ -1,26 +1,25 @@
 const mongoose = require('@ladjs/mongoose');
 const Frisbee = require('frisbee');
 
-const { Users } = require('../app/models');
-const api = require('../api');
-const web = require('../web');
+const { logger } = require('../helpers');
+const apiServer = require('../api').listen();
+const webServer = require('../web').listen();
 
 mongoose.configure();
-mongoose.connect().then();
+mongoose
+  .connect()
+  .then()
+  .catch(logger.error);
 
-global.Users = Users;
-global.api = api.listen();
-global.web = web.listen();
-global.mongoose = mongoose;
-global.apiRequest = new Frisbee({
-  baseURI: `http://localhost:${global.api.address().port}`,
+global.api = new Frisbee({
+  baseURI: `http://localhost:${apiServer.address().port}`,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
   }
 });
-global.webRequest = new Frisbee({
-  baseURI: `http://localhost:${global.web.address().port}`,
+global.web = new Frisbee({
+  baseURI: `http://localhost:${webServer.address().port}`,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

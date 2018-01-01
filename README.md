@@ -22,8 +22,6 @@
   </sub>
 </div>
 <hr />
-<div align="center"><strong>Lad is in alpha development, please <a href="http://slack.crocodilejs.com">join our Slack channel</a> to learn more</strong></div>
-<hr />
 
 
 ## Table of Contents
@@ -59,7 +57,7 @@ Lad boasts dozens of features and is extremely configurable.
 
 ### Microservices
 
-> These microservices are preconfigured for security, performance, and graceful reloading.
+These microservices are preconfigured for security, performance, and graceful reloading.
 
 * Webapp server → [web.js](template/web.js)
 * API server → [api.js](template/api.js)
@@ -68,17 +66,20 @@ Lad boasts dozens of features and is extremely configurable.
 
 ### Front-end
 
-> You can easily add [Moon][], [Vue][], [React][], or [Angular][], though typically [you aren't going to need it][yagni].
-
-* Use any template engine (defaults to Pug)
-* Bootstrap 4
-* Font Awesome
-* SpinKit
-* SweetAlert2
-* Dense
-* Waypoints
-* LiveReload
-* Frisbee
+* Browser linting using [eslint-plugin-compat][] and [browserslist][] (see [.browserslistrc](template/.browserslistrc) for the default config)
+* [Pug][] template engine (you can easily use [Moon][], [Vue][], [React][], or [Angular][], though typically [you aren't going to need it][yagni])
+* [Gulp][]
+* [Sass][]
+* [PostCSS][]
+* [Autoprefixer][]
+* [Bootstrap][]
+* [Font Awesome][font-awesome]
+* [SpinKit][]
+* [SweetAlert2][]
+* [Dense][]
+* [Waypoints][]
+* [LiveReload][]
+* [Frisbee][]
 * …
 
 ### Back-end
@@ -89,18 +90,18 @@ Lad boasts dozens of features and is extremely configurable.
 * RESTful API with BasicAuth and versioning
 * Automated job scheduler with cron and human-readable syntax (backed by [Mongoose][] and [Agenda][])
 * Passport-based authentication and group-based (Unix-like) permissioning
-* Stripe-inspired error handling with Boom
+* Stripe-inspired error handling
 * Mongoose and MongoDB with common database plugins
 * Email template engine with [Nodemailer][] and local rendering
 * Proxy eliminates need for Nginx reverse-proxy or Apache virtual hosts
-* Multilingual through built-in i18n translation support
+* Multilingual through built-in i18n translation support ([see configuration](#translation-configuration))
 * Automatic phrase translation with Google Translate
 * Sitemap generator for simple SEO
 * …
 
 ### Translation
 
-> Finally a framework that solves i18n everywhere; complete with automatic translation.
+Finally a framework that solves i18n everywhere; complete with automatic translation.
 
 * Translation constants built-in so you [don't repeat yourself][dry]
 * Webapp error messages and templates are translated
@@ -112,11 +113,11 @@ Lad boasts dozens of features and is extremely configurable.
 
 ### Email Engine
 
-> Our beautiful email engine uses [email-templates][] (which is also made by the creator of Lad)!
+Our beautiful email engine uses [email-templates][] (which is also made by the creator of Lad)!
 
 * Test your emails locally with automatic browser-rendering on the fly
 * Automatically inlines CSS for cross-browser and cross-platform email client support
-* Use Bootstrap in your email template designs
+* Use [Bootstrap][] in your email template designs
 * Reuse your existing CSS and webapp styling
 * Use any template engine (defaults to Pug)
 * [Render custom fonts in emails with code][custom-fonts-in-emails]
@@ -128,7 +129,7 @@ Lad boasts dozens of features and is extremely configurable.
 
 ### Error Handling
 
-> We've spent a lot of time designing a beautiful error handler.
+We've spent a lot of time designing a beautiful error handler.
 
 * Supports `text/html`, `application/json`, and `text` response types
 * [User-friendly responses](https://github.com/niftylettuce/koa-better-error-handler#user-friendly-responses)
@@ -159,7 +160,7 @@ See [koa-better-error-handler][] for a complete reference.
 
 ## Get Started
 
-> We strictly support Mac and Ubuntu-based operating systems (Windows _might_ work).
+We strictly support Mac and Ubuntu-based operating systems (Windows _might_ work).
 
 ### Requirements
 
@@ -220,23 +221,29 @@ cd new-project
 
 #### Development
 
-> The `start` script will spawn, watch, and re-compile all of the [microservices](#microservices) mentioned above.  It will also open the browser for you to <http://localhost:3000> automatically for testing the web front-end.
+To begin, try typing `npm start` (or `yarn start`) on command line.  This will display to you all the scripts you can run.
+
+The `start` script (among many others) uses [nps][] and [nps-utils][] under the hood.  This helps to keep scripts very developer-friendly, and rids the need to write in JSON syntax.
+
+This script accepts a `<script>` argument, whereas a script of `all` will spawn, watch, and re-compile all of the [microservices](#microservices) mentioned above.
+
+It will also open the browser for you to <http://localhost:3000> automatically for testing the web front-end.
 
 [npm][]:
 
 ```sh
-npm start
+npm start all
 ```
 
 [yarn][]:
 
 ```sh
-yarn start
+yarn start all
 ```
 
 ##### Debugging
 
-> As similar to running any other [node][] process, simply use the environment variable `DEBUG`:
+As similar to running any other [node][] process, simply use the environment variable `DEBUG`:
 
 [npm][]:
 
@@ -247,7 +254,7 @@ DEBUG=* npm start
 [yarn][]:
 
 ```sh
-DEBUG=* yarn start
+DEBUG=* yarn start all
 ```
 
 You can also use `NODE_DEBUG` if desired to debug [node][] internal modules.
@@ -264,7 +271,7 @@ MONGOOSE_DEBUG=true ...
 
 #### Production
 
-> We strongly recommend using [SemaphoreCI][], [PM2][], and [Digital Ocean][do] for production deployment.
+We strongly recommend using [SemaphoreCI][], [PM2][], and [Digital Ocean][do] for production deployment.
 
 1. We've provided you with a preconfigured [ecosystem.json](template/ecosystem.json) [deployment file](http://pm2.keymetrics.io/docs/usage/deployment/). You will need to modify this file with your server's IP, hostname, and other metadata if needed.
 
@@ -278,11 +285,11 @@ MONGOOSE_DEBUG=true ...
 
 4. See the [Continuous Integration and Code Coverage](#continuous-integration-and-code-coverage) and [Tutorials](#tutorials) sections below for instructions on how to setup continuous integration, code coverage, and deployment.
 
-5. If you specify an environment variable value for `AWS_CF_DOMAIN` and `NODE_ENV=production` is set then your assets will need to be published to Amazon S3/Cloudfront. To do so run `npm run publish-assets` (or with yarn as `yarn publish-assets`).  This command automatically sets `NODE_ENV=production` for you as well via `cross-env`.
+5. If you specify an environment variable value for `AWS_CF_DOMAIN` and `NODE_ENV=production` is set then your assets will need to be published to Amazon S3/Cloudfront. To do so run `npm start publish-assets` (or with yarn as `yarn start publish-assets`).  This command automatically sets `NODE_ENV=production` for you as well via `cross-env`.
 
 #### Tests
 
-> We use [ava][] and [nyc][] for testing and code coverage.
+We use [ava][] and [nyc][] for testing and code coverage.
 
 [npm][]:
 
@@ -300,12 +307,12 @@ yarn test
 
 #### Environment Variables
 
-We have made configuration of your Lad project easy through a [dotenv][] configuration, per [Twelve-Factor][twelve-factor].
+We have made configuration of your Lad project easy through a [dotenv][] configuration package called [@ladjs/env][lad-env], per [Twelve-Factor][twelve-factor].
 
 We use the following three packages to manage configuration:
 
 * [dotenv-extended][] - allows us to craft a `.env` definition (otherwise known as a "schema") in a file named `.env.schema`
-* [dotenv-mustache][] - allows us to use the [Mustache templating language][mustache] in our `.env` and `.env.defaults` configuration files
+* [mustache][] - allows us to use the [Mustache templating language][mustache] in our `.env` and `.env.defaults` configuration files
 * [dotenv-parse-variables][] - automatically parses variable types from `process.env` (e.g. `FOO=4` will set `process.env.FOO = 4` with a `Number` variable type instead of a `String`)
 
 Configuration is managed by the following, in order of priority:
@@ -344,7 +351,7 @@ To configure SSL for the web or API server simply set them in your `.env` file o
 
 #### Outbound Email Configuration
 
-> By default in the development environment we simply render the email in your browser.
+By default in the development environment we simply render the email in your browser.
 
 However in other environments such as production, you definitely want emails to be sent.
 
@@ -369,11 +376,11 @@ Just make sure that any relative paths match up in the `assets/browserconfig.xml
 
 #### Authentication Methods
 
-> We use Lad's auth package under the hood; so if you want to configure authentication providers you'll want to read more or contribute to [@ladjs/auth][ladjs-auth].
+We use Lad's auth package under the hood; so if you want to configure authentication providers you'll want to read more or contribute to [@ladjs/auth][ladjs-auth].
 
 ##### Google Auth
 
-> In order to add Google sign-in to your app (so users can log in with their Google account):
+In order to add Google sign-in to your app (so users can log in with their Google account):
 
 1. Go to <https://console.developers.google.com> – Create a project (and fill out your project information – if you need a 120x120px default image, [you can use this one](https://cdn.rawgit.com/ladjs/lad/82d38d64/media/lad-120x120.png) with a CDN path of <https://cdn.rawgit.com/ladjs/lad/82d38d64/media/lad-120x120.png>
 2. Under your newly created project, go to Credentials – Create credentials – OAuth client ID – Web application
@@ -390,9 +397,15 @@ Just make sure that any relative paths match up in the `assets/browserconfig.xml
 
 6. In `.env`, make sure that `AUTH_GOOGLE_ENABLED=true` to enable this authentication method.
 
+#### Translation Configuration
+
+1. Go to <https://console.developers.google.com>
+2. Enable the Google Translate API
+3. Copy your API key and set it as the environment variable `GOOGLE_TRANSLATE_KEY=******`
+
 #### Continuous Integration and Code Coverage
 
-> We strongly recommend that you use [SemaphoreCI][] for continuous integration and [Codecov][] for code coverage.
+We strongly recommend that you use [SemaphoreCI][] for continuous integration and [Codecov][] for code coverage.
 
 Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 
@@ -406,7 +419,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
    * Node.js version: `8.9.0+` (latest LTS)
      > Note you can also add to `Setup` the script `nvm install latest` to install latest version if SemaphoreCI does not provide it from the drop-down
    * Setup: `npm install`
-   * Job 1: `npm test`
+   * Job 1: `npm run test-coverage`
    * After job: `npm run coverage`
 
 4. Go to [Codecov][] and sign up for a free account
@@ -417,7 +430,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 
 #### Amazon S3 and CloudFront Asset Setup
 
-> In order for your assets to get properly served in a production environment, you'll need to configure AWS:
+In order for your assets to get properly served in a production environment, you'll need to configure AWS:
 
 1. Go to <https://console.aws.amazon.com/iam/home#security_credential> ‐ Access Keys – Create New Access Key
 2. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
@@ -466,7 +479,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 
 ## Architecture
 
-> The following bash output is the directory structure and organization of Lad:
+The following bash output is the directory structure and organization of Lad:
 
 ```sh
 tree template -I "build|node_modules|coverage|test"
@@ -621,7 +634,7 @@ template
 
 ## Principles
 
-> Lad is designed according to these principles:
+Lad is designed according to these principles:
 
 1. Always be developer-friendly
 2. Adhere to [MVC][], [Unix][], [KISS][], [DRY][], [YAGNI][] and [Twelve Factor][twelve-factor]
@@ -637,7 +650,7 @@ template
 
 ## Contributing
 
-> Interesting in contributing to this project or testing early releases?
+Interesting in contributing to this project or testing early releases?
 
 1. Follow all of the above [Requirements](#requirements)
 2. You will need to fork and clone this repository locally
@@ -668,10 +681,6 @@ Then visit <http://localhost:8080> in your browser.
 | -------------- | ------------------------- |
 | **Nick Baugh** | <http://niftylettuce.com> |
 
-\|  \|
-\|  \|
-\|  \|
-
 
 ## Trademark Notice
 
@@ -685,7 +694,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -761,9 +770,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [mustache]: https://github.com/janl/mustache.js/
 
-[dotenv-extended]: https://github.com/keithmorris/node-dotenv-extended
-
-[dotenv-mustache]: https://github.com/samcrosoft/dotenv-mustache
+[dotenv-extended]: https://github.com/niftylettuce/node-dotenv-extended
 
 [dotenv-parse-variables]: https://github.com/niftylettuce/dotenv-parse-variables
 
@@ -800,3 +807,37 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [ctx-paginate]: https://github.com/koajs/ctx-paginate
 
 [sweetalert2]: https://limonte.github.io/sweetalert2/
+
+[nps]: https://github.com/kentcdodds/nps
+
+[nps-utils]: https://github.com/kentcdodds/nps-utils
+
+[eslint-plugin-compat]: https://github.com/amilajack/eslint-plugin-compat
+
+[browserslist]: https://github.com/ai/browserslist
+
+[pug]: https://pugjs.org
+
+[gulp]: https://gulpjs.com
+
+[sass]: http://sass-lang.com/
+
+[postcss]: http://postcss.org/
+
+[autoprefixer]: https://autoprefixer.github.io/
+
+[bootstrap]: https://getbootstrap.com/
+
+[font-awesome]: http://fontawesome.io/
+
+[spinkit]: http://tobiasahlin.com/spinkit/
+
+[dense]: http://dense.rah.pw/
+
+[waypoints]: http://imakewebthings.com/waypoints/
+
+[livereload]: https://github.com/intesso/connect-livereload
+
+[frisbee]: https://github.com/niftylettuce/frisbee
+
+[lad-env]: https://github.com/ladjs/env

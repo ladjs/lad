@@ -9,3 +9,6 @@ coverage
 *.pem
 build
 temp.md
+!test/.env
+!.gulpfile.env
+*.lcov

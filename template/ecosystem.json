@@ -7,9 +7,6 @@
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
-      },
-      "env_staging": {
-        "NODE_ENV": "staging"
       }
     },
     {
@@ -19,9 +16,6 @@
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
-      },
-      "env_staging": {
-        "NODE_ENV": "staging"
       }
     },
     {
@@ -31,9 +25,6 @@
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
-      },
-      "env_staging": {
-        "NODE_ENV": "staging"
       }
     },
     {
@@ -43,9 +34,6 @@
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
-      },
-      "env_staging": {
-        "NODE_ENV": "staging"
       }
     }
   ],
@@ -54,11 +42,9 @@
       "user": "deploy",
       "host": "<%= this.slug(name) %>-deploy",
       "ref": "origin/master",
-      "repo":
-        "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
+      "repo": "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
       "path": "/var/www/production",
-      "post-deploy":
-        "yarn && NODE_ENV=production yarn build && yarn publish-assets && pm2 startOrGracefulReload ecosystem.json --env production"
+      "post-deploy": "yarn start post-deploy"
     }
   }
 }

@@ -10,7 +10,7 @@ block body
         :translate(locale)
           This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
       p
-        a.btn.btn-success.btn-lg(href="/register", role="button")= `${t('Create an account')} »`
+        a.btn.btn-success.btn-lg(href=l('/register'), role="button", data-toggle='modal-anchor', data-target='#modal-sign-up')= `${t('Create an account')} »`
   .container
     //- Example row of columns
     .row

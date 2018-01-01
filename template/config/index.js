@@ -149,7 +149,8 @@ const config = {
   // stripe
   stripe: {
     secretKey: env.STRIPE_SECRET_KEY,
-    publishableKey: env.STRIPE_PUBLISHABLE_KEY
+    publishableKey: env.STRIPE_PUBLISHABLE_KEY,
+    checkoutImageURL: env.STRIPE_CHECKOUT_IMAGE_URL
   }
 };
 

@@ -1,9 +1,16 @@
 {
   "presets": [
-    [ "env", { "useBuiltIns": true } ]
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage"
+      }
+    ]
   ],
   "plugins": [
     "lodash",
-    [ "transform-object-rest-spread", { "useBuiltIns": false } ]
-  ]
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
+  "sourceMaps": "inline"
 }
