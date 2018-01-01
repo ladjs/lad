@@ -26,19 +26,20 @@ block body
                   th(scope='col') Last Login
                   th(scope='col') Actions
               tbody
-                tr
-                  td(scope='row').align-middle: a(href=`mailto:${user.email}`, target='_blank')= user.email
-                  td.align-middle= user.given_name
-                  td.align-middle= user.family_name
-                  td.align-middle= moment(user.created_at).format('M/D/YY h:mm A')
-                  td.align-middle= moment(user.updated_at).format('M/D/YY h:mm A')
-                  td.align-middle= moment(user.last_login_at).format('M/D/YY h:mm A')
-                  td.align-middle
-                    ul.m-0.p-0
-                      li.d-inline-block.mb-1: a(href=l(`/admin/users/${user.id}`), data-toggle='tooltip', data-title='Edit').btn.btn-warning.btn-sm: i.fa.fa-edit
-                      li.d-inline-block.mb-1
-                        form.ajax-form.confirm-prompt.form-inline(action=ctx.path, method="POST", autocomplete="off")
-                          input(type="hidden", name="_csrf", value=ctx.csrf)
-                          input(type="hidden", name="_method", value="DELETE")
-                          button(type='submit', data-toggle='tooltip', data-title='Remove').btn.btn-danger.btn-sm: i.fa.fa-remove
+                each user in users
+                  tr
+                    td(scope='row').align-middle: a(href=`mailto:${user.email}`, target='_blank')= user.email
+                    td.align-middle= user.given_name
+                    td.align-middle= user.family_name
+                    td.align-middle= moment(user.created_at).format('M/D/YY h:mm A')
+                    td.align-middle= moment(user.updated_at).format('M/D/YY h:mm A')
+                    td.align-middle= moment(user.last_login_at).format('M/D/YY h:mm A')
+                    td.align-middle
+                      ul.m-0.p-0
+                        li.d-inline-block.mb-1: a(href=l(`/admin/users/${user.id}`), data-toggle='tooltip', data-title='Edit').btn.btn-warning.btn-sm: i.fa.fa-edit
+                        li.d-inline-block.mb-1
+                          form.ajax-form.confirm-prompt.form-inline(action=ctx.path, method="POST", autocomplete="off")
+                            input(type="hidden", name="_csrf", value=ctx.csrf)
+                            input(type="hidden", name="_method", value="DELETE")
+                            button(type='submit', data-toggle='tooltip', data-title='Remove').btn.btn-danger.btn-sm: i.fa.fa-remove
           include ../../_pagination

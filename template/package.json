@@ -27,6 +27,7 @@
     "@ladjs/agenda": "^0.0.4",
     "@ladjs/api": "^0.1.5",
     "@ladjs/assets": "^0.0.1",
+    "@ladjs/bootstrap-social": "^7.0.2",
     "@ladjs/env": "^0.0.4",
     "@ladjs/graceful": "^0.0.1",
     "@ladjs/i18n": "^0.2.0",
@@ -40,7 +41,7 @@
     "bitter-font": "^0.0.1",
     "boolean": "^0.1.3",
     "boom": "^7.1.1",
-    "bootstrap": "^4.0.0-beta",
+    "bootstrap": "^4.0.0-beta.3",
     "bootstrap-social": "niftylettuce/bootstrap-social#gh-pages",
     "consolidate": "^0.15.0",
     "custom-fonts-in-emails": "^1.0.1",
@@ -223,9 +224,17 @@
     "space": true,
     "overrides": [
       {
-        "plugins": [ "prettier" ],
-        "files": [ "test/*.js", "test/**/*.js" ],
-        "globals": [ "web", "api" ]
+        "plugins": [
+          "prettier"
+        ],
+        "files": [
+          "test/*.js",
+          "test/**/*.js"
+        ],
+        "globals": [
+          "web",
+          "api"
+        ]
       },
       {
         "plugins": [
@@ -240,7 +249,10 @@
         "parserOptions": {
           "sourceType": "script"
         },
-        "files": [ "assets/js/*.js", "assets/js/**/*.js" ],
+        "files": [
+          "assets/js/*.js",
+          "assets/js/**/*.js"
+        ],
         "envs": [
           "browser"
         ],

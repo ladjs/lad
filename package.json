@@ -6,7 +6,9 @@
   "bin": "cli.js",
   "ava": {
     "verbose": true,
-    "files": ["test/**/*.js"]
+    "files": [
+      "test/**/*.js"
+    ]
   },
   "prettier": {
     "parser": "babylon",
@@ -23,7 +25,9 @@
     "url": "https://github.com/ladjs/lad/issues",
     "email": "niftylettuce@gmail.com"
   },
-  "contributors": ["Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)"],
+  "contributors": [
+    "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)"
+  ],
   "dependencies": {
     "cac": "^4.2.4",
     "camelcase": "^4.1.0",
@@ -91,18 +95,29 @@
   ],
   "license": "MIT",
   "lint-staged": {
-    "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": ["prettier --write", "git add"],
-    "*.md": ["git add"],
+    "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.md": [
+      "git add"
+    ],
     "*.md,!test/snapshots/**/*.md,!template/test/snapshots/**/*.md,!template/test/**/*snapshots/**/*.md,!template/README.md,!template/locales/README.md": [
       "remark . -qfo"
     ]
   },
   "main": "sao.js",
   "nyc": {
-    "reporter": ["lcov", "html", "text"]
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
   },
   "remarkConfig": {
-    "plugins": ["preset-github"]
+    "plugins": [
+      "preset-github"
+    ]
   },
   "repository": {
     "type": "git",
@@ -117,7 +132,9 @@
   },
   "xo": {
     "extends": "prettier",
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -143,18 +160,27 @@
       "ava/no-ignored-test-files": "off"
     },
     "space": true,
-    "ignores": ["config.js"],
+    "ignores": [
+      "config.js"
+    ],
     "overrides": [
       {
-        "plugins": ["prettier", "compat"],
+        "plugins": [
+          "prettier",
+          "compat"
+        ],
         "settings": {
-          "polyfills": ["fetch"]
+          "polyfills": [
+            "fetch"
+          ]
         },
         "parserOptions": {
           "sourceType": "script"
         },
         "files": "template/assets/js/**/*.js",
-        "envs": ["browser"],
+        "envs": [
+          "browser"
+        ],
         "rules": {
           "compat/compat": "error"
         }

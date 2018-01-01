@@ -562,6 +562,10 @@
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/babelify/-/babelify-8.0.1.tgz#89637cbbf584ffa06f125104fc3e759deccaa8e8"
 
+"@ladjs/bootstrap-social@^7.0.2":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@ladjs/bootstrap-social/-/bootstrap-social-7.0.2.tgz#26421482bfaf6ff102f5cefee1dec33956a8a688"
+
 "@ladjs/dotenv-extended@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@ladjs/dotenv-extended/-/dotenv-extended-3.0.0.tgz#540500d4c93396cd2ce81603f564f6c6dad3f8ff"
@@ -1856,7 +1860,7 @@ bootstrap@4.0.0-beta:
   version "4.0.0-beta"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.tgz#dc5928175d2e71310bc668cf9e05a907211b72a6"
 
-bootstrap@^4.0.0-beta:
+bootstrap@^4.0.0-beta.3:
   version "4.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.3.tgz#60f0660bc3d121176514b361f6f83201c7ff8874"
 
