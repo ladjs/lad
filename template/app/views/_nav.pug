@@ -1,4 +1,12 @@
-
+- const isRegisterOrLogin = ['/register', '/login'].includes(ctx.pathWithoutLocale)
+if !user && !registerOrLogin
+  include _register-or-login
+  each verb in [ 'sign up', 'log in' ]
+    .modal.fade(tabindex='-1', role='dialog', id=`modal-${s.dasherize(verb)}`)
+      .modal-dialog(role='document').modal-lg
+        .modal-content
+          .modal-body
+            +registerOrLogin(verb)
 nav(class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'bg-white' : 'fixed-top bg-light border border-top-0 border-left-0 border-right-0').navbar.navbar-expand-md.navbar-light
   button.navbar-toggler.bg-light.hidden-lg-up(type="button", data-toggle="collapse", data-target="#navbar-header", aria-controls="navbar-header", aria-expanded="false", aria-label="Toggle navigation")
     span.navbar-toggler-icon
@@ -34,8 +42,6 @@ nav(class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'bg-white' :
           li.nav-item.ml-md-1.mt-1.mt-md-0
             a.btn.d-block.text-left.text-md-center(href=l('/admin'), class=ctx.pathWithoutLocale.startsWith('/admin') ? 'btn-dark' : 'btn-outline-dark')
               = t('Admin')
-      li(class=user ? 'mt-1' : 'mt-3').nav-item.ml-md-1.mt-md-0
-        a.btn.d-block.text-left.text-md-center(href=l('/support'), class=ctx.pathWithoutLocale === '/support' ? 'btn-dark' : 'btn-outline-dark')= t('Support')
       if user
         li.nav-item.ml-md-1.mt-1.mt-md-0
           a.btn.btn-outline-secondary.d-block.text-left.text-md-center(href=l('/logout'))
@@ -43,9 +49,18 @@ nav(class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'bg-white' :
       //- links that show only if you're logged out
       else
         li.nav-item.ml-md-1.mt-1.mt-md-0
-          if ctx.pathWithoutLocale === '/login'
-            a.btn.d-block.text-left.text-md-center(href=l('/register'), class=ctx.pathWithoutLocale === '/register' ? 'btn-success' : 'btn-outline-success')
-              = t('Sign up')
-          else
-            a.btn.d-block.text-left.text-md-center(href=l('/login'), class=ctx.pathWithoutLocale === '/login' ? 'btn-success' : 'btn-outline-success')
-              = t('Sign in')
+          a.btn.d-block.text-left.text-md-center(
+            role='button',
+            href=l('/login'),
+            data-toggle=isRegisterOrLogin ? '': 'modal-anchor',
+            data-target=isRegisterOrLogin ? '' : '#modal-log-in',
+            class=ctx.pathWithoutLocale === '/login' ? 'btn-success' : 'text-success'
+          )= t('Sign in')
+        li.nav-item.ml-md-1.mt-1.mt-md-0
+          a.btn.d-block.text-left.text-md-center(
+            role='button',
+            href=l('/register'),
+            data-toggle=isRegisterOrLogin ? '' : 'modal-anchor',
+            data-target=isRegisterOrLogin ? '' : '#modal-sign-up',
+            class=ctx.pathWithoutLocale === '/register' ? 'btn-success' : 'btn-outline-success'
+          )= t('Create an account')
