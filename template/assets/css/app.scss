@@ -23,7 +23,7 @@ $question: theme-color('light');
 @import '../../node_modules/font-awesome/scss/font-awesome';
 
 // bootstrap-social
-@import '../../node_modules/bootstrap-social/_custom.scss';
+@import '../../node_modules/@ladjs/bootstrap-social/_custom.scss';
 
 // sticky footer
 $footer-height: 60px;
