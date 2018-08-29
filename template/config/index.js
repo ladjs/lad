@@ -125,7 +125,7 @@ const config = {
     lastLoginField: 'last_login_at',
     usernameLowerCase: true,
     limitAttempts: true,
-    maxAttempts: process.env.NODE_ENV === 'development' ? Number.MAX_VALUE : 5,
+    maxAttempts: process.env.NODE_ENV === 'development' ? Number.MAX_SAFE_INTEGER : 5,
     digestAlgorithm: 'sha256',
     encoding: 'hex',
     saltlen: 32,

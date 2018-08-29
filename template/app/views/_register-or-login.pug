@@ -48,7 +48,7 @@ mixin registerOrLogin(verb)
           input.form-control.form-control-lg(type="email", required, name="email", placeholder=t('Email address'))
         .form-group
           input.form-control.form-control-lg(type="password", required, name="password", placeholder=t('Password'))
-          if verb === 'sign in'
+          if verb === 'sign up'
             small.form-text.text-right: a(href=l('/forgot-password')).text-secondary= t('Forget your password?')
         button.btn.btn-success.btn-lg.btn-block(type="submit")= s.capitalize(verb)
       .alert.alert-light.border.mt-3.text-center

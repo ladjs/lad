@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs-extra');
 const awspublish = require('gulp-awspublish');
 const babelify = require('@ladjs/babelify');
 const cloudfront = require('gulp-cloudfront');
@@ -17,22 +19,23 @@ const glob = require('glob');
 const es = require('event-stream');
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
-const postcss = require('gulp-postcss');
 const sass = require('gulp-sass');
+const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
-const autoprefixer = require('autoprefixer');
+const cssnext = require('postcss-cssnext');
 const ms = require('ms');
 const opn = require('opn');
 const reporter = require('gulp-reporter');
 const boolean = require('boolean');
+const fontMagician = require('postcss-font-magician');
+// const { postcssFontGrabber } = require('postcss-font-grabber');
+const inlineBase64 = require('postcss-inline-base64');
+const sassyImport = require('postcss-sassy-import');
+const mqPacker = require('css-mqpacker');
+const unprefix = require('postcss-unprefix');
 
 const { logger } = require('./helpers');
 const config = require('./config');
-
-// define custom headers
-const headers = {
-  'Cache-Control': `public, max-age=${ms('1yr')}`
-};
 
 const PROD = config.env === 'production';
 const DEV = config.env === 'development';
@@ -43,9 +46,21 @@ const OPEN_BROWSER = boolean(process.env.OPEN_BROWSER);
 const reporterOptions = {};
 if (WATCH) reporterOptions.fail = false;
 
-const processors = [autoprefixer()];
-
-if (PROD) processors.push(cssnano());
+// setup postcss processors
+const processors = [
+  sassyImport(),
+  fontMagician({
+    protocol: 'https:',
+    formats: 'woff',
+    hosted: [path.join(__dirname, 'build', 'fonts'), '/fonts']
+  }),
+  // postcssFontGrabber({ dirPath: path.join(__dirname, 'build', '.fonts') }),
+  inlineBase64({ baseDir: path.join(__dirname, 'assets', 'css') }),
+  unprefix(),
+  mqPacker(),
+  cssnext()
+];
+if (PROD) processors.push(cssnano({ autoprefixer: false }));
 
 const staticAssets = [
   'assets/browserconfig.xml',
@@ -60,8 +75,16 @@ const pugTask = (reload = false, src = ['app/views/**/*.pug']) => {
 
 gulp.task('default', ['build']);
 
+gulp.task('clean', () => {
+  return fs.emptyDir(path.join(__dirname, 'build'));
+});
+
+gulp.task('mkdirp', () => {
+  return fs.emptyDir(path.join(__dirname, 'build', '.fonts'));
+});
+
 gulp.task('build', done => {
-  runSequence(['img', 'static', 'xo', 'css'], 'js', 'eslint', async () => {
+  runSequence('clean', 'mkdirp', ['img', 'static', 'xo', 'css'], 'js', 'eslint', async () => {
     if (OPEN_BROWSER) await opn(config.urls.web, { wait: false });
     done();
   });
@@ -76,9 +99,13 @@ gulp.task('publish', () => {
       // gzip, Set Content-Encoding headers and add .gz extension
       .pipe(awspublish.gzip())
       // publisher will add Content-Length, Content-Type
-      // and headers specified above
+      // and headers specified below
       // If not specified it will set x-amz-acl to public-read by default
-      .pipe(publisher.publish(headers))
+      .pipe(
+        publisher.publish({
+          'Cache-Control': `public, max-age=${ms('1yr')}`
+        })
+      )
       // create a cache file to speed up consecutive uploads
       .pipe(publisher.cache())
       // print upload updates to console
@@ -99,6 +126,9 @@ gulp.task('watch', ['livereload', 'build'], () => {
   gulp.watch('app/views/**/*.pug', event => pugTask(true, [event.path]));
 });
 
+// TODO: gulp-rev-all
+// TODO: express-redirect-loop fix for koa
+// TODO: rev images?
 gulp.task('img', () => {
   return gulp
     .src('assets/img/**/*', {
@@ -173,25 +203,28 @@ gulp.task('js', done => {
       if (err) return done(err);
 
       const tasks = files.map(entry => {
-        return browserify({
-          entries: entry,
-          debug: false,
-          basedir: 'assets'
-        })
-          .transform(babelify)
-          .bundle()
-          .on('error', function(err) {
-            logger.error(err);
-            this.emit('end');
+        return (
+          browserify({
+            entries: entry,
+            debug: false,
+            basedir: 'assets'
           })
-          .pipe(source(entry))
-          .pipe(buffer())
-          .pipe(sourcemaps.init({ loadMaps: true }))
-          .pipe(gulpif(PROD, uglify()))
-          .pipe(gulpif(PROD, rev()))
-          .pipe(sourcemaps.write('./'))
-          .pipe(gulp.dest('build'))
-          .pipe(gulpif(DEV, livereload(config.livereload)));
+            // TODO: redo all this like elsewhere (e.g. use gulp-babel@8.x)
+            .transform(babelify)
+            .bundle()
+            .on('error', function(err) {
+              logger.error(err);
+              this.emit('end');
+            })
+            .pipe(source(entry))
+            .pipe(buffer())
+            .pipe(sourcemaps.init({ loadMaps: true }))
+            .pipe(gulpif(PROD, uglify()))
+            .pipe(gulpif(PROD, rev()))
+            .pipe(sourcemaps.write('./'))
+            .pipe(gulp.dest('build'))
+            .pipe(gulpif(DEV, livereload(config.livereload)))
+        );
       });
 
       const taskStream = es.merge(tasks);

@@ -1,4 +1,5 @@
-#!/usr/bin/env node
+global.Promise = require('bluebird');
+
 const Server = require('@ladjs/web');
 const Graceful = require('@ladjs/graceful');
 const mongoose = require('@ladjs/mongoose');

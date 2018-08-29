@@ -12,3 +12,4 @@ temp.md
 !test/.env
 !.gulpfile.env
 *.lcov
+.base64-cache

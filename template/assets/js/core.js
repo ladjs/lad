@@ -27,12 +27,11 @@ const {
   modalAnchor,
   handleHashOnLoad,
   handleHashChange
-  // eslint-disable-next-line import/no-extraneous-dependencies
 } = require('@ladjs/assets');
 
-// import waypoints
+// import waypoints (see below example for how to use + `yarn add waypoints`)
 // eslint-disable-next-line import/no-unassigned-import
-require('waypoints/lib/jquery.waypoints.js');
+// require('waypoints/lib/jquery.waypoints.js');
 
 // import pointer events polyfill for ie
 // eslint-disable-next-line import/no-unassigned-import,max-len
@@ -70,13 +69,9 @@ flash();
 handleHashOnLoad();
 
 $(() => {
-  // Resize navbar padding on load
+  // Resize navbar padding on load, window resize, and navbar collapse/show
   resizeNavbarPadding($);
-
-  // Resize navbar padding when browser is resized
   $(window).on('resize.resizeNavbarPadding', resizeNavbarPadding);
-
-  // Resize navbar padding when navbar is shown/collapsed
   $('.navbar-collapse').on('hidden.bs.collapse', resizeNavbarPadding);
   $('.navbar-collapse').on('shown.bs.collapse', resizeNavbarPadding);
 
@@ -105,6 +100,15 @@ $(() => {
   $('[data-toggle="popover"]').popover();
 
   // Handle custom file inputs
+  //
+  // Example usage:
+  //
+  /* eslint-disable max-len */
+  // <label class="d-block">
+  //   <input required="required" data-toggle="custom-file" data-target="#company-logo" type="file" name="company_logo" accept="image/*" class="custom-file-input">
+  //   <span id="company-logo" class="custom-file-control custom-file-name" data-btn="{{ t('Select File') }}" data-content="{{ t('Upload company logo...') }}"></span>
+  // </label>
+  /* eslint-enable max-len */
   $('body').on(
     'change.customFileInput',
     'input[type="file"][data-toggle="custom-file"]',
@@ -120,7 +124,6 @@ $(() => {
     'form.confirm-prompt, form[data-toggle="confirm-prompt"]',
     confirmPrompt
   );
-
   $('body').on('click.confirmPrompt', 'button.confirm-prompt, input.confirm-prompt', confirmPrompt);
 
   // Bind ajax form submission and handle Stripe tokens in forms
