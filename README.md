@@ -23,6 +23,8 @@
 </div>
 <hr />
 
+<div align="center">:heart: Love this project? Support <a href="https://github.com/niftylettuce" target="_blank">@niftylettuce's</a> <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software" target="_blank">FOSS</a> on <a href="https://patreon.com/niftylettuce" target="_blank">Patreon</a> or <a href="https://paypal.me/niftylettuce">PayPal</a> :unicorn:</div>
+
 
 ## Table of Contents
 
@@ -70,8 +72,7 @@ These microservices are preconfigured for security, performance, and graceful re
 * [Pug][] template engine (you can easily use [Moon][], [Vue][], [React][], or [Angular][], though typically [you aren't going to need it][yagni])
 * [Gulp][]
 * [Sass][]
-* [PostCSS][]
-* [Autoprefixer][]
+* [PostCSS][] (with [font-magician][], [import-url][], [font-grabber][], [base64][], and [cssnext][] pre-configured)
 * [Bootstrap][]
 * [Font Awesome][font-awesome]
 * [SpinKit][]
@@ -824,8 +825,6 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [postcss]: http://postcss.org/
 
-[autoprefixer]: https://autoprefixer.github.io/
-
 [bootstrap]: https://getbootstrap.com/
 
 [font-awesome]: http://fontawesome.io/
@@ -841,3 +840,13 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [frisbee]: https://github.com/niftylettuce/frisbee
 
 [lad-env]: https://github.com/ladjs/env
+
+[font-magician]: https://github.com/jonathantneal/postcss-font-magician
+
+[import-url]: https://github.com/unlight/postcss-import-url
+
+[font-grabber]: https://github.com/AaronJan/postcss-font-grabber
+
+[base64]: https://github.com/jelmerdemaat/postcss-base64
+
+[cssnext]: http://cssnext.io/

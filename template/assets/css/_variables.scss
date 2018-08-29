@@ -1,4 +1,7 @@
-$fa-font-path: '//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts';
+// https://netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts';
+// TODO: this isn't working for some reason
+// TODO: should we do importurl?
+$fa-font-path: '../../node_modules/font-awesome/fonts';
 
 // custom fonts using google webfont loader
 // with fonts defined in `assets/js/core.js`

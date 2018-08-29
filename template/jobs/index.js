@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const Mandarin = require('mandarin');
 
 const { i18n, logger } = require('../helpers');

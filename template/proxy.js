@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const proxy = require('@ladjs/proxy');
 
-proxy.listen(80);
+proxy.listen('127.0.0.1', 80);
