@@ -30,7 +30,7 @@ module.exports = {
     },
     description: {
       message: 'How would you describe the new project',
-      default: `my ${superb()} project`
+      default: `my ${superb.random()} project`
     },
     pm: {
       message: 'Choose a package manager',
