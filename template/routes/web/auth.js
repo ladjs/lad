@@ -25,12 +25,17 @@ router
     return next();
   })
   .get('/:provider', policies.ensureLoggedOut, catchError, (ctx, next) =>
-    passport.authenticate(ctx.params.provider, config.auth[ctx.params.provider])(ctx, next)
+    passport.authenticate(
+      ctx.params.provider,
+      config.auth[ctx.params.provider]
+    )(ctx, next)
   )
   .get('/:provider/ok', policies.ensureLoggedOut, catchError, (ctx, next) => {
     const redirect = ctx.session.returnTo
       ? ctx.session.returnTo
-      : `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+      : `/${ctx.locale}${
+          config.passportCallbackOptions.successReturnToOrRedirect
+        }`;
     return passport.authenticate(ctx.params.provider, {
       ...config.passportCallbackOptions,
       successReturnToOrRedirect: redirect

@@ -1,7 +1,7 @@
 const test = require('ava');
 
 test('creates inquiry', async t => {
-  const res = await web.post('/en/support', {
+  const res = await global.web.post('/en/support', {
     body: { email: 'test@example.com', message: 'Test message!' }
   });
   t.is(res.status, 200);
@@ -12,11 +12,11 @@ test('creates inquiry', async t => {
 });
 
 test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', async t => {
-  await web.post('/en/support', {
+  await global.web.post('/en/support', {
     body: { email: 'test2@example.com', message: 'Test message!' }
   });
 
-  const res = await web.post('/en/support', {
+  const res = await global.web.post('/en/support', {
     body: {
       email: 'test2@example.com',
       message: 'Test message!'
@@ -31,14 +31,14 @@ test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', a
 });
 
 test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', async t => {
-  await web.post('/en/support', {
+  await global.web.post('/en/support', {
     body: {
       email: 'test3@example.com',
       message: 'Test message!'
     }
   });
 
-  const res = await web.post('/en/support', {
+  const res = await global.web.post('/en/support', {
     body: {
       email: 'test3@example.com',
       message: 'Test message!'

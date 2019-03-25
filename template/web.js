@@ -1,9 +1,9 @@
 global.Promise = require('bluebird');
 
-const Server = require('@ladjs/web');
 const Graceful = require('@ladjs/graceful');
-const mongoose = require('@ladjs/mongoose');
+const Web = require('@ladjs/web');
 const maxListenersExceededWarning = require('max-listeners-exceeded-warning');
+const mongoose = require('@ladjs/mongoose');
 
 const config = require('./config');
 const routes = require('./routes');
@@ -11,7 +11,7 @@ const { i18n, logger, passport } = require('./helpers');
 
 if (process.env.NODE_ENV !== 'production') maxListenersExceededWarning();
 
-const server = new Server({
+const web = new Web({
   routes: routes.web,
   logger,
   i18n,
@@ -26,15 +26,17 @@ if (!module.parent) {
     logger
   });
 
-  mongoose
-    .connect()
-    .then(() => {
-      server.listen(process.env.WEB_PORT);
-    })
-    .catch(logger.error);
+  (async () => {
+    try {
+      await mongoose.connect();
+      web.listen(process.env.WEB_PORT);
+    } catch (err) {
+      logger.error(err);
+    }
+  })();
 
-  const graceful = new Graceful({ mongoose, server, logger });
+  const graceful = new Graceful({ mongoose, server: web, logger });
   graceful.listen();
 }
 
-module.exports = server;
+module.exports = web;

@@ -37,22 +37,25 @@ module.exports = {
 
     // <https://github.com/kentcdodds/nps-utils/issues/24>
     pretest: npsUtils.crossEnv(
-      `${testEnv} ${npsUtils.concurrent.nps('build-and-lint', 'pretest-mongo', 'pretest-redis')}`
+      `${testEnv} ${npsUtils.concurrent.nps(
+        'build-and-lint',
+        'pretest-mongo',
+        'pretest-redis'
+      )}`
     ),
     pretestMongo: `mongo lad_test --eval 'db.dropDatabase()'`,
     // <https://stackoverflow.com/a/16974060/3586413>
-    // eslint-disable-next-line max-len
     pretestRedis: `redis-cli EVAL "return redis.call('del', 'defaultKey', unpack(redis.call('keys', ARGV[1])))" 0 limit_test:*`,
 
     test: npsUtils.crossEnv(`${testEnv} ava`),
-    testCoverage: npsUtils.crossEnv(`${testEnv} ${npsUtils.series('nps pretest', 'nyc ava')}`),
+    testCoverage: npsUtils.crossEnv(
+      `${testEnv} ${npsUtils.series('nps pretest', 'nyc ava')}`
+    ),
     testUpdateSnapshots: npsUtils.crossEnv(
       `${testEnv} ${npsUtils.series('nps pretest', 'ava --update-snapshots')}`
     ),
 
     coverage: 'nyc report --reporter=text-lcov > coverage.lcov && codecov',
-
-    precommit: npsUtils.series.nps('lint-staged', 'test'),
 
     publishAssets: npsUtils.crossEnv(`${gulpEnv} gulp publish`),
 

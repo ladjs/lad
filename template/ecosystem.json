@@ -3,7 +3,7 @@
     {
       "name": "web",
       "script": "web.js",
-      "exec_mode": "cluster",
+      "exec_mode": "cluster_mode",
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
@@ -12,7 +12,7 @@
     {
       "name": "api",
       "script": "api.js",
-      "exec_mode": "cluster",
+      "exec_mode": "cluster_mode",
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
@@ -21,7 +21,7 @@
     {
       "name": "agenda",
       "script": "agenda.js",
-      "exec_mode": "cluster",
+      "exec_mode": "cluster_mode",
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
@@ -30,7 +30,7 @@
     {
       "name": "proxy",
       "script": "proxy.js",
-      "exec_mode": "cluster",
+      "exec_mode": "cluster_mode",
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"

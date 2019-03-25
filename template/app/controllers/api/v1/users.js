@@ -17,7 +17,10 @@ const create = async ctx => {
 
   // register the user
   try {
-    const user = await Users.registerAsync({ email: body.email }, body.password);
+    const user = await Users.registerAsync(
+      { email: body.email },
+      body.password
+    );
 
     // send the response
     ctx.body = {
@@ -37,7 +40,13 @@ const retrieve = async ctx => {
 
 const update = async ctx => {
   // set fields we allow to be updated
-  const fields = ['email', 'display_name', 'given_name', 'family_name', 'avatar_url'];
+  const fields = [
+    'email',
+    'display_name',
+    'given_name',
+    'family_name',
+    'avatar_url'
+  ];
 
   // extend the user object
   // (basically overwrites or "extends" the existing fields)

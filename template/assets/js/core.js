@@ -30,11 +30,10 @@ const {
 } = require('@ladjs/assets');
 
 // import waypoints (see below example for how to use + `yarn add waypoints`)
-// eslint-disable-next-line import/no-unassigned-import
 // require('waypoints/lib/jquery.waypoints.js');
 
 // import pointer events polyfill for ie
-// eslint-disable-next-line import/no-unassigned-import,max-len
+// eslint-disable-next-line import/no-unassigned-import
 require('jquery.pointer-events-polyfill/dist/jquery.pointer-events-polyfill.min.js');
 
 // import jquery lazy
@@ -103,12 +102,10 @@ $(() => {
   //
   // Example usage:
   //
-  /* eslint-disable max-len */
   // <label class="d-block">
   //   <input required="required" data-toggle="custom-file" data-target="#company-logo" type="file" name="company_logo" accept="image/*" class="custom-file-input">
   //   <span id="company-logo" class="custom-file-control custom-file-name" data-btn="{{ t('Select File') }}" data-content="{{ t('Upload company logo...') }}"></span>
   // </label>
-  /* eslint-enable max-len */
   $('body').on(
     'change.customFileInput',
     'input[type="file"][data-toggle="custom-file"]',
@@ -124,7 +121,11 @@ $(() => {
     'form.confirm-prompt, form[data-toggle="confirm-prompt"]',
     confirmPrompt
   );
-  $('body').on('click.confirmPrompt', 'button.confirm-prompt, input.confirm-prompt', confirmPrompt);
+  $('body').on(
+    'click.confirmPrompt',
+    'button.confirm-prompt, input.confirm-prompt',
+    confirmPrompt
+  );
 
   // Bind ajax form submission and handle Stripe tokens in forms
   $('body').on('submit.ajaxForm', 'form.ajax-form', ajaxForm);

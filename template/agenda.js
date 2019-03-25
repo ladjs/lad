@@ -26,12 +26,14 @@ if (!module.parent) {
     agenda
   });
 
-  mongoose
-    .connect()
-    .then(() => {
+  (async () => {
+    try {
+      await mongoose.connect();
       agenda.start();
-    })
-    .catch(logger.error);
+    } catch (err) {
+      logger.error(err);
+    }
+  })();
 
   const graceful = new Graceful({
     mongoose,
