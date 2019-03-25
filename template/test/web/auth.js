@@ -3,7 +3,7 @@ const test = require('ava');
 const { Users } = require('../../app/models');
 
 test('creates new user', async t => {
-  const res = await web.post('/en/register', {
+  const res = await global.web.post('/en/register', {
     body: {
       email: 'test@example.com',
       password: '@!#SAL:DMA:SKLM!@'
@@ -15,7 +15,7 @@ test('creates new user', async t => {
 });
 
 test(`fails registering with easy password`, async t => {
-  const res = await web.post('/en/register', {
+  const res = await global.web.post('/en/register', {
     body: {
       email: 'test1@example.com',
       password: 'password'
@@ -26,7 +26,7 @@ test(`fails registering with easy password`, async t => {
 });
 
 test('fails registering invalid email', async t => {
-  const res = await web.post('/en/register', {
+  const res = await global.web.post('/en/register', {
     body: {
       email: 'test123',
       password: 'testpassword'
@@ -39,27 +39,30 @@ test(`doesn't leak used email`, async t => {
   const email = 'test2@example.com';
   const password = '!@K#NLK!#NSADKMSAD:K';
 
-  await web.post('/en/register', {
+  await global.web.post('/en/register', {
     body: { email, password }
   });
 
-  const res = await web.post('/en/register', {
+  const res = await global.web.post('/en/register', {
     body: { email, password: 'wrongpassword' }
   });
 
   t.is(res.status, 400);
-  t.is(res.body.message, 'A user with the given username is already registered');
+  t.is(
+    res.body.message,
+    'A user with the given username is already registered'
+  );
 });
 
 test(`allows password reset for valid email (HTML)`, async t => {
   const email = 'test3@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', {
+  await global.web.post('/en/register', {
     body: { email, password }
   });
 
-  const res = await web.post('/en/forgot-password', {
+  const res = await global.web.post('/en/forgot-password', {
     headers: { Accept: 'text/html' },
     body: { email }
   });
@@ -71,21 +74,24 @@ test(`allows password reset for valid email (JSON)`, async t => {
   const email = 'test4@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  const res = await web.post('/en/forgot-password', { body: { email } });
+  const res = await global.web.post('/en/forgot-password', { body: { email } });
 
   t.is(res.status, 200);
-  t.is(res.body.message, 'We have sent you an email with a link to reset your password.');
+  t.is(
+    res.body.message,
+    'We have sent you an email with a link to reset your password.'
+  );
 });
 
 test(`resets password with valid email and token (HTML)`, async t => {
   const email = 'test5@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
   const user = await Users.findOne({ email })
     .select('reset_token')
@@ -93,7 +99,7 @@ test(`resets password with valid email and token (HTML)`, async t => {
 
   if (!user) throw new Error('User does not exist');
 
-  const res = await web.post(`/en/reset-password/${user.reset_token}`, {
+  const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email, password },
     headers: {
       Accept: 'text/html'
@@ -107,9 +113,9 @@ test(`resets password with valid email and token (JSON)`, async t => {
   const email = 'test6@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
   const user = await Users.findOne({ email })
     .select('reset_token')
@@ -117,7 +123,7 @@ test(`resets password with valid email and token (JSON)`, async t => {
 
   if (!user) throw new Error('User does not exist');
 
-  const res = await web.post(`/en/reset-password/${user.reset_token}`, {
+  const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email, password }
   });
 
@@ -129,7 +135,7 @@ test(`fails resetting password for non-existent user`, async t => {
   const email = 'test7@example.com';
   const password = '!@K#NLK!#N';
 
-  const res = await web.post(`/en/reset-password/randomtoken`, {
+  const res = await global.web.post(`/en/reset-password/randomtoken`, {
     body: { email, password }
   });
 
@@ -141,11 +147,11 @@ test(`fails resetting password with invalid reset_token`, async t => {
   const email = 'test8@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
-  const res = await web.post(`/en/reset-password/wrongtoken`, {
+  const res = await global.web.post(`/en/reset-password/wrongtoken`, {
     body: { email, password }
   });
 
@@ -157,9 +163,9 @@ test(`fails resetting password with missing new password`, async t => {
   const email = 'test9@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
   const user = await Users.findOne({ email })
     .select('reset_token')
@@ -167,7 +173,7 @@ test(`fails resetting password with missing new password`, async t => {
 
   if (!user) throw new Error('User does not exist');
 
-  const res = await web.post(`/en/reset-password/${user.reset_token}`, {
+  const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email }
   });
 
@@ -179,9 +185,9 @@ test(`fails resetting password with invalid email`, async t => {
   const email = 'test10@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
   const user = await Users.findOne({ email })
     .select('reset_token')
@@ -189,7 +195,7 @@ test(`fails resetting password with invalid email`, async t => {
 
   if (!user) throw new Error('User does not exist');
 
-  const res = await web.post(`/en/reset-password/${user.reset_token}`, {
+  const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email: 'wrongemail' }
   });
 
@@ -201,15 +207,15 @@ test(`fails resetting password with invalid email + reset_token match`, async t 
   const email = 'test11@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
   const user = await Users.findOne({ email }).exec();
 
   if (!user) throw new Error('User does not exist');
 
-  const res = await web.post(`/en/reset-password/${user.reset_token}`, {
+  const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email: 'wrongemail@example.com', password }
   });
 
@@ -221,9 +227,9 @@ test(`fails resetting password if new password is too weak`, async t => {
   const email = 'test12@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
   const user = await Users.findOne({ email })
     .select('reset_token')
@@ -231,7 +237,7 @@ test(`fails resetting password if new password is too weak`, async t => {
 
   if (!user) throw new Error('User does not exist');
 
-  const res = await web.post(`/en/reset-password/${user.reset_token}`, {
+  const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email, password: 'password' }
   });
 
@@ -243,11 +249,11 @@ test(`fails resetting password if reset was already tried in the last 30 mins`, 
   const email = 'test13@example.com';
   const password = '!@K#NLK!#N';
 
-  await web.post('/en/register', { body: { email, password } });
+  await global.web.post('/en/register', { body: { email, password } });
 
-  await web.post('/en/forgot-password', { body: { email } });
+  await global.web.post('/en/forgot-password', { body: { email } });
 
-  const res = await web.post('/en/forgot-password', { body: { email } });
+  const res = await global.web.post('/en/forgot-password', { body: { email } });
 
   t.is(res.status, 400);
   t.is(

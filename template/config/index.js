@@ -15,7 +15,13 @@ const utilities = require('./utilities');
 const phrases = require('./phrases');
 const meta = require('./meta');
 
-const bitter = path.join(__dirname, '..', 'node_modules', 'bitter-font', 'fonts');
+const bitter = path.join(
+  __dirname,
+  '..',
+  'node_modules',
+  'bitter-font',
+  'fonts'
+);
 
 const config = {
   fonts: {
@@ -125,7 +131,8 @@ const config = {
     lastLoginField: 'last_login_at',
     usernameLowerCase: true,
     limitAttempts: true,
-    maxAttempts: process.env.NODE_ENV === 'development' ? Number.MAX_SAFE_INTEGER : 5,
+    maxAttempts:
+      process.env.NODE_ENV === 'development' ? Number.MAX_SAFE_INTEGER : 5,
     digestAlgorithm: 'sha256',
     encoding: 'hex',
     saltlen: 32,
@@ -155,7 +162,8 @@ const config = {
 };
 
 // merge environment configurations
-if (_.isObject(environments[env.NODE_ENV])) _.merge(config, environments[env.NODE_ENV]);
+if (_.isObject(environments[env.NODE_ENV]))
+  _.merge(config, environments[env.NODE_ENV]);
 
 // meta support for SEO
 config.meta = meta(config);
@@ -166,8 +174,8 @@ const i18n = new I18N({
   ...config.i18n,
   logger
 });
-config.views.locals.filters.translate = function() {
-  return i18n.api.t(...arguments);
+config.views.locals.filters.translate = function(...args) {
+  return i18n.api.t(...args);
 };
 
 // add global `config` object to be used by views
@@ -194,7 +202,7 @@ config.email.transport.use(
   })
 );
 
-config.email.views = Object.assign({}, config.views);
+config.email.views = { ...config.views };
 config.email.views.root = path.join(__dirname, '..', 'emails');
 config.email.i18n = config.i18n;
 config.email.juiceResources.webResources = { relativeTo: config.buildDir };

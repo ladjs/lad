@@ -3,13 +3,12 @@ const fs = require('fs-extra');
 const awspublish = require('gulp-awspublish');
 const babelify = require('@ladjs/babelify');
 const cloudfront = require('gulp-cloudfront');
-const runSequence = require('run-sequence');
-const livereload = require('gulp-livereload');
+const lr = require('gulp-livereload');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpif = require('gulp-if');
 const xo = require('gulp-xo');
 const eslint = require('gulp-eslint');
-const gulp = require('gulp');
+const { task, watch, series, parallel, src, dest } = require('gulp');
 const source = require('vinyl-source-stream');
 const uglify = require('gulp-uglify');
 const browserify = require('browserify');
@@ -42,7 +41,7 @@ const DEV = config.env === 'development';
 const WATCH = boolean(process.env.WATCH);
 const OPEN_BROWSER = boolean(process.env.OPEN_BROWSER);
 
-// don't stop streams/tasks if we're running gulp watch
+// don't stop streams/tasks if we're running watch
 const reporterOptions = {};
 if (WATCH) reporterOptions.fail = false;
 
@@ -70,32 +69,22 @@ const staticAssets = [
 ];
 
 const pugTask = (reload = false, src = ['app/views/**/*.pug']) => {
-  return gulp.src(src).pipe(gulpif(reload && DEV, livereload(config.livereload)));
+  return src(src).pipe(gulpif(reload && DEV, lr(config.livereload)));
 };
 
-gulp.task('default', ['build']);
-
-gulp.task('clean', () => {
+function clean() {
   return fs.emptyDir(path.join(__dirname, 'build'));
-});
+}
 
-gulp.task('mkdirp', () => {
+function mkdirp() {
   return fs.emptyDir(path.join(__dirname, 'build', '.fonts'));
-});
+}
 
-gulp.task('build', done => {
-  runSequence('clean', 'mkdirp', ['img', 'static', 'xo', 'css'], 'js', 'eslint', async () => {
-    if (OPEN_BROWSER) await opn(config.urls.web, { wait: false });
-    done();
-  });
-});
-
-gulp.task('publish', () => {
+function publish() {
   // create a new publisher
   const publisher = awspublish.create(config.aws);
   return (
-    gulp
-      .src(['build/**/*', '!build/rev-manifest.json'])
+    src(['build/**/*', '!build/rev-manifest.json'])
       // gzip, Set Content-Encoding headers and add .gz extension
       .pipe(awspublish.gzip())
       // publisher will add Content-Length, Content-Type
@@ -112,28 +101,23 @@ gulp.task('publish', () => {
       .pipe(awspublish.reporter())
       .pipe(cloudfront(config.aws))
   );
-});
+}
 
-gulp.task('pug', () => pugTask());
+function pug() {
+  return pugTask();
+}
 
-gulp.task('livereload', () => livereload.listen(config.livereload));
-
-gulp.task('watch', ['livereload', 'build'], () => {
-  gulp.watch('assets/img/**/*', ['img']);
-  gulp.watch('assets/css/**/*.scss', ['css']);
-  gulp.watch('assets/js/**/*.js', ['js']);
-  gulp.watch('build/js/**/*.js', ['eslint']);
-  gulp.watch('app/views/**/*.pug', event => pugTask(true, [event.path]));
-});
+function livereload() {
+  return lr.listen(config.livereload);
+}
 
 // TODO: gulp-rev-all
 // TODO: express-redirect-loop fix for koa
 // TODO: rev images?
-gulp.task('img', () => {
-  return gulp
-    .src('assets/img/**/*', {
-      base: 'assets'
-    })
+function img() {
+  return src('assets/img/**/*', {
+    base: 'assets'
+  })
     .pipe(
       imagemin({
         progressive: true,
@@ -141,8 +125,8 @@ gulp.task('img', () => {
         use: [pngquant()]
       })
     )
-    .pipe(gulp.dest('build'))
-    .pipe(gulpif(DEV, livereload(config.livereload)))
+    .pipe(dest('build'))
+    .pipe(gulpif(DEV, lr(config.livereload)))
     .pipe(
       gulpif(
         PROD,
@@ -151,22 +135,21 @@ gulp.task('img', () => {
         })
       )
     )
-    .pipe(gulpif(PROD, gulp.dest('build')));
-});
+    .pipe(gulpif(PROD, dest('build')));
+}
 
-gulp.task('css', () => {
-  return gulp
-    .src('assets/css/**/*.scss', {
-      base: 'assets'
-    })
+function css() {
+  return src('assets/css/**/*.scss', {
+    base: 'assets'
+  })
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss(processors))
     .pipe(reporter(reporterOptions))
     .pipe(gulpif(PROD, rev()))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('build'))
-    .pipe(gulpif(DEV, livereload(config.livereload)))
+    .pipe(dest('build'))
+    .pipe(gulpif(DEV, lr(config.livereload)))
     .pipe(
       gulpif(
         PROD,
@@ -176,24 +159,22 @@ gulp.task('css', () => {
         })
       )
     )
-    .pipe(gulpif(PROD, gulp.dest('build')));
-});
+    .pipe(gulpif(PROD, dest('build')));
+}
 
-gulp.task('xo', () => {
-  return gulp
-    .src('assets/**/*.js')
+task('xo', () =>
+  src('assets/**/*.js')
     .pipe(xo())
-    .pipe(reporter(reporterOptions));
-});
+    .pipe(reporter(reporterOptions))
+);
 
-gulp.task('eslint', () => {
-  return gulp
-    .src('build/**/*.js')
+task('eslint', () =>
+  src('build/**/*.js')
     .pipe(eslint())
-    .pipe(reporter(reporterOptions));
-});
+    .pipe(reporter(reporterOptions))
+);
 
-gulp.task('js', done => {
+function js(done) {
   glob(
     'js/**/*.js',
     {
@@ -222,8 +203,8 @@ gulp.task('js', done => {
             .pipe(gulpif(PROD, uglify()))
             .pipe(gulpif(PROD, rev()))
             .pipe(sourcemaps.write('./'))
-            .pipe(gulp.dest('build'))
-            .pipe(gulpif(DEV, livereload(config.livereload)))
+            .pipe(dest('build'))
+            .pipe(gulpif(DEV, lr(config.livereload)))
         );
       });
 
@@ -237,17 +218,53 @@ gulp.task('js', done => {
               base: 'build'
             })
           )
-          .pipe(gulp.dest('build'));
+          .pipe(dest('build'));
 
       taskStream.on('end', done);
     }
   );
+}
+
+function static() {
+  return src(staticAssets, {
+    base: 'assets',
+    allowEmpty: true
+  }).pipe(dest('build'));
+}
+
+task('browser', async () => {
+  if (OPEN_BROWSER) await opn(config.urls.web, { wait: false });
 });
 
-gulp.task('static', () => {
-  return gulp
-    .src(staticAssets, {
-      base: 'assets'
-    })
-    .pipe(gulp.dest('build'));
-});
+const build = series(
+  clean,
+  mkdirp,
+  parallel(img, static, 'xo', css),
+  'eslint',
+  'browser'
+);
+
+function watchFiles() {
+  watch('assets/img/**/*', img);
+  watch('assets/css/**/*.scss', css);
+  watch('assets/js/**/*.js', js);
+  watch('build/js/**/*.js', eslint);
+  watch('app/views/**/*.pug', event => pugTask(true, [event.path]));
+}
+
+task('watch', series(parallel(livereload, build), watchFiles));
+
+module.exports = {
+  build,
+  clean,
+  css,
+  img,
+  js,
+  livereload,
+  mkdirp,
+  publish,
+  pug,
+  static
+};
+
+exports.default = build;

@@ -3,7 +3,7 @@
 </h1>
 <div align="center">
   <a href="http://slack.crocodilejs.com"><img src="http://slack.crocodilejs.com/badge.svg" alt="chat" /></a>
-  <a href="https://semaphoreci.com/niftylettuce/lad"><img src="https://semaphoreci.com/api/v1/niftylettuce/lad/branches/master/shields_badge.svg" alt="build status"></a>
+  <a href="https://travis-ci.org/ladjs/lad"><img src="https://travis-ci.org/ladjs/lad.svg?branch=master" alt="build status" /></a>
   <a href="https://codecov.io/github/ladjs/lad"><img src="https://img.shields.io/codecov/c/github/ladjs/lad/master.svg" alt="code coverage" /></a>
   <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="code style" /></a>
   <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" alt="styled with prettier" /></a>
@@ -70,7 +70,7 @@ These microservices are preconfigured for security, performance, and graceful re
 
 * Browser linting using [eslint-plugin-compat][] and [browserslist][] (see [.browserslistrc](template/.browserslistrc) for the default config)
 * [Pug][] template engine (you can easily use [Moon][], [Vue][], [React][], or [Angular][], though typically [you aren't going to need it][yagni])
-* [Gulp][]
+* [Gulp][] (latest version 4.x)
 * [Sass][]
 * [PostCSS][] (with [font-magician][], [import-url][], [font-grabber][], [base64][], and [cssnext][] pre-configured)
 * [Bootstrap][]
@@ -336,7 +336,6 @@ To configure SSL for the web or API server simply set them in your `.env` file o
 
 > Web server:
 
-* `WEB_PORT` - you must set this to `443`
 * `WEB_PROTOCOL` - you must set this to `https`
 * `WEB_SSL_KEY_PATH` - file path to your SSL key file (e.g. `/home/deploy/.ssl/web-key.pem`)
 * `WEB_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `/home/deploy/.ssl/web-cert.pem`)
@@ -344,7 +343,6 @@ To configure SSL for the web or API server simply set them in your `.env` file o
 
 > API server:
 
-* `API_PORT` - you must set this to `443`
 * `API_PROTOCOL` - you must set this to `https`
 * `API_SSL_KEY_PATH` - file path to your SSL key file (e.g. `/home/deploy/.ssl/api-key.pem`)
 * `API_SSL_CERT_PATH` - file path to your SSL certificate file (e.g. `/home/deploy/.ssl/api-cert.pem`)

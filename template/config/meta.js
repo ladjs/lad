@@ -30,20 +30,41 @@ module.exports = function(config) {
     '/about': [`About ${lad}`, `Learn more about ${config.appName}`],
     '/terms': [`Terms ${lad}`, 'Read our terms and conditions of use'],
     '/privacy': [`Privacy Policy ${lad}`, 'Read our privacy policy'],
-    '/support': [`Support ${lad}`, `Ask ${config.appName} your questions or leave comments`],
+    '/support': [
+      `Support ${lad}`,
+      `Ask ${config.appName} your questions or leave comments`
+    ],
     '/login': [`Sign in ${lad}`, 'Sign in to your account'],
     '/logout': [`Sign out of ${lad}`, 'Sign out of your account'],
     '/register': [`Sign up ${lad}`, `Create a ${config.appName} account`],
     '/my-account': [`Profile ${lad}`, `Manage your ${config.appName} profile`],
-    '/my-account/api': [`API Credentials ${lad}`, 'Manage your API credentials'],
-    '/my-account/security': [`Account Security - ${lad}`, `Secure your ${config.appName} account`],
-    '/dashboard': [`Dashboard ${lad}`, `Access your ${config.appName} dashboard`],
+    '/my-account/api': [
+      `API Credentials ${lad}`,
+      'Manage your API credentials'
+    ],
+    '/my-account/security': [
+      `Account Security - ${lad}`,
+      `Secure your ${config.appName} account`
+    ],
+    '/dashboard': [
+      `Dashboard ${lad}`,
+      `Access your ${config.appName} dashboard`
+    ],
     '/admin': [`Admin ${lad}`, 'Admin dashboard for administrative management'],
     '/admin/users': [`Users ${lad}`, 'View and manage users'],
-    '/forgot-password': [`Forgot password ${lad}`, 'Reset your account password'],
-    '/reset-password': [`Reset password ${lad}`, 'Confirm your password reset token'],
+    '/forgot-password': [
+      `Forgot password ${lad}`,
+      'Reset your account password'
+    ],
+    '/reset-password': [
+      `Reset password ${lad}`,
+      'Confirm your password reset token'
+    ],
     '/auth': [`Auth ${lad}`, 'Authenticate yourself to log in'],
-    '/404': [`Page not found ${lad}`, 'The page you requested could not be found'],
+    '/404': [
+      `Page not found ${lad}`,
+      'The page you requested could not be found'
+    ],
     '/500': [`Server error ${lad}`, 'A server error has unfortunately occurred']
   };
 };

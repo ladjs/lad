@@ -6,10 +6,14 @@ const apiServer = require('../api').listen();
 const webServer = require('../web').listen();
 
 mongoose.configure();
-mongoose
-  .connect()
-  .then()
-  .catch(logger.error);
+
+(async () => {
+  try {
+    await mongoose.connect();
+  } catch (err) {
+    logger.error(err);
+  }
+})();
 
 global.api = new Frisbee({
   baseURI: `http://localhost:${apiServer.address().port}`,

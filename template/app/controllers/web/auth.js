@@ -21,8 +21,8 @@ const sanitize = str =>
 const logout = async ctx => {
   ctx.logout();
   ctx.flash('custom', {
-    title: ctx.req.t('Logged out!'),
-    text: ctx.req.t('You have logged out.'),
+    title: ctx.request.t('Logged out!'),
+    text: ctx.request.t('You have logged out.'),
     type: 'success',
     toast: true,
     showConfirmButton: false,
@@ -37,7 +37,10 @@ const registerOrLogin = async ctx => {
   // then set it as the returnTo value for when we log in
   if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to)) {
     ctx.session.returnTo = ctx.query.return_to;
-  } else if (_.isString(ctx.query.redirect_to) && !s.isBlank(ctx.query.redirect_to)) {
+  } else if (
+    _.isString(ctx.query.redirect_to) &&
+    !s.isBlank(ctx.query.redirect_to)
+  ) {
     // in case people had a typo, we should support redirect_to as well
     ctx.session.returnTo = ctx.query.redirect_to;
   }
@@ -48,11 +51,14 @@ const registerOrLogin = async ctx => {
     ctx.session.returnTo.indexOf('://') !== -1 &&
     ctx.session.returnTo.indexOf(config.urls.web) !== 0
   ) {
-    ctx.logger.warn(`Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`);
+    ctx.logger.warn(
+      `Prevented abuse with returnTo hijacking to ${ctx.session.returnTo}`
+    );
     ctx.session.returnTo = null;
   }
 
-  ctx.state.verb = ctx.pathWithoutLocale === '/register' ? 'sign up' : 'sign in';
+  ctx.state.verb =
+    ctx.pathWithoutLocale === '/register' ? 'sign up' : 'sign in';
 
   await ctx.render('register-or-login');
 };
@@ -61,12 +67,18 @@ const homeOrDashboard = async ctx => {
   // If the user is logged in then take them to their dashboard
   if (ctx.isAuthenticated())
     return ctx.redirect(
-      `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`
+      `/${ctx.locale}${
+        config.passportCallbackOptions.successReturnToOrRedirect
+      }`
     );
   // Manually set page title since we don't define Home route in config/meta
   ctx.state.meta = {
-    title: sanitize(ctx.req.t(`Home &#124; <span class="notranslate">${config.appName}</span>`)),
-    description: sanitize(ctx.req.t(config.pkg.description))
+    title: sanitize(
+      ctx.request.t(
+        `Home &#124; <span class="notranslate">${config.appName}</span>`
+      )
+    ),
+    description: sanitize(ctx.request.t(config.pkg.description))
   };
   await ctx.render('home');
 };
@@ -80,8 +92,8 @@ const login = async (ctx, next) => {
         // redirect user to their last locale they were using
         if (!s.isBlank(user.last_locale) && user.last_locale !== ctx.locale) {
           ctx.state.locale = user.last_locale;
-          ctx.req.locale = ctx.state.locale;
-          ctx.locale = ctx.req.locale;
+          ctx.request.locale = ctx.state.locale;
+          ctx.locale = ctx.request.locale;
         }
 
         let redirectTo = `/${ctx.locale}${
@@ -102,13 +114,14 @@ const login = async (ctx, next) => {
 
           let text = '';
           if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
-            text += ctx.req.t('Good afternoon');
-          else if (moment().format('HH') >= 17) text += ctx.req.t('Good evening');
-          else text += ctx.req.t('Good morning');
+            text += ctx.request.t('Good afternoon');
+          else if (moment().format('HH') >= 17)
+            text += ctx.request.t('Good evening');
+          else text += ctx.request.t('Good morning');
           text += ` ${user.display_name}.`;
 
           ctx.flash('custom', {
-            title: ctx.req.t('Welcome!'),
+            title: ctx.request.t('Welcome!'),
             text,
             type: 'success',
             toast: true,
@@ -136,7 +149,7 @@ const login = async (ctx, next) => {
     // so that we can do a proper error status code
     // and also translate the error to the user's locale
     if (err.name && err.message) {
-      ctx.throw(Boom.badRequest(ctx.req.t(err.message)));
+      ctx.throw(Boom.badRequest(ctx.request.t(err.message)));
     } else {
       ctx.throw(err);
     }
@@ -162,7 +175,9 @@ const register = async ctx => {
 
     await ctx.login(user);
 
-    let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+    let redirectTo = `/${ctx.locale}${
+      config.passportCallbackOptions.successReturnToOrRedirect
+    }`;
 
     if (ctx.session && ctx.session.returnTo) {
       redirectTo = ctx.session.returnTo;
@@ -170,7 +185,7 @@ const register = async ctx => {
     }
 
     ctx.flash('custom', {
-      title: ctx.req.t('Thanks!'),
+      title: ctx.request.t('Thanks!'),
       text: ctx.translate('REGISTERED'),
       type: 'success',
       toast: true,
@@ -227,6 +242,7 @@ const forgotPassword = async ctx => {
       ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
       ctx.redirect('back');
     }
+
     return;
   }
 
@@ -238,7 +254,10 @@ const forgotPassword = async ctx => {
   )
     return ctx.throw(
       Boom.badRequest(
-        ctx.translate('PASSWORD_RESET_LIMIT', moment(user.reset_token_expires_at).fromNow())
+        ctx.translate(
+          'PASSWORD_RESET_LIMIT',
+          moment(user.reset_token_expires_at).fromNow()
+        )
       )
     );
 
