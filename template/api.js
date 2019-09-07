@@ -9,7 +9,7 @@ const config = require('./config');
 const routes = require('./routes');
 const { i18n, logger, passport } = require('./helpers');
 
-if (process.env.NODE_ENV !== 'production') maxListenersExceededWarning();
+if (config.env !== 'production') maxListenersExceededWarning();
 
 const api = new API({
   routes: routes.api,

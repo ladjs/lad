@@ -1,13 +1,16 @@
-const hljs = require('highlight.js');
 const _ = require('lodash');
-const s = require('underscore.string');
-const moment = require('moment');
 const accounting = require('accounting');
-const fa = require('font-awesome-assets');
-const pluralize = require('pluralize');
-const customFonts = require('custom-fonts-in-emails');
-const gemoji = require('gemoji');
 const boolean = require('boolean');
+const customFonts = require('custom-fonts-in-emails');
+const dashify = require('dashify');
+const fa = require('font-awesome-assets');
+const gemoji = require('gemoji');
+const hljs = require('highlight.js');
+const humanize = require('humanize-string');
+const isSANB = require('is-string-and-not-blank');
+const moment = require('moment');
+const pluralize = require('pluralize');
+const titleize = require('titleize');
 
 function json(str, replacer = null, space = 2) {
   return JSON.stringify(str, replacer, space);
@@ -20,7 +23,7 @@ function emoji(str) {
 module.exports = {
   hljs,
   _,
-  s,
+  isSANB,
   moment,
   accounting,
   fa,
@@ -28,5 +31,8 @@ module.exports = {
   json,
   emoji,
   boolean,
+  titleize,
+  dashify,
+  humanize,
   ...customFonts
 };

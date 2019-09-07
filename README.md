@@ -357,7 +357,9 @@ However in other environments such as production, you definitely want emails to 
 We built-in support for Postmark by default (though you can swap in your own `transport` provider in the `jobs/email.js` file):
 
 1. Go to [https://postmarkapp.com](https://postmarkapp.com?utm_source=lad) – Start Free Trial
+
 2. Create a free trial account, then click Get Started, and proceed to create a "Server" and "Sender Signature"
+
 3. Copy/paste the "Server API token" under "Credentials" in your `.env` file (example below)
 
    ```diff
@@ -382,9 +384,13 @@ We use Lad's auth package under the hood; so if you want to configure authentica
 In order to add Google sign-in to your app (so users can log in with their Google account):
 
 1. Go to <https://console.developers.google.com> – Create a project (and fill out your project information – if you need a 120x120px default image, [you can use this one](https://cdn.rawgit.com/ladjs/lad/82d38d64/media/lad-120x120.png) with a CDN path of <https://cdn.rawgit.com/ladjs/lad/82d38d64/media/lad-120x120.png>
+
 2. Under your newly created project, go to Credentials – Create credentials – OAuth client ID – Web application
+
 3. Set "Authorized JavaScript origins" to `http://yourdomain.com` (replace with your domain) and also `http://localhost:3000` (for local development)
+
 4. Set "Authorized redirect URIs" to `http://yourdomain.com/auth/google/ok` (again, replace with your domain) and also `http://localhost:3000/auth/google/ok` (again, for local development)
+
 5. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
 
    ```diff
@@ -409,7 +415,9 @@ We strongly recommend that you use [SemaphoreCI][] for continuous integration an
 Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 
 1. Go to [SemaphoreCI][] and sign up for a free account
+
 2. Once your repository is pushed to GitHub, add it as a project on SemaphoreCI
+
 3. Configure your project on SemaphoreCI with the following build settings:
 
    > Replace `npm` with `yarn` if you're using [yarn][] as your package manager
@@ -422,9 +430,13 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
    * After job: `npm run coverage`
 
 4. Go to [Codecov][] and sign up for a free account
+
 5. Add your project on Codecov and copy to your clipboard the token
+
 6. Go to SemaphoreCI's Project Settings for your project and add `CODECOV_TOKEN` as an environment variable (with the contents from your clipboard)
+
 7. Run a test build ("Rebuild last revision") on SemaphoreCI and check to make sure your code coverage report uploads properly on Codecov
+
 8. Ensure your `README.md` file has the build status and code coverage badges rendered properly (you will need to use a different badge link from each provider if your GitHub repository is private)
 
 #### Amazon S3 and CloudFront Asset Setup
@@ -432,6 +444,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
 In order for your assets to get properly served in a production environment, you'll need to configure AWS:
 
 1. Go to <https://console.aws.amazon.com/iam/home#security_credential> ‐ Access Keys – Create New Access Key
+
 2. Copy and paste the newly created key pair for respective properties in your `.env` file (example below)
 
    ```diff
@@ -442,7 +455,9 @@ In order for your assets to get properly served in a production environment, you
    ```
 
 3. Enable your API by clicking on Overview and then clicking the Enable button
+
 4. Go to <https://console.aws.amazon.com/s3/home> – Create Bucket
+
 5. Create a bucket and copy/paste its name for the property in `.env` (example below)
 
    ```diff
@@ -451,8 +466,11 @@ In order for your assets to get properly served in a production environment, you
    ```
 
 6. Go to <https://console.aws.amazon.com/cloudfront/home> – Create Distribution – Get Started
+
 7. Set "Origin Domain Name" equal to your S3 bucket name (their autocomplete drop-down will help you find it)
+
 8. Leave the remaining defaults as is (some fields might be blank, this is OK)
+
 9. Copy/paste the newly created Distribution ID and Domain Name for respective properties in your `.env` file (example below)
 
    ```diff
@@ -693,7 +711,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 

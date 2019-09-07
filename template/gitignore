@@ -13,3 +13,5 @@ temp.md
 !.gulpfile.env
 *.lcov
 .base64-cache
+locales/**/*
+!locales

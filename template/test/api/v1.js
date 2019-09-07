@@ -1,13 +1,13 @@
 const test = require('ava');
 
-test(`fails when no creds are presented`, async t => {
+test('fails when no creds are presented', async t => {
   const res = await global.api.get('/v1/account');
   t.is(401, res.status);
 });
 
-test(`returns current user's account`, async t => {
+test("returns current user's account", async t => {
   const body = {
-    email: 'testglobal.api.example.com',
+    email: 'testglobal@api.example.com',
     password: 'FKOZa3kP0TxSCA'
   };
 
@@ -16,7 +16,7 @@ test(`returns current user's account`, async t => {
 
   res = await global.api.get('/v1/account', {
     headers: {
-      Authorization: `Basic ${Buffer.from(`${res.body.api.token}:`).toString(
+      Authorization: `Basic ${Buffer.from(`${res.body.api_token}:`).toString(
         'base64'
       )}`
     }

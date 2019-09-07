@@ -1,4 +1,4 @@
-# browsers that we support
-# <https://github.com/ai/browserslist>
+# Browsers that we support
+
+> 1%
 last 2 versions
-ie >= 10

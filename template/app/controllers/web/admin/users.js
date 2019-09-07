@@ -1,38 +1,112 @@
 const paginate = require('koa-ctx-paginate');
 
 const { Users } = require('../../../models');
+const config = require('../../../../config');
 
-const list = async ctx => {
-  try {
-    const [users, itemCount] = await Promise.all([
-      Users.find({})
-        .limit(ctx.query.limit)
-        .skip(ctx.paginate.skip)
-        .lean()
-        .sort('-created_at')
-        .exec(),
-      Users.count({})
-    ]);
+async function list(ctx) {
+  const [users, itemCount] = await Promise.all([
+    Users.find({})
+      .limit(ctx.query.limit)
+      .skip(ctx.paginate.skip)
+      .lean()
+      .sort('-created_at')
+      .exec(),
+    Users.countDocuments({})
+  ]);
 
-    const pageCount = Math.ceil(itemCount / ctx.query.limit);
+  const pageCount = Math.ceil(itemCount / ctx.query.limit);
 
-    await ctx.render('admin/users', {
-      users,
-      pageCount,
-      itemCount,
-      pages: paginate.getArrayPages(ctx)(3, pageCount, ctx.query.page)
-    });
-  } catch (err) {
-    ctx.throw(err);
+  await ctx.render('admin/users', {
+    users,
+    pageCount,
+    itemCount,
+    pages: paginate.getArrayPages(ctx)(3, pageCount, ctx.query.page)
+  });
+}
+
+async function retrieve(ctx) {
+  ctx.state.result = await Users.findById(ctx.params.id);
+  if (!ctx.state.result) throw new Error(ctx.translate('INVALID_USER'));
+  await ctx.render('admin/users/retrieve');
+}
+
+async function update(ctx) {
+  const user = await Users.findById(ctx.params.id);
+  if (!user) throw new Error(ctx.translate('INVALID_USER'));
+  const { body } = ctx.request;
+
+  user[config.passport.fields.givenName] =
+    body[config.passport.fields.givenName];
+  user[config.passport.fields.familyName] =
+    body[config.passport.fields.familyName];
+  user.email = body.email;
+  user.group = body.group;
+
+  await user.save();
+
+  if (user.id === ctx.state.user.id) await ctx.login(user);
+
+  ctx.flash('custom', {
+    title: ctx.request.t('Success'),
+    text: ctx.translate('REQUEST_OK'),
+    type: 'success',
+    toast: true,
+    showConfirmButton: false,
+    timer: 3000,
+    position: 'top'
+  });
+
+  if (ctx.accepts('json')) {
+    ctx.body = { reloadPage: true };
+  } else {
+    ctx.redirect('back');
   }
-};
+}
 
-const update = ctx => {
-  ctx.throw('coming soon');
-};
+async function remove(ctx) {
+  const user = await Users.findById(ctx.params.id);
+  if (!user) throw new Error(ctx.translate('INVALID_USER'));
+  await user.remove();
+  ctx.flash('custom', {
+    title: ctx.request.t('Success'),
+    text: ctx.translate('REQUEST_OK'),
+    type: 'success',
+    toast: true,
+    showConfirmButton: false,
+    timer: 3000,
+    position: 'top'
+  });
 
-const remove = ctx => {
-  ctx.throw('coming soon');
-};
+  if (ctx.accepts('json')) {
+    ctx.body = { reloadPage: true };
+  } else {
+    ctx.redirect('back');
+  }
+}
 
-module.exports = { list, update, remove };
+async function login(ctx) {
+  const user = await Users.findById(ctx.params.id);
+  if (!user) throw new Error(ctx.translate('INVALID_USER'));
+
+  ctx.logout();
+
+  await ctx.login(user);
+
+  ctx.flash('custom', {
+    title: ctx.request.t('Success'),
+    text: ctx.translate('REQUEST_OK'),
+    type: 'success',
+    toast: true,
+    showConfirmButton: false,
+    timer: 3000,
+    position: 'top'
+  });
+
+  if (ctx.accepts('json')) {
+    ctx.body = { redirectTo: '/' };
+  } else {
+    ctx.redirect('/');
+  }
+}
+
+module.exports = { list, retrieve, update, remove, login };

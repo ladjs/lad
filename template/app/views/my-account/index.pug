@@ -1,4 +1,3 @@
-
 extends ../layout
 
 block body
@@ -10,27 +9,27 @@ block body
         form(action=ctx.path, method='POST').ajax-form.confirm-prompt.mt-3
           input(type='hidden', name='_method', value='PUT')
           input(type="hidden", name="_csrf", value=ctx.csrf)
+          input(type='hidden', name='change_password', value='true')
           .modal-body
             .form-group.row
               label.control-label.col-md-4.col-form-label.text-md-right= t('Old password')
               .col-md-8
                 input(type='password', name='old_password', required).form-control
             .form-group.row
-              label.control-label.col-md-4.col-form-label.text-md-right= t('New password')
+              label.control-label.col-md-4.col-form-label.text-md-right= t('Password')
               .col-md-8
-                input(type='password', name='new_password', required).form-control
+                input(type='password', name='password', required).form-control
+            .form-group.row
+              label.control-label.col-md-4.col-form-label.text-md-right= t('Confirm password')
+              .col-md-8
+                input(type='password', name='confirm_password', required).form-control
           .modal-footer.text-right
-            button(type='button', data-dismiss='modal', aria-label='Cancel').btn.btn-secondary= t('Cancel')
+            button(type='button', data-dismiss='modal', aria-label=t('Cancel')).btn.btn-secondary= t('Cancel')
             button(type='submit').btn.btn-primary= t('Change password')
   .container-fluid.py-3
     .row.mt-1
-      .col-md-3.col-lg-2
-        include ../_sidebar
-      .col-md-9.col-lg-10
-        .text-center.text-md-left
-          h1.h6.text-muted= t('My Account')
-          h2= t('Profile')
-        hr
+      .col
+        include ../_breadcrumbs
         form(action=ctx.path, method='POST').ajax-form.confirm-prompt
           input(type='hidden', name='_method', value='PUT')
           input(type="hidden", name="_csrf", value=ctx.csrf)
@@ -40,11 +39,11 @@ block body
               .form-group.row
                 label.control-label.col-md-4.col-form-label.text-md-right= t('First name')
                 .col-md-8
-                  input(type='text', name='given_name', value=user.given_name).form-control
+                  input(type='text', name=config.passport.fields.givenName, value=user[config.passport.fields.givenName]).form-control
               .form-group.row
                 label.control-label.col-md-4.col-form-label.text-md-right= t('Last name')
                 .col-md-8
-                  input(type='text', name='family_name', value=user.family_name).form-control
+                  input(type='text', name=config.passport.fields.familyName, value=user[config.passport.fields.familyName]).form-control
               .form-group.row
                 label.control-label.col-md-4.col-form-label.text-md-right= t('Email address')
                 .col-md-8

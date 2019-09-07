@@ -9,7 +9,7 @@ const jobs = require('./jobs');
 const { logger } = require('./helpers');
 const config = require('./config');
 
-if (process.env.NODE_ENV !== 'production') maxListenersExceededWarning();
+if (config.env !== 'production') maxListenersExceededWarning();
 
 const agenda = new Agenda();
 agenda.configure({

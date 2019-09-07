@@ -1,14 +1,14 @@
 const sanitize = require('sanitize-html');
 const moment = require('moment');
-const s = require('underscore.string');
-const Boom = require('boom');
+const isSANB = require('is-string-and-not-blank');
+const Boom = require('@hapi/boom');
 const _ = require('lodash');
 const validator = require('validator');
 
 const { Jobs, Inquiries } = require('../../models');
 const config = require('../../../config');
 
-module.exports = async function(ctx) {
+async function support(ctx) {
   let { body } = ctx.request;
 
   if (config.env === 'test') ctx.ip = ctx.ip || '127.0.0.1';
@@ -16,7 +16,7 @@ module.exports = async function(ctx) {
   body = _.pick(body, ['email', 'message']);
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
+    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
 
   if (!_.isUndefined(body.message) && !_.isString(body.message))
     delete body.message;
@@ -27,19 +27,19 @@ module.exports = async function(ctx) {
       allowedAttributes: []
     });
 
-  if (_.isString(body.message) && s.isBlank(body.message))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_MESSAGE')));
-
-  if (!_.isString(body.message)) {
+  if (_.isString(body.message)) {
+    if (!isSANB(body.message))
+      throw Boom.badRequest(ctx.translate('INVALID_MESSAGE'));
+    if (body.message.length > config.supportRequestMaxLength)
+      throw Boom.badRequest(ctx.translate('INVALID_MESSAGE'));
+  } else {
     body.message = ctx.translate('SUPPORT_REQUEST_MESSAGE');
     body.is_email_only = true;
-  } else if (body.message.length > config.supportRequestMaxLength) {
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_MESSAGE')));
   }
 
   // check if we already sent a support request in the past day
   // with this given ip address or email, otherwise create and email
-  const count = await Inquiries.count({
+  const count = await Inquiries.countDocuments({
     $or: [
       {
         ip: ctx.ip
@@ -56,7 +56,7 @@ module.exports = async function(ctx) {
   });
 
   if (count > 0 && config.env !== 'development')
-    return ctx.throw(Boom.badRequest(ctx.translate('SUPPORT_REQUEST_LIMIT')));
+    throw Boom.badRequest(ctx.translate('SUPPORT_REQUEST_LIMIT'));
 
   try {
     const inquiry = await Inquiries.create({
@@ -90,6 +90,8 @@ module.exports = async function(ctx) {
     }
   } catch (err) {
     ctx.logger.error(err, { body });
-    ctx.throw(ctx.translate('SUPPORT_REQUEST_ERROR'));
+    throw Boom.badRequest(ctx.translate('SUPPORT_REQUEST_ERROR'));
   }
-};
+}
+
+module.exports = support;

@@ -4,7 +4,7 @@ extends ../layout
 block content
   .jumbotron.jumbotron-fluid
     .container
-      != png2x({ text: `${t('Hey')} ${user.display_name}`, fontSize: 40, backgroundColor: '#e9ecef', fontNameOrPath: config.fonts.bitter.regular })
+      != png2x({ text: user[config.passport.fields.givenName] ? `${t('Hello')} ${user[config.passport.fields.givenName]}!` : t('Hello there!'), fontSize: 40, backgroundColor: '#e9ecef', fontNameOrPath: 'Bitter Regular' })
       p.lead.mt-2
         :translate(locale)
           Visit our website for complete documentation and tutorials.

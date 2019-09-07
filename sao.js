@@ -34,9 +34,9 @@ module.exports = {
     },
     pm: {
       message: 'Choose a package manager',
-      choices: ['npm5', 'yarn'],
+      choices: ['npm', 'yarn'],
       type: 'list',
-      default: 'npm5',
+      default: 'npm',
       store: true
     },
     author: {

@@ -1,84 +1,70 @@
 const path = require('path');
-const fs = require('fs-extra');
+
 const awspublish = require('gulp-awspublish');
 const babelify = require('@ladjs/babelify');
-const cloudfront = require('gulp-cloudfront');
-const lr = require('gulp-livereload');
-const sourcemaps = require('gulp-sourcemaps');
-const gulpif = require('gulp-if');
-const xo = require('gulp-xo');
-const eslint = require('gulp-eslint');
-const { task, watch, series, parallel, src, dest } = require('gulp');
-const source = require('vinyl-source-stream');
-const uglify = require('gulp-uglify');
+const boolean = require('boolean');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
-const rev = require('gulp-rev');
-const glob = require('glob');
-const es = require('event-stream');
-const imagemin = require('gulp-imagemin');
-const pngquant = require('imagemin-pngquant');
-const sass = require('gulp-sass');
-const postcss = require('gulp-postcss');
+const cloudfront = require('gulp-cloudfront');
+const collapser = require('bundle-collapser/plugin');
+const commonShake = require('common-shakeify');
 const cssnano = require('cssnano');
-const cssnext = require('postcss-cssnext');
-const ms = require('ms');
-const opn = require('opn');
-const reporter = require('gulp-reporter');
-const boolean = require('boolean');
+const envify = require('envify/custom');
 const fontMagician = require('postcss-font-magician');
-// const { postcssFontGrabber } = require('postcss-font-grabber');
-const inlineBase64 = require('postcss-inline-base64');
-const sassyImport = require('postcss-sassy-import');
-const mqPacker = require('css-mqpacker');
+const fontSmoothing = require('postcss-font-smoothing');
+const gulpEslint = require('gulp-eslint');
+const gulpRemark = require('gulp-remark');
+const gulpXo = require('gulp-xo');
+const gulpif = require('gulp-if');
+const imagemin = require('gulp-imagemin');
+const lr = require('gulp-livereload');
+const ms = require('ms');
+const nodeSass = require('node-sass');
+const open = require('open');
+const pngquant = require('imagemin-pngquant');
+const postcss = require('gulp-postcss');
+const postcssPresetEnv = require('postcss-preset-env');
+const pugLinter = require('gulp-pug-linter');
+const reporter = require('postcss-reporter');
+const rev = require('gulp-rev');
+const sass = require('gulp-sass');
+const scssParser = require('postcss-scss');
+const sourcemaps = require('gulp-sourcemaps');
+const stylelint = require('stylelint');
+const tap = require('gulp-tap');
+const uglify = require('gulp-uglify');
+const unassertify = require('unassertify');
 const unprefix = require('postcss-unprefix');
+const { lastRun, watch, series, parallel, src, dest } = require('gulp');
 
-const { logger } = require('./helpers');
+// explicitly set the compiler in case it were to change to dart
+sass.compiler = nodeSass;
+
+// required to disable watching of I18N files in @ladjs/i18n
+// otherwises tasks will fail to exit due to watchers running
+process.env.I18N_SYNC_FILES = true;
+process.env.I18N_AUTO_RELOAD = false;
+process.env.I18N_UPDATE_FILES = true;
+
+const env = require('./config/env');
 const config = require('./config');
 
 const PROD = config.env === 'production';
 const DEV = config.env === 'development';
-const WATCH = boolean(process.env.WATCH);
+const TEST = config.env === 'test';
 const OPEN_BROWSER = boolean(process.env.OPEN_BROWSER);
 
-// don't stop streams/tasks if we're running watch
-const reporterOptions = {};
-if (WATCH) reporterOptions.fail = false;
-
-// setup postcss processors
-const processors = [
-  sassyImport(),
-  fontMagician({
-    protocol: 'https:',
-    formats: 'woff',
-    hosted: [path.join(__dirname, 'build', 'fonts'), '/fonts']
-  }),
-  // postcssFontGrabber({ dirPath: path.join(__dirname, 'build', '.fonts') }),
-  inlineBase64({ baseDir: path.join(__dirname, 'assets', 'css') }),
-  unprefix(),
-  mqPacker(),
-  cssnext()
-];
-if (PROD) processors.push(cssnano({ autoprefixer: false }));
-
 const staticAssets = [
-  'assets/browserconfig.xml',
-  'assets/favicon.ico',
-  'assets/manifest.json',
-  'assets/fonts/**/*'
+  'assets/**/*',
+  '!assets/css/**/*',
+  '!assets/img/**/*',
+  '!assets/js/**/*'
 ];
 
-const pugTask = (reload = false, src = ['app/views/**/*.pug']) => {
-  return src(src).pipe(gulpif(reload && DEV, lr(config.livereload)));
+const manifestOptions = {
+  merge: true,
+  base: 'build'
 };
-
-function clean() {
-  return fs.emptyDir(path.join(__dirname, 'build'));
-}
-
-function mkdirp() {
-  return fs.emptyDir(path.join(__dirname, 'build', '.fonts'));
-}
 
 function publish() {
   // create a new publisher
@@ -104,19 +90,15 @@ function publish() {
 }
 
 function pug() {
-  return pugTask();
+  return src('app/views/**/*.pug', { since: lastRun(pug) })
+    .pipe(pugLinter({ failAfterError: true }))
+    .pipe(gulpif(DEV, lr(config.livereload)));
 }
 
-function livereload() {
-  return lr.listen(config.livereload);
-}
-
-// TODO: gulp-rev-all
-// TODO: express-redirect-loop fix for koa
-// TODO: rev images?
 function img() {
   return src('assets/img/**/*', {
-    base: 'assets'
+    base: 'assets',
+    since: lastRun(img)
   })
     .pipe(
       imagemin({
@@ -128,143 +110,157 @@ function img() {
     .pipe(dest('build'))
     .pipe(gulpif(DEV, lr(config.livereload)))
     .pipe(
-      gulpif(
-        PROD,
-        rev.manifest('build/rev-manifest.json', {
-          base: 'build'
-        })
-      )
+      gulpif(PROD, rev.manifest('build/rev-manifest.json', manifestOptions))
     )
     .pipe(gulpif(PROD, dest('build')));
 }
 
+function scss() {
+  return src('assets/css/**/*.scss', {
+    base: 'assets',
+    since: lastRun(scss)
+  }).pipe(
+    postcss([stylelint(), reporter()], {
+      syntax: scssParser
+    })
+  );
+}
+
 function css() {
   return src('assets/css/**/*.scss', {
-    base: 'assets'
+    base: 'assets',
+    since: lastRun(css)
   })
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    .pipe(postcss(processors))
-    .pipe(reporter(reporterOptions))
+    .pipe(
+      postcss([
+        fontMagician({
+          hosted: [path.join(__dirname, 'build', 'fonts'), '/fonts']
+        }),
+        unprefix(),
+        postcssPresetEnv(),
+        fontSmoothing(),
+        ...(PROD ? [cssnano({ autoprefixer: false })] : []),
+        reporter()
+      ])
+    )
     .pipe(gulpif(PROD, rev()))
     .pipe(sourcemaps.write('./'))
     .pipe(dest('build'))
     .pipe(gulpif(DEV, lr(config.livereload)))
     .pipe(
-      gulpif(
-        PROD,
-        rev.manifest('build/rev-manifest.json', {
-          merge: true,
-          base: 'build'
-        })
-      )
+      gulpif(PROD, rev.manifest('build/rev-manifest.json', manifestOptions))
     )
     .pipe(gulpif(PROD, dest('build')));
 }
 
-task('xo', () =>
-  src('assets/**/*.js')
-    .pipe(xo())
-    .pipe(reporter(reporterOptions))
-);
+function xo() {
+  return src('**/*.js', { since: lastRun(xo) })
+    .pipe(gulpXo())
+    .pipe(gulpXo.format())
+    .pipe(gulpXo.failAfterError());
+}
 
-task('eslint', () =>
-  src('build/**/*.js')
-    .pipe(eslint())
-    .pipe(reporter(reporterOptions))
-);
+function eslint() {
+  return src('build/**/*.js', { since: lastRun(eslint) })
+    .pipe(
+      gulpEslint({
+        allowInlineConfig: false,
+        configFile: '.build.eslintrc'
+      })
+    )
+    .pipe(gulpEslint.format('pretty'))
+    .pipe(gulpEslint.failAfterError());
+}
 
-function js(done) {
-  glob(
-    'js/**/*.js',
-    {
-      cwd: 'assets'
-    },
-    (err, files) => {
-      if (err) return done(err);
+// <https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-multiple-destination.md>
+function js() {
+  return src('assets/js/**/*.js', {
+    base: 'assets',
+    since: lastRun(js)
+  })
+    .pipe(
+      tap(file => {
+        file.contents = browserify({
+          entries: file.path,
+          debug: true,
+          basedir: 'assets'
+        })
+          .transform(babelify)
+          .transform(unassertify, { global: true })
+          .transform(envify(env), { global: true })
+          .plugin(collapser)
+          .plugin(commonShake)
+          .bundle();
+      })
+    )
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif(PROD, rev()))
+    .pipe(sourcemaps.write('./'))
+    .pipe(dest('build'))
+    .pipe(gulpif(DEV, lr(config.livereload)))
+    .pipe(
+      gulpif(PROD, rev.manifest('build/rev-manifest.json', manifestOptions))
+    )
+    .pipe(gulpif(PROD, dest('build')));
+}
 
-      const tasks = files.map(entry => {
-        return (
-          browserify({
-            entries: entry,
-            debug: false,
-            basedir: 'assets'
-          })
-            // TODO: redo all this like elsewhere (e.g. use gulp-babel@8.x)
-            .transform(babelify)
-            .bundle()
-            .on('error', function(err) {
-              logger.error(err);
-              this.emit('end');
-            })
-            .pipe(source(entry))
-            .pipe(buffer())
-            .pipe(sourcemaps.init({ loadMaps: true }))
-            .pipe(gulpif(PROD, uglify()))
-            .pipe(gulpif(PROD, rev()))
-            .pipe(sourcemaps.write('./'))
-            .pipe(dest('build'))
-            .pipe(gulpif(DEV, lr(config.livereload)))
-        );
-      });
-
-      const taskStream = es.merge(tasks);
-
-      if (PROD)
-        taskStream
-          .pipe(
-            rev.manifest('build/rev-manifest.json', {
-              merge: true,
-              base: 'build'
-            })
-          )
-          .pipe(dest('build'));
-
-      taskStream.on('end', done);
-    }
-  );
+function remark() {
+  return src('.')
+    .pipe(
+      gulpRemark({
+        quiet: true,
+        frail: true
+      })
+    )
+    .pipe(dest('.'));
 }
 
 function static() {
   return src(staticAssets, {
     base: 'assets',
-    allowEmpty: true
+    allowEmpty: true,
+    since: lastRun(static)
   }).pipe(dest('build'));
 }
 
-task('browser', async () => {
-  if (OPEN_BROWSER) await opn(config.urls.web, { wait: false });
-});
-
-const build = series(
-  clean,
-  mkdirp,
-  parallel(img, static, 'xo', css),
-  'eslint',
-  'browser'
-);
-
-function watchFiles() {
-  watch('assets/img/**/*', img);
-  watch('assets/css/**/*.scss', css);
-  watch('assets/js/**/*.js', js);
-  watch('build/js/**/*.js', eslint);
-  watch('app/views/**/*.pug', event => pugTask(true, [event.path]));
+async function browser() {
+  if (OPEN_BROWSER) await open(config.urls.web, { wait: false });
 }
 
-task('watch', series(parallel(livereload, build), watchFiles));
+const build = series(
+  parallel(
+    ...(TEST ? [] : [xo, remark]),
+    parallel(img, static, series(scss, css), series(js, eslint))
+  ),
+  browser
+);
 
 module.exports = {
   build,
-  clean,
-  css,
-  img,
   js,
-  livereload,
-  mkdirp,
   publish,
+  watch: () => {
+    lr.listen(config.livereload);
+    watch(['**/*.js', '!assets/js/**/*.js'], xo);
+    watch('assets/img/**/*', img);
+    watch('assets/css/**/*.scss', series(scss, css));
+    watch('assets/js/**/*.js', series(xo, js, eslint));
+    watch('app/views/**/*.pug', pug);
+    watch(staticAssets, static);
+  },
   pug,
-  static
+  img,
+  xo,
+  eslint,
+  static,
+  browser,
+  remark,
+  scss,
+  css
 };
 
 exports.default = build;

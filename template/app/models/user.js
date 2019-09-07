@@ -1,12 +1,28 @@
 const validator = require('validator');
-const s = require('underscore.string');
+const isSANB = require('is-string-and-not-blank');
 const randomstring = require('randomstring-extended');
 const mongoose = require('mongoose');
 const mongooseCommonPlugin = require('mongoose-common-plugin');
 const passportLocalMongoose = require('passport-local-mongoose');
+const StoreIPAddress = require('@ladjs/store-ip-address');
+
+// <https://github.com/Automattic/mongoose/issues/5534>
+mongoose.Error.messages = require('@ladjs/mongoose-error-messages');
 
 const config = require('../../config');
+
 const i18n = require('../../helpers/i18n');
+const logger = require('../../helpers/logger');
+
+const storeIPAddress = new StoreIPAddress({
+  logger,
+  ...config.storeIPAddress
+});
+
+if (config.passportLocalMongoose.usernameField !== 'email')
+  throw new Error(
+    'User model and @ladjs/passport requires that the usernameField is email'
+  );
 
 const User = new mongoose.Schema({
   // group permissions
@@ -17,9 +33,6 @@ const User = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
-
-  // TODO: we should configure this with passport-local-mongoose
-  // username field so that it is consistent when passed along
   email: {
     type: String,
     required: true,
@@ -28,29 +41,6 @@ const User = new mongoose.Schema({
     lowercase: true,
     unique: true,
     validate: val => validator.isEmail(val)
-  },
-
-  // TODO: these keys should get passed along to @ladjs/auth
-  display_name: {
-    type: String,
-    required: true,
-    trim: true,
-    maxlength: 70
-  },
-  given_name: {
-    type: String,
-    trim: true,
-    maxlength: 35
-  },
-  family_name: {
-    type: String,
-    trim: true,
-    maxlength: 35
-  },
-  avatar_url: {
-    type: String,
-    trim: true,
-    validate: val => validator.isURL(val)
   },
 
   // api token for basic auth
@@ -65,66 +55,69 @@ const User = new mongoose.Schema({
 
   // password reset
   reset_token_expires_at: Date,
-  reset_token: String,
-
-  // last locale
-  last_locale: {
-    type: String,
-    default: i18n.config.defaultLocale
-  },
-
-  // authentication
-
-  // google
-  // TODO: these keys should get stored in a plugin
-  // and also passed along to @ladjs/auth for the naming convention
-  google_profile_id: {
-    type: String,
-    index: true
-  },
-  google_access_token: String,
-  google_refresh_token: String,
-
-  // last ip information
-  // TODO: this should be part of store-ip-address package
-  last_ips: [
-    {
-      type: String,
-      trim: true,
-      validate: val => validator.isIP(val)
-    }
-  ],
-  ip: {
-    type: String,
-    trim: true,
-    validate: val => validator.isIP(val)
-  }
+  reset_token: String
 });
+
+// additional variable based properties to add to the schema
+const obj = {};
+
+// shared field names with @ladjs/passport for consistency
+const { fields } = config.passport;
+obj[fields.displayName] = {
+  type: String,
+  required: true,
+  trim: true,
+  maxlength: 70
+};
+obj[fields.givenName] = {
+  type: String,
+  trim: true,
+  maxlength: 35
+};
+obj[fields.familyName] = {
+  type: String,
+  trim: true,
+  maxlength: 35
+};
+obj[fields.avatarURL] = {
+  type: String,
+  trim: true,
+  validate: val => validator.isURL(val)
+};
+obj[fields.googleProfileID] = {
+  type: String,
+  index: true
+};
+obj[fields.googleAccessToken] = String;
+obj[fields.googleRefreshToken] = String;
+
+// shared field names with @ladjs/i18n and email-templates
+obj[config.lastLocaleField] = {
+  type: String,
+  default: i18n.config.defaultLocale
+};
+
+// finally add the fields
+User.add(obj);
 
 User.pre('validate', function(next) {
   // create api token if doesn't exist
-  if (s.isBlank(this.api_token)) this.api_token = randomstring.token(24);
+  if (!isSANB(this.api_token)) this.api_token = randomstring.token(24);
 
   // set the user's display name to their email address
   // but if they have a name or surname set then use that
-  this.display_name = this.email;
-  if (!s.isBlank(this.given_name) || !s.isBlank(this.family_name))
-    this.display_name = `${this.given_name || ''} ${this.family_name || ''}`;
+  this[fields.displayName] = this.email;
+  if (isSANB(this[fields.givenName]) || isSANB(this[fields.familyName])) {
+    this[fields.displayName] = `${this[fields.givenName] || ''} ${this[
+      fields.familyName
+    ] || ''}`;
+  }
 
   next();
 });
 
 User.plugin(mongooseCommonPlugin, { object: 'user' });
 User.plugin(passportLocalMongoose, config.passportLocalMongoose);
-
-// https://github.com/saintedlama/passport-local-mongoose/issues/218
-User.statics.registerAsync = function(data, password) {
-  return new Promise((resolve, reject) => {
-    this.register(data, password, (err, user) => {
-      if (err) return reject(err);
-      resolve(user);
-    });
-  });
-};
+User.plugin(storeIPAddress.plugin);
 
 module.exports = mongoose.model('User', User);

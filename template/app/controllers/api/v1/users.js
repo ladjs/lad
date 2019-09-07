@@ -1,62 +1,43 @@
-const Boom = require('boom');
-const s = require('underscore.string');
-const validator = require('validator');
-const _ = require('lodash');
+const Boom = require('@hapi/boom');
+const isSANB = require('is-string-and-not-blank');
 const { select } = require('mongoose-json-select');
 
+const config = require('../../../../config');
 const { Users } = require('../../../models');
 
-const create = async ctx => {
+async function create(ctx) {
   const { body } = ctx.request;
 
-  if (!_.isString(body.email) || !validator.isEmail(body.email))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
-
-  if (!_.isString(body.password) || s.isBlank(body.password))
+  if (!isSANB(body.password))
     return ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD')));
 
   // register the user
-  try {
-    const user = await Users.registerAsync(
-      { email: body.email },
-      body.password
-    );
+  const user = await Users.register({ email: body.email }, body.password);
 
-    // send the response
-    ctx.body = {
-      ...select(user.toObject(), Users.schema.options.toJSON.select),
-      api_token: user.api_token
-    };
-  } catch (err) {
-    ctx.throw(Boom.badRequest(err.message));
-  }
-};
+  // send the response
+  ctx.body = {
+    ...select(user.toObject(), Users.schema.options.toJSON.select),
+    api_token: user.api_token
+  };
+}
 
-const retrieve = async ctx => {
+async function retrieve(ctx) {
   // since we already have the user object
   // just send it over as a response
   ctx.body = ctx.state.user;
-};
+}
 
-const update = async ctx => {
-  // set fields we allow to be updated
-  const fields = [
-    'email',
-    'display_name',
-    'given_name',
-    'family_name',
-    'avatar_url'
-  ];
+async function update(ctx) {
+  const { body } = ctx.request;
 
-  // extend the user object
-  // (basically overwrites or "extends" the existing fields)
-  ctx.state.user = _.extend(ctx.state.user, _.pick(ctx.request.body, fields));
+  ctx.state.user.email = body.email;
+  ctx.state.user[config.passport.fields.givenName] =
+    body[config.passport.fields.givenName];
+  ctx.state.user[config.passport.fields.familyName] =
+    body[config.passport.fields.familyName];
+  ctx.state.user.avatar_url = body.avatar_url;
 
-  // save the user (allow mongoose to handle validation)
-  ctx.state.user = await ctx.state.user.save();
-
-  // send the response
-  ctx.body = ctx.state.user;
-};
+  ctx.body = await ctx.state.user.save();
+}
 
 module.exports = { create, retrieve, update };

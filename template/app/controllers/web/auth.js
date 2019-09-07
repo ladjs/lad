@@ -1,8 +1,7 @@
-const util = require('util');
 const moment = require('moment');
-const s = require('underscore.string');
+const isSANB = require('is-string-and-not-blank');
 const randomstring = require('randomstring-extended');
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const _ = require('lodash');
 const validator = require('validator');
 const { select } = require('mongoose-json-select');
@@ -18,11 +17,11 @@ const sanitize = str =>
     allowedAttributes: []
   });
 
-const logout = async ctx => {
+function logout(ctx) {
   ctx.logout();
   ctx.flash('custom', {
-    title: ctx.request.t('Logged out!'),
-    text: ctx.request.t('You have logged out.'),
+    title: ctx.request.t('Success'),
+    text: ctx.translate('REQUEST_OK'),
     type: 'success',
     toast: true,
     showConfirmButton: false,
@@ -30,17 +29,14 @@ const logout = async ctx => {
     position: 'top'
   });
   ctx.redirect(`/${ctx.locale}`);
-};
+}
 
-const registerOrLogin = async ctx => {
+async function registerOrLogin(ctx) {
   // if the user passed `?return_to` and it is not blank
   // then set it as the returnTo value for when we log in
-  if (_.isString(ctx.query.return_to) && !s.isBlank(ctx.query.return_to)) {
+  if (isSANB(ctx.query.return_to)) {
     ctx.session.returnTo = ctx.query.return_to;
-  } else if (
-    _.isString(ctx.query.redirect_to) &&
-    !s.isBlank(ctx.query.redirect_to)
-  ) {
+  } else if (isSANB(ctx.query.redirect_to)) {
     // in case people had a typo, we should support redirect_to as well
     ctx.session.returnTo = ctx.query.redirect_to;
   }
@@ -61,15 +57,13 @@ const registerOrLogin = async ctx => {
     ctx.pathWithoutLocale === '/register' ? 'sign up' : 'sign in';
 
   await ctx.render('register-or-login');
-};
+}
 
-const homeOrDashboard = async ctx => {
+async function homeOrDashboard(ctx) {
   // If the user is logged in then take them to their dashboard
   if (ctx.isAuthenticated())
     return ctx.redirect(
-      `/${ctx.locale}${
-        config.passportCallbackOptions.successReturnToOrRedirect
-      }`
+      `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`
     );
   // Manually set page title since we don't define Home route in config/meta
   ctx.state.meta = {
@@ -81,151 +75,132 @@ const homeOrDashboard = async ctx => {
     description: sanitize(ctx.request.t(config.pkg.description))
   };
   await ctx.render('home');
-};
+}
 
-const login = async (ctx, next) => {
-  try {
-    await passport.authenticate('local', (err, user, info) => {
-      return new Promise(async (resolve, reject) => {
-        if (err) return reject(err);
+async function login(ctx, next) {
+  await passport.authenticate('local', async (err, user, info) => {
+    if (err) throw err;
 
-        // redirect user to their last locale they were using
-        if (!s.isBlank(user.last_locale) && user.last_locale !== ctx.locale) {
-          ctx.state.locale = user.last_locale;
-          ctx.request.locale = ctx.state.locale;
-          ctx.locale = ctx.request.locale;
-        }
-
-        let redirectTo = `/${ctx.locale}${
-          config.passportCallbackOptions.successReturnToOrRedirect
-        }`;
-
-        if (ctx.session && ctx.session.returnTo) {
-          redirectTo = ctx.session.returnTo;
-          delete ctx.session.returnTo;
-        }
-
-        if (user) {
-          try {
-            await ctx.login(user);
-          } catch (err) {
-            return reject(err);
-          }
-
-          let text = '';
-          if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
-            text += ctx.request.t('Good afternoon');
-          else if (moment().format('HH') >= 17)
-            text += ctx.request.t('Good evening');
-          else text += ctx.request.t('Good morning');
-          text += ` ${user.display_name}.`;
-
-          ctx.flash('custom', {
-            title: ctx.request.t('Welcome!'),
-            text,
-            type: 'success',
-            toast: true,
-            showConfirmButton: false,
-            timer: 3000,
-            position: 'top'
-          });
-
-          if (ctx.accepts('json')) {
-            ctx.body = { redirectTo };
-          } else {
-            ctx.redirect(redirectTo);
-          }
-
-          return resolve();
-        }
-
-        if (info) return reject(info);
-
-        reject(ctx.translate('UNKNOWN_ERROR'));
-      });
-    })(ctx, next);
-  } catch (err) {
-    // passport-local-mongoose error detection
-    // so that we can do a proper error status code
-    // and also translate the error to the user's locale
-    if (err.name && err.message) {
-      ctx.throw(Boom.badRequest(ctx.request.t(err.message)));
-    } else {
-      ctx.throw(err);
+    // redirect user to their last locale they were using
+    if (
+      isSANB(user[config.lastLocaleField]) &&
+      user[config.lastLocaleField] !== ctx.locale
+    ) {
+      ctx.state.locale = user[config.lastLocaleField];
+      ctx.request.locale = ctx.state.locale;
+      ctx.locale = ctx.request.locale;
     }
-  }
-};
 
-const register = async ctx => {
-  const { body } = ctx.request;
-
-  if (!_.isString(body.email) || !validator.isEmail(body.email))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
-
-  if (!_.isString(body.password) || s.isBlank(body.password))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD')));
-
-  // register the user
-  try {
-    const count = await Users.count({ group: 'admin' });
-    const user = await Users.registerAsync(
-      { email: body.email, group: count === 0 ? 'admin' : 'user' },
-      body.password
-    );
-
-    await ctx.login(user);
-
-    let redirectTo = `/${ctx.locale}${
-      config.passportCallbackOptions.successReturnToOrRedirect
-    }`;
+    let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
 
     if (ctx.session && ctx.session.returnTo) {
       redirectTo = ctx.session.returnTo;
       delete ctx.session.returnTo;
     }
 
-    ctx.flash('custom', {
-      title: ctx.request.t('Thanks!'),
-      text: ctx.translate('REGISTERED'),
-      type: 'success',
-      toast: true,
-      showConfirmButton: false,
-      timer: 3000,
-      position: 'top'
-    });
+    if (user) {
+      try {
+        await ctx.login(user);
+      } catch (err2) {
+        throw err2;
+      }
 
-    if (ctx.accepts('json')) {
-      ctx.body = { redirectTo };
-    } else {
-      ctx.redirect(redirectTo);
-    }
+      let greeting = 'Good morning';
+      if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
+        greeting = 'Good afternoon';
+      else if (moment().format('HH') >= 17) greeting = 'Good evening';
 
-    // add welcome email job
-    try {
-      const job = await Jobs.create({
-        name: 'email',
-        data: {
-          template: 'welcome',
-          to: user.email,
-          locals: {
-            user: select(user.toObject(), Users.schema.options.toJSON.select)
-          }
-        }
+      ctx.flash('custom', {
+        title: `${ctx.request.t('Hello')} ${ctx.state.emoji('wave')}`,
+        text: user[config.passport.fields.givenName]
+          ? `${greeting} ${user[config.passport.fields.givenName]}`
+          : greeting,
+        type: 'success',
+        toast: true,
+        showConfirmButton: false,
+        timer: 3000,
+        position: 'top'
       });
-      ctx.logger.debug('queued welcome email', job);
-    } catch (err) {
-      ctx.logger.error(err);
-    }
-  } catch (err) {
-    ctx.throw(Boom.badRequest(err.message));
-  }
-};
 
-const forgotPassword = async ctx => {
+      if (ctx.accepts('json')) {
+        ctx.body = { redirectTo };
+      } else {
+        ctx.redirect(redirectTo);
+      }
+
+      return;
+    }
+
+    if (info) throw info;
+
+    throw new Error(ctx.translate('UNKNOWN_ERROR'));
+  })(ctx, next);
+}
+
+async function register(ctx) {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
+    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
+
+  if (!isSANB(body.password))
+    throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
+
+  // register the user
+  const count = await Users.countDocuments({ group: 'admin' });
+  const user = await Users.register(
+    { email: body.email, group: count === 0 ? 'admin' : 'user' },
+    body.password
+  );
+
+  await ctx.login(user);
+
+  let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+
+  if (ctx.session && ctx.session.returnTo) {
+    redirectTo = ctx.session.returnTo;
+    delete ctx.session.returnTo;
+  }
+
+  ctx.flash('custom', {
+    title: `${ctx.request.t('Thank you')} ${ctx.state.emoji('pray')}`,
+    text: ctx.translate('REGISTERED'),
+    type: 'success',
+    toast: true,
+    showConfirmButton: false,
+    timer: 3000,
+    position: 'top'
+  });
+
+  if (ctx.accepts('json')) {
+    ctx.body = { redirectTo };
+  } else {
+    ctx.redirect(redirectTo);
+  }
+
+  // add welcome email job
+  try {
+    const job = await Jobs.create({
+      name: 'email',
+      data: {
+        template: 'welcome',
+        to: user.email,
+        locals: {
+          user: select(user.toObject(), Users.schema.options.toJSON.select)
+        }
+      }
+    });
+    ctx.logger.debug('queued welcome email', job);
+  } catch (err) {
+    ctx.logger.error(err);
+  }
+}
+
+async function forgotPassword(ctx) {
+  const { body } = ctx.request;
+
+  if (!_.isString(body.email) || !validator.isEmail(body.email))
+    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
 
   // lookup the user
   const user = await Users.findOne({ email: body.email });
@@ -252,12 +227,10 @@ const forgotPassword = async ctx => {
     user.reset_token &&
     moment(user.reset_token_expires_at).isBefore(moment().add(30, 'minutes'))
   )
-    return ctx.throw(
-      Boom.badRequest(
-        ctx.translate(
-          'PASSWORD_RESET_LIMIT',
-          moment(user.reset_token_expires_at).fromNow()
-        )
+    throw Boom.badRequest(
+      ctx.translate(
+        'PASSWORD_RESET_LIMIT',
+        moment(user.reset_token_expires_at).fromNow()
       )
     );
 
@@ -286,7 +259,10 @@ const forgotPassword = async ctx => {
         template: 'reset-password',
         to: user.email,
         locals: {
-          user: _.pick(user, ['display_name', 'reset_token_expires_at']),
+          user: _.pick(user, [
+            config.passport.fields.displayName,
+            'reset_token_expires_at'
+          ]),
           link: `${config.urls.web}/reset-password/${user.reset_token}`
         }
       }
@@ -295,19 +271,19 @@ const forgotPassword = async ctx => {
   } catch (err) {
     ctx.logger.error(err);
   }
-};
+}
 
-const resetPassword = async ctx => {
+async function resetPassword(ctx) {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_EMAIL')));
+    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
 
-  if (!_.isString(body.password) || s.isBlank(body.password))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD')));
+  if (!isSANB(body.password))
+    throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
 
-  if (!_.isString(ctx.params.token) || s.isBlank(ctx.params.token))
-    return ctx.throw(Boom.badRequest(ctx.translate('INVALID_RESET_TOKEN')));
+  if (!isSANB(ctx.params.token))
+    throw Boom.badRequest(ctx.translate('INVALID_RESET_TOKEN'));
 
   // lookup the user that has this token and if it matches the email passed
   const user = await Users.findOne({
@@ -319,31 +295,35 @@ const resetPassword = async ctx => {
     }
   });
 
-  if (!user) {
-    ctx.throw(Boom.badRequest(ctx.translate('INVALID_RESET_PASSWORD')));
-  }
+  if (!user) throw Boom.badRequest(ctx.translate('INVALID_RESET_PASSWORD'));
 
   user.reset_token = null;
   user.reset_at = null;
 
-  try {
-    await util.promisify(user.setPassword).bind(user)(body.password);
-  } catch (err) {
-    ctx.throw(Boom.badRequest(ctx.translate('INVALID_PASSWORD_STRENGTH')));
-  } finally {
-    await user.save();
-    await util.promisify(ctx.login).bind(ctx.req)(user);
-    if (ctx.accepts('json')) {
-      ctx.body = {
-        message: ctx.translate('RESET_PASSWORD'),
-        redirectTo: `/${ctx.locale}`
-      };
-    } else {
-      ctx.flash('success', ctx.translate('RESET_PASSWORD'));
-      ctx.redirect(`/${ctx.locale}`);
-    }
+  await user.setPassword(body.password);
+  await user.save();
+  await ctx.login(user);
+  if (ctx.accepts('json')) {
+    ctx.body = {
+      message: ctx.translate('RESET_PASSWORD'),
+      redirectTo: `/${ctx.locale}`
+    };
+  } else {
+    ctx.flash('success', ctx.translate('RESET_PASSWORD'));
+    ctx.redirect(`/${ctx.locale}`);
   }
-};
+}
+
+async function catchError(ctx, next) {
+  try {
+    await next();
+  } catch (err) {
+    if (ctx.params.provider === 'google' && err.message === 'Consent required')
+      return ctx.redirect('/auth/google/consent');
+    ctx.flash('error', err.message);
+    ctx.redirect('/login');
+  }
+}
 
 module.exports = {
   logout,
@@ -352,5 +332,6 @@ module.exports = {
   login,
   register,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  catchError
 };

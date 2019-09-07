@@ -1,57 +1,114 @@
 doctype html
 html(lang=locale)
   head
-    block head
+    block meta
       meta(charset="utf-8")
       meta(http-equiv="x-ua-compatible", content="ie=edge")
       title= meta.title
       meta(name="description", content=meta.description)
       meta(name="viewport", content="width=device-width, initial-scale=1")
+
       //- languages supported
       //- <https://support.google.com/webmasters/answer/189077?hl=en>
       //- <https://support.google.com/webmasters/answer/182192?hl=en>
       link(rel="alternate", href=`${config.urls.web}${ctx.pathWithoutLocale}`, hreflang="x-default")
       each language in availableLanguages
         link(rel="alternate", href=`${config.urls.web}/${language.locale}${ctx.pathWithoutLocale}`, hreflang=language.locale)
+
       //- generated with https://realfavicongenerator.net
       link(rel="apple-touch-icon", sizes="152x152", href=manifest('img/apple-touch-icon.png'))
       link(rel="icon", type="image/png", href=manifest('img/favicon-32x32.png'), sizes="32x32")
       link(rel="icon", type="image/png", href=manifest('img/favicon-16x16.png'), sizes="16x16")
       link(rel="manifest", href="/manifest.json")
+
       //- add mask-icon
       //- <https://goo.gl/PMBfKu>
       //- link(rel="mask-icon", href=manifest('img/safari-pinned-tab.svg'), color=config.appColor)
       meta(name="apple-mobile-web-app-title", content=config.appName)
       meta(name="application-name", content=config.appName)
       meta(name="theme-color", content=config.appColor)
+
       //- csrf token
       meta(name="csrf-token", content=ctx.csrf)
       script.
         window._csrf = "#{ctx.csrf}";
-      //- add opengraph tags to your structured data pages
-      block opengraph
-        link(rel='image_src', type='image/png', href=manifest('img/social.png'))
-        meta(property='og:title', content=meta.title)
-        meta(property='og:url', content=`${config.urls.web}${ctx.pathWithoutLocale}`)
-        meta(property='og:description', content=meta.description)
-        meta(property='og:image', content=`${config.urls.web}/img/social.png`)
-        meta(name='twitter:card', content='summary_large_image')
-        meta(name='twitter:site', content=config.twitter)
-        meta(name='twitter:title', content=meta.title)
-        meta(name='twitter:description', content=meta.description)
-        meta(name='twitter:image:src', content=`${config.urls.web}/img/twitter.png`)
-      //- css file
+
+    //- add opengraph tags to your structured data pages
+    block opengraph
+      link(rel='image_src', type='image/png', href=manifest('img/social.png'))
+      meta(property='og:title', content=meta.title)
+      meta(property='og:url', content=`${config.urls.web}${ctx.pathWithoutLocale}`)
+      meta(property='og:description', content=meta.description)
+      meta(property='og:image', content=`${config.urls.web}/img/social.png`)
+      meta(name='twitter:card', content='summary_large_image')
+      meta(name='twitter:site', content=config.twitter)
+      meta(name='twitter:title', content=meta.title)
+      meta(name='twitter:description', content=meta.description)
+      meta(name='twitter:image:src', content=`${config.urls.web}/img/twitter.png`)
+
+    //- css file
+    block stylesheets
       link(rel="stylesheet", href=manifest('css/app.css'))
+
+    block scripts
+      //- flash messaging (with koa-better-flash and sweetalert2)
+      script.
+        window._types = {
+          success: "#{ t('Success') }",
+          error: "#{ t('Error') }",
+          info: "#{ t('Info') }",
+          warning: "#{ t('Warning') }",
+          question: "#{ t('Question') }"
+        };
+        window._messages = !{json(flash(), null, null)};
+
+      //- set defaults for sweetalert2
+      //- <https://github.com/limonte/sweetalert2/issues/763>
+      script.
+        window._swalDefaults = {
+          confirmButtonText: "#{ t('OK') }",
+          cancelButtonText: "#{ t('Cancel') }",
+          closeButtonAriaLabel: "#{ t('Close this dialog') }",
+          reverseButtons: true
+        };
+
+      //- set defaults for confirm prompt sweetalert2 modal
+      script.
+        window._confirmPromptTitle = "#{ t('Are you sure?') }";
+        window._confirmPromptHTML = "#{ t('Please confirm if you wish to continue.') }";
+
+      //- set the locale to be used by front-end assets
+      script.
+        window.LOCALE = "#{locale}";
+
+      //- set the user to be used by CabinJS
+      if user
+        script.
+          window.USER = {
+            id: "#{user.id}",
+            name: "#{user[config.passport.fields.displayName]}",
+            email: "#{user.email}"
+          };
+      else
+        script.
+          window.USER = {
+            id: "#{ctx.sessionId}"
+          };
+
+      //- polyfill environment
+      script(defer, src=`https://polyfill.io/v3/polyfill${config.env === 'production' ? '.min' : ''}.js?features=${polyfills.join(',')}`)
+
+      //- uncaught (handles errors, similar to TraceKit but with CabinJS + StackTrace.JS)
+      script(defer, src=manifest('js/uncaught.js'))
+
+      //- scripts
+      script(defer, src=manifest('js/core.js'))
 
   body(role='document', class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'pt-0' : '')
 
     //- spinner
     block spinner
       include spinner/spinner
-
-    <!--[if lt IE 9]>
-      <p class="browserupgrade">!{ t('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.')}</p>
-    <![endif]-->
 
     //- navigation
     block navigation
@@ -63,55 +120,3 @@ html(lang=locale)
     //- footer
     block footer
       include _footer
-
-    //- flash messaging (with koa-better-flash and sweetalert2)
-    script.
-      window._types = {
-        success: "#{ t('Success') }",
-        error: "#{ t('Error') }",
-        info: "#{ t('Info') }",
-        warning: "#{ t('Warning') }",
-        question: "#{ t('Question') }"
-      };
-      window._messages = !{json(flash(), null, null)};
-
-    //- set defaults for sweetalert2
-    //- <https://github.com/limonte/sweetalert2/issues/763>
-    script.
-      window._swalDefaults = {
-        confirmButtonText: "#{ t('OK') }",
-        cancelButtonText: "#{ t('Cancel') }",
-        closeButtonAriaLabel: "#{ t('Close this dialog') }",
-        reverseButtons: true
-      };
-
-    //- set defaults for confirm prompt sweetalert2 modal
-    script.
-      window._confirmPromptTitle = "#{ t('Are you sure?') }";
-      window._confirmPromptHTML = "#{ t('Please confirm if you wish to continue.') }";
-
-    //- set the locale to be used by front-end assets such as STripe
-    script.
-      window.LOCALE = "#{locale}";
-
-    //- scripts
-    block scripts
-      script(src=manifest('js/core.js'))
-
-    //- Stripe support
-    //- https://stripe.com/docs/checkout#integration-custom
-    if config.stripe && config.stripe.publishableKey
-      script(src="https://checkout.stripe.com/checkout.js")
-      script.
-        window.STRIPE_PUBLISHABLE_KEY = "#{config.stripe.publishableKey}";
-        window.STRIPE_CHECKOUT_IMAGE_URL = "#{config.stripe.checkoutImageURL}";
-
-    //- google analytics
-    if config.env === 'production' && config.ga
-      script.
-        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='https://www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','#{config.ga}','auto');ga('send','pageview');

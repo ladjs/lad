@@ -1,38 +1,24 @@
 const path = require('path');
-const consolidate = require('consolidate');
-const _ = require('lodash');
-const Logger = require('@ladjs/logger');
-const nodemailer = require('nodemailer');
+
+const Axe = require('axe');
+const Boom = require('@hapi/boom');
 const I18N = require('@ladjs/i18n');
+const _ = require('lodash');
 const base64ToS3 = require('nodemailer-base64-to-s3');
-const strength = require('strength');
 const boolean = require('boolean');
+const consolidate = require('consolidate');
+const nodemailer = require('nodemailer');
+const strength = require('strength');
 
 const pkg = require('../package');
 const env = require('./env');
 const environments = require('./environments');
 const utilities = require('./utilities');
+const polyfills = require('./polyfills');
 const phrases = require('./phrases');
 const meta = require('./meta');
 
-const bitter = path.join(
-  __dirname,
-  '..',
-  'node_modules',
-  'bitter-font',
-  'fonts'
-);
-
 const config = {
-  fonts: {
-    bitter: {
-      bold: path.join(bitter, 'Bold', 'Bitter-Bold.ttf'),
-      boldItalic: path.join(bitter, 'BoldItalic', 'Bitter-BoldItalic.ttf'),
-      italic: path.join(bitter, 'Italic', 'Bitter-Italic.ttf'),
-      regular: path.join(bitter, 'Regular', 'Bitter-Regular.ttf')
-    }
-  },
-
   // package.json
   pkg,
 
@@ -56,12 +42,11 @@ const config = {
   },
   logger: {
     showStack: env.SHOW_STACK,
-    appName: env.APP_NAME
+    name: env.APP_NAME
   },
   livereload: {
     port: env.LIVERELOAD_PORT
   },
-  ga: env.GOOGLE_ANALYTICS,
   appName: env.APP_NAME,
   appColor: env.APP_COLOR,
   twitter: env.TWITTER,
@@ -114,13 +99,31 @@ const config = {
       // debug: env.NODE_ENV === 'development',
       // compileDebug: env.NODE_ENV === 'development',
       ...utilities,
+      polyfills,
       filters: {}
     }
   },
 
+  // this object gets passed to `mongoose.configure`
+  // <https://github.com/ladjs/mongoose>
+  mongoose: {},
+
   // @ladjs/passport configuration (see defaults in package)
   // <https://github.com/ladjs/passport>
-  passport: {},
+  passport: {
+    fields: {
+      // you may want to make this "full_name" instead
+      displayName: 'display_name',
+      // you could make this "first_name"
+      givenName: 'given_name',
+      // you could make this "last_name"
+      familyName: 'family_name',
+      avatarURL: 'avatar_url',
+      googleProfileID: 'google_profile_id',
+      googleAccessToken: 'google_access_token',
+      googleRefreshToken: 'google_refresh_token'
+    }
+  },
 
   // passport-local-mongoose options
   // <https://github.com/saintedlama/passport-local-mongoose>
@@ -131,17 +134,30 @@ const config = {
     lastLoginField: 'last_login_at',
     usernameLowerCase: true,
     limitAttempts: true,
-    maxAttempts:
-      process.env.NODE_ENV === 'development' ? Number.MAX_SAFE_INTEGER : 5,
+    maxAttempts: env.NODE_ENV === 'development' ? Infinity : 5,
     digestAlgorithm: 'sha256',
     encoding: 'hex',
     saltlen: 32,
     iterations: 25000,
     keylen: 512,
     passwordValidator: (password, fn) => {
-      if (process.env.NODE_ENV === 'development') return fn();
+      if (env.NODE_ENV === 'development') return fn();
       const howStrong = strength(password);
-      fn(howStrong < 3 ? new Error('Password not strong enough') : null);
+      fn(
+        howStrong < 3
+          ? Boom.badRequest(phrases.INVALID_PASSWORD_STRENGTH)
+          : null
+      );
+    },
+    errorMessages: {
+      MissingPasswordError: phrases.PASSPORT_MISSING_PASSWORD_ERROR,
+      AttemptTooSoonError: phrases.PASSPORT_ATTEMPT_TOO_SOON_ERROR,
+      TooManyAttemptsError: phrases.PASSPORT_TOO_MANY_ATTEMPTS_ERROR_,
+      NoSaltValueStoredError: phrases.PASSPORT_NO_SALT_VALUE_STORED_ERROR,
+      IncorrectPasswordError: phrases.PASSPORT_INCORRECT_PASSWORD_ERROR,
+      IncorrectUsernameError: phrases.PASSPORT_INCORRECT_USERNAME_ERROR,
+      MissingUsernameError: phrases.PASSPORT_MISSING_USERNAME_ERROR,
+      UserExistsError: phrases.PASSPORT_USER_EXISTS_ERROR
     }
   },
 
@@ -153,23 +169,31 @@ const config = {
     failureFlash: true
   },
 
-  // stripe
-  stripe: {
-    secretKey: env.STRIPE_SECRET_KEY,
-    publishableKey: env.STRIPE_PUBLISHABLE_KEY,
-    checkoutImageURL: env.STRIPE_CHECKOUT_IMAGE_URL
-  }
+  // store IP address
+  // <https://github.com/ladjs/store-ip-address>
+  storeIPAddress: {
+    ip: 'ip',
+    lastIps: 'last_ips'
+  },
+
+  // field name for a user's last locale
+  // (this gets re-used by email-templates and @ladjs/i18n; see below)
+  lastLocaleField: 'last_locale'
 };
 
 // merge environment configurations
 if (_.isObject(environments[env.NODE_ENV]))
   _.merge(config, environments[env.NODE_ENV]);
 
+// add lastLocale configuration path name to both email-templates and i18n
+config.i18n.lastLocaleField = config.lastLocaleField;
+config.email.lastLocaleField = config.lastLocaleField;
+
 // meta support for SEO
 config.meta = meta(config);
 
 // add i18n filter to views `:translate(locale)`
-const logger = new Logger(config.logger);
+const logger = new Axe(config.logger);
 const i18n = new I18N({
   ...config.i18n,
   logger

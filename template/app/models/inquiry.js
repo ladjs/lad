@@ -3,6 +3,9 @@ const validator = require('validator');
 const _ = require('lodash');
 const mongooseCommonPlugin = require('mongoose-common-plugin');
 
+// <https://github.com/Automattic/mongoose/issues/5534>
+mongoose.Error.messages = require('@ladjs/mongoose-error-messages');
+
 const config = require('../../config');
 
 const Inquiry = new mongoose.Schema({
