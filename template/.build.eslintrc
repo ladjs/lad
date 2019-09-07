@@ -1,0 +1,48 @@
+{
+  "extends": ["eslint:recommended"],
+  "env": {
+    "node": false,
+    "browser": true,
+    "amd": true,
+    "es6": true,
+    "commonjs": true,
+    "jquery": true
+  },
+  "plugins": ["compat", "@lwc/eslint-plugin-lwc"],
+  "rules": {
+    "compat/compat": "error",
+    "no-cond-assign": "off",
+    "no-constant-condition": "off",
+    "no-control-regex": "off",
+    "no-empty": "off",
+    "no-extra-semi": "off",
+    "no-fallthrough": "off",
+    "no-func-assign": "off",
+    "no-mixed-spaces-and-tabs": "off",
+    "no-prototype-builtins": "off",
+    "no-redeclare": "off",
+    "no-self-assign": "off",
+    "no-shadow-restricted-names": "off",
+    "no-sparse-arrays": "off",
+    "no-undef": "off",
+    "no-unexpected-multiline": "off",
+    "no-unused-vars": "off",
+    "no-useless-catch": "off",
+    "no-useless-escape": "off",
+    "require-atomic-updates": "off",
+    "@lwc/lwc/no-async-await": "error",
+    "promise/prefer-await-to-then": "off"
+  },
+  "settings": {
+    "polyfills": [
+      "ArrayBuffer.isView",
+      "MutationObserver",
+      "Reflect",
+      "console.trace",
+      "navigator.maxTouchPoints",
+      "window.crypto",
+      "Uint32Array",
+      "Number.isFinite"
+    ]
+  }
+}

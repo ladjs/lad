@@ -1,0 +1,10 @@
+nav(aria-label='breadcrumb')
+  ol.breadcrumb.justify-content-center.justify-content-md-start
+    each breadcrumb, i in breadcrumbs
+      if i === breadcrumbs.length - 1
+        li.breadcrumb-item.active(aria-current='page')= t(titleize(humanize(breadcrumb)))
+      else
+        li.breadcrumb-item: a(href=`/${breadcrumbs.slice(0, i + 1).join('/')}/`)= t(titleize(humanize(breadcrumb)))
+.text-center.text-md-left
+  h1.text-muted= t(titleize(humanize(breadcrumbs[1] ? breadcrumbs[1] : breadcrumbs[0])))
+hr

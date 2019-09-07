@@ -1,6 +1,6 @@
-const Logger = require('@ladjs/logger');
+const Axe = require('axe');
 const config = require('../config');
 
-const logger = new Logger(config.logger);
+const logger = new Axe(config.logger);
 
 module.exports = logger;

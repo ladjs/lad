@@ -37,21 +37,15 @@ module.exports = function(config) {
     '/login': [`Sign in ${lad}`, 'Sign in to your account'],
     '/logout': [`Sign out of ${lad}`, 'Sign out of your account'],
     '/register': [`Sign up ${lad}`, `Create a ${config.appName} account`],
-    '/my-account': [`Profile ${lad}`, `Manage your ${config.appName} profile`],
-    '/my-account/api': [
-      `API Credentials ${lad}`,
-      'Manage your API credentials'
+    '/my-account': [
+      `My Account ${lad}`,
+      `Manage your ${config.appName} profile`
     ],
-    '/my-account/security': [
-      `Account Security - ${lad}`,
-      `Secure your ${config.appName} account`
-    ],
+    '/my-account/api': [`API ${lad}`, 'Manage your API credentials'],
     '/dashboard': [
       `Dashboard ${lad}`,
       `Access your ${config.appName} dashboard`
     ],
-    '/admin': [`Admin ${lad}`, 'Admin dashboard for administrative management'],
-    '/admin/users': [`Users ${lad}`, 'View and manage users'],
     '/forgot-password': [
       `Forgot password ${lad}`,
       'Reset your account password'

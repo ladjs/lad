@@ -1,1 +1,1 @@
-= `${emoji('unlock')} ${user.display_name}, ${t('reset your password')}`
+= `${emoji('unlock')} ${user[config.passport.fields.givenName] ? `${user[config.passport.fields.givenName]}, ${t('reset your password')}` : t('Reset your password')}`

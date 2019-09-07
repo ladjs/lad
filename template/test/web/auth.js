@@ -1,5 +1,7 @@
+const util = require('util');
 const test = require('ava');
 
+const phrases = require('../../config/phrases');
 const { Users } = require('../../app/models');
 
 test('creates new user', async t => {
@@ -14,14 +16,14 @@ test('creates new user', async t => {
   t.is(res.status, 200);
 });
 
-test(`fails registering with easy password`, async t => {
+test('fails registering with easy password', async t => {
   const res = await global.web.post('/en/register', {
     body: {
       email: 'test1@example.com',
       password: 'password'
     }
   });
-  t.is(res.body.message, `Password not strong enough`);
+  t.is(res.body.message, phrases.INVALID_PASSWORD_STRENGTH);
   t.is(res.status, 400);
 });
 
@@ -35,7 +37,7 @@ test('fails registering invalid email', async t => {
   t.is(res.status, 400);
 });
 
-test(`doesn't leak used email`, async t => {
+test("doesn't leak used email", async t => {
   const email = 'test2@example.com';
   const password = '!@K#NLK!#NSADKMSAD:K';
 
@@ -48,13 +50,10 @@ test(`doesn't leak used email`, async t => {
   });
 
   t.is(res.status, 400);
-  t.is(
-    res.body.message,
-    'A user with the given username is already registered'
-  );
+  t.is(res.body.message, phrases.PASSPORT_USER_EXISTS_ERROR);
 });
 
-test(`allows password reset for valid email (HTML)`, async t => {
+test('allows password reset for valid email (HTML)', async t => {
   const email = 'test3@example.com';
   const password = '!@K#NLK!#N';
 
@@ -70,7 +69,7 @@ test(`allows password reset for valid email (HTML)`, async t => {
   t.is(res.status, 200);
 });
 
-test(`allows password reset for valid email (JSON)`, async t => {
+test('allows password reset for valid email (JSON)', async t => {
   const email = 'test4@example.com';
   const password = '!@K#NLK!#N';
 
@@ -79,13 +78,10 @@ test(`allows password reset for valid email (JSON)`, async t => {
   const res = await global.web.post('/en/forgot-password', { body: { email } });
 
   t.is(res.status, 200);
-  t.is(
-    res.body.message,
-    'We have sent you an email with a link to reset your password.'
-  );
+  t.is(res.body.message, phrases.PASSWORD_RESET_SENT);
 });
 
-test(`resets password with valid email and token (HTML)`, async t => {
+test('resets password with valid email and token (HTML)', async t => {
   const email = 'test5@example.com';
   const password = '!@K#NLK!#N';
 
@@ -97,7 +93,9 @@ test(`resets password with valid email and token (HTML)`, async t => {
     .select('reset_token')
     .exec();
 
-  if (!user) throw new Error('User does not exist');
+  if (!user) {
+    throw new Error('User does not exist');
+  }
 
   const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email, password },
@@ -109,7 +107,7 @@ test(`resets password with valid email and token (HTML)`, async t => {
   t.is(res.status, 200);
 });
 
-test(`resets password with valid email and token (JSON)`, async t => {
+test('resets password with valid email and token (JSON)', async t => {
   const email = 'test6@example.com';
   const password = '!@K#NLK!#N';
 
@@ -121,29 +119,31 @@ test(`resets password with valid email and token (JSON)`, async t => {
     .select('reset_token')
     .exec();
 
-  if (!user) throw new Error('User does not exist');
+  if (!user) {
+    throw new Error('User does not exist');
+  }
 
   const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email, password }
   });
 
   t.is(res.status, 200);
-  t.is(res.body.message, 'You have successfully reset your password.');
+  t.is(res.body.message, phrases.RESET_PASSWORD);
 });
 
-test(`fails resetting password for non-existent user`, async t => {
+test('fails resetting password for non-existent user', async t => {
   const email = 'test7@example.com';
   const password = '!@K#NLK!#N';
 
-  const res = await global.web.post(`/en/reset-password/randomtoken`, {
+  const res = await global.web.post('/en/reset-password/randomtoken', {
     body: { email, password }
   });
 
   t.is(res.status, 400);
-  t.is(res.body.message, 'Reset token and email were not valid together.');
+  t.is(res.body.message, phrases.INVALID_RESET_PASSWORD);
 });
 
-test(`fails resetting password with invalid reset_token`, async t => {
+test('fails resetting password with invalid reset_token', async t => {
   const email = 'test8@example.com';
   const password = '!@K#NLK!#N';
 
@@ -151,15 +151,15 @@ test(`fails resetting password with invalid reset_token`, async t => {
 
   await global.web.post('/en/forgot-password', { body: { email } });
 
-  const res = await global.web.post(`/en/reset-password/wrongtoken`, {
+  const res = await global.web.post('/en/reset-password/wrongtoken', {
     body: { email, password }
   });
 
   t.is(res.status, 400);
-  t.is(res.body.message, 'Reset token and email were not valid together.');
+  t.is(res.body.message, phrases.INVALID_RESET_PASSWORD);
 });
 
-test(`fails resetting password with missing new password`, async t => {
+test('fails resetting password with missing new password', async t => {
   const email = 'test9@example.com';
   const password = '!@K#NLK!#N';
 
@@ -171,17 +171,19 @@ test(`fails resetting password with missing new password`, async t => {
     .select('reset_token')
     .exec();
 
-  if (!user) throw new Error('User does not exist');
+  if (!user) {
+    throw new Error('User does not exist');
+  }
 
   const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email }
   });
 
   t.is(res.status, 400);
-  t.is(res.body.message, 'Password was invalid.');
+  t.is(res.body.message, phrases.INVALID_PASSWORD);
 });
 
-test(`fails resetting password with invalid email`, async t => {
+test('fails resetting password with invalid email', async t => {
   const email = 'test10@example.com';
   const password = '!@K#NLK!#N';
 
@@ -193,17 +195,19 @@ test(`fails resetting password with invalid email`, async t => {
     .select('reset_token')
     .exec();
 
-  if (!user) throw new Error('User does not exist');
+  if (!user) {
+    throw new Error('User does not exist');
+  }
 
   const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email: 'wrongemail' }
   });
 
   t.is(res.status, 400);
-  t.is(res.body.message, 'Email address was invalid.');
+  t.is(res.body.message, phrases.INVALID_EMAIL);
 });
 
-test(`fails resetting password with invalid email + reset_token match`, async t => {
+test('fails resetting password with invalid email + reset_token match', async t => {
   const email = 'test11@example.com';
   const password = '!@K#NLK!#N';
 
@@ -213,17 +217,19 @@ test(`fails resetting password with invalid email + reset_token match`, async t 
 
   const user = await Users.findOne({ email }).exec();
 
-  if (!user) throw new Error('User does not exist');
+  if (!user) {
+    throw new Error('User does not exist');
+  }
 
   const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email: 'wrongemail@example.com', password }
   });
 
   t.is(res.status, 400);
-  t.is(res.body.message, 'Reset token and email were not valid together.');
+  t.is(res.body.message, phrases.INVALID_RESET_PASSWORD);
 });
 
-test(`fails resetting password if new password is too weak`, async t => {
+test('fails resetting password if new password is too weak', async t => {
   const email = 'test12@example.com';
   const password = '!@K#NLK!#N';
 
@@ -235,17 +241,19 @@ test(`fails resetting password if new password is too weak`, async t => {
     .select('reset_token')
     .exec();
 
-  if (!user) throw new Error('User does not exist');
+  if (!user) {
+    throw new Error('User does not exist');
+  }
 
   const res = await global.web.post(`/en/reset-password/${user.reset_token}`, {
     body: { email, password: 'password' }
   });
 
   t.is(res.status, 400);
-  t.is(res.body.message, 'Password strength was not strong enough.');
+  t.is(res.body.message, phrases.INVALID_PASSWORD_STRENGTH);
 });
 
-test(`fails resetting password if reset was already tried in the last 30 mins`, async t => {
+test('fails resetting password if reset was already tried in the last 30 mins', async t => {
   const email = 'test13@example.com';
   const password = '!@K#NLK!#N';
 
@@ -258,6 +266,6 @@ test(`fails resetting password if reset was already tried in the last 30 mins`, 
   t.is(res.status, 400);
   t.is(
     res.body.message,
-    'You can only request a password reset every 30 minutes.  Please try again in 30 minutes.'
+    util.format(phrases.PASSWORD_RESET_LIMIT, 'in 30 minutes')
   );
 });

@@ -1,16 +1,9 @@
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "debug": true,
-        "useBuiltIns": "usage"
+    ["@babel/env", {
+      "targets": {
+        "browsers": [ "> 1%", "last 2 versions" ]
       }
-    ]
-  ],
-  "plugins": [
-    "@babel/plugin-transform-runtime",
-    "@babel/plugin-proposal-object-rest-spread"
-  ],
-  "sourceMaps": "inline"
+    }]
+  ]
 }

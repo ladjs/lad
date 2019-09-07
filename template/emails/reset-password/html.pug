@@ -3,7 +3,7 @@ extends ../layout
 
 block content
   .container.mt-3
-    p= `${t('Hi')} ${user.display_name},`
+    p= `${user[config.passport.fields.givenName] ? user[config.passport.fields.givenName] : t('Hello')},`
     p
       = t('Please')
       = ' '

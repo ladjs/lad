@@ -1,0 +1,4 @@
+# https://stackoverflow.com/questions/14541253/commit-empty-folder-structure-with-git
+# ignore everything except .gitignore
+*
+!.gitignore

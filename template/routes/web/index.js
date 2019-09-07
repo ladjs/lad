@@ -1,4 +1,4 @@
-const Router = require('koa-router');
+const Router = require('@koa/router');
 const render = require('koa-views-render');
 
 const { web } = require('../../app/controllers');
@@ -6,12 +6,18 @@ const { policies } = require('../../helpers');
 const admin = require('./admin');
 const auth = require('./auth');
 const myAccount = require('./my-account');
-const dashboard = require('./dashboard');
 
 const router = new Router({ prefix: '/:locale' });
 
 router
   .get('/', web.auth.homeOrDashboard)
+  .post('/log', web.log)
+  .get(
+    '/dashboard',
+    policies.ensureLoggedIn,
+    web.breadcrumbs,
+    render('dashboard')
+  )
   .get('/about', render('about'))
   .get('/404', render('404'))
   .get('/500', render('500'))
@@ -27,16 +33,9 @@ router
   .get('/login', policies.ensureLoggedOut, web.auth.registerOrLogin)
   .post('/login', policies.ensureLoggedOut, web.auth.login)
   .get('/register', policies.ensureLoggedOut, web.auth.registerOrLogin)
-  .post(
-    '/register',
-    policies.ensureLoggedOut,
-    web.auth.register
-    // we handle `ctx.login` in the previous middleware
-    // passport.authenticate('local', config.passportCallbackOptions)
-  );
+  .post('/register', policies.ensureLoggedOut, web.auth.register);
 
 router.use(auth.routes());
-router.use(dashboard.routes());
 router.use(myAccount.routes());
 router.use(admin.routes());
 
