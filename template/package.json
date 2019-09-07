@@ -107,6 +107,7 @@
     "@ladjs/babelify": "^8.0.1",
     "@lwc/eslint-plugin-lwc": "^0.7.0",
     "ava": "^2.3.0",
+    "babel-eslint": "^10.0.3",
     "browserify": "^16.5.0",
     "bundle-collapser": "^1.3.0",
     "codecov": "^3.5.0",

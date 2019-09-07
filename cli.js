@@ -13,19 +13,24 @@ const pkg = require('./package');
 
 const cli = cac();
 
-cli.command('*', 'Generate a new project', input => {
-  const folderName = input[0] || '.';
-  const targetPath = path.resolve(folderName);
-  console.log(`> Generating project in ${targetPath}`);
+cli
+  .command('<name>', 'Generate a new project')
+  .action(name => {
+    const folderName = name;
+    const targetPath = path.resolve(folderName);
+    console.log(`> Generating project in ${targetPath}`);
 
-  const templatePath = path.dirname(require.resolve('./package'));
+    const templatePath = path.dirname(require.resolve('./package'));
 
-  return sao({
-    template: templatePath,
-    targetPath
-  });
-});
+    return sao({
+      template: templatePath,
+      targetPath
+    });
+  })
+  .example('lad my-new-project');
 
+cli.version(pkg.version);
+cli.help();
 cli.parse();
 
 update({ pkg }).notify();
