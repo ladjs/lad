@@ -40,7 +40,6 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
-    "@lwc/eslint-plugin-lwc": "^0.7.0",
     "ava": "^2.3.0",
     "codecov": "^3.5.0",
     "cross-env": "^5.2.1",

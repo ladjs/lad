@@ -419,11 +419,6 @@
   dependencies:
     arrify "^1.0.1"
 
-"@lwc/eslint-plugin-lwc@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@lwc/eslint-plugin-lwc/-/eslint-plugin-lwc-0.7.0.tgz#95f3be7896e1a06432842ff917052bd6d7893711"
-  integrity sha512-vjOQ0zH5F0iOi2VHu68D7jB2r9Phm+SaqN+rz1pcmSavtoXsoqkLR25Snu0q+KRZRgHHSMEezL2GaE6KhHP95Q==
-
 "@marionebl/sander@^0.6.0":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@marionebl/sander/-/sander-0.6.1.tgz#1958965874f24bc51be48875feb50d642fc41f7b"
