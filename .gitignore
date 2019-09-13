@@ -7,3 +7,4 @@ coverage
 template/build
 template/temp.md
 *.lcov
+.base64-cache
