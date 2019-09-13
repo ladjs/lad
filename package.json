@@ -136,8 +136,8 @@
     "lint": "xo && remark . -qfo",
     "nyc": "cross-env NODE_ENV=test nyc ava",
     "pretest": "npm run lint",
-    "test": "npm run ava && cd template && npm run test",
-    "test-coverage": "npm run lint && npm run nyc && cd template && npm run test-coverage"
+    "test": "npm run ava && cd template && yarn && npm run test",
+    "test-coverage": "npm run lint && npm run nyc && cd template && yarn && npm run test-coverage"
   },
   "xo": {
     "prettier": true,
