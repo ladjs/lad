@@ -23,7 +23,9 @@ test('defaults', async t => {
       .sort()
       .filter(
         name =>
-          !name.includes('/snapshots') && !name.startsWith('.base64-cache/')
+          !name.includes('/snapshots') &&
+          !name.startsWith('.base64-cache/') &&
+          (!name.startsWith('/locales/') && !name.endsWith('*.json'))
       ),
     'generated files'
   );
