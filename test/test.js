@@ -25,7 +25,7 @@ test('defaults', async t => {
         name =>
           !name.includes('/snapshots') &&
           !name.startsWith('.base64-cache/') &&
-          (!name.startsWith('/locales/') && !name.endsWith('*.json'))
+          !name.startsWith('locales/')
       ),
     'generated files'
   );
