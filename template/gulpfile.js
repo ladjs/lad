@@ -2,13 +2,13 @@ const path = require('path');
 
 const awspublish = require('gulp-awspublish');
 const babelify = require('@ladjs/babelify');
-const boolean = require('boolean');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
 const cloudfront = require('gulp-cloudfront');
 const collapser = require('bundle-collapser/plugin');
 const commonShake = require('common-shakeify');
 const cssnano = require('cssnano');
+const del = require('del');
 const envify = require('envify/custom');
 const fontMagician = require('postcss-font-magician');
 const fontSmoothing = require('postcss-font-smoothing');
@@ -20,7 +20,6 @@ const imagemin = require('gulp-imagemin');
 const lr = require('gulp-livereload');
 const ms = require('ms');
 const nodeSass = require('node-sass');
-const open = require('open');
 const pngquant = require('imagemin-pngquant');
 const postcss = require('gulp-postcss');
 const postcssPresetEnv = require('postcss-preset-env');
@@ -52,7 +51,6 @@ const config = require('./config');
 const PROD = config.env === 'production';
 const DEV = config.env === 'development';
 const TEST = config.env === 'test';
-const OPEN_BROWSER = boolean(process.env.OPEN_BROWSER);
 
 const staticAssets = [
   'assets/**/*',
@@ -91,7 +89,7 @@ function publish() {
 
 function pug() {
   return src('app/views/**/*.pug', { since: lastRun(pug) })
-    .pipe(pugLinter({ failAfterError: true }))
+    .pipe(pugLinter({ reporter: 'default', failAfterError: true }))
     .pipe(gulpif(DEV, lr(config.livereload)));
 }
 
@@ -156,8 +154,8 @@ function css() {
 }
 
 function xo() {
-  return src('**/*.js', { since: lastRun(xo) })
-    .pipe(gulpXo())
+  return src('.', { since: lastRun(xo) })
+    .pipe(gulpXo({ quiet: true, fix: true }))
     .pipe(gulpXo.format())
     .pipe(gulpXo.failAfterError());
 }
@@ -209,7 +207,7 @@ function js() {
 }
 
 function remark() {
-  return src('.')
+  return src('.', { since: lastRun(remark) })
     .pipe(
       gulpRemark({
         quiet: true,
@@ -227,16 +225,16 @@ function static() {
   }).pipe(dest('build'));
 }
 
-async function browser() {
-  if (OPEN_BROWSER) await open(config.urls.web, { wait: false });
+function clean() {
+  return del(['build']);
 }
 
 const build = series(
+  clean,
   parallel(
     ...(TEST ? [] : [xo, remark]),
     parallel(img, static, series(scss, css), series(js, eslint))
-  ),
-  browser
+  )
 );
 
 module.exports = {
@@ -257,10 +255,10 @@ module.exports = {
   xo,
   eslint,
   static,
-  browser,
   remark,
   scss,
-  css
+  css,
+  clean
 };
 
 exports.default = build;

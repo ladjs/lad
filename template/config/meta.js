@@ -44,8 +44,9 @@ module.exports = function(config) {
     '/my-account/api': [`API ${lad}`, 'Manage your API credentials'],
     '/dashboard': [
       `Dashboard ${lad}`,
-      `Access your ${config.appName} dashboard`
+      `Access your ${config.appName} account dashboard`
     ],
+    '/admin': [`Admin ${lad}`, `Access your ${config.appName} admin`],
     '/forgot-password': [
       `Forgot password ${lad}`,
       'Reset your account password'

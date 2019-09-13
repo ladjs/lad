@@ -11,7 +11,6 @@ const router = new Router({ prefix: '/:locale' });
 
 router
   .get('/', web.auth.homeOrDashboard)
-  .post('/log', web.log)
   .get(
     '/dashboard',
     policies.ensureLoggedIn,

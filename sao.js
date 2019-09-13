@@ -78,23 +78,17 @@ module.exports = {
           : 'Please include a valid GitHub.com URL without a trailing slash'
     },
     web: {
-      message: 'Do you need a web server',
+      message: 'Do you need a web server (@ladjs/web)',
       type: 'confirm',
       default: true
-    },
-    i18n: {
-      message: 'Do you need automatic multi-lingual support',
-      type: 'confirm',
-      default: true,
-      when: answers => answers.web
     },
     api: {
-      message: 'Do you need an API server',
+      message: 'Do you need an API server (@ladjs/api)',
       type: 'confirm',
       default: true
     },
-    agenda: {
-      message: 'Do you need a job scheduler',
+    bull: {
+      message: 'Do you need a job scheduler (@ladjs/bull)',
       type: 'confirm',
       default: true
     },
@@ -102,6 +96,12 @@ module.exports = {
       message: 'Do you need a proxy (http => https redirect)',
       type: 'confirm',
       default: true
+    },
+    i18n: {
+      message: 'Do you need automatic multi-lingual support',
+      type: 'confirm',
+      default: true,
+      when: answers => answers.web || answers.api
     }
   },
   filters: {
@@ -120,9 +120,9 @@ module.exports = {
 
     'web.js': 'web === true',
     'api.js': 'api === true',
-    'agenda.js': 'agenda === true',
+    'bull.js': 'bull === true',
     'proxy.js': 'proxy === true',
-    'jobs/**': 'agenda === true'
+    'jobs/**': 'bull === true'
   },
   move: {
     // We keep `.gitignore` as `gitignore` in the project
@@ -135,7 +135,7 @@ module.exports = {
   post: async ctx => {
     ctx.gitInit();
 
-    // TODO: ctx.answers.agenda
+    // TODO: ctx.answers.bull
     // - remove from pkg
     // - remove config
     // - remove tests

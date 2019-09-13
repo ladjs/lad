@@ -3,16 +3,16 @@ const path = require('path');
 const Axe = require('axe');
 const Boom = require('@hapi/boom');
 const I18N = require('@ladjs/i18n');
-const _ = require('lodash');
 const base64ToS3 = require('nodemailer-base64-to-s3');
 const boolean = require('boolean');
 const consolidate = require('consolidate');
 const nodemailer = require('nodemailer');
 const strength = require('strength');
+const pino = require('pino');
+const { Signale } = require('signale');
 
 const pkg = require('../package');
 const env = require('./env');
-const environments = require('./environments');
 const utilities = require('./utilities');
 const polyfills = require('./polyfills');
 const phrases = require('./phrases');
@@ -42,7 +42,15 @@ const config = {
   },
   logger: {
     showStack: env.SHOW_STACK,
-    name: env.APP_NAME
+    name: env.APP_NAME,
+    logger:
+      env === 'production'
+        ? pino({
+            customLevels: {
+              log: 30
+            }
+          })
+        : new Signale()
   },
   livereload: {
     port: env.LIVERELOAD_PORT
@@ -58,11 +66,6 @@ const config = {
     phrases,
     directory: path.join(__dirname, '..', 'locales')
   },
-
-  // lad's agenda configuration
-  // <https://github.com/ladjs/agenda>
-  agendaRecurringJobs: [],
-  agendaBootJobs: ['mandarin'],
 
   aws: {
     key: env.AWS_IAM_KEY,
@@ -103,10 +106,6 @@ const config = {
       filters: {}
     }
   },
-
-  // this object gets passed to `mongoose.configure`
-  // <https://github.com/ladjs/mongoose>
-  mongoose: {},
 
   // @ladjs/passport configuration (see defaults in package)
   // <https://github.com/ladjs/passport>
@@ -181,10 +180,6 @@ const config = {
   lastLocaleField: 'last_locale'
 };
 
-// merge environment configurations
-if (_.isObject(environments[env.NODE_ENV]))
-  _.merge(config, environments[env.NODE_ENV]);
-
 // add lastLocale configuration path name to both email-templates and i18n
 config.i18n.lastLocaleField = config.lastLocaleField;
 config.email.lastLocaleField = config.lastLocaleField;
@@ -198,6 +193,8 @@ const i18n = new I18N({
   ...config.i18n,
   logger
 });
+
+// add pug filter for easy translation of nested blocks
 config.views.locals.filters.translate = function(...args) {
   return i18n.api.t(...args);
 };
@@ -216,7 +213,7 @@ config.email.transport = nodemailer.createTransport({
     pass: env.POSTMARK_API_TOKEN
   },
   logger,
-  debug: boolean(process.env.TRANSPORT_DEBUG)
+  debug: boolean(env.TRANSPORT_DEBUG)
 });
 config.email.transport.use(
   'compile',
@@ -229,6 +226,9 @@ config.email.transport.use(
 config.email.views = { ...config.views };
 config.email.views.root = path.join(__dirname, '..', 'emails');
 config.email.i18n = config.i18n;
-config.email.juiceResources.webResources = { relativeTo: config.buildDir };
+config.email.juiceResources.webResources = {
+  relativeTo: config.buildDir,
+  images: true
+};
 
 module.exports = config;

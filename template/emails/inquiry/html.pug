@@ -3,18 +3,22 @@ extends ../layout
 
 block content
   .container.mt-3
-    p= t('Hello,')
-    p
-      if inquiry.is_email_only
-        = t('Thank you for submitting a support request on our website.  We will get back to you soon!')
-      else
-        = t('Below is a copy of your request submitted on ')
-        = moment(inquiry.created_at).format('MM/DD/YY')
-        = t(' at ')
-        = moment(inquiry.created_at).format('h:mm A')
-        = '.'
-        hr
-        p: pre: code= inquiry.message
-        hr
-        p= t('We will review your submission and get back to you shortly!')
-    p= t('If you did not submit this support request, then please let us know so we can further investigate.')
+    .card
+      h5.card-header Your support inquiry
+      .card-body
+        .card-text
+          p= t('Hello,')
+          p
+            if inquiry.is_email_only
+              = t('Thank you for submitting a support request on our website.  We will get back to you soon!')
+            else
+              = t('Below is a copy of your request submitted on ')
+              = moment(inquiry.created_at).format('MM/DD/YY')
+              = t(' at ')
+              = moment(inquiry.created_at).format('h:mm A')
+              = '.'
+              hr
+              p: pre: code= inquiry.message
+              hr
+              p= t('We will review your submission and get back to you shortly!')
+          p= t('If you did not submit this request, then please reply to let us know.')

@@ -5,7 +5,6 @@ const support = require('./support');
 const auth = require('./auth');
 const admin = require('./admin');
 const myAccount = require('./my-account');
-const log = require('./log');
 
 function breadcrumbs(ctx, next) {
   const breadcrumbs = _.compact(ctx.path.split('/')).slice(1);
@@ -18,4 +17,4 @@ function breadcrumbs(ctx, next) {
   return next();
 }
 
-module.exports = { support, auth, admin, myAccount, breadcrumbs, log };
+module.exports = { support, auth, admin, myAccount, breadcrumbs };

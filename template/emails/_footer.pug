@@ -1,14 +1,16 @@
 footer.py-3.mt-3
   .container.text-center
     a(href=config.urls.web)
-      != png2x({ text: config.appName, fontSize: 49, fontNameOrPath: 'Bitter Bold' })
-    p
-      small.text-muted
-        = '©'
-        = moment().format('YYYY')
-        = ' '
-        = config.appName
-        = '. '
-        = t('All Rights Reserved.')
-        = ' '
-        a(href=`${config.urls.web}/terms`)= t('Terms')
+      img(src='/img/logo-square.svg', width=100, height=100, alt='').d-inline-block.align-middle
+    ul.m-0.p-0.text-muted.py-3
+      li.d-inline: small: a(href=`${config.urls.web}/support`)= t('Support')
+      li.d-inline.mx-1: small &bull;
+      li.d-inline: small: a(href=`${config.urls.web}/about`)= t('About')
+      li.d-inline.mx-1: small &bull;
+      li.d-inline: small: a(href=`${config.urls.web}/privacy`)= t('Privacy')
+      li.d-inline.mx-1: small &bull;
+      li.d-inline: small: a(href=`${config.urls.web}/terms`)= t('Terms')
+    ul.m-0.p-0.text-muted
+      li.d-inline: small!= `&copy; ${moment().format('YYYY')} ${config.appName}`
+      li.d-inline.mx-1: small &bull;
+      li.d-inline: small= t('All Rights Reserved')

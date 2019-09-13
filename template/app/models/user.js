@@ -1,10 +1,12 @@
-const validator = require('validator');
+const StoreIPAddress = require('@ladjs/store-ip-address');
+const captainHook = require('captain-hook');
 const isSANB = require('is-string-and-not-blank');
-const randomstring = require('randomstring-extended');
 const mongoose = require('mongoose');
 const mongooseCommonPlugin = require('mongoose-common-plugin');
 const passportLocalMongoose = require('passport-local-mongoose');
-const StoreIPAddress = require('@ladjs/store-ip-address');
+const randomstring = require('randomstring-extended');
+const validator = require('validator');
+const { select } = require('mongoose-json-select');
 
 // <https://github.com/Automattic/mongoose/issues/5534>
 mongoose.Error.messages = require('@ladjs/mongoose-error-messages');
@@ -13,6 +15,8 @@ const config = require('../../config');
 
 const i18n = require('../../helpers/i18n');
 const logger = require('../../helpers/logger');
+
+const bull = require('../../bull');
 
 const storeIPAddress = new StoreIPAddress({
   logger,
@@ -41,6 +45,11 @@ const User = new mongoose.Schema({
     lowercase: true,
     unique: true,
     validate: val => validator.isEmail(val)
+  },
+  full_email: {
+    type: String,
+    required: true,
+    trim: true
   },
 
   // api token for basic auth
@@ -111,6 +120,33 @@ User.pre('validate', function(next) {
     this[fields.displayName] = `${this[fields.givenName] || ''} ${this[
       fields.familyName
     ] || ''}`;
+  }
+
+  // set the user's full email address (incl display name)
+  this.full_email = this[fields.displayName]
+    ? `${this[fields.displayName]} <${this.email}>`
+    : this.email;
+
+  next();
+});
+
+User.plugin(captainHook);
+
+User.postCreate(async (user, next) => {
+  // add welcome email job
+  try {
+    const job = await bull.add('email', {
+      template: 'welcome',
+      message: {
+        to: user.full_email
+      },
+      locals: {
+        user: select(user.toObject(), User.options.toJSON.select)
+      }
+    });
+    logger.info('added job', bull.getMeta({ job }));
+  } catch (err) {
+    logger.error(err);
   }
 
   next();

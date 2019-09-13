@@ -1,16 +1,17 @@
-mixin registerOrLogin(verb)
-  .container.py-3
-    .text-center
-      h1.my-3.py-3
-        if verb === 'sign up'
-          = t('Sign up now')
-          = ' '
-          = emoji('sparkles')
-        else
-          = t('Welcome back!')
-          = ' '
-          = emoji('beers')
-    .col-sm-12.col-md-8.offset-md-2.col-lg-6.offset-lg-3
+mixin registerOrLogin(verb, isModal = false)
+  .container(class=isModal ? '' : 'py-3')
+    if !isModal
+      .text-center
+        h1.my-3.py-3
+          if verb === 'sign up'
+            = t('Sign up now')
+            = ' '
+            = emoji('sparkles')
+          else
+            = t('Welcome back!')
+            = ' '
+            = emoji('beers')
+    div(class=isModal ? '' : 'col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3')
       if boolean(process.env.AUTH_FACEBOOK_ENABLED)
         a.btn.btn-block.btn-lg.btn-social.btn-facebook(href='/auth/facebook', role="button")
           i.fa.fa-fw.fa-facebook
@@ -48,10 +49,11 @@ mixin registerOrLogin(verb)
           input.form-control.form-control-lg(type="email", required, name="email", placeholder=t('Email address'))
         .form-group
           input.form-control.form-control-lg(type="password", required, name="password", placeholder=t('Password'))
-          if verb === 'sign up'
+        if verb === 'log in'
+          .form-group
             small.form-text.text-right: a(href=l('/forgot-password')).text-secondary= t('Forget your password?')
         button.btn.btn-success.btn-lg.btn-block(type="submit")= titleize(verb)
-      .alert.alert-light.border.mt-3.text-center
+      .alert.alert-light.border.mt-3.text-center(class=isModal ? 'mb-0' : '')
         - const isRegisterOrLogin = ['/register', '/login'].includes(ctx.pathWithoutLocale)
         if verb === 'sign up'
           != t('Already have an account?')

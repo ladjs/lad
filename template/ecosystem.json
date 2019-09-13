@@ -4,6 +4,7 @@
       "name": "web",
       "script": "web.js",
       "exec_mode": "cluster_mode",
+      "wait_ready": true,
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
@@ -13,15 +14,17 @@
       "name": "api",
       "script": "api.js",
       "exec_mode": "cluster_mode",
+      "wait_ready": true,
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
       }
     },
     {
-      "name": "agenda",
-      "script": "agenda.js",
+      "name": "bull",
+      "script": "bull.js",
       "exec_mode": "cluster_mode",
+      "wait_ready": true,
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
@@ -31,6 +34,7 @@
       "name": "proxy",
       "script": "proxy.js",
       "exec_mode": "cluster_mode",
+      "wait_ready": true,
       "instances": "max",
       "env_production": {
         "NODE_ENV": "production"
@@ -44,7 +48,10 @@
       "ref": "origin/master",
       "repo": "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
       "path": "/var/www/production",
-      "post-deploy": "yarn start post-deploy"
+      "post-deploy": "npm start post-deploy",
+      "env": {
+        "NODE_ENV": "production"
+      }
     }
   }
 }
