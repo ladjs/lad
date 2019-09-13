@@ -2,11 +2,23 @@
 if !user && !registerOrLogin
   include _register-or-login
   each verb in [ 'sign up', 'log in' ]
-    .modal.fade(tabindex='-1', role='dialog', id=`modal-${dashify(verb)}`)
-      .modal-dialog(role='document').modal-lg
+    .modal.fade(tabindex='-1', role='dialog', id=`modal-${dashify(verb)}`, aria-labelledby=`modal-${dashify(verb)}-title`, aria-hidden='true')
+      .modal-dialog(role='document')
         .modal-content
+          .modal-header.text-center.d-block
+            h4.modal-title.d-inline-block.ml-4(id=`modal-${dashify(verb)}-title`)
+              if verb === 'sign up'
+                = t('Sign up now')
+                = ' '
+                = emoji('sparkles')
+              else
+                = t('Welcome back!')
+                = ' '
+                = emoji('beers')
+            button(type='button', data-dismiss='modal', aria-label='Close').close
+              span(aria-hidden='true') &times;
           .modal-body
-            +registerOrLogin(verb)
+            +registerOrLogin(verb, true)
 nav(class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'bg-white' : 'fixed-top bg-light border border-top-0 border-left-0 border-right-0').navbar.navbar-expand-md.navbar-light
   button.navbar-toggler.bg-light.hidden-lg-up(type="button", data-toggle="collapse", data-target="#navbar-header", aria-controls="navbar-header", aria-expanded="false", aria-label=t('Toggle navigation'))
     span.navbar-toggler-icon
@@ -23,6 +35,11 @@ nav(class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'bg-white' :
           each language in availableLanguages
             if language.locale !== locale
               li: a.dropdown-item(href=language.url)= `${titleize(t(language.name))} ${ctx.locale !== 'en' ? `(${titleize(language.name)})` : ''}`
+      li.nav-item.ml-1
+        a(href=config.pkg.homepage).btn.btn-outline-secondary.btn-sm
+          i.fa.fa-github
+          span.d-none.d-sm-inline-block.ml-1 GitHub
+
   //- once we have responsive border utilities added to bootstrap
   //- then we can apply them to the anchor tags inside the navbar
   //- so that on mobile devices there is no border around the links

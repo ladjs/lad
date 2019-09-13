@@ -19,8 +19,6 @@ module.exports = {
   INVALID_SLUG: 'Please slightly change values to ensure slug uniqueness.',
   INVALID_STRING: '%s was missing or blank.',
   INVALID_USER: 'User does not exist.',
-  INVALID_STRIPE_TOKEN:
-    'An issue occurred while communicating with our payment provider. Please try again.',
   INVALID_TOKEN: 'Invalid CSRF token.',
   IS_NOT_ADMIN: 'You do not belong to the administrative user group.',
   LOGIN_REQUIRED: 'Please log in to view the page you requested.',

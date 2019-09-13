@@ -4,11 +4,11 @@ const randomstring = require('randomstring-extended');
 const Boom = require('@hapi/boom');
 const _ = require('lodash');
 const validator = require('validator');
-const { select } = require('mongoose-json-select');
 const sanitizeHtml = require('sanitize-html');
 
-const { Users, Jobs } = require('../../models');
-const { passport } = require('../../../helpers');
+const bull = require('../../../bull');
+const Users = require('../../models/user');
+const passport = require('../../../helpers/passport');
 const config = require('../../../config');
 
 const sanitize = str =>
@@ -177,23 +177,6 @@ async function register(ctx) {
   } else {
     ctx.redirect(redirectTo);
   }
-
-  // add welcome email job
-  try {
-    const job = await Jobs.create({
-      name: 'email',
-      data: {
-        template: 'welcome',
-        to: user.email,
-        locals: {
-          user: select(user.toObject(), Users.schema.options.toJSON.select)
-        }
-      }
-    });
-    ctx.logger.debug('queued welcome email', job);
-  } catch (err) {
-    ctx.logger.error(err);
-  }
 }
 
 async function forgotPassword(ctx) {
@@ -225,7 +208,9 @@ async function forgotPassword(ctx) {
   if (
     user.reset_token_expires_at &&
     user.reset_token &&
-    moment(user.reset_token_expires_at).isBefore(moment().add(30, 'minutes'))
+    moment(user.reset_token_expires_at).isAfter(
+      moment().subtract(30, 'minutes')
+    )
   )
     throw Boom.badRequest(
       ctx.translate(
@@ -253,21 +238,20 @@ async function forgotPassword(ctx) {
 
   // queue password reset email
   try {
-    const job = await Jobs.create({
-      name: 'email',
-      data: {
-        template: 'reset-password',
-        to: user.email,
-        locals: {
-          user: _.pick(user, [
-            config.passport.fields.displayName,
-            'reset_token_expires_at'
-          ]),
-          link: `${config.urls.web}/reset-password/${user.reset_token}`
-        }
+    const job = await bull.add('email', {
+      template: 'reset-password',
+      message: {
+        to: user.full_email
+      },
+      locals: {
+        user: _.pick(user, [
+          config.passport.fields.displayName,
+          'reset_token_expires_at'
+        ]),
+        link: `${config.urls.web}/reset-password/${user.reset_token}`
       }
     });
-    ctx.logger.debug('Queued reset password email', job);
+    ctx.logger.info('added job', bull.getMeta({ job }));
   } catch (err) {
     ctx.logger.error(err);
   }

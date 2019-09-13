@@ -2,7 +2,7 @@
   <a href="https://ladjs.github.io/lad/"><img src="media/lad.png" alt="lad" /></a>
 </h1>
 <div align="center">
-  <a href="http://slack.crocodilejs.com"><img src="http://slack.crocodilejs.com/badge.svg" alt="chat" /></a>
+  <a href="https://slack.crocodilejs.com"><img src="https://slack.crocodilejs.com/badge.svg" alt="chat" /></a>
   <a href="https://travis-ci.org/ladjs/lad"><img src="https://travis-ci.org/ladjs/lad.svg?branch=master" alt="build status" /></a>
   <a href="https://codecov.io/github/ladjs/lad"><img src="https://img.shields.io/codecov/c/github/ladjs/lad/master.svg" alt="code coverage" /></a>
   <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="code style" /></a>
@@ -63,7 +63,7 @@ These microservices are preconfigured for security, performance, and graceful re
 
 * Webapp server → [web.js](template/web.js)
 * API server → [api.js](template/api.js)
-* Job scheduler → [agenda.js](template/agenda.js)
+* Job scheduler → [bull.js](template/bull.js)
 * Proxy server → [proxy.js](template/proxy.js)
 
 ### Front-end
@@ -85,11 +85,11 @@ These microservices are preconfigured for security, performance, and graceful re
 
 ### Back-end
 
-* Redis, sessions, and flash messages (both toast and modal messages thanks to [SweetAlert2][])
-* Koa-based webapp and API servers
+* Redis, sessions, and flash toast and modal [SweetAlert2][] messages (uses [ioredis][] which has support for [Cluster][redis-cluster], [Sentinel][redis-sentinel], and more)
+* Koa-based webapp and API servers (uses HTTP/2 for production!)
 * Pagination built-in (using [ctx-paginate][])
 * RESTful API with BasicAuth and versioning
-* Automated job scheduler with cron and human-readable syntax (backed by [Mongoose][] and [Agenda][])
+* Automated job scheduler with cron and human-readable syntax (backed by [Mongoose][] and [Bull][])
 * Passport-based authentication and group-based (Unix-like) permissioning
 * Stripe-inspired error handling
 * Mongoose and MongoDB with common database plugins
@@ -244,31 +244,41 @@ yarn start all
 
 ##### Debugging
 
-As similar to running any other [node][] process, simply use the environment variable `DEBUG`:
+* `DEBUG` - debug using [debug][] output (widely adopted package in the community for debugging across all Node packages):
 
-[npm][]:
+  ```sh
+  DEBUG=* ...
+  ```
 
-```sh
-DEBUG=* npm start
-```
+* `NODE_DEBUG` - debug [node][] internal modules:
 
-[yarn][]:
+  ```sh
+  NODE_DEBUG=* ...
+  ```
 
-```sh
-DEBUG=* yarn start all
-```
+* `MONGOOSE_DEBUG` - debug Mongoose raw database operation output:
 
-You can also use `NODE_DEBUG` if desired to debug [node][] internal modules.
+  ```sh
+  MONGOOSE_DEBUG=true ...
+  ```
 
-```sh
-NODE_DEBUG=* ...
-```
+* `TRANSPORT_DEBUG` - debug Nodemailer transport:
 
-And also `MONGOOSE_DEBUG` if you'd like Mongoose raw database operation output.
+  ```sh
+  TRANSPORT_DEBUG=true ...
+  ```
 
-```sh
-MONGOOSE_DEBUG=true ...
-```
+* `REDIS_MONITOR` - debug Redis using `MONITOR` (uses [@ladjs/redis][ladjs-redis] and passes `true` for the `monitor` argument):
+
+  ```sh
+  REDIS_MONITOR=true ...
+  ```
+
+* `REDIS_FRIENDLY_ERROR_STACK` - debug Redis with friendly error stack messages (see [showFriendlyErrorStack][show-friendly-error-stack] option of [ioredis][])
+
+  ```sh
+  REDIS_FRIENDLY_ERROR_STACK=true ...
+  ```
 
 #### Production
 
@@ -506,7 +516,6 @@ tree template -I "build|node_modules|coverage|test"
 template
 ├── LICENSE
 ├── README
-├── agenda.js
 ├── api.js
 ├── app
 │   ├── controllers
@@ -514,12 +523,17 @@ template
 │   │   │   ├── index.js
 │   │   │   └── v1
 │   │   │       ├── index.js
+│   │   │       ├── log.js
 │   │   │       └── users.js
 │   │   ├── index.js
 │   │   └── web
+│   │       ├── admin
+│   │       │   ├── index.js
+│   │       │   └── users.js
 │   │       ├── auth.js
-│   │       ├── contact.js
-│   │       └── index.js
+│   │       ├── index.js
+│   │       ├── my-account.js
+│   │       └── support.js
 │   ├── models
 │   │   ├── index.js
 │   │   ├── inquiry.js
@@ -527,18 +541,28 @@ template
 │   └── views
 │       ├── 404.pug
 │       ├── 500.pug
+│       ├── _breadcrumbs.pug
 │       ├── _footer.pug
 │       ├── _nav.pug
 │       ├── _pagination.pug
+│       ├── _register-or-login.pug
 │       ├── about.pug
-│       ├── admin.pug
-│       ├── contact.pug
+│       ├── admin
+│       │   ├── index.pug
+│       │   └── users
+│       │       ├── index.pug
+│       │       └── retrieve.pug
+│       ├── dashboard
+│       │   └── index.pug
 │       ├── forgot-password.pug
 │       ├── home.pug
 │       ├── layout.pug
-│       ├── my-account.pug
+│       ├── my-account
+│       │   ├── index.pug
+│       │   └── security.pug
+│       ├── privacy.pug
+│       ├── register-or-login.pug
 │       ├── reset-password.pug
-│       ├── signup-or-login.pug
 │       ├── spinner
 │       │   ├── 1.pug
 │       │   ├── 10.pug
@@ -552,17 +576,18 @@ template
 │       │   ├── 8.pug
 │       │   ├── 9.pug
 │       │   └── spinner.pug
+│       ├── support.pug
 │       └── terms.pug
 ├── assets
 │   ├── browserconfig.xml
 │   ├── css
 │   │   ├── _custom.scss
 │   │   ├── _email.scss
-│   │   ├── _hljs-github.scss
+│   │   ├── _hljs.scss
+│   │   ├── _sticky-footer.scss
 │   │   ├── _variables.scss
 │   │   └── app.scss
 │   ├── fonts
-│   │   └── GoudyBookletter1911.otf
 │   ├── img
 │   │   ├── android-chrome-192x192.png
 │   │   ├── android-chrome-384x384.png
@@ -570,40 +595,28 @@ template
 │   │   ├── favicon-16x16.png
 │   │   ├── favicon-32x32.png
 │   │   ├── favicon.ico
+│   │   ├── logo-square.svg
 │   │   ├── mstile-150x150.png
-│   │   └── social.png
+│   │   ├── social.png
+│   │   └── twitter.png
 │   ├── js
-│   │   ├── admin
-│   │   │   └── dashboard.js
-│   │   ├── ajax-form.js
-│   │   ├── change-hash-on-scroll.js
-│   │   ├── clipboard.js
 │   │   ├── core.js
-│   │   ├── custom-file-input.js
-│   │   ├── facebook-hash-fix.js
-│   │   ├── flash.js
-│   │   ├── jump-to.js
-│   │   ├── return-to.js
-│   │   ├── spinner.js
-│   │   └── swal.js
-│   └── manifest.json
+│   │   ├── logger.js
+│   │   └── uncaught.js
+│   ├── manifest.json
+│   └── robots.txt
+├── bull.js
 ├── config
 │   ├── env.js
-│   ├── environments
-│   │   ├── development.js
-│   │   ├── index.js
-│   │   ├── production.js
-│   │   ├── staging.js
-│   │   └── test.js
 │   ├── index.js
 │   ├── meta.js
 │   ├── phrases.js
+│   ├── polyfills.js
 │   └── utilities.js
 ├── ecosystem.json
 ├── emails
 │   ├── _content.pug
 │   ├── _footer.pug
-│   ├── _header.pug
 │   ├── _nav.pug
 │   ├── inquiry
 │   │   ├── html.pug
@@ -622,18 +635,21 @@ template
 │   ├── i18n.js
 │   ├── index.js
 │   ├── logger.js
+│   ├── passport.js
 │   └── policies.js
-├── jobs
-│   ├── email.js
-│   └── index.js
+├── index.js
 ├── locales
-│   ├── README.md
 │   ├── en.json
 │   ├── es.json
 │   └── zh.json
 ├── nodemon.json
+├── package-scripts.js
 ├── package.json
 ├── proxy.js
+├── queues
+│   ├── email.js
+│   ├── index.js
+│   └── mandarin.js
 ├── routes
 │   ├── api
 │   │   ├── index.js
@@ -643,9 +659,13 @@ template
 │   └── web
 │       ├── admin.js
 │       ├── auth.js
-│       └── index.js
+│       ├── index.js
+│       └── my-account.js
+├── template
 ├── web.js
 └── yarn.lock
+
+31 directories, 119 files
 ```
 
 
@@ -745,7 +765,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [git]: https://git-scm.com/
 
-[slack]: http://slack.crocodilejs.com/
+[slack]: https://slack.crocodilejs.com/
 
 [brew]: https://brew.sh/
 
@@ -805,7 +825,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [mongoose]: http://mongoosejs.com
 
-[agenda]: http://agendajs.com
+[bull]: https://github.com/OptimalBits/bull
 
 [ladjs-auth]: https://github.com/ladjs/auth
 
@@ -866,3 +886,15 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [base64]: https://github.com/jelmerdemaat/postcss-base64
 
 [cssnext]: http://cssnext.io/
+
+[debug]: https://github.com/visionmedia/debug
+
+[ladjs-redis]: https://github.com/ladjs/redis
+
+[show-friendly-error-stack]: https://github.com/luin/ioredis#error-handling
+
+[ioredis]: https://github.com/luin/ioredis
+
+[redis-cluster]: https://redis.io/topics/cluster-tutorial
+
+[redis-sentinel]: https://redis.io/topics/sentinel

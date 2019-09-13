@@ -1,10 +1,10 @@
-const agenda = require('./agenda');
+const bull = require('./bull');
 const api = require('./api');
 const web = require('./web');
 const proxy = require('./proxy');
 
 module.exports = {
-  agenda,
+  bull,
   api,
   web,
   proxy

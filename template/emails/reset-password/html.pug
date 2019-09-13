@@ -3,12 +3,11 @@ extends ../layout
 
 block content
   .container.mt-3
-    p= `${user[config.passport.fields.givenName] ? user[config.passport.fields.givenName] : t('Hello')},`
-    p
-      = t('Please')
-      = ' '
-      a(href=link)= t('reset your password')
-      = ' '
-      = t('now, and remember that this link will expire ')
-      = moment(user.reset_token_expires_at).fromNow()
-      = '.'
+    .card
+      h5.card-header Password reset request
+      .card-body
+        .card-text
+          p= `${user[config.passport.fields.givenName] ? user[config.passport.fields.givenName] : t('Hello')},`
+          p= t(`Click the button below within ${moment(user.reset_token_expires_at).fromNow(true)} to continue.`)
+          p= t('If you did not submit this request, then please reply to let us know.')
+        a.btn.btn-lg.btn-block.btn-success(href=link, role="button")= t('Change your password')

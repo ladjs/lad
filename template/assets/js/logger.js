@@ -3,10 +3,12 @@ const _ = require('lodash');
 
 // setup our Cabin instance
 const cabin = new Cabin({
+  key: window.API_TOKEN || null,
   axe: {
-    endpoint: '/log/',
+    endpoint: `${window.API_URL}/v1/log`,
     showMeta: true,
     showStack: true,
+    capture: true,
     silent: process.env.NODE_ENV === 'production'
   }
 });
