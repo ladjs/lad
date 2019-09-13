@@ -19,7 +19,12 @@ test('defaults', async t => {
     name: 'my-package-name'
   });
   t.snapshot(
-    stream.fileList.sort().filter(name => !name.includes('/snapshots')),
+    stream.fileList
+      .sort()
+      .filter(
+        name =>
+          !name.includes('/snapshots') && !name.startsWith('.base64-cache/')
+      ),
     'generated files'
   );
   const content = stream.fileContents('README.md');
