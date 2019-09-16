@@ -1,6 +1,6 @@
 nav.bg-light.border.border-top-0.border-left-0.border-right-0.navbar.navbar-light
   a(href=config.urls.web).navbar-brand
-    img(src='/img/logo-square.svg', width=30, height=30, alt='').d-inline-block.align-middle
+    img(src=manifest('img/logo-square.svg'), width=30, height=30, alt='').d-inline-block.align-middle
     = ' '
     != png2x({ text: config.appName, fontSize: 30, backgroundColor: '#f8f9fa', fontNameOrPath: 'Bitter Regular' })
   .navbar-expand

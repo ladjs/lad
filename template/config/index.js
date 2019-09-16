@@ -3,20 +3,22 @@ const path = require('path');
 const Axe = require('axe');
 const Boom = require('@hapi/boom');
 const I18N = require('@ladjs/i18n');
+const _ = require('lodash');
 const base64ToS3 = require('nodemailer-base64-to-s3');
 const boolean = require('boolean');
 const consolidate = require('consolidate');
 const nodemailer = require('nodemailer');
-const strength = require('strength');
 const pino = require('pino');
+const manifestRev = require('manifest-rev');
+const strength = require('strength');
 const { Signale } = require('signale');
 
 const pkg = require('../package');
 const env = require('./env');
-const utilities = require('./utilities');
-const polyfills = require('./polyfills');
-const phrases = require('./phrases');
 const meta = require('./meta');
+const phrases = require('./phrases');
+const polyfills = require('./polyfills');
+const utilities = require('./utilities');
 
 const config = {
   // package.json
@@ -37,7 +39,14 @@ const config = {
     },
     send: env.SEND_EMAIL,
     juiceResources: {
-      preserveImportant: true
+      preserveImportant: true,
+      preserveFontFaces: false,
+      preserveMediaQueries: false,
+      preserveKeyFrames: false,
+      removeStyleTags: true,
+      insertPreservedExtraCss: false,
+      extraCss: false,
+      preservePseudos: false
     }
   },
   logger: {
@@ -67,17 +76,11 @@ const config = {
     directory: path.join(__dirname, '..', 'locales')
   },
 
-  aws: {
-    key: env.AWS_IAM_KEY,
-    accessKeyId: env.AWS_IAM_KEY,
-    secret: env.AWS_IAM_SECRET,
-    secretAccessKey: env.AWS_IAM_SECRET,
-    distributionId: env.AWS_CF_DI,
-    domainName: env.AWS_CF_DOMAIN,
-    params: {
-      Bucket: env.AWS_S3_BUCKET
-    }
-  },
+  // <https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property>
+  aws: {},
+
+  // build directory
+  buildBase: 'build',
 
   // templating
   views: {
@@ -180,6 +183,9 @@ const config = {
   lastLocaleField: 'last_locale'
 };
 
+// set build dir based off build base dir name
+config.buildDir = path.join(__dirname, '..', config.buildBase);
+
 // add lastLocale configuration path name to both email-templates and i18n
 config.i18n.lastLocaleField = config.lastLocaleField;
 config.email.lastLocaleField = config.lastLocaleField;
@@ -192,6 +198,16 @@ const logger = new Axe(config.logger);
 const i18n = new I18N({
   ...config.i18n,
   logger
+});
+
+// add manifest helper for rev-manifest.json support
+config.manifest = path.join(config.buildDir, 'rev-manifest.json');
+config.views.locals.manifest = manifestRev({
+  prepend:
+    env.AWS_CLOUDFRONT_DOMAIN && env.NODE_ENV === 'production'
+      ? `//${env.AWS_CLOUDFRONT_DOMAIN}/`
+      : '/',
+  manifest: config.manifest
 });
 
 // add pug filter for easy translation of nested blocks
@@ -215,13 +231,6 @@ config.email.transport = nodemailer.createTransport({
   logger,
   debug: boolean(env.TRANSPORT_DEBUG)
 });
-config.email.transport.use(
-  'compile',
-  base64ToS3({
-    cloudFrontDomainName: env.AWS_CF_DOMAIN,
-    aws: config.aws
-  })
-);
 
 config.email.views = { ...config.views };
 config.email.views.root = path.join(__dirname, '..', 'emails');
@@ -230,5 +239,29 @@ config.email.juiceResources.webResources = {
   relativeTo: config.buildDir,
   images: true
 };
+
+config.email.transport.use(
+  'compile',
+  base64ToS3({
+    aws: _.merge(config.aws, {
+      params: {
+        Bucket: env.AWS_S3_BUCKET
+      }
+    }),
+    cloudFrontDomainName: env.AWS_CLOUDFRONT_DOMAIN,
+    fallbackDir: path.join(config.buildDir, 'img', 'nodemailer'),
+    fallbackPrefix: `${config.urls.web}/img/nodemailer/`,
+    logger
+  })
+);
+
+if (
+  !config.email.juiceResources.webResources.images ||
+  env.NODE_ENV !== 'production'
+)
+  config.email.views.locals.manifest = manifestRev({
+    prepend: `${config.urls.web}/`,
+    manifest: config.manifest
+  });
 
 module.exports = config;

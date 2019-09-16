@@ -1,12 +1,19 @@
-const titleize = require('titleize');
-const _ = require('lodash');
+const { extname } = require('path');
 
-const support = require('./support');
-const auth = require('./auth');
+const _ = require('lodash');
+const titleize = require('titleize');
+
 const admin = require('./admin');
+const auth = require('./auth');
 const myAccount = require('./my-account');
+const support = require('./support');
 
 function breadcrumbs(ctx, next) {
+  // return early if its not a pure path (e.g. ignore static assets)
+  // and also return early if it's not a GET request
+  // and also return early if it's an XHR request
+  if (ctx.method !== 'GET' || extname(ctx.path) !== '') return next();
+
   const breadcrumbs = _.compact(ctx.path.split('/')).slice(1);
   ctx.state.breadcrumbs = breadcrumbs;
   ctx.state.meta.title = ctx.request.t(

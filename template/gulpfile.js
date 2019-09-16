@@ -1,10 +1,12 @@
 const path = require('path');
 
+const AWS = require('aws-sdk');
+const _ = require('lodash');
+const awscloudfront = require('gulp-awspublish-cloudfront');
 const awspublish = require('gulp-awspublish');
 const babelify = require('@ladjs/babelify');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
-const cloudfront = require('gulp-cloudfront');
 const collapser = require('bundle-collapser/plugin');
 const commonShake = require('common-shakeify');
 const cssnano = require('cssnano');
@@ -47,28 +49,36 @@ process.env.I18N_UPDATE_FILES = true;
 
 const env = require('./config/env');
 const config = require('./config');
+const logger = require('./helpers/logger');
 
 const PROD = config.env === 'production';
 const DEV = config.env === 'development';
 const TEST = config.env === 'test';
-
 const staticAssets = [
   'assets/**/*',
   '!assets/css/**/*',
   '!assets/img/**/*',
   '!assets/js/**/*'
 ];
-
 const manifestOptions = {
   merge: true,
-  base: 'build'
+  base: config.buildBase
 };
+
+// set aws logger
+AWS.config.logger = logger;
 
 function publish() {
   // create a new publisher
-  const publisher = awspublish.create(config.aws);
+  const publisher = awspublish.create(
+    _.merge(config.aws, {
+      params: {
+        Bucket: env.AWS_S3_BUCKET
+      }
+    })
+  );
   return (
-    src(['build/**/*', '!build/rev-manifest.json'])
+    src([`${config.buildBase}/**/*`, `!${config.manifest}`])
       // gzip, Set Content-Encoding headers and add .gz extension
       .pipe(awspublish.gzip())
       // publisher will add Content-Length, Content-Type
@@ -83,7 +93,7 @@ function publish() {
       .pipe(publisher.cache())
       // print upload updates to console
       .pipe(awspublish.reporter())
-      .pipe(cloudfront(config.aws))
+      .pipe(awscloudfront(env.AWS_CLOUDFRONT_DISTRIBUTION_ID))
   );
 }
 
@@ -105,12 +115,10 @@ function img() {
         use: [pngquant()]
       })
     )
-    .pipe(dest('build'))
+    .pipe(dest(config.buildBase))
     .pipe(gulpif(DEV, lr(config.livereload)))
-    .pipe(
-      gulpif(PROD, rev.manifest('build/rev-manifest.json', manifestOptions))
-    )
-    .pipe(gulpif(PROD, dest('build')));
+    .pipe(gulpif(PROD, rev.manifest(config.manifest, manifestOptions)))
+    .pipe(gulpif(PROD, dest(config.buildBase)));
 }
 
 function scss() {
@@ -134,7 +142,7 @@ function css() {
     .pipe(
       postcss([
         fontMagician({
-          hosted: [path.join(__dirname, 'build', 'fonts'), '/fonts']
+          hosted: [path.join(__dirname, config.buildBase, 'fonts'), '/fonts']
         }),
         unprefix(),
         postcssPresetEnv(),
@@ -145,12 +153,10 @@ function css() {
     )
     .pipe(gulpif(PROD, rev()))
     .pipe(sourcemaps.write('./'))
-    .pipe(dest('build'))
+    .pipe(dest(config.buildBase))
     .pipe(gulpif(DEV, lr(config.livereload)))
-    .pipe(
-      gulpif(PROD, rev.manifest('build/rev-manifest.json', manifestOptions))
-    )
-    .pipe(gulpif(PROD, dest('build')));
+    .pipe(gulpif(PROD, rev.manifest(config.manifest, manifestOptions)))
+    .pipe(gulpif(PROD, dest(config.buildBase)));
 }
 
 function xo() {
@@ -161,7 +167,7 @@ function xo() {
 }
 
 function eslint() {
-  return src('build/**/*.js', { since: lastRun(eslint) })
+  return src(`${config.buildBase}/**/*.js`, { since: lastRun(eslint) })
     .pipe(
       gulpEslint({
         allowInlineConfig: false,
@@ -198,12 +204,10 @@ function js() {
     .pipe(gulpif(PROD, uglify()))
     .pipe(gulpif(PROD, rev()))
     .pipe(sourcemaps.write('./'))
-    .pipe(dest('build'))
+    .pipe(dest(config.buildBase))
     .pipe(gulpif(DEV, lr(config.livereload)))
-    .pipe(
-      gulpif(PROD, rev.manifest('build/rev-manifest.json', manifestOptions))
-    )
-    .pipe(gulpif(PROD, dest('build')));
+    .pipe(gulpif(PROD, rev.manifest(config.manifest, manifestOptions)))
+    .pipe(gulpif(PROD, dest(config.buildBase)));
 }
 
 function remark() {
@@ -222,11 +226,11 @@ function static() {
     base: 'assets',
     allowEmpty: true,
     since: lastRun(static)
-  }).pipe(dest('build'));
+  }).pipe(dest(config.buildBase));
 }
 
 function clean() {
-  return del(['build']);
+  return del([config.buildBase]);
 }
 
 const build = series(
