@@ -935,10 +935,10 @@
   resolved "https://registry.yarnpkg.com/@ladjs/bootstrap-social/-/bootstrap-social-7.0.2.tgz#26421482bfaf6ff102f5cefee1dec33956a8a688"
   integrity sha512-59cZz1cLjfqdQq1Fj5XMZuGwwKz1h1VztTP0jKg5wrEwCq8OuwT8RqfYGdF0tM7Bp6sqowgYZNVikDmbRjvZZA==
 
-"@ladjs/bull@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@ladjs/bull/-/bull-1.0.2.tgz#9c7cb2e49c0d672b21efda6004c56cc9cc1c3953"
-  integrity sha512-qf537FJNTAjdRX7KbqkdUe76ZV2ia0wEJwvbcdETt8aREA96JX8fVsYiSyIVF5V0KQiyJ6XgXzBc7HcSYfnQZA==
+"@ladjs/bull@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@ladjs/bull/-/bull-1.0.3.tgz#9813bbda27fc4ddbcc502f334fb7d424e71b9885"
+  integrity sha512-NghHUT9q0N0CUorLOMLm5ugZMpxkkk/Gb823QJfEU4HaCBeTVmqB8U3HCilnRLp3KpeeG98wVBvNvT7pTTcwdQ==
   dependencies:
     "@ladjs/redis" "^1.0.3"
     "@ladjs/shared-config" "^0.0.9"

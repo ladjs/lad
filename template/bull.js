@@ -1,12 +1,16 @@
 const Bull = require('@ladjs/bull');
 const Graceful = require('@ladjs/graceful');
 
+const config = require('./config');
 const queues = require('./queues');
 const logger = require('./helpers/logger');
 
 const bull = new Bull({
   logger,
-  queues
+  queues,
+  queue: {
+    prefix: `bull_${config.env}`
+  }
 });
 
 if (!module.parent) {
