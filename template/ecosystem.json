@@ -48,7 +48,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
       "path": "/var/www/production",
-      "post-deploy": "npm start post-deploy",
+      "post-deploy": "yarn && yarn start post-deploy",
       "env": {
         "NODE_ENV": "production"
       }
