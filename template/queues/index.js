@@ -8,7 +8,8 @@ const queues = [
     },
     processors: [
       {
-        processor: path.join(__dirname, 'email.js')
+        processor: path.join(__dirname, 'email.js'),
+        concurrency: 10
       }
     ]
   }
