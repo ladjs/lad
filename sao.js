@@ -105,7 +105,7 @@ module.exports = {
     }
   },
   filters: {
-    // until this issue is resolved we need this line:
+    // keeping this here as a safety guard per this gh issue
     // <https://github.com/saojs/sao/issues/59>
     'node_modules/**': false,
 
@@ -122,7 +122,12 @@ module.exports = {
     'api.js': 'api === true',
     'bull.js': 'bull === true',
     'proxy.js': 'proxy === true',
-    'jobs/**': 'bull === true'
+    'jobs/**': 'bull === true',
+
+    'test/config/snapshots/': false,
+    'test/config/snapshots/**': false,
+    'test/web/snapshots/': false,
+    'test/web/snapshots/**': false
   },
   move: {
     // We keep `.gitignore` as `gitignore` in the project
