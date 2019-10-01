@@ -1,25 +1,26 @@
 const path = require('path');
+const fs = require('fs');
 
 const AWS = require('aws-sdk');
 const _ = require('lodash');
 const awscloudfront = require('gulp-awspublish-cloudfront');
 const awspublish = require('gulp-awspublish');
-const babelify = require('@ladjs/babelify');
+const babel = require('gulp-babel');
 const browserify = require('browserify');
-const buffer = require('vinyl-buffer');
 const collapser = require('bundle-collapser/plugin');
-const commonShake = require('common-shakeify');
 const cssnano = require('cssnano');
 const del = require('del');
-const envify = require('envify/custom');
+const envify = require('gulp-envify');
 const fontMagician = require('postcss-font-magician');
 const fontSmoothing = require('postcss-font-smoothing');
+const globby = require('globby');
 const gulpEslint = require('gulp-eslint');
 const gulpRemark = require('gulp-remark');
 const gulpXo = require('gulp-xo');
 const gulpif = require('gulp-if');
 const imagemin = require('gulp-imagemin');
 const lr = require('gulp-livereload');
+const makeDir = require('make-dir');
 const ms = require('ms');
 const nodeSass = require('node-sass');
 const pngquant = require('imagemin-pngquant');
@@ -32,9 +33,8 @@ const sass = require('gulp-sass');
 const scssParser = require('postcss-scss');
 const sourcemaps = require('gulp-sourcemaps');
 const stylelint = require('stylelint');
-const tap = require('gulp-tap');
-const uglify = require('gulp-uglify');
-const unassertify = require('unassertify');
+const terser = require('gulp-terser');
+const unassert = require('gulp-unassert');
 const unprefix = require('postcss-unprefix');
 const { lastRun, watch, series, parallel, src, dest } = require('gulp');
 
@@ -178,30 +178,35 @@ function eslint() {
     .pipe(gulpEslint.failAfterError());
 }
 
-// <https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-multiple-destination.md>
-function js() {
-  return src('assets/js/**/*.js', {
-    base: 'assets',
-    since: lastRun(js)
-  })
-    .pipe(
-      tap(file => {
-        file.contents = browserify({
-          entries: file.path,
-          debug: true,
-          basedir: 'assets'
-        })
-          .transform(babelify)
-          .transform(unassertify, { global: true })
-          .transform(envify(env), { global: true })
-          .plugin(collapser)
-          .plugin(commonShake)
-          .bundle();
+async function bundle() {
+  // make build/js folder for compile task
+  await makeDir(path.join(config.buildBase, 'js'));
+  const paths = await globby('**/*.js', { cwd: 'assets/js' });
+  const b = browserify({
+    entries: paths.map(str => `assets/js/${str}`),
+    debug: true
+  });
+  return (
+    b
+      .plugin(collapser)
+      .plugin('factor-bundle', {
+        outputs: paths.map(str => `${config.buildBase}/js/${str}`)
       })
-    )
-    .pipe(buffer())
+      .bundle()
+      // .bundle((err, buffer) => {
+      .pipe(fs.createWriteStream(`${config.buildBase}/js/factor-bundle.js`))
+  );
+}
+
+async function compile() {
+  return src('build/js/**/*.js', {
+    since: lastRun(compile)
+  })
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(envify(env))
+    .pipe(unassert())
+    .pipe(babel())
+    .pipe(gulpif(PROD, terser()))
     .pipe(gulpif(PROD, rev()))
     .pipe(sourcemaps.write('./'))
     .pipe(dest(config.buildBase))
@@ -232,6 +237,8 @@ function static() {
 function clean() {
   return del([config.buildBase]);
 }
+
+const js = series(bundle, compile);
 
 const build = series(
   clean,

@@ -1,4 +1,1 @@
-# Browsers that we support
-
-> 1%
-last 2 versions
+extends @ladjs/browserslist-config

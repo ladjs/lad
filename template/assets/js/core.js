@@ -70,9 +70,12 @@ handleHashOnLoad();
 $(() => {
   // Resize navbar padding on load, window resize, and navbar collapse/show
   resizeNavbarPadding($);
-  $(window).on('resize.resizeNavbarPadding', resizeNavbarPadding);
-  $('.navbar-collapse').on('hidden.bs.collapse', resizeNavbarPadding);
-  $('.navbar-collapse').on('shown.bs.collapse', resizeNavbarPadding);
+  $(window).on('resize.resizeNavbarPadding', () => {
+    resizeNavbarPadding($);
+  });
+  $('.navbar-collapse').on('hidden.bs.collapse shown.bs.collapse', () => {
+    resizeNavbarPadding($);
+  });
 
   // Handle modals on anchor tags with data-target specified (preserve href)
   $('a[data-toggle="modal-anchor"]').on('click.modalAnchor', modalAnchor);

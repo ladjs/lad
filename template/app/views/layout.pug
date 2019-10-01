@@ -103,6 +103,9 @@ html(lang=locale)
       //- polyfill environment
       script(defer, src=`https://polyfill.io/v3/polyfill${config.env === 'production' ? '.min' : ''}.js?features=${polyfills.join(',')}`)
 
+      //- factor bundle (common shared assets across all files)
+      script(defer, src=manifest('js/factor-bundle.js'))
+
       //- uncaught (handles errors, similar to TraceKit but with CabinJS + StackTrace.JS)
       script(defer, src=manifest('js/uncaught.js'))
 

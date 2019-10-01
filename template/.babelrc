@@ -1,9 +1,12 @@
 {
   "presets": [
-    ["@babel/env", {
-      "targets": {
-        "browsers": [ "> 1%", "last 2 versions" ]
+    [
+      "@babel/env", {
+        "debug": true,
+        "targets": {
+          "browsers": "extends @ladjs/browserslist-config"
+        }
       }
-    }]
+    ]
   ]
 }

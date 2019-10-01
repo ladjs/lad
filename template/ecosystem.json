@@ -48,10 +48,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
       "path": "/var/www/production",
-      "post-deploy": "yarn -D && yarn start post-deploy",
-      "env": {
-        "NODE_ENV": "production"
-      }
+      "post-deploy": "yarn && NODE_ENV=production yarn start build && yarn start publish-assets && pm2 startOrGracefulReload ecosystem.json --env production --update-env"
     }
   }
 }

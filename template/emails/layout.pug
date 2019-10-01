@@ -7,7 +7,7 @@ html(lang=locale)
       meta(http-equiv="X-UA-Compatible", content="IE=edge")
       meta(name="x-apple-disable-message-reformatting")
       title= subject
-      link(rel="stylesheet", href="/css/app.css", data-inline)
+      link(rel="stylesheet", href=manifest('css/app.css'), data-inline)
   body.email
     block body
       block nav
