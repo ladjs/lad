@@ -24,7 +24,7 @@ router
     (ctx, next) =>
       passport.authenticate(
         ctx.params.provider,
-        config.auth[ctx.params.provider]
+        config.passport[ctx.params.provider]
       )(ctx, next)
   )
   .get(

@@ -302,6 +302,7 @@ async function catchError(ctx, next) {
   try {
     await next();
   } catch (err) {
+    ctx.logger.error(err);
     if (ctx.params.provider === 'google' && err.message === 'Consent required')
       return ctx.redirect('/auth/google/consent');
     ctx.flash('error', err.message);
