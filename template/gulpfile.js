@@ -190,11 +190,15 @@ async function bundle() {
     b
       .plugin(collapser)
       .plugin('factor-bundle', {
-        outputs: paths.map(str => `${config.buildBase}/js/${str}`)
+        outputs: paths.map(str => path.join(config.buildBase, 'js', str))
       })
       .bundle()
       // .bundle((err, buffer) => {
-      .pipe(fs.createWriteStream(`${config.buildBase}/js/factor-bundle.js`))
+      .pipe(
+        fs.createWriteStream(
+          path.join(config.buildBase, 'js', 'factor-bundle.js')
+        )
+      )
   );
 }
 
