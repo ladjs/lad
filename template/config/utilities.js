@@ -1,7 +1,5 @@
 const _ = require('lodash');
 const accounting = require('accounting');
-const boolean = require('boolean');
-const customFonts = require('custom-fonts-in-emails');
 const dashify = require('dashify');
 const fa = require('font-awesome-assets');
 const gemoji = require('gemoji');
@@ -11,14 +9,11 @@ const isSANB = require('is-string-and-not-blank');
 const moment = require('moment');
 const pluralize = require('pluralize');
 const titleize = require('titleize');
+const { boolean } = require('boolean');
 
-function json(str, replacer = null, space = 2) {
-  return JSON.stringify(str, replacer, space);
-}
-
-function emoji(str) {
-  return gemoji.name[str] ? gemoji.name[str].emoji : '';
-}
+const json = (str, replacer = null, space = 2) =>
+  JSON.stringify(str, replacer, space);
+const emoji = str => (gemoji.name[str] ? gemoji.name[str].emoji : '');
 
 module.exports = {
   hljs,
@@ -33,6 +28,5 @@ module.exports = {
   boolean,
   titleize,
   dashify,
-  humanize,
-  ...customFonts
+  humanize
 };

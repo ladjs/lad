@@ -30,6 +30,7 @@ const mongoose = new Mongoose(
   }
 })();
 
+global.config = config;
 global.api = new Frisbee({
   baseURI: `http://localhost:${api.server.address().port}`,
   headers: {

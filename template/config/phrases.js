@@ -20,8 +20,19 @@ module.exports = {
   INVALID_STRING: '%s was missing or blank.',
   INVALID_USER: 'User does not exist.',
   INVALID_TOKEN: 'Invalid CSRF token.',
+  INVALID_VERIFICATION_PIN: 'The verification pin you entered was invalid.',
+  EMAIL_VERIFICATION_REQUIRED: 'Please verify your email address to continue.',
+  EMAIL_VERIFICATION_INTERVAL: 'Please wait for %s and try again.',
+  EMAIL_VERIFICATION_SUCCESS:
+    'Your email address has been successfully verified.',
+  EMAIL_ALREADY_VERIFIED: 'Your email address is already verified.',
+  EMAIL_VERIFICATION_SENT:
+    'An email verification pin has been sent to your email address.',
+  EMAIL_VERIFICATION_EXPIRED:
+    'Your current email verification pin has expired and we have sent you a new one to your email address.',
   IS_NOT_ADMIN: 'You do not belong to the administrative user group.',
   LOGIN_REQUIRED: 'Please log in to view the page you requested.',
+  LOGOUT_REQUIRED: 'Please log out to view the page you requested.',
   PASSWORD_RESET_LIMIT:
     'You can only request a password reset every 30 minutes.  Please try again %s.',
   PASSWORD_RESET_SENT:

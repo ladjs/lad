@@ -71,7 +71,7 @@ async function support(ctx) {
       template: 'inquiry',
       message: {
         to: body.email,
-        cc: config.email.from
+        cc: config.email.message.from
       },
       locals: {
         locale: ctx.locale,
@@ -82,11 +82,11 @@ async function support(ctx) {
     ctx.logger.info('added job', bull.getMeta({ job }));
 
     const message = ctx.translate('SUPPORT_REQUEST_SENT');
-    if (ctx.accepts('json')) {
-      ctx.body = { message };
-    } else {
+    if (ctx.accepts('html')) {
       ctx.flash('success', message);
       ctx.redirect('back');
+    } else {
+      ctx.body = { message, resetForm: true };
     }
   } catch (err) {
     ctx.logger.error(err, { body });

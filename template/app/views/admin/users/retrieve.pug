@@ -10,26 +10,22 @@ block body
           input(type='hidden', name='_method', value='PUT')
           input(type="hidden", name="_csrf", value=ctx.csrf)
           .card.card-bg-light
-            h4.card-header= user.id
+            h4.card-header= result.id
             .card-body
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('First name')
-                .col-md-8
-                  input(type='text', name=config.passport.fields.givenName, value=result[config.passport.fields.givenName]).form-control
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('Last name')
-                .col-md-8
-                  input(type='text', name=config.passport.fields.familyName, value=result[config.passport.fields.familyName]).form-control
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('Email address')
-                .col-md-8
-                  input(type='email', required, name='email', value=result.email).form-control
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('Group')
-                .col-md-8
-                  select(name='group', required).form-control
-                    option(value='user', selected=user.group === 'user') User
-                    option(value='admin', selected=user.group === 'admin') Admin
+              .form-group.floating-label
+                input#input-first-name(type='text', name=config.passport.fields.givenName, value=result[config.passport.fields.givenName], placeholder=t('First name')).form-control
+                label(for='input-first-name')= t('First name')
+              .form-group.floating-label
+                input#input-last-name(type='text', name=config.passport.fields.familyName, value=result[config.passport.fields.familyName], placeholder=t('Last name')).form-control
+                label(for='input-last-name')= t('Last name')
+              .form-group.floating-label
+                input#input-email(type='email', required, name='email', value=result.email, placeholder='name@example.com').form-control
+                label(for='input-email')= t('Email address')
+              .form-group.floating-label
+                select#input-group(name='group', required).form-control
+                  option(value='user', selected=result.group === 'user') User
+                  option(value='admin', selected=result.group === 'admin') Admin
+                label(for='input-group')= t('Group')
             .card-footer.text-right
               button(type='reset').btn.btn-secondary= t('Reset')
               button(type='submit').btn.btn-primary= t('Save')

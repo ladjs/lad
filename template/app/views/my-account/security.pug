@@ -13,7 +13,7 @@ block body
               label.control-label.col-md-4.col-form-label.text-md-right= t('API token')
               .col-md-8
                 .input-group
-                  input(type='text', readonly, value=user.api_token).form-control#api-token
+                  input(type='text', readonly, value=user[config.userFields.apiToken]).form-control#api-token
                   .input-group-append
                     button(type='button', data-toggle="clipboard", data-clipboard-target="#api-token").btn.btn-primary
                       i.fa.fa-clipboard

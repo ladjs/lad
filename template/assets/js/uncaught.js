@@ -17,9 +17,9 @@ uncaught.addListener(err => {
       err.stack = prepareStackTrace(err, stackframes);
       logger.error(err);
     })
-    .catch(err2 => {
+    .catch(err_ => {
       logger.error(err);
-      logger.error(err2);
+      logger.error(err_);
     });
 });
 

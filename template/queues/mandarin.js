@@ -5,5 +5,11 @@ const { i18n, logger } = require('../helpers');
 const mandarin = new Mandarin({ i18n, logger });
 
 module.exports = async job => {
-  await mandarin.translate(job.data);
+  try {
+    logger.info('starting mandarin translation', { job });
+    await mandarin.translate();
+  } catch (err) {
+    logger.error(err);
+    throw err;
+  }
 };

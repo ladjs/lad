@@ -1,0 +1,112 @@
+//
+// Special thanks to these two sources:
+// <https://gist.github.com/twolfson/8f578c0720df7fc87f29e4d8395cf76b>
+// <https://github.com/appellation/google-signin-button>
+//
+$roboto: 'Roboto-Medium', $font-family-sans-serif;
+
+@mixin button($height) {
+  border-radius: #{$height * (1/40)}px;
+  .btn-auth-icon {
+    background-size: #{$height * (18/40)}px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    vertical-align: middle;
+    width: #{$height}px;
+    height: #{$height}px;
+    border-radius: #{$height * (1/40)}px;
+    margin-right: #{$height * (12/40)}px;
+  }
+  .btn-auth-text {
+    font-size: #{$height * (14/40)}px;
+    margin-left: #{$height * (6/40)}px;
+    margin-right: #{$height * (6/40)}px;
+  }
+}
+
+.btn-auth-google {
+  &:hover {
+    box-shadow: 0 0 3px 3px rgba(66, 133, 244, 0.3);
+  }
+  .btn-auth-icon {
+    background-image: url('/img/google-logo.svg');
+  }
+}
+
+.btn-auth-github {
+  &:hover {
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+  }
+  .btn-auth-icon {
+    background-image: url('/img/github-logo.svg');
+  }
+}
+
+.btn-auth-google-dark {
+  background-color: #4285f4;
+  &:hover {
+    background-color: #4285f4;
+  }
+  &:active {
+    background-color: #3367d6;
+  }
+  .btn-auth-text {
+    color: #fff;
+  }
+  .btn-auth-icon {
+    background-color: #fff;
+  }
+}
+
+.btn-auth-github-dark {
+  background-color: #161514;
+  &:hover {
+    background-color: #161514;
+  }
+  &:active {
+    background-color: #000;
+  }
+  .btn-auth-text {
+    color: #fff;
+  }
+  .btn-auth-icon {
+    background-color: #fff;
+  }
+}
+
+.btn-auth-google-light, .btn-auth-github-light {
+  $width: 100% !default;
+  background-color: #fff;
+  &:active {
+    background-color: #eee;
+    color: #6d6d6d;
+  }
+  .btn-auth-text {
+    color: #757575;
+  }
+}
+
+.btn-auth {
+  transition: background-color .218s, border-color .218s, box-shadow .218s;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  display: block;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+  @include button(40);
+  .btn-auth-wrapper {
+    height: 100%;
+    width: 100%;
+    border: 1px solid transparent;
+  }
+  .btn-auth-text {
+    font-family: $roboto;
+    display: inline-block;
+    letter-spacing: 0.21px;
+    vertical-align: middle;
+  }
+}

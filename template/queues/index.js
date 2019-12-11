@@ -1,25 +1,29 @@
 const path = require('path');
 
+const ms = require('ms');
+
 const queues = [
   {
     name: 'email',
     options: {
-      attempts: 5
+      attempts: 2
     },
     processors: [
       {
         processor: path.join(__dirname, 'email.js'),
-        concurrency: 10
+        concurrency: 3
       }
     ]
-  }
-];
-
-if (process.env.GOOGLE_TRANSLATE_KEY)
-  queues.push({
+  },
+  {
     name: 'mandarin',
     options: {
-      attempts: 1
+      attempts: 1,
+      defaultJobOptions: {
+        repeat: {
+          every: ms('5m')
+        }
+      }
     },
     processors: [
       {
@@ -27,6 +31,7 @@ if (process.env.GOOGLE_TRANSLATE_KEY)
         concurrency: 1
       }
     ]
-  });
+  }
+];
 
 module.exports = queues;

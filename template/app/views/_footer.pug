@@ -1,15 +1,42 @@
 
-footer.footer
-  .container.text-center
-    ul.m-0.p-0.text-muted
-      li.d-inline: small!= `&copy; ${moment().format('YYYY')} ${config.appName}`
-      li.d-inline.mx-1: small &bull;
-      li.d-inline: small= t('All Rights Reserved')
-      li.d-inline.mx-1: small &bull;
-      li.d-inline: small: a(href=l('/support'))= t('Support')
-      li.d-inline.mx-1: small &bull;
-      li.d-inline: small: a(href=l('/about'))= t('About')
-      li.d-inline.mx-1: small &bull;
-      li.d-inline: small: a(href=l('/privacy'))= t('Privacy')
-      li.d-inline.mx-1: small &bull;
-      li.d-inline: small: a(href=l('/terms'))= t('Terms')
+footer.mt-auto
+  .bg-dark.text-white-50
+    .container.py-5.text-center.text-md-left
+      .d-flex.flex-column.flex-md-row
+        .flex-nowrap.order-3.order-md-0.d-flex.flex-column.flex-grow-1
+          hr.d-md-none
+          .dropdown.dropup
+            a(href=ctx.url, role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")#navbar-dropdown-language-btn.btn.btn-outline-light.dropdown-toggle
+              = `${titleize(t(currentLanguage))} ${ctx.locale !== 'en' && currentLanguage !== titleize(currentLanguage) ? `(${titleize(currentLanguage)})` : ''}`
+            ul#navbar-dropdown-language-ul.dropdown-menu(role="menu", aria-expanded='false', aria-hidden='true', aria-labelledby="navbar-dropdown-language-btn")
+              each language in availableLanguages
+                if language.locale !== locale
+                  li: a.dropdown-item(href=language.url)= `${titleize(t(language.name))} ${ctx.locale !== 'en' ? `(${titleize(language.name)})` : ''}`
+          hr.d-md-none
+          .mt-auto
+            img(src=manifest('img/logo-square.svg'), width=50, height=50, alt='').d-inline-block.mr-2
+            .d-inline-block.text-muted!= `&copy; ${config.appName}`
+        .flex-wrap.flex-fill
+          h5.mb-2= t('Developers')
+          ul.list-unstyled
+            li: a.text-light(href=config.pkg.homepage)= t('Documentation')
+            li.text-muted: small= `${t('Current version:')} v${config.pkg.version}`
+        hr.d-md-none
+        .flex-wrap.flex-fill
+          h5.mb-2= t('Resources')
+          ul.list-unstyled
+            li: a.text-light(href=l('/support'))= t('Support')
+            li: a.text-light(href=l('/privacy'))= t('Privacy')
+            li: a.text-light(href=l('/terms'))= t('Terms')
+        hr.d-md-none
+        .flex-wrap.flex-fill.d-flex.flex-column
+          div
+            h5.mb-2= t('Company')
+            ul.list-unstyled
+              li: a.text-light(href=l('/about'))= t('About')
+          .mt-auto
+            ul.list-inline.mb-0
+              if config.twitter
+                li.list-inline-item: a(href=`https://twitter.com/${config.twitter.replace('@', '')}`, target='_blank').text-light: i.fa.fa-2x.fa-twitter
+              if config.pkg.homepage && config.pkg.homepage.startsWith('https://github.com')
+                li.list-inline-item: a(href=config.pkg.homepage, target='_blank').text-light: i.fa.fa-2x.fa-github

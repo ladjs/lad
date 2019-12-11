@@ -1,5 +1,7 @@
 const test = require('ava');
 
+const phrases = require('../../config/phrases');
+
 test('fails when no creds are presented', async t => {
   const res = await global.api.get('/v1/account');
   t.is(401, res.status);
@@ -16,10 +18,11 @@ test("returns current user's account", async t => {
 
   res = await global.api.get('/v1/account', {
     headers: {
-      Authorization: `Basic ${Buffer.from(`${res.body.api_token}:`).toString(
-        'base64'
-      )}`
+      Authorization: `Basic ${Buffer.from(
+        `${res.body[global.config.userFields.apiToken]}:`
+      ).toString('base64')}`
     }
   });
-  t.is(200, res.status);
+  t.is(res.body.message, phrases.EMAIL_VERIFICATION_REQUIRED);
+  t.is(401, res.status);
 });

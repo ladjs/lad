@@ -1,10 +1,11 @@
-const moment = require('moment');
-const isSANB = require('is-string-and-not-blank');
-const randomstring = require('randomstring-extended');
 const Boom = require('@hapi/boom');
 const _ = require('lodash');
-const validator = require('validator');
+const cryptoRandomString = require('crypto-random-string');
+const isSANB = require('is-string-and-not-blank');
+const moment = require('moment');
 const sanitizeHtml = require('sanitize-html');
+const validator = require('validator');
+const { boolean } = require('boolean');
 
 const bull = require('../../../bull');
 const Users = require('../../models/user');
@@ -18,6 +19,7 @@ const sanitize = str =>
   });
 
 function logout(ctx) {
+  if (!ctx.isAuthenticated()) return ctx.redirect(`/${ctx.locale}`);
   ctx.logout();
   ctx.flash('custom', {
     title: ctx.request.t('Success'),
@@ -31,7 +33,7 @@ function logout(ctx) {
   ctx.redirect(`/${ctx.locale}`);
 }
 
-async function registerOrLogin(ctx) {
+function parseReturnOrRedirectTo(ctx, next) {
   // if the user passed `?return_to` and it is not blank
   // then set it as the returnTo value for when we log in
   if (isSANB(ctx.query.return_to)) {
@@ -44,7 +46,7 @@ async function registerOrLogin(ctx) {
   // prevents lad being used as a open redirect
   if (
     ctx.session.returnTo &&
-    ctx.session.returnTo.indexOf('://') !== -1 &&
+    ctx.session.returnTo.includes('://') &&
     ctx.session.returnTo.indexOf(config.urls.web) !== 0
   ) {
     ctx.logger.warn(
@@ -53,6 +55,10 @@ async function registerOrLogin(ctx) {
     ctx.session.returnTo = null;
   }
 
+  return next();
+}
+
+async function registerOrLogin(ctx) {
   ctx.state.verb =
     ctx.pathWithoutLocale === '/register' ? 'sign up' : 'sign in';
 
@@ -69,7 +75,7 @@ async function homeOrDashboard(ctx) {
   ctx.state.meta = {
     title: sanitize(
       ctx.request.t(
-        `Home &#124; <span class="notranslate">${config.appName}</span>`
+        `The Best Node.js Framework &#124; <span class="notranslate">${config.appName}</span>`
       )
     ),
     description: sanitize(ctx.request.t(config.pkg.description))
@@ -101,8 +107,8 @@ async function login(ctx, next) {
     if (user) {
       try {
         await ctx.login(user);
-      } catch (err2) {
-        throw err2;
+      } catch (err_) {
+        throw err_;
       }
 
       let greeting = 'Good morning';
@@ -122,11 +128,8 @@ async function login(ctx, next) {
         position: 'top'
       });
 
-      if (ctx.accepts('json')) {
-        ctx.body = { redirectTo };
-      } else {
-        ctx.redirect(redirectTo);
-      }
+      if (ctx.accepts('html')) ctx.redirect(redirectTo);
+      else ctx.body = { redirectTo };
 
       return;
     }
@@ -148,10 +151,10 @@ async function register(ctx) {
 
   // register the user
   const count = await Users.countDocuments({ group: 'admin' });
-  const user = await Users.register(
-    { email: body.email, group: count === 0 ? 'admin' : 'user' },
-    body.password
-  );
+  const query = { email: body.email, group: count === 0 ? 'admin' : 'user' };
+  query[config.userFields.hasVerifiedEmail] = false;
+  query[config.userFields.hasSetPassword] = true;
+  const user = await Users.register(query, body.password);
 
   await ctx.login(user);
 
@@ -172,11 +175,8 @@ async function register(ctx) {
     position: 'top'
   });
 
-  if (ctx.accepts('json')) {
-    ctx.body = { redirectTo };
-  } else {
-    ctx.redirect(redirectTo);
-  }
+  if (ctx.accepts('html')) ctx.redirect(redirectTo);
+  else ctx.body = { redirectTo };
 }
 
 async function forgotPassword(ctx) {
@@ -192,13 +192,13 @@ async function forgotPassword(ctx) {
   // we always say "a password reset request has been sent to your email"
   // and if the email didn't exist in our system then we simply don't send it
   if (!user) {
-    if (ctx.accepts('json')) {
+    if (ctx.accepts('html')) {
+      ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
+      ctx.redirect('back');
+    } else {
       ctx.body = {
         message: ctx.translate('PASSWORD_RESET_SENT')
       };
-    } else {
-      ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
-      ctx.redirect('back');
     }
 
     return;
@@ -206,34 +206,34 @@ async function forgotPassword(ctx) {
 
   // if we've already sent a reset password request in the past half hour
   if (
-    user.reset_token_expires_at &&
-    user.reset_token &&
-    moment(user.reset_token_expires_at).isAfter(
+    user[config.userFields.resetTokenExpiresAt] &&
+    user[config.userFields.resetToken] &&
+    moment(user[config.userFields.resetTokenExpiresAt]).isAfter(
       moment().subtract(30, 'minutes')
     )
   )
     throw Boom.badRequest(
       ctx.translate(
         'PASSWORD_RESET_LIMIT',
-        moment(user.reset_token_expires_at).fromNow()
+        moment(user[config.userFields.resetTokenExpiresAt]).fromNow()
       )
     );
 
   // set the reset token and expiry
-  user.reset_token_expires_at = moment()
+  user[config.userFields.resetTokenExpiresAt] = moment()
     .add(30, 'minutes')
     .toDate();
-  user.reset_token = randomstring.token();
+  user[config.userFields.resetToken] = cryptoRandomString({ length: 32 });
 
   await user.save();
 
-  if (ctx.accepts('json')) {
+  if (ctx.accepts('html')) {
+    ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
+    ctx.redirect('back');
+  } else {
     ctx.body = {
       message: ctx.translate('PASSWORD_RESET_SENT')
     };
-  } else {
-    ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
-    ctx.redirect('back');
   }
 
   // queue password reset email
@@ -241,14 +241,16 @@ async function forgotPassword(ctx) {
     const job = await bull.add('email', {
       template: 'reset-password',
       message: {
-        to: user.full_email
+        to: user[config.userFields.fullEmail]
       },
       locals: {
         user: _.pick(user, [
           config.passport.fields.displayName,
-          'reset_token_expires_at'
+          config.userFields.resetTokenExpiresAt
         ]),
-        link: `${config.urls.web}/reset-password/${user.reset_token}`
+        link: `${config.urls.web}/reset-password/${
+          user[config.userFields.resetToken]
+        }`
       }
     });
     ctx.logger.info('added job', bull.getMeta({ job }));
@@ -270,31 +272,30 @@ async function resetPassword(ctx) {
     throw Boom.badRequest(ctx.translate('INVALID_RESET_TOKEN'));
 
   // lookup the user that has this token and if it matches the email passed
-  const user = await Users.findOne({
-    email: body.email,
-    reset_token: ctx.params.token,
-    // ensure that the reset_at is only valid for 30 minutes
-    reset_token_expires_at: {
-      $gte: new Date()
-    }
-  });
+  const query = { email: body.email };
+  query[config.userFields.resetToken] = ctx.params.token;
+  // ensure that the reset token expires at value is in the future (hasn't expired)
+  query[config.userFields.resetTokenExpiresAt] = { $gte: new Date() };
+  const user = await Users.findOne(query);
 
   if (!user) throw Boom.badRequest(ctx.translate('INVALID_RESET_PASSWORD'));
 
-  user.reset_token = null;
-  user.reset_at = null;
+  user[config.userFields.resetToken] = null;
+  user[config.userFields.resetTokenExpiresAt] = null;
 
   await user.setPassword(body.password);
   await user.save();
   await ctx.login(user);
-  if (ctx.accepts('json')) {
-    ctx.body = {
-      message: ctx.translate('RESET_PASSWORD'),
-      redirectTo: `/${ctx.locale}`
-    };
+  const message = ctx.translate('RESET_PASSWORD');
+  const redirectTo = `/${ctx.locale}`;
+  if (ctx.accepts('html')) {
+    ctx.flash('success', message);
+    ctx.redirect(redirectTo);
   } else {
-    ctx.flash('success', ctx.translate('RESET_PASSWORD'));
-    ctx.redirect(`/${ctx.locale}`);
+    ctx.body = {
+      message,
+      redirectTo
+    };
   }
 }
 
@@ -310,6 +311,107 @@ async function catchError(ctx, next) {
   }
 }
 
+// eslint-disable-next-line complexity
+async function verify(ctx) {
+  let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+
+  if (ctx.session && ctx.session.returnTo) {
+    redirectTo = ctx.session.returnTo;
+    delete ctx.session.returnTo;
+  }
+
+  ctx.state.redirectTo = redirectTo;
+
+  if (ctx.state.user[config.userFields.hasVerifiedEmail]) {
+    const message = ctx.translate('EMAIL_ALREADY_VERIFIED');
+    if (ctx.accepts('html')) {
+      ctx.flash('success', message);
+      ctx.redirect(redirectTo);
+    } else {
+      ctx.body = { message, redirectTo };
+    }
+
+    return;
+  }
+
+  // allow user to click a button to request a new email after 60 seconds
+  // after their last attempt to get a verification email
+  const resend = ctx.method === 'GET' && boolean(ctx.query.resend);
+
+  if (
+    !ctx.state.user[config.userFields.verificationPin] ||
+    !ctx.state.user[config.userFields.verificationPinExpiresAt] ||
+    ctx.state.user[config.userFields.verificationPinHasExpired] ||
+    resend
+  ) {
+    try {
+      ctx.state.user = await ctx.state.user.sendVerificationEmail(ctx);
+    } catch (err) {
+      // wrap with try/catch to prevent redirect looping
+      // (even though the koa redirect loop package will help here)
+      if (!err.isBoom) return ctx.throw(err);
+      ctx.logger.warn(err);
+      if (ctx.accepts('html')) {
+        ctx.flash('warning', err.message);
+        ctx.redirect(redirectTo);
+      } else {
+        ctx.body = { message: err.message };
+      }
+
+      return;
+    }
+
+    const message = ctx.translate(
+      ctx.state.user[config.userFields.verificationPinHasExpired]
+        ? 'EMAIL_VERIFICATION_EXPIRED'
+        : 'EMAIL_VERIFICATION_SENT'
+    );
+
+    if (!ctx.accepts('html')) {
+      ctx.body = { message };
+      return;
+    }
+
+    ctx.flash('success', message);
+  }
+
+  // if it's a GET request then render the page
+  if (ctx.method === 'GET' && !isSANB(ctx.query.pin))
+    return ctx.render('verify');
+
+  // if it's a POST request then ensure the user entered the 6 digit pin
+  // otherwise if it's a GET request then use the ctx.query.pin
+  let pin = '';
+  if (ctx.method === 'GET') pin = ctx.query.pin;
+  else pin = isSANB(ctx.request.body.pin) ? ctx.request.body.pin : '';
+
+  // convert to digits only
+  pin = pin.replace(/\D/g, '');
+
+  // ensure pin matches up
+  if (
+    !ctx.state.user[config.userFields.verificationPin] ||
+    pin !== ctx.state.user[config.userFields.verificationPin]
+  )
+    return ctx.throw(
+      Boom.badRequest(ctx.translate('INVALID_VERIFICATION_PIN'))
+    );
+
+  // set has verified to true
+  ctx.state.user[config.userFields.hasVerifiedEmail] = true;
+  await ctx.state.user.save();
+
+  // send the user a success message
+  const message = ctx.translate('EMAIL_VERIFICATION_SUCCESS');
+
+  if (ctx.accepts('html')) {
+    ctx.flash('success', message);
+    ctx.redirect(redirectTo);
+  } else {
+    ctx.body = { message, redirectTo };
+  }
+}
+
 module.exports = {
   logout,
   registerOrLogin,
@@ -318,5 +420,7 @@ module.exports = {
   register,
   forgotPassword,
   resetPassword,
-  catchError
+  catchError,
+  verify,
+  parseReturnOrRedirectTo
 };

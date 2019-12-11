@@ -11,21 +11,19 @@ block body
           input(type="hidden", name="_csrf", value=ctx.csrf)
           input(type='hidden', name='change_password', value='true')
           .modal-body
-            .form-group.row
-              label.control-label.col-md-4.col-form-label.text-md-right= t('Old password')
-              .col-md-8
-                input(type='password', name='old_password', required).form-control
-            .form-group.row
-              label.control-label.col-md-4.col-form-label.text-md-right= t('Password')
-              .col-md-8
-                input(type='password', name='password', required).form-control
-            .form-group.row
-              label.control-label.col-md-4.col-form-label.text-md-right= t('Confirm password')
-              .col-md-8
-                input(type='password', name='confirm_password', required).form-control
+            if user[config.userFields.hasSetPassword]
+              .form-group.floating-label
+                input#input-old-password(type='password', name='old_password', required).form-control
+                label(for='input-old-password')= t('Confirm old password')
+            .form-group.floating-label
+              input#input-password(type='password', name='password', required, placeholder=" ").form-control
+              label(for='input-password')= t('Set new password')
+            .form-group.floating-label
+              input#input-confirm-password(type='password', name='confirm_password', required, placeholder=" ").form-control
+              label(for='input-confirm-password')= t('Confirm new password')
           .modal-footer.text-right
             button(type='button', data-dismiss='modal', aria-label=t('Cancel')).btn.btn-secondary= t('Cancel')
-            button(type='submit').btn.btn-primary= t('Change password')
+            button(type='submit').btn.btn-primary= user[config.userFields.hasSetPassword] ? t('Change password') : t('Set an account password')
   .container-fluid.py-3
     .row.mt-1
       .col
@@ -36,22 +34,17 @@ block body
           .card.card-bg-light
             h4.card-header= t('Update Profile')
             .card-body
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('First name')
-                .col-md-8
-                  input(type='text', name=config.passport.fields.givenName, value=user[config.passport.fields.givenName]).form-control
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('Last name')
-                .col-md-8
-                  input(type='text', name=config.passport.fields.familyName, value=user[config.passport.fields.familyName]).form-control
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('Email address')
-                .col-md-8
-                  input(type='email', required, name='email', value=user.email).form-control
-              .form-group.row
-                label.control-label.col-md-4.col-form-label.text-md-right= t('Password')
-                .col-md-8.my-auto
-                  button(data-toggle='modal', data-target='#modal-change-password', type='button').btn.btn-secondary.btn-sm= t('Change password')
+              .form-group.floating-label
+                input#input-email(type='email', required, name='email', value=user.email, placeholder='name@example.com').form-control
+                label(for='input-email')= t('Email address')
+              .form-group.floating-label
+                input#input-given-name(type='text', name=config.passport.fields.givenName, value=user[config.passport.fields.givenName], placeholder=t('First name')).form-control
+                label(for="input-given-name")= t('First name')
+              .form-group.floating-label
+                input#input-family-name(type='text', name=config.passport.fields.familyName, value=user[config.passport.fields.familyName], placeholder=t('Last name')).form-control
+                label(for="input-family-name")= t('Last name')
+              .form-group.floating-label
+                button(data-toggle='modal', data-target='#modal-change-password', type='button').btn.btn-secondary.btn-sm.my-auto= t('Change password')
             .card-footer.text-right
               button(type='reset').btn.btn-secondary= t('Reset')
               button(type='submit').btn.btn-primary= t('Save')

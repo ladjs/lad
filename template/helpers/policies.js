@@ -1,10 +1,19 @@
 const Policies = require('@ladjs/policies');
 
-const { appName } = require('../config');
+const { verificationPath, userFields, appName } = require('../config');
 const { Users } = require('../app/models');
 
-const policies = new Policies({ appName }, api_token =>
-  Users.findOne({ api_token })
+const policies = new Policies(
+  {
+    schemeName: appName,
+    hasVerifiedEmail: userFields.hasVerifiedEmail,
+    verifyRoute: verificationPath
+  },
+  apiToken => {
+    const query = {};
+    query[userFields.apiToken] = apiToken;
+    return Users.findOne(query);
+  }
 );
 
 module.exports = policies;

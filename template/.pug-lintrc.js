@@ -11,7 +11,6 @@ module.exports = {
   disallowStringConcatenation: 'aggressive',
   disallowTrailingSpaces: true,
   requireLineFeedAtFileEnd: true,
-  requireLowerCaseAttributes: true,
   requireLowerCaseTags: true,
   requireSpaceAfterCodeOperator: true,
   requireStrictEqualityOperators: true,

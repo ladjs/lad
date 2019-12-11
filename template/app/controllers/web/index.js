@@ -1,6 +1,7 @@
 const { extname } = require('path');
 
 const _ = require('lodash');
+const humanize = require('humanize-string');
 const titleize = require('titleize');
 
 const admin = require('./admin');
@@ -18,8 +19,10 @@ function breadcrumbs(ctx, next) {
   ctx.state.breadcrumbs = breadcrumbs;
   ctx.state.meta.title = ctx.request.t(
     breadcrumbs.length === 1
-      ? titleize(breadcrumbs[0])
-      : `${titleize(breadcrumbs[0])} - ${titleize(breadcrumbs[1])}`
+      ? titleize(humanize(breadcrumbs[0]))
+      : `${titleize(humanize(breadcrumbs[0]))} - ${titleize(
+          humanize(breadcrumbs[1])
+        )}`
   );
   return next();
 }

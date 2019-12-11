@@ -1,0 +1,19 @@
+
+extends layout
+
+block body
+  .container.py-3
+    .text-center: h1.my-3.py-3= t('Verify email')
+    .row
+      .col-sm-12.col-md-8.offset-md-2.col-lg-6.offset-lg-3
+        p.text-center= t('Enter the verification pin sent to your email address.')
+        form.ajax-form(action=redirectTo ? `${ctx.path}?redirect_to=${redirectTo}` : ctx.path, method="POST", autocomplete="off")
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          .form-group.floating-label
+            input#input-pin.form-control.form-control-lg(type="text", title=t(`Please enter a ${config.verificationPin.length} digit verification pin.`), inputmode='numeric', pattern=`[0-9]{${config.verificationPin.length}}`, minlength=config.verificationPin.length, maxlength=config.verificationPin.length, autocomplete="off", name="pin", placeholder=' ')
+            label(for="input-pin")= t('Verification pin')
+          button.btn.btn-success.btn-block.btn-lg(type="submit")= t('Continue')
+        .alert.alert-light.border.mt-3.text-center
+          = t("Didn't receive the email?")
+          = ' '
+          a.card-link(href=redirectTo ? `${ctx.path}?resend=true&redirect_to=${redirectTo}` : `${ctx.path}?resend=true`)= t('Resend now')

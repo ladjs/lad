@@ -1,11 +1,13 @@
-const policies = require('./policies');
-const logger = require('./logger');
+const getEmailLocals = require('./get-email-locals');
 const i18n = require('./i18n');
+const logger = require('./logger');
 const passport = require('./passport');
+const policies = require('./policies');
 
 module.exports = {
-  policies,
-  logger,
+  getEmailLocals,
   i18n,
-  passport
+  logger,
+  passport,
+  policies
 };

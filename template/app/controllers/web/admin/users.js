@@ -56,11 +56,8 @@ async function update(ctx) {
     position: 'top'
   });
 
-  if (ctx.accepts('json')) {
-    ctx.body = { reloadPage: true };
-  } else {
-    ctx.redirect('back');
-  }
+  if (ctx.accepts('html')) ctx.redirect('back');
+  else ctx.body = { reloadPage: true };
 }
 
 async function remove(ctx) {
@@ -77,11 +74,8 @@ async function remove(ctx) {
     position: 'top'
   });
 
-  if (ctx.accepts('json')) {
-    ctx.body = { reloadPage: true };
-  } else {
-    ctx.redirect('back');
-  }
+  if (ctx.accepts('html')) ctx.redirect('back');
+  else ctx.body = { reloadPage: true };
 }
 
 async function login(ctx) {
@@ -102,11 +96,8 @@ async function login(ctx) {
     position: 'top'
   });
 
-  if (ctx.accepts('json')) {
-    ctx.body = { redirectTo: '/' };
-  } else {
-    ctx.redirect('/');
-  }
+  if (ctx.accepts('html')) ctx.redirect('/');
+  else ctx.body = { redirectTo: '/' };
 }
 
 module.exports = { list, retrieve, update, remove, login };

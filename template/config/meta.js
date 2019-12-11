@@ -37,6 +37,7 @@ module.exports = function(config) {
     '/login': [`Sign in ${lad}`, 'Sign in to your account'],
     '/logout': [`Sign out of ${lad}`, 'Sign out of your account'],
     '/register': [`Sign up ${lad}`, `Create a ${config.appName} account`],
+    '/verify': [`Verify email ${lad}`, `Verify your ${config.appName} email`],
     '/my-account': [
       `My Account ${lad}`,
       `Manage your ${config.appName} profile`

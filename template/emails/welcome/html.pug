@@ -2,21 +2,21 @@
 extends ../layout
 
 block content
-  .jumbotron.jumbotron-fluid
-    .container
-      != png2x({ text: user[config.passport.fields.givenName] ? `${t('Hello')} ${user[config.passport.fields.givenName]}!` : t('Hello there!'), fontSize: 40, backgroundColor: '#e9ecef', fontNameOrPath: 'Bitter Regular' })
-      p.lead.mt-2
-        :translate(locale)
-          Visit our website for complete documentation and tutorials.
-          If you need a quick install guide, then see below.
-      p
-        a.btn.btn-lg.btn-success(href=config.urls.web, role="button")= t('Visit Website')
   .container
-    p
-      :markdown-it(langPrefix='hljs ')
-        ```sh
-        npm install -g lad
-        lad new-project
-        cd new-project
-        npm start
-        ```
+    .row
+      .col-12
+        .jumbotron.jumbotron-fluid.rounded.my-2.text-center
+          .container
+            h1= t('The Best Node.js Framework')
+            p.lead= t('Lad scaffolds a Koa webapp and API framework for Node.js')
+            a.btn.btn-lg.btn-success(href=config.urls.web, role="button")= t('Try the demo')
+    .row
+      .col-12
+        p
+          :markdown-it(langPrefix='hljs ')
+            ```sh
+            npm install -g lad
+            lad new-project
+            cd new-project
+            npm start
+            ```

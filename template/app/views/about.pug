@@ -2,10 +2,25 @@
 extends layout
 
 block body
-  .jumbotron.rounded-0.text-center
+  .jumbotron.mb-0
     .container
-      h1.display-3= `${t('About')} ${config.appName}`
-      p.lead.text-muted: :translate(locale) Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.
-      ul.list-inline
-        li.list-inline-item: a.btn.btn-primary(href="#"): :translate(locale) Main call to action
-        li.list-inline-item: a.btn.btn-secondary(href="#"): :translate(locale) Secondary action
+      h1= `${t('About')} ${config.appName}`
+      p= t("Dependencies and development dependencies are listed below.")
+  .container.py-3
+    .row
+      .col-12
+        ul.list-group
+          h2.mb-4= t('Dependencies')
+          each dep in Object.keys(config.pkg.dependencies)
+            a(href=`https://www.npmjs.com/package/${dep}`, target="_blank").list-group-item.list-group-item-action.d-flex.justify-content-between.align-items-center
+              = dep
+              span.badge.badge-secondary.badge-pill= config.pkg.dependencies[dep]
+    hr
+    .row
+      .col-12
+        ul.list-group
+          h2.mb-4= t('Development Dependencies')
+          each dep in Object.keys(config.pkg.devDependencies)
+            a(href=`https://www.npmjs.com/package/${dep}`, target="_blank").list-group-item.list-group-item-action.d-flex.justify-content-between.align-items-center
+              = dep
+              span.badge.badge-secondary.badge-pill= config.pkg.devDependencies[dep]

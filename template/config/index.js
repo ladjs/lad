@@ -2,16 +2,16 @@ const path = require('path');
 
 const Axe = require('axe');
 const Boom = require('@hapi/boom');
-const I18N = require('@ladjs/i18n');
 const _ = require('lodash');
 const base64ToS3 = require('nodemailer-base64-to-s3');
-const boolean = require('boolean');
 const consolidate = require('consolidate');
+const manifestRev = require('manifest-rev');
+const ms = require('ms');
 const nodemailer = require('nodemailer');
 const pino = require('pino');
-const manifestRev = require('manifest-rev');
 const strength = require('strength');
 const { Signale } = require('signale');
+const { boolean } = require('boolean');
 
 const pkg = require('../package');
 const env = require('./env');
@@ -51,9 +51,12 @@ const config = {
   },
   logger: {
     showStack: env.SHOW_STACK,
+    showMeta: env.SHOW_META,
     name: env.APP_NAME,
+    level: 'debug',
+    capture: false,
     logger:
-      env === 'production'
+      env.NODE_ENV === 'production'
         ? pino({
             customLevels: {
               log: 30
@@ -73,7 +76,8 @@ const config = {
     // but for complete configuration reference please see:
     // <https://github.com/mashpie/i18n-node#list-of-all-configuration-options>
     phrases,
-    directory: path.join(__dirname, '..', 'locales')
+    directory: path.join(__dirname, '..', 'locales'),
+    ignoredRedirectGlobs: ['/auth/**/*']
   },
 
   // <https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property>
@@ -110,6 +114,27 @@ const config = {
     }
   },
 
+  // user fields (change these if you want camel case or whatever)
+  userFields: {
+    fullEmail: 'full_email',
+    apiToken: 'api_token',
+    resetTokenExpiresAt: 'reset_token_expires_at',
+    resetToken: 'reset_token',
+    hasSetPassword: 'has_set_password',
+    hasVerifiedEmail: 'has_verified_email',
+    verificationPinExpiresAt: 'verification_pin_expires_at',
+    verificationPinSentAt: 'verification_pin_sent_at',
+    verificationPin: 'verification_pin',
+    verificationPinHasExpired: 'verification_pin_has_expired',
+    welcomeEmailSentAt: 'welcome_email_sent_at'
+  },
+
+  // verification pin
+  verificationPath: '/verify',
+  verificationPinTimeoutMs: ms(env.VERIFICATION_PIN_TIMEOUT_MS),
+  verificationPinEmailIntervalMs: ms(env.VERIFICATION_PIN_EMAIL_INTERVAL_MS),
+  verificationPin: { length: 6, characters: '1234567890' },
+
   // @ladjs/passport configuration (see defaults in package)
   // <https://github.com/ladjs/passport>
   passport: {
@@ -123,7 +148,10 @@ const config = {
       avatarURL: 'avatar_url',
       googleProfileID: 'google_profile_id',
       googleAccessToken: 'google_access_token',
-      googleRefreshToken: 'google_refresh_token'
+      googleRefreshToken: 'google_refresh_token',
+      githubProfileID: 'github_profile_id',
+      githubAccessToken: 'github_access_token',
+      githubRefreshToken: 'github_refresh_token'
     }
   },
 
@@ -193,12 +221,8 @@ config.email.lastLocaleField = config.lastLocaleField;
 // meta support for SEO
 config.meta = meta(config);
 
-// add i18n filter to views `:translate(locale)`
+// add i18n api to views
 const logger = new Axe(config.logger);
-const i18n = new I18N({
-  ...config.i18n,
-  logger
-});
 
 // add manifest helper for rev-manifest.json support
 config.manifest = path.join(config.buildDir, 'rev-manifest.json');
@@ -209,11 +233,6 @@ config.views.locals.manifest = manifestRev({
       : '/',
   manifest: config.manifest
 });
-
-// add pug filter for easy translation of nested blocks
-config.views.locals.filters.translate = function(...args) {
-  return i18n.api.t(...args);
-};
 
 // add global `config` object to be used by views
 config.views.locals.config = config;

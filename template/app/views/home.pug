@@ -3,29 +3,42 @@ extends layout
 
 block body
   //- Main jumbotron for a primary marketing message or call to action
-  .jumbotron.rounded-0
+  .jumbotron.mb-0.text-center
     .container
-      h1.display-3: :translate(locale) Hello, world!
-      p
-        :translate(locale)
-          This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-      p
-        a.btn.btn-success.btn-lg(href=l('/register'), role="button", data-toggle='modal-anchor', data-target='#modal-sign-up')= `${t('Create an account')} »`
-  .container
-    //- Example row of columns
+      h1= t('The Best Node.js Framework')
+      p.lead= t('Lad scaffolds a Koa webapp and API framework for Node.js')
+      a.btn.btn-success.btn-lg(href=l('/register'), role="button", data-toggle='modal-anchor', data-target='#modal-sign-up')= t('Try the demo')
+  .bg-dark.py-5.text-center
+    .d-flex.justify-content-center
+      .input-group.input-group-lg.w-auto
+        .input-group-prepend
+          span.input-group-text.border.border-light.bg-transparent.text-white: i.fa.fa-terminal
+        input(type='text', name='bash', readonly, value='npm install -g lad').border.border-light.bg-transparent.text-white.form-control#npm-install
+        .input-group-append.d-none.d-md-inline-block
+          button(type='button', data-toggle="clipboard", data-clipboard-target="#npm-install").btn.btn-light
+            i.fa.fa-clipboard
+            = ' '
+            = t('Copy')
+  .container.py-5
     .row
-      .col-md-4
-        h2: :translate(locale) Heading
-        p: :translate(locale) This is a paragraph of placeholder text that will be automatically translated.
+      //- Example row of columns
+      .col-md-3
+        h2= t('Web Server')
+        p= t('Built on top of Koa, the successor to Express.  This full-stack web server uses the latest versions of Pug, Gulp, Sass, PostCSS, Bootstrap, and more.')
         p
-          a.btn.btn-secondary(href="#", role="button")= `${t('View details')} »`
-      .col-md-4
-        h2: :translate(locale) Heading
-        p: :translate(locale) This is a paragraph of placeholder text that will be automatically translated.
+          a.btn.btn-secondary(href="https://lad.js.org/#/?id=front-end", target="_blank", role="button")= `${t('Front-end')} »`
+      .col-md-3
+        h2= t('API Server')
+        p= t('Inspired by Stripe, the RESTful API server also uses Koa and has a complete stack with error handling, authentication, and tests.')
         p
-          a.btn.btn-secondary(href="#", role="button")= `${t('View details')} »`
-      .col-md-4
-        h2: :translate(locale) Heading
-        p: :translate(locale) This is a paragraph of placeholder text that will be automatically translated.
+          a.btn.btn-secondary(href="https://lad.js.org/#/?id=back-end", target="_blank", role="button")= `${t('Back-end')} »`
+      .col-md-3
+        h2= t('Job Queue')
+        p= t('Layered on top of Bull and backed by Redis, the job scheduler supports cron and human-readable syntax, child processes, and more.')
         p
-          a.btn.btn-secondary(href="#", role="button")= `${t('View details')} »`
+          a.btn.btn-secondary(href="https://lad.js.org/#/?id=back-end", target="_blank", role="button")= `${t('Learn more')} »`
+      .col-md-3
+        h2= t('Proxy Server')
+        p= t("Redirect HTTP to HTTPS traffic with support for Let's Encrypt Free SSL Certbot validation.")
+        p
+          a.btn.btn-secondary(href="https://lad.js.org/#/", target="_blank", role="button")= `${t('View docs')} »`

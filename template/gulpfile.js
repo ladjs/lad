@@ -123,8 +123,7 @@ function img() {
 
 function scss() {
   return src('assets/css/**/*.scss', {
-    base: 'assets',
-    since: lastRun(scss)
+    base: 'assets'
   }).pipe(
     postcss([stylelint(), reporter()], {
       syntax: scssParser
@@ -134,8 +133,7 @@ function scss() {
 
 function css() {
   return src('assets/css/**/*.scss', {
-    base: 'assets',
-    since: lastRun(css)
+    base: 'assets'
   })
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))

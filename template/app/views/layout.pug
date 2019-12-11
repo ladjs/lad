@@ -1,5 +1,5 @@
 doctype html
-html(lang=locale)
+html(lang=locale).h-100
   head
     block meta
       meta(charset="utf-8")
@@ -93,7 +93,7 @@ html(lang=locale)
             name: "#{user[config.passport.fields.displayName]}",
             email: "#{user.email}"
           };
-          window.API_TOKEN = "#{user.api_token}";
+          window.API_TOKEN = "#{user[config.userFields.apiToken]}";
       else
         script.
           window.USER = {
@@ -112,7 +112,7 @@ html(lang=locale)
       //- scripts
       script(defer, src=manifest('js/core.js'))
 
-  body(role='document', class=['/register', '/login'].includes(ctx.pathWithoutLocale) ? 'pt-0' : '')
+  body(role='document', class=['/register', '/login', config.verificationPath].includes(ctx.pathWithoutLocale) ? 'pt-0' : '').d-flex.flex-column.h-100
 
     //- spinner
     block spinner
@@ -123,6 +123,7 @@ html(lang=locale)
       include _nav
 
     //- body
+    main(role='main').flex-shrink-0
     block body
 
     //- footer

@@ -17,9 +17,6 @@ $question: theme-color('light');
 // font awesome
 @import 'node_modules/font-awesome/scss/font-awesome';
 
-// bootstrap-social
-@import 'node_modules/@ladjs/bootstrap-social/_custom';
-
 // spinkit loading spinner
 @import 'node_modules/@ladjs/assets/scss/spinner';
 
@@ -37,14 +34,20 @@ $question: theme-color('light');
 // image helpers for emails, jquery-lazy, etc.
 @import 'node_modules/@ladjs/assets/scss/image-helpers';
 
-// sticky footer
-@import '_sticky-footer';
+// bootstrap floating labels
+@import 'node_modules/@tkrotoff/bootstrap-floating-label/src/bootstrap4-floating-label';
 
 // hljs
 @import '_hljs';
 
 // email styling
 @import '_email';
+
+// auth buttons
+@import '_btn-auth';
+
+// sweetalert2 fix
+@import '_swal2';
 
 // custom app styling
 @import '_custom';

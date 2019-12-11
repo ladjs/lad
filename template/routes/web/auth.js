@@ -1,6 +1,6 @@
 const Boom = require('@hapi/boom');
 const Router = require('@koa/router');
-const boolean = require('boolean');
+const { boolean } = require('boolean');
 
 const passport = require('../../helpers/passport');
 const policies = require('../../helpers/policies');
@@ -50,7 +50,10 @@ if (boolean(process.env.AUTH_GOOGLE_ENABLED)) {
     passport.authenticate('google', {
       accessType: 'offline',
       prompt: 'consent', // See google strategy in passport helper
-      scope: []
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile'
+      ]
     })
   );
 }
