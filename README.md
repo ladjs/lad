@@ -23,7 +23,7 @@
 </div>
 <hr />
 <div align="center">
-  <h3>LIVE DEMO:<a href="https://lad.sh" target="_blank">https://lad.sh</a></h3>
+  <h3><a href="https://lad.sh" target="_blank">CLICK HERE FOR A LIVE DEMO</a></h3>
 </div>
 <hr />
 
