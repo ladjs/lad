@@ -15,14 +15,15 @@
   Lad scaffolds a <a href="http://koajs.com/">Koa</a> webapp and API framework for <a href="https://nodejs.org">Node.js</a>
 </div>
 <div align="center">
-  <strong>VIEW THE LIVE DEMO:</strong> <a href="https://lad.sh" target="_blank">https://lad.sh</a>
-</div>
-<div align="center">
   <sub>
     A lad that fell in love with a <a href="https://lass.js.org"><strong>lass</strong></a>
     &bull; Built by <a href="https://github.com/niftylettuce">@niftylettuce</a>
     and <a href="#contributors">contributors</a>
   </sub>
+</div>
+<hr />
+<div align="center">
+  <h3>LIVE DEMO:<a href="https://lad.sh" target="_blank">https://lad.sh</a></h3>
 </div>
 <hr />
 
