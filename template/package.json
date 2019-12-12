@@ -85,7 +85,7 @@
     "mongoose-json-select": "^0.2.1",
     "mongoose-unique-validator": "^2.0.3",
     "nodemailer": "^6.4.1",
-    "nodemailer-base64-to-s3": "^3.0.1",
+    "nodemailer-base64-to-s3": "^3.0.2",
     "p-series": "^2.1.0",
     "parse-logs": "^0.0.22",
     "passport-local-mongoose": "^5.0.1",
