@@ -80,7 +80,7 @@
     "mandarin": "^1.0.1",
     "manifest-rev": "^0.0.2",
     "moment": "^2.24.0",
-    "mongoose": "5.6",
+    "mongoose": "5.7",
     "mongoose-common-plugin": "0.1.1",
     "mongoose-json-select": "^0.2.1",
     "mongoose-unique-validator": "^2.0.3",
