@@ -87,8 +87,14 @@ async function login(ctx, next) {
   await passport.authenticate('local', async (err, user, info) => {
     if (err) throw err;
 
+    if (!user) {
+      if (info) throw info;
+      throw new Error(ctx.translate('UNKNOWN_ERROR'));
+    }
+
     // redirect user to their last locale they were using
     if (
+      user &&
       isSANB(user[config.lastLocaleField]) &&
       user[config.lastLocaleField] !== ctx.locale
     ) {
@@ -104,39 +110,31 @@ async function login(ctx, next) {
       delete ctx.session.returnTo;
     }
 
-    if (user) {
-      try {
-        await ctx.login(user);
-      } catch (err_) {
-        throw err_;
-      }
-
-      let greeting = 'Good morning';
-      if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
-        greeting = 'Good afternoon';
-      else if (moment().format('HH') >= 17) greeting = 'Good evening';
-
-      ctx.flash('custom', {
-        title: `${ctx.request.t('Hello')} ${ctx.state.emoji('wave')}`,
-        text: user[config.passport.fields.givenName]
-          ? `${greeting} ${user[config.passport.fields.givenName]}`
-          : greeting,
-        type: 'success',
-        toast: true,
-        showConfirmButton: false,
-        timer: 3000,
-        position: 'top'
-      });
-
-      if (ctx.accepts('html')) ctx.redirect(redirectTo);
-      else ctx.body = { redirectTo };
-
-      return;
+    try {
+      await ctx.login(user);
+    } catch (err_) {
+      throw err_;
     }
 
-    if (info) throw info;
+    let greeting = 'Good morning';
+    if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
+      greeting = 'Good afternoon';
+    else if (moment().format('HH') >= 17) greeting = 'Good evening';
 
-    throw new Error(ctx.translate('UNKNOWN_ERROR'));
+    ctx.flash('custom', {
+      title: `${ctx.request.t('Hello')} ${ctx.state.emoji('wave')}`,
+      text: user[config.passport.fields.givenName]
+        ? `${greeting} ${user[config.passport.fields.givenName]}`
+        : greeting,
+      type: 'success',
+      toast: true,
+      showConfirmButton: false,
+      timer: 3000,
+      position: 'top'
+    });
+
+    if (ctx.accepts('html')) ctx.redirect(redirectTo);
+    else ctx.body = { redirectTo };
   })(ctx, next);
 }
 
