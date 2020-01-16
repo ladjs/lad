@@ -55,7 +55,7 @@
     "xo": "^0.25.3"
   },
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10"
   },
   "homepage": "https://github.com/ladjs/lad",
   "husky": {

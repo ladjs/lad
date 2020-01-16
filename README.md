@@ -173,7 +173,7 @@ Please ensure your operating system has the following software installed:
 
 * [Git][] - see [GitHub's tutorial][github-git] for installation
 
-* [Node.js][node] (v8.9.0+) - use [nvm][] to install it on any OS
+* [Node.js][node] (v10+) - use [nvm][] to install it on any OS
 
   * After installing `nvm` you will need to run `nvm install node`
   * We also recommend you install [yarn][], which is an alternative to [npm][]
@@ -437,7 +437,7 @@ Here are the simple steps required to setup [SemaphoreCI][] with [Codecov][]:
    > Replace `npm` with `yarn` if you're using [yarn][] as your package manager
 
    * Language: `JavaScript`
-   * Node.js version: `8.9.0+` (latest LTS)
+   * Node.js version: `10+` (latest LTS)
      > Note you can also add to `Setup` the script `nvm install latest` to install latest version if SemaphoreCI does not provide it from the drop-down
    * Setup: `npm install`
    * Job 1: `npm run test-coverage`
