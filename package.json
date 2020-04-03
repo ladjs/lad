@@ -20,7 +20,8 @@
     ]
   },
   "contributors": [
-    "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)"
+    "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
+    "Shaun Warman <shaunwarman1@gmail.com> (https://shaunwarman.com/)"
   ],
   "dependencies": {
     "cac": "^6.5.8",

@@ -230,9 +230,9 @@ To begin, try typing `npm start` (or `yarn start`) on command line.  This will d
 
 The `start` script (among many others) uses [nps][] and [nps-utils][] under the hood.  This helps to keep scripts very developer-friendly, and rids the need to write in JSON syntax.
 
-This script accepts a `<script>` argument, whereas a script of `all` will spawn, watch, and re-compile all of the [microservices](#microservices) mentioned above.
+This script accepts a `<task>` argument, whereas a task of `all` will spawn, watch, and re-compile all of the [microservices](#microservices) mentioned above.
 
-It will also open the browser for you to <http://localhost:3000> automatically for testing the web front-end.
+Just open <http://localhost:3000> for testing!
 
 [npm][]:
 
@@ -718,9 +718,10 @@ Then visit <http://localhost:8080> in your browser.
 
 ## Contributors
 
-| Name           | Website                   |
-| -------------- | ------------------------- |
-| **Nick Baugh** | <http://niftylettuce.com> |
+| Name             | Website                    |
+| ---------------- | -------------------------- |
+| **Nick Baugh**   | <http://niftylettuce.com>  |
+| **Shaun Warman** | <https://shaunwarman.com/> |
 
 
 ## Trademark Notice
