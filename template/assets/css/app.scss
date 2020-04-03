@@ -15,7 +15,10 @@ $question: theme-color('light');
 @import 'node_modules/sweetalert2/src/sweetalert2';
 
 // font awesome
-@import 'node_modules/font-awesome/scss/font-awesome';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/solid';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/v4-shims';
 
 // spinkit loading spinner
 @import 'node_modules/@ladjs/assets/scss/spinner';
@@ -37,8 +40,8 @@ $question: theme-color('light');
 // bootstrap floating labels
 @import 'node_modules/@tkrotoff/bootstrap-floating-label/src/bootstrap4-floating-label';
 
-// hljs
-@import '_hljs';
+// markdown
+@import '_markdown';
 
 // email styling
 @import '_email';
@@ -48,6 +51,12 @@ $question: theme-color('light');
 
 // sweetalert2 fix
 @import '_swal2';
+
+// responsive borders
+@import '_responsive-borders';
+
+// responsive backgrounds
+@import '_responsive-backgrounds';
 
 // custom app styling
 @import '_custom';

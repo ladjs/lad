@@ -1,0 +1,54 @@
+
+extends ../layout
+
+block body
+  .container.py-3
+    .row
+      .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
+        .card
+          .card-body
+            .text-center
+              h1.card-title.h4= t('Two-Factor Authentication Passcode')
+              p= t('Please enter the passcode from your authenticator application.')
+            form(action=l('/2fa/otp/login'), method="POST", autocomplete="off").ajax-form
+              input(type="hidden", name="_csrf", value=ctx.csrf)
+              .form-group.floating-label
+                input#input-text.form-control.form-control-lg(type="text", autocomplete="off", name="passcode", placeholder=t(''))
+                label(for="input-passcode")= t('Passcode')
+              .form-check
+                input(type='checkbox', name='otp_remember_me', value='true', checked=ctx.session.otp_remember_me)
+                label Don't ask me again in this browser for OTP
+              button.btn.btn-primary.btn-block.btn-lg(type="submit")= t('Submit Passcode')
+          .card-footer.text-center
+            b= t('Having trouble?')
+            div
+              hr
+              ul.list-inline
+                li
+                  a.card-link(href=l('/2fa/recovery/keys'))= t('Use recovery key')
+                li
+                  a.card-link(href=l('/2fa/recovery/keys'), data-toggle='modal-anchor', data-target='#modal-domain')= t('Unable to use authentication app or recovery keys?')
+
+  #modal-domain.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-domain-title', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header.text-center.d-block
+          h4.modal-title.d-inline-block.ml-4#modal-domain-title= t('Account Recovery')
+          button(type='button', data-dismiss='modal', aria-label='Close').close
+            span(aria-hidden='true') &times;
+        .modal-body
+          form.ajax-form(action=l('/2fa/recovery'), method="POST")
+            p= t("If you can't access a trusted device or recovery codes you can request a reset of your security settings. For security reasons this can take 3-5 business days.")
+            .container
+              .row.row-cols-1.row-cols-lg
+                .col
+                  b= t('Step 1')
+                  p= t('Verify your email address.')
+                .col
+                  b= t('Step 2')
+                  p= t('An admin will reach out to this email for additional information.')
+                .col
+                  b= t('Step 3')
+                  p= t('After successful verification, admins can remove 2-factor-auth for you to get back into your account.')
+            input(type="hidden", name="_csrf", value=ctx.csrf)
+            button.btn.btn-success.btn-block.btn-lg(type="submit")= t('I understand, get started')

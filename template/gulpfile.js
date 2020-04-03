@@ -2,6 +2,8 @@ const path = require('path');
 const fs = require('fs');
 
 const AWS = require('aws-sdk');
+const Graceful = require('@ladjs/graceful');
+const Mandarin = require('mandarin');
 const _ = require('lodash');
 const awscloudfront = require('gulp-awspublish-cloudfront');
 const awspublish = require('gulp-awspublish');
@@ -35,7 +37,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const stylelint = require('stylelint');
 const terser = require('gulp-terser');
 const unassert = require('gulp-unassert');
-const unprefix = require('postcss-unprefix');
 const { lastRun, watch, series, parallel, src, dest } = require('gulp');
 
 // explicitly set the compiler in case it were to change to dart
@@ -50,6 +51,7 @@ process.env.I18N_UPDATE_FILES = true;
 const env = require('./config/env');
 const config = require('./config');
 const logger = require('./helpers/logger');
+const i18n = require('./helpers/i18n');
 
 const PROD = config.env === 'production';
 const DEV = config.env === 'development';
@@ -142,8 +144,7 @@ function css() {
         fontMagician({
           hosted: [path.join(__dirname, config.buildBase, 'fonts'), '/fonts']
         }),
-        unprefix(),
-        postcssPresetEnv(),
+        postcssPresetEnv({ browsers: 'extends @ladjs/browserslist-config' }),
         fontSmoothing(),
         ...(PROD ? [cssnano({ autoprefixer: false })] : []),
         reporter()
@@ -181,14 +182,14 @@ async function bundle() {
   await makeDir(path.join(config.buildBase, 'js'));
   const paths = await globby('**/*.js', { cwd: 'assets/js' });
   const b = browserify({
-    entries: paths.map(str => `assets/js/${str}`),
+    entries: paths.map(string => `assets/js/${string}`),
     debug: true
   });
   return (
     b
       .plugin(collapser)
       .plugin('factor-bundle', {
-        outputs: paths.map(str => path.join(config.buildBase, 'js', str))
+        outputs: paths.map(string => path.join(config.buildBase, 'js', string))
       })
       .bundle()
       // .bundle((err, buffer) => {
@@ -242,11 +243,18 @@ function clean() {
 
 const js = series(bundle, compile);
 
+async function markdown() {
+  const mandarin = new Mandarin({ i18n, logger });
+  const graceful = new Graceful({ redisClients: [mandarin.redisClient] });
+  await mandarin.markdown();
+  await graceful.stopRedisClients();
+}
+
 const build = series(
   clean,
   parallel(
     ...(TEST ? [] : [xo, remark]),
-    parallel(img, static, series(scss, css), series(js, eslint))
+    parallel(img, static, markdown, series(scss, css), series(js, eslint))
   )
 );
 
@@ -254,9 +262,11 @@ module.exports = {
   build,
   js,
   publish,
+  markdown,
   watch: () => {
     lr.listen(config.livereload);
     watch(['**/*.js', '!assets/js/**/*.js'], xo);
+    watch(Mandarin.DEFAULT_PATTERNS, markdown);
     watch('assets/img/**/*', img);
     watch('assets/css/**/*.scss', series(scss, css));
     watch('assets/js/**/*.js', series(xo, js, eslint));

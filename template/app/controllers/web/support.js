@@ -86,7 +86,7 @@ async function support(ctx) {
       ctx.flash('success', message);
       ctx.redirect('back');
     } else {
-      ctx.body = { message, resetForm: true };
+      ctx.body = { message, resetForm: true, hideModal: true };
     }
   } catch (err) {
     ctx.logger.error(err, { body });

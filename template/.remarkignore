@@ -1,3 +1,4 @@
 test/snapshots/**/*.md
 test/**/snapshots/**/*.md
 locales/README.md
+*-*.md

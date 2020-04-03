@@ -15,15 +15,16 @@ async function create(ctx) {
   const query = { email: body.email };
   query[config.userFields.hasVerifiedEmail] = false;
   query[config.userFields.hasSetPassword] = true;
+  query[config.userFields.pendingRecovery] = false;
   const user = await Users.register(query, body.password);
 
   // send a verification email
   await user.sendVerificationEmail();
 
   // send the response
-  const obj = select(user.toObject(), Users.schema.options.toJSON.select);
-  obj[config.userFields.apiToken] = user[config.userFields.apiToken];
-  ctx.body = obj;
+  const object = select(user.toObject(), Users.schema.options.toJSON.select);
+  object[config.userFields.apiToken] = user[config.userFields.apiToken];
+  ctx.body = object;
 }
 
 async function retrieve(ctx) {

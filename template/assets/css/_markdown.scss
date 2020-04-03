@@ -1,0 +1,26 @@
+@import 'node_modules/github-markdown-css/github-markdown';
+@import 'node_modules/@primer/css/markdown/index.scss';
+
+.markdown-body {
+  margin-left: 20px;
+  margin-right: 20px;
+  @for $index from 1 through 6 {
+    h#{$index} {
+      .anchor {
+        float: left;
+        padding-right: 5px;
+        margin-left: -20px;
+      }
+    }
+  }
+  code {
+    color: #24292e;
+  }
+  font-family: $font-family-sans-serif;
+  code, kbd, pre, .commit-tease-sha, .blob-num, .blob-code-inner, {
+    font-family: $font-family-monospace;
+  }
+  code, pre, .highlight pre {
+    font-size: 100%;
+  }
+}

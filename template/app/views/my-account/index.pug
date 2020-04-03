@@ -5,7 +5,9 @@ block body
     .modal-dialog(role='document')
       .modal-content
         .modal-header.d-block.text-center
-          h5.modal-title= t('Change password')
+          h5.modal-title.d-inline-block.ml-4= t('Change password')
+          button(type='button', data-dismiss='modal', aria-label='Close').close
+            span(aria-hidden='true') &times;
         form(action=ctx.path, method='POST').ajax-form.confirm-prompt.mt-3
           input(type='hidden', name='_method', value='PUT')
           input(type="hidden", name="_csrf", value=ctx.csrf)

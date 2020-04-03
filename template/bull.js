@@ -22,9 +22,17 @@ if (!module.parent) {
 
   (async () => {
     try {
-      // mandarin (translation)
-      const mandarin = bull.queues.get('mandarin');
-      await pSeries([() => mandarin.empty(), () => mandarin.add()]);
+      const translateMarkdown = bull.queues.get('translate-markdown');
+      await pSeries([
+        () => translateMarkdown.empty(),
+        () => translateMarkdown.add()
+      ]);
+
+      const translatePhrases = bull.queues.get('translate-phrases');
+      await pSeries([
+        () => translatePhrases.empty(),
+        () => translatePhrases.add()
+      ]);
 
       await Promise.all([bull.start(), graceful.listen()]);
 

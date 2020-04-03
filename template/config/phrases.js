@@ -13,6 +13,7 @@ module.exports = {
   INVALID_PASSWORD_CONFIRM: 'Password confirmation did not match new password.',
   INVALID_PASSWORD_STRENGTH: 'Password strength was not strong enough.',
   INVALID_PROVIDER: 'We do not support this authentication provider.',
+  INVALID_RECOVERY_PASSCODE: 'Invalid recovery passcode.',
   INVALID_RESET_PASSWORD: 'Reset token and email were not valid together.',
   INVALID_RESET_TOKEN: 'Reset token provided was invalid.',
   INVALID_SESSION_SECRET: 'Invalid session secret.',
@@ -30,19 +31,26 @@ module.exports = {
     'An email verification pin has been sent to your email address.',
   EMAIL_VERIFICATION_EXPIRED:
     'Your current email verification pin has expired and we have sent you a new one to your email address.',
+  INVALID_OTP_PASSCODE: 'Invalid two-factor authentication passcode.',
   IS_NOT_ADMIN: 'You do not belong to the administrative user group.',
+  TWO_FACTOR_REQUIRED:
+    'Please log in with two-factor authentication to view the page you requested.',
   LOGIN_REQUIRED: 'Please log in to view the page you requested.',
   LOGOUT_REQUIRED: 'Please log out to view the page you requested.',
   PASSWORD_RESET_LIMIT:
     'You can only request a password reset every 30 minutes.  Please try again %s.',
   PASSWORD_RESET_SENT:
     'We have sent you an email with a link to reset your password.',
+  TWO_FACTOR_RECOVERY_SUCCESS:
+    'Recovery passcode successful. This passcode will no longer be valid.',
   REGISTERED: 'You have successfully registered.',
   REQUEST_OK: 'Your request was successfully completed.',
   REQUEST_TIMED_OUT:
     'Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.',
   RESET_PASSWORD: 'You have successfully reset your password.',
   SIGNED_OUT: 'You have successfully signed out.',
+  PENDING_RECOVERY_VERIFICATION_SUCCESS:
+    'Your email has been successfully verified. You should receive a support email from an admin within the next 3-5 business days.',
   SUPPORT_REQUEST_ERROR:
     'We were unable to send your support request.  We have been alerted of this problem.  Please try again.',
   SUPPORT_REQUEST_LIMIT:

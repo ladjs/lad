@@ -22,6 +22,8 @@ block body
                   th(scope='col')= t('Last Login')
                   th(scope='col')= t('Last IP')
                   th(scope='col')= t('Last Locale')
+                  if boolean(process.env.AUTH_OTP_ENABLED)
+                    th(scope='col')= t('2FA Enabled')
                   th(scope='col')= t('Actions')
               tbody
                 each user in users
@@ -35,6 +37,8 @@ block body
                     td.align-middle= moment(user.last_login_at).format('M/D/YY h:mm A')
                     td.align-middle: code= user[config.storeIPAddress.ip]
                     td.align-middle: code= user[config.lastLocaleField]
+                    if boolean(process.env.AUTH_OTP_ENABLED)
+                      td.align-middle= user[config.passport.fields.twoFactorEnabled]
                     td.align-middle
                       .btn-group(role='group', aria-label=t('Actions'))
                         a(href=l(`/admin/users/${user.id}`), data-toggle='tooltip', data-title=t('Edit')).btn.btn-secondary: i.fa.fa-fw.fa-edit

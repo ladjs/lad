@@ -26,6 +26,7 @@ html(lang=locale).h-100
       //- link(rel="mask-icon", href=manifest('img/safari-pinned-tab.svg'), color=config.appColor)
       meta(name="apple-mobile-web-app-title", content=config.appName)
       meta(name="application-name", content=config.appName)
+      meta(name="msapplication-TileColor", content=config.appColor)
       meta(name="theme-color", content=config.appColor)
 
       //- csrf token
@@ -112,7 +113,7 @@ html(lang=locale).h-100
       //- scripts
       script(defer, src=manifest('js/core.js'))
 
-  body(role='document', class=['/register', '/login', config.verificationPath].includes(ctx.pathWithoutLocale) ? 'pt-0' : '').d-flex.flex-column.h-100
+  body(role='document', class=['/register', '/login', config.verifyRoute].includes(ctx.pathWithoutLocale) ? 'pt-0' : '').d-flex.flex-column.h-100
 
     //- spinner
     block spinner

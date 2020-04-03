@@ -1,4 +1,5 @@
 const paginate = require('koa-ctx-paginate');
+const { boolean } = require('boolean');
 
 const { Users } = require('../../../models');
 const config = require('../../../../config');
@@ -39,8 +40,13 @@ async function update(ctx) {
     body[config.passport.fields.givenName];
   user[config.passport.fields.familyName] =
     body[config.passport.fields.familyName];
+  user[config.passport.fields.twoFactorEnabled] =
+    body[config.passport.fields.twoFactorEnabled];
   user.email = body.email;
   user.group = body.group;
+
+  if (boolean(!body[config.passport.fields.twoFactorEnabled]))
+    user[config.userFields.pendingRecovery] = false;
 
   await user.save();
 

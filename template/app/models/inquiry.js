@@ -13,19 +13,19 @@ const Inquiry = new mongoose.Schema({
     type: String,
     required: true,
     index: true,
-    validate: val => validator.isIP(val)
+    validate: value => validator.isIP(value)
   },
   email: {
     type: String,
     required: true,
     index: true,
-    validate: val => validator.isEmail(val)
+    validate: value => validator.isEmail(value)
   },
   message: {
     type: String,
     required: true,
-    validate: val =>
-      _.isString(val) && val.length <= config.supportRequestMaxLength
+    validate: value =>
+      _.isString(value) && value.length <= config.supportRequestMaxLength
   },
   is_email_only: {
     type: Boolean,

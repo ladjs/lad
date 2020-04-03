@@ -8,6 +8,7 @@ const admin = require('./admin');
 const auth = require('./auth');
 const myAccount = require('./my-account');
 const support = require('./support');
+const twoFactor = require('./2fa');
 
 function breadcrumbs(ctx, next) {
   // return early if its not a pure path (e.g. ignore static assets)
@@ -27,4 +28,4 @@ function breadcrumbs(ctx, next) {
   return next();
 }
 
-module.exports = { support, auth, admin, myAccount, breadcrumbs };
+module.exports = { support, auth, admin, myAccount, breadcrumbs, twoFactor };

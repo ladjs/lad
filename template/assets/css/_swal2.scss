@@ -2,3 +2,20 @@
 .swal2-height-auto.h-100 {
   height: 100% !important;
 }
+
+// responsive toasts
+.swal2-popup.swal2-toast {
+  flex-direction: column !important;
+  .swal2-header {
+    margin-bottom: .625em;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .swal2-popup.swal2-toast {
+    flex-direction: row !important;
+    .swal2-header {
+      margin-bottom: 0;
+    }
+  }
+}

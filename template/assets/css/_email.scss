@@ -2,8 +2,13 @@ body.email {
   max-width: 600px !important;
   padding-top: 0;
   margin: 0 auto !important;
+  background-color: #4C3142;
   img {
     max-width: 100%;
     object-fit: contain;
+  }
+  .markdown-body {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
