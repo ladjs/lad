@@ -5,6 +5,7 @@
   "author": "<%= author %> <<%= email %>> (<%= website %>)",
   "ava": {
     "verbose": true,
+    "failFast": true,
     "require": [
       "./test/global.js"
     ],
@@ -49,7 +50,7 @@
     "@tkrotoff/bootstrap-floating-label": "^0.5.1",
     "accounting": "^0.4.1",
     "array-join-conjunction": "^1.0.0",
-    "aws-sdk": "^2.650.0",
+    "aws-sdk": "^2.652.0",
     "axe": "^5.0.0",
     "basic-auth": "^2.0.1",
     "bitter-font": "^0.0.1",
@@ -100,7 +101,7 @@
     "parse-logs": "^0.0.22",
     "passport-local-mongoose": "^6.0.1",
     "passport-otp-strategy": "^1.0.1",
-    "pino": "^6.0.0",
+    "pino": "^6.1.0",
     "pluralize": "^8.0.0",
     "popper.js": "^1.16.1",
     "prepare-stack-trace": "^0.0.4",

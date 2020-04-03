@@ -213,10 +213,6 @@ const config = {
 // set build dir based off build base dir name
 config.buildDir = path.join(__dirname, '..', config.buildBase);
 
-// add lastLocale configuration path name to both email-templates and i18n
-config.i18n.lastLocaleField = config.lastLocaleField;
-config.email.lastLocaleField = config.lastLocaleField;
-
 // meta support for SEO
 config.meta = meta(config);
 
