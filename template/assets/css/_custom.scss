@@ -1,1 +1,13 @@
 // put your custom styles here
+.text-monospace {
+  font-family: $font-family-monospace;
+}
+
+.text-decoration-underline {
+  text-decoration: underline !important;
+}
+
+.dropdown-menu {
+  max-height: 50vh;
+  overflow-y: auto;
+}

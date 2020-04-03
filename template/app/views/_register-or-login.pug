@@ -55,3 +55,5 @@ mixin registerOrLogin(verb, isModal = false)
           != t("Don't have an account?")
           = ' '
           a(href=l('/register'), data-dismiss-modal=isRegisterOrLogin ? false : 'true', data-toggle=isRegisterOrLogin ? '' : 'modal-anchor', data-target=isRegisterOrLogin ? '' : '#modal-sign-up').card-link= t('Sign up')
+        if verb === 'sign up'
+          p.mt-3.mb-0.text-center: small.text-black-50!= t(`Read our <a href="${l('/privacy')}" target="_blank" rel="noopener">Privacy Policy</a> and <a href="${l('/terms')}" target="_blank" rel="noopener">Terms</a>`)

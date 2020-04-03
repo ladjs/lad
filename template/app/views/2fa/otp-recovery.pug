@@ -1,0 +1,18 @@
+
+extends ../layout
+
+block body
+  .container.py-3
+    .row
+      .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
+        .card
+          .card-body
+            .text-center
+              h1.card-title.h4= t('Two-Factor Authentication Recovery')
+              p= t('Please enter a two-factor recovery key to login.')
+            form(action=`${ctx.locale}/2fa/recovery/keys`, method="POST", autocomplete="off").ajax-form
+              input(type="hidden", name="_csrf", value=ctx.csrf)
+              .form-group.floating-label
+                input#input-text.form-control.form-control-lg(type="text", autocomplete="off", name="recovery_passcode", placeholder=t(''))
+                label(for="recovery_passcode")= t('Recovery Passcode')
+              button.btn.btn-primary.btn-block.btn-lg(type="submit")= t('Submit Passcode')

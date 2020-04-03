@@ -8,11 +8,12 @@
     "commonjs": true,
     "jquery": true
   },
-  "plugins": ["compat", "@lwc/eslint-plugin-lwc"],
+  "plugins": ["compat", "@lwc/eslint-plugin-lwc", "no-smart-quotes"],
   "rules": {
     "compat/compat": "error",
     "@lwc/lwc/no-async-await": "error",
     "promise/prefer-await-to-then": "off",
+    "no-smart-quotes/no-smart-quotes": "error",
     "no-func-assign": "off",
     "no-redeclare": "off",
     "no-unused-vars": "off",

@@ -15,6 +15,7 @@ async function create(ctx) {
   const query = { email: body.email };
   query[config.userFields.hasVerifiedEmail] = false;
   query[config.userFields.hasSetPassword] = true;
+  query[config.userFields.pendingRecovery] = false;
   const user = await Users.register(query, body.password);
 
   // send a verification email

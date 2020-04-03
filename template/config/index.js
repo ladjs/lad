@@ -8,13 +8,14 @@ const consolidate = require('consolidate');
 const manifestRev = require('manifest-rev');
 const ms = require('ms');
 const nodemailer = require('nodemailer');
-const pino = require('pino');
 const strength = require('strength');
-const { Signale } = require('signale');
 const { boolean } = require('boolean');
 
 const pkg = require('../package');
 const env = require('./env');
+const filters = require('./filters');
+const i18n = require('./i18n');
+const loggerConfig = require('./logger');
 const meta = require('./meta');
 const phrases = require('./phrases');
 const polyfills = require('./polyfills');
@@ -47,38 +48,18 @@ const config = {
       insertPreservedExtraCss: false,
       extraCss: false,
       preservePseudos: false
-    }
+    },
+    lastLocaleField: 'last_locale',
+    i18n
   },
-  logger: {
-    showStack: env.SHOW_STACK,
-    showMeta: env.SHOW_META,
-    name: env.APP_NAME,
-    level: 'debug',
-    capture: false,
-    logger:
-      env.NODE_ENV === 'production'
-        ? pino({
-            customLevels: {
-              log: 30
-            }
-          })
-        : new Signale()
-  },
+  logger: loggerConfig,
   livereload: {
     port: env.LIVERELOAD_PORT
   },
   appName: env.APP_NAME,
   appColor: env.APP_COLOR,
   twitter: env.TWITTER,
-  i18n: {
-    // see @ladjs/i18n for a list of defaults
-    // <https://github.com/ladjs/i18n>
-    // but for complete configuration reference please see:
-    // <https://github.com/mashpie/i18n-node#list-of-all-configuration-options>
-    phrases,
-    directory: path.join(__dirname, '..', 'locales'),
-    ignoredRedirectGlobs: ['/auth/**/*']
-  },
+  i18n,
 
   // <https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property>
   aws: {},
@@ -110,7 +91,7 @@ const config = {
       // compileDebug: env.NODE_ENV === 'development',
       ...utilities,
       polyfills,
-      filters: {}
+      filters
     }
   },
 
@@ -118,10 +99,12 @@ const config = {
   userFields: {
     fullEmail: 'full_email',
     apiToken: 'api_token',
+    twoFactorRecoveryKeys: 'two_factor_recovery_keys',
     resetTokenExpiresAt: 'reset_token_expires_at',
     resetToken: 'reset_token',
     hasSetPassword: 'has_set_password',
     hasVerifiedEmail: 'has_verified_email',
+    pendingRecovery: 'pending_recovery',
     verificationPinExpiresAt: 'verification_pin_expires_at',
     verificationPinSentAt: 'verification_pin_sent_at',
     verificationPin: 'verification_pin',
@@ -129,8 +112,11 @@ const config = {
     welcomeEmailSentAt: 'welcome_email_sent_at'
   },
 
+  // dynamic otp routes
+  loginOtpRoute: '/2fa/otp/login',
+
   // verification pin
-  verificationPath: '/verify',
+  verifyRoute: '/verify',
   verificationPinTimeoutMs: ms(env.VERIFICATION_PIN_TIMEOUT_MS),
   verificationPinEmailIntervalMs: ms(env.VERIFICATION_PIN_EMAIL_INTERVAL_MS),
   verificationPin: { length: 6, characters: '1234567890' },
@@ -151,7 +137,20 @@ const config = {
       googleRefreshToken: 'google_refresh_token',
       githubProfileID: 'github_profile_id',
       githubAccessToken: 'github_access_token',
-      githubRefreshToken: 'github_refresh_token'
+      githubRefreshToken: 'github_refresh_token',
+      twoFactorToken: 'two_factor_token',
+      twoFactorEnabled: 'two_factor_enabled'
+    },
+    google: {
+      accessType: 'offline',
+      prompt: 'consent',
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile'
+      ]
+    },
+    github: {
+      scope: ['user:email']
     }
   },
 
@@ -253,7 +252,6 @@ config.email.transport = nodemailer.createTransport({
 
 config.email.views = { ...config.views };
 config.email.views.root = path.join(__dirname, '..', 'emails');
-config.email.i18n = config.i18n;
 config.email.juiceResources.webResources = {
   relativeTo: config.buildDir,
   images: true

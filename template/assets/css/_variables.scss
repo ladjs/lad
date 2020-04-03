@@ -1,7 +1,5 @@
-// NOTE: this isn't working since we don't copy the font folder to build dir
-// $fa-font-path: '../../node_modules/font-awesome/fonts';
-
-$fa-font-path: '//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts';
+// TODO: eventually host ourselves
+$fa-font-path: "//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/webfonts" !default;
 
 // custom fonts using google webfont loader
 // with fonts defined in `assets/js/core.js`

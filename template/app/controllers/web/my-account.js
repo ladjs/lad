@@ -1,6 +1,10 @@
+const Boom = require('@hapi/boom');
+const cryptoRandomString = require('crypto-random-string');
 const humanize = require('humanize-string');
 const isSANB = require('is-string-and-not-blank');
-const Boom = require('@hapi/boom');
+const qrcode = require('qrcode');
+const { authenticator } = require('otplib');
+const { boolean } = require('boolean');
 
 const config = require('../../../config');
 
@@ -12,7 +16,7 @@ async function update(ctx) {
 
   if (hasSetPassword) requiredFields.push('old_password');
 
-  if (body.change_password === 'true') {
+  if (boolean(body.change_password)) {
     requiredFields.forEach(prop => {
       if (!isSANB(body[prop]))
         throw Boom.badRequest(
@@ -74,7 +78,86 @@ async function resetAPIToken(ctx) {
   else ctx.body = { reloadPage: true };
 }
 
+async function security(ctx) {
+  if (!ctx.state.user[config.passport.fields.twoFactorEnabled]) {
+    ctx.state.user[
+      config.passport.fields.twoFactorToken
+    ] = authenticator.generateSecret();
+
+    // generate 2fa recovery keys list used for fallback
+    const recoveryKeys = new Array(16)
+      .fill()
+      .map(() => cryptoRandomString({ length: 10, characters: '1234567890' }));
+
+    ctx.state.user[config.userFields.twoFactorRecoveryKeys] = recoveryKeys;
+    ctx.state.user = await ctx.state.user.save();
+    ctx.state.twoFactorTokenURI = authenticator.keyuri(
+      ctx.state.user.email,
+      process.env.WEB_HOST,
+      ctx.state.user[config.passport.fields.twoFactorToken]
+    );
+    ctx.state.qrcode = await qrcode.toDataURL(ctx.state.twoFactorTokenURI);
+  }
+
+  await ctx.render('my-account/security');
+}
+
+async function recoveryKeys(ctx) {
+  const twoFactorRecoveryKeys =
+    ctx.state.user[config.userFields.twoFactorRecoveryKeys];
+
+  ctx.attachment('recovery-keys.txt');
+  ctx.body = twoFactorRecoveryKeys
+    .toString()
+    .replace(/,/g, '\n')
+    .replace(/"/g, '');
+}
+
+async function setup2fa(ctx) {
+  if (ctx.method === 'DELETE') {
+    ctx.state.user[config.passport.fields.twoFactorEnabled] = false;
+  } else if (
+    ctx.method === 'POST' &&
+    ctx.state.user[config.passport.fields.twoFactorToken]
+  ) {
+    const isValid = authenticator.verify({
+      token: ctx.request.body.token,
+      secret: ctx.state.user[config.passport.fields.twoFactorToken]
+    });
+
+    if (!isValid)
+      return ctx.throw(Boom.badRequest(ctx.translate('INVALID_OTP_PASSCODE')));
+
+    ctx.state.user[config.passport.fields.twoFactorEnabled] = true;
+  } else {
+    return ctx.throw(Boom.badRequest('Invalid method'));
+  }
+
+  await ctx.state.user.save();
+
+  ctx.session.otp = 'otp-setup';
+
+  ctx.flash('custom', {
+    title: ctx.request.t('Success'),
+    text: ctx.translate('REQUEST_OK'),
+    type: 'success',
+    toast: true,
+    showConfirmButton: false,
+    timer: 3000,
+    position: 'top'
+  });
+
+  if (ctx.accepts('json')) {
+    ctx.body = { reloadPage: true };
+  } else {
+    ctx.redirect('back');
+  }
+}
+
 module.exports = {
   update,
-  resetAPIToken
+  recoveryKeys,
+  resetAPIToken,
+  security,
+  setup2fa
 };

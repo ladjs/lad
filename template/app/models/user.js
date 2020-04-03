@@ -47,22 +47,30 @@ const User = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    validate: val => validator.isEmail(val)
+    validate: value => validator.isEmail(value)
+  },
+
+  // password reset
+  reset_token_expires_at: Date,
+  reset_token: String,
+  has_set_password: {
+    type: Boolean,
+    default: false
   }
 });
 
 // additional variable based properties to add to the schema
-const obj = {};
+const object = {};
 
 // user fields
-obj[config.userFields.fullEmail] = {
+object[config.userFields.fullEmail] = {
   type: String,
   required: true,
   trim: true
 };
 
 // api token for basic auth
-obj[config.userFields.apiToken] = {
+object[config.userFields.apiToken] = {
   type: String,
   required: true,
   lowercase: true,
@@ -71,76 +79,89 @@ obj[config.userFields.apiToken] = {
   index: true
 };
 
+object[config.userFields.twoFactorRecoveryKeys] = Array;
+
 // password reset
-obj[config.userFields.resetTokenExpiresAt] = Date;
-obj[config.userFields.resetToken] = String;
+object[config.userFields.resetTokenExpiresAt] = Date;
+object[config.userFields.resetToken] = String;
 
 // welcome email
-obj[config.userFields.welcomeEmailSentAt] = Date;
+object[config.userFields.welcomeEmailSentAt] = Date;
 
 // account verification
-obj[config.userFields.hasSetPassword] = {
+object[config.userFields.hasSetPassword] = {
   type: Boolean,
   default: false // manually set to true during web/API signup
 };
-obj[config.userFields.hasVerifiedEmail] = {
+object[config.userFields.hasVerifiedEmail] = {
   type: Boolean,
   default: true // manually set to false during web/API signup
 };
-obj[config.userFields.verificationPinExpiresAt] = Date;
-obj[config.userFields.verificationPinSentAt] = Date;
-obj[config.userFields.verificationPin] = {
+object[config.userFields.verificationPinExpiresAt] = Date;
+object[config.userFields.verificationPinSentAt] = Date;
+object[config.userFields.verificationPin] = {
   type: String,
   trim: true,
-  validate: val => isSANB(val) && val.replace(/\D/g, '').length === 6
+  validate: value => isSANB(value) && value.replace(/\D/g, '').length === 6
+};
+object[config.userFields.pendingRecovery] = {
+  type: Boolean,
+  default: false
 };
 
 // shared field names with @ladjs/passport for consistency
 const { fields } = config.passport;
-obj[fields.displayName] = {
+object[fields.displayName] = {
   type: String,
   required: true,
   trim: true,
   maxlength: 70
 };
-obj[fields.givenName] = {
+object[fields.givenName] = {
   type: String,
   trim: true,
   maxlength: 35
 };
-obj[fields.familyName] = {
+object[fields.familyName] = {
   type: String,
   trim: true,
   maxlength: 35
 };
-obj[fields.avatarURL] = {
+object[fields.avatarURL] = {
   type: String,
   trim: true,
-  validate: val => validator.isURL(val)
+  validate: value => validator.isURL(value)
 };
 // google
-obj[fields.googleProfileID] = {
+object[fields.googleProfileID] = {
   type: String,
   index: true
 };
-obj[fields.googleAccessToken] = String;
-obj[fields.googleRefreshToken] = String;
+object[fields.googleAccessToken] = String;
+object[fields.googleRefreshToken] = String;
 // github
-obj[fields.githubProfileID] = {
+object[fields.githubProfileID] = {
   type: String,
   index: true
 };
-obj[fields.githubAccessToken] = String;
-obj[fields.githubRefreshToken] = String;
+object[fields.githubAccessToken] = String;
+object[fields.githubRefreshToken] = String;
+
+object[fields.twoFactorEnabled] = {
+  type: Boolean,
+  default: false
+};
+
+object[fields.twoFactorToken] = String;
 
 // shared field names with @ladjs/i18n and email-templates
-obj[config.lastLocaleField] = {
+object[config.lastLocaleField] = {
   type: String,
   default: i18n.config.defaultLocale
 };
 
 // finally add the fields
-User.add(obj);
+User.add(object);
 
 User.virtual(config.userFields.verificationPinHasExpired).get(function() {
   return boolean(
@@ -168,6 +189,18 @@ User.pre('validate', function(next) {
   this[config.userFields.fullEmail] = this[fields.displayName]
     ? `${this[fields.displayName]} <${this.email}>`
     : this.email;
+
+  // if two-factor authentication values no longer valid
+  // then disable it completely
+  if (
+    !this[fields.twoFactorEnabled] ||
+    !Array.isArray(
+      this[config.userFields.twoFactorRecoveryKeys] ||
+        this[config.userFields.twoFactorRecoveryKeys].length === 0
+    )
+  ) {
+    this[fields.twoFactorEnabled] = false;
+  }
 
   next();
 });
@@ -201,7 +234,11 @@ User.post('save', async user => {
 });
 
 User.methods.sendVerificationEmail = async function(ctx) {
-  if (this[config.userFields.hasVerifiedEmail]) return this;
+  if (
+    this[config.userFields.hasVerifiedEmail] &&
+    boolean(!this[config.userFields.pendingRecovery])
+  )
+    return this;
 
   const diff =
     this[config.userFields.verificationPinExpiresAt] &&
@@ -251,7 +288,7 @@ User.methods.sendVerificationEmail = async function(ctx) {
       user: select(this.toObject(), User.options.toJSON.select),
       expiresAt: this[config.userFields.verificationPinExpiresAt],
       pin: this[config.userFields.verificationPin],
-      link: `${config.urls.web}${config.verificationPath}?pin=${
+      link: `${config.urls.web}${config.verifyRoute}?pin=${
         this[config.userFields.verificationPin]
       }`
     }
@@ -273,7 +310,9 @@ User.plugin(mongooseCommonPlugin, {
     config.userFields.verificationPinExpiresAt,
     config.userFields.verificationPin,
     config.userFields.verificationPinHasExpired,
-    config.userFields.welcomeEmailSentAt
+    config.userFields.welcomeEmailSentAt,
+    config.userFields.twoFactorRecoveryKeys,
+    fields.twoFactorToken
   ]
 });
 User.plugin(passportLocalMongoose, config.passportLocalMongoose);
