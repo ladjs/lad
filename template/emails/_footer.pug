@@ -3,10 +3,10 @@ footer.py-3.mt-3
     .row
       .col-12.text-center
         a(href=config.urls.web)
-          img(src=manifest('img/logo-square.svg'), width=100, height=100, alt='').d-inline-block.align-middle
-        ul.m-0.p-0.text-muted.py-3
-          li.px-1.d-inline: small: a(href=`${config.urls.web}/support`).text-muted= t('Support')
-          li.px-1.d-inline: small: a(href=`${config.urls.web}/about`).text-muted= t('About')
-          li.px-1.d-inline: small: a(href=`${config.urls.web}/privacy`).text-muted= t('Privacy')
-          li.px-1.d-inline: small: a(href=`${config.urls.web}/terms`).text-muted= t('Terms')
-        p: small.text-muted!= `&copy; ${config.appName}`
+          img(src=manifest('img/apple-touch-icon.png'), width=90, height=90, alt='').d-inline-block.align-middle
+        ul.m-0.p-0.text-white.py-3
+          li.px-1.d-inline: small: a(href=`${config.urls.web}/support`).text-white= t('Support')
+          li.px-1.d-inline: small: a(href=`${config.urls.web}/about`).text-white= t('About')
+          li.px-1.d-inline: small: a(href=`${config.urls.web}/privacy`).text-white= t('Privacy')
+          li.px-1.d-inline: small: a(href=`${config.urls.web}/terms`).text-white= t('Terms')
+        p: small.text-white!= `&copy; ${config.appName}`

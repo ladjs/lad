@@ -28,7 +28,7 @@ const polyfills = _.uniq([
   // we need to drop the "window" as the polyfill-service does not support it
   // <https://github.com/Financial-Times/polyfill-service/issues/1970>
   //
-  ...eslint.settings.polyfills.map(str => str.replace(/^window./i, ''))
+  ...eslint.settings.polyfills.map(string => string.replace(/^window./i, ''))
 ]);
 
 module.exports = polyfills;

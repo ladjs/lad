@@ -22,9 +22,9 @@ async function create(ctx) {
   await user.sendVerificationEmail();
 
   // send the response
-  const obj = select(user.toObject(), Users.schema.options.toJSON.select);
-  obj[config.userFields.apiToken] = user[config.userFields.apiToken];
-  ctx.body = obj;
+  const object = select(user.toObject(), Users.schema.options.toJSON.select);
+  object[config.userFields.apiToken] = user[config.userFields.apiToken];
+  ctx.body = object;
 }
 
 async function retrieve(ctx) {

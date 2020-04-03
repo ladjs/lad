@@ -14,8 +14,8 @@ const Users = require('../../models/user');
 const passport = require('../../../helpers/passport');
 const config = require('../../../config');
 
-const sanitize = str =>
-  sanitizeHtml(str, {
+const sanitize = string =>
+  sanitizeHtml(string, {
     allowedTags: [],
     allowedAttributes: []
   });
@@ -87,7 +87,6 @@ async function homeOrDashboard(ctx) {
 }
 
 async function login(ctx, next) {
-  // eslint-disable-next-line complexity
   await passport.authenticate('local', async (err, user, info) => {
     if (err) throw err;
 
