@@ -1,5 +1,6 @@
 const util = require('util');
 const test = require('ava');
+const cryptoRandomString = require('crypto-random-string');
 
 const phrases = require('../../config/phrases');
 const { Users } = require('../../app/models');
@@ -25,6 +26,28 @@ test('fails registering with easy password', async t => {
   });
   t.is(res.body.message, phrases.INVALID_PASSWORD_STRENGTH);
   t.is(res.status, 400);
+});
+
+test('successfully registers with strong password', async t => {
+  const res = await global.web.post('/en/register', {
+    body: {
+      email: 'test12@example.com',
+      password: 'Thi$i$@$r0ng3rP@$$W0rdMyDude'
+    }
+  });
+  t.is(res.body.message, undefined);
+  t.is(res.status, 200);
+});
+
+test('successfully registers with stronger password', async t => {
+  const res = await global.web.post('/en/register', {
+    body: {
+      email: 'test123@example.com',
+      password: cryptoRandomString({ length: 50 })
+    }
+  });
+  t.is(res.body.message, undefined);
+  t.is(res.status, 200);
 });
 
 test('fails registering invalid email', async t => {
