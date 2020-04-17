@@ -26,14 +26,19 @@ block body
                       input(type="hidden", name="_csrf", value=ctx.csrf)
                       button(type='submit').btn.btn-primary.btn-block
                         i.fa.fa-download
-                          = t(' Download')
+                        = ' '
+                        = t('Download')
                   .col-sm.offset-sm-1
                     button(type='button', data-toggle="clipboard", data-clipboard-target="#two-factor-recovery-keys").btn.btn-secondary.btn-block
                       i.fa.fa-clipboard
-                        = t(' Copy')
+                      = ' '
+                      = t('Copy')
           .modal-footer
-            p.text-muted.text-center.font-weight-bold: small= t('Store these in a safe place; they will let you recover your account, if necessary.')
-            button(data-toggle='modal', data-target='#modal-enable-2fa-verify', data-dismiss='modal', type='button').btn.btn-primary.btn-lg.float-right= t('Continue')
+            .form-check
+              input#recovery-keys-stored(type='checkbox', name="recovery-keys-stored", value='true' data-toggle='collapse' data-target='#recovery-key-submit')
+              label(for='recovery-keys-stored')= t('I have stored these recovery keys in a safe place')
+            #recovery-key-submit.collapse
+              button(data-toggle='modal', data-target='#modal-enable-2fa-verify', data-dismiss='modal', type='button').btn.btn-primary.btn-lg.float-right= t('Continue')
     #modal-enable-2fa-verify(tabindex='-1', role='dialog').modal.fade
       .modal-dialog(role='document')
         .modal-content
@@ -44,22 +49,32 @@ block body
           .modal-body
             form(action=l('/my-account/setup-2fa'), method='POST').ajax-form.confirm-prompt
               input(type="hidden", name="_csrf", value=ctx.csrf)
+              label(for='two-factor-step-one')
+                b= t('Step 1: ')
+                = t('Install an authenticator application on your mobile device.')
+              label(for='two-factor-step-two')
+                b= t('Step 2: ')
+                = t('Scan the following QR code in your authenticator app.')
               img(src=qrcode, width=250, height=250, alt="").mx-auto.d-block
               hr
-              .input-group.input-group-sm.floating-label.form-group
-                input(type='text', readonly, value=user[config.passport.fields.twoFactorToken]).form-control#two-factor-token
-                label(for='two-factor-token')= t('Two-Factor Token')
-                .input-group-append
-                  button(type='button', data-toggle="clipboard", data-clipboard-target="#two-factor-token").btn.btn-primary
-                    i.fa.fa-clipboard
-                    = ' '
-                    = t('Copy')
-              hr
-              p.lead.text-center.font-weight-bold= t('Enter the token generated from your app below:')
+              label(for='two-factor-step-three')
+                b= t('Step 3: ')
+                = t('Enter the token generated from your app below:')
               .form-group.floating-label
                 input(type='text', name='token', required, placeholder=' ').form-control.form-control-lg#input-token
                 label(for='input-token') Verification Token
-              p.text-muted.text-center.text-uppercase.font-weight-bold: small: mark= t('Hint: Scan the QR code or use the URI above if necessary')
+              a.card-link.text-primary(data-toggle='collapse' data-target='#two-factor-token')= t('Can’t scan the QR code? Follow alternative steps')
+                #two-factor-token.collapse
+                  hr
+                  p.text-secondary= t('Scan the following QR code in your authenticator app.')
+                  .input-group.input-group-sm.floating-label.form-group
+                    input(type='text', readonly, value=user[config.passport.fields.twoFactorToken]).form-control#two-factor-token
+                    .input-group-append
+                      button(type='button', data-toggle="clipboard", data-clipboard-target="#two-factor-token").btn.btn-primary
+                        i.fa.fa-clipboard
+                        = ' '
+                        = t('Copy')
+              hr
               button(type='submit').btn.btn-lg.btn-block.btn-primary= t('Continue')
   .container-fluid.py-3
     .row.mt-1
