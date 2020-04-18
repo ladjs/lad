@@ -118,5 +118,10 @@
   "This pin expires within 5 minutes.": "This pin expires within 5 minutes.",
   "Verify now": "Verify now",
   "If you did not submit this request, then please reply to let us know.": "If you did not submit this request, then please reply to let us know.",
-  "Verification pin:": "Verification pin:"
+  "Verification pin:": "Verification pin:",
+  "Sign up with Google": "Sign up with Google",
+  "Sign up with GitHub": "Sign up with GitHub",
+  "or": "or",
+  "Sign in with Google": "Sign in with Google",
+  "Sign in with GitHub": "Sign in with GitHub"
 }
