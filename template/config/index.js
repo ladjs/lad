@@ -172,11 +172,7 @@ const config = {
     passwordValidator: (password, fn) => {
       if (env.NODE_ENV === 'development') return fn();
       const { score } = zxcvbn(password);
-      fn(
-        score < 3
-          ? Boom.badRequest(phrases.INVALID_PASSWORD_STRENGTH)
-          : null
-      );
+      fn(score < 3 ? Boom.badRequest(phrases.INVALID_PASSWORD_STRENGTH) : null);
     },
     errorMessages: {
       MissingPasswordError: phrases.PASSPORT_MISSING_PASSWORD_ERROR,
@@ -221,12 +217,13 @@ const logger = new Axe(config.logger);
 
 // add manifest helper for rev-manifest.json support
 config.manifest = path.join(config.buildDir, 'rev-manifest.json');
+config.srimanifest = path.join(config.buildDir, 'sri-manifest.json');
 config.views.locals.manifest = manifestRev({
   prepend:
     env.AWS_CLOUDFRONT_DOMAIN && env.NODE_ENV === 'production'
       ? `//${env.AWS_CLOUDFRONT_DOMAIN}/`
       : '/',
-  manifest: config.manifest
+  manifest: config.srimanifest
 });
 
 // add global `config` object to be used by views

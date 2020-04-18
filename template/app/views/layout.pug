@@ -49,7 +49,28 @@ html(lang=locale).h-100
 
     //- css file
     block stylesheets
-      link(rel="stylesheet", href=manifest('css/app.css'))
+      if config.env === 'production'
+        link(rel="stylesheet", href=manifest('css/app.css') integrity=manifest('css/app.css', 'integrity'))
+      else
+        link(rel="stylesheet", href=manifest('css/app.css'))
+
+  body(role='document', class=['/register', '/login', config.verifyRoute].includes(ctx.pathWithoutLocale) ? 'pt-0' : '').d-flex.flex-column.h-100
+
+    //- spinner
+    block spinner
+      include spinner/spinner
+
+    //- navigation
+    block navigation
+      include _nav
+
+    //- body
+    main(role='main').flex-shrink-0
+    block body
+
+    //- footer
+    block footer
+      include _footer
 
     block scripts
       //- flash messaging (with koa-better-flash and sweetalert2)
@@ -102,31 +123,22 @@ html(lang=locale).h-100
           };
 
       //- polyfill environment
-      script(defer, src=`https://polyfill.io/v3/polyfill${config.env === 'production' ? '.min' : ''}.js?features=${polyfills.join(',')}`)
+      script(src=`https://polyfill.io/v3/polyfill${config.env === 'production' ? '.min' : ''}.js?features=${polyfills.join(',')}`)
 
       //- factor bundle (common shared assets across all files)
-      script(defer, src=manifest('js/factor-bundle.js'))
+      if config.env === 'production'
+        script(src=manifest('factor-bundle.js') integrity=manifest('factor-bundle.js', 'integrity'))
+      else
+        script(src=manifest('factor-bundle.js'))
 
       //- uncaught (handles errors, similar to TraceKit but with CabinJS + StackTrace.JS)
-      script(defer, src=manifest('js/uncaught.js'))
+      if config.env === 'production'
+        script(src=manifest('uncaught.js') integrity=manifest('uncaught.js', 'integrity'))
+      else
+        script(src=manifest('uncaught.js'))
 
       //- scripts
-      script(defer, src=manifest('js/core.js'))
-
-  body(role='document', class=['/register', '/login', config.verifyRoute].includes(ctx.pathWithoutLocale) ? 'pt-0' : '').d-flex.flex-column.h-100
-
-    //- spinner
-    block spinner
-      include spinner/spinner
-
-    //- navigation
-    block navigation
-      include _nav
-
-    //- body
-    main(role='main').flex-shrink-0
-    block body
-
-    //- footer
-    block footer
-      include _footer
+      if config.env === 'production'
+        script(src=manifest('core.js') integrity=manifest('core.js', 'integrity'))
+      else
+        script(src=manifest('core.js'))
