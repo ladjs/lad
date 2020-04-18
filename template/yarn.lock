@@ -10564,10 +10564,10 @@ mandarin@^2.0.3:
     remark-textr "^3.0.4"
     rev-hash "^3.0.0"
 
-manifest-rev@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/manifest-rev/-/manifest-rev-1.0.0.tgz#8556b527db0c663f308c04fbb6a46d35ef35148e"
-  integrity sha512-yQVITfe4FIaOVpVvdOlrAojeNygJrxEOb8yEAOsAY5JASsmLfvwQMFKdF9kBVLWgD05sUViB9gAlPTBTO30Z9A==
+manifest-rev@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/manifest-rev/-/manifest-rev-1.0.2.tgz#b0bfa8c6f3d4ff881d9a19f7e08cd17c090d2abf"
+  integrity sha512-bZIXwhhK59+u9gXtfYzxQpyte14bWf3YIhC1PDY5N+bM0Tfh0XkTx3cFR/9d2BsYHi/aRPSmVTOoytHOYBKEvQ==
 
 map-cache@^0.2.0, map-cache@^0.2.2:
   version "0.2.2"

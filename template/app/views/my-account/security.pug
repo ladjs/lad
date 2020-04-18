@@ -35,8 +35,8 @@ block body
                       = t('Copy')
           .modal-footer
             .form-check
-              input#recovery-keys-stored(type='checkbox', name="recovery-keys-stored", value='true' data-toggle='collapse' data-target='#recovery-key-submit')
-              label(for='recovery-keys-stored')= t('I have stored these recovery keys in a safe place')
+              input#recovery-keys-stored(type='checkbox', name="recovery-keys-stored", value='true' data-toggle='collapse' data-target='#recovery-key-submit').form-check-input
+              label(for='recovery-keys-stored').form-check-label= t('I have stored these recovery keys in a safe place')
             #recovery-key-submit.collapse
               button(data-toggle='modal', data-target='#modal-enable-2fa-verify', data-dismiss='modal', type='button').btn.btn-primary.btn-lg.float-right= t('Continue')
     #modal-enable-2fa-verify(tabindex='-1', role='dialog').modal.fade
