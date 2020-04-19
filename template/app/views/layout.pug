@@ -126,10 +126,10 @@ html(lang=locale).h-100
       script(src=`https://polyfill.io/v3/polyfill${config.env === 'production' ? '.min' : ''}.js?features=${polyfills.join(',')}`)
 
       //- factor bundle (common shared assets across all files)
-      script(src=manifest('factor-bundle.js') integrity=manifest('factor-bundle.js', 'integrity'))
+      script(src=manifest('js/factor-bundle.js') integrity=manifest('js/factor-bundle.js', 'integrity'))
 
       //- uncaught (handles errors, similar to TraceKit but with CabinJS + StackTrace.JS)
-      script(src=manifest('uncaught.js') integrity=manifest('uncaught.js', 'integrity'))
+      script(src=manifest('js/uncaught.js') integrity=manifest('js/uncaught.js', 'integrity'))
 
       //- scripts
-      script(src=manifest('core.js') integrity=manifest('core.js', 'integrity'))
+      script(src=manifest('js/core.js') integrity=manifest('js/core.js', 'integrity'))

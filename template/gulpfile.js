@@ -201,7 +201,7 @@ async function bundle() {
 }
 
 function compile() {
-  return src('build/js/**/*.js', { since: lastRun(compile) })
+  return src('build/js/**/*.js', { base: 'build', since: lastRun(compile) })
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(envify(env))
     .pipe(unassert())
