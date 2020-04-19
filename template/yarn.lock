@@ -1043,18 +1043,18 @@
     path-to-regexp "1.x"
     urijs "^1.19.2"
 
-"@ladjs/api@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.3.3.tgz#04d68e851c1fb92658ac328179e1cdd7a712e297"
-  integrity sha512-Ah/kr0+POhQxRjRjaM1HifU7O6eLJuTRoxNwVmCLbqHQggDfRgUij/YauYP5c7nzHif0RtwMNzRKB7AD6KFbfA==
+"@ladjs/api@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.3.4.tgz#a8cd0088962c92cba5a8df9c8db50a62cda6b090"
+  integrity sha512-GD37Wx0Q6tePRkB6egRFe0Mw44IzsTIq6pOR9DfUc+KW+NjBuhJlXQPnQiZb3yxGxa8REVq8Fv6JV8nuZJxfHA==
   dependencies:
     "@koa/router" "^8.0.5"
     "@ladjs/i18n" "^3.0.4"
     "@ladjs/redis" "^1.0.3"
-    "@ladjs/shared-config" "^1.0.5"
+    "@ladjs/shared-config" "^1.0.6"
     "@ladjs/store-ip-address" "^0.0.7"
     boolean "3.0.1"
-    cabin "^6.1.0"
+    cabin "^6.1.1"
     express-request-id "^1.4.1"
     kcors "^2.2.2"
     koa "^2.11.0"
@@ -1212,10 +1212,10 @@
     boolean "^3.0.0"
     is-string-and-not-blank "^0.0.2"
 
-"@ladjs/shared-config@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@ladjs/shared-config/-/shared-config-1.0.5.tgz#e87a93aed8e3f0ff7a43692e599690b2b7b0c61d"
-  integrity sha512-wC5TeKYrlpiii3sYtoHP9QzC/xXzA1XTYp9UQaNpDKTOMSod0uA3AKYqAliWTdFpNm2NbjiJg50BFmYt1Ds+aQ==
+"@ladjs/shared-config@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@ladjs/shared-config/-/shared-config-1.0.6.tgz#f8f36e7409166e073b4121b84a1cf77174dd6cb2"
+  integrity sha512-/iGI+b/3ounYftBdVO+GMV+axOreORUKrgC98hbBQGfBzqurWEDoB/cWOx+T8vwp7e9w88WGYR+llcS4ZTB0Pg==
   dependencies:
     boolean "^3.0.1"
     is-string-and-not-blank "^0.0.2"
@@ -1235,21 +1235,21 @@
     debug "^4.1.1"
     validator "^12.1.0"
 
-"@ladjs/web@^0.5.5":
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.5.5.tgz#695428aa5b3963965afeee89fe8c93e882a21fff"
-  integrity sha512-jOVCZ5nmQCj42ajW8X6Ke/yR49zB5TdwrU9CGrr9LdGK6A54yZamTYnjeXTWUdiLnymyiaCb5W+yZZh6+7qOUg==
+"@ladjs/web@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.5.6.tgz#0f03398c3525ec22b588cbaadca6bc24344a552d"
+  integrity sha512-Ijc+722pphsX5Y5L9cswLcb6IFsWf21bGZN9wUJeikjkgi7D05sqcYM/nzmbYSSLHsXXPzzC3eFpKdMCoz9maw==
   dependencies:
     "@hapi/boom" "^9.1.0"
     "@koa/router" "^8.0.5"
     "@ladjs/i18n" "^3.0.4"
     "@ladjs/koa-better-static" "^2.0.0"
     "@ladjs/redis" "^1.0.3"
-    "@ladjs/shared-config" "^1.0.5"
+    "@ladjs/shared-config" "^1.0.6"
     "@ladjs/state-helper" "^0.0.2"
     "@ladjs/store-ip-address" "^0.0.7"
     boolean "3.0.1"
-    cabin "^6.1.0"
+    cabin "^6.1.1"
     express-request-id "^1.4.1"
     kcors "^2.2.2"
     koa "^2.11.0"
@@ -2373,22 +2373,22 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
 
-axe@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/axe/-/axe-5.0.0.tgz#0d66140c16bac8cddd06abc586150f98df6f5c4f"
-  integrity sha512-byqr6oixLwhcZjk/vnJN3M3Gnml5W5wH49hpQUNHC7vGTkjxUFAp/8NH1xJgvQsdHMrdWM3r4rdMNMQtEwgOdw==
+axe@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/axe/-/axe-5.0.1.tgz#f11eb69430c165f7b5610696291632c28b579ced"
+  integrity sha512-66C9B7GuxcLC2cXjkOe/8cpud1f+6vDUoBss7hfOoTNtUCxWnB/vFzTmOC4b85HD1OYTBMYol7+E+hKDQYDoyA==
   dependencies:
     "@ladjs/format-util" "^1.0.4"
-    boolean "^3.0.0"
+    boolean "^3.0.1"
     console-polyfill "^0.3.0"
-    cuid "^2.1.6"
+    cuid "^2.1.8"
     fast-safe-stringify "^2.0.7"
     format-specifiers "^1.0.0"
     iserror "^0.0.2"
     omit.js "^1.0.2"
     parse-app-info "^2.0.5"
     parse-err "^0.0.12"
-    superagent "^5.1.2"
+    superagent "^5.2.2"
 
 b3b@0.0.1:
   version "0.0.1"
@@ -3053,13 +3053,13 @@ bytes@^2.5.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.5.0.tgz#4c9423ea2d252c270c41b2bdefeff9bb6b62c06a"
   integrity sha1-TJQj6i0lLCcMQbK97+/5u2tiwGo=
 
-cabin@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/cabin/-/cabin-6.1.0.tgz#64b7d8928e4056116205780beec4f461fd4f3739"
-  integrity sha512-qkWAikm5xvIDhJVb/A3Z5pW5Y5LIOrVS9mHlo+vmq3lDGWXZlWavGZG2yc8zC8wOoUlRjVBnc2YZti0Z+kXQyw==
+cabin@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/cabin/-/cabin-6.1.1.tgz#cf1473deb49a2da4e221faab1ae69933562de7c4"
+  integrity sha512-4W8EorCfP9Ftn1iKWghQsj4YCmlkJ9AqC9eM7Q6uBR0IZa44usb7aHCaHsUh0qq1h1J3P445YE9oRUa1wwi8hw==
   dependencies:
     ansi-colors "^4.1.1"
-    axe "^5.0.0"
+    axe "^5.0.1"
     clf-date "^0.1.0"
     iserror "^0.0.2"
     ms "^2.1.2"
@@ -4547,7 +4547,7 @@ csstype@^2.2.0:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
   integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
 
-cuid@^2.1.6:
+cuid@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/cuid/-/cuid-2.1.8.tgz#cbb88f954171e0d5747606c0139fb65c5101eac0"
   integrity sha512-xiEMER6E7TlTPnDxrM4eRiC6TRgjNX9xzEZ5U/Se2YJKr7Mq4pJn/2XEHjl3STcSh96GmkHPcBXLES8M29wyyg==
@@ -9878,10 +9878,10 @@ linkify-it@2.2.0, linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
-lint-staged@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.1.tgz#1c8569b66d684e6e3553cd760c03053f41fca152"
-  integrity sha512-wAeu/ePaBAOfwM2+cVbgPWDtn17B0Sxiv0NvNEqDAIvB8Yhvl60vafKFiK4grcYn87K1iK+a0zVoETvKbdT9/Q==
+lint-staged@10.1.5:
+  version "10.1.5"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.5.tgz#de21ee7c4a91d75e5135b100b963f65e61645230"
+  integrity sha512-Etn83be+CiG674kIkE4pOyjtpssXfdmuAPhOehy5w4bOVMnQJ5DsiWq5CShpZj38NA+UdJSsMMkqhb3hB72kOg==
   dependencies:
     chalk "^3.0.0"
     commander "^4.0.1"
@@ -17419,7 +17419,7 @@ sugarss@^2.0.0:
   dependencies:
     postcss "^7.0.2"
 
-superagent@^5.1.2, superagent@^5.2.1:
+superagent@^5.2.1, superagent@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/superagent/-/superagent-5.2.2.tgz#6ff726c5642795b2c27009e92687c8e69a6bb07d"
   integrity sha512-pMWBUnIllK4ZTw7p/UaobiQPwAO5w/1NRRTDpV0FTVNmECztsxKspj3ZWEordVEaqpZtmOQJJna4yTLyC/q7PQ==

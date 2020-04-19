@@ -51,15 +51,19 @@ block body
               input(type="hidden", name="_csrf", value=ctx.csrf)
               label(for='two-factor-step-one')
                 b= t('Step 1: ')
-                = t('Install an authenticator application on your mobile device.')
+                = t('Install an')
+                = ' '
+                a.card-link(data-toggle='modal-anchor', data-target='#authenticator-apps-modal').text-primary= t('authentication app')
+                = ' '
+                = t('on your device.')
               label(for='two-factor-step-two')
                 b= t('Step 2: ')
-                = t('Scan the following QR code in your authenticator app.')
+                = t('Scan this QR code using the app:')
               img(src=qrcode, width=250, height=250, alt="").mx-auto.d-block
               hr
               label(for='two-factor-step-three')
                 b= t('Step 3: ')
-                = t('Enter the token generated from your app below:')
+                = t('Enter the token generated from the app:')
               .form-group.floating-label
                 input(type='text', name='token', required, placeholder=' ').form-control.form-control-lg#input-token
                 label(for='input-token') Verification Token
@@ -76,6 +80,38 @@ block body
                         = t('Copy')
               hr
               button(type='submit').btn.btn-lg.btn-block.btn-primary= t('Continue')
+    #authenticator-apps-modal(tabindex='-1', role='dialog').modal.fade
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header.d-block.text-center
+            h6.modal-title.d-inline-block.ml-4= t('Authentication Apps')
+            button(type='button', data-dismiss='modal', aria-label='Close').close
+              span(aria-hidden='true') &times;
+          .modal-body.text-center
+            = t('Recommendations are listed below:')
+          .flex-wrap.flex-fill.text-center
+            mb-2= t('Free and Open-Source Software:')
+            ul.list-unstyled
+              li: a.text-primary(href='https://freeotp.github.io/', rel="nofollow", target="_blank")= t('FreeOTP')
+                = ' '
+                i.fab.fa-google-play
+                = ' '
+                i.fa.fa-apple
+              li: a.text-primary(href='https://f-droid.org/en/packages/org.shadowice.flocke.andotp', rel="nofollow", target="_blank")= t('andOTP')
+                = ' '
+                i.fa.fa-android
+            mb-2= t('Closed-Source Software:')
+            ul.list-unstyled
+              li: a.text-primary(href='https://authy.com/', rel="nofollow", target="_blank")= t('Authy')
+                = ' '
+                i.fa.fa-android
+                = ' '
+                i.fa.fa-apple
+              li: a.text-primary(href='https://support.google.com/accounts/answer/1066447', rel="nofollow", target="_blank")= t('Google Authenticator')
+                = ' '
+                i.fa.fa-android
+                = ' '
+                i.fa.fa-apple
   .container-fluid.py-3
     .row.mt-1
       .col
