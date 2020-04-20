@@ -90,28 +90,59 @@ block body
           .modal-body.text-center
             = t('Recommendations are listed below:')
           .flex-wrap.flex-fill.text-center
-            mb-2= t('Free and Open-Source Software:')
-            ul.list-unstyled
-              li: a.text-primary(href='https://freeotp.github.io/', rel="nofollow", target="_blank")= t('FreeOTP')
-                = ' '
-                i.fab.fa-google-play
-                = ' '
-                i.fa.fa-apple
-              li: a.text-primary(href='https://f-droid.org/en/packages/org.shadowice.flocke.andotp', rel="nofollow", target="_blank")= t('andOTP')
-                = ' '
-                i.fa.fa-android
-            mb-2= t('Closed-Source Software:')
-            ul.list-unstyled
-              li: a.text-primary(href='https://authy.com/', rel="nofollow", target="_blank")= t('Authy')
-                = ' '
-                i.fa.fa-android
-                = ' '
-                i.fa.fa-apple
-              li: a.text-primary(href='https://support.google.com/accounts/answer/1066447', rel="nofollow", target="_blank")= t('Google Authenticator')
-                = ' '
-                i.fa.fa-android
-                = ' '
-                i.fa.fa-apple
+            hr
+            = t('Free and Open-Source Software:')
+            ul.list-group.text-center
+              li.list-group-item.border-0
+                a(href='https://freeotp.github.io/', rel='noopener', target='_blank') FreeOTP
+                ul.list-line
+                  li.list-inline-item
+                    a(href='https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                      i.fab.fa-google-play
+                      = ' '
+                      = t('Google Play')
+                  li.list-inline-item
+                    a(href='https://itunes.apple.com/us/app/freeotp-authenticator/id872559395?mt=8', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                      i.fab.fa-app-store-ios
+                      = ' '
+                      = t('App Store')
+              li.list-group-item.border-0
+                a(href='https://f-droid.org/en/packages/org.shadowice.flocke.andotp', rel='noopener', target='_blank') andOTP
+                ul.list-inline
+                  li.list-inline-item
+                    a(href='https://f-droid.org/repo/org.shadowice.flocke.andotp_28.apk', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                      i.fab.fa-google-play
+                      = ' '
+                      = t('Google Play')
+            hr
+            = t('Closed-Source Software:')
+            ul.list-group.text-center
+              li.list-group-item.border-0
+                a(href='https://authy.com/', rel='noopener', target='_blank') Authy
+                ul.list-inline
+                  li.list-inline-item
+                    a(href='https://play.google.com/store/apps/details?id=com.authy.authy', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                      i.fab.fa-google-play
+                      = ' '
+                      = t('Google Play')
+                  li.list-inline-item
+                    a(href='https://itunes.apple.com/us/app/authy/id494168017', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                      i.fab.fa-app-store-ios
+                      = ' '
+                      = t('App Store')
+              li.list-group-item.border-0.mb-2
+                a(href='https://support.google.com/accounts/answer/1066447', rel='noopener', target='_blank') Google Authenticator
+                ul.list-inline
+                  li.list-inline-item
+                    a(href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                      i.fab.fa-google-play
+                      = ' '
+                      = t('Google Play')
+                  li.list-inline-item
+                    a(href='http://appstore.com/googleauthenticator', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                      i.fab.fa-app-store-ios
+                      = ' '
+                      = t('App Store')
   .container-fluid.py-3
     .row.mt-1
       .col
