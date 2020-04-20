@@ -39,7 +39,7 @@ block body
               label(for='recovery-keys-stored').form-check-label= t('I have stored these recovery keys in a safe place')
             #recovery-key-submit.collapse
               button(data-toggle='modal', data-target='#modal-enable-2fa-verify', data-dismiss='modal', type='button').btn.btn-primary.btn-lg.float-right= t('Continue')
-    #modal-enable-2fa-verify(tabindex='-1', role='dialog').modal.fade
+    #modal-enable-2fa-verify(tabindex='-1', role='dialog').modal.overflow-auto.fade
       .modal-dialog(role='document')
         .modal-content
           .modal-header.d-block.text-center
@@ -95,7 +95,7 @@ block body
             ul.list-group.text-center
               li.list-group-item.border-0
                 a(href='https://freeotp.github.io/', rel='noopener', target='_blank') FreeOTP
-                ul.list-line
+                ul.list-inline
                   li.list-inline-item
                     a(href='https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
                       i.fab.fa-google-play
