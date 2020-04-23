@@ -1031,7 +1031,7 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
-"@koa/router@^8.0.5", "@koa/router@^8.0.8":
+"@koa/router@8.x", "@koa/router@^8.0.8":
   version "8.0.8"
   resolved "https://registry.yarnpkg.com/@koa/router/-/router-8.0.8.tgz#95f32d11373d03d89dcb63fabe9ac6f471095236"
   integrity sha512-FnT93N4NUehnXr+juupDmG2yfi0JnWdCmNEuIXpCG4TtG+9xvtrLambBH3RclycopVUOEYAim2lydiNBI7IRVg==
@@ -1043,12 +1043,12 @@
     path-to-regexp "1.x"
     urijs "^1.19.2"
 
-"@ladjs/api@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.3.4.tgz#a8cd0088962c92cba5a8df9c8db50a62cda6b090"
-  integrity sha512-GD37Wx0Q6tePRkB6egRFe0Mw44IzsTIq6pOR9DfUc+KW+NjBuhJlXQPnQiZb3yxGxa8REVq8Fv6JV8nuZJxfHA==
+"@ladjs/api@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.3.5.tgz#a8b602bc35072a983fd0b7d3b541b4a6b031f44f"
+  integrity sha512-eoRI3VhyIad4Py9mT9miLD2/fFAcmnvwVMobYRI77rbMWZSbhh13xTsFPwFBD9o5jPPdLpldbQ7koL0FTpAGng==
   dependencies:
-    "@koa/router" "^8.0.5"
+    "@koa/router" "8.x"
     "@ladjs/i18n" "^3.0.4"
     "@ladjs/redis" "^1.0.3"
     "@ladjs/shared-config" "^1.0.6"
@@ -1063,7 +1063,7 @@
     koa-better-error-handler "^3.0.5"
     koa-better-timeout "^0.0.4"
     koa-bodyparser "^4.3.0"
-    koa-compress "^3.0.0"
+    koa-compress "^3.1.0"
     koa-conditional-get "^2.0.0"
     koa-connect "^2.0.1"
     koa-etag "^3.0.0"
@@ -1179,10 +1179,10 @@
     passport-otp-strategy "^1.0.1"
     validator "^12.1.0"
 
-"@ladjs/policies@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@ladjs/policies/-/policies-2.0.2.tgz#bb4ce97af1b2940cc79359cf3eb93c7c355bdc81"
-  integrity sha512-+TMGi1LxvZPLa15UvXwnRV964vTIO+1FgGdQtValVL1+BntZA92Ny4mZ9ZDPgiIop+Q/3Stnmqt7imxvA67ERg==
+"@ladjs/policies@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@ladjs/policies/-/policies-2.0.4.tgz#257e2ed3c2748821ad9986664da9fa4dbbb7f010"
+  integrity sha512-+/VbXovsUx82IR7dF2Hl2AGWWYvcKUjxoCd8yMNTEY7CSdjy7mwnVjabDpAu4fwPPuLodyVoFohafpFb00f4jA==
   dependencies:
     "@hapi/boom" "^9.0.0"
     basic-auth "^2.0.1"
@@ -1235,13 +1235,13 @@
     debug "^4.1.1"
     validator "^12.1.0"
 
-"@ladjs/web@^0.5.6":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.5.6.tgz#0f03398c3525ec22b588cbaadca6bc24344a552d"
-  integrity sha512-Ijc+722pphsX5Y5L9cswLcb6IFsWf21bGZN9wUJeikjkgi7D05sqcYM/nzmbYSSLHsXXPzzC3eFpKdMCoz9maw==
+"@ladjs/web@^0.5.7":
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.5.7.tgz#e3f1e2db9d71e6fc06c706feb204c3b2aeebb656"
+  integrity sha512-qYP/sC4keOjsTMARSbJS3s5MijF3vn4EYzCl/wDQH+bSOfBZbCn3IrQoVqPYlTpb/6CDl5nQ+6C3OBE7faltfg==
   dependencies:
     "@hapi/boom" "^9.1.0"
-    "@koa/router" "^8.0.5"
+    "@koa/router" "8.x"
     "@ladjs/i18n" "^3.0.4"
     "@ladjs/koa-better-static" "^2.0.0"
     "@ladjs/redis" "^1.0.3"
@@ -1259,7 +1259,7 @@
     koa-better-flash "^0.0.4"
     koa-better-timeout "^0.0.4"
     koa-bodyparser "^4.3.0"
-    koa-compress "^3.0.0"
+    koa-compress "^3.1.0"
     koa-conditional-get "^2.0.0"
     koa-connect "^2.0.1"
     koa-csrf "^3.0.8"
@@ -9510,10 +9510,10 @@ koa-compose@^4.1.0:
   resolved "https://registry.yarnpkg.com/koa-compose/-/koa-compose-4.1.0.tgz#507306b9371901db41121c812e923d0d67d3e877"
   integrity sha512-8ODW8TrDuMYvXRwra/Kh7/rJo9BtOfPc6qO8eAfC80CnCvSjSl0bkRM24X6/XBBEyj0v1nRUQ1LyOy3dbqOWXw==
 
-koa-compress@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/koa-compress/-/koa-compress-3.0.0.tgz#3194059c215cbc24e59bbc84c2c7453a4c88564f"
-  integrity sha512-xol+LkNB1mozKJkB5Kj6nYXbJXhkLkZlXl9BsGBPjujVfZ8MsIXwU4GHRTT7TlSfUcl2DU3JtC+j6wOWcovfuQ==
+koa-compress@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/koa-compress/-/koa-compress-3.1.0.tgz#00fb0af695dc4661c6de261a18da669626ea3ca1"
+  integrity sha512-0m24/yS/GbhWI+g9FqtvStY+yJwTObwoxOvPok6itVjRen7PBWkjsJ8pre76m+99YybXLKhOJ62mJ268qyBFMQ==
   dependencies:
     bytes "^3.0.0"
     compressible "^2.0.0"

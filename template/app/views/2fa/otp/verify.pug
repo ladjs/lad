@@ -1,0 +1,108 @@
+
+extends ../../layout
+
+block body
+  #authenticator-apps-modal(tabindex='-1', role='dialog').modal.fade
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header.d-block.text-center
+          h6.modal-title.d-inline-block.ml-4= t('Authentication Apps')
+          button(type='button', data-dismiss='modal', aria-label='Close').close
+            span(aria-hidden='true') &times;
+        .modal-body.text-center
+          = t('Recommendations are listed below:')
+        .flex-wrap.flex-fill.text-center
+          = t('Free and Open-Source Software:')
+          ul.list-group.text-center.mb-3
+            li.list-group-item.border-0
+              a(href='https://freeotp.github.io/', rel='noopener', target='_blank') FreeOTP
+              ul.list-inline
+                li.list-inline-item
+                  a(href='https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                    i.fab.fa-google-play
+                    = ' '
+                    = t('Google Play')
+                li.list-inline-item
+                  a(href='https://itunes.apple.com/us/app/freeotp-authenticator/id872559395?mt=8', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                    i.fab.fa-app-store-ios
+                    = ' '
+                    = t('App Store')
+            li.list-group-item.border-0
+              a(href='https://f-droid.org/en/packages/org.shadowice.flocke.andotp', rel='noopener', target='_blank') andOTP
+              ul.list-inline
+                li.list-inline-item
+                  a(href='https://f-droid.org/repo/org.shadowice.flocke.andotp_28.apk', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                    i.fab.fa-google-play
+                    = ' '
+                    = t('Google Play')
+          = t('Closed-Source Software:')
+          ul.list-group.text-center
+            li.list-group-item.border-0
+              a(href='https://authy.com/', rel='noopener', target='_blank') Authy
+              ul.list-inline
+                li.list-inline-item
+                  a(href='https://play.google.com/store/apps/details?id=com.authy.authy', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                    i.fab.fa-google-play
+                    = ' '
+                    = t('Google Play')
+                li.list-inline-item
+                  a(href='https://itunes.apple.com/us/app/authy/id494168017', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                    i.fab.fa-app-store-ios
+                    = ' '
+                    = t('App Store')
+            li.list-group-item.border-0.mb-4
+              a(href='https://support.google.com/accounts/answer/1066447', rel='noopener', target='_blank') Google Authenticator
+              ul.list-inline
+                li.list-inline-item
+                  a(href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                    i.fab.fa-google-play
+                    = ' '
+                    = t('Google Play')
+                li.list-inline-item
+                  a(href='http://appstore.com/googleauthenticator', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
+                    i.fab.fa-app-store-ios
+                    = ' '
+                    = t('App Store')
+  .container.py-3
+    .row
+      .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
+        .card
+          .card-body
+            .text-center
+              h1.card-title.h4= t('Enable OTP')
+              p= t('Follow the below steps to enable two-factor authentication on your account.')
+              hr
+            .container
+              form(action=l('/2fa/otp/verify'), method='POST').ajax-form.confirm-prompt
+                input(type="hidden", name="_csrf", value=ctx.csrf)
+                label(for='two-factor-step-one')
+                  b= t('Step 1: ')
+                  = t('Install an')
+                  = ' '
+                  a.card-link(href='#' data-toggle='modal-anchor', data-target='#authenticator-apps-modal').text-primary= t('authentication app')
+                  = ' '
+                  = t('on your device.')
+                label(for='two-factor-step-two')
+                  b= t('Step 2: ')
+                  = t('Scan this QR code using the app:')
+                img(src=qrcode, width=250, height=250, alt="").mx-auto.d-block
+                hr
+                label(for='two-factor-step-three')
+                  b= t('Step 3: ')
+                  = t('Enter the token generated from the app:')
+                .form-group.floating-label
+                  input(type='text', name='token', required, placeholder=' ').form-control.form-control-lg#input-token
+                  label(for='input-token') Verification Token
+                a.card-link.text-primary(href='#' data-toggle='collapse' data-target='#two-factor-copy')= t('Can’t scan the QR code? Follow alternative steps')
+                #two-factor-copy.collapse
+                  hr
+                  p.text-secondary= t('Manually configure your authenticator app using this code:')
+                  .input-group.input-group-sm.floating-label.form-group
+                    input(type='text', readonly, value=user[config.passport.fields.twoFactorToken]).form-control#two-factor-token
+                    .input-group-append
+                      button(type='button', data-toggle="clipboard", data-clipboard-target="#two-factor-token").btn.btn-primary
+                        i.fa.fa-clipboard
+                        = ' '
+                        = t('Copy')
+                hr
+                button(type='submit').btn.btn-lg.btn-block.btn-primary= t('Enable OTP')

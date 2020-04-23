@@ -12,7 +12,7 @@ router.use(web.breadcrumbs);
 router.get('/', render('my-account'));
 router.put('/', web.myAccount.update);
 router.delete('/security', web.myAccount.resetAPIToken);
-router.get('/security', web.myAccount.security);
+router.get('/security', render('my-account/security'));
 router.post('/setup-2fa', web.myAccount.setup2fa);
 router.delete('/setup-2fa', web.myAccount.setup2fa);
 router.post('/recovery-keys', web.myAccount.recoveryKeys);
