@@ -1,0 +1,41 @@
+
+extends ../layout
+
+block body
+  .container.py-3
+    .row
+      .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
+        .card
+          .card-body
+            .text-center
+              h1.card-title.h4= t('OTP Recovery Keys')
+              p= t('Recovery keys allow you to login to your account when you have lost access to your Two-Factor Authentication device or authenticator app.')
+              hr
+              p.text-muted.font-weight-bold= t('Backup your recovery keys before continuing')
+                .container
+                  .row
+                    label(for="otp-recovery-keys")= t('Recovery keys')
+                    textarea(rows='4').form-control#otp-recovery-keys
+                      = user[config.userFields.otpRecoveryKeys].join('\n')
+                  .row.mt-3.mb-3
+                    .col-sm
+                      form(action=l('/my-account/recovery-keys'), method='POST')
+                        input(type="hidden", name="_csrf", value=ctx.csrf)
+                        button(type='submit').btn.btn-primary.btn-block
+                          i.fa.fa-download
+                          = ' '
+                          = t('Download')
+                    .col-sm.offset-sm-1
+                      button(type='button', data-toggle="clipboard", data-clipboard-target="#otp-recovery-keys").btn.btn-secondary.btn-block
+                        i.fa.fa-clipboard
+                        = ' '
+                        = t('Copy')
+                        form.ajax-form.confirm-prompt(action=ctx.path, method="POST", autocomplete="off")
+                  hr
+                  .row
+                    form(action=l('/otp/keys'), method='POST').col-md-12
+                      input(type="hidden", name="_csrf", value=ctx.csrf)
+                      .form-group.floating-label
+                        input#input-password.form-control(type="password", autocomplete="off", name="password" required)
+                        label(for="input-password")= t('Confirm Password')
+                        button.btn.btn-primary.btn-md.btn-block.mt-2(type="submit")= t('Continue')

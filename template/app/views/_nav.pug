@@ -19,7 +19,7 @@ if !user && !registerOrLogin
               span(aria-hidden='true') &times;
           .modal-body
             +registerOrLogin(verb, true)
-nav(class=['/register', '/login', config.verificationPath].includes(ctx.pathWithoutLocale) ? 'bg-white' : 'fixed-top bg-light border border-top-0 border-left-0 border-right-0').navbar.navbar-expand-md.navbar-light
+nav(class=['/register', '/login', config.verifyRoute].includes(ctx.pathWithoutLocale) ? 'bg-white' : 'fixed-top bg-light border border-top-0 border-left-0 border-right-0').navbar.navbar-expand-md.navbar-light
   button.navbar-toggler.bg-light.hidden-lg-up(type="button", data-toggle="collapse", data-target="#navbar-header", aria-controls="navbar-header", aria-expanded="false", aria-label=t('Toggle navigation'))
     span.navbar-toggler-icon
   a.navbar-brand.d-inline-block.m-0.p-0(href=user ? l(config.passportCallbackOptions.successReturnToOrRedirect) : l())

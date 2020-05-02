@@ -8,9 +8,9 @@ block body
         .card
           .card-body
             .text-center
-              h1.card-title.h4= t('Two-Factor Authentication Passcode')
+              h1.card-title.h4= t('OTP Passcode')
               p= t('Please enter the passcode from your authenticator application.')
-            form(action=l('/2fa/otp/login'), method="POST", autocomplete="off").ajax-form
+            form(action=l('/otp/login'), method="POST", autocomplete="off").ajax-form
               input(type="hidden", name="_csrf", value=ctx.csrf)
               .form-group.floating-label
                 input#input-text.form-control.form-control-lg(type="text", autocomplete="off", name="passcode", placeholder=t(''))
@@ -25,9 +25,9 @@ block body
               hr
               ul.list-inline
                 li
-                  a.card-link(href=l('/2fa/recovery/keys'))= t('Use recovery key')
+                  a.card-link(href=l('/otp/recovery/keys'))= t('Use recovery key')
                 li
-                  a.card-link(href=l('/2fa/recovery/keys'), data-toggle='modal-anchor', data-target='#modal-domain')= t('Unable to use authentication app or recovery keys?')
+                  a.card-link(href=l('/otp/recovery'), data-toggle='modal-anchor', data-target='#modal-domain')= t('Unable to use authentication app or recovery keys?')
 
   #modal-domain.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-domain-title', aria-hidden='true')
     .modal-dialog(role='document')
@@ -37,7 +37,7 @@ block body
           button(type='button', data-dismiss='modal', aria-label='Close').close
             span(aria-hidden='true') &times;
         .modal-body
-          form.ajax-form(action=l('/2fa/recovery'), method="POST")
+          form.ajax-form(action=l('/otp/recovery'), method="POST")
             p= t("If you can't access a trusted device or recovery codes you can request a reset of your security settings. For security reasons this can take 3-5 business days.")
             .container
               .row.row-cols-1.row-cols-lg

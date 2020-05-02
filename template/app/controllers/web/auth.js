@@ -87,6 +87,7 @@ async function homeOrDashboard(ctx) {
 }
 
 async function login(ctx, next) {
+  // eslint-disable-next-line complexity
   await passport.authenticate('local', async (err, user, info) => {
     if (err) throw err;
 
@@ -113,13 +114,13 @@ async function login(ctx, next) {
       delete ctx.session.returnTo;
     }
 
-    let greeting = 'Good morning';
-    if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
-      greeting = 'Good afternoon';
-    else if (moment().format('HH') >= 17) greeting = 'Good evening';
-
     if (user) {
       await ctx.login(user);
+
+      let greeting = 'Good morning';
+      if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
+        greeting = 'Good afternoon';
+      else if (moment().format('HH') >= 17) greeting = 'Good evening';
 
       ctx.flash('custom', {
         title: `${ctx.request.t('Hello')} ${ctx.state.emoji('wave')}`,
@@ -136,14 +137,14 @@ async function login(ctx, next) {
       const uri = authenticator.keyuri(
         user.email,
         'lad.sh',
-        user[config.passport.fields.twoFactorToken]
+        user[config.passport.fields.otpToken]
       );
 
       ctx.state.user.qrcode = await qrcode.toDataURL(uri);
       await ctx.state.user.save();
 
-      if (user[config.passport.fields.twoFactorEnabled] && !ctx.session.otp)
-        redirectTo = `/${ctx.locale}/2fa/otp/login`;
+      if (user[config.passport.fields.otpEnabled] && !ctx.session.otp)
+        redirectTo = `/${ctx.locale}/otp/login`;
 
       if (ctx.accepts('json')) {
         ctx.body = { redirectTo };
@@ -153,6 +154,11 @@ async function login(ctx, next) {
 
       return;
     }
+
+    let greeting = 'Good morning';
+    if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
+      greeting = 'Good afternoon';
+    else if (moment().format('HH') >= 17) greeting = 'Good evening';
 
     ctx.flash('custom', {
       title: `${ctx.request.t('Hello')} ${ctx.state.emoji('wave')}`,
@@ -199,7 +205,7 @@ async function recoveryKey(ctx) {
 
   ctx.state.redirectTo = redirectTo;
 
-  let recoveryKeys = ctx.state.user[config.userFields.twoFactorRecoveryKeys];
+  let recoveryKeys = ctx.state.user[config.userFields.otpRecoveryKeys];
 
   // ensure recovery matches user list of keys
   if (
@@ -216,13 +222,13 @@ async function recoveryKey(ctx) {
   recoveryKeys = recoveryKeys.filter(
     key => key !== ctx.request.body.recovery_passcode
   );
-  ctx.state.user[config.userFields.twoFactorRecoveryKeys] = recoveryKeys;
+  ctx.state.user[config.userFields.otpRecoveryKeys] = recoveryKeys;
   await ctx.state.user.save();
 
   ctx.session.otp = 'totp-recovery';
 
   // send the user a success message
-  const message = ctx.translate('TWO_FACTOR_RECOVERY_SUCCESS');
+  const message = ctx.translate('OTP_RECOVERY_SUCCESS');
 
   if (ctx.accepts('html')) {
     ctx.flash('success', message);
@@ -243,7 +249,10 @@ async function register(ctx) {
 
   // register the user
   const count = await Users.countDocuments({ group: 'admin' });
-  const query = { email: body.email, group: count === 0 ? 'admin' : 'user' };
+  const query = {
+    email: body.email,
+    group: count === 0 ? 'admin' : 'user'
+  };
   query[config.userFields.hasVerifiedEmail] = false;
   query[config.userFields.hasSetPassword] = true;
   const user = await Users.register(query, body.password);
