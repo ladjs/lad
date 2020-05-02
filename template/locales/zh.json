@@ -123,5 +123,6 @@
   "Sign up with GitHub": "Sign up with GitHub",
   "or": "or",
   "Sign in with Google": "Sign in with Google",
-  "Sign in with GitHub": "Sign in with GitHub"
+  "Sign in with GitHub": "Sign in with GitHub",
+  "Invalid API token.": "Invalid API token."
 }

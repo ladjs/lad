@@ -4,6 +4,7 @@ const {
   loginOtpRoute,
   verifyRoute,
   userFields,
+  passport,
   appName
 } = require('../config');
 const { Users } = require('../app/models');
@@ -12,6 +13,7 @@ const policies = new Policies(
   {
     schemeName: appName,
     userFields,
+    passport,
     verifyRoute,
     loginOtpRoute
   },

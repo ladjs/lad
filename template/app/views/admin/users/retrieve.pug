@@ -26,10 +26,10 @@ block body
                   option(value='user', selected=result.group === 'user') User
                   option(value='admin', selected=result.group === 'admin') Admin
                 label(for='input-group')= t('Group')
-              if boolean(process.env.AUTH_OTP_ENABLED) && result[config.passport.fields.twoFactorEnabled]
+              if boolean(process.env.AUTH_OTP_ENABLED) && result[config.passport.fields.otpEnabled]
                 .form-check
-                  input#two-factor-enabled(type='checkbox', name=config.passport.fields.twoFactorEnabled, value='true' checked)
-                  label(for='input-two-factor-enabled')= t('Two-Factor Enabled')
+                  input#otp-enabled(type='checkbox', name=config.passport.fields.otpEnabled, value='true' checked)
+                  label(for='input-otp-enabled')= t('OTP Enabled')
             .card-footer.text-right
               button(type='reset').btn.btn-secondary= t('Reset')
               button(type='submit').btn.btn-primary= t('Save')

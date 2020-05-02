@@ -40,12 +40,12 @@ async function update(ctx) {
     body[config.passport.fields.givenName];
   user[config.passport.fields.familyName] =
     body[config.passport.fields.familyName];
-  user[config.passport.fields.twoFactorEnabled] =
-    body[config.passport.fields.twoFactorEnabled];
+  user[config.passport.fields.otpEnabled] =
+    body[config.passport.fields.otpEnabled];
   user.email = body.email;
   user.group = body.group;
 
-  if (boolean(!body[config.passport.fields.twoFactorEnabled]))
+  if (boolean(!body[config.passport.fields.otpEnabled]))
     user[config.userFields.pendingRecovery] = false;
 
   await user.save();

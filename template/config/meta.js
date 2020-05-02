@@ -57,9 +57,9 @@ module.exports = function(config) {
       'Confirm your password reset token'
     ],
     '/auth': [`Auth ${lad}`, 'Authenticate yourself to log in'],
-    '/2fa': [
+    '/otp': [
       `Two Factor Auth ${lad}`,
-      'Authenticate yourself with optional two factor auth to log in'
+      'Authenticate yourself with optional OTP to log in'
     ],
     '/404': [
       `Page not found ${lad}`,

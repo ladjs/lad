@@ -37,11 +37,12 @@ module.exports = {
     'Please log in with two-factor authentication to view the page you requested.',
   LOGIN_REQUIRED: 'Please log in to view the page you requested.',
   LOGOUT_REQUIRED: 'Please log out to view the page you requested.',
+  PASSWORD_CONFIRM_SUCCESS: 'Password successfully confirmed.',
   PASSWORD_RESET_LIMIT:
     'You can only request a password reset every 30 minutes.  Please try again %s.',
   PASSWORD_RESET_SENT:
     'We have sent you an email with a link to reset your password.',
-  TWO_FACTOR_RECOVERY_SUCCESS:
+  OTP_RECOVERY_SUCCESS:
     'Recovery passcode successful. This passcode will no longer be valid.',
   REGISTERED: 'You have successfully registered.',
   REQUEST_OK: 'Your request was successfully completed.',

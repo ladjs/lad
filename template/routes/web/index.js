@@ -9,7 +9,7 @@ const { web } = require('../../app/controllers');
 const admin = require('./admin');
 const auth = require('./auth');
 const myAccount = require('./my-account');
-const twofactor = require('./2fa');
+const otp = require('./otp');
 
 const router = new Router();
 
@@ -66,7 +66,7 @@ localeRouter
 localeRouter.use(myAccount.routes());
 localeRouter.use(admin.routes());
 
-if (boolean(process.env.AUTH_OTP_ENABLED)) localeRouter.use(twofactor.routes());
+if (boolean(process.env.AUTH_OTP_ENABLED)) localeRouter.use(otp.routes());
 
 router.use(auth.routes());
 router.use(localeRouter.routes());
