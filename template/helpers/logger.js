@@ -1,7 +1,7 @@
 const Axe = require('axe');
 
-const config = require('../config');
+const loggerConfig = require('../config/logger');
 
-const logger = new Axe(config.logger);
+const logger = new Axe(loggerConfig);
 
 module.exports = logger;

@@ -2,53 +2,41 @@
 extends ../layout
 
 block body
-  .container.py-3
-    .row
-      .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
-        .card
-          .card-body
-            .text-center
-              h1.card-title.h4= t('OTP Passcode')
-              p= t('Please enter the passcode from your authenticator application.')
-            form(action=l('/otp/login'), method="POST", autocomplete="off").ajax-form
-              input(type="hidden", name="_csrf", value=ctx.csrf)
-              .form-group.floating-label
-                input#input-text.form-control.form-control-lg(type="text", autocomplete="off", name="passcode", placeholder=t(''))
-                label(for="input-passcode")= t('Passcode')
-              .form-check
-                input(type='checkbox', name='otp_remember_me', value='true', checked=ctx.session.otp_remember_me)
-                label Don't ask me again in this browser for OTP
-              button.btn.btn-primary.btn-block.btn-lg(type="submit")= t('Submit Passcode')
-          .card-footer.text-center
-            b= t('Having trouble?')
-            div
-              hr
-              ul.list-inline
-                li
-                  a.card-link(href=l('/otp/recovery/keys'))= t('Use recovery key')
-                li
-                  a.card-link(href=l('/otp/recovery'), data-toggle='modal-anchor', data-target='#modal-domain')= t('Unable to use authentication app or recovery keys?')
-
-  #modal-domain.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-domain-title', aria-hidden='true')
+  #modal-recovery.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-domain-title', aria-hidden='true')
     .modal-dialog(role='document')
       .modal-content
         .modal-header.text-center.d-block
-          h4.modal-title.d-inline-block.ml-4#modal-domain-title= t('Account Recovery')
+          h4.modal-title.d-inline-block.ml-4#modal-recovery-title= t('Account Recovery')
           button(type='button', data-dismiss='modal', aria-label='Close').close
             span(aria-hidden='true') &times;
         .modal-body
           form.ajax-form(action=l('/otp/recovery'), method="POST")
-            p= t("If you can't access a trusted device or recovery codes you can request a reset of your security settings. For security reasons this can take 3-5 business days.")
-            .container
-              .row.row-cols-1.row-cols-lg
-                .col
-                  b= t('Step 1')
-                  p= t('Verify your email address.')
-                .col
-                  b= t('Step 2')
-                  p= t('An admin will reach out to this email for additional information.')
-                .col
-                  b= t('Step 3')
-                  p= t('After successful verification, admins can remove 2-factor-auth for you to get back into your account.')
             input(type="hidden", name="_csrf", value=ctx.csrf)
-            button.btn.btn-success.btn-block.btn-lg(type="submit")= t('I understand, get started')
+            p= t("If you can't access a trusted device or recovery keys you can request a reset of your security settings. For security reasons this can take 3-5 business days.  Here is an overview of the steps involved:")
+            ol
+              li= t('Verify access to your email address with a verification code.')
+              li= t('Wait for an admin to follow-up with additional information.')
+              li= t('Two-Factor Authentication will be removed from your account.')
+            button.btn.btn-primary.btn-block.btn-lg(type="submit")= t('Continue')
+  .container.py-3
+    h1.my-3.py-3.text-center= t('Two-Factor Check')
+    .row
+      .col-sm-12.col-md-8.offset-md-2.col-lg-6.offset-lg-3
+        form(action=ctx.path, method="POST", autocomplete="off").ajax-form
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          .form-group.floating-label
+            input#input-text.form-control.form-control-lg(type="text", autocomplete="off", name="passcode", placeholder=' ')
+            label(for="input-passcode")= t('Passcode')
+          .form-group.form-check
+            input.form-check-input(type='checkbox', name='otp_remember_me', value='true', checked=ctx.session.otp_remember_me)#otp-remember-me
+            label.form-check-label(for='otp-remember-me')= t("Don't ask me again in this browser")
+          button.btn.btn-primary.btn-block.btn-lg(type="submit")= t('Continue')
+        .alert.alert-light.border.mt-3.text-center
+          = t('Having trouble?')
+          = ' '
+          a(href=l('/otp/recovery/keys'))= t('Use a recovery key')
+        p.mb-0.text-center
+          small.text-muted
+            = t('Lose your recovery keys?')
+            = ' '
+            a(href='#', data-toggle='modal-anchor', data-target='#modal-recovery').text-danger= t('Request account recovery')

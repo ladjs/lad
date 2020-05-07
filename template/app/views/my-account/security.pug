@@ -36,7 +36,7 @@ block body
               else
                 h5= t('OTP')
                 p= t('OTP or one-time password allows you to add Two-Factor Authentication to your account using a device or authenticator app.')
-                a.btn.btn-primary.btn-lg(href=l('/otp/keys'), role="button", data-toggle='modal-anchor', data-target='#modal-sign-up')= t('Enable OTP')
+                a.btn.btn-primary.btn-lg(href=l('/otp/setup'), role="button", data-toggle='modal-anchor', data-target='#modal-sign-up')= t('Enable OTP')
         .card.card-bg-light
           h4.card-header= t('API Credentials')
           .card-body
