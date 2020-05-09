@@ -1043,15 +1043,15 @@
     path-to-regexp "1.x"
     urijs "^1.19.2"
 
-"@ladjs/api@^0.3.5":
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-0.3.5.tgz#a8b602bc35072a983fd0b7d3b541b4a6b031f44f"
-  integrity sha512-eoRI3VhyIad4Py9mT9miLD2/fFAcmnvwVMobYRI77rbMWZSbhh13xTsFPwFBD9o5jPPdLpldbQ7koL0FTpAGng==
+"@ladjs/api@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-1.0.0.tgz#d0712aa573b0dac24d56d298cbf906d6ab5ff70b"
+  integrity sha512-Hf3cCDjliH0vDyJn/kbIjnUvifuK20w1uS2GG/a2AArsWjDJp39ZQDpbLa/D/QtweZDiTiwvLbUaashdsj5U7Q==
   dependencies:
     "@koa/router" "8.x"
-    "@ladjs/i18n" "^3.0.4"
+    "@ladjs/i18n" "^3.0.5"
     "@ladjs/redis" "^1.0.3"
-    "@ladjs/shared-config" "^1.0.6"
+    "@ladjs/shared-config" "^2.0.0"
     "@ladjs/store-ip-address" "^0.0.7"
     boolean "3.0.1"
     cabin "^6.1.1"
@@ -1063,7 +1063,7 @@
     koa-better-error-handler "^3.0.5"
     koa-better-timeout "^0.0.4"
     koa-bodyparser "^4.3.0"
-    koa-compress "^3.1.0"
+    koa-compress "^4.0.1"
     koa-conditional-get "^2.0.0"
     koa-connect "^2.0.1"
     koa-etag "^3.0.0"
@@ -1075,10 +1075,10 @@
     request-received "^0.0.3"
     response-time "^2.3.2"
 
-"@ladjs/assets@^0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@ladjs/assets/-/assets-0.0.22.tgz#9bd2b0344e742dee53a07c690e483671e4f3e714"
-  integrity sha512-DJZiIzrXVIvdx84DhoqQrqUKHB+/oE3IYNsooHkr40latCjrc2DIUuf040R2lU1Xa/aNJ+MPBZroKj2eT+a8Mg==
+"@ladjs/assets@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@ladjs/assets/-/assets-0.0.23.tgz#f2faa540caa6d1a8ad425c2a4e6b0e16554139d9"
+  integrity sha512-Fd+a6znok3djBKQB7eReMaYOKUj0PjMIIYyAYtwnW6hegeXvG3AW4VNfqMXmb/y8xB3yZkZcpfGWXHPG/IRNzA==
   dependencies:
     clipboard "^2.0.4"
     is-string-and-not-blank "^0.0.2"
@@ -1094,15 +1094,15 @@
   resolved "https://registry.yarnpkg.com/@ladjs/browserslist-config/-/browserslist-config-0.0.1.tgz#1597c7845d4c75bafd8fedc36e52ee246f0ff20e"
   integrity sha512-JFUWFnZU/EvOTinpMSrTR1uPxDkWrHDC9Jq44T7fvwE2worab76A0tc+lUEWVfQmliPTUsKJDf7N3fk7m5UV6A==
 
-"@ladjs/bull@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@ladjs/bull/-/bull-1.0.4.tgz#eab86e95d06e2bd6dae977aebf6f0fe8c5161136"
-  integrity sha512-teFCyGD+kPD8m+1eiKhIpHxst4kRgOzwr+mfKqM54ufOXCNjA00qvVTd/gbSrpbtmdiq34P/VZ3Tn4WBl+KCPw==
+"@ladjs/bull@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@ladjs/bull/-/bull-1.0.5.tgz#fdb7558f045c5c4d3d358cd9e9f30eff551ba30a"
+  integrity sha512-N1NgUV9leLBIyLLiWIXDbS1nMVW9GkWHnHoksEPYlpcS0sspGsCc0SwM18L1YbSQR58ApFxHo5+C6Qbgleqdkg==
   dependencies:
     "@ladjs/redis" "^1.0.3"
-    "@ladjs/shared-config" "^1.0.0"
-    auto-bind "^3.0.0"
-    bull "^3.12.1"
+    "@ladjs/shared-config" "^2.0.0"
+    auto-bind "^4.0.0"
+    bull "^3.13.0"
     is-string-and-not-blank "^0.0.2"
     lodash "^4.17.15"
 
@@ -1142,6 +1142,23 @@
     moment "^2.24.0"
     multimatch "^4.0.0"
     qs "^6.9.1"
+    titleize "^2.1.0"
+
+"@ladjs/i18n@^3.0.5", "@ladjs/i18n@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-3.0.7.tgz#2a9dee51c96436c9743d6c1477474ea36d93175f"
+  integrity sha512-blsRGdJhdNfrc7JqF4DGaBzM5V+T2YD5T8qMk5jeJCEwutQcjOVkT+z7y8hOIVznjFp8j+ZKu1bSy53uhqz3JA==
+  dependencies:
+    "@hapi/boom" "^9.1.0"
+    boolean "3.0.1"
+    country-language "^0.1.7"
+    debug "^4.1.1"
+    i18n "^0.9.1"
+    i18n-locales "^0.0.4"
+    lodash "^4.17.15"
+    moment "^2.25.3"
+    multimatch "^4.0.0"
+    qs "^6.9.4"
     titleize "^2.1.0"
 
 "@ladjs/koa-better-static@^2.0.0":
@@ -1204,7 +1221,7 @@
   dependencies:
     ioredis "^4.14.0"
 
-"@ladjs/shared-config@^1.0.0", "@ladjs/shared-config@^1.0.1":
+"@ladjs/shared-config@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/shared-config/-/shared-config-1.0.1.tgz#2ca13b366ab10c9d80c278b82e85c64c1e2c1250"
   integrity sha512-qA1VvVVdksIOxRxXs/5WBtolHZ/iFLVhApjrJ1mp3xoYRcWMbxV2CftVsca2U8gX1dHk92vOmkwkkHHjm/fX3Q==
@@ -1212,10 +1229,10 @@
     boolean "^3.0.0"
     is-string-and-not-blank "^0.0.2"
 
-"@ladjs/shared-config@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@ladjs/shared-config/-/shared-config-1.0.6.tgz#f8f36e7409166e073b4121b84a1cf77174dd6cb2"
-  integrity sha512-/iGI+b/3ounYftBdVO+GMV+axOreORUKrgC98hbBQGfBzqurWEDoB/cWOx+T8vwp7e9w88WGYR+llcS4ZTB0Pg==
+"@ladjs/shared-config@^2.0.0", "@ladjs/shared-config@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/shared-config/-/shared-config-2.0.1.tgz#2dffb0732411be76941c1fb7c0bce657b6483dab"
+  integrity sha512-DEm5uSr8I+uENixBdd82XE7Rv2vrjvsWsBzD3wbCE316uPCswpd8ZO/kWhem1kcTz1rH+G2zIg7EZZ4rYQAqFw==
   dependencies:
     boolean "^3.0.1"
     is-string-and-not-blank "^0.0.2"
@@ -1235,17 +1252,17 @@
     debug "^4.1.1"
     validator "^12.1.0"
 
-"@ladjs/web@^0.5.8":
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-0.5.8.tgz#ac36b0f0163bbe8d6004e0c98cecd673efb96d67"
-  integrity sha512-qsTnhbugB4u75As93c2Pzs1PWNwR6QB6p4d08w/P+nhkas7GjZRzmjqZsqNYr8GHpzGKpSwE+5JuF7FMqomT5w==
+"@ladjs/web@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-1.0.1.tgz#8af23ddbfd607377fa1cb17847774b309be39a28"
+  integrity sha512-Gl+j8DGlGrBlGA84OALDF0ReI9ZJjtNFvk9v4vUNjVNV/HBSvcPbYL3FTRW09AAZFzSuO/wrIxayV6pdGAWZyA==
   dependencies:
     "@hapi/boom" "^9.1.0"
     "@koa/router" "8.x"
-    "@ladjs/i18n" "^3.0.4"
+    "@ladjs/i18n" "^3.0.5"
     "@ladjs/koa-better-static" "^2.0.0"
     "@ladjs/redis" "^1.0.3"
-    "@ladjs/shared-config" "^1.0.6"
+    "@ladjs/shared-config" "^2.0.1"
     "@ladjs/state-helper" "^0.0.2"
     "@ladjs/store-ip-address" "^0.0.7"
     boolean "3.0.1"
@@ -1259,7 +1276,7 @@
     koa-better-flash "^0.0.4"
     koa-better-timeout "^0.0.4"
     koa-bodyparser "^4.3.0"
-    koa-compress "^3.1.0"
+    koa-compress "^4.0.1"
     koa-conditional-get "^2.0.0"
     koa-connect "^2.0.1"
     koa-csrf "^3.0.8"
@@ -2260,11 +2277,6 @@ auto-bind@^2.1.0:
   dependencies:
     "@types/react" "^16.8.12"
 
-auto-bind@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-3.0.0.tgz#67773e64899b228f6d2a841709e7e086cfed31a3"
-  integrity sha512-v0A231a/lfOo6kxQtmEkdBfTApvC21aJYukA8pkKnoTvVqh3Wmm7/Rwy4GBCHTTHVoLVA5qsBDDvf1XY1nIV2g==
-
 auto-bind@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-4.0.0.tgz#e3589fc6c2da8f7ca43ba9f84fa52a744fc997fb"
@@ -3010,10 +3022,10 @@ builtin-status-codes@^3.0.0:
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
 
-bull@^3.12.1:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/bull/-/bull-3.13.0.tgz#232935f9a5c0c87be6eb2aa95e434ff115bacd7a"
-  integrity sha512-nP8ICMNHGYDNt6cgPqBPm90n57xA+/Om2wI2EGEOIJtWutjrYt8JAWiiFYjZKrly9UkKlrfG9qgOCwFFdS5xaw==
+bull@^3.13.0:
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/bull/-/bull-3.14.0.tgz#75fcfa17e829c860de0d51b79569636845232715"
+  integrity sha512-qQrytpqbE6Zjl2zkvlqS1kUwWLJHpDOhhuGb34+5atPeZrd8DlxkAbxnLnaMB1XQX1iXPzFVpDOUOIIROYKp6Q==
   dependencies:
     cron-parser "^2.13.0"
     debuglog "^1.0.0"
@@ -8076,6 +8088,18 @@ i18n@^0.8.5:
     mustache "*"
     sprintf-js "^1.1.2"
 
+i18n@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/i18n/-/i18n-0.9.1.tgz#a9dda09e582286c81a584374ac9f2aaef7ec37fb"
+  integrity sha512-ERo9WloOP2inRsJzAlzn4JDm3jvX7FW1+KB/JGXTzUVzi9Bsf4LNLXUQTMgM/aze4LNW/kvmxQX6bzg5UzqMJw==
+  dependencies:
+    debug "*"
+    make-plural "^6.2.1"
+    math-interval-parser "^2.0.1"
+    messageformat "^2.3.0"
+    mustache "^4.0.1"
+    sprintf-js "^1.1.2"
+
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
@@ -9510,15 +9534,16 @@ koa-compose@^4.1.0:
   resolved "https://registry.yarnpkg.com/koa-compose/-/koa-compose-4.1.0.tgz#507306b9371901db41121c812e923d0d67d3e877"
   integrity sha512-8ODW8TrDuMYvXRwra/Kh7/rJo9BtOfPc6qO8eAfC80CnCvSjSl0bkRM24X6/XBBEyj0v1nRUQ1LyOy3dbqOWXw==
 
-koa-compress@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/koa-compress/-/koa-compress-3.1.0.tgz#00fb0af695dc4661c6de261a18da669626ea3ca1"
-  integrity sha512-0m24/yS/GbhWI+g9FqtvStY+yJwTObwoxOvPok6itVjRen7PBWkjsJ8pre76m+99YybXLKhOJ62mJ268qyBFMQ==
+koa-compress@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/koa-compress/-/koa-compress-4.0.1.tgz#7a7ed52ce7c3e0cbe918e99e1eaaeba87ec11d48"
+  integrity sha512-It4WYfsBb9HegnFgcBhiRbPeh1LDjXhRM4+xi2jMp8ujwaVAdqhFzHpbDWuTxbLxuBwStn+Bwdwn2zDZxeNChg==
   dependencies:
     bytes "^3.0.0"
     compressible "^2.0.0"
+    http-errors "^1.7.3"
     koa-is-json "^1.0.0"
-    statuses "^1.0.0"
+    statuses "^2.0.0"
 
 koa-conditional-get@^2.0.0:
   version "2.0.0"
@@ -10538,6 +10563,11 @@ make-plural@^6.0.1:
   resolved "https://registry.yarnpkg.com/make-plural/-/make-plural-6.1.0.tgz#490b381874b7c454bace11b23b899809b95b9e8b"
   integrity sha512-0ekbPHqxcdRcmjZ43TkRuejK5rXgMF1OjG4FVnVHgCvOcjrexaSX7a0dfAvqhOm1qWPgjYnXtmz3cHpHW5ZewA==
 
+make-plural@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/make-plural/-/make-plural-6.2.1.tgz#2790af1d05fb2fc35a111ce759ffdb0aca1339a3"
+  integrity sha512-AmkruwJ9EjvyTv6AM8MBMK3TAeOJvhgTv5YQXzF0EP2qawhpvMjDpHvsdOIIT0Vn+BB0+IogmYZ1z+Ulm/m0Fg==
+
 manage-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/manage-path/-/manage-path-2.0.0.tgz#f4cf8457b926eeee2a83b173501414bc76eb9597"
@@ -11141,6 +11171,11 @@ moment-timezone@^0.5.25:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
+moment@^2.25.3:
+  version "2.25.3"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.25.3.tgz#252ff41319cf41e47761a1a88cab30edfe9808c0"
+  integrity sha512-PuYv0PHxZvzc15Sp8ybUCoQ+xpyPWvjOuK72a5ovzp2LI32rJXOiIfyoFoYvG3s6EwwrdkMyWuRiEHSZRLJNdg==
+
 mongodb-core@3.2.7:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.2.7.tgz#a8ef1fe764a192c979252dacbc600dc88d77e28f"
@@ -11296,7 +11331,7 @@ multisplice@^1.0.0:
   resolved "https://registry.yarnpkg.com/multisplice/-/multisplice-1.0.0.tgz#e74cf2948dcb51a6c317fc5e22980a652f7830e9"
   integrity sha512-KU5tVjIdTGsMb92JlWwEZCGrvtI1ku9G9GuNbWdQT/Ici1ztFXX0L8lWpbbC3pISVMfBNL56wdqplHvva2XSlA==
 
-mustache@*, mustache@^4.0.0:
+mustache@*, mustache@^4.0.0, mustache@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/mustache/-/mustache-4.0.1.tgz#d99beb031701ad433338e7ea65e0489416c854a2"
   integrity sha512-yL5VE97+OXn4+Er3THSmTdCFCtx5hHWzrolvH+JObZnUYwuaG7XV+Ch4fR2cIrcYI0tFHxS7iyFYl14bW8y2sA==
@@ -13998,6 +14033,11 @@ qs@^6.4.0, qs@^6.5.2, qs@^6.9.1, qs@^6.9.3:
   version "6.9.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.3.tgz#bfadcd296c2d549f1dffa560619132c977f5008e"
   integrity sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==
+
+qs@^6.9.4:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
+  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -16955,10 +16995,15 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-"statuses@>= 1.4.0 < 2", "statuses@>= 1.5.0 < 2", statuses@^1.0.0, statuses@^1.5.0, statuses@~1.5.0:
+"statuses@>= 1.4.0 < 2", "statuses@>= 1.5.0 < 2", statuses@^1.5.0, statuses@~1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+
+statuses@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.0.tgz#aa7b107e018eb33e08e8aee2e7337e762dda1028"
+  integrity sha512-w9jNUUQdpuVoYqXxnyOakhckBbOxRaoYqJscyIBYCS5ixyCnO7nQn7zBZvP9zf5QOPZcz2DLUpE3KsNPbJBOFA==
 
 stdout-stream@^1.4.0:
   version "1.4.1"
