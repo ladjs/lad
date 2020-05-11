@@ -1,12 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
-const AWS = require('aws-sdk');
 const Graceful = require('@ladjs/graceful');
 const Mandarin = require('mandarin');
-const _ = require('lodash');
-const awscloudfront = require('gulp-awspublish-cloudfront');
-const awspublish = require('gulp-awspublish');
+const babel = require('babelify');
 const browserify = require('browserify');
 const collapser = require('bundle-collapser/plugin');
 const cssnano = require('cssnano');
@@ -22,7 +19,6 @@ const gulpif = require('gulp-if');
 const imagemin = require('gulp-imagemin');
 const lr = require('gulp-livereload');
 const makeDir = require('make-dir');
-const ms = require('ms');
 const nodeSass = require('node-sass');
 const pngquant = require('imagemin-pngquant');
 const postcss = require('gulp-postcss');
@@ -30,13 +26,13 @@ const postcssPresetEnv = require('postcss-preset-env');
 const pugLinter = require('gulp-pug-linter');
 const reporter = require('postcss-reporter');
 const rev = require('gulp-rev');
+const revSri = require('gulp-rev-sri');
 const sass = require('gulp-sass');
 const scssParser = require('postcss-scss');
 const sourcemaps = require('gulp-sourcemaps');
 const stylelint = require('stylelint');
 const terser = require('gulp-terser');
 const unassert = require('gulp-unassert');
-const revSri = require('gulp-rev-sri');
 const { lastRun, watch, series, parallel, src, dest } = require('gulp');
 
 // explicitly set the compiler in case it were to change to dart
@@ -66,38 +62,6 @@ const manifestOptions = {
   merge: true,
   base: config.buildBase
 };
-
-// set aws logger
-AWS.config.logger = logger;
-
-function publish() {
-  // create a new publisher
-  const publisher = awspublish.create(
-    _.merge(config.aws, {
-      params: {
-        Bucket: env.AWS_S3_BUCKET
-      }
-    })
-  );
-  return (
-    src([`${config.buildBase}/**/*`, `!${config.manifest}`])
-      // gzip, Set Content-Encoding headers and add .gz extension
-      .pipe(awspublish.gzip())
-      // publisher will add Content-Length, Content-Type
-      // and headers specified below
-      // If not specified it will set x-amz-acl to public-read by default
-      .pipe(
-        publisher.publish({
-          'Cache-Control': `public, max-age=${ms('1yr')}`
-        })
-      )
-      // create a cache file to speed up consecutive uploads
-      .pipe(publisher.cache())
-      // print upload updates to console
-      .pipe(awspublish.reporter())
-      .pipe(awscloudfront(env.AWS_CLOUDFRONT_DISTRIBUTION_ID))
-  );
-}
 
 function pug() {
   return src('app/views/**/*.pug', { since: lastRun(pug) })
@@ -191,6 +155,7 @@ async function bundle() {
     debug: true
   });
   return b
+    .transform(babel)
     .plugin(collapser)
     .plugin('factor-bundle', {
       outputs: paths.map(string => path.join(config.buildBase, 'js', string))
@@ -256,7 +221,6 @@ const build = series(
 module.exports = {
   build,
   bundle,
-  publish,
   markdown,
   watch: () => {
     lr.listen(config.livereload);

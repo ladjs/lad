@@ -1,11 +1,7 @@
 const config = require('../../../../config');
 
 async function recovery(ctx) {
-  let redirectTo = `/${ctx.locale}/otp/recovery/verify`;
-  if (ctx.session && ctx.session.returnTo) {
-    redirectTo = ctx.session.returnTo;
-    delete ctx.session.returnTo;
-  }
+  const redirectTo = `/${ctx.locale}/otp/recovery/verify`;
 
   ctx.state.redirectTo = redirectTo;
 
@@ -29,7 +25,6 @@ async function recovery(ctx) {
     return;
   }
 
-  redirectTo = `/${ctx.locale}/otp/recovery/verify`;
   if (ctx.accepts('html')) {
     ctx.redirect(redirectTo);
   } else {
