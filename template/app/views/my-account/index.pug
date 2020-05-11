@@ -15,13 +15,13 @@ block body
           .modal-body
             if user[config.userFields.hasSetPassword]
               .form-group.floating-label
-                input#input-old-password(type='password', name='old_password', required).form-control
+                input#input-old-password(type='password', name='old_password', required, autocomplete='off').form-control
                 label(for='input-old-password')= t('Confirm old password')
             .form-group.floating-label
-              input#input-password(type='password', name='password', required, placeholder=" ").form-control
+              input#input-password(type='password', name='password', required, placeholder=" ", autocomplete='new-password').form-control
               label(for='input-password')= t('Set new password')
             .form-group.floating-label
-              input#input-confirm-password(type='password', name='confirm_password', required, placeholder=" ").form-control
+              input#input-confirm-password(type='password', name='confirm_password', required, placeholder=" ", autocomplete='new-password').form-control
               label(for='input-confirm-password')= t('Confirm new password')
           .modal-footer.text-right
             button(type='button', data-dismiss='modal', aria-label=t('Cancel')).btn.btn-secondary= t('Cancel')

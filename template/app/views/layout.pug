@@ -122,9 +122,6 @@ html(lang=locale).h-100
             id: "#{ctx.sessionId}"
           };
 
-      //- polyfill environment
-      script(src=`https://polyfill.io/v3/polyfill${config.env === 'production' ? '.min' : ''}.js?features=${polyfills.join(',')}`)
-
       //- factor bundle (common shared assets across all files)
       script(src=manifest('js/factor-bundle.js') integrity=manifest('js/factor-bundle.js', 'integrity') crossorigin="anonymous")
 

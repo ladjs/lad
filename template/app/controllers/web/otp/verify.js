@@ -60,7 +60,7 @@ async function verify(ctx) {
 
   // if it's a GET request then render the page
   if (ctx.method === 'GET' && !isSANB(ctx.query.pin))
-    return ctx.render('otp/verify');
+    return ctx.render('verify');
 
   // if it's a POST request then ensure the user entered the 6 digit pin
   // otherwise if it's a GET request then use the ctx.query.pin
@@ -93,7 +93,7 @@ async function verify(ctx) {
     ctx.logger.debug('created inquiry', inquiry);
 
     const job = await bull.add('email', {
-      template: 'inquiry',
+      template: 'recovery',
       message: {
         to: ctx.state.user.email,
         cc: config.email.message.from

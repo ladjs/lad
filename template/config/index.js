@@ -18,7 +18,6 @@ const i18n = require('./i18n');
 const loggerConfig = require('./logger');
 const meta = require('./meta');
 const phrases = require('./phrases');
-const polyfills = require('./polyfills');
 const utilities = require('./utilities');
 
 const config = {
@@ -90,7 +89,6 @@ const config = {
       // debug: env.NODE_ENV === 'development',
       // compileDebug: env.NODE_ENV === 'development',
       ...utilities,
-      polyfills,
       filters
     }
   },
@@ -219,10 +217,7 @@ const logger = new Axe(config.logger);
 config.manifest = path.join(config.buildDir, 'rev-manifest.json');
 config.srimanifest = path.join(config.buildDir, 'sri-manifest.json');
 config.views.locals.manifest = manifestRev({
-  prepend:
-    env.AWS_CLOUDFRONT_DOMAIN && env.NODE_ENV === 'production'
-      ? `//${env.AWS_CLOUDFRONT_DOMAIN}/`
-      : '/',
+  prepend: '/',
   manifest: config.srimanifest
 });
 

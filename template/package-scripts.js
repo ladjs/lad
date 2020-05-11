@@ -13,7 +13,6 @@ module.exports = {
     watch: 'gulp watch',
     clean: 'gulp clean',
     build: 'gulp build',
-    publishAssets: 'gulp publish',
 
     lint: series('gulp xo', 'gulp eslint', 'gulp remark', 'gulp pug'),
 

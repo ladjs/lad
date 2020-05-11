@@ -3,6 +3,7 @@
     [
       "@babel/env", {
         "debug": true,
+        "useBuiltIns": "usage",
         "targets": {
           "browsers": "extends @ladjs/browserslist-config"
         }

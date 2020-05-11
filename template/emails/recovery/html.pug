@@ -1,0 +1,13 @@
+
+extends ../layout
+
+block content
+  .container.mt-3
+    .row
+      .col-12
+        .card.d-block.text-center
+          h5.card-header= t('Account recovery')
+          .card-body
+            .card-text
+              p= t('You have successfully verified your account for recovery.  We will be in touch soon.')
+          .card-footer: small.text-muted= t('If you did not submit this request, then please reply to let us know.')

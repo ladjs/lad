@@ -36,11 +36,11 @@ mixin registerOrLogin(verb, isModal = false)
       form.ajax-form(action=ctx.session.redirectTo ? l(action) : `${l(action)}?redirect_to=${l(config.passportCallbackOptions.successReturnToOrRedirect)}`, method="POST")
         input(type="hidden", name="_csrf", value=ctx.csrf)
         .form-group.floating-label
-          input#input-email.form-control.form-control-lg(type="email", required, name="email", placeholder="name@example.com")
-          label(for="input-email")= t('Email address')
+          input.form-control.form-control-lg(id=`input-email-${dashify(verb)}`, type="email", required, name="email", placeholder="name@example.com", autocomplete='email')
+          label(for=`input-email-${dashify(verb)}`)= t('Email address')
         .form-group.floating-label
-          input#input-password.form-control.form-control-lg(type="password", required, name="password", placeholder=" ")
-          label(for="input-password")= t('Password')
+          input.form-control.form-control-lg(id=`input-password-${dashify(verb)}`, type="password", required, name="password", placeholder=" ", autocomplete=verb === 'sign up' ? 'off' : 'current-password')
+          label(for=`input-password-${dashify(verb)}`)= t('Password')
         if verb === 'sign in'
           .form-group
             small.form-text.text-right: a(href=l('/forgot-password')).text-secondary= t('Forget your password?')
