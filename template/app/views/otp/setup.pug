@@ -2,114 +2,37 @@
 extends ../layout
 
 block body
-  #authenticator-apps-modal(tabindex='-1', role='dialog').modal.fade
-    .modal-dialog.modal-lg(role='document')
-      .modal-content
-        .modal-header
-          h1.h4.modal-title= t('Authenticator Apps')
-          button(type='button', data-dismiss='modal', aria-label='Close').close
-            span(aria-hidden='true') &times;
-        .modal-body
-          .alert.alert-info= t('Our recommended apps are listed below.  If you have feedback on this list, then please let us know.')
-          table.table
-            thead
-              tr
-                th(scope='col')= t('App')
-                th(scope='col')= t('Links')
-                th(scope='col').text-center= t('Open-Source')
-            tbody
-              tr
-                td.align-middle: a(href='https://freeotp.github.io/', rel='noopener', target='_blank') FreeOTP
-                td.align-middle
-                  ul.list-inline.mb-0
-                    li.list-inline-item.mb-1.mb-md-0
-                      a(href='https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-google-play
-                        = ' '
-                        = t('Google Play')
-                    li.list-inline-item.mb-1.mb-md-0
-                      a(href='https://itunes.apple.com/us/app/freeotp-authenticator/id872559395?mt=8', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-app-store-ios
-                        = ' '
-                        = t('App Store')
-                    li.list-inline-item
-                      a(href='https://f-droid.org/en/packages/org.fedorahosted.freeotp/', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-android
-                        = ' '
-                        = t('F-Droid')
-                td.align-middle.text-center: i.fa.fa-check-circle.text-success
-              tr
-                td.align-middle: a(href='https://github.com/andOTP/andOTP', rel='noopener', target='_blank') andOTP
-                td.align-middle
-                  ul.list-inline.mb-0
-                    li.list-inline-item.mb-1.mb-md-0
-                      a(href='https://f-droid.org/repo/org.shadowice.flocke.andotp_28.apk', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-google-play
-                        = ' '
-                        = t('Google Play')
-                    li.list-inline-item
-                      a(href='https://f-droid.org/en/packages/org.shadowice.flocke.andotp/', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-android
-                        = ' '
-                        = t('F-Droid')
-                td.align-middle.text-center: i.fa.fa-check-circle.text-success
-              tr
-                td.align-middle: a(href='https://authy.com/', rel='noopener', target='_blank') Authy
-                td.align-middle
-                  ul.list-inline.mb-0
-                    li.list-inline-item.mb-1.mb-md-0
-                      a(href='https://play.google.com/store/apps/details?id=com.authy.authy', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-google-play
-                        = ' '
-                        = t('Google Play')
-                    li.list-inline-item
-                      a(href='https://itunes.apple.com/us/app/authy/id494168017', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-app-store-ios
-                        = ' '
-                        = t('App Store')
-                td.align-middle.text-center: i.fa.fa-times-circle.text-danger
-              tr
-                td.align-middle: a(href='https://support.google.com/accounts/answer/1066447', rel='noopener', target='_blank') Google Authenticator
-                td.align-middle
-                  ul.list-inline.mb-0
-                    li.list-inline-item.mb-1.mb-md-0
-                      a(href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-google-play
-                        = ' '
-                        = t('Google Play')
-                    li.list-inline-item
-                      a(href='https://apps.apple.com/us/app/google-authenticator/id388497605', rel='noopener', target='_blank').btn.btn-sm.btn-outline-secondary
-                        i.fab.fa-app-store-ios
-                        = ' '
-                        = t('App Store')
-                td.align-middle.text-center: i.fa.fa-times-circle.text-danger
   .container.py-3
     .row
-      .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
-        h1.my-3.py-3.text-center= t('Setup OTP')
-        form(action=ctx.path, method='POST').confirm-prompt
+      .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3.text-center
+        h1.my-3.py-3= t('Setup OTP')
+        .alert.alert-warning(role='alert')
+          i.fa.fa-exclamation-triangle
+          = ' '
+          = t('Download your emergency recovery keys below.')
+        textarea(rows='5').form-control.text-monospace.text-center.rounded-bottom-0.border-dark#otp-recovery-keys
+          each key, i in user[config.userFields.otpRecoveryKeys]
+            = key
+            if i !== user[config.userFields.otpRecoveryKeys].length - 1
+              if i % 2
+                = '\n'
+              else
+                = '    '
+        form(action=l('/my-account/recovery-keys'), method='POST')
           input(type="hidden", name="_csrf", value=ctx.csrf)
-          .form-group
-            label(for='otp-step-one')
-              != t('<strong>Step 1:</strong> Install and open an <a href="#" data-toggle="modal-anchor" data-target="#authenticator-apps-modal">authenticator app</a>.')
-          .form-group
-            label(for='otp-step-two')
-              != t('<strong>Step 2:</strong> Scan this QR code and enter its generated token:')
-            img(src=qrcode, width=250, height=250, alt="").d-block.my-3
-          .form-group.floating-label
-            input(type='text', name='token', required, placeholder=' ').form-control.form-control-lg#input-token
-            label(for='input-token') Verification Token
-          .form-group
-            a.btn.btn-link.text-center.text-primary(href='#' data-toggle='collapse' data-target='#otp-copy')
-              = t('Can’t scan the QR code?  Configure with this code')
+          .d-flex.btn-group(role='group')
+            button(type='submit').btn.btn-dark.rounded-top-0
+              i.fa.fa-file-download
               = ' '
-              i.fa.fa-angle-down
-            #otp-copy.collapse
-              .input-group.input-group-lg.floating-label.form-group
-                input(type='text', readonly, value=user[config.passport.fields.otpToken]).form-control#otp-token
-                .input-group-append
-                  button(type='button', data-toggle="clipboard", data-clipboard-target="#otp-token").btn.btn-dark
-                    i.fa.fa-clipboard
-                    = ' '
-                    = t('Copy')
-          button(type='submit').btn.btn-lg.btn-block.btn-primary= t('Complete Setup')
+              = t('Download')
+            button(type='button', data-toggle="clipboard", data-clipboard-text=user[config.userFields.otpRecoveryKeys].join('\r\n')).btn.btn-dark.rounded-top-0
+              i.fa.fa-clipboard
+              = ' '
+              = t('Copy')
+        form(action=ctx.path, method="POST", autocomplete="off", class=user[config.userFields.otpRecoveryKeys] ? '' : 'confirm-prompt')
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          if user[config.userFields.hasSetPassword]
+            .form-group.floating-label.mt-4
+              input#input-password.form-control.form-control-lg(type="password", autocomplete="off", name="password" required)
+              label(for="input-password")= t('Confirm Password')
+          button.btn.btn-primary.btn-lg.btn-block.mt-2(type="submit")= t('Continue')

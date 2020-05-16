@@ -40,7 +40,7 @@ async function setup(ctx) {
         ctx.state.user[config.passport.fields.otpToken]
       );
       ctx.state.qrcode = await qrcode.toDataURL(ctx.state.otpTokenURI, opts);
-      return ctx.render('otp/setup');
+      return ctx.render('otp/enable');
     }
 
     ctx.state.user[config.passport.fields.otpEnabled] = true;
@@ -73,7 +73,7 @@ async function setup(ctx) {
     ctx.state.user[config.passport.fields.otpToken]
   );
   ctx.state.qrcode = await qrcode.toDataURL(ctx.state.otpTokenURI, opts);
-  return ctx.render('otp/setup');
+  return ctx.render('otp/enable');
 }
 
 module.exports = setup;

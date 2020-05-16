@@ -13,6 +13,7 @@ const bull = require('../../../bull');
 const Users = require('../../models/user');
 const passport = require('../../../helpers/passport');
 const config = require('../../../config');
+const { Inquiries } = require('../../models');
 
 const sanitize = string =>
   sanitizeHtml(string, {
@@ -447,7 +448,10 @@ async function verify(ctx) {
 
   ctx.state.redirectTo = redirectTo;
 
-  if (ctx.state.user[config.userFields.hasVerifiedEmail]) {
+  if (
+    ctx.state.user[config.userFields.hasVerifiedEmail] &&
+    !ctx.state.user[config.userFields.pendingRecovery]
+  ) {
     const message = ctx.translate('EMAIL_ALREADY_VERIFIED');
     if (ctx.accepts('html')) {
       ctx.flash('success', message);
@@ -526,9 +530,39 @@ async function verify(ctx) {
   ctx.state.user[config.userFields.hasVerifiedEmail] = true;
   await ctx.state.user.save();
 
-  // send the user a success message
-  const message = ctx.translate('EMAIL_VERIFICATION_SUCCESS');
+  const pendingRecovery = ctx.state.user[config.userFields.pendingRecovery];
+  if (pendingRecovery) {
+    const body = {};
+    body.email = ctx.state.user.email;
+    body.message = ctx.translate('SUPPORT_REQUEST_MESSAGE');
+    body.is_email_only = true;
+    const inquiry = await Inquiries.create({
+      ...body,
+      ip: ctx.ip
+    });
 
+    ctx.logger.debug('created inquiry', inquiry);
+
+    const job = await bull.add('email', {
+      template: 'recovery',
+      message: {
+        to: ctx.state.user.email,
+        cc: config.email.message.from
+      },
+      locals: {
+        locale: ctx.locale,
+        inquiry
+      }
+    });
+
+    ctx.logger.info('added job', bull.getMeta({ job }));
+  }
+
+  const message = pendingRecovery
+    ? ctx.translate('PENDING_RECOVERY_VERIFICATION_SUCCESS')
+    : ctx.translate('EMAIL_VERIFICATION_SUCCESS');
+
+  redirectTo = pendingRecovery ? '/logout' : redirectTo;
   if (ctx.accepts('html')) {
     ctx.flash('success', message);
     ctx.redirect(redirectTo);
