@@ -1,7 +1,7 @@
 const config = require('../../../../config');
 
 async function recovery(ctx) {
-  const redirectTo = `/${ctx.locale}/otp/recovery/verify`;
+  const redirectTo = `/${ctx.locale}/verify`;
 
   ctx.state.redirectTo = redirectTo;
 
