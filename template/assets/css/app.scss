@@ -14,10 +14,22 @@ $question: theme-color('light');
 // sweetalert2
 @import 'node_modules/sweetalert2/src/sweetalert2';
 
+// highlight.js
+@import 'node_modules/highlight.js/scss/default';
+@import 'node_modules/highlight.js/scss/github';
+
 // font awesome
 @import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
-@import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
-@import 'node_modules/@fortawesome/fontawesome-free/scss/solid';
+// @import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
+.fab {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
+}
+// @import 'node_modules/@fortawesome/fontawesome-free/scss/solid';
+.fa, .fas {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
 @import 'node_modules/@fortawesome/fontawesome-free/scss/v4-shims';
 
 // spinkit loading spinner
@@ -38,7 +50,7 @@ $question: theme-color('light');
 @import 'node_modules/@ladjs/assets/scss/image-helpers';
 
 // bootstrap floating labels
-@import 'node_modules/@tkrotoff/bootstrap-floating-label/src/bootstrap4-floating-label';
+@import 'node_modules/@tkrotoff/bootstrap-floating-label/src/bootstrap-floating-label';
 
 // markdown
 @import '_markdown';
@@ -57,6 +69,9 @@ $question: theme-color('light');
 
 // responsive backgrounds
 @import '_responsive-backgrounds';
+
+// responsive rounded
+@import '_responsive-rounded';
 
 // custom app styling
 @import '_custom';

@@ -1,7 +1,0 @@
-{
-  "name": "<%= name %>",
-  "icons": [],
-  "theme_color": "#94CC27",
-  "background_color": "#ffffff",
-  "display": "standalone"
-}

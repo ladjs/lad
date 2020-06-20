@@ -9,7 +9,7 @@ const logger = require('./logger');
 // <https://github.com/cabinjs/cabin#stacktrace>
 //
 uncaught.start();
-uncaught.addListener(function(err, event) {
+uncaught.addListener(async function(err, event) {
   if (!err) {
     if (typeof ErrorEvent === 'function' && event instanceof ErrorEvent)
       return logger.error(event.message, { event });
@@ -19,15 +19,14 @@ uncaught.addListener(function(err, event) {
 
   // this will transform the error's `stack` property
   // to be consistently similar to Gecko and V8 stackframes
-  StackTrace.fromError(err)
-    .then(stackframes => {
-      err.stack = prepareStackTrace(err, stackframes);
-      logger.error(err);
-    })
-    .catch(err_ => {
-      logger.error(err);
-      logger.error(err_);
-    });
+  try {
+    const stackframes = await StackTrace.fromError(err);
+    err.stack = prepareStackTrace(err, stackframes);
+    logger.error(err);
+  } catch (err_) {
+    logger.error(err);
+    logger.error(err_);
+  }
 });
 
 module.exports = uncaught;

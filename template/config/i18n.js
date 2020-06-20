@@ -1,5 +1,6 @@
 const path = require('path');
 
+const locales = require('./locales');
 const phrases = require('./phrases');
 
 module.exports = {
@@ -8,8 +9,9 @@ module.exports = {
   // but for complete configuration reference please see:
   // <https://github.com/mashpie/i18n-node#list-of-all-configuration-options>
   phrases,
+  defaultLocale: 'en',
   directory: path.join(__dirname, '..', 'locales'),
   ignoredRedirectGlobs: ['/auth/*', '/auth/**/*'],
   lastLocaleField: 'last_locale',
-  locales: ['en', 'es', 'zh']
+  locales
 };

@@ -4,4 +4,4 @@ extends layout
 block body
   .container.text-center.py-5
     h1= t('Server Error')
-    p.lead.text-muted= t('A server error has unfortunately occurred.  If this error persists, please contact us.')
+    p.lead.text-muted!= t('A server error has unfortunately occurred.')

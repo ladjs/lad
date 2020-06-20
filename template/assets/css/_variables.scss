@@ -1,14 +1,14 @@
-// TODO: eventually host ourselves
-$fa-font-path: "//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/webfonts" !default;
+$fa-font-path: "../fonts" !default;
+$fa-font-display: "swap" !default;
 
-// custom fonts using google webfont loader
-// with fonts defined in `assets/js/core.js`
-$font-family-sans-serif: 'Source Sans Pro', '-apple-system', BlinkMacSystemFont,
-  'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !default;
+$font-family-sans-serif: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !default;
 
-$font-family-serif: Georgia, 'Times New Roman', Times, serif !default;
-$font-family-monospace: 'Source Code Pro', Menlo, Monaco, Consolas,
-  'Liberation Mono', 'Courier New', monospace !default;
+$font-family-monospace: 'Inconsolata', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 
 $font-family-base: $font-family-sans-serif !default;
-$headings-font-family: 'Bitter', $font-family-sans-serif;
+
+$headings-font-family: 'Poppins', $font-family-sans-serif;
+
+$yiq-contrasted-threshold:  200 !default;
+
+$enable-responsive-font-sizes: true !default;

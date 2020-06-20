@@ -1,34 +1,45 @@
 const Boom = require('@hapi/boom');
-const StoreIPAddress = require('@ladjs/store-ip-address');
+const _ = require('lodash');
 const cryptoRandomString = require('crypto-random-string');
 const isSANB = require('is-string-and-not-blank');
 const moment = require('moment');
 const mongoose = require('mongoose');
 const mongooseCommonPlugin = require('mongoose-common-plugin');
+const mongooseOmitCommonFields = require('mongoose-omit-common-fields');
 const passportLocalMongoose = require('passport-local-mongoose');
 const validator = require('validator');
 const { authenticator } = require('otplib');
 const { boolean } = require('boolean');
-const { select } = require('mongoose-json-select');
 
 // <https://github.com/Automattic/mongoose/issues/5534>
 mongoose.Error.messages = require('@ladjs/mongoose-error-messages');
 
 const config = require('../../config');
 const i18n = require('../../helpers/i18n');
-const logger = require('../../helpers/logger');
-const bull = require('../../bull');
-
-const opts = { length: 10, characters: '1234567890' };
-const storeIPAddress = new StoreIPAddress({
-  logger,
-  ...config.storeIPAddress
-});
 
 if (config.passportLocalMongoose.usernameField !== 'email')
   throw new Error(
     'User model and @ladjs/passport requires that the usernameField is email'
   );
+
+const opts = { length: 10, characters: '1234567890' };
+const { fields } = config.passport;
+const omitExtraFields = [
+  ..._.without(mongooseOmitCommonFields.underscored.keys, 'email'),
+  config.userFields.apiToken,
+  config.userFields.resetTokenExpiresAt,
+  config.userFields.resetToken,
+  config.userFields.hasSetPassword,
+  config.userFields.hasVerifiedEmail,
+  config.userFields.verificationPinExpiresAt,
+  config.userFields.verificationPin,
+  config.userFields.verificationPinSentAt,
+  config.userFields.welcomeEmailSentAt,
+  config.userFields.otpRecoveryKeys,
+  config.userFields.pendingRecovery,
+  fields.otpEnabled,
+  fields.otpToken
+];
 
 // set relative threshold for messages
 moment.relativeTimeThreshold('ss', 5);
@@ -49,22 +60,13 @@ const User = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    validate: value => validator.isEmail(value)
-  },
-
-  // password reset
-  reset_token_expires_at: Date,
-  reset_token: String,
-  has_set_password: {
-    type: Boolean,
-    default: false
+    validate: val => validator.isEmail(val)
   }
 });
 
 // additional variable based properties to add to the schema
 const object = {};
 
-// user fields
 object[config.userFields.fullEmail] = {
   type: String,
   required: true,
@@ -106,13 +108,18 @@ object[config.userFields.verificationPin] = {
   trim: true,
   validate: value => isSANB(value) && value.replace(/\D/g, '').length === 6
 };
+
+object[config.userFields.pendingRecovery] = {
+  type: Boolean,
+  default: false
+};
+
 object[config.userFields.pendingRecovery] = {
   type: Boolean,
   default: false
 };
 
 // shared field names with @ladjs/passport for consistency
-const { fields } = config.passport;
 object[fields.displayName] = {
   type: String,
   required: true,
@@ -153,7 +160,6 @@ object[fields.otpEnabled] = {
   type: Boolean,
   default: false
 };
-
 object[fields.otpToken] = String;
 
 // shared field names with @ladjs/i18n and email-templates
@@ -188,9 +194,10 @@ User.pre('validate', function(next) {
   }
 
   // set the user's full email address (incl display name)
-  this[config.userFields.fullEmail] = this[fields.displayName]
-    ? `${this[fields.displayName]} <${this.email}>`
-    : this.email;
+  this[config.userFields.fullEmail] =
+    this[fields.displayName] && this[fields.displayName] !== this.email
+      ? `${this[fields.displayName]} <${this.email}>`
+      : this.email;
 
   // if otp authentication values no longer valid
   // then disable it completely
@@ -216,34 +223,11 @@ User.pre('validate', function(next) {
   next();
 });
 
-User.post('save', async user => {
-  // return early if the user already received welcome email
-  // or if they have not yet verified their email address
-  if (
-    user[config.userFields.welcomeEmailSentAt] ||
-    !user[config.userFields.hasVerifiedEmail]
-  )
-    return;
-
-  // add welcome email job
-  try {
-    const job = await bull.add('email', {
-      template: 'welcome',
-      message: {
-        to: user[config.userFields.fullEmail]
-      },
-      locals: {
-        user: select(user.toObject(), User.options.toJSON.select)
-      }
-    });
-    logger.info('added job', bull.getMeta({ job }));
-    user[config.userFields.welcomeEmailSentAt] = new Date();
-    await user.save();
-  } catch (err) {
-    logger.error(err);
-  }
-});
-
+//
+// NOTE: you should not call this method directly
+// instead you should use the helper located at
+// `../helpers/send-verification-email.js`
+//
 User.methods.sendVerificationEmail = async function(ctx) {
   if (
     this[config.userFields.hasVerifiedEmail] &&
@@ -273,8 +257,15 @@ User.methods.sendVerificationEmail = async function(ctx) {
         .locale(this[config.lastLocaleField])
         .humanize()
     );
-    if (ctx) throw Boom.badRequest(message);
-    throw new Error(message);
+    if (ctx) {
+      const err = Boom.badRequest(message);
+      err.no_translate = true;
+      throw err;
+    }
+
+    const err = new Error(message);
+    err.no_translate = true;
+    throw err;
   }
 
   if (this[config.userFields.verificationPinHasExpired]) {
@@ -289,44 +280,19 @@ User.methods.sendVerificationEmail = async function(ctx) {
   this[config.userFields.verificationPinSentAt] = new Date();
   await this.save();
 
-  // attempt to send them an email
-  const job = await bull.add('email', {
-    template: 'verify',
-    message: {
-      to: this[config.userFields.fullEmail]
-    },
-    locals: {
-      user: select(this.toObject(), User.options.toJSON.select),
-      expiresAt: this[config.userFields.verificationPinExpiresAt],
-      pin: this[config.userFields.verificationPin],
-      link: `${config.urls.web}${config.verifyRoute}?pin=${
-        this[config.userFields.verificationPin]
-      }`
-    }
-  });
-
-  logger.info('added job', bull.getMeta({ job }));
-
   return this;
 };
 
 User.plugin(mongooseCommonPlugin, {
   object: 'user',
-  omitExtraFields: [
-    config.userFields.apiToken,
-    config.userFields.resetTokenExpiresAt,
-    config.userFields.resetToken,
-    config.userFields.hasSetPassword,
-    config.userFields.hasVerifiedEmail,
-    config.userFields.verificationPinExpiresAt,
-    config.userFields.verificationPin,
-    config.userFields.verificationPinHasExpired,
-    config.userFields.welcomeEmailSentAt,
-    config.userFields.otpRecoveryKeys,
-    fields.otpToken
-  ]
+  omitCommonFields: false,
+  omitExtraFields,
+  mongooseHidden: {
+    virtuals: {
+      [config.userFields.verificationPinHasExpired]: 'hide'
+    }
+  }
 });
 User.plugin(passportLocalMongoose, config.passportLocalMongoose);
-User.plugin(storeIPAddress.plugin);
 
 module.exports = mongoose.model('User', User);

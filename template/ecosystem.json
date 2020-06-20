@@ -3,7 +3,7 @@
     {
       "name": "web",
       "script": "web.js",
-      "exec_mode": "cluster_mode",
+      "exec_mode": "cluster",
       "wait_ready": true,
       "instances": "max",
       "env_production": {
@@ -13,7 +13,7 @@
     {
       "name": "api",
       "script": "api.js",
-      "exec_mode": "cluster_mode",
+      "exec_mode": "cluster",
       "wait_ready": true,
       "instances": "max",
       "env_production": {
@@ -23,9 +23,9 @@
     {
       "name": "bull",
       "script": "bull.js",
-      "exec_mode": "cluster_mode",
+      "exec_mode": "fork",
       "wait_ready": true,
-      "instances": "max",
+      "instances": "1",
       "env_production": {
         "NODE_ENV": "production"
       }
@@ -33,7 +33,7 @@
     {
       "name": "proxy",
       "script": "proxy.js",
-      "exec_mode": "cluster_mode",
+      "exec_mode": "cluster",
       "wait_ready": true,
       "instances": "max",
       "env_production": {

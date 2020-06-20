@@ -3,13 +3,14 @@ const render = require('koa-views-render');
 
 const policies = require('../../helpers/policies');
 const web = require('../../app/controllers/web');
+const config = require('../../config');
 
-const router = new Router({ prefix: '/otp' });
+const router = new Router({ prefix: config.otpRoutePrefix });
 router.use(policies.ensureLoggedIn);
 
 router
-  .get('/login', render('otp/login'))
-  .post('/login', web.auth.loginOtp)
+  .get(config.otpRouteLoginPath, render('otp/login'))
+  .post(config.otpRouteLoginPath, web.auth.loginOtp)
   .get('/setup', render('otp/setup'))
   .post('/setup', web.otp.setup)
   .post('/disable', web.otp.disable)

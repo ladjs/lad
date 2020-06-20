@@ -13,8 +13,9 @@ module.exports = {
     watch: 'gulp watch',
     clean: 'gulp clean',
     build: 'gulp build',
+    publishAssets: 'gulp publish',
 
-    lint: series('gulp xo', 'gulp eslint', 'gulp remark', 'gulp pug'),
+    lint: series('gulp xo', 'gulp remark', 'gulp pug'),
 
     // <https://github.com/kentcdodds/nps-utils/issues/24>
     pretest: concurrent.nps('lint', 'build', 'pretest-mongo', 'pretest-redis'),

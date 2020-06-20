@@ -1,6 +1,7 @@
-const History = require('html5-history-api');
 const $ = require('jquery');
 const Popper = require('popper.js');
+const Clipboard = require('clipboard');
+const { randomstring } = require('@sidoshi/random-string');
 
 // load jQuery and Bootstrap
 // <https://stackoverflow.com/a/34340392>
@@ -14,13 +15,14 @@ window.Popper = Popper;
 // eslint-disable-next-line import/no-unassigned-import
 require('bootstrap');
 
+const $body = $('body');
+
 const {
   ajaxForm,
   changeHashOnScroll,
   clipboard,
   confirmPrompt,
   customFileInput,
-  facebookHashFix,
   flash,
   returnTo,
   resizeNavbarPadding,
@@ -35,34 +37,9 @@ resizeNavbarPadding($);
 // import waypoints (see below example for how to use + `yarn add waypoints`)
 // require('waypoints/lib/jquery.waypoints.js');
 
-// import pointer events polyfill for ie
-// eslint-disable-next-line import/no-unassigned-import
-require('jquery.pointer-events-polyfill/dist/jquery.pointer-events-polyfill.min.js');
-
-// import jquery lazy
-// eslint-disable-next-line import/no-unassigned-import
-require('jquery-lazy');
-
-// import dense for images
-// eslint-disable-next-line import/no-unassigned-import
-require('dense/src/dense.js');
-
-// import jquery-placeholder for IE placeholder support
-// eslint-disable-next-line import/no-unassigned-import
-require('jquery-placeholder');
-
 // highlight.js
 // const hljs = require('highlight.js');
 // hljs.initHighlightingOnLoad();
-
-// import history fallback support for IE
-window.History = History;
-
-// Add pointer events polyfill
-window.pointerEventsPolyfill();
-
-// Fix Facebook's appended hash bug
-facebookHashFix();
 
 // Allow ?return_to=/some/path
 returnTo();
@@ -80,68 +57,58 @@ $('.navbar-collapse').on('hidden.bs.collapse shown.bs.collapse', () => {
   resizeNavbarPadding($);
 });
 
-$(() => {
-  // Handle modals on anchor tags with data-target specified (preserve href)
-  $('a[data-toggle="modal-anchor"]').on('click.modalAnchor', modalAnchor);
+// Handle modals on anchor tags with data-target specified (preserve href)
+$('a[data-toggle="modal-anchor"]').on('click.modalAnchor', modalAnchor);
 
-  // Lazy load images using jquery.lazy
-  $('img.lazy').lazy({ retinaAttribute: 'data-2x' });
+// Adjust the hash of the page as you scroll down
+// (e.g. if you scroll past a section "Section A" to "Section B"
+// then the URL bar will update to #section-b
+$(window).on('scroll.changeHashOnScroll', changeHashOnScroll);
 
-  // Dense for all other non lazy images
-  $('img:not(".lazy")').dense({ glue: '@' });
+// Handle hash change when user clicks on links
+$body.on('click.handleHashChange', "a[href^='#']", handleHashChange);
 
-  // Support placeholders in older browsers using jquery-placeholder
-  $('input, textarea').placeholder();
+// Automatically show tooltips and popovers
+$('[data-toggle="tooltip"]').tooltip();
+$('[data-toggle="popover"]').popover();
 
-  // Adjust the hash of the page as you scroll down
-  // (e.g. if you scroll past a section "Section A" to "Section B"
-  // then the URL bar will update to #section-b
-  $(window).on('scroll.changeHashOnScroll', changeHashOnScroll);
+// Handle custom file inputs
+//
+// Example usage:
+//
+// <label class="d-block">
+//   <input required="required" data-toggle="custom-file" data-target="#company-logo" type="file" name="company_logo" accept="image/*" class="custom-file-input">
+//   <span id="company-logo" class="custom-file-control custom-file-name" data-btn="{{ t('Select File') }}" data-content="{{ t('Upload company logo...') }}"></span>
+// </label>
+$body.on(
+  'change.customFileInput',
+  'input[type="file"][data-toggle="custom-file"]',
+  customFileInput
+);
 
-  // Handle hash change when user clicks on links
-  $('body').on('click.handleHashChange', "a[href^='#']", handleHashChange);
+// Handle clipboard copy event
+clipboard();
 
-  // Automatically show tooltips and popovers
-  $('[data-toggle="tooltip"]').tooltip();
-  $('[data-toggle="popover"]').popover();
+// Bind confirm prompt event for clicks and form submissions
+$body.on(
+  'submit.confirmPrompt',
+  'form.confirm-prompt, form[data-toggle="confirm-prompt"]',
+  confirmPrompt
+);
+$body.on(
+  'click.confirmPrompt',
+  'button.confirm-prompt, input.confirm-prompt',
+  confirmPrompt
+);
 
-  // Handle custom file inputs
-  //
-  // Example usage:
-  //
-  // <label class="d-block">
-  //   <input required="required" data-toggle="custom-file" data-target="#company-logo" type="file" name="company_logo" accept="image/*" class="custom-file-input">
-  //   <span id="company-logo" class="custom-file-control custom-file-name" data-btn="{{ t('Select File') }}" data-content="{{ t('Upload company logo...') }}"></span>
-  // </label>
-  $('body').on(
-    'change.customFileInput',
-    'input[type="file"][data-toggle="custom-file"]',
-    customFileInput
-  );
+// Bind ajax form submission and handle Stripe tokens in forms
+$body.on('submit.ajaxForm', 'form.ajax-form', ajaxForm);
 
-  // Handle clipboard copy event
-  clipboard();
-
-  // Bind confirm prompt event for clicks and form submissions
-  $('body').on(
-    'submit.confirmPrompt',
-    'form.confirm-prompt, form[data-toggle="confirm-prompt"]',
-    confirmPrompt
-  );
-  $('body').on(
-    'click.confirmPrompt',
-    'button.confirm-prompt, input.confirm-prompt',
-    confirmPrompt
-  );
-
-  // Bind ajax form submission and handle Stripe tokens in forms
-  $('body').on('submit.ajaxForm', 'form.ajax-form', ajaxForm);
-
-  // Example for how to detect waypoint scrolling:
-  //
-  // Detect when we scroll to the #the-web-server selector
-  // so that we can hide the "Learn More" banner on bottom
-  /*
+// Example for how to detect waypoint scrolling:
+//
+// Detect when we scroll to the #the-web-server selector
+// so that we can hide the "Learn More" banner on bottom
+/*
   if ($('#learn-more').length > 0 && $('#the-web-server').length > 0) {
     const waypoint = new window.Waypoint({
       element: $('#the-web-server').get(0),
@@ -155,4 +122,80 @@ $(() => {
     waypoint.context.refresh();
   }
   */
+
+// all <code> blocks should have a toggle tooltip and clipboard
+function errorHandler(ev) {
+  ev.clearSelection();
+  $(ev.trigger)
+    .tooltip('dispose')
+    .tooltip({
+      title: 'Please manually copy to clipboard',
+      html: true,
+      placement: 'bottom'
+    })
+    .tooltip('show');
+  $(ev.trigger).on('hidden.bs.tooltip', () => $(ev.trigger).tooltip('dispose'));
+}
+
+function successHandler(ev) {
+  ev.clearSelection();
+  let $container = $(ev.trigger).parents('pre:first');
+  if ($container.length === 0) $container = $(ev.trigger);
+  $container
+    .tooltip('dispose')
+    .tooltip({
+      title: 'Copied!',
+      placement: 'bottom'
+    })
+    .tooltip('show');
+  $container.on('hidden.bs.tooltip', () => {
+    $container.tooltip('dispose');
+  });
+}
+
+if (Clipboard.isSupported()) {
+  $body.on('mouseenter', 'code', function() {
+    let $container = $(this).parents('pre:first');
+    if ($container.length === 0) $container = $(this);
+    $container
+      .css('cursor', 'pointer')
+      .tooltip({
+        title: 'Click to copy',
+        placement: 'bottom',
+        trigger: 'manual'
+      })
+      .tooltip('show');
+  });
+  $body.on('mouseleave', 'code', function() {
+    let $container = $(this).parents('pre:first');
+    if ($container.length === 0) $container = $(this);
+    $container.tooltip('dispose').css('cursor', 'initial');
+  });
+  const clipboard = new Clipboard('code', {
+    text(trigger) {
+      return trigger.textContent;
+    },
+    target(trigger) {
+      return trigger.tagName === 'CODE' ? trigger : trigger.closest('code');
+    }
+  });
+  clipboard.on('success', successHandler);
+  clipboard.on('error', errorHandler);
+}
+
+//
+// generate random alias
+//
+// <https://en.wikipedia.org/wiki/Email_address#Local-part>
+//
+$body.on('click', '.generate-random-alias', function() {
+  const target = $(this).data('target');
+  if (!target) return;
+  const $target = $(target);
+  if ($target.lengh === 0) return;
+  const string = randomstring({
+    characters: 'abcdefghijklmnopqrstuvwxyz0123456789',
+    length: 10
+  });
+  $target.val(string);
 });

@@ -1,7 +1,8 @@
 const config = require('../../../../config');
+const sendVerificationEmail = require('../../../../helpers/send-verification-email');
 
 async function recovery(ctx) {
-  const redirectTo = `/${ctx.locale}/verify`;
+  const redirectTo = ctx.state.l(config.verifyRoute);
 
   ctx.state.redirectTo = redirectTo;
 
@@ -9,7 +10,7 @@ async function recovery(ctx) {
   await ctx.state.user.save();
 
   try {
-    ctx.state.user = await ctx.state.user.sendVerificationEmail(ctx);
+    ctx.state.user = await sendVerificationEmail(ctx);
   } catch (err) {
     // wrap with try/catch to prevent redirect looping
     // (even though the koa redirect loop package will help here)
@@ -17,7 +18,7 @@ async function recovery(ctx) {
     ctx.logger.warn(err);
     if (ctx.accepts('html')) {
       ctx.flash('warning', err.message);
-      ctx.redirect('/login');
+      ctx.redirect(ctx.state.l(config.loginRoute));
     } else {
       ctx.body = { message: err.message };
     }

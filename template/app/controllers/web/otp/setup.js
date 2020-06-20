@@ -61,10 +61,10 @@ async function setup(ctx) {
 
   if (ctx.state.user[config.userFields.hasSetPassword]) {
     if (!isSANB(body.password))
-      throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
+      throw Boom.badRequest(ctx.translateError('INVALID_PASSWORD'));
 
     const { user } = await ctx.state.user.authenticate(body.password);
-    if (!user) throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
+    if (!user) throw Boom.badRequest(ctx.translateError('INVALID_PASSWORD'));
   }
 
   ctx.state.otpTokenURI = authenticator.keyuri(

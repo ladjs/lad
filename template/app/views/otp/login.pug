@@ -3,20 +3,20 @@ extends ../layout
 
 block body
   #modal-recovery.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-domain-title', aria-hidden='true')
-    .modal-dialog(role='document')
+    .modal-dialog.modal-lg(role='document')
       .modal-content
         .modal-header.text-center.d-block
           h4.modal-title.d-inline-block.ml-4#modal-recovery-title= t('Account Recovery')
           button(type='button', data-dismiss='modal', aria-label='Close').close
             span(aria-hidden='true') &times;
         .modal-body
-          form.ajax-form(action=l('/otp/recovery'), method="POST")
+          form.ajax-form(action=l(`${config.otpRoutePrefix}/recovery`), method="POST").confirm-prompt
             input(type="hidden", name="_csrf", value=ctx.csrf)
-            p= t("If you can't access a trusted device or recovery keys you can request a reset of your security settings. For security reasons this can take 3-5 business days.  Here is an overview of the steps involved:")
+            p= t("If you can't access your authenticator app or lose your recovery keys, then you can submit a request for your account to be unlocked.")
             ol
-              li= t('Verify access to your email address with a verification code.')
-              li= t('Wait for an admin to follow-up with additional information.')
-              li= t('Two-Factor Authentication will be removed from your account.')
+              li= t('Verify access to your email address with a code emailed to you.')
+              li= t('Wait 3-5 business days for an administrative follow-up email.')
+              li= t('Access to your account will be unlocked for you.')
             button.btn.btn-primary.btn-block.btn-lg(type="submit")= t('Continue')
   .container.py-3
     h1.my-3.py-3.text-center= t('Two-Factor Check')
@@ -25,18 +25,19 @@ block body
         form(action=ctx.path, method="POST", autocomplete="off").ajax-form
           input(type="hidden", name="_csrf", value=ctx.csrf)
           .form-group.floating-label
-            input#input-text.form-control.form-control-lg(type="text", autocomplete="off", name="passcode", placeholder=' ')
+            input#input-text.form-control.form-control-lg(type="text", autofocus, autocomplete="off", name="passcode", placeholder=' ')
             label(for="input-passcode")= t('Passcode')
           .form-group.form-check
             input.form-check-input(type='checkbox', name='otp_remember_me', value='true', checked=ctx.session.otp_remember_me)#otp-remember-me
             label.form-check-label(for='otp-remember-me')= t("Don't ask me again in this browser")
           button.btn.btn-primary.btn-block.btn-lg(type="submit")= t('Continue')
-        .alert.alert-light.border.mt-3.text-center
-          = t('Having trouble?')
-          = ' '
-          a(href=l('/otp/keys'))= t('Use a recovery key')
-        p.mb-0.text-center
-          small.text-muted
-            = t('Lose your recovery keys?')
-            = ' '
-            a(href='#', data-toggle='modal-anchor', data-target='#modal-recovery').text-danger= t('Request account recovery')
+        .alert.alert-warning.mt-3.text-center
+          ul.list-inline.mb-0
+            li.list-inline-item= t('Having trouble?')
+            li.list-inline-item
+              a(href=l(`${config.otpRoutePrefix}/keys`)).alert-link= t('Use a recovery key')
+        ul.list-inline.text-center.mb-0
+          li.list-inline-item
+            small.text-muted= t('Lose your recovery keys?')
+          li.list-inline-item
+            small: a(href='#', data-toggle='modal-anchor', data-target='#modal-recovery').text-danger= t('Request account recovery')

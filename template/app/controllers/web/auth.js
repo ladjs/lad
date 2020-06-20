@@ -3,15 +3,15 @@ const _ = require('lodash');
 const cryptoRandomString = require('crypto-random-string');
 const isSANB = require('is-string-and-not-blank');
 const moment = require('moment');
+const qrcode = require('qrcode');
 const sanitizeHtml = require('sanitize-html');
 const validator = require('validator');
-const { boolean } = require('boolean');
 const { authenticator } = require('otplib');
-const qrcode = require('qrcode');
+const { boolean } = require('boolean');
 
-const bull = require('../../../bull');
 const Users = require('../../models/user');
 const passport = require('../../../helpers/passport');
+const sendVerificationEmail = require('../../../helpers/send-verification-email');
 const config = require('../../../config');
 const { Inquiries } = require('../../models');
 
@@ -22,7 +22,7 @@ const sanitize = string =>
   });
 
 function logout(ctx) {
-  if (!ctx.isAuthenticated()) return ctx.redirect(`/${ctx.locale}`);
+  if (!ctx.isAuthenticated()) return ctx.redirect(ctx.state.l());
   if (ctx.session.otp && !ctx.session.otp_remember_me) delete ctx.session.otp;
   ctx.logout();
   ctx.flash('custom', {
@@ -34,7 +34,7 @@ function logout(ctx) {
     timer: 3000,
     position: 'top'
   });
-  ctx.redirect(`/${ctx.locale}`);
+  ctx.redirect(ctx.state.l());
 }
 
 function parseReturnOrRedirectTo(ctx, next) {
@@ -63,6 +63,23 @@ function parseReturnOrRedirectTo(ctx, next) {
 }
 
 async function registerOrLogin(ctx) {
+  if (ctx.isAuthenticated()) {
+    let redirectTo = ctx.state.l(
+      config.passportCallbackOptions.successReturnToOrRedirect
+    );
+
+    if (ctx.session && ctx.session.returnTo) {
+      redirectTo = ctx.session.returnTo;
+      delete ctx.session.returnTo;
+    }
+
+    ctx.flash('success', ctx.translate('ALREADY_SIGNED_IN'));
+
+    if (ctx.accepts('html')) ctx.redirect(redirectTo);
+    else ctx.body = { redirectTo };
+    return;
+  }
+
   ctx.state.verb =
     ctx.pathWithoutLocale === '/register' ? 'sign up' : 'sign in';
 
@@ -88,13 +105,29 @@ async function homeOrDashboard(ctx) {
 }
 
 async function login(ctx, next) {
-  // eslint-disable-next-line complexity
+  if (ctx.isAuthenticated()) {
+    let redirectTo = ctx.state.l(
+      config.passportCallbackOptions.successReturnToOrRedirect
+    );
+
+    if (ctx.session && ctx.session.returnTo) {
+      redirectTo = ctx.session.returnTo;
+      delete ctx.session.returnTo;
+    }
+
+    ctx.flash('success', ctx.translate('ALREADY_SIGNED_IN'));
+
+    if (ctx.accepts('html')) ctx.redirect(redirectTo);
+    else ctx.body = { redirectTo };
+    return;
+  }
+
   await passport.authenticate('local', async (err, user, info) => {
     if (err) throw err;
 
     if (!user) {
       if (info) throw info;
-      throw new Error(ctx.translate('UNKNOWN_ERROR'));
+      throw ctx.translateError('UNKNOWN_ERROR');
     }
 
     // redirect user to their last locale they were using
@@ -108,25 +141,27 @@ async function login(ctx, next) {
       ctx.locale = ctx.request.locale;
     }
 
-    let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+    let redirectTo = ctx.state.l(
+      config.passportCallbackOptions.successReturnToOrRedirect
+    );
 
     if (ctx.session && ctx.session.returnTo) {
       redirectTo = ctx.session.returnTo;
       delete ctx.session.returnTo;
     }
 
+    let greeting = 'Good morning';
+    if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
+      greeting = 'Good afternoon';
+    else if (moment().format('HH') >= 17) greeting = 'Good evening';
+
     if (user) {
       await ctx.login(user);
 
-      let greeting = 'Good morning';
-      if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
-        greeting = 'Good afternoon';
-      else if (moment().format('HH') >= 17) greeting = 'Good evening';
-
       ctx.flash('custom', {
         title: `${ctx.request.t('Hello')} ${ctx.state.emoji('wave')}`,
-        text: user[config.passport.fields.givenName]
-          ? `${greeting} ${user[config.passport.fields.givenName]}`
+        text: user[config.userFields.givenName]
+          ? `${greeting} ${user[config.userFields.givenName]}`
           : greeting,
         type: 'success',
         toast: true,
@@ -142,7 +177,7 @@ async function login(ctx, next) {
       );
 
       ctx.state.user.qrcode = await qrcode.toDataURL(uri);
-      await ctx.state.user.save();
+      ctx.state.user = await ctx.state.user.save();
 
       if (user[config.passport.fields.otpEnabled] && !ctx.session.otp)
         redirectTo = ctx.state.l(config.loginOtpRoute);
@@ -156,16 +191,9 @@ async function login(ctx, next) {
       return;
     }
 
-    let greeting = 'Good morning';
-    if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
-      greeting = 'Good afternoon';
-    else if (moment().format('HH') >= 17) greeting = 'Good evening';
-
     ctx.flash('custom', {
-      title: `${ctx.request.t('Hello')} ${ctx.state.emoji('wave')}`,
-      text: user[config.passport.fields.givenName]
-        ? `${greeting} ${user[config.passport.fields.givenName]}`
-        : greeting,
+      title: `${ctx.translate('HELLO')} ${ctx.state.emoji('wave')}`,
+      text: ctx.translate('SIGNED_IN'),
       type: 'success',
       toast: true,
       showConfirmButton: false,
@@ -181,23 +209,26 @@ async function login(ctx, next) {
 async function loginOtp(ctx, next) {
   await passport.authenticate('otp', (err, user) => {
     if (err) throw err;
-    if (!user) throw Boom.unauthorized(ctx.translate('INVALID_OTP_PASSCODE'));
+    if (!user)
+      throw Boom.unauthorized(ctx.translateError('INVALID_OTP_PASSCODE'));
 
     ctx.session.otp_remember_me = boolean(ctx.request.body.otp_remember_me);
 
     ctx.session.otp = 'totp';
-    const redirectTo = `/${ctx.locale}/dashboard`;
+    const redirectTo = ctx.state.l('/dashboard');
 
-    if (ctx.accepts('html')) {
-      ctx.redirect(redirectTo);
-    } else {
+    if (ctx.accepts('json')) {
       ctx.body = { redirectTo };
+    } else {
+      ctx.redirect(redirectTo);
     }
   })(ctx, next);
 }
 
 async function recoveryKey(ctx) {
-  let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+  let redirectTo = ctx.state.l(
+    config.passportCallbackOptions.successReturnToOrRedirect
+  );
 
   if (ctx.session && ctx.session.returnTo) {
     redirectTo = ctx.session.returnTo;
@@ -210,24 +241,24 @@ async function recoveryKey(ctx) {
 
   // ensure recovery matches user list of keys
   if (
-    !isSANB(ctx.request.body.recovery_passcode) ||
+    !isSANB(ctx.request.body.recovery_key) ||
     !Array.isArray(recoveryKeys) ||
     recoveryKeys.length === 0 ||
-    !recoveryKeys.includes(ctx.request.body.recovery_passcode)
+    !recoveryKeys.includes(ctx.request.body.recovery_key)
   )
     return ctx.throw(
-      Boom.badRequest(ctx.translate('INVALID_RECOVERY_PASSCODE'))
+      Boom.badRequest(ctx.translateError('INVALID_RECOVERY_KEY'))
     );
 
-  // remove used passcode from recovery key list
+  // remove used key from recovery key list
   recoveryKeys = recoveryKeys.filter(
-    key => key !== ctx.request.body.recovery_passcode
+    key => key !== ctx.request.body.recovery_key
   );
 
   const emptyRecoveryKeys = recoveryKeys.length === 0;
   const type = emptyRecoveryKeys ? 'warning' : 'success';
   redirectTo = emptyRecoveryKeys
-    ? `/${ctx.locale}/my-account/security`
+    ? ctx.state.l('/my-account/security')
     : redirectTo;
 
   // handle case if the user runs out of keys
@@ -237,7 +268,7 @@ async function recoveryKey(ctx) {
   }
 
   ctx.state.user[config.userFields.otpRecoveryKeys] = recoveryKeys;
-  await ctx.state.user.save();
+  ctx.state.user = await ctx.state.user.save();
 
   ctx.session.otp = 'totp-recovery';
 
@@ -267,10 +298,10 @@ async function register(ctx) {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
-    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
+    throw Boom.badRequest(ctx.translateError('INVALID_EMAIL'));
 
   if (!isSANB(body.password))
-    throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
+    throw Boom.badRequest(ctx.translateError('INVALID_PASSWORD'));
 
   // register the user
   const count = await Users.countDocuments({ group: 'admin' });
@@ -309,10 +340,10 @@ async function forgotPassword(ctx) {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
-    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
+    throw Boom.badRequest(ctx.translateError('INVALID_EMAIL'));
 
   // lookup the user
-  const user = await Users.findOne({ email: body.email });
+  let user = await Users.findOne({ email: body.email });
 
   // to prevent people from being able to find out valid email accounts
   // we always say "a password reset request has been sent to your email"
@@ -339,7 +370,7 @@ async function forgotPassword(ctx) {
     )
   )
     throw Boom.badRequest(
-      ctx.translate(
+      ctx.translateError(
         'PASSWORD_RESET_LIMIT',
         moment(user[config.userFields.resetTokenExpiresAt]).fromNow()
       )
@@ -351,7 +382,7 @@ async function forgotPassword(ctx) {
     .toDate();
   user[config.userFields.resetToken] = cryptoRandomString({ length: 32 });
 
-  await user.save();
+  user = await user.save();
 
   if (ctx.accepts('html')) {
     ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
@@ -364,14 +395,14 @@ async function forgotPassword(ctx) {
 
   // queue password reset email
   try {
-    const job = await bull.add('email', {
+    const job = await ctx.bull.add('email', {
       template: 'reset-password',
       message: {
         to: user[config.userFields.fullEmail]
       },
       locals: {
         user: _.pick(user, [
-          config.passport.fields.displayName,
+          config.userFields.displayName,
           config.userFields.resetTokenExpiresAt
         ]),
         link: `${config.urls.web}/reset-password/${
@@ -379,7 +410,7 @@ async function forgotPassword(ctx) {
         }`
       }
     });
-    ctx.logger.info('added job', bull.getMeta({ job }));
+    ctx.logger.info('added job', ctx.bull.getMeta({ job }));
   } catch (err) {
     ctx.logger.error(err);
   }
@@ -389,31 +420,32 @@ async function resetPassword(ctx) {
   const { body } = ctx.request;
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
-    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
+    throw Boom.badRequest(ctx.translateError('INVALID_EMAIL'));
 
   if (!isSANB(body.password))
-    throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
+    throw Boom.badRequest(ctx.translateError('INVALID_PASSWORD'));
 
   if (!isSANB(ctx.params.token))
-    throw Boom.badRequest(ctx.translate('INVALID_RESET_TOKEN'));
+    throw Boom.badRequest(ctx.translateError('INVALID_RESET_TOKEN'));
 
   // lookup the user that has this token and if it matches the email passed
   const query = { email: body.email };
   query[config.userFields.resetToken] = ctx.params.token;
   // ensure that the reset token expires at value is in the future (hasn't expired)
   query[config.userFields.resetTokenExpiresAt] = { $gte: new Date() };
-  const user = await Users.findOne(query);
+  let user = await Users.findOne(query);
 
-  if (!user) throw Boom.badRequest(ctx.translate('INVALID_RESET_PASSWORD'));
+  if (!user)
+    throw Boom.badRequest(ctx.translateError('INVALID_RESET_PASSWORD'));
 
   user[config.userFields.resetToken] = null;
   user[config.userFields.resetTokenExpiresAt] = null;
 
   await user.setPassword(body.password);
-  await user.save();
+  user = await user.save();
   await ctx.login(user);
   const message = ctx.translate('RESET_PASSWORD');
-  const redirectTo = `/${ctx.locale}`;
+  const redirectTo = ctx.state.l();
   if (ctx.accepts('html')) {
     ctx.flash('success', message);
     ctx.redirect(redirectTo);
@@ -439,7 +471,9 @@ async function catchError(ctx, next) {
 
 // eslint-disable-next-line complexity
 async function verify(ctx) {
-  let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+  let redirectTo = ctx.state.l(
+    config.passportCallbackOptions.successReturnToOrRedirect
+  );
 
   if (ctx.session && ctx.session.returnTo) {
     redirectTo = ctx.session.returnTo;
@@ -474,7 +508,7 @@ async function verify(ctx) {
     resend
   ) {
     try {
-      ctx.state.user = await ctx.state.user.sendVerificationEmail(ctx);
+      ctx.state.user = await sendVerificationEmail(ctx);
     } catch (err) {
       // wrap with try/catch to prevent redirect looping
       // (even though the koa redirect loop package will help here)
@@ -523,12 +557,12 @@ async function verify(ctx) {
     pin !== ctx.state.user[config.userFields.verificationPin]
   )
     return ctx.throw(
-      Boom.badRequest(ctx.translate('INVALID_VERIFICATION_PIN'))
+      Boom.badRequest(ctx.translateError('INVALID_VERIFICATION_PIN'))
     );
 
   // set has verified to true
   ctx.state.user[config.userFields.hasVerifiedEmail] = true;
-  await ctx.state.user.save();
+  ctx.state.user = await ctx.state.user.save();
 
   const pendingRecovery = ctx.state.user[config.userFields.pendingRecovery];
   if (pendingRecovery) {
@@ -543,7 +577,7 @@ async function verify(ctx) {
 
     ctx.logger.debug('created inquiry', inquiry);
 
-    const job = await bull.add('email', {
+    const job = await ctx.bull.add('email', {
       template: 'recovery',
       message: {
         to: ctx.state.user.email,
@@ -555,7 +589,7 @@ async function verify(ctx) {
       }
     });
 
-    ctx.logger.info('added job', bull.getMeta({ job }));
+    ctx.logger.info('added job', ctx.bull.getMeta({ job }));
   }
 
   const message = pendingRecovery

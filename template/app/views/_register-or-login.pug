@@ -32,8 +32,8 @@ mixin registerOrLogin(verb, isModal = false)
               span.btn-auth-text= t(`${humanize(verb)} with GitHub`)
       if boolean(process.env.AUTH_GOOGLE_ENABLED) || boolean(process.env.AUTH_GITHUB_ENABLED)
         .hr-text.d-flex.text-secondary.align-items-center= t('or')
-      - const action = verb === 'sign up' ? '/register' : '/login'
-      form.ajax-form(action=ctx.session.redirectTo ? l(action) : `${l(action)}?redirect_to=${l(config.passportCallbackOptions.successReturnToOrRedirect)}`, method="POST")
+      - const action = verb === 'sign up' ? '/register' : config.loginRoute
+      form.ajax-form(action=l(action), method='POST')
         input(type="hidden", name="_csrf", value=ctx.csrf)
         .form-group.floating-label
           input.form-control.form-control-lg(id=`input-email-${dashify(verb)}`, type="email", required, name="email", placeholder="name@example.com", autocomplete='email')
@@ -45,15 +45,16 @@ mixin registerOrLogin(verb, isModal = false)
           .form-group
             small.form-text.text-right: a(href=l('/forgot-password')).text-secondary= t('Forget your password?')
         button.btn.btn-success.btn-lg.btn-block(type="submit")= t(titleize(verb))
-      .alert.alert-light.border.mt-3.text-center(class=isModal ? 'mb-0' : '')
-        - const isRegisterOrLogin = ['/register', '/login'].includes(ctx.pathWithoutLocale)
-        if verb === 'sign up'
-          != t('Already have an account?')
-          = ' '
-          a(href=l('/login'), data-dismiss-modal=isRegisterOrLogin ? false : 'true', data-toggle=isRegisterOrLogin ? '' : 'modal-anchor', data-target=isRegisterOrLogin ? '' : '#modal-sign-in').card-link= t('Sign in')
-        else
-          != t("Don't have an account?")
-          = ' '
-          a(href=l('/register'), data-dismiss-modal=isRegisterOrLogin ? false : 'true', data-toggle=isRegisterOrLogin ? '' : 'modal-anchor', data-target=isRegisterOrLogin ? '' : '#modal-sign-up').card-link= t('Sign up')
-        if verb === 'sign up'
-          p.mt-3.mb-0.text-center: small.text-black-50!= t(`Read our <a href="${l('/privacy')}" target="_blank" rel="noopener">Privacy Policy</a> and <a href="${l('/terms')}" target="_blank" rel="noopener">Terms</a>`)
+      .alert.alert-warning.mt-3.text-center(class=isModal ? 'mb-0' : '')
+        - const isRegisterOrLogin = ['/register', config.loginRoute].includes(ctx.pathWithoutLocale)
+        ul.list-inline.mb-0
+          if verb === 'sign up'
+            li.list-inline-item!= t('Have an account?')
+            li.list-inline-item
+              a(href=l(config.loginRoute), data-dismiss-modal=isRegisterOrLogin ? false : 'true', data-toggle=isRegisterOrLogin ? '' : 'modal-anchor', data-target=isRegisterOrLogin ? '' : '#modal-sign-in').alert-link= t('Sign in')
+          else
+            li.list-inline-item!= t("Don't have an account?")
+            li.list-inline-item
+              a(href=l('/register'), data-dismiss-modal=isRegisterOrLogin ? false : 'true', data-toggle=isRegisterOrLogin ? '' : 'modal-anchor', data-target=isRegisterOrLogin ? '' : '#modal-sign-up').alert-link= t('Sign up')
+      if verb === 'sign up'
+        p.mt-3.mb-1.text-center: small.text-black-50!= t('Read our <a href="%s" target="_blank" rel="noopener">Privacy Policy</a> and <a href="%s" target="_blank" rel="noopener">Terms</a>', l('/privacy'), l('/terms'))
