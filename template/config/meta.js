@@ -22,7 +22,7 @@ module.exports = function(config) {
   // so instead we need to use `&#124;` which is the html entity
   // which gets decoded to a `|` in the helper.meta function
   const lad = `&#124; <span class="notranslate">${config.appName}</span>`;
-  return {
+  const meta = {
     // note that we don't do `Home ${lad}` because if we forget to define
     // meta for a specific route it'd be confusing to see Home
     // in the title bar in the user's browser
@@ -67,4 +67,14 @@ module.exports = function(config) {
     ],
     '/500': [`Server error ${lad}`, 'A server error has unfortunately occurred']
   };
+  meta[config.loginRoute] = [`Sign in ${lad}`, 'Sign in to your account'];
+  meta[config.verifyRoute] = [
+    `Verify email ${lad}`,
+    `Verify your ${config.appName} email`
+  ];
+  meta[config.otpRoutePrefix] = [
+    `Two Factor Auth ${lad}`,
+    'Authenticate yourself with optional OTP to log in'
+  ];
+  return meta;
 };

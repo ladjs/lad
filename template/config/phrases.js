@@ -23,7 +23,8 @@ module.exports = {
   INVALID_TOKEN: 'Invalid CSRF token.',
   INVALID_VERIFICATION_PIN: 'The verification pin you entered was invalid.',
   EMAIL_VERIFICATION_REQUIRED: 'Please verify your email address to continue.',
-  EMAIL_VERIFICATION_INTERVAL: 'Please wait for %s and try again.',
+  EMAIL_VERIFICATION_INTERVAL:
+    'Please wait for <span class="notranslate">%s</span> and try again.',
   EMAIL_VERIFICATION_SUCCESS:
     'Your email address has been successfully verified.',
   EMAIL_ALREADY_VERIFIED: 'Your email address is already verified.',

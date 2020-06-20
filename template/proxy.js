@@ -2,7 +2,7 @@ const Graceful = require('@ladjs/graceful');
 const ProxyServer = require('@ladjs/proxy');
 const ip = require('ip');
 
-const { logger } = require('./helpers');
+const logger = require('./helpers/logger');
 
 const proxy = new ProxyServer({
   logger

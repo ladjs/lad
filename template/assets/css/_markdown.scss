@@ -15,12 +15,19 @@
   }
   code {
     color: #24292e;
+    font-size: 100%;
+  }
+  pre > code {
+    display: block;
   }
   font-family: $font-family-sans-serif;
   code, kbd, pre, .commit-tease-sha, .blob-num, .blob-code-inner, {
     font-family: $font-family-monospace;
   }
-  code, pre, .highlight pre {
+  .highlight pre, pre {
+    padding: 1rem;
+  }
+  pre, .highlight pre {
     font-size: 100%;
   }
 }

@@ -6,13 +6,15 @@ const config = require('../../../../config');
 async function disable(ctx) {
   const { body } = ctx.request;
 
-  const redirectTo = `/${ctx.locale}/my-account/security`;
+  const redirectTo = ctx.state.l('/my-account/security');
 
-  if (!isSANB(body.password))
-    throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
+  if (ctx.state.user[config.userFields.hasSetPassword]) {
+    if (!isSANB(body.password))
+      throw Boom.badRequest(ctx.translateError('INVALID_PASSWORD'));
 
-  const { user } = await ctx.state.user.authenticate(body.password);
-  if (!user) throw Boom.badRequest(ctx.translate('INVALID_PASSWORD'));
+    const { user } = await ctx.state.user.authenticate(body.password);
+    if (!user) throw Boom.badRequest(ctx.translateError('INVALID_PASSWORD'));
+  }
 
   ctx.state.user[config.passport.fields.otpEnabled] = false;
   ctx.state.user[config.passport.fields.otpToken] = null;

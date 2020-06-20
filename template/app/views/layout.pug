@@ -16,18 +16,15 @@ html(lang=locale).h-100
         link(rel="alternate", href=`${config.urls.web}/${language.locale}${ctx.pathWithoutLocale}`, hreflang=language.locale)
 
       //- generated with https://realfavicongenerator.net
-      link(rel="apple-touch-icon", sizes="152x152", href=manifest('img/apple-touch-icon.png'))
-      link(rel="icon", type="image/png", href=manifest('img/favicon-32x32.png'), sizes="32x32")
-      link(rel="icon", type="image/png", href=manifest('img/favicon-16x16.png'), sizes="16x16")
-      link(rel="manifest", href="/manifest.json")
-
-      //- add mask-icon
-      //- <https://goo.gl/PMBfKu>
-      //- link(rel="mask-icon", href=manifest('img/safari-pinned-tab.svg'), color=config.appColor)
+      link(rel="apple-touch-icon", sizes="152x152", href=manifest('img/apple-touch-icon.png'), integrity=manifest('img/apple-touch-icon.png', 'integrity'), crossorigin='anonymous')
+      link(rel="icon", type="image/png", href=manifest('img/favicon-32x32.png'), sizes="32x32", integrity=manifest('img/favicon-32x32.png', 'integrity'), crossorigin='anonymous')
+      link(rel="icon", type="image/png", href=manifest('img/favicon-16x16.png'), sizes="16x16", integrity=manifest('img/favicon-16x16.png', 'integrity'), crossorigin='anonymous')
+      link(rel="manifest", href=manifest('site.webmanifest'), integrity=manifest('site.webmanifest', 'integrity'), crossorigin='anonymous')
+      link(rel="mask-icon", href=manifest('img/safari-pinned-tab.svg'), integrity=manifest('img/safari-pinned-tab.svg', 'integrity'), color=config.appColor, crossorigin='anonymous')
       meta(name="apple-mobile-web-app-title", content=config.appName)
       meta(name="application-name", content=config.appName)
       meta(name="msapplication-TileColor", content=config.appColor)
-      meta(name="theme-color", content=config.appColor)
+      meta(name="theme-color", content="#ffffff")
 
       //- csrf token
       meta(name="csrf-token", content=ctx.csrf)
@@ -36,7 +33,7 @@ html(lang=locale).h-100
 
     //- add opengraph tags to your structured data pages
     block opengraph
-      link(rel='image_src', type='image/png', href=manifest('img/social.png'))
+      link(rel='image_src', type='image/png', href=manifest('img/social.png'), integrity=manifest('img/social.png', 'integrity'), crossorigin='anonymous')
       meta(property='og:title', content=meta.title)
       meta(property='og:url', content=`${config.urls.web}${ctx.pathWithoutLocale}`)
       meta(property='og:description', content=meta.description)
@@ -49,29 +46,26 @@ html(lang=locale).h-100
 
     //- css file
     block stylesheets
-      if config.env === 'production'
-        link(rel="stylesheet", href=manifest('css/app.css') integrity=manifest('css/app.css', 'integrity'), crossorigin="anonymous")
-      else
-        link(rel="stylesheet", href=manifest('css/app.css'))
+      link(rel="stylesheet", href=manifest('css/app.css'), integrity=manifest('css/app.css', 'integrity'), crossorigin='anonymous')
 
-  body(role='document', class=['/register', '/login', config.verifyRoute].includes(ctx.pathWithoutLocale) ? 'pt-0' : '').d-flex.flex-column.h-100
+    //- preload and prefetch content
+    //- <https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content>
+    //- <https://developers.google.com/speed/pagespeed/insights/>
+    block preload
+      each asset in [ 'fonts/fa-brands-400.woff', 'fonts/fa-solid-900.woff' ]
+        //- integrity attribute not currently supported
+        //- <https://crbug.com/981419>
+        link(rel='preload', href=manifest(asset), as='font', crossorigin='anonymous')
 
-    //- spinner
-    block spinner
-      include spinner/spinner
+    block prefetch
+      each asset in ['img/github-logo.svg', 'img/google-logo.svg']
+        link(rel='preload', href=manifest(asset), as='image', crossorigin='anonymous')
+      each asset in [ 'fonts/fa-brands-400.ttf', 'fonts/fa-solid-900.ttf' ]
+        //- integrity attribute not currently supported
+        //- <https://crbug.com/981419>
+        link(rel='prefetch', href=manifest(asset), as='font', crossorigin='anonymous')
 
-    //- navigation
-    block navigation
-      include _nav
-
-    //- body
-    main(role='main').flex-shrink-0
-    block body
-
-    //- footer
-    block footer
-      include _footer
-
+    //- scripts
     block scripts
       //- flash messaging (with koa-better-flash and sweetalert2)
       script.
@@ -122,11 +116,24 @@ html(lang=locale).h-100
             id: "#{ctx.sessionId}"
           };
 
-      //- factor bundle (common shared assets across all files)
-      script(src=manifest('js/factor-bundle.js') integrity=manifest('js/factor-bundle.js', 'integrity') crossorigin="anonymous")
+      //- build
+      if !isBot(ctx.get('User-Agent'))
+        script(defer, src=manifest('js/build.js'), integrity=manifest('js/build.js', 'integrity'), crossorigin='anonymous')
 
-      //- uncaught (handles errors, similar to TraceKit but with CabinJS + StackTrace.JS)
-      script(src=manifest('js/uncaught.js') integrity=manifest('js/uncaught.js', 'integrity') crossorigin="anonymous")
+  body(role='document').d-flex.flex-column.min-h-100
 
-      //- scripts
-      script(src=manifest('js/core.js') integrity=manifest('js/core.js', 'integrity') crossorigin="anonymous")
+    //- spinner
+    block spinner
+      include spinner/spinner
+
+    //- navigation
+    block navigation
+      include _nav
+
+    //- body
+    main(role='main').flex-grow-1.d-flex.flex-column.flex-grow-1
+      block body
+
+    //- footer
+    block footer
+      include _footer

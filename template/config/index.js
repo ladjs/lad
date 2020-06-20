@@ -49,12 +49,14 @@ const config = {
       preservePseudos: false
     },
     lastLocaleField: 'last_locale',
-    i18n
+    i18n: {
+      ...i18n,
+      autoReload: false,
+      updateFiles: false,
+      syncFiles: false
+    }
   },
   logger: loggerConfig,
-  livereload: {
-    port: env.LIVERELOAD_PORT
-  },
   appName: env.APP_NAME,
   appColor: env.APP_COLOR,
   twitter: env.TWITTER,
@@ -109,6 +111,10 @@ const config = {
     verificationPinHasExpired: 'verification_pin_has_expired',
     welcomeEmailSentAt: 'welcome_email_sent_at'
   },
+
+  // dynamic otp routes
+  otpRoutePrefix: '/otp',
+  otpRouteLoginPath: '/login',
 
   // dynamic otp routes
   loginOtpRoute: '/otp/login',
@@ -203,6 +209,9 @@ const config = {
   // (this gets re-used by email-templates and @ladjs/i18n; see below)
   lastLocaleField: 'last_locale'
 };
+
+// set dynamic login otp route
+config.loginOtpRoute = `${config.otpRoutePrefix}${config.otpRouteLoginPath}`;
 
 // set build dir based off build base dir name
 config.buildDir = path.join(__dirname, '..', config.buildBase);
