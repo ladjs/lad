@@ -37,8 +37,6 @@ if (!module.parent) {
       //
       if (cluster.isMaster) {
         const welcomeEmail = bull.queues.get('welcome-email');
-        const translateMarkdown = bull.queues.get('translate-markdown');
-        const translatePhrases = bull.queues.get('translate-phrases');
 
         await Promise.all([
           (async () => {
@@ -46,23 +44,7 @@ if (!module.parent) {
             const failedEmailJobs = await bull.queues.get('email').getFailed();
             await Promise.all(failedEmailJobs.map(job => job.retry()));
           })(),
-          pSeries([() => welcomeEmail.empty(), () => welcomeEmail.add()]),
-          pSeries([
-            // clear any existing jobs
-            () => translateMarkdown.empty(),
-            // add the recurring job
-            () => translateMarkdown.add(),
-            // add an initial job when the process starts
-            () => translateMarkdown.add(null, { repeat: false })
-          ]),
-          pSeries([
-            // clear any existing jobs
-            () => translatePhrases.empty(),
-            // add the recurring job
-            () => translatePhrases.add(),
-            // add an initial job when the process starts
-            () => translatePhrases.add(null, { repeat: false })
-          ])
+          pSeries([() => welcomeEmail.empty(), () => welcomeEmail.add()])
         ]);
 
         cluster.on('online', worker => {

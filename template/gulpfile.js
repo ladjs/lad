@@ -1,8 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 
-const Graceful = require('@ladjs/graceful');
-const Mandarin = require('mandarin');
 const RevAll = require('gulp-rev-all');
 const babel = require('gulp-babel');
 const browserify = require('browserify');
@@ -47,8 +45,6 @@ process.env.I18N_UPDATE_FILES = true;
 
 const env = require('./config/env');
 const config = require('./config');
-const logger = require('./helpers/logger');
-const i18n = require('./helpers/i18n');
 
 const PROD = config.env === 'production';
 const DEV = config.env === 'development';
@@ -244,13 +240,6 @@ function static() {
   }).pipe(dest(config.buildBase));
 }
 
-async function markdown() {
-  const mandarin = new Mandarin({ i18n, logger });
-  const graceful = new Graceful({ redisClients: [mandarin.redisClient] });
-  await mandarin.markdown();
-  await graceful.stopRedisClients();
-}
-
 async function sri() {
   await getStream(
     src('build/**/*.{css,js}')
@@ -305,10 +294,7 @@ const build = series(
   clean,
   parallel(
     ...(TEST ? [] : [xo, remark]),
-    series(
-      parallel(img, static, markdown, series(fonts, scss, css), bundle),
-      sri
-    )
+    series(parallel(img, static, series(fonts, scss, css), bundle), sri)
   )
 );
 
@@ -317,11 +303,9 @@ module.exports = {
   build,
   bundle,
   sri,
-  markdown,
   watch: () => {
     lr.listen(config.livereload);
     watch(['**/*.js', '!assets/js/**/*.js'], xo);
-    watch(Mandarin.DEFAULT_PATTERNS, markdown);
     watch('assets/img/**/*', img);
     watch('assets/css/**/*.scss', series(fonts, scss, css));
     watch('assets/js/**/*.js', series(xo, bundle));

@@ -51,7 +51,7 @@
     "lint-staged": "^10.1.4",
     "nyc": "^15.0.1",
     "remark-cli": "^8.0.0",
-    "remark-preset-github": "^1.0.0",
+    "remark-preset-github": "^2.0.0",
     "supertest": "^4.0.2",
     "xo": "^0.25.3"
   },

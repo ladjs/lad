@@ -101,20 +101,21 @@ html(lang=locale).h-100
       script.
         window.API_URL = "#{config.urls.api}";
 
-      //- set the user and API key to be used by CabinJS
-      if user
-        script.
-          window.USER = {
-            id: "#{user.id}",
-            name: "#{user[config.passport.fields.displayName]}",
-            email: "#{user.email}"
-          };
-          window.API_TOKEN = "#{user[config.userFields.apiToken]}";
-      else
-        script.
-          window.USER = {
-            id: "#{ctx.sessionId}"
-          };
+      if config.env !== 'test'
+        //- set the user and API key to be used by CabinJS
+        if user
+          script.
+            window.USER = {
+              id: "#{user.id}",
+              name: "#{user[config.passport.fields.displayName]}",
+              email: "#{user.email}"
+            };
+            window.API_TOKEN = "#{user[config.userFields.apiToken]}";
+        else
+          script.
+            window.USER = {
+              id: "#{ctx.sessionId}"
+            };
 
       //- build
       if !isBot(ctx.get('User-Agent'))
