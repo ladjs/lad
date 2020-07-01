@@ -89,7 +89,6 @@
     "koa-ctx-paginate": "^0.0.5",
     "koa-views-render": "^0.0.1",
     "lodash": "^4.17.15",
-    "mandarin": "^3.0.0",
     "manifest-rev": "^1.0.3",
     "markdown-it": "^11.0.0",
     "markdown-it-emoji": "^1.4.0",
