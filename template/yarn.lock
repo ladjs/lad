@@ -10564,7 +10564,7 @@ loose-envify@^1.0.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-"loose-envify@github:tomashanacek/loose-envify":
+loose-envify@tomashanacek/loose-envify:
   version "1.0.0"
   resolved "https://codeload.github.com/tomashanacek/loose-envify/tar.gz/274d08b592bab76b3a7ab099a669ccd1b4a7a34f"
   dependencies:
