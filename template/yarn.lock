@@ -1028,7 +1028,7 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
-"@koa/router@^9.0.1":
+"@koa/router@^9.0.1", "@koa/router@^9.1.0":
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/@koa/router/-/router-9.1.0.tgz#1bb1b5a219e8004e649c8f9acfe4bc58f066dfec"
   integrity sha512-inFHybP7SYntAlziQ5gr6aVJIiBgVA+fW97+26Z8crqyUVRLXiKDbaU5NtE2yxbg9KA5YyiBakGhtYXCgMOLWQ==
@@ -1039,12 +1039,12 @@
     methods "^1.1.2"
     path-to-regexp "^6.1.0"
 
-"@ladjs/api@^3.0.1":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-3.0.4.tgz#5097d63cf4b14377d662335cc42aa1211ceb35c0"
-  integrity sha512-RYPlXL2VFQ44gQIlfe/dzrWJBVL8NEmtQ0RypSqGLrtgIJ0X5/oALkrnb9G2cZLeuoMWNsOS9ewWpgUPeyLpgw==
+"@ladjs/api@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-3.0.5.tgz#c26aa7b1dc596879f76384fea1f0a1714774c3c0"
+  integrity sha512-lQGPrkma7thJiRbg2tMiSv8CniOQEMDwj4ED908lMsaiyrlyOcGaAIRvlCGnhW4btI3Y5+2PI6yH8ww+hLPnZw==
   dependencies:
-    "@koa/router" "^9.0.1"
+    "@koa/router" "^9.1.0"
     "@ladjs/i18n" "^3.0.12"
     "@ladjs/redis" "^1.0.4"
     "@ladjs/shared-config" "^3.0.8"
@@ -1061,7 +1061,7 @@
     koa-bodyparser "^4.3.0"
     koa-compress "^4.0.1"
     koa-conditional-get "^2.0.0"
-    koa-connect "^2.0.1"
+    koa-connect "^2.1.0"
     koa-etag "^3.0.0"
     koa-json "^2.0.2"
     koa-no-trailing-slash "^2.1.0"
@@ -1101,21 +1101,21 @@
     is-string-and-not-blank "^0.0.2"
     lodash "^4.17.15"
 
-"@ladjs/env@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@ladjs/env/-/env-1.0.0.tgz#97888d75ba43fb9494fa403ec43264efba8ae64e"
-  integrity sha512-7gu2avsdMqxGtLCkFTogA3XSoVwBeS1UclDao10wTxJ9Y+NWRf0dhfGhjHM/McNbARGqnRolTJPfWh164SNFCA==
+"@ladjs/env@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ladjs/env/-/env-2.0.0.tgz#edd065fde150b2b5ba12afa85e9faed57e065148"
+  integrity sha512-OC/evWkslpdIqwor1s78ThMdFdU/cBxwMz8oqpM3joamjOGoK3ZttKR72gVV4mBEjQavdWDoejIJS9E3W7WOcg==
   dependencies:
-    dotenv-extended "^2.7.1"
-    dotenv-parse-variables "^0.2.3"
-    mustache "^4.0.0"
+    dotenv-extended "^2.8.0"
+    dotenv-parse-variables "^0.3.0"
+    mustache "^4.0.1"
 
 "@ladjs/format-util@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@ladjs/format-util/-/format-util-1.0.4.tgz#dd16ecee7b9d1deb56e1a4968dc5e9ac54499df3"
   integrity sha512-hZere0rUga8kTzSTFbHREXpD9E/jwi94+B5RyLAmMIzl/w/EK1z7rFEnMHzPkU4AZkL42JWSsGXoV8LXMihybg==
 
-"@ladjs/graceful@^1.0.0":
+"@ladjs/graceful@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@ladjs/graceful/-/graceful-1.0.1.tgz#6845b7aeef8608a6a02556be559e8c8750005e33"
   integrity sha512-TICGNfC2VoRGvaAYm2QF/YXTwj2n6wRdzpSWAItIeiFjjPmhReMT13rpJT93Yuof4pFmjeYYU+VAXWHUieaPPA==
@@ -1171,10 +1171,10 @@
     delay "^4.3.0"
     lodash "^4.17.15"
 
-"@ladjs/passport@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@ladjs/passport/-/passport-2.0.0.tgz#dfcc401d1349b077b84f4a082370d019db7f46d3"
-  integrity sha512-Sp6whAawHx9aE1N+Ew8skaJ/gRKg0tR75xynM1evunpmjWggz3+Zm21+ifQ9sgV+Ctrg7l+s2dK1Ogp9qVoB0Q==
+"@ladjs/passport@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/passport/-/passport-2.0.1.tgz#dcd778d7f5d1fc0c85792c783536ebae13fd1c2e"
+  integrity sha512-7M7e69KLdt/20tCdcyisAwwJRLynpiUtmTH32uiu6VK74OfZ/aSFW2LTzIMcfa/uLzWv5A2RY2gvsp5IhDnk+g==
   dependencies:
     boolean "^3.0.0"
     koa-passport "^4.1.3"
@@ -1232,13 +1232,13 @@
     debug "^4.1.1"
     validator "^12.1.0"
 
-"@ladjs/web@^6.0.3":
-  version "6.0.11"
-  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-6.0.11.tgz#9fe6a2df4a2df90162e785c8642c5af21a42c2b0"
-  integrity sha512-gxMhkAlrI4Xa81H3vDjf+8LcC+meYC0TU/eJYvOIpqSJnJgybmjgepySo6YnInJ0nxMwnJ47gg611jp8Evmv5g==
+"@ladjs/web@^6.0.12":
+  version "6.0.12"
+  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-6.0.12.tgz#1cacc4ff16ba6d193f751eaab14b9f9c4e4256c5"
+  integrity sha512-9YPAPuYCTeJ4AUEqSTf+ss2Qwu4eY5WQkmvVE16FdrY0qAPYennY7b2bmDkPrBmkQzMnWWFcYjCgW1zCEMCgRg==
   dependencies:
     "@hapi/boom" "^9.1.0"
-    "@koa/router" "^9.0.1"
+    "@koa/router" "^9.1.0"
     "@ladjs/i18n" "^3.0.12"
     "@ladjs/koa-better-static" "^2.0.0"
     "@ladjs/koa-cache-responses" "^0.0.3"
@@ -1262,7 +1262,7 @@
     koa-cash "^4.0.4"
     koa-compress "^4.0.1"
     koa-conditional-get "^2.0.0"
-    koa-connect "^2.0.1"
+    koa-connect "^2.1.0"
     koa-csrf "^3.0.8"
     koa-etag "^3.0.0"
     koa-favicon "^2.1.0"
@@ -5221,7 +5221,7 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
-dotenv-extended@^2.7.1:
+dotenv-extended@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/dotenv-extended/-/dotenv-extended-2.8.0.tgz#cfcf73619766cec12c848f93fac36d45560dd562"
   integrity sha512-7R3lSD7JcKkIZ+JnVN4LPJmJ2oR3pi+taqRxVpuod0gpCw/ZjYehEXiqceblP9pQinXY0Gt4nEmVh/1um4c2Mw==
@@ -5231,10 +5231,10 @@ dotenv-extended@^2.7.1:
     cross-spawn "^7.0.1"
     dotenv "^8.2.0"
 
-dotenv-parse-variables@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/dotenv-parse-variables/-/dotenv-parse-variables-0.2.3.tgz#9f509c74b952f3c8dbfda6674fb060398d0ed7fc"
-  integrity sha512-cuog/uu2sD6AGTExLldBqN4kUWNjGG86cSpYGYgZrzgSiy37HkB3OOpMv7cTiQ7SKCMu8WryUS9P6lqwrh0pLg==
+dotenv-parse-variables@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/dotenv-parse-variables/-/dotenv-parse-variables-0.3.0.tgz#576e9519bf21317ca60920c1d815e0b4eddf5447"
+  integrity sha512-ZQ/KWhk7xpzjWjfljG/znfUqmelXQovEZvAZlzvSVB3aSXVjG3GUlR+DiwxHEKPr7BgqjVSmWacFLkQWpCZNBQ==
   dependencies:
     debug "^4.1.1"
 
@@ -9758,7 +9758,7 @@ koa-conditional-get@^2.0.0:
   resolved "https://registry.yarnpkg.com/koa-conditional-get/-/koa-conditional-get-2.0.0.tgz#a43f3723c1d014b730a34ece8adf30b93c8233f2"
   integrity sha1-pD83I8HQFLcwo07Oit8wuTyCM/I=
 
-koa-connect@^2.0.1:
+koa-connect@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/koa-connect/-/koa-connect-2.1.0.tgz#16bce0a917c4cb24233aaac83fbc5b83804b4a1c"
   integrity sha512-O9pcFafHk0oQsBevlbTBlB9co+2RUQJ4zCzu3qJPmGlGoeEZkne+7gWDkecqDPSbCtED6LmhlQladxs6NjOnMQ==
@@ -10564,7 +10564,7 @@ loose-envify@^1.0.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-"loose-envify@github:tomashanacek/loose-envify":
+loose-envify@tomashanacek/loose-envify:
   version "1.0.0"
   resolved "https://codeload.github.com/tomashanacek/loose-envify/tar.gz/274d08b592bab76b3a7ab099a669ccd1b4a7a34f"
   dependencies:
@@ -11490,7 +11490,7 @@ multisplice@^1.0.0:
   resolved "https://registry.yarnpkg.com/multisplice/-/multisplice-1.0.0.tgz#e74cf2948dcb51a6c317fc5e22980a652f7830e9"
   integrity sha512-KU5tVjIdTGsMb92JlWwEZCGrvtI1ku9G9GuNbWdQT/Ici1ztFXX0L8lWpbbC3pISVMfBNL56wdqplHvva2XSlA==
 
-mustache@^4.0.0, mustache@^4.0.1:
+mustache@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/mustache/-/mustache-4.0.1.tgz#d99beb031701ad433338e7ea65e0489416c854a2"
   integrity sha512-yL5VE97+OXn4+Er3THSmTdCFCtx5hHWzrolvH+JObZnUYwuaG7XV+Ch4fR2cIrcYI0tFHxS7iyFYl14bW8y2sA==

@@ -36,6 +36,7 @@ if (!module.parent) {
       // also we must wait to spawn child workers until empty() and add() is finished
       //
       if (cluster.isMaster) {
+        const accountUpdates = bull.queues.get('account-updates');
         const welcomeEmail = bull.queues.get('welcome-email');
 
         await Promise.all([
@@ -44,6 +45,7 @@ if (!module.parent) {
             const failedEmailJobs = await bull.queues.get('email').getFailed();
             await Promise.all(failedEmailJobs.map(job => job.retry()));
           })(),
+          pSeries([() => accountUpdates.empty(), () => accountUpdates.add()]),
           pSeries([() => welcomeEmail.empty(), () => welcomeEmail.add()])
         ]);
 

@@ -1,5 +1,6 @@
 const Boom = require('@hapi/boom');
 const _ = require('lodash');
+const captainHook = require('captain-hook');
 const cryptoRandomString = require('crypto-random-string');
 const isSANB = require('is-string-and-not-blank');
 const moment = require('moment');
@@ -37,6 +38,7 @@ const omitExtraFields = [
   config.userFields.welcomeEmailSentAt,
   config.userFields.otpRecoveryKeys,
   config.userFields.pendingRecovery,
+  config.userFields.accountUpdates,
   fields.otpEnabled,
   fields.otpToken
 ];
@@ -119,6 +121,9 @@ object[config.userFields.pendingRecovery] = {
   default: false
 };
 
+// list of account updates that are batched every 1 min.
+object[config.userFields.accountUpdates] = Array;
+
 // shared field names with @ladjs/passport for consistency
 object[fields.displayName] = {
   type: String,
@@ -170,6 +175,8 @@ object[config.lastLocaleField] = {
 
 // finally add the fields
 User.add(object);
+
+User.plugin(captainHook);
 
 User.virtual(config.userFields.verificationPinHasExpired).get(function() {
   return boolean(
@@ -293,6 +300,32 @@ User.plugin(mongooseCommonPlugin, {
     }
   }
 });
+
 User.plugin(passportLocalMongoose, config.passportLocalMongoose);
+
+User.post('init', doc => {
+  for (const field of config.accountUpdateFields) {
+    const fieldName = _.get(config, field);
+    doc[`__${fieldName}`] = doc[fieldName];
+  }
+});
+
+User.pre('save', function(next) {
+  // filter by allowed field updates (otp enabled, profile updates, etc)
+  for (const field of config.accountUpdateFields) {
+    const fieldName = _.get(config, field);
+    if (this[`__${fieldName}`] && this[`__${fieldName}`] !== this[fieldName]) {
+      this[config.userFields.accountUpdates].push({
+        fieldName,
+        current: this[fieldName],
+        previous: this[`__${fieldName}`]
+      });
+      // reset so we don't get into infinite loop
+      this[`__${fieldName}`] = this[fieldName];
+    }
+  }
+
+  next();
+});
 
 module.exports = mongoose.model('User', User);
