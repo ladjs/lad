@@ -970,7 +970,7 @@ babel-polyfill@6.26.0:
     core-js "^2.5.0"
     regenerator-runtime "^0.10.5"
 
-babel-runtime@^6.23.0, babel-runtime@^6.26.0:
+babel-runtime@^6.11.6, babel-runtime@^6.23.0, babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
@@ -1375,6 +1375,11 @@ chalk@^4.0.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chance@^1.0.4:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/chance/-/chance-1.1.6.tgz#967a0a129e0f342f7c65cd5d20f5ae870a26b8af"
+  integrity sha512-DXLzaGjasDWbvlFAJyQBIwlzdQZuPdz4of9TTTxmHTjja88ZU/vBwUwxxjalSt43zWTPrhiJT0z0N4bZqfZS9w==
 
 character-entities-html4@^1.0.0:
   version "1.1.4"
@@ -2761,6 +2766,14 @@ extglob@^2.0.4:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+factory-girl@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/factory-girl/-/factory-girl-5.0.4.tgz#378caabe03aac7b327d47d9e28b4f02ced0c3c0b"
+  integrity sha512-ugGBetzpevbAlKEyMRasBlmCQ76EkvZFMLIsA6K17Pwp/8+7ffBmmxkkw1LoXrOyB6iIgEcmbVF4TcIAnKXyDA==
+  dependencies:
+    babel-runtime "^6.11.6"
+    chance "^1.0.4"
 
 fast-deep-equal@^3.1.1:
   version "3.1.3"
