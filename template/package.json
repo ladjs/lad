@@ -6,14 +6,10 @@
   "ava": {
     "verbose": true,
     "failFast": true,
-    "require": [
-      "./test/global.js"
-    ],
     "files": [
       "test/*.js",
       "test/**/*.js",
-      "test/**/**/*.js",
-      "!test/global.js"
+      "test/**/**/*.js"
     ],
     "serial": true
   },
