@@ -14,6 +14,7 @@ module.exports = {
   INVALID_PASSWORD_STRENGTH: 'Password strength was not strong enough.',
   INVALID_PROVIDER: 'We do not support this authentication provider.',
   INVALID_RECOVERY_PASSCODE: 'Invalid recovery passcode.',
+  INVALID_RECOVERY_KEY: 'Invalid recovery key.',
   INVALID_RESET_PASSWORD: 'Reset token and email were not valid together.',
   INVALID_RESET_TOKEN: 'Reset token provided was invalid.',
   INVALID_SESSION_SECRET: 'Invalid session secret.',

@@ -10,7 +10,7 @@ const phrases = require('../../config/phrases');
 const config = require('../../config');
 const { Users } = require('../../app/models');
 
-const { before, beforeEach, afterEach, after, login } = require('../_utils');
+const { before, beforeEach, afterEach, after } = require('../_utils');
 
 test.before(before);
 test.after.always(after);
