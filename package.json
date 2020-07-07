@@ -47,7 +47,6 @@
     "eslint": "^6.8.0",
     "eslint-config-xo-lass": "^1.0.3",
     "eslint-plugin-compat": "^3.5.1",
-    "factory-girl": "^5.0.4",
     "husky": "^3.1.0",
     "lint-staged": "^10.1.4",
     "nyc": "^15.0.1",

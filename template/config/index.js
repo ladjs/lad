@@ -10,7 +10,6 @@ const ms = require('ms');
 const nodemailer = require('nodemailer');
 const zxcvbn = require('zxcvbn');
 const { boolean } = require('boolean');
-const sinon = require('sinon');
 
 const pkg = require('../package');
 const env = require('./env');
@@ -166,12 +165,7 @@ const config = {
     },
     github: {
       scope: ['user:email']
-    },
-    // add stubs for authorization if testing
-    ...env.NODE_ENV === 'test' ? {
-      serializeUser: sinon.stub().returns(() => {}),
-      deserializeUser: sinon.stub().returns(() => {})
-    } : {}
+    }
   },
 
   // passport-local-mongoose options
