@@ -1,4 +1,7 @@
 const test = require('ava');
+const sinon = require('sinon');
+
+const { Inquiries } = require('../../app/models');
 
 const { before, beforeEach, afterEach, after } = require('../_utils');
 
@@ -19,9 +22,8 @@ test('creates inquiry', async t => {
 
 test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', async t => {
   const { web } = t.context;
-  await web
-    .post('/en/support')
-    .send({ email: 'test2@example.com', message: 'Test message!' });
+  t.context.countDocuments = sinon.stub(Inquiries, 'countDocuments')
+    .resolves(1);
 
   const res = await web
     .post('/en/support')
@@ -33,14 +35,14 @@ test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', a
 
   t.is(res.status, 400);
   t.snapshot(res.text);
+
+  t.context.countDocuments.restore();
 });
 
 test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', async t => {
   const { web } = t.context;
-  await web.post('/en/support').send({
-    email: 'test3@example.com',
-    message: 'Test message!'
-  });
+  t.context.countDocuments = sinon.stub(Inquiries, 'countDocuments')
+    .resolves(1);
 
   const res = await web.post('/en/support').send({
     email: 'test3@example.com',
@@ -52,4 +54,6 @@ test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', a
     JSON.parse(res.text).message,
     'You have reached the limit for sending support requests.  Please try again.'
   );
+
+  t.context.countDocuments.restore();
 });

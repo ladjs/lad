@@ -3,12 +3,15 @@
 const MongodbMemoryServer = require('mongodb-memory-server').default;
 const mongoose = require('mongoose');
 const request = require('supertest');
+const sinon = require('sinon');
+const proxyquire = require('proxyquire').noPreserveCache();
+const { factory } = require('factory-girl');
 
 // Models and server
-const web = require('../web');
+const config = require('../config');
 const api = require('../api');
 const { Users } = require('../app/models');
-const config = require('../config');
+const web = require('../web');
 
 const mongod = new MongodbMemoryServer();
 
@@ -16,36 +19,36 @@ const mongod = new MongodbMemoryServer();
 exports.before = async () => {
   const uri = await mongod.getConnectionString();
   await mongoose.connect(uri);
+
+  factory.define('user', Users, {
+    email: factory.sequence('Users.email', n => `test${n}@example.com`),
+    password: '!@K#NLK!#N'
+  });
 };
 
 // create fixtures before each test
 exports.beforeEach = async t => {
-  const query = {
-    email: 'robertfrost@example.com',
-    group: 'admin'
-  };
-  query[config.userFields.hasVerifiedEmail] = true;
-  query[config.userFields.hasSetPassword] = true;
-  await Users.register(query, '?X#8Hn=PbkvTD/{');
+  t.context.serialize = sinon.stub().returns(() => {});
+  t.context.deserialize = sinon.stub().returns(() => {});
+  proxyquire('../helpers/passport', {
+    '../config': {
+      passport: {
+        ...config.passport,
+        serializeUser: t.context.serialize,
+        deserializeUser: t.context.deserialize
+      }
+    }
+  });
 
   t.context.web = await request.agent(web.server);
   t.context.api = await request.agent(api.server);
 };
 
-exports.afterEach = async () => {
-  await Users.deleteMany();
-};
+exports.afterEach = async () => {};
 
 exports.after = async () => {
   mongoose.disconnect();
   mongod.stop();
-};
 
-exports.login = async web => {
-  await web.post('/en/login').send({
-    email: 'robertfrost@example.com',
-    password: '?X#8Hn=PbkvTD/{'
-  });
-
-  return web;
+  factory.cleanUp();
 };

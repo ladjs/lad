@@ -1,5 +1,6 @@
 const test = require('ava');
 
+const config = require('../../config');
 const phrases = require('../../config/phrases');
 
 const { before, beforeEach, afterEach, after } = require('../_utils');
@@ -26,10 +27,10 @@ test("returns current user's account", async t => {
   t.is(200, res.status);
 
   res = await api.get('/v1/account').set({
-      Authorization: `Basic ${Buffer.from(
-        `${res.body[global.config.userFields.apiToken]}:`
-      ).toString('base64')}`
-    });
+    Authorization: `Basic ${Buffer.from(
+      `${res.body[config.userFields.apiToken]}:`
+    ).toString('base64')}`
+  });
   t.is(res.body.message, phrases.EMAIL_VERIFICATION_REQUIRED);
   t.is(401, res.status);
 });
