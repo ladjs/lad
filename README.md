@@ -2,7 +2,7 @@
   <a href="https://ladjs.github.io/lad/"><img src="media/lad.png" alt="lad" /></a>
 </h1>
 <div align="center">
-  <a href="https://slack.crocodilejs.com"><img src="https://slack.crocodilejs.com/badge.svg" alt="chat" /></a>
+  <a href="https://join.slack.com/t/ladjs/shared_invite/zt-fqei6z11-Bq2trhwHQxVc5x~ifiZG0g"><img src="https://img.shields.io/badge/chat-join%20slack-brightgreen" alt="chat" /></a>
   <a href="https://travis-ci.org/ladjs/lad"><img src="https://travis-ci.org/ladjs/lad.svg?branch=master" alt="build status" /></a>
   <a href="https://codecov.io/github/ladjs/lad"><img src="https://img.shields.io/codecov/c/github/ladjs/lad/master.svg" alt="code coverage" /></a>
   <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="code style" /></a>
@@ -678,7 +678,7 @@ template
 Lad is designed according to these principles:
 
 1. Always be developer-friendly
-2. Adhere to [MVC][], [Unix][], [KISS][], [DRY][], [YAGNI][] and [Twelve Factor][twelve-factor]
+2. Adhere to [MVC][], [Unix][], [KISS][], [DRY][], [YAGNI][], [Twelve Factor][twelve-factor], [Occam's razor][occams-razor], and [dogfooding][]
 3. Target the scrappy, bootstrapped, and [ramen-profitable][] hacker
 
 
@@ -770,7 +770,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 
 [git]: https://git-scm.com/
 
-[slack]: https://slack.crocodilejs.com/
+[slack]: https://join.slack.com/t/ladjs/shared_invite/zt-fqei6z11-Bq2trhwHQxVc5x~ifiZG0g/
 
 [brew]: https://brew.sh/
 
@@ -903,3 +903,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [redis-cluster]: https://redis.io/topics/cluster-tutorial
 
 [redis-sentinel]: https://redis.io/topics/sentinel
+
+[occams-razor]: https://en.wikipedia.org/wiki/Occam%27s_razor
+
+[dogfooding]: https://en.wikipedia.org/wiki/Eating_your_own_dog_food
