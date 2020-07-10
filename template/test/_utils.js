@@ -4,22 +4,22 @@ const MongodbMemoryServer = require('mongodb-memory-server').default;
 const mongoose = require('mongoose');
 const request = require('supertest');
 const sinon = require('sinon');
-const proxyquire = require('proxyquire').noPreserveCache();
-const { factory } = require('factory-girl');
+const proxyquire = require('proxyquire');
+const { factory, MongooseAdapter } = require('factory-girl');
 
 // Models and server
 const config = require('../config');
-const api = require('../api');
 const { Users } = require('../app/models');
-const web = require('../web');
 
 const mongod = new MongodbMemoryServer();
+const adapter = new MongooseAdapter();
 
 // create connection to mongoose before all tests
 exports.before = async () => {
   const uri = await mongod.getConnectionString();
   await mongoose.connect(uri);
 
+  factory.setAdapter(adapter);
   factory.define('user', Users, {
     email: factory.sequence('Users.email', n => `test${n}@example.com`),
     password: '!@K#NLK!#N'
@@ -28,6 +28,7 @@ exports.before = async () => {
 
 // create fixtures before each test
 exports.beforeEach = async t => {
+  // setup stubs for serializeUser and deserializeUser
   t.context.serialize = sinon.stub().returns(() => {});
   t.context.deserialize = sinon.stub().returns(() => {});
   proxyquire('../helpers/passport', {
@@ -40,11 +41,13 @@ exports.beforeEach = async t => {
     }
   });
 
-  t.context.web = await request.agent(web.server);
-  t.context.api = await request.agent(api.server);
+  t.context.web = await request.agent(require('../web').server);
+  t.context.api = await request.agent(require('../api').server);
 };
 
-exports.afterEach = async () => {};
+exports.afterEach = async () => {
+  sinon.restore();
+};
 
 exports.after = async () => {
   mongoose.disconnect();
