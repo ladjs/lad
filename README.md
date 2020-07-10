@@ -344,6 +344,103 @@ Basically [dotenv][] won't set an environment variable if it already detects it 
 
 Take a look at the [config](template/config) folder contents and also at the defaults at [.env.defaults](template/.env.defaults).
 
+* `NODE_ENV` - (options: `development`, `production` default: `development`) - the node environment the app is running in
+* `PROXY_PORT` - (default: `8080`) - proxy port used to proxy requests (see [ladjs/proxy][])
+* `HTTP_PROTOCOL` - (defaults: `http` recommend: `https`) - protocol used for http requests
+* `HTTP_PORT` - (defaults: `80` recommend: `443`) - http port used for http requests
+* `WEB_PROTOCOL` - (default: `http`) - [ladjs/web][] application protocol
+* `WEB_HOST` - (default: `localhost`) - [ladjs/web][] application host
+* `WEB_PORT` - (default: `3000`) - [ladjs/web][] application port
+* `WEB_URL` - (default: `{{WEB_PROTOCOL}}://{{WEB_HOST}}:{{WEB_PORT}}`) - web application absolute URI
+* `WEB_SSL_KEY_PATH` - [ladjs/web][] file path to your SSL key file
+* `WEB_SSL_CERT_PATH` - [ladjs/web][] file path to your SSL certificate file
+* `WEB_SSL_CA_PATH` - [ladjs/web][] file path to your SSL certificate authority file
+* `API_HOST` - (default: `localhost`) - [ladjs/api][] host
+* `API_PORT` - (default: `4000`) - [ladjs/api][] port
+* `API_PROTOCOL` - (default: `http` recommend: `https`) - [ladjs/api][] protocol
+* `API_URL` - (default: `{{API_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}`) - [ladjs/api][] absolute URI
+* `API_SSL_KEY_PATH` - [ladjs/api][] file path to your SSL key file
+* `API_SSL_CERT_PATH` - [ladjs/api][] file path to your SSL certificate file
+* `API_SSL_CA_PATH` - [ladjs/api][] file path to your SSL certificate authority file
+* `API_RATELIMIT_WHITELIST` - [ladjs/api][] ratelimiter whitelisted ips (see: [koa-simple-ratelimit](https://github.com/scttcper/koa-simple-ratelimit))
+* `APP_NAME` - (default: `Lad`) - application name (see [usage](https://github.com/search?p=3&q=org%3Aladjs+appName&type=Code))
+* `APP_COLOR` - application color theme (see [usage](https://github.com/search?q=org%3Aladjs+appColor&type=Code))
+* `TWITTER` - (default: `@niftylettuce`) twitter handle
+* `SEND_EMAIL` - (default: `false`) - whether to send email or preview (see [outbound email configuration](https://github.com/ladjs/lad#outbound-email-configuration))
+* `TRANSPORT_DEBUG` - (default: `false`) - email transport debug logging (see [debugging](https://github.com/ladjs/lad#debugging))
+* `EMAIL_DEFAULT_FROM` - (default: `support@127.0.01`) - default email `from` address
+* `SHOW_STACK` - (default: `true`) - whether or not to output a stack trace when logging (see [cabinjs options][])
+* `SHOW_META` - (default: `true`) - whether or not to output metadata to logger methods (see [cabinjs options][])
+* `SUPPORT_REQUEST_MAX_LENGTH` - (default: `500`) - support request max message size in characters
+* `ERROR_HANDLER_BASE_URL` - (default: `{{WEB_URL}}`) error handling base url (see [koa-better-error-handler](https://github.com/ladjs/koa-better-error-handler))
+* `I18N_SYNC_FILES` - (default: `true`) - sync locale information across all files (see [ladjs/i18n options][])
+* `I18N_AUTO_RELOAD` - (default: `false`) - watch for changes in json files to reload locale on updates (see [ladjs/i18n options][])
+* `I18N_UPDATE_FILES` - (default: `true`) - write new locale information to disk (see [ladjs/i18n options][])
+* `AUTH_LOCAL_ENABLED` - (default: `true`) - enable passport local strategy (see [ladjs/passport][])
+* `AUTH_FACEBOOK_ENABLED` - (default: `false`) - enable authenticating with Facebook using the OAuth 2.0 (see [ladjs/passport][])
+* `AUTH_TWITTER_ENABLED` - (default: `false`) - enable authenticating with Twitter using the OAuth 1.0 (see [ladjs/passport][])
+* `AUTH_GOOGLE_ENABLED` - (default: `false`) - enable authenticating with Google using OAuth 2.0 (see [google auth][])
+* `AUTH_GITHUB_ENABLED` - (default: `false`) - enable authenticating with Github using OAuth 2.0 (see [ladjs/passport][])
+* `AUTH_LINKEDIN_ENABLED` - (default: `false`) - enable authenticating with LinkedIn using OAuth 1.0 (see [ladjs/passport][])
+* `AUTH_INSTAGRAM_ENABLED` - (default: `false`) - enable authenticating with Instagram using OAuth 2.0 (see [ladjs/passport][])
+* `AUTH_OTP_ENABLED` - (default: `false`) - enable authenticating with OTP, a form of two-factor authentication (see [ladjs/passport][])
+* `AUTH_STRIPE_ENABLED` - (default: false) - enable authenticating with Stripe using OAuth 2.0 (see [ladjs/passport][])
+* `GOOGLE_CLIENT_ID` - google oauth2 client id (see [google auth][])
+* `GOOGLE_CLIENT_SECRET` - google oauth2 secret (see [google auth][])
+* `GOOGLE_CALLBACK_URL` - google oauth2 callback url (see [google auth][])
+* `GOOGLE_APPLICATION_CREDENTIALS` - path to google cloud platform credentials (see [gcp credentials](https://cloud.google.com/docs/authentication/getting-started))
+* `GITHUB_CLIENT_ID` - github oauth client id (see [ladjs/passport][])
+* `GITHUB_CLIENT_SECRET` - github oauth secret (see [ladjs/passport][])
+* `GITHUB_CALLBACK_URL` - github oauth callback URL (see [ladjs/passport][])
+* `POSTMARK_API_TOKEN` - postmark api token (see [outbound email configuration](https://github.com/ladjs/lad#outbound-email-configuration))
+* `CODECOV_TOKEN` - codecov api token (see [continuous integration and code coverage](https://github.com/ladjs/lad#continuous-integration-and-code-coverage))
+* `MONGO_USER` - mongodb username
+* `MONGO_PASS` - mongodb password
+* `MONGO_HOST` - (default: `localhost`) - mongodb hostname
+* `MONGO_PORT` - (default: `27017`) - mongodb port
+* `MONGO_NAME` - (default: `{{APP_NAME}}_{{NODE_ENV}}`) - mongodb name
+* `MONGO_URI` - (default: `mongodb://{{MONGO_HOST}}:{{MONGO_PORT}}/{{MONGO_NAME}}`) - mongodb connection URI
+* `WEB_MONGO_USER` - [ladjs/web][] mongodb username
+* `WEB_MONGO_PASS` - [ladjs/web][] mongodb password
+* `WEB_MONGO_HOST` - [ladjs/web][] mongodb hostname
+* `WEB_MONGO_NAME` - [ladjs/web][] mongodb name
+* `WEB_MONGO_PORT` - [ladjs/web][] mongodb port
+* `WEB_MONGO_URI` - [ladjs/web][] mongodb connection URI
+* `API_MONGO_USER` - [ladjs/api][] mongodb username
+* `API_MONGO_PASS` - [ladjs/api][] mongodb password
+* `API_MONGO_HOST` - [ladjs/api][] mongodb hostname
+* `API_MONGO_NAME` - [ladjs/api][] mongodb name
+* `API_MONGO_PORT` - [ladjs/api][] mongodb port
+* `API_MONGO_URI` - [ladjs/api][] mongodb connection URI
+* `BREE_MONGO_USER` - [breejs/bree][] mongodb username
+* `BREE_MONGO_PASS` - [breejs/bree][] mongodb password
+* `BREE_MONGO_HOST` - [breejs/bree][] mongodb hostname
+* `BREE_MONGO_NAME` - [breejs/bree][] mongodb name
+* `BREE_MONGO_PORT` - [breejs/bree][] mongodb port
+* `BREE_MONGO_URI` - [breejs/bree][] mongodb connection URI
+* `REDIS_PORT` - (default: `6379`) - redis port
+* `REDIS_HOST` - (default: `localhost`) - redis hostname
+* `REDIS_PASSWORD` - redis password
+* `WEB_REDIS_PORT` - [ladjs/web][] redis port
+* `WEB_REDIS_HOST` - [ladjs/web][] redis hostname
+* `WEB_REDIS_PASSWORD` - [ladjs/web][] redis password
+* `API_REDIS_PORT` - [ladjs/api][] redis port
+* `API_REDIS_HOST` - [ladjs/api][] redis hostname
+* `API_REDIS_PASSWORD` - [ladjs/api][] redis password
+* `BREE_REDIS_PORT` - [breejs/bree][] redis port
+* `BREE_REDIS_HOST` - [breejs/bree][] redis hostname
+* `BREE_REDIS_PASSWORD` - [breejs/bree][] redis password
+* `MANDARIN_REDIS_PORT` - [mandarin][] redis port
+* `MANDARIN_REDIS_HOST` - [mandarin][] redis hostname
+* `MANDARIN_REDIS_PASSWORD` - [mandarin][] redis password
+* `CERTBOT_WELL_KNOWN_NAME` - letsencrypt wellknown name (see [certbot options][])
+* `CERTBOT_WELL_KNOWN_CONTENTS` - letsencrypt wellknown contents (see [certbot options][])
+* `VERIFICATION_PIN_TIMEOUT_MS` - (default: `5m`) - email verification pin expiry
+* `VERIFICATION_PIN_EMAIL_INTERVAL_MS` - (default: `1m`) - email verification pin email interval
+* `API_SECRETS` - (default: `secret`) - list of restricted api secrets
+* `CACHE_RESPONSES` - (default: `false`) - cache specified responses (see [ladjs/koa-cache-responses](https://github.com/ladjs/koa-cache-responses))
+* `SLACK_API_TOKEN` - slack api token (see [slack web api](https://slack.dev/node-slack-sdk/web-api))
+
 #### SSL Configuration
 
 To configure SSL for the web or API server simply set them in your `.env` file or pass them as environment variables.
@@ -907,3 +1004,23 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [occams-razor]: https://en.wikipedia.org/wiki/Occam%27s_razor
 
 [dogfooding]: https://en.wikipedia.org/wiki/Eating_your_own_dog_food
+
+[ladjs/web]: https://github.com/ladjs/web
+
+[ladjs/api]: https://github.com/ladjs/api
+
+[ladjs/proxy]: https://github.com/ladjs/proxy
+
+[breejs/bree]: https://github.com/breejs/bree
+
+[ladjs/passport]: https://github.com/ladjs/passport
+
+[google auth]: https://github.com/ladjs/lad#google-auth
+
+[ladjs/i18n options]: https://github.com/ladjs/i18n#options
+
+[mandarin]: https://github.com/niftylettuce/mandarin
+
+[cabinjs options]: https://github.com/cabinjs/axe#options
+
+[certbot options]: https://certbot.eff.org/docs/using.html#id11
