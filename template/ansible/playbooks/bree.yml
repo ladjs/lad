@@ -1,0 +1,31 @@
+---
+- import_playbook: security.yml hostlist=bree
+- import_playbook: python.yml hostlist=bree
+- import_playbook: node.yml hostlist=bree
+- import_playbook: ssh-keys.yml hostlist=bree
+- hosts: bree
+  become: true
+  become_user: root
+  roles:
+    # https://github.com/holms/ansible-fqdn
+    - role: fqdn
+  tasks:
+    # ufw
+    - name: enable ufw
+      ufw:
+        state: enabled
+        policy: deny
+        direction: incoming
+    - name: limit ufw ssh
+      ufw:
+        rule: limit
+        port: 22
+        proto: tcp
+    - name: allow ssh
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+    - name: reload ufw
+      ufw:
+        state: reloaded

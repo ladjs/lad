@@ -5,7 +5,7 @@ const { authenticator } = require('otplib');
 
 const config = require('../../../../config');
 
-const opts = { width: 500, margin: 0 };
+const options = { width: 500, margin: 0 };
 
 async function setup(ctx) {
   const { body } = ctx.request;
@@ -39,7 +39,7 @@ async function setup(ctx) {
         process.env.WEB_HOST,
         ctx.state.user[config.passport.fields.otpToken]
       );
-      ctx.state.qrcode = await qrcode.toDataURL(ctx.state.otpTokenURI, opts);
+      ctx.state.qrcode = await qrcode.toDataURL(ctx.state.otpTokenURI, options);
       return ctx.render('otp/enable');
     }
 
@@ -72,7 +72,7 @@ async function setup(ctx) {
     process.env.WEB_HOST,
     ctx.state.user[config.passport.fields.otpToken]
   );
-  ctx.state.qrcode = await qrcode.toDataURL(ctx.state.otpTokenURI, opts);
+  ctx.state.qrcode = await qrcode.toDataURL(ctx.state.otpTokenURI, options);
   return ctx.render('otp/enable');
 }
 

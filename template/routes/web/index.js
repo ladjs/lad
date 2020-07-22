@@ -3,7 +3,7 @@ const render = require('koa-views-render');
 const { boolean } = require('boolean');
 
 const config = require('../../config');
-const { policies } = require('../../helpers');
+const policies = require('../../helpers/policies');
 const { web } = require('../../app/controllers');
 
 const admin = require('./admin');
@@ -13,6 +13,10 @@ const otp = require('./otp');
 
 const router = new Router();
 
+// status page crawlers often send `HEAD /` requests
+router.head('/', ctx => {
+  ctx.body = 'OK';
+});
 // report URI support (not locale specific)
 router.post('/report', web.report);
 
@@ -20,13 +24,10 @@ const localeRouter = new Router({ prefix: '/:locale' });
 
 localeRouter
   .get('/', web.auth.homeOrDashboard)
-  .get(
-    '/dashboard',
-    policies.ensureLoggedIn,
-    policies.ensureOtp,
-    web.breadcrumbs,
-    render('dashboard')
-  )
+  .get('/dashboard', ctx => {
+    ctx.status = 301;
+    ctx.redirect(ctx.state.l('/my-account'));
+  })
   .get('/about', render('about'))
   .get('/404', render('404'))
   .get('/500', render('500'))
@@ -52,19 +53,14 @@ localeRouter
   )
   .get('/logout', web.auth.logout)
   .get(
-    '/login',
+    config.loginRoute,
     policies.ensureLoggedOut,
     web.auth.parseReturnOrRedirectTo,
     web.auth.registerOrLogin
   )
-  .post('/login', policies.ensureLoggedOut, web.auth.login)
-  .get(
-    '/register',
-    policies.ensureLoggedOut,
-    web.auth.parseReturnOrRedirectTo,
-    web.auth.registerOrLogin
-  )
-  .post('/register', policies.ensureLoggedOut, web.auth.register);
+  .post(config.loginRoute, policies.ensureLoggedOut, web.auth.login)
+  .get('/register', web.auth.parseReturnOrRedirectTo, web.auth.registerOrLogin)
+  .post('/register', web.auth.register);
 
 localeRouter.use(myAccount.routes());
 localeRouter.use(admin.routes());

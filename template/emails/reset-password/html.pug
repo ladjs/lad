@@ -8,8 +8,6 @@ block content
         .card.d-block.text-center
           h5.card-header= t('Password reset')
           .card-body
-            .card-text
-              p= `${user[config.passport.fields.givenName] ? user[config.passport.fields.givenName] : t('Hello')},`
-              p= t(`Click the button below within ${moment(user[config.userFields.resetTokenExpiresAt]).fromNow(true)} to continue.`)
+            p.card-text= t(`Click the button below within ${moment(user[config.userFields.resetTokenExpiresAt]).fromNow(true)} to continue.`)
             a.btn.btn-lg.btn-block.btn-success(href=link, role="button")= t('Change your password')
           .card-footer: small.text-muted= t('If you did not submit this request, then please reply to let us know.')

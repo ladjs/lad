@@ -1,0 +1,45 @@
+---
+- import_playbook: security.yml hostlist=redis
+- hosts: redis
+  become: true
+  become_user: root
+  roles:
+    # https://github.com/Oefenweb/ansible-redis
+    - role: redis
+      redis_port: "{{ lookup('env', 'REDIS_PORT') }}"
+      redis_tcp_keepalive: 60
+      redis_maxmemory: '2gb'
+      redis_maxmemory_policy: 'allkeys-lru'
+      redis_requirepass: "{{ lookup('env', 'REDIS_PASSWORD') }}"
+      redis_bind:
+        - 127.0.0.1
+        - "{{ lookup('env', 'REDIS_HOST') }}"
+    # https://github.com/holms/ansible-fqdn
+    - role: fqdn
+  tasks:
+    # ufw
+    - name: enable ufw
+      ufw:
+        state: enabled
+        policy: deny
+        direction: incoming
+    - name: limit ufw ssh
+      ufw:
+        rule: limit
+        port: 22
+        proto: tcp
+    - name: allow ssh
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+    - name: allow server access
+      ufw:
+        rule: allow
+        port: "{{ lookup('env', 'REDIS_PORT') }}"
+        src: "{{ hostvars[item].ansible_host }}"
+        proto: tcp
+      with_items: "{{ groups['web'] + groups['api'] + groups['bree'] }}"
+    - name: reload ufw
+      ufw:
+        state: reloaded

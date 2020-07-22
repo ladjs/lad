@@ -2,7 +2,6 @@
 
 We strictly support Mac and Ubuntu-based operating systems (Windows _might_ work).
 
-
 ## Requirements
 
 Please ensure your operating system has the following software installed:
@@ -34,7 +33,6 @@ Please ensure your operating system has the following software installed:
     sudo apt-get -y install redis-server
     ```
 
-
 ## Install
 
 [npm][]:
@@ -48,7 +46,6 @@ npm install -g lad
 ```sh
 yarn global add lad
 ```
-
 
 ## Usage
 
@@ -82,7 +79,7 @@ yarn start all
 ```
 
 
-## 
+##
 
 [github-git]: https://help.github.com/articles/set-up-git/
 

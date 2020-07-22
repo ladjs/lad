@@ -1,0 +1,90 @@
+---
+- hosts: http
+  become: true
+  become_user: root
+  vars_prompt:
+    - name: input_key
+      prompt: 'Enter path to certificate private key file (e.g. /path/to/example.key)'
+      private: false
+    - name: input_cert
+      prompt: 'Enter path to certificate full chain/certificate file (e.g. /path/to/example.crt)'
+      private: false
+    - name: input_bundle
+      prompt: 'Optional: Leave blank or enter path to certificate CA bundle file (e.g. /path/to/example.ca-bundle)'
+      private: false
+
+  tasks:
+    # key file
+    - name: check if key file exists
+      local_action: stat path={{ input_key }}
+      become: false
+      register: local_key_file
+    - name: fail when local key file does not exist
+      fail:
+        msg: 'key file does not exist: {{ input_key }}'
+      when: not local_key_file.stat.exists
+
+    # cert file
+    - name: check if cert file exists
+      local_action: stat path={{ input_cert }}
+      become: false
+      register: local_cert_file
+
+    - name: fail when local cert file does not exist
+      fail:
+        msg: 'cert file does not exist: {{ input_cert }}'
+      when: not local_cert_file.stat.exists
+
+    # bundle file
+    - name: check if bundle file exists
+      local_action: stat path={{ input_bundle }}
+      register: local_bundle_file
+      become: false
+      when: (input_bundle is defined) and (input_bundle|length > 0)
+
+    - name: fail when local bundle file does not exist
+      fail:
+        msg: 'bundle file does not exist: {{ input_bundle }}'
+      when: (input_bundle is defined) and (input_bundle|length > 0) and (not local_bundle_file.stat.exists)
+
+    # remote dir
+    - name: check if remote dir exists
+      stat:
+        path: '/var/www/production'
+      register: remote_dir
+
+    - name: fail when remote dir does not exist
+      fail:
+        msg: pm2 dir not yet created
+      when: not remote_dir.stat.exists or not remote_dir.stat.isdir
+
+    # copy local key
+    - name: copy local key file to server
+      copy:
+        src: '{{ input_key }}'
+        dest: /var/www/production/.ssl-key
+        owner: www-data
+        group: www-data
+        # https://chmodcommand.com/chmod-660/
+        mode: 0660
+
+    # copy local cert
+    - name: copy local cert file to server
+      copy:
+        src: '{{ input_cert }}'
+        dest: /var/www/production/.ssl-cert
+        owner: www-data
+        group: www-data
+        # https://chmodcommand.com/chmod-660/
+        mode: 0660
+
+    # copy local bundle
+    - name: copy local bundle file to server
+      copy:
+        src: '{{ input_bundle }}'
+        dest: /var/www/production/.ssl-ca
+        owner: www-data
+        group: www-data
+        # https://chmodcommand.com/chmod-660/
+        mode: 0660
+      when: (input_bundle is defined) and (input_bundle|length > 0)

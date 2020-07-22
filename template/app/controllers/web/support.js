@@ -5,11 +5,11 @@ const Boom = require('@hapi/boom');
 const _ = require('lodash');
 const validator = require('validator');
 
-const bull = require('../../../bull');
+const email = require('../../../helpers/email');
 const { Inquiries } = require('../../models');
 const config = require('../../../config');
 
-async function support(ctx) {
+async function help(ctx) {
   let { body } = ctx.request;
 
   if (config.env === 'test') ctx.ip = ctx.ip || '127.0.0.1';
@@ -17,7 +17,7 @@ async function support(ctx) {
   body = _.pick(body, ['email', 'message']);
 
   if (!_.isString(body.email) || !validator.isEmail(body.email))
-    throw Boom.badRequest(ctx.translate('INVALID_EMAIL'));
+    throw Boom.badRequest(ctx.translateError('INVALID_EMAIL'));
 
   if (!_.isUndefined(body.message) && !_.isString(body.message))
     delete body.message;
@@ -30,9 +30,9 @@ async function support(ctx) {
 
   if (_.isString(body.message)) {
     if (!isSANB(body.message))
-      throw Boom.badRequest(ctx.translate('INVALID_MESSAGE'));
+      throw Boom.badRequest(ctx.translateError('INVALID_MESSAGE'));
     if (body.message.length > config.supportRequestMaxLength)
-      throw Boom.badRequest(ctx.translate('INVALID_MESSAGE'));
+      throw Boom.badRequest(ctx.translateError('INVALID_MESSAGE'));
   } else {
     body.message = ctx.translate('SUPPORT_REQUEST_MESSAGE');
     body.is_email_only = true;
@@ -57,17 +57,18 @@ async function support(ctx) {
   });
 
   if (count > 0 && config.env !== 'development')
-    throw Boom.badRequest(ctx.translate('SUPPORT_REQUEST_LIMIT'));
+    throw Boom.badRequest(ctx.translateError('SUPPORT_REQUEST_LIMIT'));
 
   try {
     const inquiry = await Inquiries.create({
       ...body,
-      ip: ctx.ip
+      ip: ctx.ip,
+      locale: ctx.locale
     });
 
     ctx.logger.debug('created inquiry', inquiry);
 
-    const job = await bull.add('email', {
+    await email({
       template: 'inquiry',
       message: {
         to: body.email,
@@ -79,8 +80,6 @@ async function support(ctx) {
       }
     });
 
-    ctx.logger.info('added job', bull.getMeta({ job }));
-
     const message = ctx.translate('SUPPORT_REQUEST_SENT');
     if (ctx.accepts('html')) {
       ctx.flash('success', message);
@@ -90,8 +89,8 @@ async function support(ctx) {
     }
   } catch (err) {
     ctx.logger.error(err, { body });
-    throw Boom.badRequest(ctx.translate('SUPPORT_REQUEST_ERROR'));
+    throw Boom.badRequest(ctx.translateError('SUPPORT_REQUEST_ERROR'));
   }
 }
 
-module.exports = support;
+module.exports = help;

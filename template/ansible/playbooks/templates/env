@@ -1,0 +1,113 @@
+#########################################################
+## Configure the section below replacing "TODO" values ##
+#########################################################
+
+#
+# sign up and set up Postmark and add your API token here
+# https://postmarkapp.com
+#
+POSTMARK_API_TOKEN="TODO"
+
+# set web server hostname
+# (e.g. example.com)
+WEB_HOST=TODO
+
+# set api server hostname
+# (e.g. api.example.com)
+API_HOST=TODO
+
+#
+# this is the IP address of your redis server
+# (you defined this above in `ansible/hosts` file)
+#
+REDIS_HOST=TODO
+
+#
+# generate a password:
+# openssl rand 60 | openssl base64 -A | pbcopy
+#
+REDIS_PASSWORD="TODO"
+
+# set mongo server hostname
+# (e.g. 1.2.3.4)
+MONGO_HOST=TODO
+
+#
+# generate password for mongo
+#
+# https://docs.mongodb.com/manual/reference/connection-string/
+# https://github.com/ladjs/mongoose/issues/10
+# https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-linux-openssl.html
+#
+# openssl rand 60 | openssl base64 -A | tr -- '@:/%' '-_~$' | pbcopy
+#
+MONGO_PASS="TODO"
+
+#
+# aws credentials
+#
+# https://docs.aws.amazon.com/en_pv/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html
+# https://docs.aws.amazon.com/en_pv/sdk-for-javascript/v2/developer-guide/loading-node-credentials-environment.html
+# https://docs.aws.amazon.com/en_pv/sdk-for-javascript/v2/developer-guide/loading-node-credentials-json-file.html
+#
+#
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_S3_BUCKET=TODO
+AWS_CLOUDFRONT_DOMAIN=TODO
+AWS_CLOUDFRONT_DISTRIBUTION_ID=TODO
+
+########################################################################
+## Leave the section below alone unless you know what you're doing :) ##
+########################################################################
+NODE_ENV=production
+
+SEND_EMAIL=true
+
+AWS_PROFILE=default
+
+CACHE_RESPONSES=true
+
+PROXY_PORT=8080
+
+HTTP_PORT=8443
+HTTP_PROTOCOL=https
+
+MONGO_USER=admin_root
+MONGO_NAME=production
+MONGO_PORT=27017
+MONGO_URI="mongodb://{{MONGO_USER}}:{{MONGO_PASS}}@{{MONGO_HOST}}:{{MONGO_PORT}}/{{MONGO_NAME}}?authSource=admin"
+
+#GOOGLE_APPLICATION_CREDENTIALS="/var/www/production/.gapp-creds.json"
+
+SSL_KEY_PATH="/var/www/production/.ssl-key"
+SSL_CERT_PATH="/var/www/production/.ssl-cert"
+SSL_CA_PATH="/var/www/production/.ssl-ca"
+
+WEB_PROTOCOL={{HTTP_PROTOCOL}}
+WEB_PORT={{HTTP_PORT}}
+WEB_URL={{WEB_PROTOCOL}}://{{WEB_HOST}}
+WEB_MONGO_URI={{{MONGO_URI}}}
+
+WEB_REDIS_HOST={{REDIS_HOST}}
+WEB_REDIS_PASSWORD={{REDIS_PASSWORD}}
+
+WEB_SSL_KEY_PATH={{{SSL_KEY_PATH}}}
+WEB_SSL_CERT_PATH={{{SSL_CERT_PATH}}}
+WEB_SSL_CA_PATH={{{SSL_CA_PATH}}}
+
+API_PROTOCOL={{HTTP_PROTOCOL}}
+API_PORT={{HTTP_PORT}}
+API_URL={{API_PROTOCOL}}://{{API_HOST}}
+API_MONGO_URI={{{MONGO_URI}}}
+
+API_REDIS_HOST={{REDIS_HOST}}
+API_REDIS_PASSWORD={{REDIS_PASSWORD}}
+
+API_SSL_KEY_PATH={{{SSL_KEY_PATH}}}
+API_SSL_CERT_PATH={{{SSL_CERT_PATH}}}
+API_SSL_CA_PATH={{{SSL_CA_PATH}}}
+
+BREE_MONGO_URI={{{MONGO_URI}}}
+BREE_REDIS_HOST={{REDIS_HOST}}
+BREE_REDIS_PASSWORD={{REDIS_PASSWORD}}

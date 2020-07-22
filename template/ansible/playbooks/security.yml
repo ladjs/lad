@@ -1,0 +1,379 @@
+---
+- hosts: "{{ hostlist }}"
+  become: true
+  become_user: root
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=restarted
+  vars:
+    copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+  tasks:
+    # update deps
+    - name: update apt
+      apt:
+        update_cache: true
+
+    # upgrade deps
+    - name: upgrade deps
+      apt:
+        upgrade: safe
+        update_cache: true
+
+    # install deps
+    - name: install deps
+      apt:
+        name:
+          - build-essential
+          - curl
+          - git
+          - vim
+          - libtool
+          - automake
+          - autoconf
+          - nasm
+        update_cache: true
+
+    # create devops group
+    - name: create devops group
+      group:
+        name: devops
+        state: present
+
+    - name: set devops group to have sudo access
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: ^%devops
+        line: '%devops ALL=(ALL) NOPASSWD: ALL'
+        validate: /usr/sbin/visudo -cf %s
+
+    # create devops user (with sudo)
+    - name: create a devops user with sudo privileges
+      user:
+        name: devops
+        state: present
+        groups: devops,www-data
+        append: true
+        create_home: true
+        shell: /bin/bash
+
+    - name: set authorized key for devops user
+      authorized_key:
+        user: devops
+        state: present
+        key: '{{ copy_local_key }}'
+
+    # create deploy user
+    - name: create a deploy user
+      user:
+        name: deploy
+        state: present
+        groups: www-data
+        append: true
+        create_home: true
+        shell: /bin/bash
+        generate_ssh_key: true
+        ssh_key_bits: 4096
+
+    - name: set authorized key for deploy user
+      authorized_key:
+        user: deploy
+        state: present
+        key: '{{ copy_local_key }}'
+
+    # TODO: change root password to randomly generated value
+
+    # configure ssh
+    - name: disable root login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PermitRootLogin'
+        line: PermitRootLogin no
+      notify: restart ssh
+
+    - name: disable password authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+      notify: restart ssh
+
+    # TODO: we can probably remove the `./templates/security-limits.d-mongod.conf`
+    # modify ulimit for devops and deploy
+    # https://gist.github.com/visualskyrim/8d93a8be0a3ef6dd6598ec8550f6eadd#file-modify_ulimit-yml-L7
+    - name: configure system settings, file descriptors and number of threads
+      pam_limits:
+        domain: '*'
+        limit_type: "{{item.limit_type}}"
+        limit_item: "{{item.limit_item}}"
+        value: "{{item.value}}"
+      with_items:
+        - {limit_type: '-', limit_item: 'nofile', value: 65536}
+        - {limit_type: '-', limit_item: 'nproc', value: 65536}
+        - {limit_type: 'soft', limit_item: 'memlock', value: unlimited}
+        - {limit_type: 'hard', limit_item: 'memlock', value: unlimited}
+    - name: reload settings from all system configuration files
+      shell: sysctl --system
+
+- hosts: "{{ hostlist }}"
+  become: true
+  become_user: root
+  vars:
+    #
+    # kernel tuning and performance optimizations
+    #
+    # https://medium.com/@k1d_bl4ck/a-quick-story-about-node-js-socket-io-and-the-linux-tcp-stack-bf1e8318b20e
+    # https://gist.github.com/vongosling/9929680
+    # https://wiki.mikejung.biz/Sysctl_tweaks
+    # https://docs.continuent.com/tungsten-clustering-6.1/performance-networking.html
+    # https://www.vpndada.com/how-to-setup-a-shadowsocks-server-on-digitalocean/
+    #
+    # TODO: we should research more configuration settings from these links:
+    #       https://udgwebdev.github.io/tunning-em-servidor-linux/
+    #       https://gist.github.com/voluntas/bc54c60aaa7ad6856e6f6a928b79ab6c
+    #       https://serverdiary.com/linux/how-to-mitigate-tcp-syn-flood-attack-and-resolve-it-on-linux/
+    #
+    sysctl_settings:
+      #
+      # handle ufw forwarding
+      #
+      - name: net.ipv4.ip_forward
+        value: 1
+      - name: net.ipv6.conf.default.forwarding
+        value: 1
+      - name: net.ipv6.conf.all.forwarding
+        value: 1
+
+      # sets the time before the kernel considers
+      # migrating a process to another core
+      - name: kernel.sched_migration_cost_ns
+        value: 5000000
+
+      # handle swapping idle processes to disk
+      # https://medium.com/@sauravomar01/linux-kernel-tuning-and-performance-tweaks-d7848178aaa2
+      - name: vm.swappiness
+        value: 10
+      - name: vm.dirty_ratio
+        value: 60
+      - name: vm.dirty_background_ratio
+        value: 2
+      - name: vm.vfs_cache_pressure
+        value: 50
+
+      # allow local port range
+      - name: net.ipv4.ip_local_port_range
+        value: 1024 65535
+
+      # increase amount of option memory buffers
+      - name: net.core.optmem_max
+        value: 25165824
+
+      # max number of concurrently open files
+      - name: fs.file-max
+        value: 2097152
+
+      # increase the max number of "backlogged sockets" (default: 128)
+      # (max number of connections that can be queued for acceptance)
+      - name: net.core.somaxconn
+        value: 1024
+
+      # length of time orphaned (unreferenced) connection will wait (default: 60)
+      - name: net.ipv4.tcp_fin_timeout
+        value: 30
+
+      #
+      # allow more aggressive network throughput
+      # https://en.wikipedia.org/wiki/TCP_window_scale_option
+      #
+      - name: net.ipv4.tcp_window_scaling
+        value: 1
+
+      #
+      # configure tcp keepalive
+      # https://webhostinggeeks.com/howto/configure-linux-tcp-keepalive-setting/
+      #
+      - name: net.ipv4.tcp_keepalive_time
+        value: 60
+      - name: net.ipv4.tcp_keepalive_intvl
+        value: 10
+      #
+      # NOTE: it seems like this was removed in newer kernels
+      # `sysctl: cannot stat /proc/sys/net/ipv4/tcp_tw_recycle: No such file or directory`
+      #
+      # - name: net.ipv4.tcp_keepalive_probe
+      # - value: 6
+
+      # max remembered connection requests which did not yet receive ACK (default: 1024)
+      # (how many half-open connections can be kept in the queue)
+      - name: net.ipv4.tcp_max_syn_backlog
+        value: 4096
+
+      # increase system ip port limts to allow for more connections
+      - name: net.ipv4.ip_local_port_range
+        value: 1024 65535
+
+      # number of packets queued on INPUT (default: 1000)
+      - name: net.core.netdev_max_backlog
+        value: 4096
+
+      #
+      # enable BBR congestion control and make HTTP/2 work reliably
+      # https://blog.cloudflare.com/http-2-prioritization-with-nginx/#comment-4147796381
+      #
+      - name: net.core.default_qdisc
+        value: fq
+      - name: net.ipv4.tcp_congestion_control
+        value: bbr
+      - name: net.ipv4.tcp_notsent_lowat
+        value: 16384
+
+      # protect against tcp time-wait
+      - name: net.ipv4.tcp_rfc1337
+        value: 1
+
+      #
+      # number of sockets in the "time-wait" state allowed to exist (prevents simple DOS attacks)
+      # https://easyengine.io/tutorials/linux/sysctl-conf/
+      # https://docs.continuent.com/tungsten-clustering-5.4/performance-networking.html
+      #
+      - name: net.ipv4.tcp_max_tw_buckets
+        value: 1440000
+
+      #
+      # we do not use this because it does not work well with load balancers
+      # and it also was removed from linux in v4.12
+      # https://stackoverflow.com/questions/6426253/tcp-tw-reuse-vs-tcp-tw-recycle-which-to-use-or-both
+      #
+      # NOTE: this was removed/deprecated in newer kernels
+      # `sysctl: cannot stat /proc/sys/net/ipv4/tcp_tw_recycle: No such file or directory`
+      #
+      # - name: net.ipv4.tcp_tw_recycle
+      #   value: 0
+
+      # allow to reuse TIME_WAIT sockets for new connections when safe from protocol
+      - name: net.ipv4.tcp_tw_reuse
+        value: 1
+
+      # increasing tcp receiving buffer memory size will help large file uploads
+      - name: net.ipv4.tcp_rmem
+        value: 4096 12582912 16777216
+
+      # increase tcp receiving memory to 16MB per socket
+      - name: net.core.rmem_max
+        value: 16777216
+
+      # increasing tcp send buffers will increase performance (if and only if) sending large files
+      - name: net.ipv4.tcp_wmem
+        value: 4096 12582912 16777216
+
+      # increase tcp receiving memory to 16MB per socket
+      - name: net.core.wmem_max
+        value: 16777216
+
+      # provide RFC 2861 behavior and time out congestion window after an idle period
+      # many suggest to disable it to improve performance in some cases
+      - name: net.ipv4.tcp_slow_start_after_idle
+        value: 0
+
+      # disable caching of TCP congestion state
+      - name: net.ipv4.tcp_no_metrics_save
+        value: 1
+
+      # set number of retries for for TCP 3 way handshake (default is 5)
+      # https://www.justsomestuff.co.uk/wiki/doku.php/linux/syn_tcp_timeout
+      - name: net.ipv4.tcp_syn_retries
+        value: 3
+
+      #
+      # number of times SYNACKS for passive TCP connection are tried
+      # https://blog.cloudflare.com/syn-packet-handling-in-the-wild/
+      #
+      - name: net.ipv4.tcp_synack_retries
+        value: 2
+
+      #
+      # TODO: node.js does not yet support tcp fastopen
+      #
+      # https://www.keycdn.com/support/tcp-fast-open
+      # https://github.com/nodejs/node/issues/8066
+      #
+      # - name: net.ipv4.tcp_fastopen
+      #   value: 3
+
+      #
+      # tune ICMP black holes and adjust path MTU in a smart way
+      # https://blog.cloudflare.com/path-mtu-discovery-in-practice/
+      #
+      - name: net.ipv4.tcp_mtu_probing
+        value: 1
+      - name: net.ipv4.tcp_base_mss
+        value: 1024
+
+      #
+      # make the system resistant to out of memory scenarios
+      # https://www.linbit.com/kernel-min_free_kbytes/
+      #
+      # (e.g. 8GB ram = 128MB = 131072)
+      # (e.g. 4GB ram = 64MB = 65536)
+      #
+      - name: vm.min_free_kbytes
+        value: 65536
+
+      # control syncookies
+      - name: net.ipv4.tcp_syncookies
+        value: 1
+
+      # enable timestamps as defined in RFC1323
+      - name: net.ipv4.tcp_timestamps
+        value: 1
+
+      # tells the kernal how many TCP sockets not attached to any user file handle
+      # to maintain. if the number is exceeded, orphaned connections are reset and warning printed
+      - name: net.ipv4.tcp_max_orphans
+        value: 262144
+
+  roles:
+    # https://github.com/Oefenweb/ansible-sysctl
+    - role: sysctl
+
+    # https://github.com/Oefenweb/ansible-swapfile
+    - role: swapfile
+      swapfile_size: 4GB
+      swapfile_swappiness: '10'
+      swapfile_vfs_cache_pressure: '50'
+
+    # https://github.com/Oefenweb/ansible-dns
+    - role: dns
+      dns_nameservers:
+        # cloudflare
+        - '1.1.1.1'
+        - '1.0.0.1'
+
+    # https://github.com/Oefenweb/ansible-ntp
+    - role: ntp
+      ntp_servers:
+        - 'time.cloudflare.com'
+
+    # https://github.com/Oefenweb/ansible-timezone
+    - role: timezone
+      timezone_zone: 'America/Chicago'
+
+    # https://github.com/Oefenweb/ansible-fail2ban
+    - role: fail2ban
+
+    # https://github.com/jnv/ansible-role-unattended-upgrades
+    - role: unattended-upgrades
+
+    # https://github.com/fubarhouse/ansible-role-rust
+    # https://github.com/fubarhouse/ansible-role-rust/issues/20
+    # - role: rust
+
+    # TODO: set up logrotate for all roles/deps
+    #       https://github.com/Oefenweb/ansible-logrotated
+- hosts: http:bree
+  become: true
+  become_user: root
+  roles:
+    - mongo-shell

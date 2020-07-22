@@ -9,8 +9,10 @@ block content
           h5.card-header= t('Verify email')
           .card-body
             .card-text
-              p= t('Use this verification pin:')
+              p= t('Use this verification code:')
               pre: code.display-3= pin
-              p= t(`This pin expires within ${moment(expiresAt).fromNow(true)}.`)
-            a.btn.btn-lg.btn-block.btn-success(href=link, role="button")= t('Verify now')
+              p= t(`This code expires within ${moment(expiresAt).fromNow(true)}.`)
+            a.btn.btn-lg.btn-block.btn-primary(href=link)
+              .d-inline-block.align-middle
+                = t('Verify now')
           .card-footer: small.text-muted= t('If you did not submit this request, then please reply to let us know.')

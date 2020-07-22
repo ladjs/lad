@@ -1,0 +1,70 @@
+---
+- import_playbook: security.yml hostlist=mongo
+- hosts: mongo
+  become: true
+  become_user: root
+  vars:
+    # https://github.com/UnderGreen/ansible-role-mongodb
+    mongodb_version: "4.2"
+    mongodb_pymongo_from_pip: true
+    mongodb_daemon_name: mongod
+    mongodb_net_port: "{{ lookup('env', 'MONGO_PORT') }}"
+    mongodb_security_authorization: 'enabled'
+    mongodb_user_admin_name: admin_user
+    mongodb_user_admin_password: "{{ lookup('env', 'MONGO_PASS') }}"
+    mongodb_root_admin_name: "{{ lookup('env', 'MONGO_USER') }}"
+    mongodb_root_admin_password: "{{ lookup('env', 'MONGO_PASS') }}"
+    mongodb_root_backup_name: admin_backup
+    mongodb_root_backup_password: "{{ lookup('env', 'MONGO_PASS') }}"
+    mongodb_net_bindip: "127.0.0.1,{{ lookup('env', 'MONGO_HOST') }}"
+    mongodb_security_javascript_enabled: true
+    mongodb_manage_service: true
+  # this was already defined in the mongo role
+  # https://github.com/UnderGreen/ansible-role-mongodb/blob/master/handlers/main.yml
+  handlers:
+    - name: mongodb restart
+      service:
+        name: "{{ mongodb_daemon_name }}"
+        state: restarted
+      when: mongodb_manage_service | bool
+  roles:
+    # https://github.com/holms/ansible-fqdn
+    - role: fqdn
+    # https://github.com/UnderGreen/ansible-role-mongodb
+    - role: mongo
+  tasks:
+    # security
+    - name: increase nproc and nofile for mongodb
+      copy:
+        src: '{{ playbook_dir }}/templates/security-limits.d-mongod.conf'
+        dest: /etc/security/limits.d/mongod.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: mongodb restart
+    # ufw
+    - name: enable ufw
+      ufw:
+        state: enabled
+        policy: deny
+        direction: incoming
+    - name: limit ufw ssh
+      ufw:
+        rule: limit
+        port: 22
+        proto: tcp
+    - name: allow ssh
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+    - name: allow server access
+      ufw:
+        rule: allow
+        port: "{{ lookup('env', 'MONGO_PORT') }}"
+        src: "{{ hostvars[item].ansible_host }}"
+        proto: tcp
+      with_items: "{{ groups['web'] + groups['api'] + groups['bree'] }}"
+    - name: reload ufw
+      ufw:
+        state: reloaded

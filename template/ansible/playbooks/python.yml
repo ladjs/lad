@@ -1,0 +1,24 @@
+---
+- hosts: "{{ hostlist }}"
+  become: true
+  become_user: root
+  vars:
+    # python 3
+    pip_python_version: 3
+  roles:
+    # https://github.com/Oefenweb/ansible-pip
+    - role: pip
+  tasks:
+    #
+    # install pip3 deps
+    # https://github.com/Oefenweb/ansible-pip/issues/10
+    #
+    - name: install pyspf
+      pip:
+        name: pyspf
+    - name: install dnspython
+      pip:
+        name: dnspython
+    - name: install dkimpy
+      pip:
+        name: dkimpy

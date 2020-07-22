@@ -1,6 +1,6 @@
 {
-    "name": "<%= name %>",
-    "short_name": "<%= name %>",
+    "name": "Lad.sh",
+    "short_name": "Lad.sh",
     "icons": [
         {
             "src": "/img/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#94CC27",
+    "theme_color": "#20C1ED",
     "background_color": "#ffffff",
     "display": "standalone"
 }

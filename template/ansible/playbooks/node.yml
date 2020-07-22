@@ -1,0 +1,45 @@
+---
+- hosts: "{{ hostlist }}"
+  become: true
+  become_user: root
+  vars:
+    # node.js
+    nodejs_version: 'nodejs-v12x'
+    nodejs_npm_packages:
+      - name: pm2
+  roles:
+    # https://github.com/Oefenweb/ansible-nodejs
+    - role: nodejs
+    # https://github.com/Oefenweb/ansible-yarn
+    - role: yarn
+  tasks:
+    # install fonts
+    - name: accept fonts license
+      shell:
+        cmd: 'echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections'
+    - name: install fonts
+      apt:
+        name:
+          - ttf-mscorefonts-installer
+          - libfontconfig
+        update_cache: true
+    # configure pm2
+    - name: create pm2 directory
+      file:
+        path: /var/www
+        state: directory
+        owner: www-data
+        group: www-data
+        # https://chmodcommand.com/chmod-770/
+        mode: 0770
+        recurse: true
+    - name: install pm2-logrotate
+      shell:
+        cmd: 'pm2 install pm2-logrotate'
+    - name: check that pm2 startup script exists
+      stat:
+        path: /etc/systemd/system/pm2-deploy.service
+      register: pm2_startup_result
+    - name: install pm2 startup script
+      command: 'pm2 startup ubuntu -u deploy --hp /home/deploy'
+      when: not pm2_startup_result.stat.exists

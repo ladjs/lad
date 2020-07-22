@@ -1,0 +1,20 @@
+
+extends ../layout
+
+block content
+  .container.mt-3
+    .row
+      .col-12
+        .card.d-block.text-center
+          h5.card-header= t('Two-factor authentication')
+          .card-body
+            p.card-text
+              = t("Don't worry! Your account is completely secure. This is just a friendly reminder to enhance the security of your account.")
+              = ' '
+              = t('We suggest that you enable two-factor authentication since your domains are using Enhanced Protection.')
+              = ' '
+              = t('Doing so will help to keep your domains, aliases, and account even more secure.')
+            a.btn.btn-lg.btn-block.btn-primary(href=`${config.urls.web}/${locale}/my-account/security`)
+              .d-inline-block.align-middle
+                = t('Manage security')
+          .card-footer: small.text-muted= t('We send this reminder every three months to increase security.')
