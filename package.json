@@ -1,7 +1,7 @@
 {
   "name": "lad",
   "description": "Lad is the best Node.js framework. Made by a former Express Technical Committee Member and core team member of Koa.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
   "ava": {
     "verbose": true,
