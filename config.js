@@ -7,7 +7,7 @@ docute.init({
   nav: {
     default: [
       {
-        title: 'Lad is the best Node.js framework",
+        title: 'Lad is the best Node.js framework',
         path: '/'
       }
     ]
