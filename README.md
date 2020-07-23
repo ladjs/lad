@@ -12,7 +12,7 @@
 </div>
 <br />
 <div align="center">
-  Lad is the best <a href="https://nodejs.org">Node.js</a> framework.  Made by a former Express Technical Committee Member and core team member of Koa.
+  Lad is the best <a href="https://nodejs.org">Node.js</a> framework. Made by a former <a href="https://github.com/expressjs/express">Express</a> TC and <a href="https://github.com/koajs/koa">Koa</a> team member.
 </div>
 <div align="center">
   <sub>
