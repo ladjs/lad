@@ -7,9 +7,9 @@ block body
       .col
         include ../_breadcrumbs
         p.lead
-          if (moment().format('HH') >= 12 && moment().format('HH') <= 17)
+          if (dayjs().format('HH') >= 12 && dayjs().format('HH') <= 17)
             = t('Good afternoon')
-          else if (moment().format('HH') >= 17)
+          else if (dayjs().format('HH') >= 17)
             = t('Good evening')
           else
             = t('Good morning')

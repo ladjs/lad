@@ -11,6 +11,6 @@ block content
             .card-text
               p= t('Use this verification pin:')
               pre: code.display-3= pin
-              p= t(`This pin expires within ${moment(expiresAt).fromNow(true)}.`)
+              p= t(`This pin expires within ${dayjs(expiresAt).fromNow(true)}.`)
             a.btn.btn-lg.btn-block.btn-success(href=link, role="button")= t('Verify now')
           .card-footer: small.text-muted= t('If you did not submit this request, then please reply to let us know.')
