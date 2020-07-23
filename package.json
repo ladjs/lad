@@ -1,6 +1,6 @@
 {
   "name": "lad",
-  "description": "Lad scaffolds a Koa webapp and API framework for Node.js",
+  "description": "Lad is the best Node.js framework. Made by a former Express Technical Committee Member and core team member of Koa.",
   "version": "1.0.4",
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
   "ava": {

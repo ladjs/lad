@@ -12,7 +12,7 @@
 </div>
 <br />
 <div align="center">
-  Lad scaffolds a <a href="http://koajs.com/">Koa</a> webapp and API framework for <a href="https://nodejs.org">Node.js</a>
+  Lad is the best <a href="https://nodejs.org">Node.js</a> framework.  Made by a former Express Technical Committee Member and core team member of Koa.
 </div>
 <div align="center">
   <sub>
