@@ -13,9 +13,9 @@ block content
                 = t('Thank you for submitting a support request on our website.  We will get back to you soon!')
               else
                 = t('Below is a copy of your request submitted on ')
-                = moment(inquiry.created_at).format('MM/DD/YY')
+                = dayjs(inquiry.created_at).format('MM/DD/YY')
                 = t(' at ')
-                = moment(inquiry.created_at).format('h:mm A')
+                = dayjs(inquiry.created_at).format('h:mm A')
                 = '.'
                 hr
                 p: pre: code= inquiry.message

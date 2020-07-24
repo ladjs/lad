@@ -6,7 +6,7 @@ const hljs = require('highlight.js');
 const humanize = require('humanize-string');
 const isBot = require('isbot');
 const isSANB = require('is-string-and-not-blank');
-const moment = require('moment');
+const dayjs = require('dayjs');
 const numeral = require('numeral');
 const pluralize = require('pluralize');
 const reservedEmailAddressesList = require('reserved-email-addresses-list');
@@ -33,7 +33,7 @@ module.exports = {
   isBot,
   isSANB,
   json,
-  moment,
+  dayjs,
   numeral,
   pluralize,
   reservedEmailAddressesList,
