@@ -26,12 +26,12 @@ function fixTableOfContents(content) {
   const $links = $ul.find('a');
   if ($links.length === 0) return content;
   const $h2s = $('h2');
-  $links.each(function() {
+  $links.each(function () {
     const $link = $(this);
     const text = $link.text();
     const href = $link.attr('href');
     const id = href.slice(1);
-    $h2s.each(function() {
+    $h2s.each(function () {
       const $h = $(this);
       const $anchor = $h.find('a').first();
       if ($anchor.length === 0) return;

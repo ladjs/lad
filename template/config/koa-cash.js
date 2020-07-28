@@ -2,9 +2,9 @@ const ms = require('ms');
 const safeStringify = require('fast-safe-stringify');
 const logger = require('../helpers/logger');
 
-module.exports = client => ({
+module.exports = (client) => ({
   maxAge: ms('1y') / 1000,
-  hash: ctx => `koa-cash:${ctx.request.url}`,
+  hash: (ctx) => `koa-cash:${ctx.request.url}`,
   setCachedHeader: true,
   async get(key) {
     let [buffer, data] = await Promise.all([

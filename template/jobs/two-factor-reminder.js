@@ -25,16 +25,14 @@ const graceful = new Graceful({
   brees: [bree],
   logger
 });
-const threeMonthsAgo = dayjs()
-  .subtract(3, 'months')
-  .toDate();
+const threeMonthsAgo = dayjs().subtract(3, 'months').toDate();
 
 // store boolean if the job is cancelled
 let isCancelled = false;
 
 // handle cancellation (this is a very simple example)
 if (parentPort)
-  parentPort.once('message', message => {
+  parentPort.once('message', (message) => {
     //
     // TODO: once we can manipulate concurrency option to p-map
     // we could make it `Number.MAX_VALUE` here to speed cancellation up

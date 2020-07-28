@@ -80,5 +80,7 @@ module.exports = {
   PASSPORT_INCORRECT_USERNAME_ERROR: 'Email address or password is incorrect.',
   PASSPORT_MISSING_USERNAME_ERROR: 'Please enter an email address.',
   PASSPORT_USER_EXISTS_ERROR:
-    'A user with the given email address is already registered.  Please try to log in or reset the password if this account belongs to you.'
+    'A user with the given email address is already registered.  Please try to log in or reset the password if this account belongs to you.',
+  EMAIL_FAILED_TO_SEND:
+    'Unfortunately an error occurred while sending the email.  Please try again or <a href="/help">contact us</a> for help.'
 };

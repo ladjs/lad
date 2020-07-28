@@ -8,6 +8,9 @@ async function disable(ctx) {
 
   const redirectTo = ctx.state.l('/my-account/security');
 
+  if (!ctx.state.user[config.passport.fields.otpEnabled])
+    throw Boom.badRequest(ctx.translateError('TWO_FACTOR_REQUIRED'));
+
   if (ctx.state.user[config.userFields.hasSetPassword]) {
     if (!isSANB(body.password))
       throw Boom.badRequest(ctx.translateError('INVALID_PASSWORD'));

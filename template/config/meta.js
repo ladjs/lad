@@ -15,7 +15,7 @@
 // `<title>` and `<meta name="description">`
 //
 
-module.exports = function(config) {
+module.exports = function (config) {
   // currently we cannot use the `|` pipe character due to this issue
   // <https://github.com/mashpie/i18n-node/issues/274>
   // otherwise we'd have `| Lad` below, which is SEO standard

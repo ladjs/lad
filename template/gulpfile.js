@@ -160,12 +160,12 @@ async function bundle() {
     const paths = await globby('**/*.js', { cwd: 'assets/js' });
     const factorBundle = await new Promise((resolve, reject) => {
       browserify({
-        entries: paths.map(string => `assets/js/${string}`),
+        entries: paths.map((string) => `assets/js/${string}`),
         debug: true
       })
         .plugin('bundle-collapser/plugin')
         .plugin('factor-bundle', {
-          outputs: paths.map(string =>
+          outputs: paths.map((string) =>
             path.join(config.buildBase, 'js', string)
           )
         })

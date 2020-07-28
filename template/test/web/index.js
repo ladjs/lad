@@ -7,7 +7,7 @@ test.after.always(after);
 test.beforeEach(beforeEach);
 test.afterEach.always(afterEach);
 
-test('redirects to correct locale', async t => {
+test('redirects to correct locale', async (t) => {
   const { web } = t.context;
   const res = await web.get('/');
 
@@ -15,35 +15,35 @@ test('redirects to correct locale', async t => {
   t.is(res.headers.location, '/en');
 });
 
-test('returns English homepage', async t => {
+test('returns English homepage', async (t) => {
   const { web } = t.context;
   const res = await web.get('/en').set({ Accept: 'text/html' });
 
   t.snapshot(res.text);
 });
 
-test('returns Spanish homepage', async t => {
+test('returns Spanish homepage', async (t) => {
   const { web } = t.context;
   const res = await web.get('/es').set({ Accept: 'text/html' });
 
   t.snapshot(res.text);
 });
 
-test('returns English ToS', async t => {
+test('returns English ToS', async (t) => {
   const { web } = t.context;
   const res = await web.get('/en/terms').set({ Accept: 'text/html' });
 
   t.snapshot(res.text);
 });
 
-test('returns Spanish ToS', async t => {
+test('returns Spanish ToS', async (t) => {
   const { web } = t.context;
   const res = await web.get('/es/terms').set({ Accept: 'text/html' });
 
   t.snapshot(res.text);
 });
 
-test('GET /:locale/about', async t => {
+test('GET /:locale/about', async (t) => {
   const { web } = t.context;
   const res = await web.get('/en/about');
 
@@ -51,7 +51,7 @@ test('GET /:locale/about', async t => {
   t.assert(res.text.includes('About'));
 });
 
-test('GET /:locale/404', async t => {
+test('GET /:locale/404', async (t) => {
   const { web } = t.context;
   const res = await web.get('/en/404');
 
@@ -59,7 +59,7 @@ test('GET /:locale/404', async t => {
   t.assert(res.text.includes('Page not found'));
 });
 
-test('GET /:locale/500', async t => {
+test('GET /:locale/500', async (t) => {
   const { web } = t.context;
   const res = await web.get('/en/500');
 
@@ -67,7 +67,7 @@ test('GET /:locale/500', async t => {
   t.assert(res.text.includes('Server Error'));
 });
 
-test('GET /:locale/privacy', async t => {
+test('GET /:locale/privacy', async (t) => {
   const { web } = t.context;
   const res = await web.get('/en/privacy');
 
@@ -75,7 +75,7 @@ test('GET /:locale/privacy', async t => {
   t.assert(res.text.includes('Privacy Policy'));
 });
 
-test('GET /:locale/support', async t => {
+test('GET /:locale/support', async (t) => {
   const { web } = t.context;
   const res = await web.get('/en/support');
 

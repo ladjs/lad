@@ -13,7 +13,7 @@ async function update(ctx) {
   if (hasSetPassword) requiredFields.push('old_password');
 
   if (body.change_password === 'true') {
-    requiredFields.forEach(prop => {
+    requiredFields.forEach((prop) => {
       if (!isSANB(body[prop]))
         throw Boom.badRequest(
           ctx.translateError('INVALID_STRING', ctx.request.t(humanize(prop)))
@@ -80,10 +80,7 @@ async function recoveryKeys(ctx) {
   const otpRecoveryKeys = ctx.state.user[config.userFields.otpRecoveryKeys];
 
   ctx.attachment('recovery-keys.txt');
-  ctx.body = otpRecoveryKeys
-    .toString()
-    .replace(/,/g, '\n')
-    .replace(/"/g, '');
+  ctx.body = otpRecoveryKeys.toString().replace(/,/g, '\n').replace(/"/g, '');
 }
 
 module.exports = {

@@ -9,7 +9,7 @@ const router = new Router({ prefix: '/my-account' });
 router.use(policies.ensureLoggedIn);
 router.use(policies.ensureOtp);
 router.use(web.breadcrumbs);
-router.get('/', ctx => {
+router.get('/', (ctx) => {
   ctx.redirect(ctx.state.l('/my-account/profile'));
 });
 router.put('/', web.myAccount.update);

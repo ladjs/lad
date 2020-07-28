@@ -21,13 +21,13 @@ exports.before = async () => {
 
   factory.setAdapter(adapter);
   factory.define('user', Users, {
-    email: factory.sequence('Users.email', n => `test${n}@example.com`),
+    email: factory.sequence('Users.email', (n) => `test${n}@example.com`),
     password: '!@K#NLK!#N'
   });
 };
 
 // create fixtures before each test
-exports.beforeEach = async t => {
+exports.beforeEach = async (t) => {
   // setup stubs for serializeUser and deserializeUser
   t.context.serialize = sinon.stub().returns(() => {});
   t.context.deserialize = sinon.stub().returns(() => {});

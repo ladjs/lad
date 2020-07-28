@@ -7,7 +7,7 @@ const cookieOptions = require('./cookies');
 const koaCashConfig = require('./koa-cash');
 const config = require('.');
 
-module.exports = client => ({
+module.exports = (client) => ({
   routes: routes.web,
   logger,
   i18n,

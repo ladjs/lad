@@ -154,7 +154,7 @@ function successHandler(ev) {
 }
 
 if (Clipboard.isSupported()) {
-  $body.on('mouseenter', 'code', function() {
+  $body.on('mouseenter', 'code', function () {
     let $container = $(this).parents('pre:first');
     if ($container.length === 0) $container = $(this);
     $container
@@ -166,7 +166,7 @@ if (Clipboard.isSupported()) {
       })
       .tooltip('show');
   });
-  $body.on('mouseleave', 'code', function() {
+  $body.on('mouseleave', 'code', function () {
     let $container = $(this).parents('pre:first');
     if ($container.length === 0) $container = $(this);
     $container.tooltip('dispose').css('cursor', 'initial');
@@ -188,7 +188,7 @@ if (Clipboard.isSupported()) {
 //
 // <https://en.wikipedia.org/wiki/Email_address#Local-part>
 //
-$body.on('click', '.generate-random-alias', function() {
+$body.on('click', '.generate-random-alias', function () {
   const target = $(this).data('target');
   if (!target) return;
   const $target = $(target);

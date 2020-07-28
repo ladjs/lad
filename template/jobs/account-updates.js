@@ -41,9 +41,9 @@ graceful.listen();
 
   // merge and map to actionable email
   await Promise.all(
-    users.map(async user => {
+    users.map(async (user) => {
       const accountUpdates = user[config.userFields.accountUpdates].map(
-        update => {
+        (update) => {
           const { fieldName, current, previous } = update;
           return {
             name: fieldName,

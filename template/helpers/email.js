@@ -7,7 +7,7 @@ const logger = require('./logger');
 
 const email = new Email(config.email);
 
-module.exports = async data => {
+module.exports = async (data) => {
   try {
     logger.info('sending email', { data });
     if (!_.isObject(data.locals)) data.locals = {};

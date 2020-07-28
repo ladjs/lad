@@ -31,9 +31,7 @@ graceful.listen();
 
   const object = {
     created_at: {
-      $lte: dayjs()
-        .subtract(1, 'minute')
-        .toDate()
+      $lte: dayjs().subtract(1, 'minute').toDate()
     }
   };
   object[config.userFields.welcomeEmailSentAt] = { $exists: false };
@@ -43,7 +41,7 @@ graceful.listen();
 
   // send welcome email
   await Promise.all(
-    _ids.map(async _id => {
+    _ids.map(async (_id) => {
       try {
         const user = await Users.findById(_id);
 

@@ -17,7 +17,7 @@ test.after.always(after);
 test.beforeEach(beforeEach);
 test.afterEach.always(afterEach);
 
-test('creates new user', async t => {
+test('creates new user', async (t) => {
   const { web } = t.context;
   const user = [
     {
@@ -34,16 +34,17 @@ test('creates new user', async t => {
     password: '?X#8Hn=PbkvTD/{'
   });
 
-  t.is(res.header.location, '/en/dashboard');
+  t.is(res.header.location, '/en/my-account');
   t.is(res.status, 302);
 
   t.context.register.restore();
 });
 
-test('fails registering with easy password', async t => {
+test('fails registering with easy password', async (t) => {
   const { web } = t.context;
-  t.context.register = sinon.stub(Users, 'register').throws(
-    Boom.badRequest(phrases.INVALID_PASSWORD_STRENGTH));
+  t.context.register = sinon
+    .stub(Users, 'register')
+    .throws(Boom.badRequest(phrases.INVALID_PASSWORD_STRENGTH));
 
   const res = await web.post('/en/register').send({
     email: 'emilydickinson@example.com',
@@ -56,7 +57,7 @@ test('fails registering with easy password', async t => {
   t.context.register.restore();
 });
 
-test('successfully registers with strong password', async t => {
+test('successfully registers with strong password', async (t) => {
   const { web } = t.context;
   const user = [
     {
@@ -74,13 +75,13 @@ test('successfully registers with strong password', async t => {
   });
 
   t.is(res.body.message, undefined);
-  t.is(res.header.location, '/en/dashboard');
+  t.is(res.header.location, '/en/my-account');
   t.is(res.status, 302);
 
   t.context.register.restore();
 });
 
-test('successfully registers with stronger password', async t => {
+test('successfully registers with stronger password', async (t) => {
   const { web } = t.context;
   const user = [
     {
@@ -98,13 +99,13 @@ test('successfully registers with stronger password', async t => {
   });
 
   t.is(res.body.message, undefined);
-  t.is(res.header.location, '/en/dashboard');
+  t.is(res.header.location, '/en/my-account');
   t.is(res.status, 302);
 
   t.context.register.restore();
 });
 
-test('fails registering invalid email', async t => {
+test('fails registering invalid email', async (t) => {
   const { web } = t.context;
   const res = await web.post('/en/register').send({
     email: 'test123',
@@ -115,7 +116,7 @@ test('fails registering invalid email', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_EMAIL);
 });
 
-test("doesn't leak used email", async t => {
+test("doesn't leak used email", async (t) => {
   const { web } = t.context;
   const user = [
     {
@@ -126,11 +127,10 @@ test("doesn't leak used email", async t => {
   ];
   t.context.findByUsername = sinon.stub(Users, 'findByUsername').resolves(user);
 
-  const res = await web.post('/en/register')
-    .send({
-      email: 'test2@example.com',
-      password: 'wrongpassword'
-    });
+  const res = await web.post('/en/register').send({
+    email: 'test2@example.com',
+    password: 'wrongpassword'
+  });
 
   t.is(res.status, 400);
   t.is(JSON.parse(res.text).message, phrases.PASSPORT_USER_EXISTS_ERROR);
@@ -138,15 +138,12 @@ test("doesn't leak used email", async t => {
   t.context.findByUsername.restore();
 });
 
-test('allows password reset for valid email (HTML)', async t => {
+test('allows password reset for valid email (HTML)', async (t) => {
   const { web } = t.context;
-  const password = '!@K#NLK!#N';
 
   const user = await factory.build('user');
-  t.context.findOne = sinon.stub(Users, 'findOne')
-    .resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.findOne = sinon.stub(Users, 'findOne').resolves(user);
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   const res = await web
     .post('/en/forgot-password')
@@ -160,18 +157,14 @@ test('allows password reset for valid email (HTML)', async t => {
   t.context.save.restore();
 });
 
-test('allows password reset for valid email (JSON)', async t => {
+test('allows password reset for valid email (JSON)', async (t) => {
   const { web } = t.context;
-  const password = '!@K#NLK!#N';
 
   const user = await factory.build('user');
-  t.context.findOne = sinon.stub(Users, 'findOne')
-    .resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.findOne = sinon.stub(Users, 'findOne').resolves(user);
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
-  const res = await web.post('/en/forgot-password')
-    .send({ email: user.email });
+  const res = await web.post('/en/forgot-password').send({ email: user.email });
 
   t.is(res.status, 302);
   t.is(res.header.location, '/');
@@ -180,16 +173,15 @@ test('allows password reset for valid email (JSON)', async t => {
   t.context.save.restore();
 });
 
-test('resets password with valid email and token (HTML)', async t => {
+test('resets password with valid email and token (HTML)', async (t) => {
   const { web } = t.context;
   let user = await factory.build('user');
-  const email = user.email;
+  const { email } = user;
   const password = '!@K#NLK!#N';
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
@@ -214,16 +206,15 @@ test('resets password with valid email and token (HTML)', async t => {
   t.context.save.restore();
 });
 
-test('resets password with valid email and token (JSON)', async t => {
+test('resets password with valid email and token (JSON)', async (t) => {
   const { web } = t.context;
   let user = await factory.build('user');
-  const email = user.email;
+  const { email } = user;
   const password = '!@K#NLK!#N';
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
@@ -247,12 +238,11 @@ test('resets password with valid email and token (JSON)', async t => {
   t.context.save.restore();
 });
 
-test('fails resetting password for non-existent user', async t => {
+test('fails resetting password for non-existent user', async (t) => {
   const { web } = t.context;
   const email = 'test7@example.com';
   const password = '!@K#NLK!#N';
-  t.context.findOne = sinon.stub(Users, 'findOne')
-    .resolves(null);
+  t.context.findOne = sinon.stub(Users, 'findOne').resolves(null);
 
   const res = await web
     .post('/en/reset-password/randomtoken')
@@ -264,16 +254,15 @@ test('fails resetting password for non-existent user', async t => {
   t.context.findOne.restore();
 });
 
-test('fails resetting password with invalid reset token', async t => {
+test('fails resetting password with invalid reset token', async (t) => {
   const { web } = t.context;
-  let user = await factory.build('user');
-  const email = user.email;
+  const user = await factory.build('user');
+  const { email } = user;
   const password = '!@K#NLK!#N';
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
@@ -290,16 +279,14 @@ test('fails resetting password with invalid reset token', async t => {
   t.context.save.restore();
 });
 
-test('fails resetting password with missing new password', async t => {
+test('fails resetting password with missing new password', async (t) => {
   const { web } = t.context;
   let user = await factory.build('user');
-  const email = user.email;
-  const password = '!@K#NLK!#N';
+  const { email } = user;
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
@@ -320,16 +307,14 @@ test('fails resetting password with missing new password', async t => {
   t.context.save.restore();
 });
 
-test('fails resetting password with invalid email', async t => {
+test('fails resetting password with invalid email', async (t) => {
   const { web } = t.context;
   let user = await factory.build('user');
-  const email = user.email;
-  const password = '!@K#NLK!#N';
+  const { email } = user;
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
@@ -350,16 +335,15 @@ test('fails resetting password with invalid email', async t => {
   t.context.save.restore();
 });
 
-test('fails resetting password with invalid email + reset token match', async t => {
+test('fails resetting password with invalid email + reset token match', async (t) => {
   const { web } = t.context;
   let user = await factory.build('user');
-  const email = user.email;
+  const { email } = user;
   const password = '!@K#NLK!#N';
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
@@ -382,16 +366,14 @@ test('fails resetting password with invalid email + reset token match', async t 
   t.context.save.restore();
 });
 
-test('fails resetting password if new password is too weak', async t => {
+test('fails resetting password if new password is too weak', async (t) => {
   const { web } = t.context;
   let user = await factory.build('user');
-  const email = user.email;
-  const password = '!@K#NLK!#N';
+  const { email } = user;
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
@@ -414,16 +396,14 @@ test('fails resetting password if new password is too weak', async t => {
   t.context.save.restore();
 });
 
-test('fails resetting password if reset was already tried in the last 30 mins', async t => {
+test('fails resetting password if reset was already tried in the last 30 mins', async (t) => {
   const { web } = t.context;
-  let user = await factory.build('user');
-  const email = user.email;
-  const password = '!@K#NLK!#N';
+  const user = await factory.build('user');
+  const { email } = user;
 
   t.context.findOne = sinon.stub(Users, 'findOne');
   t.context.findOne.resolves(user);
-  t.context.save = sinon.stub(Users.prototype, 'save')
-    .returnsThis();
+  t.context.save = sinon.stub(Users.prototype, 'save').returnsThis();
 
   await web.post('/en/forgot-password').send({ email });
 
