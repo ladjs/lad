@@ -37,7 +37,7 @@
       "user": "deploy",
       "host": ["167.71.85.68"],
       "ref": "origin/master",
-      "repo": "git@github.com:forwardemail/forwardemail.net.git",
+      "repo": "<%= repo %>",
       "path": "/var/www/production",
       "pre-deploy": "git reset --hard",
       "post-deploy": "npm install && NODE_ENV=production npm start build && pm2 startOrGracefulReload ecosystem-web.json --env production --update-env"
