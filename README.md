@@ -1008,7 +1008,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -1199,3 +1199,25 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [cabinjs options]: https://github.com/cabinjs/axe#options
 
 [certbot options]: https://certbot.eff.org/docs/using.html#id11
+
+[ansible]: https://github.com/ansible/ansible
+
+[yamllint]: https://github.com/adrienverge/yamllint
+
+[ansible-lint]: https://github.com/ansible/ansible-lint
+
+[digital-ocean]: https://m.do.co/c/2ffb8129b8d6
+
+[linode]: https://www.linode.com/?r=a2840b36770c7020730251a5643428ddbf2e284e
+
+[vultr]: https://www.vultr.com/?ref=7429848
+
+[ecosystem-files]: https://pm2.keymetrics.io/docs/usage/application-declaration/
+
+[@ladjs/env]: https://github.com/ladjs/env
+
+[namecheap]: https://namecheap.com
+
+[letsencrypt]: https://letsencrypt.org/
+
+[ansible-guide]: https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html

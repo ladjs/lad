@@ -23,7 +23,7 @@ module.exports = {
     name: {
       message: 'What is the name of the new project',
       default: ':folderName:',
-      validate: value => {
+      validate: (value) => {
         if (process.env.NODE_ENV === 'test' && value === 'lad') return true;
         return isValidNpmName(value);
       }
@@ -48,19 +48,19 @@ module.exports = {
       message: 'What is your email (the author’s)',
       default: conf.get('init-author-email') || ':gitEmail:',
       store: true,
-      validate: value => (isEmail(value) ? true : 'Invalid email')
+      validate: (value) => (isEmail(value) ? true : 'Invalid email')
     },
     website: {
       message: 'What is your personal website (the author’s)',
       default: conf.get('init-author-url') || '',
       store: true,
-      validate: value => (value === '' || isURL(value) ? true : 'Invalid URL')
+      validate: (value) => (value === '' || isURL(value) ? true : 'Invalid URL')
     },
     username: {
       message: 'What is your GitHub username or organization',
       default: ':gitUser:',
       store: true,
-      validate: value =>
+      validate: (value) =>
         githubUsernameRegex.test(value) ? true : 'Invalid GitHub username'
     },
     repo: {
@@ -70,7 +70,7 @@ module.exports = {
           slug(answers.name)
         )}`;
       },
-      validate: value =>
+      validate: (value) =>
         isURL(value) &&
         value.indexOf('https://github.com/') === 0 &&
         value.lastIndexOf('/') !== value.length - 1
@@ -101,7 +101,7 @@ module.exports = {
       message: 'Do you need automatic multi-lingual support',
       type: 'confirm',
       default: true,
-      when: answers => answers.web || answers.api
+      when: (answers) => answers.web || answers.api
     }
   },
   filters: {
@@ -137,7 +137,7 @@ module.exports = {
     README: 'README.md',
     env: '.env'
   },
-  post: async ctx => {
+  post: async (ctx) => {
     ctx.gitInit();
 
     // TODO: ctx.answers.bull
