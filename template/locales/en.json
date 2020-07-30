@@ -235,5 +235,8 @@
   "Recovery Key": "Recovery Key",
   "Recovery passcode successful. This passcode will no longer be valid.": "Recovery passcode successful. This passcode will no longer be valid.",
   "You have run out of recovery keys. Please download the newly generated recovery keys before continuing.": "You have run out of recovery keys. Please download the newly generated recovery keys before continuing.",
-  "Invalid recovery key.": "Invalid recovery key."
+  "Invalid recovery key.": "Invalid recovery key.",
+  "Authentication is not possible.  No salt value was stored for the account.": "Authentication is not possible.  No salt value was stored for the account.",
+  "Account is currently locked due to rate limiting.  Please try again later.": "Account is currently locked due to rate limiting.  Please try again later.",
+  "Please log out to view the page you requested.": "Please log out to view the page you requested."
 }
