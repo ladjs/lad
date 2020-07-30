@@ -32,9 +32,9 @@ block body
                     td.align-middle= user[config.passport.fields.familyName]
                     td.align-middle: a(href=`mailto:${user.email}`, target='_blank')= user.email
                     td.align-middle= titleize(user.group)
-                    td.align-middle= moment(user.created_at).format('M/D/YY h:mm A')
-                    td.align-middle= moment(user.updated_at).format('M/D/YY h:mm A')
-                    td.align-middle= moment(user.last_login_at).format('M/D/YY h:mm A')
+                    td.align-middle= dayjs(user.created_at).format('M/D/YY h:mm A')
+                    td.align-middle= dayjs(user.updated_at).format('M/D/YY h:mm A')
+                    td.align-middle= dayjs(user.last_login_at).format('M/D/YY h:mm A')
                     td.align-middle: code= user[config.storeIPAddress.ip]
                     td.align-middle: code= user[config.lastLocaleField]
                     if boolean(process.env.AUTH_OTP_ENABLED)
