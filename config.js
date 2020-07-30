@@ -7,7 +7,7 @@ docute.init({
   nav: {
     default: [
       {
-        title: 'Scaffold a Koa webapp and API framework for Node.js',
+        title: 'Lad is the best Node.js framework',
         path: '/'
       }
     ]
