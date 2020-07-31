@@ -87,8 +87,8 @@ module.exports = {
       type: 'confirm',
       default: true
     },
-    bull: {
-      message: 'Do you need a job scheduler (@ladjs/bull)',
+    bree: {
+      message: 'Do you need a job scheduler (bree)',
       type: 'confirm',
       default: true
     },
@@ -120,9 +120,9 @@ module.exports = {
 
     'web.js': 'web === true',
     'api.js': 'api === true',
-    'bull.js': 'bull === true',
+    'bree.js': 'bree === true',
     'proxy.js': 'proxy === true',
-    'jobs/**': 'bull === true',
+    'jobs/**': 'bree === true',
 
     'test/config/snapshots/': false,
     'test/config/snapshots/**': false,
@@ -140,7 +140,7 @@ module.exports = {
   post: async (ctx) => {
     ctx.gitInit();
 
-    // TODO: ctx.answers.bull
+    // TODO: ctx.answers.bree
     // - remove from pkg
     // - remove config
     // - remove tests

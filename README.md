@@ -67,7 +67,7 @@ These microservices are preconfigured for security, performance, and graceful re
 
 * Webapp server → [web.js](template/web.js)
 * API server → [api.js](template/api.js)
-* Job scheduler → [bull.js](template/bull.js)
+* Job scheduler → [bree.js](template/bree.js)
 * Proxy server → [proxy.js](template/proxy.js)
 
 ### Front-end
@@ -881,7 +881,7 @@ template
 │   │   └── uncaught.js
 │   ├── manifest.json
 │   └── robots.txt
-├── bull.js
+├── bree.js
 ├── config
 │   ├── env.js
 │   ├── index.js
@@ -1008,7 +1008,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -1101,8 +1101,6 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [koa]: http://koajs.com/
 
 [mongoose]: http://mongoosejs.com
-
-[bull]: https://github.com/OptimalBits/bull
 
 [ladjs-auth]: https://github.com/ladjs/auth
 

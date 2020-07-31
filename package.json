@@ -48,6 +48,7 @@
     "eslint": "^7.5.0",
     "eslint-config-xo-lass": "^1.0.3",
     "eslint-plugin-compat": "^3.8.0",
+    "eslint-plugin-no-smart-quotes": "^1.1.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "nyc": "^15.1.0",

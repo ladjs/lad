@@ -50,9 +50,7 @@ async function help(ctx) {
       }
     ],
     created_at: {
-      $gte: dayjs()
-        .subtract(1, 'day')
-        .toDate()
+      $gte: dayjs().subtract(1, 'day').toDate()
     }
   });
 
