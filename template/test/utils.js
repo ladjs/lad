@@ -10,8 +10,6 @@ factory.setAdapter(new MongooseAdapter());
 // Models and server
 const config = require('../config');
 const { Users } = require('../app/models');
-const _ = require('lodash');
-const { authenticator } = require('otplib');
 
 const mongod = new MongodbMemoryServer();
 
@@ -24,7 +22,6 @@ exports.setupMongoose = async () => {
 };
 
 exports.setupWebServer = async t => {
-  process.env.WEB_RATELIMIT_MAX = 250;
   // must require here in order to load changes made during setup
   t.context.web = await request.agent(require('../web').server);
 };
@@ -43,11 +40,12 @@ exports.loginUser = async t => {
     password
   });
 };
+
 //
 // teardown utilities
 //
-exports.teardownMongoose = async t => {
-  mongoose.disconnect();
+exports.teardownMongoose = async () => {
+  await mongoose.disconnect();
   mongod.stop();
 };
 
@@ -55,18 +53,18 @@ exports.teardownMongoose = async t => {
 // factory definitions
 // <https://github.com/simonexmachina/factory-girl>
 //
-exports.defineUserFactory = async t => {
+exports.defineUserFactory = async () => {
   factory.define('user', Users, buildOptions => {
     const user = {
       email: factory.sequence('Users.email', n => `test${n}@example.com`),
-      password: buildOptions.password
-        ? buildOptions.password
-        : '!@K#NLK!#N'
+      password: buildOptions.password ? buildOptions.password : '!@K#NLK!#N'
     };
 
     if (buildOptions.resetToken) {
       user[config.userFields.resetToken] = buildOptions.resetToken;
-      user[config.userFields.resetTokenExpiresAt] = new Date(Date.now() + 10000);
+      user[config.userFields.resetTokenExpiresAt] = new Date(
+        Date.now() + 10000
+      );
     }
 
     return user;
