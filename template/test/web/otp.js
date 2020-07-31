@@ -1,5 +1,4 @@
 const test = require('ava');
-const sinon = require('sinon');
 const { factory } = require('factory-girl');
 
 const _ = require('lodash');
@@ -14,7 +13,6 @@ authenticator.options = {
   crypto: require('crypto'),
   step: 30
 };
-
 
 const utils = require('../utils');
 
@@ -32,7 +30,7 @@ test.beforeEach(async t => {
   // set rate limit higher for when running serially
   process.env.WEB_RATELIMIT_MAX = 250;
 
-  //set password
+  // set password
   t.context.password = '!@K#NLK!#N';
   // create user
   let user = await factory.build('user');
@@ -68,7 +66,9 @@ test('GET otp/login > successful', async t => {
 test('POST otp/login > successful', async t => {
   // get test server
   const { web, user } = t.context;
-  const passcode = authenticator.generate(user[config.passport.fields.otpToken]);
+  const passcode = authenticator.generate(
+    user[config.passport.fields.otpToken]
+  );
 
   // POST login page
   const res = await web
