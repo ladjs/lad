@@ -11,8 +11,7 @@
       "test/**/*.js",
       "test/**/**/*.js",
       "!test/utils.js"
-    ],
-    "serial": true
+    ]
   },
   "bugs": {
     "url": "<%= repo %>/issues",
@@ -150,6 +149,7 @@
     "factor-bundle": "^2.5.0",
     "factory-girl": "^5.0.4",
     "fixpack": "^3.0.6",
+    "get-port": "^5.1.1",
     "globby": "^11.0.1",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
