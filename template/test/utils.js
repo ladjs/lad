@@ -4,6 +4,7 @@ const MongodbMemoryServer = require('mongodb-memory-server').default;
 const mongoose = require('mongoose');
 const request = require('supertest');
 const { factory, MongooseAdapter } = require('factory-girl');
+const getPort = require('get-port');
 
 factory.setAdapter(new MongooseAdapter());
 
@@ -23,12 +24,16 @@ exports.setupMongoose = async () => {
 
 exports.setupWebServer = async t => {
   // must require here in order to load changes made during setup
-  t.context.web = await request.agent(require('../web').server);
+  const app = require('../web').app;
+  const port = await getPort();
+  t.context.web = request.agent(app.listen(port));
 };
 
 exports.setupApiServer = async t => {
   // must require here in order to load changes made during setup
-  t.context.api = await request.agent(require('../api').server);
+  const app = require('../api').app;
+  const port = await getPort();
+  t.context.api = request.agent(app.listen(port));
 };
 
 // make sure to load the web server first using setupWebServer
