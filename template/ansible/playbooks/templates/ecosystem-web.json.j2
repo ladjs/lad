@@ -11,26 +11,6 @@
       }
     },
     {
-      "name": "api",
-      "script": "api.js",
-      "exec_mode": "cluster",
-      "wait_ready": true,
-      "instances": "max",
-      "env_production": {
-        "NODE_ENV": "production"
-      }
-    },
-    {
-      "name": "bull",
-      "script": "bull.js",
-      "exec_mode": "fork",
-      "wait_ready": true,
-      "instances": "1",
-      "env_production": {
-        "NODE_ENV": "production"
-      }
-    },
-    {
       "name": "proxy",
       "script": "proxy.js",
       "exec_mode": "cluster",
@@ -39,16 +19,28 @@
       "env_production": {
         "NODE_ENV": "production"
       }
+    },
+    {
+      "name": "api",
+      "script": "api.js",
+      "exec_mode": "fork",
+      "wait_ready": true,
+      "instances": "1",
+      "env_production": {
+        "NODE_ENV": "production",
+        "API_PORT": "4000"
+      }
     }
   ],
   "deploy": {
     "production": {
       "user": "deploy",
-      "host": "<%= this.slug(name) %>-deploy",
+      "host": [{% for host in groups['web'] %}"{{ hostvars[host].ansible_host }}"{% if not loop.last %}, {% endif %}{% endfor %}],
       "ref": "origin/master",
-      "repo": "git@github.com:<%= repo.replace('https://github.com/', '') %>.git",
+      "repo": "{{ lookup('env', 'GITHUB_REPO') }}",
       "path": "/var/www/production",
-      "post-deploy": "yarn && NODE_ENV=production yarn start build && pm2 startOrGracefulReload ecosystem.json --env production --update-env"
+      "pre-deploy": "git reset --hard",
+      "post-deploy": "npm install && NODE_ENV=production npm start build && pm2 startOrGracefulReload ecosystem-web.json --env production --update-env"
     }
   }
 }

@@ -24,7 +24,8 @@
     "Shaun Warman <shaunwarman1@gmail.com> (https://shaunwarman.com/)"
   ],
   "dependencies": {
-    "cac": "^6.5.8",
+    "@ladjs/browserslist-config": "^0.0.1",
+    "cac": "^6.6.1",
     "camelcase": "^5.3.1",
     "github-username-regex": "^1.0.0",
     "is-email": "^1.0.0",
@@ -39,21 +40,22 @@
     "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "ava": "^2.4.0",
-    "codecov": "^3.6.5",
-    "cross-env": "^6.0.3",
-    "eslint": "^6.8.0",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "ava": "^3.11.0",
+    "codecov": "^3.7.2",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.5.0",
     "eslint-config-xo-lass": "^1.0.3",
-    "eslint-plugin-compat": "^3.5.1",
-    "husky": "^3.1.0",
-    "lint-staged": "^10.1.4",
-    "nyc": "^15.0.1",
-    "remark-cli": "^8.0.0",
-    "remark-preset-github": "^2.0.0",
+    "eslint-plugin-compat": "^3.8.0",
+    "eslint-plugin-no-smart-quotes": "^1.1.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "nyc": "^15.1.0",
+    "remark-cli": "^8.0.1",
+    "remark-preset-github": "^2.0.2",
     "supertest": "^4.0.2",
-    "xo": "^0.25.3"
+    "xo": "^0.32.1"
   },
   "engines": {
     "node": ">=10"

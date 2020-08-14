@@ -4,6 +4,9 @@ const env = require('./env');
 /* eslint max-len: 0 */
 
 module.exports = {
+  HELLO: 'Hello',
+  WWW_WARNING:
+    'It looks like you accidentally included "www." in your domain name.  Did you mean example.com instead of www.example.com?',
   INVALID_API_CREDENTIALS: 'Invalid API credentials.',
   INVALID_API_TOKEN: 'Invalid API token.',
   INVALID_EMAIL: 'Email address was invalid.',
@@ -12,8 +15,8 @@ module.exports = {
   INVALID_PASSWORD: 'Password was invalid.',
   INVALID_PASSWORD_CONFIRM: 'Password confirmation did not match new password.',
   INVALID_PASSWORD_STRENGTH: 'Password strength was not strong enough.',
+  INVALID_PORT: 'Invalid port number.',
   INVALID_PROVIDER: 'We do not support this authentication provider.',
-  INVALID_RECOVERY_PASSCODE: 'Invalid recovery passcode.',
   INVALID_RECOVERY_KEY: 'Invalid recovery key.',
   INVALID_RESET_PASSWORD: 'Reset token and email were not valid together.',
   INVALID_RESET_TOKEN: 'Reset token provided was invalid.',
@@ -22,7 +25,7 @@ module.exports = {
   INVALID_STRING: '%s was missing or blank.',
   INVALID_USER: 'User does not exist.',
   INVALID_TOKEN: 'Invalid CSRF token.',
-  INVALID_VERIFICATION_PIN: 'The verification pin you entered was invalid.',
+  INVALID_VERIFICATION_PIN: 'The verification code entered was invalid.',
   EMAIL_VERIFICATION_REQUIRED: 'Please verify your email address to continue.',
   EMAIL_VERIFICATION_INTERVAL:
     'Please wait for <span class="notranslate">%s</span> and try again.',
@@ -30,14 +33,14 @@ module.exports = {
     'Your email address has been successfully verified.',
   EMAIL_ALREADY_VERIFIED: 'Your email address is already verified.',
   EMAIL_VERIFICATION_SENT:
-    'An email verification pin has been sent to your email address.',
+    'A verification code has been sent to your email address.',
   EMAIL_VERIFICATION_EXPIRED:
-    'Your current email verification pin has expired and we have sent you a new one to your email address.',
+    'Your current email verification code has expired and we have sent a new one to your email address.',
   INVALID_OTP_PASSCODE: 'Invalid two-factor authentication passcode.',
   IS_NOT_ADMIN: 'You do not belong to the administrative user group.',
   TWO_FACTOR_REQUIRED:
-    'Please log in with two-factor authentication to view the page you requested.',
-  LOGIN_REQUIRED: 'Please log in to view the page you requested.',
+    'Please log in with two-factor authentication to continue.',
+  LOGIN_REQUIRED: 'Please log in or sign up to view the page you requested.',
   LOGOUT_REQUIRED: 'Please log out to view the page you requested.',
   PASSWORD_RESET_LIMIT:
     'You can only request a password reset every 30 minutes.  Please try again %s.',
@@ -77,5 +80,7 @@ module.exports = {
   PASSPORT_INCORRECT_USERNAME_ERROR: 'Email address or password is incorrect.',
   PASSPORT_MISSING_USERNAME_ERROR: 'Please enter an email address.',
   PASSPORT_USER_EXISTS_ERROR:
-    'A user with the given email address is already registered.  Please try to log in or reset the password if this account belongs to you.'
+    'A user with the given email address is already registered.  Please try to log in or reset the password if this account belongs to you.',
+  EMAIL_FAILED_TO_SEND:
+    'Unfortunately an error occurred while sending the email.  Please try again or <a href="/help">contact us</a> for help.'
 };

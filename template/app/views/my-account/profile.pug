@@ -1,0 +1,53 @@
+extends ../layout
+
+block body
+  #modal-change-password(tabindex='-1', role='dialog').modal.fade
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header.d-block.text-center
+          h5.modal-title= t('Change password')
+        form(action=ctx.path, method='POST').ajax-form.confirm-prompt.mt-3
+          input(type='hidden', name='_method', value='PUT')
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          input(type='hidden', name='change_password', value='true')
+          .modal-body
+            if user[config.userFields.hasSetPassword]
+              .form-group.floating-label
+                input#input-old-password(type='password', name='old_password', required, autocomplete='off').form-control
+                label(for='input-old-password')= t('Confirm old password')
+            .form-group.floating-label
+              input#input-password(type='password', name='password', required, autocomplete='off').form-control
+              label(for='input-password')= t('Set new password')
+            .form-group.floating-label
+              input#input-confirm-password(type='password', name='confirm_password', required, autocomplete='off').form-control
+              label(for='input-confirm-password')= t('Confirm new password')
+          .modal-footer.text-right
+            button(type='button', data-dismiss='modal', aria-label=t('Cancel')).btn.btn-secondary= t('Cancel')
+            button(type='submit').btn.btn-primary= user[config.userFields.hasSetPassword] ? t('Change password') : t('Set an account password')
+  .container-fluid.py-3
+    .row
+      .col
+        include ../_breadcrumbs
+        form(action=ctx.path, method='POST').ajax-form.confirm-prompt
+          input(type='hidden', name='_method', value='PUT')
+          input(type="hidden", name="_csrf", value=ctx.csrf)
+          .card
+            h4.card-header= t('Update Profile')
+            .card-body
+              .form-group.floating-label
+                input#input-email(type='email', required, name='email', value=user.email, placeholder='name@example.com').form-control
+                label(for='input-email')= t('Email address')
+              .form-group.floating-label
+                input#input-given-name(type='text', name=config.passport.fields.givenName, value=user[config.passport.fields.givenName], placeholder=t('First name')).form-control
+                label(for="input-given-name")= t('First name')
+              .form-group.floating-label
+                input#input-family-name(type='text', name=config.passport.fields.familyName, value=user[config.passport.fields.familyName], placeholder=t('Last name')).form-control
+                label(for="input-family-name")= t('Last name')
+              .form-group.floating-label
+                if user[config.userFields.hasSetPassword]
+                  button(data-toggle='modal', data-target='#modal-change-password', type='button').btn.btn-secondary.btn-sm.my-auto= t('Change password')
+                else
+                  button(data-toggle='modal', data-target='#modal-change-password', type='button').btn.btn-primary.btn-sm.my-auto= t('Set an account password')
+            .card-footer.text-right
+              button(type='reset').btn.btn-secondary= t('Reset')
+              button(type='submit').btn.btn-primary= t('Save')

@@ -1,0 +1,40 @@
+---
+- hosts: http:bree
+  become: true
+  become_user: root
+  vars_prompt:
+    - name: input_profile
+      prompt: 'Enter path to Google application credentials profile file (used for translation with `mandarin`) (e.g. /path/to/client-profile.json)'
+      private: false
+
+  tasks:
+    # profile file
+    - name: check if profile file exists
+      local_action: stat path={{ input_profile }}
+      become: false
+      register: local_profile_file
+    - name: fail when local profile file does not exist
+      fail:
+        msg: 'profile file does not exist: {{ input_profile }}'
+      when: not local_profile_file.stat.exists
+
+    # remote dir
+    - name: check if remote dir exists
+      stat:
+        path: '/var/www/production'
+      register: remote_dir
+
+    - name: fail when remote dir does not exist
+      fail:
+        msg: pm2 dir not yet created
+      when: not remote_dir.stat.exists or not remote_dir.stat.isdir
+
+    # copy local profile
+    - name: copy local profile file to server
+      copy:
+        src: '{{ input_profile }}'
+        dest: /var/www/production/.gapps-creds.json
+        owner: www-data
+        group: www-data
+        # https://chmodcommand.com/chmod-660/
+        mode: 0660

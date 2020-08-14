@@ -1,13 +1,18 @@
+// eslint-disable-next-line import/no-unassigned-import
+require('./config/env');
+
 const path = require('path');
 const fs = require('fs');
 
+const Graceful = require('@ladjs/graceful');
+const Mandarin = require('mandarin');
 const RevAll = require('gulp-rev-all');
 const babel = require('gulp-babel');
 const browserify = require('browserify');
 const concat = require('gulp-concat');
 const cssnano = require('cssnano');
 const del = require('del');
-const envify = require('gulp-envify');
+const envify = require('@ladjs/gulp-envify');
 const fontMagician = require('postcss-font-magician');
 const fontSmoothing = require('postcss-font-smoothing');
 const getStream = require('get-stream');
@@ -43,8 +48,9 @@ process.env.I18N_SYNC_FILES = true;
 process.env.I18N_AUTO_RELOAD = false;
 process.env.I18N_UPDATE_FILES = true;
 
-const env = require('./config/env');
 const config = require('./config');
+const logger = require('./helpers/logger');
+const i18n = require('./helpers/i18n');
 
 const PROD = config.env === 'production';
 const DEV = config.env === 'development';
@@ -154,12 +160,12 @@ async function bundle() {
     const paths = await globby('**/*.js', { cwd: 'assets/js' });
     const factorBundle = await new Promise((resolve, reject) => {
       browserify({
-        entries: paths.map(string => `assets/js/${string}`),
+        entries: paths.map((string) => `assets/js/${string}`),
         debug: true
       })
         .plugin('bundle-collapser/plugin')
         .plugin('factor-bundle', {
-          outputs: paths.map(string =>
+          outputs: paths.map((string) =>
             path.join(config.buildBase, 'js', string)
           )
         })
@@ -204,7 +210,7 @@ async function bundle() {
   let stream = src('build/js/**/*.js', { base: 'build', since })
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(unassert())
-    .pipe(envify(env))
+    .pipe(envify())
     .pipe(babel());
 
   if (PROD) stream = stream.pipe(terser());
@@ -238,6 +244,16 @@ function static() {
     allowEmpty: true,
     since: lastRun(static)
   }).pipe(dest(config.buildBase));
+}
+
+async function markdown() {
+  const mandarin = new Mandarin({
+    i18n,
+    logger
+  });
+  const graceful = new Graceful({ redisClients: [mandarin.redisClient] });
+  await mandarin.markdown();
+  await graceful.stopRedisClients();
 }
 
 async function sri() {
@@ -294,7 +310,10 @@ const build = series(
   clean,
   parallel(
     ...(TEST ? [] : [xo, remark]),
-    series(parallel(img, static, series(fonts, scss, css), bundle), sri)
+    series(
+      parallel(img, static, markdown, series(fonts, scss, css), bundle),
+      sri
+    )
   )
 );
 
@@ -303,9 +322,11 @@ module.exports = {
   build,
   bundle,
   sri,
+  markdown,
   watch: () => {
     lr.listen(config.livereload);
     watch(['**/*.js', '!assets/js/**/*.js'], xo);
+    watch(Mandarin.DEFAULT_PATTERNS, markdown);
     watch('assets/img/**/*', img);
     watch('assets/css/**/*.scss', series(fonts, scss, css));
     watch('assets/js/**/*.js', series(xo, bundle));

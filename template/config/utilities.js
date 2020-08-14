@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const ajc = require('array-join-conjunction');
 const dashify = require('dashify');
-const fa = require('font-awesome-assets');
 const hljs = require('highlight.js');
 const humanize = require('humanize-string');
 const isBot = require('isbot');
@@ -19,7 +18,7 @@ const { boolean } = require('boolean');
 const json = (string, replacer = null, space = 2) =>
   JSON.stringify(string, replacer, space);
 
-const emoji = string => (toEmoji[string] ? toEmoji[string] : '');
+const emoji = (string) => (toEmoji[string] ? toEmoji[string] : '');
 
 module.exports = {
   _,
@@ -27,7 +26,6 @@ module.exports = {
   boolean,
   dashify,
   emoji,
-  fa,
   hljs,
   humanize,
   isBot,

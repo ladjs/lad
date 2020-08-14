@@ -1,11 +1,13 @@
 {
+  "compact": false,
   "presets": [
     [
       "@babel/env", {
         "debug": true,
-        "useBuiltIns": "usage",
+        "forceAllTransforms": true,
+        "modules": false,
         "targets": {
-          "browsers": "extends @ladjs/browserslist-config"
+          "browsers": [ "extends @ladjs/browserslist-config" ]
         }
       }
     ]

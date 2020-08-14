@@ -4,9 +4,9 @@ module.exports = {
   scripts: {
     all: series.nps('build', 'apps-and-watch'),
     appsAndWatch: concurrent.nps('apps', 'watch'),
-    apps: concurrent.nps('bull', 'api', 'web'),
+    apps: concurrent.nps('bree', 'api', 'web'),
 
-    bull: 'nodemon bull.js',
+    bree: 'nodemon bree.js',
     api: 'nodemon api.js',
     web: 'nodemon web.js',
 
@@ -15,7 +15,10 @@ module.exports = {
     build: 'gulp build',
     publishAssets: 'gulp publish',
 
-    lint: series('gulp xo', 'gulp remark', 'gulp pug'),
+    lintJs: 'gulp xo',
+    lintMd: 'gulp remark',
+    lintPug: 'gulp pug',
+    lint: concurrent.nps('lint-js', 'lint-md', 'lint-pug'),
 
     // <https://github.com/kentcdodds/nps-utils/issues/24>
     pretest: concurrent.nps('lint', 'build', 'pretest-mongo', 'pretest-redis'),

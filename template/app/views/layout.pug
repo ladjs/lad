@@ -101,8 +101,8 @@ html(lang=locale).h-100
       script.
         window.API_URL = "#{config.urls.api}";
 
+      //- set the user and API key to be used by CabinJS
       if config.env !== 'test'
-        //- set the user and API key to be used by CabinJS
         if user
           script.
             window.USER = {

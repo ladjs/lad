@@ -1,10 +1,10 @@
-const bull = require('./bull');
+const bree = require('./bree');
 const api = require('./api');
 const web = require('./web');
 const proxy = require('./proxy');
 
 module.exports = {
-  bull,
+  bree,
   api,
   web,
   proxy

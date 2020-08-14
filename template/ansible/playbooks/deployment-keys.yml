@@ -1,0 +1,15 @@
+---
+- hosts: http:bree
+  become: true
+  become_user: root
+  tasks:
+    - name: check if key exists
+      stat:
+        path: '/home/deploy/.ssh/id_rsa.pub'
+      register: key_file
+    - name: fetch key file to local dir
+      fetch:
+        src: '/home/deploy/.ssh/id_rsa.pub'
+        dest: '{{ inventory_dir }}/deployment-keys/{{ inventory_hostname }}.pub'
+        flat: true
+      when: key_file.stat.exists

@@ -1,0 +1,25 @@
+{
+  "apps": [
+    {
+      "name": "bree",
+      "script": "bree.js",
+      "exec_mode": "fork",
+      "wait_ready": true,
+      "instances": "1",
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "deploy",
+      "host": [{% for host in groups['bree'] %}"{{ hostvars[host].ansible_host }}"{% if not loop.last %}, {% endif %}{% endfor %}],
+      "ref": "origin/master",
+      "repo": "{{ lookup('env', 'GITHUB_REPO') }}",
+      "path": "/var/www/production",
+      "pre-deploy": "git reset --hard",
+      "post-deploy": "npm install && NODE_ENV=production npm start build && pm2 startOrGracefulReload ecosystem-bree.json --env production --update-env"
+    }
+  }
+}

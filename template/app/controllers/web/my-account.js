@@ -13,7 +13,7 @@ async function update(ctx) {
   if (hasSetPassword) requiredFields.push('old_password');
 
   if (body.change_password === 'true') {
-    requiredFields.forEach(prop => {
+    requiredFields.forEach((prop) => {
       if (!isSANB(body[prop]))
         throw Boom.badRequest(
           ctx.translateError('INVALID_STRING', ctx.request.t(humanize(prop)))
@@ -42,15 +42,16 @@ async function update(ctx) {
 
   ctx.state.user = await ctx.state.user.save();
 
-  ctx.flash('custom', {
-    title: ctx.request.t('Success'),
-    text: ctx.translate('REQUEST_OK'),
-    type: 'success',
-    toast: true,
-    showConfirmButton: false,
-    timer: 3000,
-    position: 'top'
-  });
+  if (!ctx.api)
+    ctx.flash('custom', {
+      title: ctx.request.t('Success'),
+      text: ctx.translate('REQUEST_OK'),
+      type: 'success',
+      toast: true,
+      showConfirmButton: false,
+      timer: 3000,
+      position: 'top'
+    });
 
   if (ctx.accepts('html')) ctx.redirect('back');
   else ctx.body = { reloadPage: true };
@@ -60,15 +61,16 @@ async function resetAPIToken(ctx) {
   ctx.state.user[config.userFields.apiToken] = null;
   ctx.state.user = await ctx.state.user.save();
 
-  ctx.flash('custom', {
-    title: ctx.request.t('Success'),
-    text: ctx.translate('REQUEST_OK'),
-    type: 'success',
-    toast: true,
-    showConfirmButton: false,
-    timer: 3000,
-    position: 'top'
-  });
+  if (!ctx.api)
+    ctx.flash('custom', {
+      title: ctx.request.t('Success'),
+      text: ctx.translate('REQUEST_OK'),
+      type: 'success',
+      toast: true,
+      showConfirmButton: false,
+      timer: 3000,
+      position: 'top'
+    });
 
   if (ctx.accepts('html')) ctx.redirect('back');
   else ctx.body = { reloadPage: true };
@@ -78,10 +80,7 @@ async function recoveryKeys(ctx) {
   const otpRecoveryKeys = ctx.state.user[config.userFields.otpRecoveryKeys];
 
   ctx.attachment('recovery-keys.txt');
-  ctx.body = otpRecoveryKeys
-    .toString()
-    .replace(/,/g, '\n')
-    .replace(/"/g, '');
+  ctx.body = otpRecoveryKeys.toString().replace(/,/g, '\n').replace(/"/g, '');
 }
 
 module.exports = {

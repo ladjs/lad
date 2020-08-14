@@ -11,11 +11,12 @@ const { boolean } = require('boolean');
 
 const Users = require('../../models/user');
 const passport = require('../../../helpers/passport');
+const email = require('../../../helpers/email');
 const sendVerificationEmail = require('../../../helpers/send-verification-email');
 const config = require('../../../config');
 const { Inquiries } = require('../../models');
 
-const sanitize = string =>
+const sanitize = (string) =>
   sanitizeHtml(string, {
     allowedTags: [],
     allowedAttributes: []
@@ -90,7 +91,7 @@ async function homeOrDashboard(ctx) {
   // If the user is logged in then take them to their dashboard
   if (ctx.isAuthenticated())
     return ctx.redirect(
-      `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`
+      ctx.state.l(config.passportCallbackOptions.successReturnToOrRedirect)
     );
   // Manually set page title since we don't define Home route in config/meta
   ctx.state.meta = {
@@ -252,7 +253,7 @@ async function recoveryKey(ctx) {
 
   // remove used key from recovery key list
   recoveryKeys = recoveryKeys.filter(
-    key => key !== ctx.request.body.recovery_key
+    (key) => key !== ctx.request.body.recovery_key
   );
 
   const emptyRecoveryKeys = recoveryKeys.length === 0;
@@ -263,8 +264,8 @@ async function recoveryKey(ctx) {
 
   // handle case if the user runs out of keys
   if (emptyRecoveryKeys) {
-    const opts = { length: 10, characters: '1234567890' };
-    recoveryKeys = new Array(10).fill().map(() => cryptoRandomString(opts));
+    const options = { length: 10, characters: '1234567890' };
+    recoveryKeys = new Array(10).fill().map(() => cryptoRandomString(options));
   }
 
   ctx.state.user[config.userFields.otpRecoveryKeys] = recoveryKeys;
@@ -307,15 +308,19 @@ async function register(ctx) {
   const count = await Users.countDocuments({ group: 'admin' });
   const query = {
     email: body.email,
-    group: count === 0 ? 'admin' : 'user'
+    group: count === 0 ? 'admin' : 'user',
+    locale: ctx.locale
   };
   query[config.userFields.hasVerifiedEmail] = false;
   query[config.userFields.hasSetPassword] = true;
+  query[config.lastLocaleField] = ctx.locale;
   const user = await Users.register(query, body.password);
 
   await ctx.login(user);
 
-  let redirectTo = `/${ctx.locale}${config.passportCallbackOptions.successReturnToOrRedirect}`;
+  let redirectTo = ctx.state.l(
+    config.passportCallbackOptions.successReturnToOrRedirect
+  );
 
   if (ctx.session && ctx.session.returnTo) {
     redirectTo = ctx.session.returnTo;
@@ -384,18 +389,9 @@ async function forgotPassword(ctx) {
 
   user = await user.save();
 
-  if (ctx.accepts('html')) {
-    ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
-    ctx.redirect('back');
-  } else {
-    ctx.body = {
-      message: ctx.translate('PASSWORD_RESET_SENT')
-    };
-  }
-
   // queue password reset email
   try {
-    const job = await ctx.bull.add('email', {
+    await email({
       template: 'reset-password',
       message: {
         to: user[config.userFields.fullEmail]
@@ -410,9 +406,27 @@ async function forgotPassword(ctx) {
         }`
       }
     });
-    ctx.logger.info('added job', ctx.bull.getMeta({ job }));
+
+    if (ctx.accepts('html')) {
+      ctx.flash('success', ctx.translate('PASSWORD_RESET_SENT'));
+      ctx.redirect('back');
+    } else {
+      ctx.body = {
+        message: ctx.translate('PASSWORD_RESET_SENT')
+      };
+    }
   } catch (err) {
     ctx.logger.error(err);
+    // reset if there was an error
+    try {
+      user[config.userFields.resetToken] = null;
+      user[config.userFields.resetTokenExpiresAt] = null;
+      user = await user.save();
+    } catch (err) {
+      ctx.logger.error(err);
+    }
+
+    throw Boom.badRequest(ctx.translateError('EMAIL_FAILED_TO_SEND'));
   }
 }
 
@@ -577,19 +591,22 @@ async function verify(ctx) {
 
     ctx.logger.debug('created inquiry', inquiry);
 
-    const job = await ctx.bull.add('email', {
-      template: 'recovery',
-      message: {
-        to: ctx.state.user.email,
-        cc: config.email.message.from
-      },
-      locals: {
-        locale: ctx.locale,
-        inquiry
-      }
-    });
-
-    ctx.logger.info('added job', ctx.bull.getMeta({ job }));
+    try {
+      await email({
+        template: 'recovery',
+        message: {
+          to: ctx.state.user.email,
+          cc: config.email.message.from
+        },
+        locals: {
+          locale: ctx.locale,
+          inquiry
+        }
+      });
+    } catch (err) {
+      ctx.logger.error(err);
+      throw Boom.badRequest(ctx.translateError('EMAIL_FAILED_TO_SEND'));
+    }
   }
 
   const message = pendingRecovery

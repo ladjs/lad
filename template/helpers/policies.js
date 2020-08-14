@@ -19,7 +19,7 @@ const policies = new Policies(
     loginOtpRoute,
     passport
   },
-  apiToken => {
+  (apiToken) => {
     const query = {};
     query[userFields.apiToken] = apiToken;
     return Users.findOne(query);

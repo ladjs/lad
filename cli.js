@@ -15,7 +15,7 @@ const cli = cac();
 
 cli
   .command('<name>', 'Generate a new project')
-  .action(name => {
+  .action((name) => {
     const folderName = name;
     const targetPath = path.resolve(folderName);
     console.log(`> Generating project in ${targetPath}`);
