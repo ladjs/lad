@@ -13,7 +13,7 @@ test.before(utils.defineUserFactory);
 test.after.always(utils.teardownMongoose);
 test.beforeEach(utils.setupWebServer);
 
-test('creates new user', async t => {
+test('creates new user', async (t) => {
   const { web } = t.context;
   const user = await factory.build('user');
 
@@ -23,10 +23,10 @@ test('creates new user', async t => {
   });
 
   t.is(res.status, 302);
-  t.is(res.header.location, '/en/dashboard');
+  t.is(res.header.location, '/en/my-account');
 });
 
-test('fails registering with easy password', async t => {
+test('fails registering with easy password', async (t) => {
   const { web } = t.context;
 
   const res = await web.post('/en/register').send({
@@ -38,7 +38,7 @@ test('fails registering with easy password', async t => {
   t.is(res.body.message, phrases.INVALID_PASSWORD_STRENGHT);
 });
 
-test('successfully registers with strong password', async t => {
+test('successfully registers with strong password', async (t) => {
   const { web } = t.context;
   const user = await factory.build('user');
 
@@ -48,11 +48,11 @@ test('successfully registers with strong password', async t => {
   });
 
   t.is(res.body.message, undefined);
-  t.is(res.header.location, '/en/dashboard');
+  t.is(res.header.location, '/en/my-account');
   t.is(res.status, 302);
 });
 
-test('successfully registers with stronger password', async t => {
+test('successfully registers with stronger password', async (t) => {
   const { web } = t.context;
 
   const res = await web.post('/en/register').send({
@@ -61,11 +61,11 @@ test('successfully registers with stronger password', async t => {
   });
 
   t.is(res.body.message, undefined);
-  t.is(res.header.location, '/en/dashboard');
+  t.is(res.header.location, '/en/my-account');
   t.is(res.status, 302);
 });
 
-test('fails registering invalid email', async t => {
+test('fails registering invalid email', async (t) => {
   const { web } = t.context;
 
   const res = await web.post('/en/register').send({
@@ -77,7 +77,7 @@ test('fails registering invalid email', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_EMAIL);
 });
 
-test("doesn't leak used email", async t => {
+test("doesn't leak used email", async (t) => {
   const { web } = t.context;
   const user = await factory.create('user');
 
@@ -90,7 +90,7 @@ test("doesn't leak used email", async t => {
   t.is(JSON.parse(res.text).message, phrases.PASSPORT_USER_EXISTS_ERROR);
 });
 
-test('allows password reset for valid email (HTML)', async t => {
+test('allows password reset for valid email (HTML)', async (t) => {
   const { web } = t.context;
 
   const user = await factory.create('user');
@@ -104,7 +104,7 @@ test('allows password reset for valid email (HTML)', async t => {
   t.is(res.header.location, '/');
 });
 
-test('allows password reset for valid email (JSON)', async t => {
+test('allows password reset for valid email (JSON)', async (t) => {
   const { web } = t.context;
 
   const user = await factory.create('user');
@@ -115,7 +115,7 @@ test('allows password reset for valid email (JSON)', async t => {
   t.is(res.header.location, '/');
 });
 
-test('resets password with valid email and token (HTML)', async t => {
+test('resets password with valid email and token (HTML)', async (t) => {
   const { web } = t.context;
   const user = await factory.create('user', {}, { resetToken: 'token' });
   const { email } = user;
@@ -130,7 +130,7 @@ test('resets password with valid email and token (HTML)', async t => {
   t.is(res.header.location, '/en');
 });
 
-test('resets password with valid email and token (JSON)', async t => {
+test('resets password with valid email and token (JSON)', async (t) => {
   const { web } = t.context;
   const user = await factory.create('user', {}, { resetToken: 'token' });
   const { email } = user;
@@ -144,7 +144,7 @@ test('resets password with valid email and token (JSON)', async t => {
   t.is(res.header.location, '/en');
 });
 
-test('fails resetting password for non-existent user', async t => {
+test('fails resetting password for non-existent user', async (t) => {
   const { web } = t.context;
   const email = 'test7@example.com';
   const password = '!@K#NLK!#N';
@@ -157,7 +157,7 @@ test('fails resetting password for non-existent user', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_RESET_PASSWORD);
 });
 
-test('fails resetting password with invalid reset token', async t => {
+test('fails resetting password with invalid reset token', async (t) => {
   const { web } = t.context;
   const user = await factory.create('user', {}, { resetToken: 'token' });
   const { email } = user;
@@ -171,7 +171,7 @@ test('fails resetting password with invalid reset token', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_RESET_PASSWORD);
 });
 
-test('fails resetting password with missing new password', async t => {
+test('fails resetting password with missing new password', async (t) => {
   const { web } = t.context;
   const user = await factory.create('user', {}, { resetToken: 'token' });
   const { email } = user;
@@ -182,7 +182,7 @@ test('fails resetting password with missing new password', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_PASSWORD);
 });
 
-test('fails resetting password with invalid email', async t => {
+test('fails resetting password with invalid email', async (t) => {
   const { web } = t.context;
   await factory.create('user', {}, { resetToken: 'token' });
 
@@ -194,7 +194,7 @@ test('fails resetting password with invalid email', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_EMAIL);
 });
 
-test('fails resetting password with invalid email + reset token match', async t => {
+test('fails resetting password with invalid email + reset token match', async (t) => {
   const { web } = t.context;
   await factory.create('user', {}, { resetToken: 'token' });
   const password = '!@K#NLK!#N';
@@ -207,7 +207,7 @@ test('fails resetting password with invalid email + reset token match', async t 
   t.is(JSON.parse(res.text).message, phrases.INVALID_RESET_PASSWORD);
 });
 
-test('fails resetting password if new password is too weak', async t => {
+test('fails resetting password if new password is too weak', async (t) => {
   const { web } = t.context;
   const user = await factory.create('user', {}, { resetToken: 'token' });
   const { email } = user;
@@ -220,7 +220,7 @@ test('fails resetting password if new password is too weak', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_PASSWORD_STRENGTH);
 });
 
-test('fails resetting password if reset was already tried in the last 30 mins', async t => {
+test('fails resetting password if reset was already tried in the last 30 mins', async (t) => {
   const { web } = t.context;
   const user = await factory.create('user');
   const { email } = user;
