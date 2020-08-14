@@ -21,7 +21,7 @@ test.before(utils.defineUserFactory);
 
 test.after.always(utils.teardownMongoose);
 
-test.beforeEach(async t => {
+test.beforeEach(async (t) => {
   // save original environment variables so we can reset after test
   t.context.originalEnv = _.cloneDeep(process.env);
 
@@ -45,12 +45,12 @@ test.beforeEach(async t => {
   await utils.loginUser(t);
 });
 
-test.afterEach.always(t => {
+test.afterEach.always((t) => {
   // reset environment variables
   process.env = _.cloneDeep(t.context.originalEnv);
 });
 
-test('GET otp/login > successful', async t => {
+test('GET otp/login > successful', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -63,7 +63,7 @@ test('GET otp/login > successful', async t => {
   t.snapshot(res.text.replace(/<head>[\S\s]*<\/head>/, ''));
 });
 
-test('POST otp/login > successful', async t => {
+test('POST otp/login > successful', async (t) => {
   // get test server
   const { web, user } = t.context;
   const passcode = authenticator.generate(
@@ -82,7 +82,7 @@ test('POST otp/login > successful', async t => {
   t.is(res.body.redirectTo, '/en/dashboard');
 });
 
-test('POST otp/login > invalid OTP passcode', async t => {
+test('POST otp/login > invalid OTP passcode', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -98,7 +98,7 @@ test('POST otp/login > invalid OTP passcode', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_OTP_PASSCODE);
 });
 
-test('GET otp/setup > successful', async t => {
+test('GET otp/setup > successful', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -109,7 +109,7 @@ test('GET otp/setup > successful', async t => {
   t.true(res.text.includes('id="otp-recovery-keys"'));
 });
 
-test('POST otp/setup > successful', async t => {
+test('POST otp/setup > successful', async (t) => {
   // get test server
   const { web, user, password } = t.context;
 
@@ -126,7 +126,7 @@ test('POST otp/setup > successful', async t => {
   t.true(res.text.includes('Scan this QR code'));
 });
 
-test('POST otp/setup > successful with token', async t => {
+test('POST otp/setup > successful with token', async (t) => {
   // get test server
   const { web, user, password } = t.context;
   const token = authenticator.generate(user[config.passport.fields.otpToken]);
@@ -147,7 +147,7 @@ test('POST otp/setup > successful with token', async t => {
   t.is(query[config.passport.fields.otpEnabled], true);
 });
 
-test('POST otp/setup > invalid token', async t => {
+test('POST otp/setup > invalid token', async (t) => {
   // get test server
   const { web, password } = t.context;
 
@@ -161,7 +161,7 @@ test('POST otp/setup > invalid token', async t => {
   t.true(res.text.includes('Scan this QR code'));
 });
 
-test('POST otp/setup > invalid blank password', async t => {
+test('POST otp/setup > invalid blank password', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -175,7 +175,7 @@ test('POST otp/setup > invalid blank password', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_PASSWORD);
 });
 
-test('POST otp/setup > incorrect password', async t => {
+test('POST otp/setup > incorrect password', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -189,7 +189,7 @@ test('POST otp/setup > incorrect password', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_PASSWORD);
 });
 
-test('POST otp/disable > successful', async t => {
+test('POST otp/disable > successful', async (t) => {
   // get test server
   const { web, user, password } = t.context;
 
@@ -205,7 +205,7 @@ test('POST otp/disable > successful', async t => {
   t.is(query[config.passport.fields.otpEnabled], false);
 });
 
-test('POST otp/disable > invalid blank password', async t => {
+test('POST otp/disable > invalid blank password', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -218,7 +218,7 @@ test('POST otp/disable > invalid blank password', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_PASSWORD);
 });
 
-test('POST otp/disable > incorrect password', async t => {
+test('POST otp/disable > incorrect password', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -231,7 +231,7 @@ test('POST otp/disable > incorrect password', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_PASSWORD);
 });
 
-test('POST otp/recovery > successful', async t => {
+test('POST otp/recovery > successful', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -242,7 +242,7 @@ test('POST otp/recovery > successful', async t => {
   t.is(res.header.location, `/en${config.verifyRoute}`);
 });
 
-test('GET otp/keys > successful', async t => {
+test('GET otp/keys > successful', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -253,7 +253,7 @@ test('GET otp/keys > successful', async t => {
   t.snapshot(res.text.replace(/<head>[\S\s]*<\/head>/, ''));
 });
 
-test('POST otp/keys > successful', async t => {
+test('POST otp/keys > successful', async (t) => {
   // get test server
   const { web, user } = t.context;
   // setup stubs
@@ -275,7 +275,7 @@ test('POST otp/keys > successful', async t => {
   t.falsy(query[config.userFields.otpRecoveryKeys].includes('1'));
 });
 
-test('POST otp/keys > invalid recovery key', async t => {
+test('POST otp/keys > invalid recovery key', async (t) => {
   // get test server
   const { web } = t.context;
 
@@ -288,7 +288,7 @@ test('POST otp/keys > invalid recovery key', async t => {
   t.is(JSON.parse(res.text).message, phrases.INVALID_RECOVERY_KEY);
 });
 
-test('POST otp/keys > recovery keys reset', async t => {
+test('POST otp/keys > recovery keys reset', async (t) => {
   // get test server
   const { web, user } = t.context;
   // setup stubs

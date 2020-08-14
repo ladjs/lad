@@ -22,22 +22,22 @@ exports.setupMongoose = async () => {
   await mongoose.connect(uri);
 };
 
-exports.setupWebServer = async t => {
+exports.setupWebServer = async (t) => {
   // must require here in order to load changes made during setup
-  const app = require('../web').app;
+  const { app } = require('../web');
   const port = await getPort();
   t.context.web = request.agent(app.listen(port));
 };
 
-exports.setupApiServer = async t => {
+exports.setupApiServer = async (t) => {
   // must require here in order to load changes made during setup
-  const app = require('../api').app;
+  const { app } = require('../api');
   const port = await getPort();
   t.context.api = request.agent(app.listen(port));
 };
 
 // make sure to load the web server first using setupWebServer
-exports.loginUser = async t => {
+exports.loginUser = async (t) => {
   const { web, user, password } = t.context;
 
   await web.post('/en/login').send({
@@ -59,9 +59,9 @@ exports.teardownMongoose = async () => {
 // <https://github.com/simonexmachina/factory-girl>
 //
 exports.defineUserFactory = async () => {
-  factory.define('user', Users, buildOptions => {
+  factory.define('user', Users, (buildOptions) => {
     const user = {
-      email: factory.sequence('Users.email', n => `test${n}@example.com`),
+      email: factory.sequence('Users.email', (n) => `test${n}@example.com`),
       password: buildOptions.password ? buildOptions.password : '!@K#NLK!#N'
     };
 

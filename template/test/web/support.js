@@ -6,12 +6,12 @@ const { Inquiries } = require('../../app/models');
 const utils = require('../utils');
 
 test.before(utils.setupMongoose);
-test.before(t => {
+test.before((t) => {
   t.context.countDocuments = sinon
     .stub(Inquiries, 'countDocuments')
     .callThrough();
 });
-test.after.always(t => {
+test.after.always((t) => {
   t.context.countDocuments.restore();
 });
 test.after.always(utils.teardownMongoose);
@@ -27,26 +27,23 @@ test('creates inquiry', async (t) => {
   t.is(res.header.location, '/');
 });
 
-test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', async t => {
+test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', async (t) => {
   const { web, countDocuments } = t.context;
   const email = 'test2@example.com';
   countDocuments
     .withArgs(sinon.match.hasNested('$or[1].email', email))
     .resolves(1);
 
-  const res = await web
-    .post('/en/support')
-    .set({ Accept: 'text/html' })
-    .send({
-      email,
-      message: 'Test message!'
-    });
+  const res = await web.post('/en/support').set({ Accept: 'text/html' }).send({
+    email,
+    message: 'Test message!'
+  });
 
   t.is(res.status, 400);
   t.snapshot(res.text);
 });
 
-test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', async t => {
+test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', async (t) => {
   const { web, countDocuments } = t.context;
   const email = 'test3@example.com';
   countDocuments
