@@ -1,64 +1,53 @@
 const test = require('ava');
-
-test.todo('we currently get a MODULE_NOT_FOUND when these tests run');
-
-/*
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
 const { factory } = require('factory-girl');
 
 const _ = require('lodash');
 const config = require('../../config');
 const phrases = require('../../config/phrases');
-const policies = require('../../helpers/policies');
-const passport = require('../../helpers/passport');
-const { authenticator } = require('otplib');
 const { Users } = require('../../app/models');
+const { authenticator } = require('otplib');
+// if default authenticator options in #ladjs/passport or
+// config sets authenticator options for otp
+// these settings will need to be changed
+authenticator.options = {
+  crypto: require('crypto'),
+  step: 30
+};
 
-const { before, beforeEach, afterEach, after } = require('../_utils');
+const utils = require('../utils');
 
-test.before(async (t) => {
-  // call setup
-  await before(t);
+test.before(utils.setupMongoose);
+test.before(utils.defineUserFactory);
 
-  // setup userOTP factory
-  factory.extend('user', 'userOTP', {
-    [config.userFields.otpRecoveryKeys]: ['1', '2'],
-    [config.passport.fields.otpToken]: '1',
-    [config.passport.fields.otpEnabled]: true,
-    [config.userFields.hasSetPassword]: true
-  });
+test.after.always(utils.teardownMongoose);
 
-  // stub policies in routes/web/otp
-  t.context.ensureLoggedIn = sinon.stub(policies, 'ensureLoggedIn');
-  proxyquire('../../routes/web', {
-    '../../helpers': {
-      policies
-    }
-  });
-  t.context.user = await factory.build('userOTP');
-  t.context.ensureLoggedIn.callsFake(async (ctx, next) => {
-    ctx.state.user = t.context.user;
-    return next();
-  });
-});
-test.after.always(after);
 test.beforeEach(async (t) => {
   // save original environment variables so we can reset after test
   t.context.originalEnv = _.cloneDeep(process.env);
 
-  // set AUTH_OTP_ENABLED to true and reload web server
+  // set AUTH_OTP_ENABLED to true
   process.env.AUTH_OTP_ENABLED = 'true';
+  // set rate limit higher for when running serially
+  process.env.WEB_RATELIMIT_MAX = 250;
 
-  // call setup
-  await beforeEach(t);
+  // set password
+  t.context.password = '!@K#NLK!#N';
+  // create user
+  let user = await factory.build('user');
+  // must register in order for authentication to work
+  user = await Users.register(user, t.context.password);
+  // setup user for otp
+  user[config.userFields.hasSetPassword] = true;
+  user[config.passport.fields.otpEnabled] = true;
+  t.context.user = await user.save();
+
+  await utils.setupWebServer(t);
+  await utils.loginUser(t);
 });
-test.afterEach.always(async (t) => {
+
+test.afterEach.always((t) => {
   // reset environment variables
   process.env = _.cloneDeep(t.context.originalEnv);
-
-  // call teardown
-  await afterEach(t);
 });
 
 test('GET otp/login > successful', async (t) => {
@@ -71,46 +60,31 @@ test('GET otp/login > successful', async (t) => {
   );
 
   t.is(res.status, 200);
-  t.snapshot(res.text);
+  t.snapshot(res.text.replace(/<head>[\S\s]*<\/head>/, ''));
 });
 
 test('POST otp/login > successful', async (t) => {
   // get test server
-  const { web } = t.context;
-  // setup stubs
-  t.context.authenticate = sinon
-    .stub(passport, 'authenticate')
-    .withArgs('otp')
-    .returns(() => {});
-  proxyquire('../../app/controllers/web/auth', {
-    '../../../helpers/passport': t.context.authenticate
-  });
-  t.context.authenticate.yields(null, true);
+  const { web, user } = t.context;
+  const passcode = authenticator.generate(
+    user[config.passport.fields.otpToken]
+  );
 
   // POST login page
   const res = await web
     .post(`/en${config.otpRoutePrefix}${config.otpRouteLoginPath}`)
     .send({
-      passcode: '1234 124',
+      passcode,
       otp_remember_me: 'true'
     });
 
   t.is(res.status, 200);
-  t.is(res.body.redirectTo, '/en/my-account');
+  t.is(res.body.redirectTo, '/en/dashboard');
 });
 
 test('POST otp/login > invalid OTP passcode', async (t) => {
   // get test server
   const { web } = t.context;
-  // setup stubs
-  t.context.authenticate = sinon
-    .stub(passport, 'authenticate')
-    .withArgs('otp')
-    .returns(() => {});
-  proxyquire('../../app/controllers/web/auth', {
-    '../../../helpers/passport': t.context.authenticate
-  });
-  t.context.authenticate.yields(null, false);
 
   // POST login page
   const res = await web
@@ -132,70 +106,59 @@ test('GET otp/setup > successful', async (t) => {
   const res = await web.get(`/en${config.otpRoutePrefix}/setup`);
 
   t.is(res.status, 200);
-  t.snapshot(res.text);
+  t.true(res.text.includes('id="otp-recovery-keys"'));
 });
 
 test('POST otp/setup > successful', async (t) => {
   // get test server
-  const { web } = t.context;
-  // setup stubs
-  sinon.stub(Users.prototype, 'authenticate').returns({ user: true });
+  const { web, user, password } = t.context;
+
+  user[config.passport.fields.otpEnabled] = false;
+  await user.save();
 
   // POST setup page
   const res = await web.post(`/en${config.otpRoutePrefix}/setup`).send({
     token: null,
-    password: '!@K#NLK!#N'
+    password
   });
 
   t.is(res.status, 200);
-  t.snapshot(res.text);
+  t.true(res.text.includes('Scan this QR code'));
 });
 
 test('POST otp/setup > successful with token', async (t) => {
   // get test server
-  const { web, user } = t.context;
-  // setup stubs
-  const verify = sinon.stub(authenticator, 'verify').returns(() => {});
-  proxyquire('../../app/controllers/web/otp/setup', {
-    otplib: {
-      authenticator
-    }
-  });
-  verify.returns(true);
+  const { web, user, password } = t.context;
+  const token = authenticator.generate(user[config.passport.fields.otpToken]);
 
   user[config.passport.fields.otpEnabled] = false;
+  await user.save();
 
   // POST setup page
   const res = await web.post(`/en${config.otpRoutePrefix}/setup`).send({
-    token: '1',
-    password: '!@K#NLK!#N'
+    token,
+    password
   });
 
   t.is(res.status, 302);
   t.is(res.header.location, '/en/my-account/security');
-  t.is(user[config.passport.fields.otpEnabled], true);
+
+  const query = await Users.findOne({ email: user.email });
+  t.is(query[config.passport.fields.otpEnabled], true);
 });
 
 test('POST otp/setup > invalid token', async (t) => {
   // get test server
-  const { web } = t.context;
-  // setup stubs
-  const verify = sinon.stub(authenticator, 'verify').returns(() => {});
-  proxyquire('../../app/controllers/web/otp/setup', {
-    otplib: {
-      authenticator
-    }
-  });
-  verify.returns(false);
+  const { web, password } = t.context;
 
   // POST setup page
   const res = await web.post(`/en${config.otpRoutePrefix}/setup`).send({
     token: '1',
-    password: '!@K#NLK!#N'
+    password
   });
 
   t.is(res.status, 200);
-  t.snapshot(res.text);
+  t.true(res.text.includes('Scan this QR code'));
 });
 
 test('POST otp/setup > invalid blank password', async (t) => {
@@ -228,19 +191,18 @@ test('POST otp/setup > incorrect password', async (t) => {
 
 test('POST otp/disable > successful', async (t) => {
   // get test server
-  const { web, user } = t.context;
-  // setup stubs
-  sinon.stub(Users.prototype, 'authenticate').returns({ user: true });
+  const { web, user, password } = t.context;
 
   // POST disable page
   const res = await web.post(`/en${config.otpRoutePrefix}/disable`).send({
-    password: 'test'
+    password
   });
 
   t.is(res.status, 302);
   t.is(res.header.location, '/en/my-account/security');
 
-  t.is(user[config.passport.fields.otpEnabled], false);
+  const query = await Users.findOne({ email: user.email });
+  t.is(query[config.passport.fields.otpEnabled], false);
 });
 
 test('POST otp/disable > invalid blank password', async (t) => {
@@ -259,8 +221,6 @@ test('POST otp/disable > invalid blank password', async (t) => {
 test('POST otp/disable > incorrect password', async (t) => {
   // get test server
   const { web } = t.context;
-  // setup stubs
-  sinon.stub(Users.prototype, 'authenticate').returns({ user: false });
 
   // POST disable page
   const res = await web.post(`/en${config.otpRoutePrefix}/disable`).send({
@@ -290,7 +250,7 @@ test('GET otp/keys > successful', async (t) => {
   const res = await web.get(`/en${config.otpRoutePrefix}/keys`);
 
   t.is(res.status, 200);
-  t.snapshot(res.text);
+  t.snapshot(res.text.replace(/<head>[\S\s]*<\/head>/, ''));
 });
 
 test('POST otp/keys > successful', async (t) => {
@@ -298,6 +258,7 @@ test('POST otp/keys > successful', async (t) => {
   const { web, user } = t.context;
   // setup stubs
   user[config.userFields.otpRecoveryKeys] = ['1', '2'];
+  await user.save();
 
   // POST keys page
   const res = await web
@@ -309,7 +270,9 @@ test('POST otp/keys > successful', async (t) => {
     res.header.location,
     `/en${config.passportCallbackOptions.successReturnToOrRedirect}`
   );
-  t.falsy(user[config.userFields.otpRecoveryKeys].includes('1'));
+
+  const query = await Users.findOne({ email: user.email });
+  t.falsy(query[config.userFields.otpRecoveryKeys].includes('1'));
 });
 
 test('POST otp/keys > invalid recovery key', async (t) => {
@@ -321,7 +284,6 @@ test('POST otp/keys > invalid recovery key', async (t) => {
     .post(`/en${config.otpRoutePrefix}/keys`)
     .send({ recovery_key: '1' });
 
-  t.log(res);
   t.is(res.status, 400);
   t.is(JSON.parse(res.text).message, phrases.INVALID_RECOVERY_KEY);
 });
@@ -331,6 +293,7 @@ test('POST otp/keys > recovery keys reset', async (t) => {
   const { web, user } = t.context;
   // setup stubs
   user[config.userFields.otpRecoveryKeys] = ['1'];
+  await user.save();
 
   // POST keys page
   const res = await web
@@ -339,6 +302,7 @@ test('POST otp/keys > recovery keys reset', async (t) => {
 
   t.is(res.status, 302);
   t.is(res.header.location, '/en/my-account/security');
-  t.true(user[config.userFields.otpRecoveryKeys] !== null);
+
+  const query = await Users.findOne({ email: user.email });
+  t.true(query[config.userFields.otpRecoveryKeys] !== null);
 });
-*/

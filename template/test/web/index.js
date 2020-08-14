@@ -1,11 +1,8 @@
 const test = require('ava');
 
-const { before, beforeEach, afterEach, after } = require('../_utils');
+const utils = require('../utils');
 
-test.before(before);
-test.after.always(after);
-test.beforeEach(beforeEach);
-test.afterEach.always(afterEach);
+test.beforeEach(utils.setupWebServer);
 
 test('redirects to correct locale', async (t) => {
   const { web } = t.context;

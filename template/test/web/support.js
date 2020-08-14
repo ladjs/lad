@@ -3,12 +3,19 @@ const sinon = require('sinon');
 
 const { Inquiries } = require('../../app/models');
 
-const { before, beforeEach, afterEach, after } = require('../_utils');
+const utils = require('../utils');
 
-test.before(before);
-test.after.always(after);
-test.beforeEach(beforeEach);
-test.afterEach.always(afterEach);
+test.before(utils.setupMongoose);
+test.before((t) => {
+  t.context.countDocuments = sinon
+    .stub(Inquiries, 'countDocuments')
+    .callThrough();
+});
+test.after.always((t) => {
+  t.context.countDocuments.restore();
+});
+test.after.always(utils.teardownMongoose);
+test.beforeEach(utils.setupWebServer);
 
 test('creates inquiry', async (t) => {
   const { web } = t.context;
@@ -21,30 +28,30 @@ test('creates inquiry', async (t) => {
 });
 
 test('fails creating inquiry if last inquiry was within last 24 hours (HTML)', async (t) => {
-  const { web } = t.context;
-  t.context.countDocuments = sinon
-    .stub(Inquiries, 'countDocuments')
+  const { web, countDocuments } = t.context;
+  const email = 'test2@example.com';
+  countDocuments
+    .withArgs(sinon.match.hasNested('$or[1].email', email))
     .resolves(1);
 
   const res = await web.post('/en/support').set({ Accept: 'text/html' }).send({
-    email: 'test2@example.com',
+    email,
     message: 'Test message!'
   });
 
   t.is(res.status, 400);
   t.snapshot(res.text);
-
-  t.context.countDocuments.restore();
 });
 
 test('fails creating inquiry if last inquiry was within last 24 hours (JSON)', async (t) => {
-  const { web } = t.context;
-  t.context.countDocuments = sinon
-    .stub(Inquiries, 'countDocuments')
+  const { web, countDocuments } = t.context;
+  const email = 'test3@example.com';
+  countDocuments
+    .withArgs(sinon.match.hasNested('$or[1].email', email))
     .resolves(1);
 
   const res = await web.post('/en/support').send({
-    email: 'test3@example.com',
+    email,
     message: 'Test message!'
   });
 
