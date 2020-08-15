@@ -5,16 +5,9 @@ block content
   .container.mt-3
     .row
       .col-12
-        .card.d-block
-          h5.card-header.text-center= t('The Best Node.js Framework')
+        .card.d-block.text-center
+          h5.card-header= t('The Best Node.js Framework')
           .card-body
-            case locale
-              when 'es'
-                include:md guide-es.md
-              when 'zh'
-                include:md guide-zh.md
-              default
-                include:md guide.md
-          .text-center.mb-3
+            p.card-text= t('Thank you for signing up!')
             a.btn.btn-lg.btn-success(href=config.pkg.homepage, role="button")= t('Read the docs')
-          .card-footer.text-center: small.text-muted= t('If you did not submit this request, then please reply to let us know.')
+          .card-footer: small.text-muted= t('If you did not submit this request, then please reply to let us know.')
