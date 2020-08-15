@@ -6981,7 +6981,7 @@ fresh@~0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-frisbee@^3.1.2, frisbee@^3.1.4:
+frisbee@^3.1.2:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/frisbee/-/frisbee-3.1.4.tgz#c7cb77fb1afa6caae9ab50484b10fa2d71df020f"
   integrity sha512-LoGzXyYWuGSwUUDKdlbYbokGf08UT37wzdDtVPtOeMWHgzeKiAceIPRrAn7Vn9aYaS+uMJkq7aze6pbfj9hnBA==

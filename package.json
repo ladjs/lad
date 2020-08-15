@@ -5,6 +5,7 @@
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)",
   "ava": {
     "verbose": true,
+    "timeout": "30s",
     "files": [
       "test/**/*.js"
     ]

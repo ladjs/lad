@@ -84,7 +84,6 @@ These microservices are preconfigured for security, performance, and graceful re
 * [Dense][]
 * [Waypoints][]
 * [LiveReload][]
-* [Frisbee][]
 * …
 
 ### Back-end
@@ -1147,8 +1146,6 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [waypoints]: http://imakewebthings.com/waypoints/
 
 [livereload]: https://github.com/intesso/connect-livereload
-
-[frisbee]: https://github.com/niftylettuce/frisbee
 
 [lad-env]: https://github.com/ladjs/env
 
