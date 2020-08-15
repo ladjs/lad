@@ -26,7 +26,7 @@
   "dependencies": {
     "@ladjs/browserslist-config": "^0.0.1",
     "cac": "^6.6.1",
-    "camelcase": "^5.3.1",
+    "camelcase": "^6.0.0",
     "github-username-regex": "^1.0.0",
     "is-email": "^1.0.0",
     "is-url": "^1.2.4",
@@ -42,18 +42,18 @@
   "devDependencies": {
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
-    "ava": "^3.11.0",
+    "ava": "^3.11.1",
     "codecov": "^3.7.2",
     "cross-env": "^7.0.2",
-    "eslint": "^7.5.0",
+    "eslint": "^7.7.0",
     "eslint-config-xo-lass": "^1.0.3",
-    "eslint-plugin-compat": "^3.5.1",
-    "husky": "^3.1.0",
-    "lint-staged": "^10.1.4",
-    "nyc": "^15.0.1",
-    "remark-cli": "^8.0.0",
-    "remark-preset-github": "^2.0.0",
-    "xo": "^0.25.3"
+    "eslint-plugin-compat": "^3.8.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "nyc": "^15.1.0",
+    "remark-cli": "^8.0.1",
+    "remark-preset-github": "^3.0.0",
+    "xo": "^0.33.0"
   },
   "engines": {
     "node": ">=10"

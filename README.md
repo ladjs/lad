@@ -93,7 +93,7 @@ These microservices are preconfigured for security, performance, and graceful re
 * Koa-based webapp and API servers (uses HTTP/2 for production!)
 * Pagination built-in (using [ctx-paginate][])
 * RESTful API with BasicAuth and versioning
-* Automated job scheduler with cron and human-readable syntax (backed by [Mongoose][] and [Bull][])
+* Automated job scheduler with cron and human-readable syntax (backed by [Mongoose][] and [Bree][])
 * Passport-based authentication and group-based (Unix-like) permissioning
 * Stripe-inspired error handling
 * Mongoose and MongoDB with common database plugins
@@ -1008,7 +1008,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-##
+## 
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 
@@ -1219,3 +1219,5 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [letsencrypt]: https://letsencrypt.org/
 
 [ansible-guide]: https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html
+
+[bree]: https://jobscheduler.net
