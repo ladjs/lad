@@ -112,6 +112,9 @@ const config = {
     otpRecoveryKeys: 'otp_recovery_keys',
     resetTokenExpiresAt: 'reset_token_expires_at',
     resetToken: 'reset_token',
+    changeEmailTokenExpiresAt: 'change_email_token_expires_at',
+    changeEmailToken: 'change_email_token',
+    changeEmailNewAddress: 'change_email_new_address',
     hasSetPassword: 'has_set_password',
     hasVerifiedEmail: 'has_verified_email',
     pendingRecovery: 'pending_recovery',
@@ -138,6 +141,13 @@ const config = {
   verificationPinTimeoutMs: ms(env.VERIFICATION_PIN_TIMEOUT_MS),
   verificationPinEmailIntervalMs: ms(env.VERIFICATION_PIN_EMAIL_INTERVAL_MS),
   verificationPin: { length: 6, characters: '1234567890' },
+
+  // reset token
+  resetTokenTimeoutMs: ms(env.RESET_TOKEN_TIMEOUT_MS),
+
+  // change email token
+  changeEmailTokenTimeoutMs: ms(env.CHANGE_EMAIL_TOKEN_TIMEOUT_MS),
+  changeEmailLimitMs: ms(env.CHANGE_EMAIL_LIMIT_MS),
 
   // @ladjs/passport configuration (see defaults in package)
   // <https://github.com/ladjs/passport>

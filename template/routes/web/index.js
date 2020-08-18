@@ -39,6 +39,8 @@ localeRouter
   .post('/forgot-password', web.auth.forgotPassword)
   .get('/reset-password/:token', render('reset-password'))
   .post('/reset-password/:token', web.auth.resetPassword)
+  .get('/change-email/:token', render('change-email'))
+  .post('/change-email/:token', web.auth.changeEmail)
   .get(
     config.verifyRoute,
     policies.ensureLoggedIn,
