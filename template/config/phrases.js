@@ -20,6 +20,7 @@ module.exports = {
   INVALID_RECOVERY_KEY: 'Invalid recovery key.',
   INVALID_RESET_PASSWORD: 'Reset token and email were not valid together.',
   INVALID_RESET_TOKEN: 'Reset token provided was invalid.',
+  INVALID_SET_EMAIL: 'Change email token and email were not valid together.',
   INVALID_SESSION_SECRET: 'Invalid session secret.',
   INVALID_SLUG: 'Please slightly change values to ensure slug uniqueness.',
   INVALID_STRING: '%s was missing or blank.',
@@ -56,6 +57,7 @@ module.exports = {
   REQUEST_TIMED_OUT:
     'Sorry, your request has timed out.  We have been alerted of this issue.  Please try again.',
   RESET_PASSWORD: 'You have successfully reset your password.',
+  CHANGE_EMAIL: 'You have successfully set a new email address.',
   SIGNED_OUT: 'You have successfully signed out.',
   PENDING_RECOVERY_VERIFICATION_SUCCESS:
     'Your email has been successfully verified. You should receive a support email from an admin within the next 3-5 business days.',
@@ -82,5 +84,11 @@ module.exports = {
   PASSPORT_USER_EXISTS_ERROR:
     'A user with the given email address is already registered.  Please try to log in or reset the password if this account belongs to you.',
   EMAIL_FAILED_TO_SEND:
-    'Unfortunately an error occurred while sending the email.  Please try again or <a href="/help">contact us</a> for help.'
+    'Unfortunately an error occurred while sending the email.  Please try again or <a href="/help">contact us</a> for help.',
+  EMAIL_CHANGE_SENT:
+    'Check your inbox for a link to confirm your email change.',
+  EMAIL_CHANGE_LIMIT:
+    'You can only change your email address every <span class="notranslate">%s</span> minutes. Please try again <span class="notranslate">%s</span>.',
+  EMAIL_CHANGE_ALREADY_EXISTS:
+    'The email address <span class="notranslate">%s</span> already exists.'
 };

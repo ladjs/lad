@@ -1,0 +1,14 @@
+
+extends ../layout
+
+block content
+  .container.mt-3
+    .row
+      .col-12
+        .card.d-block.text-center
+          h5.card-header= t('Change your email')
+          .card-body
+            .card-text
+              p!= t('If you wish to change your email from <strong>%s</strong> to <strong>%s</strong>, then click the link below within %s.', user[config.passportLocalMongoose.usernameField], user[config.userFields.changeEmailNewAddress], dayjs().from(dayjs(user[config.userFields.changeEmailTokenExpiresAt]), true))
+              a.btn.btn-lg.btn-block.btn-primary(href=link, role="button")= t('Confirm now')
+          .card-footer: small.text-muted= t('If you did not submit this request, then please reply to let us know.')

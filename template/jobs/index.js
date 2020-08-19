@@ -23,7 +23,7 @@ const jobs = [
 if (boolean(process.env.AUTH_OTP_ENABLED))
   jobs.push({
     name: 'two-factor-reminder',
-    interval: '3 months'
+    interval: '3h'
   });
 
 module.exports = jobs;
