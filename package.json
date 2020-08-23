@@ -37,12 +37,12 @@
     "semver": "^7.3.2",
     "speakingurl": "^14.0.1",
     "superb": "^4.0.0",
-    "update-notifier": "^4.1.0",
+    "update-notifier": "^4.1.1",
     "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
     "ava": "^3.11.1",
     "codecov": "^3.7.2",
     "cross-env": "^7.0.2",
