@@ -7,7 +7,6 @@ test.beforeEach(utils.setupWebServer);
 test('redirects to correct locale', async (t) => {
   const { web } = t.context;
   const res = await web.get('/');
-
   t.is(res.status, 302);
   t.is(res.headers.location, '/en');
 });
