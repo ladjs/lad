@@ -1,9 +1,10 @@
 const Boom = require('@hapi/boom');
 const _ = require('lodash');
 const cryptoRandomString = require('crypto-random-string');
-const moment = require('moment');
 const humanize = require('humanize-string');
 const isSANB = require('is-string-and-not-blank');
+const moment = require('moment');
+const { isEmail } = require('validator');
 
 const config = require('../../../config');
 const emailHelper = require('../../../helpers/email');
@@ -44,29 +45,37 @@ async function update(ctx) {
       body[config.passport.fields.familyName];
   }
 
-  // if we've already sent a change email request in the past half hour
-  if (
-    ctx.state.user[config.userFields.changeEmailTokenExpiresAt] &&
-    ctx.state.user[config.userFields.changeEmailToken] &&
-    moment(ctx.state.user[config.userFields.changeEmailTokenExpiresAt]).isAfter(
-      moment().subtract(config.changeEmailTokenTimeoutMs, 'milliseconds')
-    )
-  )
-    throw Boom.badRequest(
-      ctx.translateError(
-        'EMAIL_CHANGE_LIMIT',
-        moment.duration(config.changeEmailLimitMs, 'milliseconds').minutes(),
-        moment(
-          ctx.state.user[config.userFields.changeEmailTokenExpiresAt]
-        ).fromNow()
-      )
-    );
-
   // check if we need to update the email and send an email confirmation
   const hasNewEmail =
+    isSANB(body.email) &&
     ctx.state.user[config.passportLocalMongoose.usernameField] !== body.email;
+
   // confirm user supplied email is different than current email
   if (hasNewEmail) {
+    // validate it (so it doesn't have to use mongoose for this)
+    if (!isEmail(body.email))
+      return ctx.throw(Boom.badRequest(ctx.translateError('INVALID_EMAIL')));
+
+    // if we've already sent a change email request in the past half hour
+    if (
+      ctx.state.user[config.userFields.changeEmailTokenExpiresAt] &&
+      ctx.state.user[config.userFields.changeEmailToken] &&
+      moment(
+        ctx.state.user[config.userFields.changeEmailTokenExpiresAt]
+      ).isAfter(
+        moment().subtract(config.changeEmailTokenTimeoutMs, 'milliseconds')
+      )
+    )
+      throw Boom.badRequest(
+        ctx.translateError(
+          'EMAIL_CHANGE_LIMIT',
+          moment.duration(config.changeEmailLimitMs, 'milliseconds').minutes(),
+          moment(
+            ctx.state.user[config.userFields.changeEmailTokenExpiresAt]
+          ).fromNow()
+        )
+      );
+
     // short-circuit if email already exists
     const query = { email: body.email };
     const user = await Users.findOne(query);
@@ -79,7 +88,9 @@ async function update(ctx) {
     ctx.state.user[config.userFields.changeEmailTokenExpiresAt] = moment()
       .add(config.changeEmailTokenTimeoutMs, 'milliseconds')
       .toDate();
-    ctx.state.user[config.userFields.changeEmailToken] = cryptoRandomString({
+    ctx.state.user[
+      config.userFields.changeEmailToken
+    ] = await cryptoRandomString.async({
       length: 32
     });
     ctx.state.user[config.userFields.changeEmailNewAddress] = body.email;

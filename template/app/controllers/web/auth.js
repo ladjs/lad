@@ -16,6 +16,8 @@ const sendVerificationEmail = require('../../../helpers/send-verification-email'
 const config = require('../../../config');
 const { Inquiries } = require('../../models');
 
+const options = { length: 10, type: 'numeric' };
+
 const sanitize = (string) =>
   sanitizeHtml(string, {
     allowedTags: [],
@@ -264,8 +266,9 @@ async function recoveryKey(ctx) {
 
   // handle case if the user runs out of keys
   if (emptyRecoveryKeys) {
-    const options = { length: 10, characters: '1234567890' };
-    recoveryKeys = new Array(10).fill().map(() => cryptoRandomString(options));
+    recoveryKeys = await Promise.all(
+      new Array(10).fill().map(() => cryptoRandomString.async(options))
+    );
   }
 
   ctx.state.user[config.userFields.otpRecoveryKeys] = recoveryKeys;
@@ -385,7 +388,9 @@ async function forgotPassword(ctx) {
   user[config.userFields.resetTokenExpiresAt] = dayjs()
     .add(30, 'minutes')
     .toDate();
-  user[config.userFields.resetToken] = cryptoRandomString({ length: 32 });
+  user[config.userFields.resetToken] = await cryptoRandomString.async({
+    length: 32
+  });
 
   user = await user.save();
 
@@ -576,7 +581,7 @@ async function verify(ctx) {
       // wrap with try/catch to prevent redirect looping
       // (even though the koa redirect loop package will help here)
       if (!err.isBoom) return ctx.throw(err);
-      ctx.logger.warn(err);
+      ctx.logger.error(err);
       if (ctx.accepts('html')) {
         ctx.flash('warning', err.message);
         ctx.redirect(redirectTo);

@@ -140,7 +140,7 @@ const config = {
   verifyRoute: '/verify',
   verificationPinTimeoutMs: ms(env.VERIFICATION_PIN_TIMEOUT_MS),
   verificationPinEmailIntervalMs: ms(env.VERIFICATION_PIN_EMAIL_INTERVAL_MS),
-  verificationPin: { length: 6, characters: '1234567890' },
+  verificationPin: { length: 6, type: 'numeric' },
 
   // reset token
   resetTokenTimeoutMs: ms(env.RESET_TOKEN_TIMEOUT_MS),

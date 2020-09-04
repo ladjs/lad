@@ -26,7 +26,7 @@ if (config.passportLocalMongoose.usernameField !== 'email')
     'User model and @ladjs/passport requires that the usernameField is email'
   );
 
-const options = { length: 10, characters: '1234567890' };
+const options = { length: 10, type: 'numeric' };
 const { fields } = config.passport;
 const omitExtraFields = [
   ..._.without(mongooseOmitCommonFields.underscored.keys, 'email'),
@@ -204,48 +204,54 @@ User.virtual(config.userFields.verificationPinHasExpired).get(function () {
   );
 });
 
-User.pre('validate', function (next) {
-  // create api token if doesn't exist
-  if (!isSANB(this[config.userFields.apiToken]))
-    this[config.userFields.apiToken] = cryptoRandomString({ length: 24 });
+User.pre('validate', async function (next) {
+  try {
+    // create api token if doesn't exist
+    if (!isSANB(this[config.userFields.apiToken]))
+      this[config.userFields.apiToken] = await cryptoRandomString.async({
+        length: 24
+      });
 
-  // set the user's display name to their email address
-  // but if they have a name or surname set then use that
-  this[fields.displayName] = this.email;
-  if (isSANB(this[fields.givenName]) || isSANB(this[fields.familyName])) {
-    this[fields.displayName] = `${this[fields.givenName] || ''} ${
-      this[fields.familyName] || ''
-    }`;
+    // set the user's display name to their email address
+    // but if they have a name or surname set then use that
+    this[fields.displayName] = this.email;
+    if (isSANB(this[fields.givenName]) || isSANB(this[fields.familyName])) {
+      this[fields.displayName] = `${this[fields.givenName] || ''} ${
+        this[fields.familyName] || ''
+      }`;
+    }
+
+    // set the user's full email address (incl display name)
+    this[config.userFields.fullEmail] =
+      this[fields.displayName] && this[fields.displayName] !== this.email
+        ? `${this[fields.displayName]} <${this.email}>`
+        : this.email;
+
+    // if otp authentication values no longer valid
+    // then disable it completely
+    if (
+      !Array.isArray(this[config.userFields.otpRecoveryKeys]) ||
+      !this[config.userFields.otpRecoveryKeys] ||
+      this[config.userFields.otpRecoveryKeys].length === 0 ||
+      !this[config.passport.fields.otpToken]
+    )
+      this[fields.otpEnabled] = false;
+
+    if (
+      !Array.isArray(this[config.userFields.otpRecoveryKeys]) ||
+      this[config.userFields.otpRecoveryKeys].length === 0
+    )
+      this[config.userFields.otpRecoveryKeys] = await Promise.all(
+        new Array(10).fill().map(() => cryptoRandomString.async(options))
+      );
+
+    if (!this[config.passport.fields.otpToken])
+      this[config.passport.fields.otpToken] = authenticator.generateSecret();
+
+    next();
+  } catch (err) {
+    next(err);
   }
-
-  // set the user's full email address (incl display name)
-  this[config.userFields.fullEmail] =
-    this[fields.displayName] && this[fields.displayName] !== this.email
-      ? `${this[fields.displayName]} <${this.email}>`
-      : this.email;
-
-  // if otp authentication values no longer valid
-  // then disable it completely
-  if (
-    !Array.isArray(this[config.userFields.otpRecoveryKeys]) ||
-    !this[config.userFields.otpRecoveryKeys] ||
-    this[config.userFields.otpRecoveryKeys].length === 0 ||
-    !this[config.passport.fields.otpToken]
-  )
-    this[fields.otpEnabled] = false;
-
-  if (
-    !Array.isArray(this[config.userFields.otpRecoveryKeys]) ||
-    this[config.userFields.otpRecoveryKeys].length === 0
-  )
-    this[config.userFields.otpRecoveryKeys] = new Array(10)
-      .fill()
-      .map(() => cryptoRandomString(options));
-
-  if (!this[config.passport.fields.otpToken])
-    this[config.passport.fields.otpToken] = authenticator.generateSecret();
-
-  next();
 });
 
 //
@@ -322,7 +328,7 @@ User.methods.sendVerificationEmail = async function (ctx, reset = false) {
     this[config.userFields.verificationPinExpiresAt] = new Date(
       Date.now() + config.verificationPinTimeoutMs
     );
-    this[config.userFields.verificationPin] = cryptoRandomString(
+    this[config.userFields.verificationPin] = await cryptoRandomString.async(
       config.verificationPin
     );
   }
