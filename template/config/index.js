@@ -255,7 +255,23 @@ config.views.locals.manifest = manifestRev({
 });
 
 // add global `config` object to be used by views
-config.views.locals.config = config;
+config.views.locals.config = _.pick(config, [
+  'verificationPin',
+  'supportRequestMaxLength',
+  'appName',
+  'urls',
+  'userFields',
+  'otpRoutePrefix',
+  'passport',
+  'appColor',
+  'twitter',
+  'env',
+  'loginRoute',
+  'passportLocalMongoose',
+  'pkg',
+  'verifyRoute',
+  'passportCallbackOptions'
+]);
 
 // add `views` to `config.email`
 config.email.transport = nodemailer.createTransport({
