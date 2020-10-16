@@ -2,6 +2,7 @@ const $ = require('jquery');
 const Popper = require('popper.js');
 const Clipboard = require('clipboard');
 const { randomstring } = require('@sidoshi/random-string');
+const debounce = require('lodash/debounce');
 
 // load jQuery and Bootstrap
 // <https://stackoverflow.com/a/34340392>
@@ -34,7 +35,7 @@ const {
 // Resize navbar padding on load, window resize, and navbar collapse/show
 resizeNavbarPadding($);
 
-// import waypoints (see below example for how to use + `yarn add waypoints`)
+// import waypoints (see below example for how to use + `npm install waypoints`)
 // require('waypoints/lib/jquery.waypoints.js');
 
 // highlight.js
@@ -199,3 +200,9 @@ $body.on('click', '.generate-random-alias', function () {
   });
   $target.val(string);
 });
+
+function keyup() {
+  if ($(this).val().length >= 6) $(this).parents('form').first().submit();
+}
+
+$body.on('keyup', '.verification-form', debounce(keyup, 500));

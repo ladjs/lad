@@ -86,7 +86,7 @@ block body
     .row
       .col-xs-12.col-sm-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
         h1.my-3.py-3.text-center= t('Setup OTP')
-        form(action=ctx.path, method='POST').confirm-prompt
+        form(action=ctx.path, method='POST')
           input(type="hidden", name="_csrf", value=ctx.csrf)
           .form-group
             label(for='otp-step-one')
@@ -96,7 +96,7 @@ block body
               != t('<strong>Step 2:</strong> Scan this QR code and enter its generated token:')
             img(src=qrcode, width=250, height=250, alt="").d-block.my-3
           .form-group.floating-label
-            input(type='text', name='token', required, placeholder=' ').form-control.form-control-lg#input-token
+            input(type='text', name='token', required, placeholder=' ').form-control.form-control-lg.verification-form#input-token
             label(for='input-token') Verification Token
           .form-group
             a.btn.btn-link.text-center.text-primary(href='#' data-toggle='collapse' data-target='#otp-copy')
