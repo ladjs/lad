@@ -13,6 +13,8 @@ router.get('/', (ctx) => {
   ctx.redirect(ctx.state.l('/my-account/profile'));
 });
 router.put('/', web.myAccount.update);
+router.get('/change-email/:token', render('change-email'));
+router.post('/change-email/:token', web.auth.changeEmail);
 router.get('/profile', render('my-account/profile'));
 router.put('/profile', web.myAccount.update);
 router.delete('/security', web.myAccount.resetAPIToken);
