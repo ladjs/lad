@@ -10,7 +10,18 @@ block body
         form.ajax-form(action=redirectTo ? `${ctx.path}?redirect_to=${redirectTo}` : ctx.path, method="POST")
           input(type="hidden", name="_csrf", value=ctx.csrf)
           .form-group.floating-label
-            input#input-pin.form-control.form-control-lg(type="text", autofocus, title=striptags(t('Please enter a <span class="notranslate">%d</span> digit verification code.', config.verificationPin.length)), inputmode='numeric', pattern=`[0-9]{${config.verificationPin.length}}`, minlength=config.verificationPin.length, maxlength=config.verificationPin.length, autocomplete="off", name="pin", placeholder=' ')
+            input#input-pin.form-control.form-control-lg.verification-form(
+              type="text",
+              autofocus,
+              title=striptags(t('Please enter a <span class="notranslate">%d</span> digit verification code.', config.verificationPin.length)),
+              inputmode='numeric',
+              pattern=`[0-9]{${config.verificationPin.length}}`,
+              minlength=config.verificationPin.length,
+              maxlength=config.verificationPin.length,
+              autocomplete="off",
+              name="pin",
+              placeholder=' '
+            )
             label(for="input-pin")= t('Verification code')
           button.btn.btn-success.btn-block.btn-lg(type="submit")= t('Continue')
         .alert.alert-warning.mt-3.text-center
