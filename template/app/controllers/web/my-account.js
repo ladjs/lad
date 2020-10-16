@@ -116,7 +116,7 @@ async function update(ctx) {
             config.userFields.changeEmailNewAddress,
             config.passportLocalMongoose.usernameField
           ]),
-          link: `${config.urls.web}/change-email/${
+          link: `${config.urls.web}/my-account/change-email/${
             ctx.state.user[config.userFields.changeEmailToken]
           }`
         }
