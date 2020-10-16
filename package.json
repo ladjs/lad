@@ -51,7 +51,7 @@
     "eslint-plugin-compat": "^3.8.0",
     "eslint-plugin-no-smart-quotes": "^1.1.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.4.0",
+    "lint-staged": "^10.4.1",
     "nyc": "^15.1.0",
     "remark-cli": "8.x",
     "remark-preset-github": "^3.0.0",
