@@ -1153,13 +1153,13 @@
     methods "^1.1.2"
     path-to-regexp "^6.1.0"
 
-"@ladjs/api@^5.0.6":
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-5.0.7.tgz#d613e65359a6c97195f893d7218878287c55a632"
-  integrity sha512-XGK+soLwBVg5av5xXt2xVWkwnyvBm6Bzt73kcQj6ojlgiBCvDocqFp2Z+wa7Ir7suPy/OIrBdheh6LUYvrIp+Q==
+"@ladjs/api@^5.0.7":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@ladjs/api/-/api-5.0.8.tgz#aa872150b740d5c02087cf282f206610a2f9d44e"
+  integrity sha512-jBpVGmR6syqnLKPvuBBGjmVBtzse5uYRJFDNORkII/XlKbMhaR1OiI0T6U5XOc6qcVzEGPMyDGK8TlEcO2G+NQ==
   dependencies:
     "@koa/router" "^9.4.0"
-    "@ladjs/i18n" "^6.0.2"
+    "@ladjs/i18n" "^6.0.4"
     "@ladjs/redis" "^1.0.7"
     "@ladjs/shared-config" "^3.0.9"
     "@ladjs/store-ip-address" "^0.0.7"
@@ -1233,10 +1233,28 @@
     plugin-error "^1.0.1"
     through2 "^2.0.0"
 
-"@ladjs/i18n@^6.0.0", "@ladjs/i18n@^6.0.2":
+"@ladjs/i18n@^6.0.0":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-6.0.2.tgz#6ded3661d283b579fbd2f9f76f4c4ee5e366a0c5"
   integrity sha512-WO+Plu+LtTqKRpUaMInOTx5JSUFSNd+CuGVQxszctEOurXsuekhZHeWrKy6IlEwAk+SeFytN+VWW17GPssGeHA==
+  dependencies:
+    "@hapi/boom" "^9.1.0"
+    boolean "3.0.1"
+    country-language "^0.1.7"
+    debug "^4.1.1"
+    i18n "^0.13.2"
+    i18n-locales "^0.0.4"
+    lodash "^4.17.20"
+    multimatch "^4.0.0"
+    punycode "^2.1.1"
+    qs "^6.9.4"
+    titleize "^2.1.0"
+    tlds "^1.209.0"
+
+"@ladjs/i18n@^6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@ladjs/i18n/-/i18n-6.0.4.tgz#c3281280585bc513fb6b4a2fcc0cc325491597ec"
+  integrity sha512-fexRHoBW1S86vtGZehdk8a7FNjs5YFMiBg5wrYTleOazHn8iUY/E4tBxew3sl5K0gz1cKi3jhlIX0UodzGsSyQ==
   dependencies:
     "@hapi/boom" "^9.1.0"
     boolean "3.0.1"
@@ -1363,14 +1381,14 @@
     debug "^4.1.1"
     validator "^12.1.0"
 
-"@ladjs/web@^9.2.0":
-  version "9.2.1"
-  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-9.2.1.tgz#ac04a458ae62fd69aa152125f365f199894413df"
-  integrity sha512-YwY4EX1W0ggSrX3cl516+SA1VRr8faXHgzIUFbkJLktycRNNUmigXr052id1vhMmLmENcct4vRiiOtxX9q8XvQ==
+"@ladjs/web@^9.2.1":
+  version "9.2.2"
+  resolved "https://registry.yarnpkg.com/@ladjs/web/-/web-9.2.2.tgz#74354166a0e7b97c998f32097166141102b6cee2"
+  integrity sha512-gW8r5fIc5rP1IFHfNvYzhxpJ0yQgpz5fAhjNnU2EjoXTow1HbO7+kCtMFUW+62fbJDrrc7kZLIUi9w92OSaIJg==
   dependencies:
     "@hapi/boom" "^9.1.0"
     "@koa/router" "^9.4.0"
-    "@ladjs/i18n" "^6.0.2"
+    "@ladjs/i18n" "^6.0.4"
     "@ladjs/koa-better-static" "^2.0.1"
     "@ladjs/koa-cache-responses" "^0.0.3"
     "@ladjs/redis" "^1.0.7"
@@ -8266,10 +8284,15 @@ hide-powered-by@1.1.0:
   resolved "https://registry.yarnpkg.com/hide-powered-by/-/hide-powered-by-1.1.0.tgz#be3ea9cab4bdb16f8744be873755ca663383fa7a"
   integrity sha512-Io1zA2yOA1YJslkr+AJlWSf2yWFkKjvkcL9Ni1XSUqnGLr/qRQe2UI3Cn/J9MsJht7yEVCe0SscY1HgVMujbgg==
 
-highlight.js@^10.2.0, highlight.js@^10.3.0:
+highlight.js@^10.2.0:
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.3.0.tgz#126609b0074c7c532c141b0283f62cbe1a20de8a"
   integrity sha512-KCk70Hi534i6vF5vBJt08B3vJEw7BdArWHLfKKf9Dh2bYiJambzMRHmlCUMyvRWKbZMbLqt8iAnF8IwciybcwA==
+
+highlight.js@^10.3.1:
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.3.1.tgz#3ca6bf007377faae347e8135ff25900aac734b9a"
+  integrity sha512-jeW8rdPdhshYKObedYg5XGbpVgb1/DT4AHvDFXhkU7UnGSIjy9kkJ7zHG7qplhFHMitTSzh5/iClKQk3Kb2RFQ==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
