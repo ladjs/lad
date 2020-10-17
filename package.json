@@ -47,15 +47,15 @@
     "codecov": "^3.8.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.11.0",
-    "eslint-config-xo-lass": "^1.0.3",
+    "eslint-config-xo-lass": "^1.0.4",
     "eslint-plugin-compat": "^3.8.0",
     "eslint-plugin-no-smart-quotes": "^1.1.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.4.1",
+    "lint-staged": "^10.4.2",
     "nyc": "^15.1.0",
-    "remark-cli": "8.x",
-    "remark-preset-github": "^3.0.0",
-    "xo": "^0.33.1"
+    "remark-cli": "^9.0.0",
+    "remark-preset-github": "^3.0.1",
+    "xo": "^0.34.0"
   },
   "engines": {
     "node": ">=12.11.0"

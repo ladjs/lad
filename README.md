@@ -164,7 +164,7 @@ See [koa-better-error-handler][] for a complete reference.
 
 ## Get Started
 
-We strictly support Mac and Ubuntu-based operating systems (Windows _might_ work).
+We strictly support Mac and Ubuntu-based operating systems (we do not support Windows).
 
 ### Requirements
 
@@ -459,22 +459,21 @@ Follow the [Deployment](#deployment) guide below for automatic provisioning and 
     pm2 deploy ecosystem-bree.json production exec "pm2 save"
     ```
 
+18. Test by visiting your web and API server in your browser (click "proceed to unsafe" site and bypass certificate warning).
 
-16. Test by visiting your web and API server in your browser (click "proceed to unsafe" site and bypass certificate warning).
+19. Configure your DNS records for the web and API server hostnames and respective IP addresses.
 
-17. Configure your DNS records for the web and API server hostnames and respective IP addresses.
+20. Test by visiting your web and API server in your browser (in an incognito window).  There should not be any certificate warnings (similar to the one that occurred in step 15).
 
-18. Test by visiting your web and API server in your browser (in an incognito window).  There should not be any certificate warnings (similar to the one that occurred in step 15).
-
-19. (Optional) Remove the local `.env.production` file for security purposes.  If you do this, then make sure you have a backup, or securely back up off the server in the future before destroying the server.
+21. (Optional) Remove the local `.env.production` file for security purposes.  If you do this, then make sure you have a backup, or securely back up off the server in the future before destroying the server.
 
     ```sh
     rm .env.production
     ```
 
-20. (Optional) Remove the local certificate files you downloaded locally and specified in step 11.  If you do this, then make sure you have a backup, or securely back up off the server in the future before destroying the server.
+22. (Optional) Remove the local certificate files you downloaded locally and specified in step 11.  If you do this, then make sure you have a backup, or securely back up off the server in the future before destroying the server.
 
-21. Finished. If you need to deploy again, then push your changes to GitHub `master` branch and then follow step 14 again.  We recommend you to read the [Ansible getting started guide][ansible-guide], as it provides you with insight into commands like `ansible all -a "echo hello"` which can be run across all or specific servers.
+23. Finished. If you need to deploy again, then push your changes to GitHub `master` branch and then follow step 14 again.  We recommend you to read the [Ansible getting started guide][ansible-guide], as it provides you with insight into commands like `ansible all -a "echo hello"` which can be run across all or specific servers.
 
 #### Tests
 
@@ -537,8 +536,8 @@ Take a look at the [config](template/config) folder contents and also at the def
 * `API_SSL_CERT_PATH` - [ladjs/api][] file path to your SSL certificate file
 * `API_SSL_CA_PATH` - [ladjs/api][] file path to your SSL certificate authority file
 * `API_RATELIMIT_WHITELIST` - [ladjs/api][] ratelimiter whitelisted ips (see: [koa-simple-ratelimit](https://github.com/scttcper/koa-simple-ratelimit))
-* `APP_NAME` - (default: `Lad`) - application name (see [usage](https://github.com/search?p=3&q=org%3Aladjs+appName&type=Code))
-* `APP_COLOR` - application color theme (see [usage](https://github.com/search?q=org%3Aladjs+appColor&type=Code))
+* `APP_NAME` - (default: `Lad`) - application name (see [usage](https://github.com/search?p=3\&q=org%3Aladjs+appName\&type=Code))
+* `APP_COLOR` - application color theme (see [usage](https://github.com/search?q=org%3Aladjs+appColor\&type=Code))
 * `TWITTER` - (default: `@niftylettuce`) twitter handle
 * `SEND_EMAIL` - (default: `false`) - whether to send email or preview (see [outbound email configuration](https://github.com/ladjs/lad#outbound-email-configuration))
 * `TRANSPORT_DEBUG` - (default: `false`) - email transport debug logging (see [debugging](https://github.com/ladjs/lad#debugging))
@@ -1007,7 +1006,7 @@ If you are seeking permission to use these trademarks, then please [contact us](
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com)
 
 
-## 
+##
 
 <a href="#"><img src="media/lad-footer.png" alt="#" /></a>
 

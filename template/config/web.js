@@ -16,6 +16,8 @@ module.exports = (client) => ({
   views: config.views,
   passport,
   koaCash: env.CACHE_RESPONSES ? koaCashConfig(client) : false,
+  // temp disable until headers already sent error in koa-redirect-loop is fixed
+  redirectLoop: false,
   cacheResponses: env.CACHE_RESPONSES
     ? {
         routes: [
