@@ -23,7 +23,8 @@
 </div>
 <hr />
 <div align="center">
-  <h3><a href="https://lad.sh" target="_blank">CLICK HERE FOR A LIVE DEMO</a></h3>
+  <h3><u>Project Spotlight:</u> Forward Email @ <a href="https://forwardemail.net" target="_blank">https://forwardemail.net</a> (made with Lad)</h3>
+  <h4><u>Live Framework Demo:</u> <a href="https://lad.sh" target="_blank">https://lad.sh</a></h4>
 </div>
 <hr />
 
@@ -790,6 +791,34 @@ tree template -I "build|node_modules|coverage|test"
 template
 ├── LICENSE
 ├── README
+├── ansible
+│   ├── playbooks
+│   │   ├── aws-credentials.yml
+│   │   ├── bree.yml
+│   │   ├── certificates.yml
+│   │   ├── deployment-keys.yml
+│   │   ├── ecosystem.yml
+│   │   ├── env.yml
+│   │   ├── gapp-creds.yml
+│   │   ├── http.yml
+│   │   ├── mongo.yml
+│   │   ├── node.yml
+│   │   ├── python.yml
+│   │   ├── redis.yml
+│   │   ├── security.yml
+│   │   ├── ssh-keys.yml
+│   │   └── templates
+│   │       ├── aws-credentials.j2
+│   │       ├── before.rules.j2
+│   │       ├── ecosystem-api.json.j2
+│   │       ├── ecosystem-bree.json.j2
+│   │       ├── ecosystem-web.json.j2
+│   │       ├── env
+│   │       ├── hosts.yml
+│   │       └── security-limits.d-mongod.conf
+│   └── requirements.yml
+├── ansible-playbook.js
+├── ansible.cfg
 ├── api.js
 ├── app
 │   ├── controllers
@@ -807,6 +836,13 @@ template
 │   │       ├── auth.js
 │   │       ├── index.js
 │   │       ├── my-account.js
+│   │       ├── otp
+│   │       │   ├── disable.js
+│   │       │   ├── index.js
+│   │       │   ├── keys.js
+│   │       │   ├── recovery.js
+│   │       │   └── setup.js
+│   │       ├── report.js
 │   │       └── support.js
 │   ├── models
 │   │   ├── index.js
@@ -826,14 +862,22 @@ template
 │       │   └── users
 │       │       ├── index.pug
 │       │       └── retrieve.pug
+│       ├── change-email.pug
 │       ├── dashboard
 │       │   └── index.pug
+│       ├── donate.pug
 │       ├── forgot-password.pug
 │       ├── home.pug
 │       ├── layout.pug
 │       ├── my-account
 │       │   ├── index.pug
+│       │   ├── profile.pug
 │       │   └── security.pug
+│       ├── otp
+│       │   ├── enable.pug
+│       │   ├── keys.pug
+│       │   ├── login.pug
+│       │   └── setup.pug
 │       ├── privacy.pug
 │       ├── register-or-login.pug
 │       ├── reset-password.pug
@@ -851,14 +895,19 @@ template
 │       │   ├── 9.pug
 │       │   └── spinner.pug
 │       ├── support.pug
-│       └── terms.pug
+│       ├── terms.pug
+│       └── verify.pug
 ├── assets
 │   ├── browserconfig.xml
 │   ├── css
+│   │   ├── _btn-auth.scss
 │   │   ├── _custom.scss
 │   │   ├── _email.scss
-│   │   ├── _hljs.scss
-│   │   ├── _sticky-footer.scss
+│   │   ├── _markdown.scss
+│   │   ├── _responsive-backgrounds.scss
+│   │   ├── _responsive-borders.scss
+│   │   ├── _responsive-rounded.scss
+│   │   ├── _swal2.scss
 │   │   ├── _variables.scss
 │   │   └── app.scss
 │   ├── fonts
@@ -869,6 +918,8 @@ template
 │   │   ├── favicon-16x16.png
 │   │   ├── favicon-32x32.png
 │   │   ├── favicon.ico
+│   │   ├── github-logo.svg
+│   │   ├── google-logo.svg
 │   │   ├── logo-square.svg
 │   │   ├── mstile-150x150.png
 │   │   ├── social.png
@@ -877,26 +928,48 @@ template
 │   │   ├── core.js
 │   │   ├── logger.js
 │   │   └── uncaught.js
-│   ├── manifest.json
-│   └── robots.txt
+│   ├── robots.txt
+│   └── site.webmanifest
 ├── bree.js
 ├── config
+│   ├── api.js
+│   ├── bree.js
+│   ├── cookies.js
 │   ├── env.js
+│   ├── filters.js
+│   ├── i18n.js
 │   ├── index.js
+│   ├── koa-cash.js
+│   ├── locales.js
+│   ├── logger.js
 │   ├── meta.js
 │   ├── phrases.js
-│   ├── polyfills.js
-│   └── utilities.js
-├── ecosystem.json
+│   ├── utilities.js
+│   └── web.js
 ├── emails
 │   ├── _content.pug
 │   ├── _footer.pug
 │   ├── _nav.pug
+│   ├── account-update
+│   │   ├── html.pug
+│   │   └── subject.pug
+│   ├── change-email
+│   │   ├── html.pug
+│   │   └── subject.pug
 │   ├── inquiry
 │   │   ├── html.pug
 │   │   └── subject.pug
 │   ├── layout.pug
+│   ├── recovery
+│   │   ├── html.pug
+│   │   └── subject.pug
 │   ├── reset-password
+│   │   ├── html.pug
+│   │   └── subject.pug
+│   ├── two-factor-reminder
+│   │   ├── html.pug
+│   │   └── subject.pug
+│   ├── verify
 │   │   ├── html.pug
 │   │   └── subject.pug
 │   └── welcome
@@ -906,24 +979,54 @@ template
 ├── gitignore
 ├── gulpfile.js
 ├── helpers
+│   ├── email.js
+│   ├── get-email-locals.js
 │   ├── i18n.js
-│   ├── index.js
 │   ├── logger.js
+│   ├── markdown.js
 │   ├── passport.js
-│   └── policies.js
+│   ├── policies.js
+│   ├── send-verification-email.js
+│   └── to-object.js
 ├── index.js
+├── jobs
+│   ├── account-updates.js
+│   ├── index.js
+│   ├── translate-markdown.js
+│   ├── translate-phrases.js
+│   ├── two-factor-reminder.js
+│   └── welcome-email.js
+├── lad.sh
 ├── locales
+│   ├── ar.json
+│   ├── cs.json
+│   ├── da.json
+│   ├── de.json
 │   ├── en.json
 │   ├── es.json
+│   ├── fi.json
+│   ├── fr.json
+│   ├── he.json
+│   ├── hu.json
+│   ├── id.json
+│   ├── it.json
+│   ├── ja.json
+│   ├── ko.json
+│   ├── nl.json
+│   ├── no.json
+│   ├── pl.json
+│   ├── pt.json
+│   ├── ru.json
+│   ├── sv.json
+│   ├── th.json
+│   ├── tr.json
+│   ├── uk.json
+│   ├── vi.json
 │   └── zh.json
 ├── nodemon.json
 ├── package-scripts.js
 ├── package.json
 ├── proxy.js
-├── queues
-│   ├── email.js
-│   ├── index.js
-│   └── mandarin.js
 ├── routes
 │   ├── api
 │   │   ├── index.js
@@ -934,12 +1037,14 @@ template
 │       ├── admin.js
 │       ├── auth.js
 │       ├── index.js
-│       └── my-account.js
+│       ├── my-account.js
+│       └── otp.js
 ├── template
 ├── web.js
+├── yarn-error.log
 └── yarn.lock
 
-31 directories, 119 files
+42 directories, 212 files
 ```
 
 
