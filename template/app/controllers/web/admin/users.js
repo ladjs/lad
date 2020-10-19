@@ -17,7 +17,7 @@ async function list(ctx) {
 
   const pageCount = Math.ceil(itemCount / ctx.query.limit);
 
-  await ctx.render('admin/users', {
+  return ctx.render('admin/users', {
     users,
     pageCount,
     itemCount,
@@ -28,7 +28,7 @@ async function list(ctx) {
 async function retrieve(ctx) {
   ctx.state.result = await Users.findById(ctx.params.id);
   if (!ctx.state.result) throw ctx.translateError('INVALID_USER');
-  await ctx.render('admin/users/retrieve');
+  return ctx.render('admin/users/retrieve');
 }
 
 async function update(ctx) {

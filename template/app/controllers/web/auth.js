@@ -86,7 +86,7 @@ async function registerOrLogin(ctx) {
   ctx.state.verb =
     ctx.pathWithoutLocale === '/register' ? 'sign up' : 'sign in';
 
-  await ctx.render('register-or-login');
+  return ctx.render('register-or-login');
 }
 
 async function homeOrDashboard(ctx) {
@@ -104,7 +104,8 @@ async function homeOrDashboard(ctx) {
     ),
     description: sanitize(ctx.request.t(config.pkg.description))
   };
-  await ctx.render('home');
+
+  return ctx.render('home');
 }
 
 async function login(ctx, next) {
