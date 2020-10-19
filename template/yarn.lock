@@ -1053,7 +1053,7 @@
   resolved "https://registry.yarnpkg.com/@google-cloud/promisify/-/promisify-2.0.3.tgz#f934b5cdc939e3c7039ff62b9caaf59a9d89e3a8"
   integrity sha512-d4VSA86eL/AFTe5xtyZX+ePUjE8dIFu2T8zmdeNBSa5/kNgXPCx/o/wbFNHAGLJdGnk1vddRuMESD9HbOC8irw==
 
-"@google-cloud/translate@^6.0.2":
+"@google-cloud/translate@^6.0.3":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@google-cloud/translate/-/translate-6.0.3.tgz#4cc8d630a49aef5a4eaf51de5c4a57a835a42d98"
   integrity sha512-CuYydq9YqAcF+YGC1KU5NxQpSwf+h9OmznSyY5DUMeD1w2VlBpfYA68ASI8Y57PVcFQb4dL/h3F8J6AAlclFRw==
@@ -5968,10 +5968,10 @@ eslint-config-xo-typescript@^0.31.0:
   resolved "https://registry.yarnpkg.com/eslint-config-xo-typescript/-/eslint-config-xo-typescript-0.31.0.tgz#384b57f30732a5f2d374b5a6c466eee3b6b8db50"
   integrity sha512-zxfUdKscsdrZTI5Uz9ZqAAR+W6fuH+DiQnTRRJAwLZaKJemT3hzH0DtIxNhB9t5fxKMwZYNYw2lvW4aWrSMbag==
 
-eslint-config-xo-typescript@^0.34.1:
-  version "0.34.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-xo-typescript/-/eslint-config-xo-typescript-0.34.1.tgz#26577f3b6ee5c4cf98e3f3d71b21d3e1dcc44bf3"
-  integrity sha512-X77gvBzjrVuofwoVoljc/iwP6/RdJssJ8xw2DWhOF534GkCJSPPya/sxChebaA5sCRjtMAMjZfwwsJBW0HE9Mg==
+eslint-config-xo-typescript@^0.35.0:
+  version "0.35.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-xo-typescript/-/eslint-config-xo-typescript-0.35.0.tgz#4cd8c1208e0f96b80ec8d39dd61930e978e95b59"
+  integrity sha512-Pgj9mX0T74Ro8FCvVO1ZjWWcPDW6J42SByG4GMRwMXXZrSwOUY83vj4Ii/+Q+amg2XJwyx0o5/sCprUP/nGM0Q==
 
 eslint-config-xo@^0.30.0:
   version "0.30.0"
@@ -10996,24 +10996,24 @@ manage-path@^2.0.0:
   resolved "https://registry.yarnpkg.com/manage-path/-/manage-path-2.0.0.tgz#f4cf8457b926eeee2a83b173501414bc76eb9597"
   integrity sha1-9M+EV7km7u4qg7FzUBQUvHbrlZc=
 
-mandarin@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/mandarin/-/mandarin-4.0.2.tgz#9294b34b4c49674c6ff028a5daad7f0bccb8df09"
-  integrity sha512-WNPuq7SEyduDjQgKWrSugaHgOJ5mos1lNaOBlmkKOUc4PCydjLVWgHuWxnuDEdZPdKVXLc1/OvTpH1a5mwapOw==
+mandarin@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/mandarin/-/mandarin-4.1.0.tgz#d85b5809f6195e07eebd4a9c84490d86c645a873"
+  integrity sha512-Up4QSZBenZUFvfTAhWysCqZrk+wDTniVt0MEdNr2z+GuxnR/zk5mr8l3RGCQ8BAycJTtKIsDnlFsNw1mf57g9A==
   dependencies:
     "@cospired/i18n-iso-languages" "^2.1.2"
-    "@google-cloud/translate" "^6.0.2"
+    "@google-cloud/translate" "^6.0.3"
     "@ladjs/redis" "^1.0.7"
     "@ladjs/shared-config" "^3.0.9"
-    debug "^4.1.1"
+    debug "^4.2.0"
     globby "^11.0.1"
-    lodash "^4.17.19"
+    lodash "^4.17.20"
     modify-filename "^1.1.0"
     p-map-series "^2.1.0"
     pify "^5.0.0"
-    remark "^12.0.1"
+    remark "^13.0.0"
     remark-emoji "^2.1.0"
-    remark-preset-github "^3.0.0"
+    remark-preset-github "^3.0.3"
     remark-textr "^4.0.0"
     rev-hash "^3.0.0"
     universalify "^2.0.0"
@@ -14208,10 +14208,20 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.17, postcss@^7.0.1
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.0.2, postcss@^8.1.0, postcss@^8.1.1:
+postcss@^8.0.2, postcss@^8.1.0:
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.1.1.tgz#c3a287dd10e4f6c84cb3791052b96a5d859c9389"
   integrity sha512-9DGLSsjooH3kSNjTZUOt2eIj2ZTW0VI2PZ/3My+8TC7KIbH2OKwUlISfDsf63EP4aiRUt3XkEWMWvyJHvJelEg==
+  dependencies:
+    colorette "^1.2.1"
+    line-column "^1.0.2"
+    nanoid "^3.1.12"
+    source-map "^0.6.1"
+
+postcss@^8.1.2:
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.1.2.tgz#9731fcaa4f7b0bef47121821bdae9eeb609a324c"
+  integrity sha512-mToqEVFq8jF9TFhlIK4HhE34zknFJuNTgqtsr60vUvrWn+9TIYugCwiV1JZRxCuOrej2jjstun1bn4Bc7/1HkA==
   dependencies:
     colorette "^1.2.1"
     line-column "^1.0.2"
@@ -15678,58 +15688,6 @@ remark-parse@^9.0.0:
   dependencies:
     mdast-util-from-markdown "^0.8.0"
 
-remark-preset-github@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/remark-preset-github/-/remark-preset-github-3.0.1.tgz#dfcedbbdee9975bdf60a876aa9c414cd4e8fd437"
-  integrity sha512-N6FSiCyaoMp2K4tXXpOYW2NTrlwLc8kQlvsta7EFmR93UlmitqphrDeevAJAVVf1uLW8SNDpeINZ4dfeYMlYHw==
-  dependencies:
-    remark-comment-config "^6.0.0"
-    remark-heading-gap "^4.0.0"
-    remark-license niftylettuce/remark-license
-    remark-lint-blockquote-indentation "^2.0.1"
-    remark-lint-checkbox-character-style "^3.0.0"
-    remark-lint-checkbox-content-indent "^3.0.0"
-    remark-lint-code-block-style "^2.0.1"
-    remark-lint-definition-case "^2.0.1"
-    remark-lint-definition-spacing "^2.0.1"
-    remark-lint-emphasis-marker "^2.0.1"
-    remark-lint-fenced-code-flag "^2.0.1"
-    remark-lint-fenced-code-marker "^2.0.1"
-    remark-lint-file-extension "^1.0.5"
-    remark-lint-final-definition "^2.1.0"
-    remark-lint-first-heading-level "^2.0.1"
-    remark-lint-heading-style "^2.0.1"
-    remark-lint-list-item-indent "2.0.1"
-    remark-lint-no-consecutive-blank-lines "^3.0.0"
-    remark-lint-no-duplicate-definitions "^2.0.1"
-    remark-lint-no-emphasis-as-heading "^2.0.1"
-    remark-lint-no-file-name-articles "^1.0.5"
-    remark-lint-no-file-name-consecutive-dashes "^1.0.5"
-    remark-lint-no-file-name-irregular-characters "^1.0.5"
-    remark-lint-no-file-name-mixed-case "^1.0.5"
-    remark-lint-no-file-name-outer-dashes "^1.0.6"
-    remark-lint-no-heading-content-indent "^3.0.0"
-    remark-lint-no-heading-indent "^3.0.0"
-    remark-lint-no-heading-punctuation "^2.0.1"
-    remark-lint-no-missing-blank-lines "^2.0.1"
-    remark-lint-no-multiple-toplevel-headings "^2.0.1"
-    remark-lint-no-shell-dollars "^2.0.2"
-    remark-lint-no-table-indentation "^3.0.0"
-    remark-lint-no-tabs "^2.0.1"
-    remark-lint-ordered-list-marker-value "^2.0.1"
-    remark-lint-rule-style "^2.0.1"
-    remark-lint-strong-marker "^2.0.1"
-    remark-lint-table-cell-padding "^3.0.0"
-    remark-lint-table-pipe-alignment "^2.0.1"
-    remark-lint-table-pipes "^3.0.0"
-    remark-lint-unordered-list-marker-style "^2.0.1"
-    remark-preset-lint-recommended "^5.0.0"
-    remark-retext "^4.0.0"
-    remark-toc "^7.0.0"
-    retext-english "^3.0.4"
-    retext-preset-github "^0.0.6"
-    unified "^9.2.0"
-
 remark-preset-github@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/remark-preset-github/-/remark-preset-github-3.0.3.tgz#981540784fbe778e80407d144328c6921a063a2d"
@@ -15856,7 +15814,7 @@ remark-toc@^7.0.0:
     "@types/unist" "^2.0.3"
     mdast-util-toc "^5.0.0"
 
-remark@^12.0.0, remark@^12.0.1:
+remark@^12.0.0:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/remark/-/remark-12.0.1.tgz#f1ddf68db7be71ca2bad0a33cd3678b86b9c709f"
   integrity sha512-gS7HDonkdIaHmmP/+shCPejCEEW+liMp/t/QwmF0Xt47Rpuhl32lLtDV1uKWvGoq+kxr5jSgg5oAIpGuyULjUw==
@@ -19329,10 +19287,10 @@ xo@^0.32.0:
     typescript "^3.3.1"
     update-notifier "^4.1.0"
 
-xo@^0.34.0:
-  version "0.34.0"
-  resolved "https://registry.yarnpkg.com/xo/-/xo-0.34.0.tgz#5a81cc4d48e8fab1de5a58c2bce5dbcb1c6ad598"
-  integrity sha512-DKfztltJxU6cEztqtFMX4R942DrVctNQgsbwsDRAQDHxNtGH3HcJauUfhaVJjlCJ8cZu2LRGuI3sCaWcFVSTDA==
+xo@^0.34.1:
+  version "0.34.1"
+  resolved "https://registry.yarnpkg.com/xo/-/xo-0.34.1.tgz#0a0933fe864b654ca35cbfb71f18a7b4b9b357b6"
+  integrity sha512-i8ChTBFNZjzZ26gCoxVxDQ5yBfKAmJyKAzfPfiTvGLezqeWEdj6t/MmOEFi3nJFQzsX1rzBBRbBBgNicbcn8sA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.4.1"
     "@typescript-eslint/parser" "^4.4.1"
@@ -19342,7 +19300,7 @@ xo@^0.34.0:
     eslint "^7.11.0"
     eslint-config-prettier "^6.13.0"
     eslint-config-xo "^0.33.1"
-    eslint-config-xo-typescript "^0.34.1"
+    eslint-config-xo-typescript "^0.35.0"
     eslint-formatter-pretty "^4.0.0"
     eslint-import-resolver-webpack "^0.13.0"
     eslint-plugin-ava "^11.0.0"

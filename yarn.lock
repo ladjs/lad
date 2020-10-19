@@ -2359,10 +2359,10 @@ eslint-config-xo-lass@^1.0.4:
   resolved "https://registry.yarnpkg.com/eslint-config-xo-lass/-/eslint-config-xo-lass-1.0.4.tgz#69d5f17807028dd3dbb9877773414cb8ffbbeb10"
   integrity sha512-YxrQK586/OJh45Mj1gcLA8wTTU1zSiFzAzyBm7sIsoOkuw8gRBXYvUDJC8ZBhbC+Km9tEHd6i2rKK4aDB4NROw==
 
-eslint-config-xo-typescript@^0.34.1:
-  version "0.34.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-xo-typescript/-/eslint-config-xo-typescript-0.34.1.tgz#26577f3b6ee5c4cf98e3f3d71b21d3e1dcc44bf3"
-  integrity sha512-X77gvBzjrVuofwoVoljc/iwP6/RdJssJ8xw2DWhOF534GkCJSPPya/sxChebaA5sCRjtMAMjZfwwsJBW0HE9Mg==
+eslint-config-xo-typescript@^0.35.0:
+  version "0.35.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-xo-typescript/-/eslint-config-xo-typescript-0.35.0.tgz#4cd8c1208e0f96b80ec8d39dd61930e978e95b59"
+  integrity sha512-Pgj9mX0T74Ro8FCvVO1ZjWWcPDW6J42SByG4GMRwMXXZrSwOUY83vj4Ii/+Q+amg2XJwyx0o5/sCprUP/nGM0Q==
 
 eslint-config-xo@^0.33.1:
   version "0.33.1"
@@ -8557,10 +8557,10 @@ xdg-basedir@^4.0.0:
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
 
-xo@^0.34.0:
-  version "0.34.0"
-  resolved "https://registry.yarnpkg.com/xo/-/xo-0.34.0.tgz#5a81cc4d48e8fab1de5a58c2bce5dbcb1c6ad598"
-  integrity sha512-DKfztltJxU6cEztqtFMX4R942DrVctNQgsbwsDRAQDHxNtGH3HcJauUfhaVJjlCJ8cZu2LRGuI3sCaWcFVSTDA==
+xo@^0.34.1:
+  version "0.34.1"
+  resolved "https://registry.yarnpkg.com/xo/-/xo-0.34.1.tgz#0a0933fe864b654ca35cbfb71f18a7b4b9b357b6"
+  integrity sha512-i8ChTBFNZjzZ26gCoxVxDQ5yBfKAmJyKAzfPfiTvGLezqeWEdj6t/MmOEFi3nJFQzsX1rzBBRbBBgNicbcn8sA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.4.1"
     "@typescript-eslint/parser" "^4.4.1"
@@ -8570,7 +8570,7 @@ xo@^0.34.0:
     eslint "^7.11.0"
     eslint-config-prettier "^6.13.0"
     eslint-config-xo "^0.33.1"
-    eslint-config-xo-typescript "^0.34.1"
+    eslint-config-xo-typescript "^0.35.0"
     eslint-formatter-pretty "^4.0.0"
     eslint-import-resolver-webpack "^0.13.0"
     eslint-plugin-ava "^11.0.0"

@@ -87,7 +87,7 @@
     "koa-ctx-paginate": "^0.0.6",
     "koa-views-render": "^0.0.1",
     "lodash": "^4.17.20",
-    "mandarin": "^4.0.2",
+    "mandarin": "^4.1.0",
     "manifest-rev": "^1.0.3",
     "markdown-it": "^12.0.0",
     "markdown-it-emoji": "^2.0.0",
@@ -186,7 +186,7 @@
     "nps-utils": "^1.7.0",
     "nyc": "^15.1.0",
     "parse-git-config": "^3.0.0",
-    "postcss": "^8.1.1",
+    "postcss": "^8.1.2",
     "postcss-font-magician": "^3.0.0",
     "postcss-font-smoothing": "^0.1.0",
     "postcss-preset-env": "^6.7.0",
@@ -202,7 +202,7 @@
     "stylelint-scss": "^3.18.0",
     "supertest": "^5.0.0",
     "through2": "^4.0.2",
-    "xo": "^0.34.0"
+    "xo": "^0.34.1"
   },
   "engines": {
     "node": ">=12.11.0"

@@ -55,7 +55,7 @@
     "nyc": "^15.1.0",
     "remark-cli": "^9.0.0",
     "remark-preset-github": "^3.0.3",
-    "xo": "^0.34.0"
+    "xo": "^0.34.1"
   },
   "engines": {
     "node": ">=12.11.0"
