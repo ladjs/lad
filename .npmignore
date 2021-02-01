@@ -1,3 +1,5 @@
-media
-.nyc_output
+.github
 coverage
+test
+.*
+yarn.lock
