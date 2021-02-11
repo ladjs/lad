@@ -9,7 +9,7 @@ const logger = require('./logger');
 // <https://github.com/cabinjs/cabin#stacktrace>
 //
 uncaught.start();
-uncaught.addListener(async function (err, event) {
+uncaught.addListener(async (err, event) => {
   if (!err) {
     if (typeof ErrorEvent === 'function' && event instanceof ErrorEvent)
       return logger.error(event.message, { event });
