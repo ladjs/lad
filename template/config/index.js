@@ -256,21 +256,25 @@ config.views.locals.manifest = manifestRev({
 
 // add global `config` object to be used by views
 config.views.locals.config = _.pick(config, [
-  'verificationPin',
-  'supportRequestMaxLength',
+  'appColor',
   'appName',
-  'urls',
-  'userFields',
+  'env',
+  'lastLocaleField',
+  'loginRoute',
+  'maxForwardedAddresses',
   'otpRoutePrefix',
   'passport',
-  'appColor',
-  'twitter',
-  'env',
-  'loginRoute',
+  'passportCallbackOptions',
   'passportLocalMongoose',
   'pkg',
-  'verifyRoute',
-  'passportCallbackOptions'
+  'recordPrefix',
+  'storeIPAddress',
+  'supportRequestMaxLength',
+  'twitter',
+  'urls',
+  'userFields',
+  'verificationPin',
+  'verifyRoute'
 ]);
 
 // add `views` to `config.email`
