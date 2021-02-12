@@ -9,7 +9,8 @@
 body {
   padding-top: 77px;
   text-rendering: optimizeLegibility;
-  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .text-decoration-underline {

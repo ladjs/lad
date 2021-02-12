@@ -14,7 +14,6 @@ const cssnano = require('cssnano');
 const del = require('del');
 const envify = require('@ladjs/gulp-envify');
 const fontMagician = require('postcss-font-magician');
-const fontSmoothing = require('postcss-font-smoothing');
 const getStream = require('get-stream');
 const globby = require('globby');
 const gulpRemark = require('gulp-remark');
@@ -124,7 +123,6 @@ function css() {
           display: 'swap'
         }),
         postcssPresetEnv({ browsers: 'extends @ladjs/browserslist-config' }),
-        fontSmoothing(),
         ...(PROD ? [cssnano({ autoprefixer: false })] : []),
         reporter()
       ])

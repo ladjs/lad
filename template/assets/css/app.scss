@@ -21,13 +21,17 @@ $question: theme-color('light');
 // font awesome
 @import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
 // @import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
+
+// <https://github.com/stylelint/stylelint/issues/3848>
+$fontAwesomeBrands: 'Font Awesome 5 Brands';
+$fontAwesomeFree: 'Font Awesome 5 Free';
 .fab {
-  font-family: 'Font Awesome 5 Brands';
+  font-family: $fontAwesomeBrands;
   font-weight: 400;
 }
 // @import 'node_modules/@fortawesome/fontawesome-free/scss/solid';
 .fa, .fas {
-  font-family: 'Font Awesome 5 Free';
+  font-family: $fontAwesomeFree;
   font-weight: 900;
 }
 @import 'node_modules/@fortawesome/fontawesome-free/scss/v4-shims';
