@@ -24,7 +24,7 @@ module.exports = {
     pretest: concurrent.nps('lint', 'build', 'pretest-redis'),
     // <https://stackoverflow.com/a/16974060/3586413>
     pretestRedis:
-      "redis-cli EVAL \"return redis.call('del', 'defaultKey', unpack(redis.call('keys', ARGV[1])))\" 0 limit_test:*",
+      "redis-cli EVAL \"return redis.call('del', 'defaultKey', unpack(redis.call('keys', ARGV[1])))\" 0 *_limit_test:*",
 
     test: 'ava',
     testCoverage: series('nps pretest', 'nyc ava'),
