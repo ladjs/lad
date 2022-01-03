@@ -180,7 +180,7 @@ Please ensure your operating system has the following software installed:
 
 * [MongoDB][] (v3.x+):
 
-  * Mac (via [brew][]): `brew tap mongodb/brew && brew install mongodb-community && brew services start mongo`
+  * Mac (via [brew][]): `brew tap mongodb/brew && brew install mongodb-community && brew services start mongodb-community`.
   * Ubuntu:
 
     ```sh
