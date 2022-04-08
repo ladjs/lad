@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "@ladjs/browserslist-config": "^0.0.1",
-    "cac": "^6.7.1",
+    "cac": "^6.7.12",
     "camelcase": "^6.2.0",
     "github-username-regex": "^1.0.0",
     "is-email": "^1.0.0",
