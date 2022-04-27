@@ -267,29 +267,23 @@ User.methods.sendVerificationEmail = async function (ctx, reset = false) {
     return this;
 
   if (reset) {
-    this[config.userFields.verificationPinExpiresAt] = this[
-      `__${config.userFields.verificationPinExpiresAt}`
-    ];
-    this[config.userFields.verificationPinSentAt] = this[
-      `__${config.userFields.verificationPinSentAt}`
-    ];
-    this[config.userFields.verificationPin] = this[
-      `__${config.userFields.verificationPin}`
-    ];
+    this[config.userFields.verificationPinExpiresAt] =
+      this[`__${config.userFields.verificationPinExpiresAt}`];
+    this[config.userFields.verificationPinSentAt] =
+      this[`__${config.userFields.verificationPinSentAt}`];
+    this[config.userFields.verificationPin] =
+      this[`__${config.userFields.verificationPin}`];
     await this.save();
     return this;
   }
 
   // store old values in case we have to reset
-  this[`__${config.userFields.verificationPinExpiresAt}`] = this[
-    config.userFields.verificationPinExpiresAt
-  ];
-  this[`__${config.userFields.verificationPinSentAt}`] = this[
-    config.userFields.verificationPinSentAt
-  ];
-  this[`__${config.userFields.verificationPin}`] = this[
-    config.userFields.verificationPin
-  ];
+  this[`__${config.userFields.verificationPinExpiresAt}`] =
+    this[config.userFields.verificationPinExpiresAt];
+  this[`__${config.userFields.verificationPinSentAt}`] =
+    this[config.userFields.verificationPinSentAt];
+  this[`__${config.userFields.verificationPin}`] =
+    this[config.userFields.verificationPin];
 
   const diff =
     this[config.userFields.verificationPinExpiresAt] &&

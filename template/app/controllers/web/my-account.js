@@ -91,11 +91,10 @@ async function update(ctx) {
     ctx.state.user[config.userFields.changeEmailTokenExpiresAt] = dayjs()
       .add(config.changeEmailTokenTimeoutMs, 'milliseconds')
       .toDate();
-    ctx.state.user[
-      config.userFields.changeEmailToken
-    ] = await cryptoRandomString.async({
-      length: 32
-    });
+    ctx.state.user[config.userFields.changeEmailToken] =
+      await cryptoRandomString.async({
+        length: 32
+      });
     ctx.state.user[config.userFields.changeEmailNewAddress] = body.email;
   }
 
