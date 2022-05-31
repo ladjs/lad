@@ -1398,27 +1398,27 @@
   dependencies:
     bson-objectid "^1.3.1"
 
-"@ladjs/passport-otp-strategy@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@ladjs/passport-otp-strategy/-/passport-otp-strategy-1.1.0.tgz#d97ff027d0bd459b568690a1903c0568242da0f2"
-  integrity sha512-1iIlrZFz6HFaioLVi9NXukr5xXwTWhBiWVXj9MabeXgwWVwOFBNa6f27zA7trAZl6+YTZu8XavHNF0YFmV5d+Q==
+"@ladjs/passport-otp-strategy@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@ladjs/passport-otp-strategy/-/passport-otp-strategy-2.0.1.tgz#7dc09770b4987398e42161046e93ff25e867f662"
+  integrity sha512-nzch5N5e1gSCQ+3WzFhjj827m+72OPEVu2M5AcQI9NHBPs6VKIS0siL51FK6oEBrnJQdHJPQbNjDLIJSBorQOQ==
   dependencies:
-    otplib "^11.0.0"
+    otplib "^12.0.1"
     passport-strategy "^1.0.0"
     pkginfo "^0.4.1"
 
-"@ladjs/passport@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@ladjs/passport/-/passport-2.1.0.tgz#9563667ac0f63620c89160fa246818aacf47faa2"
-  integrity sha512-02n+yl/sY1Hsxk3t+QNQm4u99pX8viQZNyz2QMMfvvrj09RqkaMqexDLHxP5AgJcGa706+vtxgdQED15GYm3WQ==
+"@ladjs/passport@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@ladjs/passport/-/passport-3.0.0.tgz#a003f99cf35545f2da7a250bda061993eaa4d7a0"
+  integrity sha512-yiHfOksUDHrDrkvQerxh9Ng9M1AB/XT8tExpcCnPu0H3LuqfNujx6DJEnxArF2Mv3ASRaWJaZE6QtXUmc7i9Zg==
   dependencies:
-    "@ladjs/passport-otp-strategy" "^1.1.0"
-    boolean "^3.0.1"
-    koa-passport "^4.1.3"
-    lodash "^4.17.20"
-    passport-github2 "^0.1.11"
+    "@ladjs/passport-otp-strategy" "^2.0.0"
+    boolean "^3.2.0"
+    koa-passport "^4.1.4"
+    lodash "^4.17.21"
+    passport-github2 "^0.1.12"
     passport-google-oauth "^2.0.0"
-    validator "^12.1.0"
+    validator "^13.7.0"
 
 "@ladjs/pick-original@1.0.0":
   version "1.0.0"
@@ -3161,7 +3161,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-boolean@3.2.0, boolean@^3.0.0, boolean@^3.0.1, boolean@^3.0.2, boolean@^3.1.4:
+boolean@3.2.0, boolean@^3.0.0, boolean@^3.0.1, boolean@^3.0.2, boolean@^3.1.4, boolean@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/boolean/-/boolean-3.2.0.tgz#9e5294af4e98314494cbb17979fa54ca159f116b"
   integrity sha512-d0II/GO9uf9lfUHH2BQsjxzRJZBdsjgsBiW4BvhWk/3qoKwQFjIDVN19PfX8F2D/r9PCMTtLWjYVCFrpeYUzsw==
@@ -10697,7 +10697,7 @@ koa-no-trailing-slash@^2.1.0:
   resolved "https://registry.yarnpkg.com/koa-no-trailing-slash/-/koa-no-trailing-slash-2.1.0.tgz#a6a090cd4e77f72d47bec75be8b6b895f6a27a12"
   integrity sha1-pqCQzU539y1Hvsdb6La4lfaiehI=
 
-koa-passport@^4.1.3:
+koa-passport@^4.1.4:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/koa-passport/-/koa-passport-4.1.4.tgz#5f1665c1c2a37ace79af9f970b770885ca30ccfa"
   integrity sha512-dJBCkl4X+zdYxbI2V2OtoGy0PUenpvp2ZLLWObc8UJhsId0iQpTFT8RVcuA0709AL2txGwRHnSPoT1bYNGa6Kg==
@@ -13762,7 +13762,7 @@ pascalcase@^0.1.1:
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
 
-passport-github2@^0.1.11:
+passport-github2@^0.1.12:
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/passport-github2/-/passport-github2-0.1.12.tgz#a72ebff4fa52a35bc2c71122dcf470d1116f772c"
   integrity sha512-3nPUCc7ttF/3HSP/k9sAXjz3SkGv5Nki84I05kSQPo01Jqq1NzJACgMblCK0fGcv9pKCG/KXU3AJRDGLqHLoIw==
@@ -19459,7 +19459,7 @@ validator@^12.1.0:
   resolved "https://registry.yarnpkg.com/validator/-/validator-12.2.0.tgz#660d47e96267033fd070096c3b1a6f2db4380a0a"
   integrity sha512-jJfE/DW6tIK1Ek8nCfNFqt8Wb3nzMoAbocBF6/Icgg1ZFSBpObdnwVY2jQj6qUqzhx5jc71fpvBWyLGO7Xl+nQ==
 
-validator@^13.5.2:
+validator@^13.5.2, validator@^13.7.0:
   version "13.7.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-13.7.0.tgz#4f9658ba13ba8f3d82ee881d3516489ea85c0857"
   integrity sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==
