@@ -33,11 +33,11 @@
     "is-url": "^1.2.4",
     "is-valid-npm-name": "^0.0.5",
     "npm-conf": "^1.1.3",
-    "sao": "0.x",
-    "semver": "^7.3.4",
+    "sao": "1.0.0",
+    "semver": "^7.5.2",
     "speakingurl": "^14.0.1",
     "superb": "^4.0.0",
-    "update-notifier": "^5.1.0",
+    "update-notifier": "^6.0.0",
     "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {
