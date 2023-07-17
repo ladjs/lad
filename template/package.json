@@ -95,7 +95,7 @@
     "markdown-it-highlightjs": "^3.4.0",
     "markdown-it-task-checkbox": "^1.0.6",
     "mongodb-memory-server": "^6.9.3",
-    "mongoose": "^5.11.15",
+    "mongoose": "^5.13.20",
     "mongoose-common-plugin": "2.0.2",
     "mongoose-json-select": "^0.2.1",
     "mongoose-omit-common-fields": "0.0.6",
