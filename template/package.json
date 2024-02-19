@@ -77,7 +77,7 @@
     "highlight.js": "^10.6.0",
     "html5-history-api": "^4.2.10",
     "humanize-string": "^2.1.0",
-    "ip": "^1.1.5",
+    "ip": "^1.1.9",
     "is-string-and-not-blank": "^0.0.2",
     "isbot": "^3.0.23",
     "jquery": "3.5.1",
