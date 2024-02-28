@@ -68,7 +68,7 @@
     "dayjs": "^1.10.4",
     "dayjs-with-plugins": "^0.0.4",
     "del": "^6.0.0",
-    "email-templates": "^8.0.3",
+    "email-templates": "^11.1.1",
     "fast-safe-stringify": "^2.0.7",
     "font-awesome-assets": "^0.0.9",
     "gemoji": "^6.1.0",
