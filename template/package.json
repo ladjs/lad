@@ -89,7 +89,7 @@
     "lodash": "^4.17.20",
     "mandarin": "^4.2.0",
     "manifest-rev": "^1.0.3",
-    "markdown-it": "^12.0.4",
+    "markdown-it": "^13.0.2",
     "markdown-it-emoji": "^2.0.0",
     "markdown-it-github-headings": "^2.0.0",
     "markdown-it-highlightjs": "^3.4.0",
