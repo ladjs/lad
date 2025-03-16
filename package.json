@@ -33,7 +33,7 @@
     "is-url": "^1.2.4",
     "is-valid-npm-name": "^0.0.5",
     "npm-conf": "^1.1.3",
-    "sao": "0.x",
+    "sao": "1.0.0",
     "semver": "^7.3.4",
     "speakingurl": "^14.0.1",
     "superb": "^4.0.0",
