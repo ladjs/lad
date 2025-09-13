@@ -47,7 +47,7 @@
     "@ladjs/web": "^10.0.0",
     "@primer/css": "^15.2.0",
     "@sidoshi/random-string": "^1.0.0",
-    "@slack/web-api": "^6.0.0",
+    "@slack/web-api": "^6.9.1",
     "@tkrotoff/bootstrap-floating-label": "^0.7.0",
     "array-join-conjunction": "^1.0.0",
     "axe": "^8.0.0",
